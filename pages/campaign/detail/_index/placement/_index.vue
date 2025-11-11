@@ -804,7 +804,7 @@ export default {
 :root {
   --vs-line-height: 1.75;
 }
-::v-deep {
+:deep() {
   --vs-line-height: 1.75;
 }
 .k-container {
