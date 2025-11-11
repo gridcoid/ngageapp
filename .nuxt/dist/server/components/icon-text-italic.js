@@ -1,0 +1,69 @@
+exports.ids = [101];
+exports.modules = {
+
+/***/ 143:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/icon/text_italic.vue?vue&type=template&id=ce34cb74
+var render = function render() {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c('svg', {
+    attrs: {
+      "width": "12",
+      "height": "14",
+      "viewBox": "0 0 12 14",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_vm._ssrNode("<path d=\"M11.625 1.375C11.625 1.54076 11.5592 1.69973 11.4419 1.81694C11.3247 1.93415 11.1658 2 11 2H8.32812L4.99219 12H7.25C7.41576 12 7.57473 12.0658 7.69194 12.1831C7.80915 12.3003 7.875 12.4592 7.875 12.625C7.875 12.7908 7.80915 12.9497 7.69194 13.0669C7.57473 13.1842 7.41576 13.25 7.25 13.25H1C0.83424 13.25 0.675269 13.1842 0.558058 13.0669C0.440848 12.9497 0.375 12.7908 0.375 12.625C0.375 12.4592 0.440848 12.3003 0.558058 12.1831C0.675269 12.0658 0.83424 12 1 12H3.67187L7.00781 2H4.75C4.58424 2 4.42527 1.93415 4.30806 1.81694C4.19085 1.69973 4.125 1.54076 4.125 1.375C4.125 1.20924 4.19085 1.05027 4.30806 0.933058C4.42527 0.815848 4.58424 0.75 4.75 0.75H11C11.1658 0.75 11.3247 0.815848 11.4419 0.933058C11.5592 1.05027 11.625 1.20924 11.625 1.375Z\"" + _vm._ssrAttr("fill", _vm.bgColor) + "></path>")]);
+};
+
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/icon/text_italic.vue?vue&type=template&id=ce34cb74
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/icon/text_italic.vue?vue&type=script&lang=js
+/* harmony default export */ var text_italicvue_type_script_lang_js = ({
+  props: {
+    bgColor: {
+      type: String,
+      default: '#1B63D4'
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/icon/text_italic.vue?vue&type=script&lang=js
+ /* harmony default export */ var icon_text_italicvue_type_script_lang_js = (text_italicvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(0);
+
+// CONCATENATED MODULE: ./components/icon/text_italic.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  icon_text_italicvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "58f4c168"
+  
+)
+
+/* harmony default export */ var text_italic = __webpack_exports__["default"] = (component.exports);
+
+/***/ })
+
+};;
+//# sourceMappingURL=icon-text-italic.js.map

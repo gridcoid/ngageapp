@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[134],{1295:function(n,t,e){"use strict";e.r(t);var l={name:"BukaPage",layout:"default"},c=e(3),component=Object(c.a)(l,(function(){return(0,this._self._c)("div",{staticClass:"container"},[this._v("\n  Buka\n")])}),[],!1,null,null,null);t.default=component.exports}}]);

@@ -1,0 +1,184 @@
+[
+  {
+    "name": "audience",
+    "path": "/audience",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\audience.vue",
+    "chunkName": "pages/audience",
+    "_name": "_c4c593be"
+  },
+  {
+    "name": "buka",
+    "path": "/buka",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\buka.vue",
+    "chunkName": "pages/buka",
+    "_name": "_b0ada5f4"
+  },
+  {
+    "name": "campaign",
+    "path": "/campaign",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\campaign\\\\index.vue",
+    "chunkName": "pages/campaign/index",
+    "_name": "_c5ff1e96"
+  },
+  {
+    "name": "creative",
+    "path": "/creative",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\creative\\\\index.vue",
+    "chunkName": "pages/creative/index",
+    "_name": "_4d8cf8b6"
+  },
+  {
+    "name": "demo",
+    "path": "/demo",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\demo.vue",
+    "chunkName": "pages/demo",
+    "_name": "_2d36cd00"
+  },
+  {
+    "name": "kgrhythm",
+    "path": "/kgrhythm",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\kgrhythm.vue",
+    "chunkName": "pages/kgrhythm",
+    "_name": "_1c7cfbe2"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\login.vue",
+    "chunkName": "pages/login",
+    "_name": "_33567fc8"
+  },
+  {
+    "name": "profile",
+    "path": "/profile",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\profile.vue",
+    "chunkName": "pages/profile",
+    "_name": "_c15c00c8"
+  },
+  {
+    "name": "report",
+    "path": "/report",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\report.vue",
+    "chunkName": "pages/report",
+    "_name": "_7ba6b2de"
+  },
+  {
+    "name": "survey",
+    "path": "/survey",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\survey.vue",
+    "chunkName": "pages/survey",
+    "_name": "_26e275b7"
+  },
+  {
+    "name": "tools",
+    "path": "/tools",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\tools.vue",
+    "chunkName": "pages/tools",
+    "_name": "_350f118e"
+  },
+  {
+    "name": "admin-template",
+    "path": "/admin/template",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\admin\\\\template.vue",
+    "chunkName": "pages/admin/template",
+    "_name": "_57afbf7c"
+  },
+  {
+    "name": "admin-user",
+    "path": "/admin/user",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\admin\\\\user.vue",
+    "chunkName": "pages/admin/user",
+    "_name": "_7ec5d966"
+  },
+  {
+    "name": "campaign-create",
+    "path": "/campaign/create",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\campaign\\\\create.vue",
+    "chunkName": "pages/campaign/create",
+    "_name": "_2ac1f0a9"
+  },
+  {
+    "name": "creative-templates",
+    "path": "/creative/templates",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\creative\\\\templates\\\\index.vue",
+    "chunkName": "pages/creative/templates/index",
+    "_name": "_46368f76"
+  },
+  {
+    "name": "creative-upload",
+    "path": "/creative/upload",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\creative\\\\upload.vue",
+    "chunkName": "pages/creative/upload",
+    "_name": "_2baccb4d"
+  },
+  {
+    "name": "campaign-detail-edit",
+    "path": "/campaign/detail/edit/:index",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\campaign\\\\detail\\\\edit\\\\_index.vue",
+    "chunkName": "pages/campaign/detail/edit/_index",
+    "_name": "_9c31094a"
+  },
+  {
+    "name": "creative-templates-preview",
+    "path": "/creative/templates/preview/:index",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\creative\\\\templates\\\\preview\\\\_index.vue",
+    "chunkName": "pages/creative/templates/preview/_index",
+    "_name": "_3b45804e"
+  },
+  {
+    "name": "campaign-detail-index",
+    "path": "/campaign/detail/:index",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\campaign\\\\detail\\\\_index\\\\index.vue",
+    "chunkName": "pages/campaign/detail/_index/index",
+    "_name": "_c3ef3bde"
+  },
+  {
+    "name": "creative-create",
+    "path": "/creative/create/:index",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\creative\\\\create\\\\_index.vue",
+    "chunkName": "pages/creative/create/_index",
+    "_name": "_c4f762ca"
+  },
+  {
+    "name": "creative-detail-detail",
+    "path": "/creative/detail/:detail?",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\creative\\\\detail\\\\_detail.vue",
+    "chunkName": "pages/creative/detail/_detail",
+    "_name": "_ef9d21ba"
+  },
+  {
+    "name": "creative-edit-edit",
+    "path": "/creative/edit/:edit?",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\creative\\\\edit\\\\_edit.vue",
+    "chunkName": "pages/creative/edit/_edit",
+    "_name": "_679152fa"
+  },
+  {
+    "name": "campaign-detail-index-placement-create",
+    "path": "/campaign/detail/:index/placement/create",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\campaign\\\\detail\\\\_index\\\\placement\\\\create.vue",
+    "chunkName": "pages/campaign/detail/_index/placement/create",
+    "_name": "_5ae901a0"
+  },
+  {
+    "name": "campaign-detail-index-placement-edit",
+    "path": "/campaign/detail/:index/placement/edit/:index",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\campaign\\\\detail\\\\_index\\\\placement\\\\edit\\\\_index.vue",
+    "chunkName": "pages/campaign/detail/_index/placement/edit/_index",
+    "_name": "_81046afe"
+  },
+  {
+    "name": "campaign-detail-index-placement",
+    "path": "/campaign/detail/:index/placement/:index",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\campaign\\\\detail\\\\_index\\\\placement\\\\_index.vue",
+    "chunkName": "pages/campaign/detail/_index/placement/_index",
+    "_name": "_ff28ae12"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\Users\\\\Chandra Putra\\\\kompas\\\\dev\\\\core\\\\unimind-app\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_1cad1d05"
+  }
+]

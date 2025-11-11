@@ -1,0 +1,14 @@
+{
+	"templatename": "Tiles Type 1",
+	"dimension": ["320x480"],
+	"pro": ["logo.jpg", "Logo", "image"],
+	"headline": ["<p>KG Coffee House</p>", "Headline", "text"],
+	"subline": ["<p>Welcome to Our Humble Home.<br/>Open Hours: Everyday, 10.00 - 22.00.</p>", "Subline", "text"],
+	"cta": ["Follow us", "CTA", "button"],
+	"p1a": ["p1.jpg", "Tile 1", "image"],
+	"p2a": ["p2.jpg", "Tile 2", "image"],
+	"p3a": ["p3.jpg", "Tile 3", "image"],
+	"p4a": ["p4.jpg", "Tile 4", "image"],
+	"p5a": ["p5.jpg", "Tile 5", "image"],
+}
+

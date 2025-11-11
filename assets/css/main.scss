@@ -1,0 +1,386 @@
+@font-face {
+  font-family: "Cabin";
+  src: local("Cabin"),
+  url(~assets/font/Cabin.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  src: local("Roboto Mono"),
+  url(~assets/font/RobotoMono.ttf) format("truetype");
+}
+//background
+$bg-primary: #FFFFFF;
+$bg-secondary: #FAFAFA;
+$bg-tertiary: #F8F8F8;
+$bg-fortiary: #F1F1F1;
+$bg-login: #FFFFFF;
+//teks
+$teks-primary: #333333;
+$teks-secondary: #454545;
+$teks-tertiary: #757575;
+$teks-fortiary: #E2E2E2;
+//general
+$colorWhite:#ffffff;
+$colorGrey:#FAFBFC;
+$colorBlue:#1b63d4;
+
+.header-1 {
+  font-family: 'Cabin';
+  font-size: 32px;
+  font-weight: 600;
+  color: $teks-secondary;
+}
+.header-2 {
+  font-family: 'Cabin';
+  font-size: 28px;
+  font-weight: 600;
+  color: $teks-secondary;
+}
+.header-3 {
+  font-family: 'Cabin';
+  font-size: 24px;
+  font-weight: 600;
+  color: $teks-secondary;
+}
+.header-4 {
+  font-family: 'Cabin';
+  font-size: 20px;
+  font-weight: 600;
+  color: $teks-secondary;
+}
+.header-5 {
+  font-family: 'Cabin';
+  font-size: 18px;
+  font-weight: 600;
+  color: $teks-secondary;
+}
+.header-6 {
+  font-family: 'Cabin';
+  font-size: 14px;
+  font-weight: 600;
+  color: $teks-secondary;
+}
+.subtitle-1 {
+  font-family: 'Cabin';
+  font-size: 16px;
+  font-weight: 400;
+  color: $teks-tertiary;
+}
+.subtitle-2 {
+  font-family: 'Cabin';
+  font-size: 16px;
+  font-weight: 400;
+  color: $teks-secondary;
+}
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+
+@import '~vue2-datepicker/scss/index.scss';
+.el-select .el-input__inner:focus {
+  border: 1.3px solid #1B63D4 !important;
+  box-shadow: 0px 2px 10px rgba(187, 209, 243, 0.5);
+}
+.el-input .el-input__inner:focus {
+  border: 1.3px solid #1B63D4 !important;
+  box-shadow: 0px 2px 10px rgba(187, 209, 243, 0.5);
+}
+.el-textarea .el-input__inner:focus {
+  border: 1.3px solid #1B63D4 !important;
+  box-shadow: 0px 2px 10px rgba(187, 209, 243, 0.5);
+}
+.el-range-editor.is-active, .el-range-editor.is-active:hover, .el-select .el-input.is-focus .el-input__inner {
+  border: 1.3px solid #1B63D4 !important;
+  box-shadow: 0px 2px 10px rgba(187, 209, 243, 0.5);
+}
+.mx-input {
+  height: 40px !important;
+}
+.mx-datepicker-sidebar {
+  width: 151px !important;
+}
+.mx-table-date {
+  td,
+  th {
+    height: 32px;
+    font-size: 14px !important;
+  }
+}
+.mx-btn-shortcut {
+  display: block;
+  padding: 0 6px;
+  line-height:30px !important;
+}
+:root {
+  --vs-line-height: 1.6;
+}
+.btn-popover {
+  height:40px;
+  background-color: white;
+  width:100%;
+  padding:10px;
+  cursor:pointer;
+  .title-1 {
+    font-weight: 400;
+    font-size: 16px;
+    color: #454545;
+    margin-left:10px;
+  }
+}
+.btn-popover:hover {
+  background-color: rgb(243 244 246);
+}
+.el-popover{
+  padding: 0px !important;
+  border-radius: 5px !important;
+}
+.el-upload {
+  width: 100%;
+}
+.el-upload-dragger {
+  width: 100% !important;
+  background: linear-gradient(0deg, rgba(33, 150, 243, 0.03), rgba(33, 150, 243, 0.03)), #FFFFFF !important;
+  border: 1px dashed transparent !important;
+  border-radius: 5px !important;
+  height:100% !important;
+}
+.kg-popup {
+  transition: all 0.5s ease-in-out;
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+  /* Basic editor styles */
+  .ProseMirror {
+    border:0px;
+    outline: none;
+    > * + * {
+      margin-top: 0.75em;
+    }
+
+    ul,
+    ol {
+      padding: 0 1rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: 1.1;
+    }
+
+    code {
+      background-color: rgba(#616161, 0.1);
+      color: #616161;
+    }
+
+    pre {
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'JetBrainsMono', monospace;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+
+      code {
+        color: inherit;
+        padding: 0;
+        background: none;
+        font-size: 0.8rem;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    blockquote {
+      padding-left: 1rem;
+      border-left: 2px solid rgba(#0d0d0d, 0.1);
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid rgba(#0d0d0d, 0.1);
+      margin: 2rem 0;
+    }
+  }
+  .ProseMirror:focus-visible{
+    outline: none;
+  }
+  .el-color-picker__trigger {
+    border:0px !important;
+    padding:0px !important;
+    outline: none !important;
+  }
+  .el-color-picker__icon{
+    visibility: hidden !important;
+  }
+  .el-color-picker--mini .el-color-picker__trigger {
+    height: 22px !important;
+    width: 22px !important;
+  }
+  .el-color-picker__color{
+    width: 22px !important;
+    height: 22px !important;
+    padding: 0px !important;
+    border:0px !important;
+  }
+  .el-color-picker__empty {
+    // padding-left:1px !important;
+    padding-top: 1.4px !important;
+  }
+  .el-color-picker--mini {
+    height:22px !important;
+  }
+  .el-color-picker__color-inner {
+    // border: 1px solid red !important;
+    border: 1px solid #E2E2E2 !important;
+  }
+
+.el-table thead {
+  color: #5C6B7A !important;
+  font-family: 'Cabin' !important;
+  font-weight: 600 !important;
+}
+.th {
+  font-weight: 600 !important;
+}
+.el-select-dropdown__item {
+  font-family: 'Cabin' !important;
+}
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
+  font-family: 'Cabin' !important;
+}
+.el-time-spinner__item {
+  font-family: 'Cabin' !important;
+}
+.el-picker-panel__shortcut {
+  font-family: 'Cabin' !important;
+}
+.el-input__inner {
+  font-family: 'Cabin' !important;
+}
+.el-date-range-picker__header div{
+  font-family: 'Cabin' !important;
+}
+.el-button--mini {
+  font-family: 'Cabin' !important;
+}
+.el-button--text{
+  font-family: 'Cabin' !important;
+}
+.el-date-table td span {
+  font-family: 'Cabin' !important;
+}
+.el-progress-bar__outer {
+  border-bottom-left-radius: 100px !important;
+  border-top-left-radius: 100px !important;
+}
+.el-progress-bar__inner {
+  border-bottom-left-radius: 100px !important;
+  border-top-left-radius: 100px !important;
+}
+.el-dropdown .el-dropdown__caret-button{
+  bottom: 2px !important;
+}
+.el-dropdown-menu {
+  padding:0px 0px !important;
+}
+.el-dropdown-menu__item {
+  padding:0px 0px !important;
+}
+button:focus {
+  outline:0px !important;
+}
+button:active {
+  outline:0px !important;
+}
+.el-input-group__append {
+  padding:0px !important;
+}
+.el-input-group__prepend {
+  padding-left:5px !important;
+  padding-right:5px !important;
+}
+.el-submenu__title {
+  height: 40px !important;
+  line-height: 40px !important;
+  font-family: 'Cabin' !important;
+  font-size: 16px !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  color:#5C6B7A !important;
+  margin-bottom: 10px !important;
+  border-left: 4px solid transparent !important;
+}
+.el-menu-item {
+  height: 40px !important;
+  line-height: 40px !important;
+  font-family: 'Cabin' !important;
+  font-size: 16px !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  color:#5C6B7A !important;
+  margin-bottom: 10px !important;
+  border-left: 4px solid transparent !important;
+}
+.el-menu-item.is-active {
+  color: rgb(27, 99, 212) !important;
+  font-weight: 600 !important;
+  border-left: 4px solid rgb(27, 99, 212) !important;
+  border-top-left-radius: 2px !important;
+  border-bottom-left-radius: 2px !important;
+}
+.el-menu--collapse {
+  width: 80px !important;
+}
+.el-menu {
+  border-right: 0px !important;
+}
+.el-dialog__header {
+  padding: 0px !important;
+}
+.el-dialog__body {
+  padding: 0px !important;
+}
+.el-dialog {
+  border-radius: 10px !important;
+}
+.card-dialog {
+  padding: 20px !important;
+}
+.vue-swatches__trigger {
+  width:22px !important;
+  height: 22px !important;
+  border-radius: 2px !important;
+}
+.vue-swatches {
+  height: 22px !important;
+}
+.CodeMirror {
+  height:calc(100vh - 150px) !important;
+}
+.vue-swatches__trigger {
+  border:1px solid #e2e2e2 !important;
+}

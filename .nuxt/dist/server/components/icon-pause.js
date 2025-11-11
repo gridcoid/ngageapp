@@ -1,0 +1,69 @@
+exports.ids = [83];
+exports.modules = {
+
+/***/ 531:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/icon/pause.vue?vue&type=template&id=86a5a92c
+var render = function render() {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c('svg', {
+    attrs: {
+      "width": "20",
+      "height": "20",
+      "viewBox": "0 0 20 20",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_vm._ssrNode("<path d=\"M9.99994 0.25C8.07158 0.25 6.18651 0.821828 4.58313 1.89317C2.97975 2.96451 1.73007 4.48726 0.992118 6.26884C0.254163 8.05042 0.061081 10.0108 0.437287 11.9021C0.813493 13.7934 1.74209 15.5307 3.10565 16.8943C4.46921 18.2579 6.2065 19.1865 8.09781 19.5627C9.98913 19.9389 11.9495 19.7458 13.7311 19.0078C15.5127 18.2699 17.0354 17.0202 18.1068 15.4168C19.1781 13.8134 19.7499 11.9284 19.7499 10C19.747 7.41504 18.7188 4.93679 16.891 3.10894C15.0632 1.2811 12.5849 0.252928 9.99994 0.25ZM9.99994 18.25C8.36825 18.25 6.77319 17.7661 5.41649 16.8596C4.05978 15.9531 3.00236 14.6646 2.37794 13.1571C1.75351 11.6496 1.59014 9.99085 1.90846 8.3905C2.22679 6.79016 3.01253 5.32015 4.16631 4.16637C5.3201 3.01259 6.7901 2.22685 8.39045 1.90852C9.99079 1.59019 11.6496 1.75357 13.1571 2.37799C14.6646 3.00242 15.953 4.05984 16.8596 5.41655C17.7661 6.77325 18.2499 8.3683 18.2499 10C18.2475 12.1873 17.3775 14.2843 15.8308 15.8309C14.2842 17.3775 12.1872 18.2475 9.99994 18.25ZM8.49994 7V13C8.49994 13.1989 8.42093 13.3897 8.28027 13.5303C8.13962 13.671 7.94886 13.75 7.74994 13.75C7.55103 13.75 7.36027 13.671 7.21961 13.5303C7.07896 13.3897 6.99994 13.1989 6.99994 13V7C6.99994 6.80109 7.07896 6.61032 7.21961 6.46967C7.36027 6.32902 7.55103 6.25 7.74994 6.25C7.94886 6.25 8.13962 6.32902 8.28027 6.46967C8.42093 6.61032 8.49994 6.80109 8.49994 7ZM12.9999 7V13C12.9999 13.1989 12.9209 13.3897 12.7803 13.5303C12.6396 13.671 12.4489 13.75 12.2499 13.75C12.051 13.75 11.8603 13.671 11.7196 13.5303C11.579 13.3897 11.4999 13.1989 11.4999 13V7C11.4999 6.80109 11.579 6.61032 11.7196 6.46967C11.8603 6.32902 12.051 6.25 12.2499 6.25C12.4489 6.25 12.6396 6.32902 12.7803 6.46967C12.9209 6.61032 12.9999 6.80109 12.9999 7Z\"" + _vm._ssrAttr("fill", _vm.bgColor) + "></path>")]);
+};
+
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/icon/pause.vue?vue&type=template&id=86a5a92c
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/icon/pause.vue?vue&type=script&lang=js
+/* harmony default export */ var pausevue_type_script_lang_js = ({
+  props: {
+    bgColor: {
+      type: String,
+      default: '#454545'
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/icon/pause.vue?vue&type=script&lang=js
+ /* harmony default export */ var icon_pausevue_type_script_lang_js = (pausevue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(0);
+
+// CONCATENATED MODULE: ./components/icon/pause.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  icon_pausevue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "254caa5c"
+  
+)
+
+/* harmony default export */ var pause = __webpack_exports__["default"] = (component.exports);
+
+/***/ })
+
+};;
+//# sourceMappingURL=icon-pause.js.map

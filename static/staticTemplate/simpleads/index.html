@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>2 Column Ads | UNIMIND Template</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+
+      #container {
+        position: absolute;
+        width: 320px;
+        height: 480px;
+        /* background-color: #144266; */
+        overflow: hidden;
+      }
+
+      #cover {
+        width: 320px;
+        position: absolute;
+        top: 0;
+        margin: auto;
+      }
+
+      #logo {
+        width: 100px;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        margin: auto;
+        border-radius: 50%;
+      }
+
+      #colright {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 320px;
+        height: 200px;
+      }
+
+      .overflownone {
+        overflow: hidden;
+      }
+
+      #headline {
+        /* font-family: "DM Serif Display", Roboto;
+        font-size: 29px;
+        color: #ffffff; */
+        top: 210px;
+        position: absolute;
+        left: 20px;
+        width: 280px;
+        line-height: 1.3;
+        border-bottom: solid 1px;
+        border-color: #ffffff3d;
+        padding-bottom: 10px;
+      }
+
+      #subline {
+        position: absolute;
+        /* font-family: "DM Sans", Roboto;
+        color: #ffffff; */
+        top: 313px;
+        left: 20px;
+        width: 280px;
+      }
+
+      #cta {
+        /* font-family: "DM Sans", Roboto;
+            font-size: 18px;
+            background-color: #ec6921;
+            color: #fff; */
+        padding: 10px 20px;
+        text-align: center;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        max-width: 240px;
+        overflow: hidden;
+        border-radius: 5px;
+        width: 240px;
+      }
+
+      #shineefct {
+        position: absolute;
+        left: -77px;
+        top: -34px;
+        width: 90px;
+      }
+
+      p {
+        margin-block-end: 0em;
+        margin-block-start: 5px;
+      }
+
+      #hit {
+        position: absolute;
+        width: 320px;
+        height: 480px;
+        z-index: 100;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container" style="background-color: #144266; opacity: 100%">
+      <div id="colright" class="overflownone">
+        <img
+          src="https://dev-api.unimind.id/v1/obs?fileKey=defaults/creative_templates/simpleads_1_320x480/cover.jpg"
+          id="cover"
+        />
+      </div>
+      <div id="colleft">
+        <img
+          src="https://dev-api.unimind.id/v1/obs?fileKey=defaults/creative_templates/simpleads_1_320x480/logo.jpg"
+          id="logo"
+        />
+        <div id="headline">
+          <span
+            style="
+              font-family: 'DM Serif Display', Roboto;
+              font-size: 29px;
+              color: #ffffff;
+            "
+          >
+            <p>Got Broken Utilities<br />at Your Home?</p>
+          </span>
+        </div>
+        <div id="subline">
+          <span style="font-family: 'DM Sans', Roboto; color: #ffffff">
+            We're ready to help you 24 hours a week, get your things done
+            quickly.
+            <p
+              style="
+                font-size: 14px;
+                opacity: 0.8;
+                padding-top: 20px;
+                text-align: center;
+              "
+            >
+              Just call us: (021) 2289 003
+            </p>
+          </span>
+        </div>
+
+        <div id="cta" style="background-color: #ec6921">
+          <div id="shine">
+            <img
+              src="https://dev-api.unimind.id/v1/obs?fileKey=defaults/creative_templates/simpleads_1_320x480/sine.png"
+              id="shineefct"
+            />
+          </div>
+          <span id="cta_text"
+            ><span
+              style="
+                font-family: 'DM Sans', Roboto;
+                font-size: 18px;
+                color: #fff;
+              "
+              >Learn More</span
+            ></span
+          >
+        </div>
+      </div>
+      <div id="hit"></div>
+    </div>
+    <input
+      type="hidden"
+      id="url"
+      value="https://www.mysantika.com/our-destinations/jawa-timur"
+    />
+  </body>
+  <script>
+    let urllink = document.getElementById("url").value;
+    let animateloop = 2;
+
+    init();
+    function init() {
+      TweenLite.to(logo, 0, { scale: 0.5, opacity: 0, ease: Expo.SineInOut });
+      TweenLite.to(headline, 0, { y: -10, opacity: 0, ease: Expo.SineInOut });
+      TweenLite.to(subline, 0, { y: -10, opacity: 0, ease: Expo.SineInOut });
+      TweenLite.to(cta, 0, { y: -10, opacity: 0, ease: Expo.SineInOut });
+      TweenLite.to(shineefct, 0, { x: 0, ease: Expo.SineOut });
+      TweenLite.to(cover, 0, {
+        scale: 1.5,
+        ease: Expo.SineOut,
+        onComplete: frame2,
+      });
+    }
+
+    hit.addEventListener("click", gotoURL);
+
+    function frame2() {
+      TweenLite.to(logo, 0.5, { scale: 1, opacity: 1, ease: Expo.SineOut });
+      TweenLite.to(headline, 0.5, {
+        y: 0,
+        opacity: 1,
+        ease: Expo.SineOut,
+        delay: 0.3,
+      });
+      TweenLite.to(subline, 0.5, {
+        y: 0,
+        opacity: 1,
+        ease: Expo.SineOut,
+        delay: 0.5,
+      });
+      TweenLite.to(cta, 0.5, {
+        y: 0,
+        opacity: 1,
+        ease: Expo.SineOut,
+        delay: 0.9,
+        onComplete: () => {
+          TweenLite.to(shineefct, 3, { x: 450, ease: Expo.SineOut });
+          TweenLite.to(shineefct, 0, { x: 0, ease: Expo.SineOut, delay: 3.1 });
+          TweenLite.to(shineefct, 3, {
+            x: 450,
+            ease: Expo.SineOut,
+            delay: 3.5,
+            onComplete: () => {
+              if (animateloop >= 1) {
+                init();
+                animateloop--;
+              }
+            },
+          });
+        },
+      });
+      TweenLite.to(cover, 4, { scale: 1, ease: Expo.SineOut });
+    }
+
+    function gotoURL() {
+      window.open("https://unimind.id", "_BLANK");
+    }
+
+    function displayMessage(evt) {
+      var message;
+      console.log('evt : ', evt)
+      // var origins = [
+      //   "https://dev-space.unimind.id",
+      //   "https://dev-api.unimind.id",
+      //   "https://space.unimind.id",
+      //   "https://api.unimind.id",
+      // ];
+      // if (!origins.includes(evt.origin)) {
+      //   message = "check origin domain";
+      // } else {
+        message = evt.data;
+      // }
+      document.getElementById("headline").innerHTML = message[6].default;
+      document.getElementById("subline").innerHTML = message[3].default;
+      document.getElementById("logo").src = message[1].default;
+      document.getElementById("cover").src = message[2].default;
+      document
+        .getElementById("container")
+        .setAttribute(
+          "style",
+          message[4].default +
+            ";background-image:url('" +
+            message[5].default +
+            "')"
+        );
+      document.getElementById("cta_text").innerHTML = message[0].default.text;
+      document
+        .getElementById("cta")
+        .setAttribute("style", message[0].default.bg_color);
+
+      init();
+    }
+
+    if (window.addEventListener) {
+      // For standards-compliant web browsers
+      window.addEventListener("message", displayMessage, false);
+    } else {
+      window.attachEvent("onmessage", displayMessage);
+    }
+  </script>
+</html>

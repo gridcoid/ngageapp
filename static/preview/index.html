@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Preview Ads</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    * {
+        margin: auto;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 200;
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    .container {
+        text-align: center;
+    padding: 0 20px;
+    max-width: 400px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    }
+
+    .scene {
+        width: 200px;
+        height: 200px;
+        perspective: 400px;
+        left: 0px;
+        position: absolute;
+
+    }
+
+    .ifpreview {
+        /* width: 300px;
+        height: 250px; */
+        border: none;
+    }
+
+    .logosolve {
+        width: 90%;
+    }
+
+    .spacer50 {
+        height: 50px;
+    }
+
+    .samp-art {
+        text-align: left;
+    }
+
+    .ttl-span {
+        font-weight: 300;
+        font-size: 25px;
+    }
+
+    #foto {
+        width: 100%;
+    }
+
+    #header {
+        width: 100%;
+        height: 62px;
+        background-color: #000;
+    }
+
+    #tt {
+        margin: 10px 20px;
+    }
+
+    #logos {
+        padding: 20px;
+        width: 145px;
+    }
+
+    #grad {
+        position: relative;
+    margin: 50px 20px;
+    font-family: 'Roboto';
+    font-size: 12px;
+    color: #dcdcdc;
+    font-weight: bold;
+    }
+    ::-webkit-scrollbar {
+  width: 14px;
+  height: 18px;
+}
+
+::-webkit-scrollbar-thumb {
+  height: 6px;
+  border: 4px solid transparent;
+  background-clip: padding-box;
+  background-color: #E2E2E2;
+  -webkit-border-radius: 7px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+</style>
+
+<body>
+    <div id="header">
+<img src="assets/logo.png" alt="" id="logos">
+
+    </div>
+    <div id="tt">
+    <p class="samp-art ttl-span">HUT Ke-27 "Kompas.com": Bersepeda, Berziarah, dan Berbagi Beasiswa </p><br>
+</div>
+    <img src="assets/foto.jpg" id="foto" alt="">
+    <div class="container">
+
+        <div class="spacer50"></div>
+
+        <p class="samp-art">
+        <i>JAKARTA</i> -
+        Melanjutkan tradisi tahunan menyambut HUT Kompas.com, kami berziarah ke makam para pendiri Kompas Gramedia dan rekan-rekan kerja yang mendahului untuk menghadap Sang Pencipta serta menyerahkan donasi.
+<br>
+Gerakan bersepeda, berziarah, dan berbagi kami mulai sejak 2020, ketika Kompas.com berulang tahun ke-25.
+        </p>
+        <div class="spacer50"></div>
+
+        <iframe id="iframeSrc" src="" class="ifpreview"></iframe>
+        <img id="imgSrc" src="" onclick="image(this)" style="cursor:pointer;"></iframe>
+
+        <div class="spacer50"></div>
+        <p class="samp-art">
+            Menjelang ulang tahun ke-27 Kompas.com pada 14 September 2022, kami kembali bersepeda ke empat tempat pemakaman pada Minggu (11/9/2022).
+<br>
+            Ini adalah upaya kami untuk terus menghormati jasa para pendiri dan rekan-rekan yang telah berkontribusi membangun Kompas.com.
+    <br>
+            Rombongan sepeda dibagi dua. Rombongan pertama start dari Bentara Budaya Jakarta, Palmerah Selatan, menuju TPU Menteng Pulo, Jakarta Selatan.
+        <br><br>
+        Di sana, tempat rekan kerja kami, Ervan Hardoko, dimakamkan. Koko, panggilannya, berpulang pada 8 Agustus 2019.
+
+Sedangkan rombongan lainnya start dari Depok menuju makam ke makam Moh Latif. Kong Latif, sapaan akrab rekan kerja kami, berpulang pada 28 Desember 2019.
+        </p><br>
+        <p class="samp-art">
+            Kemudian rombongan bertolak ke titik makam terakhir, yakni TPU Tanah Kusir, Jakarta Selatan.
+
+Di sana, tempat peristirahatan terakhir pendiri Kompas Gramedia, Bapak P.K. Ojong, yang wafat pada 31 Mei 1980.
+        </p><br>
+        <p class="samp-art">
+            Di TPU yang sama, rekan kerja kami, Kurnia Sari Azizah alias Icha, dimakamkan. Icha berpulang pada 31 Juli 2020.
+        </p> <br>
+        <p class="samp-art endtext">
+            Rombongan bersepeda finis di Bentara Budaya Jakarta, Palmerah Selatan. Di titik ini sekaligus penyerahan simbolis beasiswa dari kanal Health Kompas.com tahap II.
+Penerima beasiswa merupakan anak-anak yang menjadi yatim atau piatu akibat pandemi pada 2020-2021. Mereka rentan putus sekolah.
+        </p>
+
+        <div id="grad">Powered by UNIMIND 2023</div>
+    </div>
+
+</body>
+
+<script>
+    function sendToken(data) {
+        console.log(data)
+        if(data.format === 'rmb' || data.format === 'custom_upload') {
+            document.getElementById('imgSrc').style.display = 'none';
+            document.getElementById("iframeSrc").src = data.src
+            var iFrameID = document.getElementById('iframeSrc');
+            if(iFrameID) {
+                iFrameID.height = data.height + 'px';
+                iFrameID.width = data.width + 'px';
+            }
+        }
+        if(data.format === 'display') {
+            document.getElementById('iframeSrc').style.display = 'none';
+            document.getElementById("imgSrc").src = data.src
+            document.getElementById("imgSrc").onclick = function(){window.open(data.url)};
+        }
+    }
+</script>
+
+</html>
