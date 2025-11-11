@@ -5,9 +5,7 @@
     </div>
     <div class="card-content">
       <div class="header-card flex items-center">
-        <div class="title">
-          Campaign Details
-        </div>
+        <div class="title">Campaign Details</div>
       </div>
       <div class="body-card">
         <el-form
@@ -108,226 +106,226 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
-  name: 'CreateCampaignPage',
-  layout: 'default',
-  data () {
+  name: "CreateCampaignPage",
+  layout: "default",
+  data() {
     return {
       rules: {
         name: [
           {
             required: true,
-            message: 'Campaign Name is required',
-            trigger: 'blur'
+            message: "Campaign Name is required",
+            trigger: "blur",
           },
           {
             min: 0,
             max: 150,
-            message: 'Max 150 character',
-            trigger: 'blur'
-          }
+            message: "Max 150 character",
+            trigger: "blur",
+          },
         ],
         description: [
           {
-            required: false
-          }
+            required: false,
+          },
         ],
         date1: [
           {
             required: true,
-            message: 'Please pick a start date',
-            trigger: 'blur'
-          }
+            message: "Please pick a start date",
+            trigger: "blur",
+          },
         ],
         date2: [
           {
-            type: 'date',
+            type: "date",
             required: true,
-            message: 'Please pick a end date',
-            trigger: 'blur'
-          }
+            message: "Please pick a end date",
+            trigger: "blur",
+          },
         ],
         advertiser: [
           {
             required: true,
-            message: 'Advertiser is required',
-            trigger: 'blur'
-          }
+            message: "Advertiser is required",
+            trigger: "blur",
+          },
         ],
         campaignType: [
           {
             required: true,
-            message: 'Campaign Type is required',
-            trigger: 'blur'
-          }
-        ]
+            message: "Campaign Type is required",
+            trigger: "blur",
+          },
+        ],
       },
       isLoading: false,
       isLoadingToast: false,
       showMessage: false,
       toastMessage: false,
-      messageError: '',
+      messageError: "",
       data: {
-        name: '',
-        description: '',
-        startDate: '',
-        endDate: '',
-        advertiserId: '',
-        typeId: ''
+        name: "",
+        description: "",
+        startDate: "",
+        endDate: "",
+        advertiserId: "",
+        typeId: "",
       },
       valueDate: null,
       pickerOptions: {
         shortcuts: [
           {
-            text: 'Last week',
-            onClick (picker) {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-              picker.$emit('pick', [start, end])
-            }
+            text: "Last week",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            },
           },
           {
-            text: 'Last month',
-            onClick (picker) {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-              picker.$emit('pick', [start, end])
-            }
+            text: "Last month",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            },
           },
           {
-            text: 'Last 3 months',
-            onClick (picker) {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-              picker.$emit('pick', [start, end])
-            }
-          }
-        ]
-      }
-    }
+            text: "Last 3 months",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            },
+          },
+        ],
+      },
+    };
   },
   computed: {
     ...mapState({
       dataAdvertiser: (state) => {
-        return state.campaign.dataAdvertiser
+        return state.campaign.dataAdvertiser;
       },
       dataCampaignType: (state) => {
-        return state.campaign.dataCampaignType
-      }
+        return state.campaign.dataCampaignType;
+      },
     }),
-    btnCreate () {
+    btnCreate() {
       if (
-        this.data.name === '' ||
-        this.data.description === '' ||
+        this.data.name === "" ||
+        this.data.description === "" ||
         this.data.startDate === null ||
         this.data.endDate === null ||
-        this.data.advertiserId === '' ||
-        this.data.typeId === ''
+        this.data.advertiserId === "" ||
+        this.data.typeId === ""
       ) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
-    }
+    },
   },
-  mounted () {
-    this.getAll()
+  mounted() {
+    this.getAll();
   },
   methods: {
-    getAll () {
-      this.getAdvertiser()
-      this.getCampaignTypes()
+    getAll() {
+      this.getAdvertiser();
+      this.getCampaignTypes();
     },
-    getAdvertiser () {
-      this.isLoading = true
+    getAdvertiser() {
+      this.isLoading = true;
       this.$store
-        .dispatch('campaign/getAdvertiser')
+        .dispatch("campaign/getAdvertiser")
         .then(() => {
-          this.isLoading = false
+          this.isLoading = false;
         })
         .catch(() => {
-          this.isLoading = false
-        })
+          this.isLoading = false;
+        });
     },
-    getCampaignTypes () {
-      this.isLoading = true
+    getCampaignTypes() {
+      this.isLoading = true;
       this.$store
-        .dispatch('campaign/getCampaignTypes')
+        .dispatch("campaign/getCampaignTypes")
         .then(() => {
-          this.isLoading = false
+          this.isLoading = false;
         })
         .catch(() => {
-          this.isLoading = false
-        })
+          this.isLoading = false;
+        });
     },
-    back () {
-      this.$router.push({ path: '/campaign' })
+    back() {
+      this.$router.push({ path: "/campaign" });
     },
-    submitForm (formName) {
+    submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          alert("submit!");
         } else {
-          return false
+          return false;
         }
-      })
+      });
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     },
-    save () {
+    save() {
       this.$notifier.showMessage({
-        content: 'Creating campaign...',
-        type: 'loading'
-      })
-      this.isLoadingToast = true
+        content: "Creating campaign...",
+        type: "loading",
+      });
+      this.isLoadingToast = true;
       if (this.valueDate !== null) {
-        this.data.startDate = this.valueDate[0]
-        this.data.endDate = this.valueDate[1]
+        this.data.startDate = this.valueDate[0];
+        this.data.endDate = this.valueDate[1];
       } else {
-        this.data.startDate = ''
-        this.data.endDate = ''
+        this.data.startDate = "";
+        this.data.endDate = "";
       }
       const x = setTimeout(
         () =>
           this.$store
-            .dispatch('campaign/createCampaign', this.data)
+            .dispatch("campaign/createCampaign", this.data)
             .then((res) => {
               if (res.status === 201 || res.status === 200) {
-                this.$router.push({ path: '/campaign' })
+                this.$router.push({ path: "/campaign" });
                 this.$notifier.showMessage({
-                  content: 'Campaign created.',
-                  type: 'success'
-                })
-                clearInterval(x)
+                  content: "Campaign created.",
+                  type: "success",
+                });
+                clearInterval(x);
               } else {
-                this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
-                const arr = []
+                this.showMessage = true;
+                const keys = Object.keys(res.data.data.errors[0]);
+                const arr = [];
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
+                  arr.push(res.data.data.errors[0][key]);
+                });
+                this.messageError = arr.join(", ");
                 this.$notifier.showMessage({
-                  content: 'Campaign failed. Please try again!',
-                  type: 'failed'
-                })
-                clearInterval(x)
+                  content: "Campaign failed. Please try again!",
+                  type: "failed",
+                });
+                clearInterval(x);
               }
             })
             .catch(() => {
-              this.isLoading = false
-              clearInterval(x)
+              this.isLoading = false;
+              clearInterval(x);
             }),
         1000
-      )
-    }
-  }
-}
+      );
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -345,7 +343,7 @@ export default {
 :root {
   --vs-line-height: 1.75;
 }
->>> {
+::v-deep {
   --vs-line-height: 1.75;
 }
 .btn-disabled {
@@ -369,7 +367,7 @@ export default {
       padding-left: 20px;
       padding-right: 20px;
       .title {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 600;
         font-size: 20px;
         color: #333333;
@@ -381,13 +379,13 @@ export default {
       padding-right: 20px;
       margin-top: 30px;
       .title-form {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 400;
         font-size: 16px;
         color: #454545;
       }
       .to-text {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 400;
         font-size: 16px;
         color: #454545;
@@ -417,7 +415,7 @@ export default {
         margin-left: 10px;
         cursor: pointer;
         .name-btn {
-          font-family: 'Cabin';
+          font-family: "Cabin";
           font-weight: 700;
           font-size: 14px;
           padding-bottom: 1px;

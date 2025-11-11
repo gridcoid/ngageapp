@@ -8,9 +8,7 @@
       >
         <ButtonBackPage text="Back to Campaign List" @click.native="back()" />
         <div class="flex set-campaign items-center">
-          <div class="label-date">
-            Set Campaign
-          </div>
+          <div class="label-date">Set Campaign</div>
           <div
             v-if="detailCampaign.isActive"
             class="flex items-center justify-center btn-status-campaign"
@@ -45,13 +43,9 @@
     <!-- Campaign Performance Pacing -->
     <div class="performance-card">
       <div class="header-card flex justify-between items-center">
-        <div class="title-1">
-          Campaign Performance Pacing
-        </div>
+        <div class="title-1">Campaign Performance Pacing</div>
         <div class="flex items-center">
-          <div class="label-date">
-            Campaign Period
-          </div>
+          <div class="label-date">Campaign Period</div>
           <el-select v-model="value" @change="filterSelect()">
             <el-option
               v-for="item in options"
@@ -86,41 +80,35 @@
     <div class="grid grid-cols-3 gap-4 mt-6 mb-6">
       <div class="summary-card flex justify-between">
         <div class="flex flex-col justify-between">
-          <div class="title-summary">
-            Impression
-          </div>
+          <div class="title-summary">Impression</div>
           <div class="value-summary">
             {{ Number(dataSummary.impression).toLocaleString() }}
           </div>
         </div>
         <div class="flex items-center">
-          <img src="~/assets/images/campaign/ph_eye.svg" class="">
+          <img src="~/assets/images/campaign/ph_eye.svg" class="" />
         </div>
       </div>
       <div class="summary-card flex justify-between">
         <div class="flex flex-col justify-between">
-          <div class="title-summary">
-            Click
-          </div>
+          <div class="title-summary">Click</div>
           <div class="value-summary">
             {{ Number(dataSummary.click).toLocaleString() }}
           </div>
         </div>
         <div class="flex items-center">
-          <img src="~/assets/images/campaign/ph_hand-pointing.svg" class="">
+          <img src="~/assets/images/campaign/ph_hand-pointing.svg" class="" />
         </div>
       </div>
       <div class="summary-card flex justify-between">
         <div class="flex flex-col justify-between">
-          <div class="title-summary">
-            CTR
-          </div>
+          <div class="title-summary">CTR</div>
           <div class="value-summary">
             {{ dataSummary.ctr }}
           </div>
         </div>
         <div class="flex items-center">
-          <img src="~/assets/images/campaign/ph_target.svg" class="">
+          <img src="~/assets/images/campaign/ph_target.svg" class="" />
         </div>
       </div>
     </div>
@@ -128,9 +116,7 @@
     <div ref="quest" class="card-content">
       <div class="header-card flex items-center justify-between">
         <div class="flex items-center">
-          <div class="title">
-            Campaign Details
-          </div>
+          <div class="title">Campaign Details</div>
         </div>
         <!-- <div class="flex items-center">
           <div
@@ -144,40 +130,30 @@
       </div>
       <div class="body-card">
         <div class="flex list-campaign">
-          <div class="flex-auto w-32 title-1 pr-2">
-            Campaign Name
-          </div>
+          <div class="flex-auto w-32 title-1 pr-2">Campaign Name</div>
           <div class="flex-auto w-64 title-1 pr-2">
             {{ detailCampaign.name }}
           </div>
-          <div class="flex-auto w-32 title-1 pl-4">
-            Advertiser
-          </div>
+          <div class="flex-auto w-32 title-1 pl-4">Advertiser</div>
           <div class="flex-auto w-32 title-2 pl-4">
             {{ detailCampaign_ads_name }}
           </div>
         </div>
         <div class="flex list-campaign">
-          <div class="flex-auto w-32 title-1 pr-2">
-            Description
-          </div>
+          <div class="flex-auto w-32 title-1 pr-2">Description</div>
           <div class="flex-auto w-64 title-1 desc pr-2">
             {{ detailCampaign.description }}
           </div>
-          <div class="flex-auto w-32 title-1 pl-4">
-            Campaign Type
-          </div>
+          <div class="flex-auto w-32 title-1 pl-4">Campaign Type</div>
           <div class="flex-auto w-32 title-2 pl-4">
             {{ detailCampaign_type_name }}
           </div>
         </div>
         <div class="flex list-campaign">
-          <div class="flex-auto w-32 title-1 pr-2">
-            Campaign Period
-          </div>
+          <div class="flex-auto w-32 title-1 pr-2">Campaign Period</div>
           <div class="flex-auto w-64 title-2 pr-2">
-            {{ $moment(detailCampaign.startDate).format('DD/MM/YYYY') }} to
-            {{ $moment(detailCampaign.endDate).format('DD/MM/YYYY') }}
+            {{ $moment(detailCampaign.startDate).format("DD/MM/YYYY") }} to
+            {{ $moment(detailCampaign.endDate).format("DD/MM/YYYY") }}
           </div>
           <div class="flex-auto w-32 title-1 pl-4" />
           <div class="flex-auto w-32 title-2 pl-4" />
@@ -188,9 +164,7 @@
     <div class="placement-card">
       <div class="header-card flex justify-between items-center">
         <div class="flex items-center justify-center">
-          <div class="title-1">
-            Placement
-          </div>
+          <div class="title-1">Placement</div>
           <div class="status-filter flex items-center">
             <div
               class="flex items-center justify-center card-filter"
@@ -267,7 +241,7 @@
                     class="title-1"
                     placeholder="Find something.."
                     @change="searchPlacement()"
-                  >
+                  />
                 </form>
                 <IconSearch @click.native="searchPlacement()" />
               </div>
@@ -299,10 +273,8 @@
       >
         <template slot="empty">
           <div class="flex flex-col items-center mt-6 no-data">
-            <img src="~/assets/images/campaign/empty_table.svg">
-            <div class="title-1">
-              It’s Very Clean Here
-            </div>
+            <img src="~/assets/images/campaign/empty_table.svg" />
+            <div class="title-1">It’s Very Clean Here</div>
             <div class="subtitle-1">
               Seems like you haven’t created any placement list yet. Create one
               now?
@@ -359,21 +331,21 @@
                 Start
               </span>
               :
-              {{ $moment(scope.row.startDate).format('DD / MM / YYYY HH:mm') }}
+              {{ $moment(scope.row.startDate).format("DD / MM / YYYY HH:mm") }}
             </div>
             <div class="title-2">
               <span style="font-weight: 400; font-size: 14px; color: #454545">
                 End
               </span>
               :
-              {{ $moment(scope.row.endDate).format('DD / MM / YYYY HH:mm') }}
+              {{ $moment(scope.row.endDate).format("DD / MM / YYYY HH:mm") }}
             </div>
           </template>
         </el-table-column>
         <el-table-column label="Updated On" prop="updatedAt">
           <template slot-scope="scope">
             <div class="title-1">
-              {{ $moment(scope.row.updatedAt).format('DD/MM/YYYY') }}
+              {{ $moment(scope.row.updatedAt).format("DD/MM/YYYY") }}
             </div>
           </template>
         </el-table-column>
@@ -389,9 +361,7 @@
             >
               {{ Number(scope.row.analytics.impression).toLocaleString() }}
             </div>
-            <div v-else class="view-text">
-              0
-            </div>
+            <div v-else class="view-text">0</div>
           </template>
         </el-table-column>
         <el-table-column label="Click" header-align="center" align="center">
@@ -402,9 +372,7 @@
             >
               {{ Number(scope.row.analytics.click).toLocaleString() }}
             </div>
-            <div v-else class="view-text">
-              0
-            </div>
+            <div v-else class="view-text">0</div>
           </template>
         </el-table-column>
         <el-table-column label="CTR">
@@ -415,9 +383,7 @@
             >
               {{ scope.row.analytics.ctr }} %
             </div>
-            <div v-else class="view-text">
-              0 %
-            </div>
+            <div v-else class="view-text">0 %</div>
           </template>
         </el-table-column>
         <el-table-column label="Progress">
@@ -435,7 +401,7 @@
             <el-dropdown trigger="click">
               <span class="el-dropdown-link">
                 <div class="flex items-center justify-center btn-action">
-                  <img src="~/assets/images/campaign/icon_action.svg">
+                  <img src="~/assets/images/campaign/icon_action.svg" />
                 </div>
               </span>
               <el-dropdown-menu slot="dropdown" width="200">
@@ -447,7 +413,7 @@
                     <img
                       src="~/assets/images/icon/edit.svg"
                       class="icon-item"
-                    >
+                    />
                     Edit
                   </div>
                 </el-dropdown-item>
@@ -459,7 +425,7 @@
                     <img
                       src="~/assets/images/icon/duplicate.svg"
                       class="icon-item"
-                    >
+                    />
                     Duplicate
                   </div>
                 </el-dropdown-item>
@@ -471,7 +437,7 @@
                     <img
                       src="~/assets/images/icon/script.svg"
                       class="icon-item"
-                    >
+                    />
                     Get Script
                   </div>
                 </el-dropdown-item>
@@ -483,7 +449,7 @@
                     <img
                       src="~/assets/images/icon/delete.svg"
                       class="icon-item"
-                    >
+                    />
                     Delete
                   </div>
                 </el-dropdown-item>
@@ -509,13 +475,11 @@
             class="flex items-center justify-between"
             style="margin-bottom: 14px"
           >
-            <div class="title-popup2">
-              Disable Placement?
-            </div>
+            <div class="title-popup2">Disable Placement?</div>
             <img
               src="~/assets/images/icon/delete_color.svg"
               class="icon-item"
-            >
+            />
           </div>
           <div class="title-popup">
             Are you sure want to disable
@@ -549,10 +513,8 @@
             class="flex items-center justify-between"
             style="margin-bottom: 14px"
           >
-            <div class="title-popup2">
-              Generated Script
-            </div>
-            <img src="~/assets/images/icon/script_big.svg" class="icon-item">
+            <div class="title-popup2">Generated Script</div>
+            <img src="~/assets/images/icon/script_big.svg" class="icon-item" />
           </div>
           <div class="title-popup">
             Use this auto generated script below to be used in external services
@@ -577,7 +539,7 @@
               <img
                 src="~/assets/images/icon/duplicate_white.svg"
                 class="mr-2 pl-1"
-              >
+              />
               <span class="name-btn no-select">Copy to clipboard</span>
             </button>
           </div>
@@ -586,9 +548,7 @@
     </el-dialog>
     <el-dialog :visible.sync="editCampaign" width="700px" :show-close="false">
       <div class="card-dialog">
-        <div class="title-dialog">
-          Your campaign has been edited.
-        </div>
+        <div class="title-dialog">Your campaign has been edited.</div>
         <div class="data-dialog">
           We pause the campaign while you edit it. To start again, click “Start”
           button.
@@ -612,13 +572,11 @@
             class="flex items-center justify-between"
             style="margin-bottom: 14px"
           >
-            <div class="title-popup2">
-              Duplicate Campaign?
-            </div>
+            <div class="title-popup2">Duplicate Campaign?</div>
             <img
               src="~/assets/images/icon/duplicate_big.svg"
               class="icon-item"
-            >
+            />
           </div>
           <div class="title-popup">
             How many duplicate of <b>{{ dataCampaign.name }}</b> campaign do you
@@ -638,7 +596,7 @@
               type="number"
               min="1"
               max="10"
-            >
+            />
             <div
               style="width: 18px; height: 18px"
               class="flex items-center cursor-pointer justify-center no-select"
@@ -669,31 +627,31 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
-  name: 'DetailCampaignPage',
-  layout: 'default',
-  data () {
+  name: "DetailCampaignPage",
+  layout: "default",
+  data() {
     return {
       dialogVisible: true,
       dataCampaign: {
-        name: '',
-        id: ''
+        name: "",
+        id: "",
       },
-      dataScript: '',
+      dataScript: "",
       countDuplicate: 1,
       dialogDuplicate: false,
       dialogScript: false,
       dialogDelete: false,
       showDialog: null,
       showSearch: false,
-      dataSearch: '',
+      dataSearch: "",
       isActive: true,
-      activeStatus: 'all',
+      activeStatus: "all",
       currentPage: 1,
       per_page: 10,
       status: true,
-      selectDate: '04-July-2022',
+      selectDate: "04-July-2022",
       series: [],
       data1: [],
       data2: [],
@@ -702,268 +660,268 @@ export default {
       chartOptions2: {
         chart: {
           height: 350,
-          type: 'line',
-          stacked: false
+          type: "line",
+          stacked: false,
         },
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         stroke: {
-          width: [1, 1, 1, 4]
+          width: [1, 1, 1, 4],
         },
         xaxis: {
-          categories: []
+          categories: [],
         },
         yaxis: [
           {
             showAlways: true,
             axisTicks: {
-              show: true
+              show: true,
             },
             axisBorder: {
               show: true,
-              color: '#008FFB'
+              color: "#008FFB",
             },
             labels: {
               style: {
-                colors: '#008FFB'
-              }
+                colors: "#008FFB",
+              },
             },
             tooltip: {
-              enabled: true
-            }
+              enabled: true,
+            },
           },
           {
-            show: false
+            show: false,
           },
           {
-            show: false
+            show: false,
           },
           {
             opposite: true,
             axisTicks: {
-              show: true
+              show: true,
             },
             axisBorder: {
               show: true,
-              color: '#008FFB'
+              color: "#008FFB",
             },
             labels: {
               style: {
-                colors: '#008FFB'
-              }
+                colors: "#008FFB",
+              },
             },
             tooltip: {
-              enabled: true
-            }
-          }
+              enabled: true,
+            },
+          },
         ],
         tooltip: {
           fixed: {
             enabled: true,
-            position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+            position: "topLeft", // topRight, topLeft, bottomRight, bottomLeft
             offsetY: 30,
-            offsetX: 60
-          }
+            offsetX: 60,
+          },
         },
         legend: {
-          horizontalAlign: 'left',
-          offsetX: 40
-        }
+          horizontalAlign: "left",
+          offsetX: 40,
+        },
       },
       chartOptions: {
         chart: {
           height: 350,
-          type: 'line',
-          stacked: false
+          type: "line",
+          stacked: false,
         },
-        curve: 'smooth',
+        curve: "smooth",
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         toolbar: {
-          show: true
+          show: true,
         },
         stroke: {
-          width: [1, 1, 1, 4]
+          width: [1, 1, 1, 4],
         },
-        colors: ['#1B63D4', '#FBAB18', '#84AD64', '#372B2B'],
+        colors: ["#1B63D4", "#FBAB18", "#84AD64", "#372B2B"],
         legend: {
-          position: 'bottom',
-          horizontalAlign: 'left'
-        }
+          position: "bottom",
+          horizontalAlign: "left",
+        },
       },
-      status2: 'delivering',
+      status2: "delivering",
       tableData: [
         {
-          date: '2016-05-03'
+          date: "2016-05-03",
         },
         {
-          date: '2016-05-03'
+          date: "2016-05-03",
         },
         {
-          date: '2016-05-03'
+          date: "2016-05-03",
         },
         {
-          date: '2016-05-03'
+          date: "2016-05-03",
         },
         {
-          date: '2016-05-03'
+          date: "2016-05-03",
         },
         {
-          date: '2016-05-03'
-        }
+          date: "2016-05-03",
+        },
       ],
       id: 0,
       options: [
         {
-          value: 'last12h',
-          label: 'Last 12 Hour'
+          value: "last12h",
+          label: "Last 12 Hour",
         },
         {
-          value: 'last24h',
-          label: 'Last 24 Hour'
+          value: "last24h",
+          label: "Last 24 Hour",
         },
         {
-          value: 'last48h',
-          label: 'Last 48 Hour'
+          value: "last48h",
+          label: "Last 48 Hour",
         },
         {
-          value: 'last7d',
-          label: 'Last 7 Day'
+          value: "last7d",
+          label: "Last 7 Day",
         },
         {
-          value: 'last30d',
-          label: 'Last 30 Day'
-        }
+          value: "last30d",
+          label: "Last 30 Day",
+        },
       ],
-      value: 'last12h',
+      value: "last12h",
       dataChart: 0,
       rowPage: 10,
       width: 0,
       isLoading: false,
-      isLoadingPlacement: false
-    }
+      isLoadingPlacement: false,
+    };
   },
   computed: {
     ...mapState({
       sidebar: (state) => {
-        return state.user.sidebar
+        return state.user.sidebar;
       },
       editCampaign: (state) => {
-        return state.campaign.editCampaign
+        return state.campaign.editCampaign;
       },
       detailCampaign: (state) => {
-        return state.campaign.detailCampaign
+        return state.campaign.detailCampaign;
       },
       dataPerformance: (state) => {
-        return state.campaign.dataPerformance
+        return state.campaign.dataPerformance;
       },
       isLoading2: (state) => {
-        return state.placement.isLoading
+        return state.placement.isLoading;
       },
       dataPlacement: (state) => {
-        return state.placement.dataPlacement
+        return state.placement.dataPlacement;
       },
       totalPlacement: (state) => {
-        return state.placement.totalPlacement
+        return state.placement.totalPlacement;
       },
       totalPages: (state) => {
-        return state.placement.totalPages
+        return state.placement.totalPages;
       },
       detailCampaign_ads_name: (state) => {
-        return state.campaign.detailCampaign_ads_name
+        return state.campaign.detailCampaign_ads_name;
       },
       detailCampaign_type_name: (state) => {
-        return state.campaign.detailCampaign_type_name
+        return state.campaign.detailCampaign_type_name;
       },
       dataSummary: (state) => {
-        return state.campaign.dataSummary
-      }
-    })
+        return state.campaign.dataSummary;
+      },
+    }),
   },
-  created () {
-    this.isLoading = true
+  created() {
+    this.isLoading = true;
     // eslint-disable-next-line nuxt/no-globals-in-created
-    window.addEventListener('resize', this.handleResize)
-    this.handleResize()
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
   },
-  destroyed () {
+  destroyed() {
     // eslint-disable-next-line nuxt/no-globals-in-created
-    window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener("resize", this.handleResize);
   },
-  mounted () {
-    this.getAll()
+  mounted() {
+    this.getAll();
   },
   methods: {
-    closeCampaign () {
-      this.$store.commit('campaign/SET_EDIT_CAMPAIGN', false)
+    closeCampaign() {
+      this.$store.commit("campaign/SET_EDIT_CAMPAIGN", false);
     },
-    async copyScript () {
+    async copyScript() {
       try {
-        await navigator.clipboard.writeText(this.dataScript)
+        await navigator.clipboard.writeText(this.dataScript);
         this.$notifier.showMessage({
-          content: 'Script has been copied to your clipboard',
-          type: 'success'
-        })
+          content: "Script has been copied to your clipboard",
+          type: "success",
+        });
       } catch ($e) {
         this.$notifier.showMessage({
-          content: 'Cannot copy',
-          type: 'failed'
-        })
+          content: "Cannot copy",
+          type: "failed",
+        });
       }
     },
-    handleResize () {
-      this.width = window.innerWidth
-      this.isLoading = false
+    handleResize() {
+      this.width = window.innerWidth;
+      this.isLoading = false;
     },
-    changePage (ev) {
+    changePage(ev) {
       if (ev > 0) {
-        this.currentPage = ev
-        this.getPlacement()
+        this.currentPage = ev;
+        this.getPlacement();
       }
     },
-    changeRowPage (ev) {
-      this.rowPage = ev
-      this.getPlacement()
+    changeRowPage(ev) {
+      this.rowPage = ev;
+      this.getPlacement();
     },
-    openDeletePlacement (data) {
-      this.dataCampaign = data
-      this.dialogDelete = true
+    openDeletePlacement(data) {
+      this.dataCampaign = data;
+      this.dialogDelete = true;
     },
-    btnPlus () {
+    btnPlus() {
       if (this.countDuplicate < 10) {
-        this.countDuplicate++
+        this.countDuplicate++;
       }
     },
-    btnMinus () {
+    btnMinus() {
       if (this.countDuplicate > 1) {
-        this.countDuplicate--
+        this.countDuplicate--;
       }
     },
-    closeDialog () {
+    closeDialog() {
       this.dataCampaign = {
         name: null,
-        id: null
-      }
-      this.dialogDuplicate = false
-      this.dialogDelete = false
-      this.dialogScript = false
+        id: null,
+      };
+      this.dialogDuplicate = false;
+      this.dialogDelete = false;
+      this.dialogScript = false;
     },
-    openDuplicateDialog (data) {
-      this.dataCampaign = data
-      this.dialogDuplicate = true
+    openDuplicateDialog(data) {
+      this.dataCampaign = data;
+      this.dialogDuplicate = true;
     },
-    openScriptDialog (data) {
-      this.getScript(data.id)
+    openScriptDialog(data) {
+      this.getScript(data.id);
     },
-    getScript (id) {
-      this.isLoadingPlacement = true
+    getScript(id) {
+      this.isLoadingPlacement = true;
       const data = {
-        id
-      }
+        id,
+      };
       this.$store
-        .dispatch('placement/getScript', data)
+        .dispatch("placement/getScript", data)
         .then((res) => {
           if (
             res.data.status.code === 200 ||
@@ -971,165 +929,165 @@ export default {
             res.data.status.code === 202
           ) {
             if (res.data.data.length === 0) {
-              this.dataScript = ''
-              this.dialogScript = true
+              this.dataScript = "";
+              this.dialogScript = true;
             } else {
-              this.dataScript = res.data.data[0].script
-              this.dialogScript = true
+              this.dataScript = res.data.data[0].script;
+              this.dialogScript = true;
             }
           } else {
             this.$notifier.showMessage({
               content: res.data.data.message,
-              type: 'failed'
-            })
+              type: "failed",
+            });
           }
         })
         .catch(() => {
-          this.dialogScript = false
-        })
+          this.dialogScript = false;
+        });
     },
-    duplicatePlacement (id) {
+    duplicatePlacement(id) {
       const data = {
         id,
-        count: this.countDuplicate
-      }
+        count: this.countDuplicate,
+      };
       this.$notifier.showMessage({
-        content: 'Duplicate placement...',
-        type: 'loading'
-      })
+        content: "Duplicate placement...",
+        type: "loading",
+      });
       const x = setTimeout(
         () =>
           this.$store
-            .dispatch('placement/duplicate', data)
+            .dispatch("placement/duplicate", data)
             .then((res) => {
               if (
                 res.data.status.code === 200 ||
                 res.data.status.code === 201 ||
                 res.data.status.code === 202
               ) {
-                this.getAll()
-                this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
+                this.getAll();
+                this.$store.commit("campaign/SET_EDIT_CAMPAIGN", true);
                 this.$notifier.showMessage({
-                  content: 'Duplicate placement status success.',
-                  type: 'success'
-                })
+                  content: "Duplicate placement status success.",
+                  type: "success",
+                });
                 this.dataCampaign = {
                   name: null,
-                  id: null
-                }
-                this.dialogDuplicate = false
-                this.countDuplicate = 1
-                clearInterval(x)
+                  id: null,
+                };
+                this.dialogDuplicate = false;
+                this.countDuplicate = 1;
+                clearInterval(x);
               } else {
                 this.dataCampaign = {
                   name: null,
-                  id: null
-                }
-                this.dialogDuplicate = false
-                this.countDuplicate = 1
+                  id: null,
+                };
+                this.dialogDuplicate = false;
+                this.countDuplicate = 1;
                 this.$notifier.showMessage({
                   content:
-                    'Duplicate placement status failed. Error : ' +
+                    "Duplicate placement status failed. Error : " +
                     res.data.data.message,
-                  type: 'failed'
-                })
-                this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
-                const arr = []
+                  type: "failed",
+                });
+                this.showMessage = true;
+                const keys = Object.keys(res.data.data.errors[0]);
+                const arr = [];
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                clearInterval(x)
+                  arr.push(res.data.data.errors[0][key]);
+                });
+                this.messageError = arr.join(", ");
+                clearInterval(x);
               }
-              this.getAll()
+              this.getAll();
             })
             .catch(() => {}),
         1000
-      )
-      document.querySelector('body').style.overflow = ''
+      );
+      document.querySelector("body").style.overflow = "";
     },
-    deletePlacement (id) {
+    deletePlacement(id) {
       const data = {
-        id
-      }
+        id,
+      };
       this.$notifier.showMessage({
-        content: 'Delete placement...',
-        type: 'loading'
-      })
+        content: "Delete placement...",
+        type: "loading",
+      });
       const x = setTimeout(
         () =>
           this.$store
-            .dispatch('placement/delete', data)
+            .dispatch("placement/delete", data)
             .then((res) => {
               if (
                 res.data.status.code === 200 ||
                 res.data.status.code === 201 ||
                 res.data.status.code === 202
               ) {
-                this.dialogDelete = false
-                this.getAll()
-                this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
+                this.dialogDelete = false;
+                this.getAll();
+                this.$store.commit("campaign/SET_EDIT_CAMPAIGN", true);
                 this.$notifier.showMessage({
-                  content: 'Delete placement status success.',
-                  type: 'success'
-                })
-                clearInterval(x)
+                  content: "Delete placement status success.",
+                  type: "success",
+                });
+                clearInterval(x);
               } else {
-                this.dialogDelete = false
-                this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
-                const arr = []
+                this.dialogDelete = false;
+                this.showMessage = true;
+                const keys = Object.keys(res.data.data.errors[0]);
+                const arr = [];
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
+                  arr.push(res.data.data.errors[0][key]);
+                });
+                this.messageError = arr.join(", ");
                 this.$notifier.showMessage({
                   content:
-                    'Delete campaign status failed. Error : ' +
+                    "Delete campaign status failed. Error : " +
                     res.data.data.message,
-                  type: 'failed'
-                })
-                clearInterval(x)
+                  type: "failed",
+                });
+                clearInterval(x);
               }
-              this.getAll()
+              this.getAll();
             })
             .catch(() => {}),
         1000
-      )
-      document.querySelector('body').style.overflow = ''
+      );
+      document.querySelector("body").style.overflow = "";
     },
-    dialogAction (id) {
+    dialogAction(id) {
       if (this.showDialog !== id) {
-        this.showDialog = id
+        this.showDialog = id;
       } else {
-        this.showDialog = null
+        this.showDialog = null;
       }
     },
-    searchPlacement () {
-      this.currentPage = 1
-      this.showSearch = false
-      this.getPlacement()
+    searchPlacement() {
+      this.currentPage = 1;
+      this.showSearch = false;
+      this.getPlacement();
     },
-    changeActive () {
+    changeActive() {
       if (this.detailCampaign.isActive) {
-        this.isActive = false
+        this.isActive = false;
       } else {
-        this.isActive = true
+        this.isActive = true;
       }
       const data = {
         id: this.$route.params.index,
-        isActive: this.isActive
-      }
+        isActive: this.isActive,
+      };
 
       this.$notifier.showMessage({
-        content: 'Change status campaign...',
-        type: 'loading'
-      })
+        content: "Change status campaign...",
+        type: "loading",
+      });
       const x = setTimeout(
         () =>
           this.$store
-            .dispatch('campaign/changeStatus', data)
+            .dispatch("campaign/changeStatus", data)
             .then((res) => {
               if (
                 res.data.status.code === 200 ||
@@ -1138,116 +1096,120 @@ export default {
               ) {
                 if (!res.data.data.isActive) {
                   this.$notifier.showMessage({
-                    content: 'Campaign status Enabled.',
-                    type: 'success'
-                  })
+                    content: "Campaign status Enabled.",
+                    type: "success",
+                  });
                 } else {
                   this.$notifier.showMessage({
-                    content: 'Campaign status Disable.',
-                    type: 'success'
-                  })
+                    content: "Campaign status Disable.",
+                    type: "success",
+                  });
                 }
-                clearInterval(x)
+                clearInterval(x);
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Change campaign status failed. Error : ' +
+                    "Change campaign status failed. Error : " +
                     res.data.data.message,
-                  type: 'failed'
-                })
-                this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
-                const arr = []
+                  type: "failed",
+                });
+                this.showMessage = true;
+                const keys = Object.keys(res.data.data.errors[0]);
+                const arr = [];
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                clearInterval(x)
+                  arr.push(res.data.data.errors[0][key]);
+                });
+                this.messageError = arr.join(", ");
+                clearInterval(x);
               }
-              this.getAll()
+              this.getAll();
             })
             .catch(() => {}),
         1000
-      )
+      );
     },
-    getAll () {
-      this.getDetail()
-      this.getPerformance()
-      this.getPlacement()
-      this.getSummary()
+    getAll() {
+      this.getDetail();
+      this.getPerformance();
+      this.getPlacement();
+      this.getSummary();
     },
-    filterSelect () {
-      this.getSummary()
-      this.getPerformance()
+    filterSelect() {
+      this.getSummary();
+      this.getPerformance();
     },
-    getDetail () {
-      const data = {
-        campaignTypeId: this.$route.params.index
-      }
-      this.$store
-        .dispatch('campaign/getDetail', data)
-        .then(() => {})
-        .catch(() => {})
-    },
-    getPerformance () {
+    getDetail() {
       const data = {
         campaignTypeId: this.$route.params.index,
-        range: this.value
-      }
+      };
       this.$store
-        .dispatch('campaign/getPerformance', data)
+        .dispatch("campaign/getDetail", data)
+        .then(() => {})
+        .catch(() => {});
+    },
+    getPerformance() {
+      const data = {
+        campaignTypeId: this.$route.params.index,
+        range: this.value,
+      };
+      this.$store
+        .dispatch("campaign/getPerformance", data)
         .then((res) => {
-          this.data1 = []
-          this.data2 = []
-          this.data3 = []
-          this.data4 = []
-          const data = res.data.data
-          this.dataChart = data.length
+          this.data1 = [];
+          this.data2 = [];
+          this.data3 = [];
+          this.data4 = [];
+          const data = res.data.data;
+          this.dataChart = data.length;
 
-          if (this.value === 'last12h') {
+          if (this.value === "last12h") {
             for (let i = 0; i < data.length; i++) {
-              this.data1.push(this.$moment(data[i].ts).format('DD MMM - hh:mm'))
+              this.data1.push(
+                this.$moment(data[i].ts).format("DD MMM - hh:mm")
+              );
             }
             this.chartOptions2 = {
               ...this.chartOptions2,
               xaxis: {
-                categories: this.data1
-              }
-            }
+                categories: this.data1,
+              },
+            };
           }
-          if (this.value === 'last24h') {
+          if (this.value === "last24h") {
             for (let i = 0; i < data.length; i++) {
-              this.data1.push(this.$moment(data[i].ts).format('DD MMM - hh:mm'))
+              this.data1.push(
+                this.$moment(data[i].ts).format("DD MMM - hh:mm")
+              );
             }
             this.chartOptions2 = {
               ...this.chartOptions2,
               xaxis: {
-                categories: this.data1
-              }
-            }
+                categories: this.data1,
+              },
+            };
           }
-          if (this.value !== 'last12h' && this.value !== 'last24h') {
+          if (this.value !== "last12h" && this.value !== "last24h") {
             for (let i = 0; i < data.length; i++) {
-              this.data1.push(this.$moment(data[i].ts).format('DD MMM'))
+              this.data1.push(this.$moment(data[i].ts).format("DD MMM"));
             }
             this.chartOptions2 = {
               ...this.chartOptions2,
               xaxis: {
-                categories: this.data1
-              }
-            }
+                categories: this.data1,
+              },
+            };
           }
 
           this.series = [
             {
-              name: 'impression',
-              type: 'column',
-              data: []
+              name: "impression",
+              type: "column",
+              data: [],
             },
             {
-              name: 'click',
-              type: 'column',
-              data: []
+              name: "click",
+              type: "column",
+              data: [],
             },
             // {
             //   name: 'complete',
@@ -1255,100 +1217,100 @@ export default {
             //   data: []
             // },
             {
-              name: 'ctr',
-              type: 'line',
-              data: []
-            }
-          ]
+              name: "ctr",
+              type: "line",
+              data: [],
+            },
+          ];
           for (let i = 0; i < data.length; i++) {
-            this.series[0].data.push(parseInt(data[i].impression).toFixed(2))
-            this.series[1].data.push(parseInt(data[i].click).toFixed(2))
+            this.series[0].data.push(parseInt(data[i].impression).toFixed(2));
+            this.series[1].data.push(parseInt(data[i].click).toFixed(2));
             // this.series[2].data.push(parseInt(data[i].complete).toFixed(2))
-            this.series[2].data.push(parseInt(data[i].ctr).toFixed(2))
+            this.series[2].data.push(parseInt(data[i].ctr).toFixed(2));
           }
         })
-        .catch(() => {})
+        .catch(() => {});
     },
-    getPlacement () {
-      this.isLoadingPlacement = true
+    getPlacement() {
+      this.isLoadingPlacement = true;
       const data = {
         status: this.activeStatus,
         page: this.currentPage,
         size: this.rowPage,
         id: this.$route.params.index,
-        name: this.dataSearch
-      }
+        name: this.dataSearch,
+      };
       this.$store
-        .dispatch('placement/getList', data)
+        .dispatch("placement/getList", data)
         .then(() => {
-          this.isLoadingPlacement = false
+          this.isLoadingPlacement = false;
         })
         .catch(() => {
-          this.isLoadingPlacement = false
-        })
+          this.isLoadingPlacement = false;
+        });
     },
-    getSummary () {
+    getSummary() {
       const data = {
         campaignTypeId: this.$route.params.index,
-        range: this.value
-      }
+        range: this.value,
+      };
       this.$store
-        .dispatch('campaign/getSummary', data)
+        .dispatch("campaign/getSummary", data)
         .then(() => {})
-        .catch(() => {})
+        .catch(() => {});
     },
 
-    statusActive (x) {
-      this.activeStatus = x
-      this.currentPage = 1
-      this.getPlacement()
+    statusActive(x) {
+      this.activeStatus = x;
+      this.currentPage = 1;
+      this.getPlacement();
     },
-    updateAxis (data) {
+    updateAxis(data) {
       this.chartOptions2 = {
         ...this.chartOptions2,
         xaxis: {
-          categories: data
-        }
-      }
+          categories: data,
+        },
+      };
     },
-    newPlacement () {
+    newPlacement() {
       this.$router.push({
-        path: `/campaign/detail/${this.$route.params.index}/placement/create`
-      })
+        path: `/campaign/detail/${this.$route.params.index}/placement/create`,
+      });
     },
-    back () {
-      this.$router.push({ path: '/campaign' })
+    back() {
+      this.$router.push({ path: "/campaign" });
     },
-    toEdit () {
+    toEdit() {
       const route = this.$router.resolve({
-        path: `/campaign/detail/edit/${this.$route.params.index}`
-      })
-      window.open(route.href)
+        path: `/campaign/detail/edit/${this.$route.params.index}`,
+      });
+      window.open(route.href);
     },
-    changeStatus () {
-      this.status = !this.status
+    changeStatus() {
+      this.status = !this.status;
     },
-    toDetail (x) {
+    toDetail(x) {
       const route = this.$router.resolve({
-        path: `/campaign/detail/${this.$route.params.index}/placement/${x}`
-      })
-      window.open(route.href)
+        path: `/campaign/detail/${this.$route.params.index}/placement/${x}`,
+      });
+      window.open(route.href);
     },
-    toEdit2 (x) {
+    toEdit2(x) {
       const route = this.$router.resolve({
-        path: `/campaign/detail/${this.$route.params.index}/placement/edit/${x}`
-      })
-      window.open(route.href)
-    }
-  }
-}
+        path: `/campaign/detail/${this.$route.params.index}/placement/edit/${x}`,
+      });
+      window.open(route.href);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .card-dialog {
   .content-popup {
     .title-popup2 {
-      font-family: 'Cabin';
+      font-family: "Cabin";
       font-style: normal;
       font-weight: 600;
       font-size: 20px;
@@ -1372,7 +1334,7 @@ export default {
         border: 1px solid #2b3947;
         border-radius: 5px;
         padding: 10px;
-        font-family: 'Roboto Mono';
+        font-family: "Roboto Mono";
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
@@ -1477,7 +1439,7 @@ export default {
   }
   .title-dialog {
     color: #5c6b7a;
-    font-family: 'Cabin';
+    font-family: "Cabin";
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
@@ -1485,7 +1447,7 @@ export default {
   }
   .data-dialog {
     color: #5c6b7a;
-    font-family: 'Cabin';
+    font-family: "Cabin";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -1499,7 +1461,7 @@ export default {
     border-radius: 5px;
     height: 40px;
     cursor: pointer;
-    font-family: 'Cabin';
+    font-family: "Cabin";
     font-weight: 700;
     font-size: 14px;
     color: #ffffff;
@@ -1534,7 +1496,7 @@ export default {
 :root {
   --vs-line-height: 1.75;
 }
->>> {
+::v-deep {
   --vs-line-height: 1.75;
 }
 
@@ -1550,7 +1512,7 @@ export default {
 }
 .dropdown-action {
   width: 180px;
-  font-family: 'Cabin';
+  font-family: "Cabin";
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
@@ -1577,7 +1539,7 @@ export default {
       padding-right: 15px;
       cursor: pointer;
       .name-btn {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 700;
         font-size: 14px;
         padding-bottom: 1px;
@@ -1607,7 +1569,7 @@ export default {
         padding-right: 15px;
         cursor: pointer;
         .name-btn {
-          font-family: 'Cabin';
+          font-family: "Cabin";
           font-weight: 700;
           font-size: 14px;
           padding-bottom: 1px;
@@ -1620,7 +1582,7 @@ export default {
         border: 1px solid rgb(243 244 246);
       }
       .label-date {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
@@ -1633,7 +1595,7 @@ export default {
         background: #1b63d4;
         border: 1px solid #0056de;
         border-radius: 5px;
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-style: normal;
         font-weight: 700;
         font-size: 14px;
@@ -1643,7 +1605,7 @@ export default {
     }
     .title-campaign {
       margin-top: 5px;
-      font-family: 'Cabin';
+      font-family: "Cabin";
       font-weight: 600;
       font-size: 28px;
       color: #5c6b7a;
@@ -1653,13 +1615,13 @@ export default {
     .header-card {
       margin-bottom: 20px;
       .title-1 {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 600;
         font-size: 18px;
         color: #454545;
       }
       .label-date {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 400;
         font-size: 16px;
         color: #454545;
@@ -1692,14 +1654,14 @@ export default {
         .chart-empty {
           min-width: 55%;
           .title-empty {
-            font-family: 'Cabin';
+            font-family: "Cabin";
             font-weight: 600;
             font-size: 16px;
             color: #454545;
             margin-bottom: 5px;
           }
           .subtitle-empty {
-            font-family: 'Cabin';
+            font-family: "Cabin";
             font-weight: 400;
             font-size: 16px;
             margin-bottom: 20px;
@@ -1716,7 +1678,7 @@ export default {
             padding-right: 15px;
             cursor: pointer;
             .name-btn {
-              font-family: 'Cabin';
+              font-family: "Cabin";
               font-weight: 700;
               font-size: 14px;
               padding-bottom: 1px;
@@ -1745,14 +1707,14 @@ export default {
       border-bottom: 1px solid #e2e2e2;
       padding-bottom: 15px;
       .title {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 600;
         font-size: 20px;
         color: #333333;
         margin-right: 10px;
       }
       .label-date {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 400;
         font-size: 16px;
         color: #454545;
@@ -1782,7 +1744,7 @@ export default {
         padding-right: 15px;
         cursor: pointer;
         .name-btn {
-          font-family: 'Cabin';
+          font-family: "Cabin";
           font-weight: 700;
           font-size: 14px;
           padding-bottom: 1px;
@@ -1802,13 +1764,13 @@ export default {
       .list-campaign {
         margin-bottom: 20px;
         .title-1 {
-          font-family: 'Cabin';
+          font-family: "Cabin";
           font-weight: 400;
           font-size: 16px;
           color: #454545;
         }
         .title-2 {
-          font-family: 'Cabin';
+          font-family: "Cabin";
           font-weight: 400;
           font-size: 16px;
           color: #9a9a9a;
@@ -1830,19 +1792,19 @@ export default {
     border-radius: 10px;
     padding: 20px;
     .title-summary {
-      font-family: 'Cabin';
+      font-family: "Cabin";
       font-weight: 400;
       font-size: 16px;
       color: #757575;
     }
     .subtitle-summary {
-      font-family: 'Cabin';
+      font-family: "Cabin";
       font-weight: 400;
       font-size: 12px;
       color: #757575;
     }
     .value-summary {
-      font-family: 'Cabin';
+      font-family: "Cabin";
       font-weight: 600;
       font-size: 32px;
       color: #454545;
@@ -1856,13 +1818,13 @@ export default {
     .header-card {
       margin-bottom: 20px;
       .title-1 {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 600;
         font-size: 18px;
         color: #454545;
       }
       .label-date {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 400;
         font-size: 16px;
         color: #454545;
@@ -1878,7 +1840,7 @@ export default {
         padding-right: 15px;
         cursor: pointer;
         .name-btn {
-          font-family: 'Cabin';
+          font-family: "Cabin";
           font-weight: 700;
           font-size: 14px;
           padding-bottom: 1px;
@@ -1905,7 +1867,7 @@ export default {
           margin-left: 10px;
           cursor: pointer;
           .name-status {
-            font-family: 'Cabin';
+            font-family: "Cabin";
             color: #454545;
             font-weight: 400;
             font-size: 16px;
@@ -1946,7 +1908,7 @@ export default {
           -o-transition: width 0.3s ease-out;
           transition: width 0.3s ease-out;
           .title-1 {
-            font-family: 'Cabin';
+            font-family: "Cabin";
             color: #9a9a9a;
             font-size: 14px;
             width: 180px;
@@ -1970,14 +1932,14 @@ export default {
       border-radius: 10px !important;
       .no-data {
         .title-1 {
-          font-family: 'Cabin';
+          font-family: "Cabin";
           font-weight: 600;
           font-size: 20px;
           color: #454545;
           line-height: 24px;
         }
         .subtitle-1 {
-          font-family: 'Cabin';
+          font-family: "Cabin";
           font-weight: 400;
           font-size: 16px;
           color: #757575;
@@ -1999,7 +1961,7 @@ export default {
           line-height: normal !important;
           cursor: pointer;
           .name-btn {
-            font-family: 'Cabin';
+            font-family: "Cabin";
             font-weight: 700;
             font-size: 14px;
             padding-bottom: 1px;
@@ -2012,7 +1974,7 @@ export default {
         }
       }
       .title-1 {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 400;
         font-size: 16px;
         color: #5c6b7a;
@@ -2028,13 +1990,13 @@ export default {
         color: #1b63d4;
       }
       .title-2 {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         font-weight: 400;
         font-size: 14px;
         color: #9a9a9a;
       }
       .status-card {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         color: #7bbc49;
         font-weight: 400;
         font-size: 14px;
@@ -2048,7 +2010,7 @@ export default {
         // width: 120px;
       }
       .btn-icon {
-        font-family: 'Cabin';
+        font-family: "Cabin";
         height: 40px;
         width: 100px;
         background: #ffffff;
@@ -2094,7 +2056,7 @@ export default {
         padding-right: 15px;
         cursor: pointer;
         .name-btn {
-          font-family: 'Cabin';
+          font-family: "Cabin";
           font-weight: 700;
           font-size: 14px;
           padding-bottom: 1px;
