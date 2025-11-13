@@ -1,25 +1,25 @@
 const initialState = () => ({
-  dataAudience: []
+  dataAudience: [],
 })
 
-export const state = initialState()
+export const state = initialState
 
 export const getters = {
-  dataAudience: state => state.dataAudience
+  dataAudience: (state) => state.dataAudience,
 }
 
 export const mutations = {
-  SET_DATA (state, item) {
+  SET_DATA(state, item) {
     if (item !== null) {
       state.dataAudience = item
     } else {
       state.dataAudience = []
     }
-  }
+  },
 }
 
 export const actions = {
-  async getAudience ({ commit }) {
+  async getAudience({ commit }) {
     try {
       const response = await this.$repositories.audience.getList()
       commit('SET_DATA', response.data.data)
@@ -28,9 +28,9 @@ export const actions = {
       commit('SET_DATA', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
-  }
+  },
 }

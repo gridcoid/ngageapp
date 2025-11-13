@@ -19,7 +19,7 @@ export const state = () => ({
     orgName: '',
     rolesId: '',
     roles: '',
-    username: ''
+    username: '',
   },
 
   detailUserForm: {
@@ -31,7 +31,7 @@ export const state = () => ({
     orgName: '',
     rolesId: '',
     roles: '',
-    username: ''
+    username: '',
   },
 
   userId: null,
@@ -42,22 +42,22 @@ export const state = () => ({
   createOrganization: false,
   dropDownOrg: {},
   rolesDropdown: {},
-  userChangePassword: false
+  userChangePassword: false,
 })
 
 export const getters = {
-  isLoading: state => state.isLoading,
-  activeItem: state => state.activeItem,
-  detailUser: state => state.detailUser,
-  dataAllUser: state => state.dataAllUser,
-  totalAllUser: state => state.totalAllUser,
-  totalPages: state => state.totalPages,
-  createUser: state => state.createUser,
-  createOrganization: state => state.createOrganization
+  isLoading: (state) => state.isLoading,
+  activeItem: (state) => state.activeItem,
+  detailUser: (state) => state.detailUser,
+  dataAllUser: (state) => state.dataAllUser,
+  totalAllUser: (state) => state.totalAllUser,
+  totalPages: (state) => state.totalPages,
+  createUser: (state) => state.createUser,
+  createOrganization: (state) => state.createOrganization,
 }
 
 export const mutations = {
-  SET_DATA_ALL (state, item) {
+  SET_DATA_ALL(state, item) {
     if (item !== null) {
       item.rows.forEach((key, index) => {
         if (key.userRoles.length > 0) {
@@ -65,11 +65,11 @@ export const mutations = {
         } else {
           key.userRoles = {
             org: {
-              name: '-'
+              name: '-',
             },
             role: {
-              name: '-'
-            }
+              name: '-',
+            },
           }
         }
       })
@@ -82,7 +82,7 @@ export const mutations = {
       state.totalPages = 0
     }
   },
-  SET_DATA_DETAIL (state, item) {
+  SET_DATA_DETAIL(state, item) {
     if (item !== null) {
       state.detailUser.firstName = item.firstName
       state.detailUser.lastName = item.lastName
@@ -107,7 +107,7 @@ export const mutations = {
     }
   },
 
-  SET_DATA_DETAIL_POPUP (state, item) {
+  SET_DATA_DETAIL_POPUP(state, item) {
     if (item !== null) {
       state.detailUserForm.firstName = item.firstName
       state.detailUserForm.lastName = item.lastName
@@ -140,22 +140,22 @@ export const mutations = {
   SET_LOADING: (state, isLoading) => {
     state.isLoading = isLoading
   },
-  SET_SIDEBAR (state) {
+  SET_SIDEBAR(state) {
     state.sidebar = !state.sidebar
   },
-  SET_POPUP (state) {
+  SET_POPUP(state) {
     state.popup = !state.popup
   },
-  SET_ACTIVE (state, payload) {
+  SET_ACTIVE(state, payload) {
     state.activeItem = payload
   },
-  SET_ORG (state, payload) {
+  SET_ORG(state, payload) {
     state.orgId = payload
   },
-  SET_ORG_NAME (state, payload) {
+  SET_ORG_NAME(state, payload) {
     state.orgName = payload
   },
-  SET_DATA_ORG (state, item) {
+  SET_DATA_ORG(state, item) {
     if (item !== null) {
       state.dataOrg = item
     } else {
@@ -163,14 +163,14 @@ export const mutations = {
     }
   },
 
-  SET_DROPDOWN_ORG (state, payload) {
+  SET_DROPDOWN_ORG(state, payload) {
     if (payload !== null) {
       state.dropDownOrg = payload
     } else {
       state.dropDownOrg = []
     }
   },
-  SET_USER (state, payload) {
+  SET_USER(state, payload) {
     if (payload !== null) {
       state.userId = payload.userId
       state.roleId = payload.roles[0].roleId
@@ -192,21 +192,21 @@ export const mutations = {
   },
   SET_USER_PASSWORD_CHANGE_DIALOG: (state, payload) => {
     state.userChangePassword = payload
-  }
+  },
 }
 
 export const actions = {
-  setOrganization ({ commit }, payload) {
+  setOrganization({ commit }, payload) {
     commit('SET_ORG', payload.id)
     commit('SET_ORG_NAME', payload.name)
   },
-  async login ({ commit }, payload) {
+  async login({ commit }, payload) {
     try {
       const response = await this.$auth.loginWith('local', {
         data: {
           email: payload.email,
-          password: payload.password
-        }
+          password: payload.password,
+        },
       })
       if (response.status === 200) {
         commit('SET_ORG', response.data.data.defaultOrgId)
@@ -219,7 +219,7 @@ export const actions = {
       return e.response
     }
   },
-  async getOrganization ({ commit }, payload) {
+  async getOrganization({ commit }, payload) {
     try {
       const response = await this.$repositories.user.getOrg(payload)
       commit('SET_DATA_ORG', response.data.data)
@@ -228,12 +228,12 @@ export const actions = {
       commit('SET_DATA_ORG', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getOrgUser ({ commit }, payload) {
+  async getOrgUser({ commit }, payload) {
     try {
       const response = await this.$repositories.user.getOrg(payload)
       commit('SET_DROPDOWN_ORG', response.data.data)
@@ -242,12 +242,12 @@ export const actions = {
       commit('SET_DROPDOWN_ORG', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async changePassword ({ commit }, payload) {
+  async changePassword({ commit }, payload) {
     try {
       payload.userId = 0
       const response = await this.$repositories.user.changePassword(payload)
@@ -257,12 +257,12 @@ export const actions = {
       // commit('SET_DATA_CREATIVE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getDetail ({ commit }, payload) {
+  async getDetail({ commit }, payload) {
     try {
       const response = await this.$repositories.user.getById(payload)
       if (payload.pageType) {
@@ -279,12 +279,12 @@ export const actions = {
       }
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getAll ({ commit }, payload) {
+  async getAll({ commit }, payload) {
     try {
       const response = await this.$repositories.user.getAll(payload)
       commit('SET_DATA_ALL', response.data.data)
@@ -293,12 +293,12 @@ export const actions = {
       commit('SET_DATA_ALL', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getRoles ({ commit }, payload) {
+  async getRoles({ commit }, payload) {
     try {
       const response = await this.$repositories.user.getRoles()
       return response.data.data
@@ -306,91 +306,91 @@ export const actions = {
       return e.response
     }
   },
-  async updateVerification ({ commit }, payload) {
+  async updateVerification({ commit }, payload) {
     try {
       const response = await this.$repositories.user.updateVerification(payload)
       return response
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async deleteUser ({ commit }, payload) {
+  async deleteUser({ commit }, payload) {
     try {
       const response = await this.$repositories.user.delete(payload)
       return response
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async createOrganization ({ commit }, payload) {
+  async createOrganization({ commit }, payload) {
     try {
       const response = await this.$repositories.user.createOrganization(payload)
       return response
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async createUser ({ commit }, payload) {
+  async createUser({ commit }, payload) {
     try {
       const response = await this.$repositories.user.createUsers(payload)
       return response
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async assignOrg ({ commit }, payload) {
+  async assignOrg({ commit }, payload) {
     try {
       const response = await this.$repositories.user.assignOrg(payload)
       return response
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async updateUser ({ commit }, payload) {
+  async updateUser({ commit }, payload) {
     try {
       const response = await this.$repositories.user.update(payload)
       return response
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async updateRoles ({ commit }, payload) {
+  async updateRoles({ commit }, payload) {
     try {
       const response = await this.$repositories.user.updateRoles(payload)
       return response
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async userChangePassword ({ commit }, payload) {
+  async userChangePassword({ commit }, payload) {
     console.log(payload)
     try {
       const response = await this.$repositories.user.changePassword(payload)
@@ -398,9 +398,9 @@ export const actions = {
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
-  }
+  },
 }

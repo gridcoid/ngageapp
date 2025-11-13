@@ -18,26 +18,23 @@ const initialState = () => ({
   dataPreviewDevices: null,
   dataScrapeText: null,
   dataScrapeImage: null,
-  dataScraping: []
+  dataScraping: [],
 })
 
-export const state = initialState()
+export const state = initialState
 
 export const getters = {
-  isLoading: state => state.isLoading,
-  dataTemplate: state => state.dataTemplate,
-  dataDetailTemplate: state => state.dataDetailTemplate,
-  dataImageArrayRaw2: state => state.dataImageArrayRaw2,
-  dataPreviewWebsites: state => state.dataPreviewWebsites,
-  dataPreviewDevices: state => state.dataPreviewDevices
+  isLoading: (state) => state.isLoading,
+  dataTemplate: (state) => state.dataTemplate,
+  dataDetailTemplate: (state) => state.dataDetailTemplate,
+  dataImageArrayRaw2: (state) => state.dataImageArrayRaw2,
+  dataPreviewWebsites: (state) => state.dataPreviewWebsites,
+  dataPreviewDevices: (state) => state.dataPreviewDevices,
 }
 
 export const mutations = {
-  RESET (state) {
-    const newState = initialState()
-    Object.keys(newState).forEach((key) => {
-      state[key] = newState[key]
-    })
+  RESET(state) {
+    Object.assign(state, initialState())
   },
   SET_LOADING: (state, isLoading) => {
     state.isLoading = isLoading
@@ -46,13 +43,13 @@ export const mutations = {
     state.selectedResolution = item
   },
   SET_CHANGE_OPTION: (state, payload) => {
-    const index = state.dataForm.findIndex(x => x.title === payload.titleForm)
+    const index = state.dataForm.findIndex((x) => x.title === payload.titleForm)
     state.dataForm[index].default.forEach((key, index) => {
       key.status = false
     })
     state.dataForm[index].default[payload.index].status = true
   },
-  SET_DATA_TEMPLATE (state, item) {
+  SET_DATA_TEMPLATE(state, item) {
     if (item !== null) {
       state.dataTemplate = item
     } else {
@@ -61,14 +58,14 @@ export const mutations = {
       state.totalPages = 0
     }
   },
-  SET_DATA_RESOLUTION_TEMPLATE (state, item) {
+  SET_DATA_RESOLUTION_TEMPLATE(state, item) {
     if (item !== null) {
       state.dataResolutionTemplate = item
     } else {
       state.dataResolutionTemplate = []
     }
   },
-  SET_DATA_DETAIL_TEMPLATE (state, item) {
+  SET_DATA_DETAIL_TEMPLATE(state, item) {
     if (item !== null) {
       state.dataForm = []
       state.keyName = []
@@ -82,7 +79,15 @@ export const mutations = {
         const dataForm = item.configSchema.properties
         const keys = Object.keys(dataForm)
         console.log('keys start : ', keys)
-        const sortedKeys = ['titleTxt', 'bodyTxt', 'timRedaksi', 'sound', 'customSound', 'logo', 'pics']
+        const sortedKeys = [
+          'titleTxt',
+          'bodyTxt',
+          'timRedaksi',
+          'sound',
+          'customSound',
+          'logo',
+          'pics',
+        ]
         if (keys.includes('sound')) {
           keys.sort((a, b) => {
             const indexA = sortedKeys.indexOf(a)
@@ -110,7 +115,7 @@ export const mutations = {
           keyName.push({
             key,
             type: dataForm[key].type,
-            title: dataForm[key].title
+            title: dataForm[key].title,
           })
         })
         if (format === 'rmb') {
@@ -121,19 +126,19 @@ export const mutations = {
             height: item.configSchema.backupImg.height,
             title: item.configSchema.backupImg.title,
             type: 'Image',
-            width: item.configSchema.backupImg.width
+            width: item.configSchema.backupImg.width,
           })
           if (item.configSchema.youtubeId !== undefined) {
             data.push({
               default: item.configSchema.youtubeId.default,
               description: item.configSchema.youtubeId.description,
-              title: 'youtubeId'
+              title: 'youtubeId',
             })
           }
           keyName.push({
             key: 'backupImg',
             type: 'Image',
-            title: 'Backup Image'
+            title: 'Backup Image',
           })
         }
         if (format !== 'video') {
@@ -150,12 +155,12 @@ export const mutations = {
         state.keyName = keyName
         state.keyFilter = keyName.filter(
           (value, index, self) =>
-            index === self.findIndex(t => t.type === value.type)
+            index === self.findIndex((t) => t.type === value.type)
         )
         state.keyFilter.unshift({
           key: 'All',
           type: 'All',
-          title: 'All'
+          title: 'All',
         })
         state.dataForm = data
       }
@@ -166,10 +171,10 @@ export const mutations = {
       state.dataForm = ''
     }
   },
-  SET_DATA_FORM_DUMMY (state, payload) {
+  SET_DATA_FORM_DUMMY(state, payload) {
     state.dataForm = payload
   },
-  SET_DATA_FORM (state, payload) {
+  SET_DATA_FORM(state, payload) {
     if (payload.type === 'Image') {
       if (typeof payload.index !== 'undefined') {
         state.dataForm[payload.index].default = payload.src
@@ -181,7 +186,7 @@ export const mutations = {
       }
     }
     if (payload.type === 'Color') {
-      const data = state.dataForm.find(item => item.title === payload.title)
+      const data = state.dataForm.find((item) => item.title === payload.title)
       data.default =
         'background-color:' +
         payload.color +
@@ -190,15 +195,15 @@ export const mutations = {
         '%;'
     }
     if (payload.type === 'Text') {
-      const data = state.dataForm.find(item => item.title === payload.title)
+      const data = state.dataForm.find((item) => item.title === payload.title)
       data.default = payload.src
     }
     if (payload.title === 'youtubeId') {
-      const data = state.dataForm.find(item => item.title === payload.title)
+      const data = state.dataForm.find((item) => item.title === payload.title)
       data.default = payload.src
     }
     if (payload.type === 'Button') {
-      const data = state.dataForm.find(item => item.title === payload.title)
+      const data = state.dataForm.find((item) => item.title === payload.title)
       data.default.bg_color =
         'background-color:' +
         payload.color2 +
@@ -209,40 +214,40 @@ export const mutations = {
       data.default.link = payload.link
     }
     if (payload.type === 'TextOnly') {
-      const data = state.dataForm.find(item => item.title === payload.title)
+      const data = state.dataForm.find((item) => item.title === payload.title)
       data.default = payload.src
     }
     if (payload.type === 'Audio') {
-      const data = state.dataForm.find(item => item.title === payload.title)
+      const data = state.dataForm.find((item) => item.title === payload.title)
       data.default = payload.default
     }
     if (payload.type === 'Custom_audio') {
-      const data = state.dataForm.find(item => item.title === payload.title)
+      const data = state.dataForm.find((item) => item.title === payload.title)
       data.default = payload.src
     }
     if (payload.type === 'Text_color') {
-      const data = state.dataForm.find(item => item.title === payload.title)
+      const data = state.dataForm.find((item) => item.title === payload.title)
       data.default.color = payload.src.color
       data.default.text = payload.src.text
     }
     if (payload.type === 'Color_pallete') {
-      const data = state.dataForm.find(item => item.title === payload.title)
+      const data = state.dataForm.find((item) => item.title === payload.title)
       data.default = payload.src
     }
     if (payload.type === 'Json') {
-      const data = state.dataForm.find(item => item.title === payload.title)
+      const data = state.dataForm.find((item) => item.title === payload.title)
       data.default = payload.src
     }
   },
-  SET_DATA_IMAGE (state, payload) {
-    const index = state.dataImageRaw.findIndex(x => x.title === payload.title)
+  SET_DATA_IMAGE(state, payload) {
+    const index = state.dataImageRaw.findIndex((x) => x.title === payload.title)
     if (index === -1) {
       state.dataImageRaw.push(payload)
     } else {
       state.dataImageRaw[index].default = payload.default
     }
   },
-  SET_CHANGE_IMAGE (state, payload) {
+  SET_CHANGE_IMAGE(state, payload) {
     const finalData = []
     state.dataImageRaw.forEach((item, index) => {
       finalData.push(item)
@@ -253,7 +258,7 @@ export const mutations = {
     state.dataImageRaw = finalData
     console.log('state.dataImageRaw 2: ', state.dataImageRaw)
   },
-  SET_DATA_IMAGEARRAY (state, payload) {
+  SET_DATA_IMAGEARRAY(state, payload) {
     state.dataImageArrayRaw = []
 
     if (typeof payload.default === 'object') {
@@ -264,11 +269,11 @@ export const mutations = {
     for (let i = 0; i < imageData.length; i++) {
       state.dataImageArrayRaw.push({
         file: null,
-        img: imageData[i]
+        img: imageData[i],
       })
     }
   },
-  SET_DATA_IMAGEARRAY2 (state, payload) {
+  SET_DATA_IMAGEARRAY2(state, payload) {
     state.dataImageArrayRaw2 = []
 
     if (typeof payload.default === 'object') {
@@ -277,7 +282,7 @@ export const mutations = {
     const imageData = payload.default.split(',')
     state.dataImageArrayRaw2 = imageData
   },
-  SET_CHANGE_IMAGEARRAY (state, payload) {
+  SET_CHANGE_IMAGEARRAY(state, payload) {
     const finalData = []
     state.dataImageArrayRaw.forEach((item, index) => {
       finalData.push(item)
@@ -290,7 +295,7 @@ export const mutations = {
     // state.dataImageArrayRaw[payload.indexImage].img = URL.createObjectURL(payload.default.raw)
   },
 
-  SET_CHANGE_IMAGEARRAY_BULK (state, payload) {
+  SET_CHANGE_IMAGEARRAY_BULK(state, payload) {
     const finalData = []
     state.dataImageArrayRaw.forEach((item, index) => {
       finalData.push(item)
@@ -305,7 +310,7 @@ export const mutations = {
     state.dataImageArrayRaw = finalData
   },
 
-  SET_CHANGE_IMAGEARRAY2 (state, payload) {
+  SET_CHANGE_IMAGEARRAY2(state, payload) {
     const finalData = []
     state.dataImageArrayRaw2.forEach((item, index) => {
       finalData.push(item)
@@ -316,7 +321,7 @@ export const mutations = {
     // state.dataImageArrayRaw2[payload.indexImage] = payload.default
   },
 
-  SET_CHANGE_IMAGEARRAY2_BULK (state, payload) {
+  SET_CHANGE_IMAGEARRAY2_BULK(state, payload) {
     const finalData = []
     state.dataImageArrayRaw2.forEach((item, index) => {
       finalData.push(item)
@@ -328,7 +333,7 @@ export const mutations = {
     state.dataImageArrayRaw2 = finalData
   },
 
-  SET_REMOVE_IMAGEARRAY (state, payload) {
+  SET_REMOVE_IMAGEARRAY(state, payload) {
     const finalData = []
     state.dataImageArrayRaw.forEach((item, index) => {
       finalData.push(item)
@@ -340,7 +345,7 @@ export const mutations = {
     // state.dataImageArrayRaw[payload.index].file = null
     // state.dataImageArrayRaw[payload.index].img = payload.src
   },
-  SET_REMOVE_IMAGEARRAY2 (state, payload) {
+  SET_REMOVE_IMAGEARRAY2(state, payload) {
     const finalData = []
     state.dataImageArrayRaw2.forEach((item, index) => {
       finalData.push(item)
@@ -350,16 +355,16 @@ export const mutations = {
     state.dataImageArrayRaw2 = finalData
     // state.dataImageArrayRaw2[payload.index] = payload.src
   },
-  SET_DRAG_IMAGEARRAY (state, payload) {
+  SET_DRAG_IMAGEARRAY(state, payload) {
     state.dataImageArrayRaw = payload
   },
-  SET_DRAG_IMAGEARRAY2 (state, payload) {
+  SET_DRAG_IMAGEARRAY2(state, payload) {
     state.dataImageArrayRaw2 = payload
   },
-  SET_CLEAR_IMAGE (state) {
+  SET_CLEAR_IMAGE(state) {
     state.dataImageArrayRaw = []
   },
-  SET_CLEAR (state) {
+  SET_CLEAR(state) {
     // state.dataForm = []
     state.dataImageRaw = []
     state.dataImageArrayRaw = []
@@ -368,21 +373,21 @@ export const mutations = {
     state.dataCurrentResolution = []
     state.keyName = []
   },
-  SET_DATA_PREVIEW_WEBSITE (state, item) {
+  SET_DATA_PREVIEW_WEBSITE(state, item) {
     if (item !== null) {
       state.dataPreviewWebsites = item
     } else {
       state.dataPreviewWebsites = null
     }
   },
-  SET_DATA_PREVIEW_DEVICE (state, item) {
+  SET_DATA_PREVIEW_DEVICE(state, item) {
     if (item !== null) {
       state.dataPreviewDevices = item
     } else {
       state.dataPreviewDevices = null
     }
   },
-  SET_DATA_SCRAPE_TEXT (state, item) {
+  SET_DATA_SCRAPE_TEXT(state, item) {
     if (item !== null) {
       // const keys = Object.keys(item)
       // keys.forEach((key, index) => {
@@ -394,7 +399,7 @@ export const mutations = {
       state.dataScrapeText = null
     }
   },
-  SET_DATA_SCRAPE_IMAGE (state, item) {
+  SET_DATA_SCRAPE_IMAGE(state, item) {
     if (item !== null) {
       // const keys = Object.keys(item)
       // keys.forEach((key, index) => {
@@ -404,14 +409,14 @@ export const mutations = {
     } else {
       state.dataScrapeImage = null
     }
-  }
+  },
 }
 
 export const actions = {
-  reset ({ commit }) {
+  reset({ commit }) {
     commit('RESET')
   },
-  async getList ({ commit }, payload) {
+  async getList({ commit }, payload) {
     try {
       const response = await this.$repositories.template.getList(payload)
       commit('SET_DATA_TEMPLATE', response.data.data)
@@ -420,12 +425,12 @@ export const actions = {
       commit('SET_DATA_TEMPLATE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getDetail ({ commit }, payload) {
+  async getDetail({ commit }, payload) {
     try {
       const response = await this.$repositories.template.getDetail(payload)
       commit('SET_DATA_DETAIL_TEMPLATE', response.data.data)
@@ -434,12 +439,12 @@ export const actions = {
       commit('SET_DATA_DETAIL_TEMPLATE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getResolutionByTemplate ({ commit }, payload) {
+  async getResolutionByTemplate({ commit }, payload) {
     try {
       const response =
         await this.$repositories.template.getResolutionByTemplate(payload)
@@ -449,12 +454,12 @@ export const actions = {
       commit('SET_DATA_RESOLUTION_TEMPLATE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getPreviewWebsites ({ commit }, payload) {
+  async getPreviewWebsites({ commit }, payload) {
     try {
       const response = await this.$repositories.template.getPreviewWebsites(
         payload
@@ -465,12 +470,12 @@ export const actions = {
       commit('SET_DATA_PREVIEW_WEBSITE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getPreviewDevices ({ commit }, payload) {
+  async getPreviewDevices({ commit }, payload) {
     try {
       const response = await this.$repositories.template.getPreviewDevices(
         payload
@@ -481,12 +486,12 @@ export const actions = {
       commit('SET_DATA_PREVIEW_DEVICE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getScrapeText ({ commit }, payload) {
+  async getScrapeText({ commit }, payload) {
     try {
       const response = await this.$repositories.template.getScrapeText(payload)
       commit('SET_DATA_SCRAPE_TEXT', response.data.data)
@@ -495,12 +500,12 @@ export const actions = {
       commit('SET_DATA_SCRAPE_TEXT', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getScrapeImage ({ commit }, payload) {
+  async getScrapeImage({ commit }, payload) {
     try {
       const response = await this.$repositories.template.getScrapeImage(payload)
       commit('SET_DATA_SCRAPE_IMAGE', response.data.data)
@@ -509,12 +514,12 @@ export const actions = {
       commit('SET_DATA_SCRAPE_IMAGE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async createTemplateCustom ({ commit }, payload) {
+  async createTemplateCustom({ commit }, payload) {
     try {
       const response = await this.$repositories.template.createCustomUpload(
         payload
@@ -527,23 +532,25 @@ export const actions = {
           e.response.status +
           ' ! ' +
           e.response.data.data.message,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getScrapeWeather ({ commit }, payload) {
+  async getScrapeWeather({ commit }, payload) {
     try {
-      const response = await this.$repositories.template.getScrapeWeather(payload)
+      const response = await this.$repositories.template.getScrapeWeather(
+        payload
+      )
       commit('SET_DATA_SCRAPE_TEXT', response.data.data)
       return response
     } catch (e) {
       commit('SET_DATA_SCRAPE_TEXT', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
-  }
+  },
 }

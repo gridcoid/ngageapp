@@ -14,7 +14,7 @@ const initialState = () => ({
     advertiserIds: '',
     campaignTypeId: '',
     createdAt: null,
-    radio: ''
+    radio: '',
   },
   detailCampaign: {},
   detailCampaign_ads_name: '',
@@ -23,29 +23,26 @@ const initialState = () => ({
   dataSummary: {
     impression: 'n/a',
     click: 'n/a',
-    ctr: 0
-  }
+    ctr: 0,
+  },
 })
 
-export const state = initialState()
+export const state = initialState
 
 export const getters = {
-  isLoading: state => state.isLoading,
-  dataCampaign: state => state.dataCampaign,
-  dataAdvertiser: state => state.dataAdvertiser,
-  detailCampaign: state => state.detailCampaign,
-  dataPerformance: state => state.dataPerformance,
-  dataCampaignType: state => state.dataCampaignType,
-  dataCreateCampaign: state => state.dataCreateCampaign,
-  dataCampaignComplete: state => state.dataCampaignComplete
+  isLoading: (state) => state.isLoading,
+  dataCampaign: (state) => state.dataCampaign,
+  dataAdvertiser: (state) => state.dataAdvertiser,
+  detailCampaign: (state) => state.detailCampaign,
+  dataPerformance: (state) => state.dataPerformance,
+  dataCampaignType: (state) => state.dataCampaignType,
+  dataCreateCampaign: (state) => state.dataCreateCampaign,
+  dataCampaignComplete: (state) => state.dataCampaignComplete,
 }
 
 export const mutations = {
-  RESET (state) {
-    const newState = initialState()
-    Object.keys(newState).forEach((key) => {
-      state[key] = newState[key]
-    })
+  RESET(state) {
+    Object.assign(state, initialState())
   },
   SET_LOADING: (state, isLoading) => {
     state.isLoading = isLoading
@@ -53,7 +50,7 @@ export const mutations = {
   SET_EDIT_CAMPAIGN: (state, payload) => {
     state.editCampaign = payload
   },
-  SET_DATA_CAMPAIGN (state, item) {
+  SET_DATA_CAMPAIGN(state, item) {
     if (item !== null) {
       state.dataCampaign = item.data.rows
       state.totalCampaign = item.data.totalRows
@@ -64,28 +61,28 @@ export const mutations = {
       state.totalPages = 0
     }
   },
-  SET_DATA_ADVERTISER (state, item) {
+  SET_DATA_ADVERTISER(state, item) {
     if (item !== null) {
       state.dataAdvertiser = item
     } else {
       state.dataAdvertiser = []
     }
   },
-  SET_DATA_CAMPAIGN_TYPE (state, item) {
+  SET_DATA_CAMPAIGN_TYPE(state, item) {
     if (item !== null) {
       state.dataCampaignType = item
     } else {
       state.dataCampaignType = []
     }
   },
-  SET_DATA_CREATE_CAMPAIGN (state, item) {
+  SET_DATA_CREATE_CAMPAIGN(state, item) {
     if (item !== null) {
       state.dataCreateCampaign = item
     } else {
       state.dataCreateCampaign = []
     }
   },
-  SET_DATA_DETAIL_CAMPAIGN (state, item) {
+  SET_DATA_DETAIL_CAMPAIGN(state, item) {
     if (item !== null) {
       state.detailCampaign = item
       state.detailCampaign_ads_name = item.advertiser.name
@@ -96,14 +93,14 @@ export const mutations = {
       state.detailCampaign_type_name = ''
     }
   },
-  SET_DATA_PERFORMANCE (state, item) {
+  SET_DATA_PERFORMANCE(state, item) {
     if (item !== null) {
       state.dataPerformance = item
     } else {
       state.dataPerformance = []
     }
   },
-  SET_DATA_SUMMARY (state, item) {
+  SET_DATA_SUMMARY(state, item) {
     if (item !== null) {
       if (item.impression !== 0) {
         state.dataSummary.impression = item.impression
@@ -131,15 +128,19 @@ export const mutations = {
       state.dataSummary.ctr = 0
     }
   },
-  SET_DATA_CAMPAIGN_COMPLETE (state, item) {
-    function formatDate (date) {
+  SET_DATA_CAMPAIGN_COMPLETE(state, item) {
+    function formatDate(date) {
       const d = new Date(date)
       let month = '' + (d.getMonth() + 1)
       let day = '' + d.getDate()
       const year = d.getFullYear()
 
-      if (month.length < 2) { month = '0' + month }
-      if (day.length < 2) { day = '0' + day }
+      if (month.length < 2) {
+        month = '0' + month
+      }
+      if (day.length < 2) {
+        day = '0' + day
+      }
 
       return [year, month, day].join('-')
     }
@@ -151,8 +152,8 @@ export const mutations = {
             label: 'Impression',
             backgroundColor: '#f87979',
             data: [],
-            lineTension: 0.5
-          }
+            lineTension: 0.5,
+          },
           //  {
           //   label: 'Click',
           //   backgroundColor: 'green',
@@ -164,7 +165,7 @@ export const mutations = {
           //   data: [],
           //   lineTension: 0.5
           // }
-        ]
+        ],
       }
       const data = item.data.rows
 
@@ -174,8 +175,10 @@ export const mutations = {
       // const complete = []
       data.forEach((element, index) => {
         element.chartData = chartData
-        newArray.push(element.deliveries.map(res => formatDate(res.createdAt)))
-        impression.push(element.deliveries.map(res => res.data[0].impression))
+        newArray.push(
+          element.deliveries.map((res) => formatDate(res.createdAt))
+        )
+        impression.push(element.deliveries.map((res) => res.data[0].impression))
         // click.push(element.deliveries.map(res => res.data[0].click))
         // complete.push(element.deliveries.map(res => res.data[0].complete))
       })
@@ -193,14 +196,14 @@ export const mutations = {
       state.totalCampaignComplete = 0
       state.totalPagesComplete = 0
     }
-  }
+  },
 }
 
 export const actions = {
-  reset ({ commit }) {
+  reset({ commit }) {
     commit('RESET')
   },
-  async getAdvertiser ({ commit }) {
+  async getAdvertiser({ commit }) {
     try {
       const response = await this.$repositories.campaign.getAdvertiser()
       commit('SET_DATA_ADVERTISER', response.data.data)
@@ -209,12 +212,12 @@ export const actions = {
       commit('SET_DATA_ADVERTISER', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getCampaignTypes ({ commit }) {
+  async getCampaignTypes({ commit }) {
     try {
       const response = await this.$repositories.campaign.getCampaignTypes()
       commit('SET_DATA_CAMPAIGN_TYPE', response.data.data)
@@ -223,12 +226,12 @@ export const actions = {
       commit('SET_DATA_CAMPAIGN_TYPE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async createCampaign ({ commit }, payload) {
+  async createCampaign({ commit }, payload) {
     try {
       const response = await this.$repositories.campaign.createCampaign(payload)
       commit('SET_DATA_CREATE_CAMPAIGN', response.data.data)
@@ -237,12 +240,12 @@ export const actions = {
       commit('SET_DATA_CREATE_CAMPAIGN', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getList ({ commit }, payload) {
+  async getList({ commit }, payload) {
     try {
       const response = await this.$repositories.campaign.getList(payload)
       commit('SET_DATA_CAMPAIGN', response.data)
@@ -251,26 +254,28 @@ export const actions = {
       commit('SET_DATA_CAMPAIGN', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getCampaignComplete ({ commit }, payload) {
+  async getCampaignComplete({ commit }, payload) {
     try {
-      const response = await this.$repositories.campaign.getListComplete(payload)
+      const response = await this.$repositories.campaign.getListComplete(
+        payload
+      )
       commit('SET_DATA_CAMPAIGN_COMPLETE', response.data)
       return response
     } catch (e) {
       commit('SET_DATA_CAMPAIGN_COMPLETE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getDetail ({ commit }, payload) {
+  async getDetail({ commit }, payload) {
     try {
       const response = await this.$repositories.campaign.getDetail(payload)
       commit('SET_DATA_DETAIL_CAMPAIGN', response.data.data)
@@ -279,12 +284,12 @@ export const actions = {
       commit('SET_DATA_DETAIL_CAMPAIGN', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getPerformance ({ commit }, payload) {
+  async getPerformance({ commit }, payload) {
     try {
       const response = await this.$repositories.campaign.getPerformance(payload)
       commit('SET_DATA_PERFORMANCE', response.data.data)
@@ -293,24 +298,24 @@ export const actions = {
       commit('SET_DATA_PERFORMANCE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async update ({ commit }, payload) {
+  async update({ commit }, payload) {
     try {
       const response = await this.$repositories.campaign.update(payload)
       return response
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async getSummary ({ commit }, payload) {
+  async getSummary({ commit }, payload) {
     try {
       const response = await this.$repositories.campaign.getSummary(payload)
       commit('SET_DATA_SUMMARY', response.data.data)
@@ -319,12 +324,12 @@ export const actions = {
       commit('SET_DATA_SUMMARY', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async changeStatus ({ commit }, payload) {
+  async changeStatus({ commit }, payload) {
     try {
       const response = await this.$repositories.campaign.changeStatus(payload)
       commit('SET_DATA_STATUS', response.data.data)
@@ -333,33 +338,33 @@ export const actions = {
       commit('SET_DATA_STATUS', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async duplicate ({ commit }, payload) {
+  async duplicate({ commit }, payload) {
     try {
       const response = await this.$repositories.campaign.duplicate(payload)
       return response
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
   },
-  async delete ({ commit }, payload) {
+  async delete({ commit }, payload) {
     try {
       const response = await this.$repositories.campaign.delete(payload)
       return response
     } catch (e) {
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
-        type: 'failed'
+        type: 'failed',
       })
       return e.response
     }
-  }
+  },
 }
