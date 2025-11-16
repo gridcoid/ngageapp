@@ -1,6 +1,6 @@
 <template>
   <div class="kg-construction flex flex-col items-center justify-center">
-    <img src="~/assets/images/construction.svg">
+    <img src="~/assets/images/construction.svg" />
     <div class="title-cons">
       Ups, this gonna be interesting stuff, we're cooking it!
     </div>
@@ -10,7 +10,7 @@
 <script>
 export default {
   name: 'UserManagementPage',
-  layout: 'default'
+  layout: 'default',
 }
 </script>
 

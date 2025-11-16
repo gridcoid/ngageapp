@@ -1,12 +1,19 @@
 <template>
   <div>
-    <Container :get-ghost-parent="getGhostParent" drag-handle-selector=".column-drag-handle" class="mt-1" @drop="onDrop">
+    <Container
+      :get-ghost-parent="getGhostParent"
+      drag-handle-selector=".column-drag-handle"
+      class="mt-1"
+      @drop="onDrop"
+    >
       <Draggable v-for="(item, index) in dataImageArrayRaw" :key="index">
         <div class="selected-image flex items-center no-select">
-          <div class="flex items-center justify-center no-select btn-drag column-drag-handle">
+          <div
+            class="flex items-center justify-center no-select btn-drag column-drag-handle"
+          >
             <IconDrag class="icon-drag" />
           </div>
-          <img class="image-drag" :src="item.img">
+          <img class="image-drag" :src="item.img" />
           <button
             class="flex items-center justify-center btn-change no-select"
             @click="cropImage(index)"
@@ -56,14 +63,14 @@ export default {
   props: {
     titleImage: {
       default: '',
-      type: String
+      type: String,
     },
     dataImage: {
       default: '',
-      type: String
-    }
+      type: String,
+    },
   },
-  data () {
+  data() {
     return {
       indexImage: null,
       defaultImage: '',
@@ -83,11 +90,11 @@ export default {
       imageSize: '',
       resolution: {
         width: '',
-        height: ''
+        height: '',
       },
       image: {
         width: 0,
-        height: 0
+        height: 0,
       },
       editor: null,
       value: '',
@@ -96,7 +103,7 @@ export default {
       activeItem: 'All',
       indexList: 0,
       totalImage: 0,
-      indexForm: 0
+      indexForm: 0,
     }
   },
   computed: {
@@ -109,15 +116,15 @@ export default {
       },
       dataImageArrayRaw2: (state) => {
         return state.creative.dataImageArrayRaw2
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     this.imageUrl = this.dataImage
     this.getTemplateDetail()
   },
   methods: {
-    getTemplateDetail () {
+    getTemplateDetail() {
       this.isLoading = true
       // this.$store
       //   .dispatch('creative/getDetail', {
@@ -125,23 +132,20 @@ export default {
       //   })
       //   .then(() => {
       this.indexForm = this.dataForm.findIndex(
-        x => x.title === this.titleImage
+        (x) => x.title === this.titleImage
       )
       this.defaultImage = this.dataForm.find(
-        item => item.title === this.titleImage
+        (item) => item.title === this.titleImage
       )
       this.defaultImage2 = this.defaultImage.default.split(',')
       this.totalImage = this.defaultImage.maxCount
       this.$store.commit('creative/SET_DATA_IMAGEARRAY', this.defaultImage)
-      this.$store.commit(
-        'creative/SET_DATA_IMAGEARRAY2',
-        this.defaultImage
-      )
+      this.$store.commit('creative/SET_DATA_IMAGEARRAY2', this.defaultImage)
       const data = {
         index: this.indexForm,
         title: this.titleImage,
         type: 'ImageArray',
-        src: this.dataImageArrayRaw2
+        src: this.dataImageArrayRaw2,
       }
       this.$emit('reloadback', data)
       this.isLoading = false
@@ -150,7 +154,7 @@ export default {
       //   this.isLoading = false
       // })
     },
-    onDrop (dropResult) {
+    onDrop(dropResult) {
       this.defaultImage2 = applyDrag(this.defaultImage2, dropResult)
       const data = applyDrag(this.dataImageArrayRaw, dropResult)
       this.$store.commit('creative/SET_DRAG_IMAGEARRAY', data)
@@ -160,19 +164,19 @@ export default {
         index: this.indexForm,
         title: this.titleImage,
         type: 'ImageArray',
-        src: data2
+        src: data2,
       }
       this.$emit('reloadback', dataIframe)
     },
-    removeList (index) {
+    removeList(index) {
       // if (this.dataImageArrayRaw[index].file !== null) {
       const data = {
         index,
-        src: 'blank.png'
+        src: 'blank.png',
       }
       const dataarray2 = {
         index,
-        src: 'https://unimind.kgnow.com/blank.png'
+        src: 'https://unimind.kgnow.com/blank.png',
       }
       this.$store.commit('creative/SET_REMOVE_IMAGEARRAY', data)
       this.$store.commit('creative/SET_REMOVE_IMAGEARRAY2', dataarray2)
@@ -184,15 +188,15 @@ export default {
         index: this.indexForm,
         title: this.titleImage,
         type: 'ImageArray',
-        src: this.dataImageArrayRaw2
+        src: this.dataImageArrayRaw2,
       }
       this.$emit('reloadback', data2)
       // }
       // this.$store.commit('user/SET_DROPDOWN', null)
     },
-    cropImage (index) {
+    cropImage(index) {
       const indexForm = this.dataForm.findIndex(
-        x => x.title === this.titleImage
+        (x) => x.title === this.titleImage
       )
       let imageCrop = ''
       if (this.dataImageArrayRaw2[index].includes('fileKey')) {
@@ -208,19 +212,19 @@ export default {
         img: imageCrop,
         dialog: true,
         height: this.dataForm[indexForm].height,
-        width: this.dataForm[indexForm].width
+        width: this.dataForm[indexForm].width,
       }
       this.$emit('openEditor', data)
     },
-    getGhostParent () {
+    getGhostParent() {
       return document.body
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-input[type="file"] {
+input[type='file'] {
   display: none;
 }
 .custom-file-upload {
@@ -241,7 +245,7 @@ input[type="file"] {
     cursor: pointer;
     width: 20px;
     height: 40px;
-    margin-right:10px;
+    margin-right: 10px;
   }
   .image-drag {
     width: 40px;

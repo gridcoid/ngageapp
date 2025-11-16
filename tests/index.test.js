@@ -1,5 +1,5 @@
 // Needed to get the serverHost and serverPort
-const globals = require("./globals");
+const globals = require('./globals')
 
 /**
  * Nightwatch
@@ -7,15 +7,14 @@ const globals = require("./globals");
  * @url API Reference https://nightwatchjs.org/api/commands/
  */
 module.exports = {
-
   // Set true to disable this test
   disabled: false,
 
-  'Page: /' : function (browser) {
+  'Page: /': function (browser) {
     browser
       .url(`http://${globals.serverHost}:${globals.serverPort}`)
       .waitForElementVisible('body')
       .assert.titleContains('Name of App')
-      .end();
-  }
+      .end()
+  },
 }

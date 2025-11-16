@@ -7,46 +7,120 @@
       <div class="header-content flex items-center justify-between">
         <div class="flex items-center made-in">
           Made with
-          <img src="~/assets/images/logo_baru.svg" class="logo-unimind">
+          <img src="~/assets/images/logo_baru.svg" class="logo-unimind" />
         </div>
         <div class="flex items-center">
           <div class="kompas-select flex">
-            <div class="kompas-dropdown no-select flex items-center justify-between" :style="showDevice ? 'border-end-end-radius: 0px;border-end-start-radius: 0px;' : ''">
-              <div class="flex items-center w-full pl-4 cursor-pointer" @click="openDevice()">
-                <img v-if="selectedPreviewDevice.id === 1" src="~/assets/images/icon/full_canvas.svg" class="mr-2">
-                <img v-else :src="selectedPreviewDevice.icon" class="mr-2">
+            <div
+              class="kompas-dropdown no-select flex items-center justify-between"
+              :style="
+                showDevice
+                  ? 'border-end-end-radius: 0px;border-end-start-radius: 0px;'
+                  : ''
+              "
+            >
+              <div
+                class="flex items-center w-full pl-4 cursor-pointer"
+                @click="openDevice()"
+              >
+                <img
+                  v-if="selectedPreviewDevice.id === 1"
+                  src="~/assets/images/icon/full_canvas.svg"
+                  class="mr-2"
+                />
+                <img v-else :src="selectedPreviewDevice.icon" class="mr-2" />
                 {{ selectedPreviewDevice.name }}
               </div>
-              <div class="action-btn flex items-center justify-center no-select cursor-pointer" @click="openDevice()">
-                <img v-if="!showDevice" src="~/assets/images/icon/arrow_down.svg" class="mt-1">
-                <img v-else src="~/assets/images/icon/arrow_up.svg" class="mt-1">
+              <div
+                class="action-btn flex items-center justify-center no-select cursor-pointer"
+                @click="openDevice()"
+              >
+                <img
+                  v-if="!showDevice"
+                  src="~/assets/images/icon/arrow_down.svg"
+                  class="mt-1"
+                />
+                <img
+                  v-else
+                  src="~/assets/images/icon/arrow_up.svg"
+                  class="mt-1"
+                />
               </div>
             </div>
             <div v-if="showDevice" class="kompas-body-select">
-              <div v-for="(item, index) in previewDevice" :key="index" class="kompas-child-body flex items-center pl-4" @click="selectDevice(item, index)">
-                <img v-if="item.id === 1" src="~/assets/images/icon/full_canvas.svg" class="mr-2">
-                <img v-else :src="item.icon" class="mr-2">
+              <div
+                v-for="(item, index) in previewDevice"
+                :key="index"
+                class="kompas-child-body flex items-center pl-4"
+                @click="selectDevice(item, index)"
+              >
+                <img
+                  v-if="item.id === 1"
+                  src="~/assets/images/icon/full_canvas.svg"
+                  class="mr-2"
+                />
+                <img v-else :src="item.icon" class="mr-2" />
                 {{ item.name }}
               </div>
             </div>
           </div>
           <div class="kompas-select flex">
-            <div class="kompas-dropdown no-select flex items-center justify-between" :style="showPreview ? 'border-end-end-radius: 0px;border-end-start-radius: 0px;' : ''">
-              <div v-if="selectedPreviewTemplate !== null" class="flex items-center w-full pl-4 cursor-pointer" @click="openPreview()">
-                <img :src="require(`~/assets/images/icon/${selectedPreviewTemplate.icon}.svg`)" class="mr-2">
+            <div
+              class="kompas-dropdown no-select flex items-center justify-between"
+              :style="
+                showPreview
+                  ? 'border-end-end-radius: 0px;border-end-start-radius: 0px;'
+                  : ''
+              "
+            >
+              <div
+                v-if="selectedPreviewTemplate !== null"
+                class="flex items-center w-full pl-4 cursor-pointer"
+                @click="openPreview()"
+              >
+                <img
+                  :src="
+                    require(`~/assets/images/icon/${selectedPreviewTemplate.icon}.svg`)
+                  "
+                  class="mr-2"
+                />
                 {{ selectedPreviewTemplate.name }}
               </div>
-              <div v-else class="flex items-center w-full pl-4 cursor-pointer" style="color: #A1ADB9;font-weight: 400;font-size: 14px;" @click="openPreview()">
+              <div
+                v-else
+                class="flex items-center w-full pl-4 cursor-pointer"
+                style="color: #a1adb9; font-weight: 400; font-size: 14px"
+                @click="openPreview()"
+              >
                 Choose Publisher
               </div>
-              <div class="action-btn flex items-center justify-center no-select cursor-pointer" @click="openPreview()">
-                <img v-if="!showPreview" src="~/assets/images/icon/arrow_down.svg" class="mt-1">
-                <img v-else src="~/assets/images/icon/arrow_up.svg" class="mt-1">
+              <div
+                class="action-btn flex items-center justify-center no-select cursor-pointer"
+                @click="openPreview()"
+              >
+                <img
+                  v-if="!showPreview"
+                  src="~/assets/images/icon/arrow_down.svg"
+                  class="mt-1"
+                />
+                <img
+                  v-else
+                  src="~/assets/images/icon/arrow_up.svg"
+                  class="mt-1"
+                />
               </div>
             </div>
             <div v-if="showPreview" class="kompas-body-select">
-              <div v-for="(item, index) in previewTemplate" :key="index" class="kompas-child-body flex items-center pl-4" @click="selectPreview(item, index)">
-                <img :src="require(`~/assets/images/icon/${item.icon}.svg`)" class="mr-2">
+              <div
+                v-for="(item, index) in previewTemplate"
+                :key="index"
+                class="kompas-child-body flex items-center pl-4"
+                @click="selectPreview(item, index)"
+              >
+                <img
+                  :src="require(`~/assets/images/icon/${item.icon}.svg`)"
+                  class="mr-2"
+                />
                 {{ item.name }}
               </div>
             </div>
@@ -75,10 +149,10 @@
       <div
         v-if="selectedPreviewDevice.id === 1"
         class="body-content flex items-center justify-center"
-        style="margin-top:30px;"
+        style="margin-top: 30px"
       >
         <client-only v-if="type === 'video'">
-          <div v-if="!isLoading" style="max-height:1000px;max-width:1000px;">
+          <div v-if="!isLoading" style="max-height: 1000px; max-width: 1000px">
             <!-- <div
               v-if="!showIframe"
               :class="alignCenter"
@@ -135,8 +209,16 @@
             ref="iframe"
             contenteditable="true"
             crossorigin="anonymous"
-            :src="selectedPreviewTemplate.id === 1 ? '/preview/kompascom-desktop-2.html' : (selectedPreviewTemplate.id === 2 ? '/preview/tribun-dekstop.html' : '/preview/grid-desktop.html')"
-            :style="'width:' + window.width + 'px;height:' + window.height + 'px;'"
+            :src="
+              selectedPreviewTemplate.id === 1
+                ? '/preview/kompascom-desktop-2.html'
+                : selectedPreviewTemplate.id === 2
+                ? '/preview/tribun-dekstop.html'
+                : '/preview/grid-desktop.html'
+            "
+            :style="
+              'width:' + window.width + 'px;height:' + window.height + 'px;'
+            "
             @load="sendToIframe()"
           />
           <div v-else class="flex items-center justify-center">
@@ -150,14 +232,16 @@
             ref="iframe"
             contenteditable="true"
             crossorigin="anonymous"
-            :style="'width:' + window.width + 'px;height:' + window.height + 'px;'"
+            :style="
+              'width:' + window.width + 'px;height:' + window.height + 'px;'
+            "
           />
         </client-only>
       </div>
       <div
         v-if="selectedPreviewDevice.id === 5"
         class="body-content flex items-center justify-center"
-        style="margin-top:30px;"
+        style="margin-top: 30px"
       >
         <div class="ios-img">
           <client-only v-if="selectedPreviewTemplate !== null">
@@ -167,8 +251,18 @@
               ref="iframe"
               contenteditable="true"
               crossorigin="anonymous"
-              :src="selectedPreviewTemplate.id === 1 ? '/preview/kompascom-mobile-2.html' : (selectedPreviewTemplate.id === 2 ? '/preview/tribun-mobile.html' : '/preview/grid-mobile.html')"
-              :style="window.width < 600 ? 'width:' + window.width + 'px;' : 'width:413px'"
+              :src="
+                selectedPreviewTemplate.id === 1
+                  ? '/preview/kompascom-mobile-2.html'
+                  : selectedPreviewTemplate.id === 2
+                  ? '/preview/tribun-mobile.html'
+                  : '/preview/grid-mobile.html'
+              "
+              :style="
+                window.width < 600
+                  ? 'width:' + window.width + 'px;'
+                  : 'width:413px'
+              "
               @load="sendToIframe()"
             />
             <div v-else class="flex items-center justify-center">
@@ -182,7 +276,11 @@
               ref="iframe"
               contenteditable="true"
               crossorigin="anonymous"
-              :style="window.width < 600 ? 'width:' + window.width + 'px;' : 'width:413px'"
+              :style="
+                window.width < 600
+                  ? 'width:' + window.width + 'px;'
+                  : 'width:413px'
+              "
             />
           </client-only>
         </div>
@@ -191,30 +289,24 @@
     <div v-if="dialogInfo" class="panel-dialog flex flex-col">
       <div class="flex justify-between items-center header-dialog">
         <div class="flex items-center">
-          <img src="~/assets/images/info.svg" class="logo-info">Creative Info
+          <img src="~/assets/images/info.svg" class="logo-info" />Creative Info
         </div>
         <img
           src="~/assets/images/campaign/icon_close.svg"
           class="icon-close"
           @click="dialogInfo = false"
-        >
+        />
       </div>
       <div class="flex flex-col items-start body-dialog">
-        <div class="title-body">
-          Creative Name
-        </div>
+        <div class="title-body">Creative Name</div>
         <div class="value-body">
           {{ creativeName }}
         </div>
-        <div v-if="format === 'rmb'" class="title-body">
-          Dimension
-        </div>
+        <div v-if="format === 'rmb'" class="title-body">Dimension</div>
         <div v-if="format === 'rmb'" class="value-body">
           {{ width }} x {{ height }} px
         </div>
-        <div class="title-body">
-          Template Used
-        </div>
+        <div class="title-body">Template Used</div>
         <div class="value-body">
           {{ templateName }}
         </div>
@@ -228,7 +320,7 @@ import { mapState } from 'vuex'
 
 let titlePage = ''
 let backupImage = ''
-function isValidHttpUrl (string) {
+function isValidHttpUrl(string) {
   let url
   try {
     url = new URL(string)
@@ -239,8 +331,9 @@ function isValidHttpUrl (string) {
 }
 export default {
   name: 'PrevieTemplatePage',
-  async asyncData ({ params }) {
-    await axios.get(`https://api.unimind.id/v1/creative/${params.detail}`)
+  async asyncData({ params }) {
+    await axios
+      .get(`https://api.unimind.id/v1/creative/${params.detail}`)
       .then((res) => {
         console.log('res : ', res)
         titlePage = res.data.data.name
@@ -248,17 +341,21 @@ export default {
           if (isValidHttpUrl(res.data.data.config.backupImg)) {
             backupImage = res.data.data.config.backupImg
           } else {
-            backupImage = 'https://api.unimind.id/v1/obs?fileKey=' + res.data.data.config.backupImg
+            backupImage =
+              'https://api.unimind.id/v1/obs?fileKey=' +
+              res.data.data.config.backupImg
           }
         } else if (isValidHttpUrl(res.data.data.template.thumbnail)) {
           backupImage = res.data.data.template.thumbnail
         } else {
-          backupImage = 'https://api.unimind.id/v1/obs?fileKey=' + res.data.data.template.thumbnail
+          backupImage =
+            'https://api.unimind.id/v1/obs?fileKey=' +
+            res.data.data.template.thumbnail
         }
-      }).catch(() => {
       })
+      .catch(() => {})
   },
-  data () {
+  data() {
     return {
       showIframe: false,
       thumbnail: null,
@@ -275,7 +372,7 @@ export default {
       templateName: '',
       window: {
         width: 0,
-        height: 0
+        height: 0,
       },
       staticSrc: '',
       dataFormDetail: {},
@@ -299,57 +396,60 @@ export default {
       selectedPreviewDevice: {
         id: 1,
         name: 'Creative Only',
-        icon: 'full_canvas'
+        icon: 'full_canvas',
       },
       showDevice: false,
       previewTemplate: [
         {
           id: 1,
           name: 'Kompas.com',
-          icon: 'kompas'
+          icon: 'kompas',
         },
         {
           id: 3,
           name: 'Grid.id',
-          icon: 'grid'
+          icon: 'grid',
         },
         {
           id: 2,
           name: 'Tribunnews.com',
-          icon: 'tribun'
-        }
+          icon: 'tribun',
+        },
       ],
       selectedPreviewTemplate: null,
       publisher: null,
       showPreview: false,
-      device: null
+      device: null,
     }
   },
-  head () {
+  head() {
     return {
       title: 'UNIMIND Preview | ' + titlePage,
       meta: [
         {
           hid: 'og:title',
           property: 'og:title',
-          content: 'UNIMIND Preview | ' + titlePage
+          content: 'UNIMIND Preview | ' + titlePage,
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: 'Made with UNIMIND. Copyright Ⓒ ' + new Date().getFullYear() + ' Kompas Gramedia'
+          content:
+            'Made with UNIMIND. Copyright Ⓒ ' +
+            new Date().getFullYear() +
+            ' Kompas Gramedia',
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: backupImage
+          content: backupImage,
         },
         {
           hid: 'og:thumb',
           property: 'og:thumb',
-          content: backupImage
-        }
-      ]
+          content: backupImage,
+        },
+      ],
     }
   },
   layout: 'login',
@@ -367,9 +467,9 @@ export default {
       },
       roleId: (state) => {
         return state.user.roleId
-      }
+      },
     }),
-    alignCenter () {
+    alignCenter() {
       if (this.showZoom) {
         if (this.width > 1000) {
           if (this.height > 1080) {
@@ -385,16 +485,16 @@ export default {
       } else {
         return ''
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     window.addEventListener('resize', this.handleResize)
     this.handleResize()
     this.getAll()
     this.checkRole()
   },
   methods: {
-    isValidUrl (string) {
+    isValidUrl(string) {
       try {
         // eslint-disable-next-line no-new
         new URL(string)
@@ -403,16 +503,16 @@ export default {
         return false
       }
     },
-    getAll () {
+    getAll() {
       this.getDetail()
     },
-    refresh () {
+    refresh() {
       this.getAll()
     },
-    getDetail () {
+    getDetail() {
       this.isLoading = true
       const data = {
-        id: this.$route.params.detail
+        id: this.$route.params.detail,
       }
       this.$store
         .dispatch('creative/getDetail', data)
@@ -421,10 +521,15 @@ export default {
           console.log('titlepage : ', titlePage)
           this.format = res.data.data.template.format
           if (this.format === 'display') {
-            this.staticSrc = res.data.data.configSchema.properties.image.currentValue
+            this.staticSrc =
+              res.data.data.configSchema.properties.image.currentValue
           }
           if (this.format === 'rmb') {
-            this.staticSrc = this.$config.baseURL + 'creative/' + this.$route.params.detail + '/html'
+            this.staticSrc =
+              this.$config.baseURL +
+              'creative/' +
+              this.$route.params.detail +
+              '/html'
           }
           if (this.format === 'custom_upload') {
             this.staticSrc = res.data.data.previewUrl
@@ -462,9 +567,9 @@ export default {
           this.isLoading = false
         })
     },
-    getPreviewDevices () {
+    getPreviewDevices() {
       const data = {
-        id: this.templateId
+        id: this.templateId,
       }
       this.previewDevice = []
       this.$store
@@ -478,21 +583,18 @@ export default {
             }
           }
         })
-        .catch(() => {
-        })
+        .catch(() => {})
     },
-    getPreviewWebsites (id) {
+    getPreviewWebsites(id) {
       const data = {
-        id
+        id,
       }
       this.$store
         .dispatch('template/getPreviewWebsites', data)
-        .then((res) => {
-        })
-        .catch(() => {
-        })
+        .then((res) => {})
+        .catch(() => {})
     },
-    checkParam () {
+    checkParam() {
       this.device = this.$router.currentRoute.query.device
       if (this.device === null || this.device === undefined) {
         this.selectedPreviewDevice.id = 1
@@ -500,8 +602,11 @@ export default {
         this.checkParamPublisher()
       }
       if (this.device === 'mobile' || this.device === 'Mobile') {
-        if (this.previewDevice.find(item => item.id === 5)) {
-          this.selectDevice(this.previewDevice.find(item => item.id === 5), this.previewDevice.findIndex(i => i.id === 5))
+        if (this.previewDevice.find((item) => item.id === 5)) {
+          this.selectDevice(
+            this.previewDevice.find((item) => item.id === 5),
+            this.previewDevice.findIndex((i) => i.id === 5)
+          )
           this.checkParamPublisher()
         } else {
           this.$message.error('This creative not available for mobile devices')
@@ -511,8 +616,11 @@ export default {
         }
       }
       if (this.device === 'desktop' || this.device === 'Desktop') {
-        if (this.previewDevice.find(item => item.id === 2)) {
-          this.selectDevice(this.previewDevice.find(item => item.id === 2), this.previewDevice.findIndex(i => i.id === 2))
+        if (this.previewDevice.find((item) => item.id === 2)) {
+          this.selectDevice(
+            this.previewDevice.find((item) => item.id === 2),
+            this.previewDevice.findIndex((i) => i.id === 2)
+          )
           this.dialogInfo = false
           this.checkParamPublisher()
         } else {
@@ -523,39 +631,35 @@ export default {
         }
       }
     },
-    checkParamPublisher () {
+    checkParamPublisher() {
       this.publisher = this.$router.currentRoute.query.publisher
-      const kompas = [
-        'kompas',
-        'kompas.com',
-        'kompascom'
-      ]
+      const kompas = ['kompas', 'kompas.com', 'kompascom']
 
-      const tribun = [
-        'tribun',
-        'tribunnews',
-        'tribunnews.com',
-        'tribunnewscom'
-      ]
+      const tribun = ['tribun', 'tribunnews', 'tribunnews.com', 'tribunnewscom']
 
-      const grid = [
-        'grid',
-        'grid.id',
-        'gridid'
-      ]
+      const grid = ['grid', 'grid.id', 'gridid']
       if (this.publisher === null || this.publisher === undefined) {
         // this.$message.error('Publisher null')
       } else if (kompas.includes(this.publisher.toLowerCase())) {
-        this.selectPreview(this.previewTemplate.find(item => item.id === 1), 0)
+        this.selectPreview(
+          this.previewTemplate.find((item) => item.id === 1),
+          0
+        )
       } else if (grid.includes(this.publisher.toLowerCase())) {
-        this.selectPreview(this.previewTemplate.find(item => item.id === 3), 1)
+        this.selectPreview(
+          this.previewTemplate.find((item) => item.id === 3),
+          1
+        )
       } else if (tribun.includes(this.publisher.toLowerCase())) {
-        this.selectPreview(this.previewTemplate.find(item => item.id === 2), 2)
+        this.selectPreview(
+          this.previewTemplate.find((item) => item.id === 2),
+          2
+        )
       } else {
         this.$message.error('Publisher is not available')
       }
     },
-    selectDevice (item, index) {
+    selectDevice(item, index) {
       this.previewDevice[index] = this.selectedPreviewDevice
       this.selectedPreviewDevice = item
       this.showDevice = false
@@ -564,39 +668,85 @@ export default {
       }
       if (this.selectedPreviewDevice.id === 1) {
         if (this.$router.currentRoute.query.publisher === undefined) {
-          this.$router.replace({ path: '/creative/detail/' + this.$route.params.detail }).catch(() => {})
+          this.$router
+            .replace({ path: '/creative/detail/' + this.$route.params.detail })
+            .catch(() => {})
         } else {
-          this.$router.replace({ path: '/creative/detail/' + this.$route.params.detail + '?publisher=' + this.$router.currentRoute.query.publisher }).catch(() => {})
+          this.$router
+            .replace({
+              path:
+                '/creative/detail/' +
+                this.$route.params.detail +
+                '?publisher=' +
+                this.$router.currentRoute.query.publisher,
+            })
+            .catch(() => {})
         }
       } else if (this.$router.currentRoute.query.publisher === undefined) {
-        this.$router.replace({ path: '/creative/detail/' + this.$route.params.detail + '?device=' + this.selectedPreviewDevice.name.toLowerCase() }).catch(() => {})
+        this.$router
+          .replace({
+            path:
+              '/creative/detail/' +
+              this.$route.params.detail +
+              '?device=' +
+              this.selectedPreviewDevice.name.toLowerCase(),
+          })
+          .catch(() => {})
       } else {
-        this.$router.replace({ path: '/creative/detail/' + this.$route.params.detail + '?publisher=' + this.$router.currentRoute.query.publisher + '&device=' + this.selectedPreviewDevice.name.toLowerCase() }).catch(() => {})
+        this.$router
+          .replace({
+            path:
+              '/creative/detail/' +
+              this.$route.params.detail +
+              '?publisher=' +
+              this.$router.currentRoute.query.publisher +
+              '&device=' +
+              this.selectedPreviewDevice.name.toLowerCase(),
+          })
+          .catch(() => {})
       }
     },
-    selectPreview (item, index) {
+    selectPreview(item, index) {
       // this.previewTemplate[index] = this.selectedPreviewTemplate
       this.selectedPreviewTemplate = item
       this.showPreview = false
 
       if (this.$router.currentRoute.query.device === undefined) {
-        this.$router.replace({ path: '/creative/detail/' + this.$route.params.detail + '?publisher=' + this.selectedPreviewTemplate.name.toLowerCase() }).catch(() => {})
+        this.$router
+          .replace({
+            path:
+              '/creative/detail/' +
+              this.$route.params.detail +
+              '?publisher=' +
+              this.selectedPreviewTemplate.name.toLowerCase(),
+          })
+          .catch(() => {})
       } else {
-        this.$router.replace({ path: '/creative/detail/' + this.$route.params.detail + '?publisher=' + this.selectedPreviewTemplate.name.toLowerCase() + '&device=' + this.$router.currentRoute.query.device }).catch(() => {})
+        this.$router
+          .replace({
+            path:
+              '/creative/detail/' +
+              this.$route.params.detail +
+              '?publisher=' +
+              this.selectedPreviewTemplate.name.toLowerCase() +
+              '&device=' +
+              this.$router.currentRoute.query.device,
+          })
+          .catch(() => {})
       }
     },
-    openDevice () {
+    openDevice() {
       this.showDevice = !this.showDevice
       this.showPreview = false
     },
-    openPreview () {
+    openPreview() {
       this.showPreview = !this.showPreview
       this.showDevice = false
     },
-    toUrl () {
+    toUrl() {
       window.open(this.dataDetailCreative.config.targets[0].url)
     },
-    handleResize () {
+    handleResize() {
       this.window.width = window.innerWidth
       this.window.height = window.innerHeight
       if (this.window.width < 800) {
@@ -605,57 +755,85 @@ export default {
         this.dialogInfo = true
       }
     },
-    sendToIframe () {
+    sendToIframe() {
       const data = {
         height: this.height,
         width: this.width,
         format: this.format,
         src: this.staticSrc,
-        url: this.url
+        url: this.url,
       }
       this.$refs.iframe.contentWindow.sendToken(data)
     },
-    back () {
+    back() {
       this.$router.go(-1)
     },
-    btnInfo () {
+    btnInfo() {
       this.dialogInfo = !this.dialogInfo
     },
-    checkRole () {
+    checkRole() {
       if (this.roleId === 4) {
         this.handleRole = false
       } else {
         this.handleRole = true
       }
     },
-    async copyURL () {
+    async copyURL() {
       let host = ''
-      if (this.$router.currentRoute.query.device === undefined && this.$router.currentRoute.query.publisher === undefined) {
-        host = 'https://space.unimind.id/creative/detail/' + this.$route.params.detail
+      if (
+        this.$router.currentRoute.query.device === undefined &&
+        this.$router.currentRoute.query.publisher === undefined
+      ) {
+        host =
+          'https://space.unimind.id/creative/detail/' +
+          this.$route.params.detail
       }
-      if (this.$router.currentRoute.query.device !== undefined && this.$router.currentRoute.query.publisher === undefined) {
-        host = 'https://space.unimind.id/creative/detail/' + this.$route.params.detail + '?device=' + this.selectedPreviewDevice.name.toLowerCase()
+      if (
+        this.$router.currentRoute.query.device !== undefined &&
+        this.$router.currentRoute.query.publisher === undefined
+      ) {
+        host =
+          'https://space.unimind.id/creative/detail/' +
+          this.$route.params.detail +
+          '?device=' +
+          this.selectedPreviewDevice.name.toLowerCase()
       }
-      if (this.$router.currentRoute.query.device === undefined && this.$router.currentRoute.query.publisher !== undefined) {
-        host = 'https://space.unimind.id/creative/detail/' + this.$route.params.detail + '?publisher=' + this.$router.currentRoute.query.publisher
+      if (
+        this.$router.currentRoute.query.device === undefined &&
+        this.$router.currentRoute.query.publisher !== undefined
+      ) {
+        host =
+          'https://space.unimind.id/creative/detail/' +
+          this.$route.params.detail +
+          '?publisher=' +
+          this.$router.currentRoute.query.publisher
       }
-      if (this.$router.currentRoute.query.device !== undefined && this.$router.currentRoute.query.publisher !== undefined) {
-        host = 'https://space.unimind.id/creative/detail/' + this.$route.params.detail + '?device=' + this.selectedPreviewDevice.name.toLowerCase() + '&publisher=' + this.$router.currentRoute.query.publisher
+      if (
+        this.$router.currentRoute.query.device !== undefined &&
+        this.$router.currentRoute.query.publisher !== undefined
+      ) {
+        host =
+          'https://space.unimind.id/creative/detail/' +
+          this.$route.params.detail +
+          '?device=' +
+          this.selectedPreviewDevice.name.toLowerCase() +
+          '&publisher=' +
+          this.$router.currentRoute.query.publisher
       }
       try {
         await navigator.clipboard.writeText(host)
         this.$notifier.showMessage({
           content: 'Link copied to clipboard.',
-          type: 'success'
+          type: 'success',
         })
       } catch ($e) {
         this.$notifier.showMessage({
           content: 'Cannot copy',
-          type: 'failed'
+          type: 'failed',
         })
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -664,29 +842,29 @@ export default {
   position: relative;
   .linear-background {
     position: absolute;
-    top:0px;
+    top: 0px;
     z-index: 10;
     width: 100%;
-    height:100%;
-    background-color: rgb(27,54,97, 0.8);
+    height: 100%;
+    background-color: rgb(27, 54, 97, 0.8);
   }
   .thumbnail-image {
     position: absolute;
-    top:0px;
+    top: 0px;
     z-index: 9;
     object-fit: cover;
     width: 100%;
-    height:100%;
+    height: 100%;
     background: black;
   }
   .play-btn {
-    height:200px;
+    height: 200px;
     width: 200px;
     cursor: pointer;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.70);
+    background: rgba(255, 255, 255, 0.7);
     position: absolute;
-    z-index:11;
+    z-index: 11;
     .icon-play {
       height: 85px;
       width: 85px;
@@ -698,19 +876,19 @@ export default {
   }
 }
 .iframe-align {
-  margin-top:10px;
+  margin-top: 10px;
   transform: scale(0.32, 0.32);
   transform-origin: top center;
   position: relative;
   left: -35px;
 }
 .center-iframe {
-  margin-top:10px;
+  margin-top: 10px;
   transform: scale(0.5, 0.5);
   transform-origin: top center;
 }
 .left-iframe {
-  margin-top:10px;
+  margin-top: 10px;
   transform: scale(0.5, 0.5);
   transform-origin: top left;
   position: relative;
@@ -718,7 +896,7 @@ export default {
 }
 .center-iframe-2 {
   position: relative;
-  margin-top:10px;
+  margin-top: 10px;
   transform: scale(0.6, 0.6);
   left: -80px !important;
   transform-origin: top center;
@@ -727,55 +905,55 @@ export default {
   transform-origin: top center;
 }
 #da-iframe {
-  overflow:hidden;
+  overflow: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 .da-iframe::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome */
+  display: none; /* Safari and Chrome */
 }
 .kompas-select {
   position: relative;
   .kompas-dropdown {
     width: 230px;
     height: 40px;
-    background: #FFFFFF;
-    border: 1px solid #C3CED9;
+    background: #ffffff;
+    border: 1px solid #c3ced9;
     border-radius: 5px;
-    margin-right:10px;
+    margin-right: 10px;
     font-family: 'Cabin';
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
-    color: #1B63D4;
+    color: #1b63d4;
     line-height: 18px;
     .action-btn {
-      width:40px;
-      height:100%;
-      border-left: 1px solid #C3CED9;
+      width: 40px;
+      height: 100%;
+      border-left: 1px solid #c3ced9;
     }
   }
   .kompas-body-select {
     position: absolute;
-    top:40px;
-    left:0px;
-    height:100%;
-    width:230px;
-    z-index:3;
+    top: 40px;
+    left: 0px;
+    height: 100%;
+    width: 230px;
+    z-index: 3;
     .kompas-child-body {
-      cursor:pointer;
+      cursor: pointer;
       width: 100%;
       height: 40px;
-      background: #FFFFFF;
-      border-left:1px solid #C3CED9;
-      border-right:1px solid #C3CED9;
+      background: #ffffff;
+      border-left: 1px solid #c3ced9;
+      border-right: 1px solid #c3ced9;
       font-family: 'Cabin';
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
     }
     .kompas-child-body:last-child {
-      border-bottom:1px solid #C3CED9;
+      border-bottom: 1px solid #c3ced9;
       border-end-end-radius: 5px;
       border-end-start-radius: 5px;
     }
@@ -791,28 +969,28 @@ export default {
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
-  color: #1B63D4;
-  padding-left:20px;
-  padding-right:20px;
-  padding-top:2px;
-  padding-bottom:2px;
+  color: #1b63d4;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   .icon-item {
-    margin-right:13px;
+    margin-right: 13px;
   }
 }
-    .title-dropdown {
-      font-weight: 700;
-      font-size: 14px;
-      color: #1B63D4;
-    }
+.title-dropdown {
+  font-weight: 700;
+  font-size: 14px;
+  color: #1b63d4;
+}
 @media screen and (min-width: 0px) and (max-width: 600px) {
   .kg-container {
-    padding:0px !important;
+    padding: 0px !important;
     .body-content {
-      margin-top:0px !important;
+      margin-top: 0px !important;
       .ios-img {
-        background-image:none !important;
-        padding:0px !important;
+        background-image: none !important;
+        padding: 0px !important;
         height: auto !important;
         width: auto !important;
       }
@@ -850,8 +1028,8 @@ export default {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-property: transform, visibility, width;
   .header-content {
-    padding:0px 30px 0px 30px;
-    border-bottom: 1px solid #C3CED9;
+    padding: 0px 30px 0px 30px;
+    border-bottom: 1px solid #c3ced9;
     height: 72px;
     .made-in {
       font-weight: 400;
@@ -878,17 +1056,17 @@ export default {
   }
   .body-content {
     .ios-img {
-       background-image: url("~/assets/images/ios_v2.png");
-        background-position: center center;
-        background-repeat:  no-repeat;
-        background-attachment: fixed;
-        background-size:  cover;
-        height: 972px;
-        width: 491px;
-        padding: 90px 40px 40px 40px;
-        #ios-iframe {
-          height: 710px !important;
-        }
+      background-image: url('~/assets/images/ios_v2.png');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      height: 972px;
+      width: 491px;
+      padding: 90px 40px 40px 40px;
+      #ios-iframe {
+        height: 710px !important;
+      }
     }
     .box-container {
       object-fit: none;

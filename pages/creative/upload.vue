@@ -5,9 +5,7 @@
     </div>
     <div v-if="step1" class="body-upload">
       <div class="card-upload">
-        <div class="card-header">
-          Bulk Upload Creatives
-        </div>
+        <div class="card-header">Bulk Upload Creatives</div>
         <div class="card-body">
           <el-upload
             class="upload-demo"
@@ -23,13 +21,13 @@
                 <img
                   src="~/assets/images/creative/upload.svg"
                   class="mr-2 icon-upload"
-                >
+                />
                 <div class="flex flex-col">
                   <div class="empty-space">
                     Drop File Here or use button below
                   </div>
                   <div class="upload-name">
-                    Supported format: .gif, .jpg/.jpeg, .png, .js, <br>
+                    Supported format: .gif, .jpg/.jpeg, .png, .js, <br />
                     .txt, .html, .html, .zip. Maximum of 50 files
                   </div>
                 </div>
@@ -53,7 +51,7 @@
                   v-if="uploadPercentage == 100"
                   src="~/assets/images/checklist.svg"
                   style="margin-right: 13px"
-                >
+                />
                 <div class="name-list">
                   {{ imageData.name }}
                 </div>
@@ -102,9 +100,7 @@
         <div class="grid grid-cols-2 card-uploads">
           <div class="left-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">
-                Uploaded Creatives
-              </div>
+              <div class="title-uploads">Uploaded Creatives</div>
             </div>
             <div class="body-uploads">
               <div class="flex items-center justify-between">
@@ -134,15 +130,11 @@
           </div>
           <div class="right-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">
-                Creatives Properties
-              </div>
+              <div class="title-uploads">Creatives Properties</div>
             </div>
             <div class="form-panel flex flex-col justify-center">
               <div class="flex flex-col box-form">
-                <div class="title-form">
-                  Creative Name
-                </div>
+                <div class="title-form">Creative Name</div>
                 <el-input v-model="data.name" style="width: 100%" />
               </div>
               <div class="flex flex-col box-form mt-4">
@@ -159,9 +151,7 @@
                 </el-select>
               </div>
               <div class="flex flex-col box-form mt-4">
-                <div class="title-form">
-                  URL
-                </div>
+                <div class="title-form">URL</div>
                 <el-input v-model="data.url" style="width: 100%" />
               </div>
             </div>
@@ -195,7 +185,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'UploadCreative',
   layout: 'default',
-  data () {
+  data() {
     return {
       imageLoaded: false,
       imageData: '',
@@ -208,24 +198,24 @@ export default {
         dimension: '',
         url: 'https://',
         previewUrl: '',
-        backupImg: ''
+        backupImg: '',
       },
       uploadPercentage: 0,
       isLoading: false,
       messageError: '',
-      showMessage: false
+      showMessage: false,
     }
   },
   computed: {
     ...mapState({
       orgId: (state) => {
         return state.user.orgId
-      }
+      },
       // dataResolution: (state) => {
       //   return state.creative.dataResolution
       // }
     }),
-    disabledSave () {
+    disabledSave() {
       if (
         this.data.name === '' ||
         this.data.dimension === '' ||
@@ -235,23 +225,23 @@ export default {
       } else {
         return true
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.getResolution()
   },
   methods: {
-    save () {
+    save() {
       this.$notifier.showMessage({
         content: 'Creating creative...',
-        type: 'loading'
+        type: 'loading',
       })
       const data = {
         name: this.data.name,
         resolutionId: this.data.dimension,
         clickUrl: this.data.url,
         previewUrl: this.data.previewUrl,
-        backupImg: this.data.backupImg
+        backupImg: this.data.backupImg,
       }
       const x = setTimeout(
         () =>
@@ -262,7 +252,7 @@ export default {
                 this.$router.push({ path: '/creative' })
                 this.$notifier.showMessage({
                   content: 'Creative created.',
-                  type: 'success'
+                  type: 'success',
                 })
                 clearInterval(x)
               } else {
@@ -276,7 +266,7 @@ export default {
                 this.$notifier.showMessage({
                   content:
                     'Creative failed. Please try again! ' + this.messageError,
-                  type: 'failed'
+                  type: 'failed',
                 })
                 clearInterval(x)
               }
@@ -288,7 +278,7 @@ export default {
         1000
       )
     },
-    async getResolution () {
+    async getResolution() {
       this.isLoading = true
       await this.$axios
         .get('creative/resolutions?orgId=' + this.orgId + '&all=true')
@@ -308,27 +298,27 @@ export default {
       //     this.isLoading = false
       //   })
     },
-    removeExtension (filename) {
+    removeExtension(filename) {
       return filename.substring(0, filename.lastIndexOf('.')) || filename
     },
-    continueTab () {
+    continueTab() {
       this.step1 = false
       this.step2 = true
     },
-    async uploadZIP () {
+    async uploadZIP() {
       this.imageLoaded = true
       const data = new FormData()
       data.append('file', this.imageData.raw)
       await this.$axios
         .post('zip', data, {
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           onUploadProgress: function (progressEvent) {
             this.uploadPercentage = parseInt(
               Math.round((progressEvent.loaded / progressEvent.total) * 100)
             )
-          }.bind(this)
+          }.bind(this),
         })
         .then((res) => {
           this.data.previewUrl = res.data.previewUrl
@@ -337,23 +327,23 @@ export default {
         .catch((error) => {
           this.$notifier.showMessage({
             content: 'Upload failed. Please try again ! ' + error,
-            type: 'failed'
+            type: 'failed',
           })
           this.imageLoaded = false
         })
     },
-    back () {
+    back() {
       this.$router.push({
-        path: '/creative'
+        path: '/creative',
       })
     },
-    backStep1 () {
+    backStep1() {
       this.imageData = ''
       this.step1 = true
       this.step2 = false
     },
-    beforeAvatarUpload (file) {},
-    handleChange (file) {
+    beforeAvatarUpload(file) {},
+    handleChange(file) {
       const formatData = file.raw.type
       const origins = [
         'image/gif',
@@ -365,18 +355,18 @@ export default {
         'application/zip',
         'application/zip-compressed',
         'application/octet-stream',
-        'multipart/x-zip'
+        'multipart/x-zip',
       ]
       if (!origins.includes(formatData)) {
         this.$notifier.showMessage({
           content:
             '.gif, .jpg/.jpeg, .png, .js, .txt, .html, .html, .zip. Maximum of 50 files',
-          type: 'failed'
+          type: 'failed',
         })
       } else if (file.size / 1000 > 1000) {
         this.$notifier.showMessage({
           content: 'File size can not exceed 1000 KB!',
-          type: 'failed'
+          type: 'failed',
         })
       } else {
         this.imageData = file
@@ -385,8 +375,8 @@ export default {
         this.data.name = this.removeExtension(this.imageData.name)
         this.uploadZIP()
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

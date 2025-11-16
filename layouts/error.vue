@@ -10,18 +10,18 @@ export default {
   props: {
     error: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   computed: {
-    errorPage () {
+    errorPage() {
       if (this.error.statusCode === 500) {
         //     return error404
         //   }
         //   // catch everything else
         return error404
       }
-    }
-  }
+    },
+  },
 }
 </script>

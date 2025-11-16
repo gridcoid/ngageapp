@@ -4,16 +4,17 @@
       class="flex items-center header-content filter-content justify-between"
     >
       <div class="flex items-center header-content">
-        <div class="title-header">
-          Your Running Campaign
-        </div>
-        <k-button text="View All" class="ml-4" type="secondary" @click.native="toCampaign()" />
+        <div class="title-header">Your Running Campaign</div>
+        <k-button
+          text="View All"
+          class="ml-4"
+          type="secondary"
+          @click.native="toCampaign()"
+        />
       </div>
       <div class="flex items-center">
         <div class="layout-filter flex items-center">
-          <div class="flex name-filter">
-            Layout:
-          </div>
+          <div class="flex name-filter">Layout:</div>
           <div
             class="flex btn-icon justify-center"
             :style="activeLayout === 'grid' ? 'border: 1px solid #1B63D4;' : ''"
@@ -22,7 +23,7 @@
             <img
               src="~/assets/images/campaign/icon_all.svg"
               style="height: 14px; width: 15px"
-            >
+            />
           </div>
           <div
             class="flex btn-icon"
@@ -32,15 +33,12 @@
             <img
               src="~/assets/images/campaign/icon_list.svg"
               style="height: 14px"
-            >
+            />
           </div>
         </div>
       </div>
     </div>
-    <div
-      v-if="totalCampaign > 0"
-      class="body-content"
-    >
+    <div v-if="totalCampaign > 0" class="body-content">
       <div v-if="activeLayout === 'grid'" class="grid grid-cols-4 gap-4">
         <CardCampaign
           v-for="(item, index) in dataCampaignComplete"
@@ -60,9 +58,7 @@
           <template v-slot:Summary>
             <div class="summary-card">
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  offers
-                </div>
+                <div class="title-1">offers</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -70,14 +66,10 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  bid%
-                </div>
+                <div class="title-1">bid%</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -85,14 +77,10 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  won%
-                </div>
+                <div class="title-1">won%</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -100,14 +88,10 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  impr.
-                </div>
+                <div class="title-1">impr.</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -115,14 +99,10 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  clicks
-                </div>
+                <div class="title-1">clicks</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -130,14 +110,10 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  ctr
-                </div>
+                <div class="title-1">ctr</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -145,9 +121,7 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
             </div>
           </template>
@@ -218,16 +192,12 @@
           </el-table-column>
           <el-table-column label="CPM">
             <template slot-scope="scope">
-              <div class="cpm-text">
-                0 USD
-              </div>
+              <div class="cpm-text">0 USD</div>
             </template>
           </el-table-column>
           <el-table-column label="Impression">
             <template slot-scope="scope">
-              <div class="view-text">
-                0 views
-              </div>
+              <div class="view-text">0 views</div>
               <div class="increase-text flex items-center">
                 <IconPriceUp class="mr-2" />Increase 0%
               </div>
@@ -235,9 +205,7 @@
           </el-table-column>
           <el-table-column label="Creatives">
             <template slot-scope="scope">
-              <div class="view-text">
-                0 views
-              </div>
+              <div class="view-text">0 views</div>
               <div class="increase-text flex items-center">
                 <IconPriceUp class="mr-2" />Increase 0%
               </div>
@@ -288,16 +256,15 @@
           <span
             class="name-btn"
             style="color: white; padding-left: 0px; padding-right: 10px"
-          >Next Page</span>
+            >Next Page</span
+          >
           <IconArrowRight bg-color="white" />
         </div>
       </div>
     </div>
     <div v-else class="flex flex-col items-center mt-16 no-data">
-      <img src="~/assets/images/campaign/empty_table.svg">
-      <div class="title-1">
-        It’s Very Clean Here
-      </div>
+      <img src="~/assets/images/campaign/empty_table.svg" />
+      <div class="title-1">It’s Very Clean Here</div>
       <div class="subtitle-1">
         Seems like you haven’t created any campaign yet. Create one now?
       </div>
@@ -306,9 +273,7 @@
         @click="toCreate()"
       >
         <IconSave bg-color="#1B63D4" />
-        <div class="name-btn">
-          Create New Creative
-        </div>
+        <div class="name-btn">Create New Creative</div>
       </button>
     </div>
     <transition name="slide">
@@ -374,7 +339,12 @@
                   v-model="radio"
                   class="flex mb-4"
                   label="asc"
-                  style="font-family: 'Cabin';font-weight: 400; font-size: 16px; color: #333333"
+                  style="
+                    font-family: 'Cabin';
+                    font-weight: 400;
+                    font-size: 16px;
+                    color: #333333;
+                  "
                 >
                   Ascending
                 </el-radio>
@@ -382,7 +352,12 @@
                   v-model="radio"
                   class="flex"
                   label="desc"
-                  style="font-family: 'Cabin';font-weight: 400; font-size: 16px; color: #333333"
+                  style="
+                    font-family: 'Cabin';
+                    font-weight: 400;
+                    font-size: 16px;
+                    color: #333333;
+                  "
                 >
                   Descending
                 </el-radio>
@@ -396,9 +371,7 @@
       <template v-slot:icon>
         <IconLineChart />
       </template>
-      <template v-slot:title>
-        Chart Details
-      </template>
+      <template v-slot:title> Chart Details </template>
       <template v-slot:body>
         <div class="status-filter flex items-center justify-around">
           <div
@@ -410,9 +383,7 @@
             "
             @click="statusActivePopup('goal')"
           >
-            <div class="name-status">
-              Goal
-            </div>
+            <div class="name-status">Goal</div>
           </div>
           <div
             class="flex items-center justify-center card-filter"
@@ -423,16 +394,12 @@
             "
             @click="statusActivePopup('summary')"
           >
-            <div class="name-status">
-              Summary
-            </div>
+            <div class="name-status">Summary</div>
           </div>
         </div>
         <div v-if="activeStatusPopup === 'summary'" class="summary-card">
           <div class="flex justify-between items-center item-summary">
-            <div class="title-1">
-              offers
-            </div>
+            <div class="title-1">offers</div>
             <apexchart
               type="area"
               height="60"
@@ -440,14 +407,10 @@
               :series="series2"
               style="width: 80px"
             />
-            <div class="value-1">
-              35.51 M
-            </div>
+            <div class="value-1">35.51 M</div>
           </div>
           <div class="flex justify-between items-center item-summary">
-            <div class="title-1">
-              bid%
-            </div>
+            <div class="title-1">bid%</div>
             <apexchart
               type="area"
               height="60"
@@ -455,14 +418,10 @@
               :series="series2"
               style="width: 80px"
             />
-            <div class="value-1">
-              35.51 M
-            </div>
+            <div class="value-1">35.51 M</div>
           </div>
           <div class="flex justify-between items-center item-summary">
-            <div class="title-1">
-              won%
-            </div>
+            <div class="title-1">won%</div>
             <apexchart
               type="area"
               height="60"
@@ -470,14 +429,10 @@
               :series="series2"
               style="width: 80px"
             />
-            <div class="value-1">
-              35.51 M
-            </div>
+            <div class="value-1">35.51 M</div>
           </div>
           <div class="flex justify-between items-center item-summary">
-            <div class="title-1">
-              impr.
-            </div>
+            <div class="title-1">impr.</div>
             <apexchart
               type="area"
               height="60"
@@ -485,14 +440,10 @@
               :series="series2"
               style="width: 80px"
             />
-            <div class="value-1">
-              35.51 M
-            </div>
+            <div class="value-1">35.51 M</div>
           </div>
           <div class="flex justify-between items-center item-summary">
-            <div class="title-1">
-              clicks
-            </div>
+            <div class="title-1">clicks</div>
             <apexchart
               type="area"
               height="60"
@@ -500,14 +451,10 @@
               :series="series2"
               style="width: 80px"
             />
-            <div class="value-1">
-              35.51 M
-            </div>
+            <div class="value-1">35.51 M</div>
           </div>
           <div class="flex justify-between items-center item-summary">
-            <div class="title-1">
-              ctr
-            </div>
+            <div class="title-1">ctr</div>
             <apexchart
               type="area"
               height="60"
@@ -515,9 +462,7 @@
               :series="series2"
               style="width: 80px"
             />
-            <div class="value-1">
-              35.51 M
-            </div>
+            <div class="value-1">35.51 M</div>
           </div>
         </div>
         <div v-else>
@@ -539,7 +484,7 @@ export default {
   name: 'HomePage',
   layout: 'default',
 
-  data () {
+  data() {
     return {
       radio: 'asc',
       createdAt: '',
@@ -562,165 +507,173 @@ export default {
       data2: [
         {
           title: 'The Lokal Folk_Opening Campaign March_2022_CPM',
-          status: 'delivering'
+          status: 'delivering',
         },
         {
           title: 'The Lokal Folk_Opening Campaign March_2022_CPM',
-          status: 'inactive'
+          status: 'inactive',
         },
         {
           title: 'The Lokal Folk_Opening Campaign March_2022_CPM',
-          status: 'delivering'
+          status: 'delivering',
         },
         {
           title: 'The Lokal Folk_Opening Campaign March_2022_CPM',
-          status: 'inactive'
+          status: 'inactive',
         },
         {
           title: 'The Lokal Folk_Opening Campaign March_2022_CPM',
-          status: 'delivering'
+          status: 'delivering',
         },
         {
           title: 'The Lokal Folk_Opening Campaign March_2022_CPM',
-          status: 'inactive'
+          status: 'inactive',
         },
         {
           title: 'The Lokal Folk_Opening Campaign March_2022_CPM',
-          status: 'inactive'
+          status: 'inactive',
         },
         {
           title: 'The Lokal Folk_Opening Campaign March_2022_CPM',
-          status: 'inactive'
-        }
+          status: 'inactive',
+        },
       ],
 
       chartData: {
-        labels: ['MAr/01', '03/01', '03/01', '03/01', '03/01', '03/01', '03/01'],
+        labels: [
+          'MAr/01',
+          '03/01',
+          '03/01',
+          '03/01',
+          '03/01',
+          '03/01',
+          '03/01',
+        ],
         datasets: [
           {
             label: 'Data One',
             backgroundColor: '#f87979',
             data: [0, 10, 5, 0, 10, 5, 5],
-            lineTension: 0.5
+            lineTension: 0.5,
           },
           {
             label: 'Data One',
             backgroundColor: '#f87979',
             data: [10, 4, 7, 10, 4, 7, 2],
-            lineTension: 0.5
-          }
-        ]
+            lineTension: 0.5,
+          },
+        ],
       },
       chartOptions: {
         responsive: true,
         legend: {
-          position: 'bottom'
-        }
+          position: 'bottom',
+        },
       },
       status: 'delivering',
       series: [
         {
           name: 'Data on selected period',
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
         },
         {
           name: 'Data compared to previous period',
-          data: [8, 41, 85, 70, 59, 62, 0, 91, 88]
-        }
+          data: [8, 41, 85, 70, 59, 62, 0, 91, 88],
+        },
       ],
       series2: [
         {
           name: 'Data',
-          data: [10, 41, 35]
-        }
+          data: [10, 41, 35],
+        },
       ],
       chartOptions2: {
         chart: {
           height: '100%',
           type: 'area',
           zoom: {
-            enabled: false
+            enabled: false,
           },
           toolbar: {
-            show: false
-          }
+            show: false,
+          },
         },
         tooltip: {
-          enabled: false
+          enabled: false,
         },
         curve: 'smooth',
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         colors: ['#1B63D4'],
         grid: {
           show: false,
           xaxis: {
             lines: {
-              show: false
-            }
+              show: false,
+            },
           },
           yaxis: {
             lines: {
-              show: false
-            }
-          }
+              show: false,
+            },
+          },
         },
         xaxis: {
           labels: {
-            show: false
-          }
+            show: false,
+          },
         },
         yaxis: {
           labels: {
-            show: false
-          }
-        }
+            show: false,
+          },
+        },
       },
       series3: [
         {
           name: 'Data on selected period',
-          data: [10, 41]
+          data: [10, 41],
         },
         {
           name: 'Data compared to previous period',
-          data: [8, 41]
-        }
+          data: [8, 41],
+        },
       ],
       chartOptions3: {
         chart: {
           height: 350,
           type: 'line',
           zoom: {
-            enabled: false
+            enabled: false,
           },
           toolbar: {
-            show: false
-          }
+            show: false,
+          },
         },
         curve: 'smooth',
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         stroke: {
           curve: 'straight',
-          dashArray: [0, 10]
+          dashArray: [0, 10],
         },
         legend: {
-          show: false
+          show: false,
         },
         colors: ['#1B63D4', '#FBAB18'],
         grid: {
           row: {
             colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-            opacity: 0.5
-          }
+            opacity: 0.5,
+          },
         },
 
         xaxis: {
-          categories: ['2022-03-31', '2022-04-12']
-        }
-      }
+          categories: ['2022-03-31', '2022-04-12'],
+        },
+      },
     }
   },
   computed: {
@@ -745,10 +698,10 @@ export default {
       },
       roleId: (state) => {
         return state.user.roleId
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     this.getAll()
     if (this.roleId === 4) {
       this.$router.push({ path: '/creative/' })
@@ -756,23 +709,23 @@ export default {
     }
   },
   methods: {
-    toCampaign () {
+    toCampaign() {
       // this.$router.replace({ path: '/campaign0?status=running'}).catch(() => {}))
       this.$router.push({ path: 'campaign', query: { status: 'running' } })
       this.$store.commit('user/SET_ACTIVE', 'Campaign')
     },
-    getAll () {
+    getAll() {
       this.getCampaign()
       this.getAdvertiser()
       this.getCampaignTypes()
     },
-    getAdvertiser () {
+    getAdvertiser() {
       this.$store.dispatch('campaign/getAdvertiser')
     },
-    getCampaignTypes () {
+    getCampaignTypes() {
       this.$store.dispatch('campaign/getCampaignTypes')
     },
-    getCampaign () {
+    getCampaign() {
       this.isLoading = true
       this.createdAt2 = []
       if (this.advertiserIds !== '') {
@@ -796,7 +749,7 @@ export default {
           campaignTypeId: this.campaignTypeId,
           advertiserIds: this.advertiserIds2,
           sort: this.radio,
-          createdAt: this.createdAt2
+          createdAt: this.createdAt2,
         }
         this.$store
           .dispatch('campaign/getCampaignComplete', data)
@@ -815,7 +768,7 @@ export default {
           campaignTypeId: this.campaignTypeId,
           advertiserIds: this.advertiserIds2,
           sort: this.radio,
-          createdAt: ''
+          createdAt: '',
         }
         this.$store
           .dispatch('campaign/getCampaignComplete', data)
@@ -827,8 +780,8 @@ export default {
           })
       }
     },
-    filter () {},
-    resetFilter () {
+    filter() {},
+    resetFilter() {
       this.createdAt = ''
       this.createdAt2 = []
       this.advertiserIds = ''
@@ -838,45 +791,45 @@ export default {
 
       this.getCampaign()
     },
-    statusActive (x) {
+    statusActive(x) {
       this.activeStatus = x
       this.currentPage = 1
       this.getCampaign()
     },
-    searchCampaign () {
+    searchCampaign() {
       this.currentPage = 1
       this.showSearch = false
       this.getCampaign()
     },
-    statusActivePopup (x) {
+    statusActivePopup(x) {
       this.activeStatusPopup = x
     },
-    statusLayout (x) {
+    statusLayout(x) {
       this.activeLayout = x
     },
-    showDialog () {
+    showDialog() {
       this.dialog = !this.dialog
     },
-    showChart () {
+    showChart() {
       this.$store.commit('user/SET_POPUP')
     },
-    toDetail (x) {
+    toDetail(x) {
       this.$router.push({
-        path: `/campaign/detail/${x}`
+        path: `/campaign/detail/${x}`,
       })
       this.$store.commit('user/SET_ACTIVE', 'Campaign')
     },
-    toCreate () {
+    toCreate() {
       this.$router.push({ path: '/campaign/create' })
       this.$store.commit('user/SET_ACTIVE', 'Campaign')
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .k-table {
-  border: 1px solid #C3CED9 !important;
+  border: 1px solid #c3ced9 !important;
   border-radius: 10px !important;
   .k-circle {
     width: 11px;
@@ -896,7 +849,7 @@ export default {
     width: 250px;
   }
   .k-title:hover {
-    color:#1B63D4;
+    color: #1b63d4;
   }
   .k-subtitle {
     font-family: 'Cabin';
@@ -1023,7 +976,7 @@ export default {
   }
 }
 .el-table thead {
-  color: #5C6B7A !important;
+  color: #5c6b7a !important;
   font-family: 'Cabin' !important;
   font-weight: 600 !important;
 }

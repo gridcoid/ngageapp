@@ -5,7 +5,7 @@
         <slot name="header" />
       </div>
       <div class="flex btn-preview noselect" v-on:click="toggleBody">
-        <img src="~/assets/images/icon/preview.svg">
+        <img src="~/assets/images/icon/preview.svg" />
       </div>
     </div>
     <div class="body-component" v-if="isBodyVisible">
@@ -20,23 +20,23 @@ export default {
   props: {
     status: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
-  data () {
+  data() {
     return {
       activeStatus: 'Goal',
-      isBodyVisible: true
+      isBodyVisible: true,
     }
   },
   methods: {
-    statusActive (x) {
+    statusActive(x) {
       this.activeStatus = x
     },
-    toggleBody () {
+    toggleBody() {
       this.isBodyVisible = !this.isBodyVisible
-    }
-  }
+    },
+  },
 }
 </script>
 

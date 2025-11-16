@@ -18,16 +18,16 @@ export default {
   props: {
     bgColor: {
       type: String,
-      default: '#5C6B7A'
+      default: '#5C6B7A',
     },
     width: {
       type: String,
-      default: '22'
+      default: '22',
     },
     height: {
       type: String,
-      default: '22'
-    }
-  }
+      default: '22',
+    },
+  },
 }
 </script>

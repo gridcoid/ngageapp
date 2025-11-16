@@ -7,9 +7,7 @@
     <div v-if="value % 1 != 0" class="value-progress">
       {{ value.toFixed(2) }}%
     </div>
-    <div v-else class="value-progress">
-      {{ value }}%
-    </div>
+    <div v-else class="value-progress">{{ value }}%</div>
   </div>
 </template>
 <script>
@@ -17,9 +15,9 @@ export default {
   props: {
     value: {
       type: Number,
-      default: 0
-    }
-  }
+      default: 0,
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -28,8 +26,8 @@ export default {
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  color: #5C6B7A;
-  margin-left:10px;
+  color: #5c6b7a;
+  margin-left: 10px;
 }
 .progress-card {
   width: 70px;

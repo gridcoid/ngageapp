@@ -10,7 +10,7 @@ import {
   LineElement,
   LinearScale,
   CategoryScale,
-  PointElement
+  PointElement,
 } from 'chart.js'
 
 ChartJS.register(

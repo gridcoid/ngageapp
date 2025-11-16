@@ -21,21 +21,21 @@ export default {
   props: {
     width: {
       type: String,
-      default: '30'
+      default: '30',
     },
     icon: {
       type: Boolean,
-      default: false
+      default: false,
     },
     heightBody: {
       type: String,
-      default: '300'
+      default: '300',
     },
     borderHeader: {
       type: Boolean,
-      default: true
-    }
-  }
+      default: true,
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

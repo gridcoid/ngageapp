@@ -1,9 +1,6 @@
 <template>
   <Transition name="nav">
-    <nav
-      class="flex nav-menu items-center justify-between"
-      style="width:100%"
-    >
+    <nav class="flex nav-menu items-center justify-between" style="width: 100%">
       <Breadcumb class="py-4" />
       <div class="py-4 flex items-center">
         <SwitchOrganization />
@@ -28,38 +25,36 @@
           v-model="visible"
         >
           <div class="list-popover flex-col items-center">
-            <div v-show="handleRole" class="btn-popover flex items-center mt-2" @click="toProfile()">
+            <div
+              v-show="handleRole"
+              class="btn-popover flex items-center mt-2"
+              @click="toProfile()"
+            >
               <IconProfile class="ml-1" style="width: 30px" />
-              <div class="title-1">
-                Your Profile
-              </div>
+              <div class="title-1">Your Profile</div>
             </div>
-            <div v-show="handleRole" class="btn-popover flex items-center" @click="btnChangePassword()">
+            <div
+              v-show="handleRole"
+              class="btn-popover flex items-center"
+              @click="btnChangePassword()"
+            >
               <IconPassword class="ml-1" style="width: 30px" />
-              <div class="title-1">
-                Change Password
-              </div>
+              <div class="title-1">Change Password</div>
             </div>
             <div v-show="handleRole" class="btn-popover flex items-center">
               <IconUser class="ml-1" style="width: 30px" />
-              <div class="title-1">
-                Manage User
-              </div>
+              <div class="title-1">Manage User</div>
             </div>
             <div v-show="handleRole" class="btn-popover flex items-center">
               <IconOrganization class="ml-1" style="width: 30px" />
-              <div class="title-1">
-                Manage Organization
-              </div>
+              <div class="title-1">Manage Organization</div>
             </div>
             <div
               class="btn-popover flex items-center mb-2 mt-2"
               @click="logout()"
             >
               <IconLogout class="ml-1" style="width: 30px" />
-              <div class="title-1">
-                Logout
-              </div>
+              <div class="title-1">Logout</div>
             </div>
           </div>
 
@@ -80,13 +75,13 @@ import { mapState } from 'vuex'
 export default {
   components: {},
 
-  data () {
+  data() {
     return {
       handleRole: true,
       iconSurvey: false,
       iconSetting: false,
       changePassword: false,
-      visible: false
+      visible: false,
     }
   },
   computed: {
@@ -99,33 +94,33 @@ export default {
       },
       roleId: (state) => {
         return state.user.roleId
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     this.checkRole()
   },
   methods: {
-    btnChangePassword () {
+    btnChangePassword() {
       this.visible = false
       document.querySelector('body').style.overflow = 'hidden'
       this.$store.commit('user/SET_CHANGE_DIALOG', true)
     },
-    toProfile () {
+    toProfile() {
       this.$router.push('/profile')
     },
-    logout () {
+    logout() {
       this.$auth.logout()
       this.$router.push('/login')
     },
-    checkRole () {
+    checkRole() {
       if (this.roleId === 4) {
         this.handleRole = false
       } else {
         this.handleRole = true
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -135,7 +130,7 @@ export default {
   // position: absolute;
   top: 0;
   background: #ffffff;
-  border-bottom: 1px solid #C3CED9 !important;
+  border-bottom: 1px solid #c3ced9 !important;
   padding-left: 20px;
   padding-right: 20px;
   .btn-icon {

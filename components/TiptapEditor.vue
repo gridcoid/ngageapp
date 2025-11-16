@@ -124,44 +124,44 @@ import { Editor, EditorContent } from '@tiptap/vue-2'
 
 export default {
   components: {
-    EditorContent
+    EditorContent,
   },
   props: {
     modelValue: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   emits: ['update:modelValue'],
 
-  data () {
+  data() {
     return {
-      editor: null
+      editor: null,
     }
   },
 
   watch: {
-    modelValue (value) {
+    modelValue(value) {
       const isSame = this.editor.getHTML() === value
       if (isSame) {
         return
       }
 
       this.editor.commands.setContent(value, false)
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.editor = new Editor({
       extensions: [StarterKit],
       content: this.modelValue,
       onUpdate: () => {
         this.$emit('update:modelValue', this.editor.getHTML())
-      }
+      },
     })
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.editor.destroy()
-  }
+  },
 }
 </script>

@@ -1,11 +1,34 @@
 <template>
   <div class="dropdown-container">
-    <div class="dropdown-btn noselect flex items-center justify-between cursor-pointer" :style="indexList == activeDropdown ? 'border-end-end-radius:0px;border-end-start-radius:0px' : ''">
-      <div class="flex card-dropdown items-center " @click="$emit('preview')">
-        <img v-if="icons === 'preview'" src="~/assets/images/icon/preview.svg" class="icon-prev">
-        <img v-if="icons === 'refresh'" src="~/assets/images/icon/refresh.svg" class="icon-prev">
-        <IconPlayV2 v-if="icons === 'play'" bg-color="#1B63D4" class="icon-prev" />
-        <IconPauseV2 v-if="icons === 'pause'" bg-color="#1B63D4" class="icon-prev" />
+    <div
+      class="dropdown-btn noselect flex items-center justify-between cursor-pointer"
+      :style="
+        indexList == activeDropdown
+          ? 'border-end-end-radius:0px;border-end-start-radius:0px'
+          : ''
+      "
+    >
+      <div class="flex card-dropdown items-center" @click="$emit('preview')">
+        <img
+          v-if="icons === 'preview'"
+          src="~/assets/images/icon/preview.svg"
+          class="icon-prev"
+        />
+        <img
+          v-if="icons === 'refresh'"
+          src="~/assets/images/icon/refresh.svg"
+          class="icon-prev"
+        />
+        <IconPlayV2
+          v-if="icons === 'play'"
+          bg-color="#1B63D4"
+          class="icon-prev"
+        />
+        <IconPauseV2
+          v-if="icons === 'pause'"
+          bg-color="#1B63D4"
+          class="icon-prev"
+        />
         <IconStop v-if="icons === 'stop'" class="icon-prev" />
 
         <div class="title-dropdown" :style="'color: ' + colorText">
@@ -13,8 +36,11 @@
         </div>
       </div>
       <div class="btn-show flex items-center justify-center" @click="open()">
-        <img v-if="indexList == activeDropdown" src="~/assets/images/icon/arrow_up.svg">
-        <img v-else src="~/assets/images/icon/arrow_down.svg">
+        <img
+          v-if="indexList == activeDropdown"
+          src="~/assets/images/icon/arrow_up.svg"
+        />
+        <img v-else src="~/assets/images/icon/arrow_down.svg" />
       </div>
     </div>
     <div v-if="indexList == activeDropdown" class="dropdown-list">
@@ -28,49 +54,52 @@ export default {
   props: {
     showBtn: {
       type: Boolean,
-      default: false
+      default: false,
     },
     indexList: {
       type: Number,
-      default: 0
+      default: 0,
     },
     nameBtn: {
       type: String,
-      default: ''
+      default: '',
     },
     icons: {
       type: String,
-      default: ''
+      default: '',
     },
     colorText: {
       type: String,
-      default: '#1B63D4'
-    }
+      default: '#1B63D4',
+    },
   },
-  data () {
+  data() {
     return {
-      activeItem: null
+      activeItem: null,
     }
   },
   computed: {
     ...mapState({
       activeDropdown: (state) => {
         return state.user.activeDropdown
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     this.$store.commit('user/SET_DROPDOWN', null)
   },
   methods: {
-    open () {
+    open() {
       if (this.activeDropdown !== null) {
-        this.$store.commit('user/SET_DROPDOWN', (this.activeDropdown === this.indexList) ? null : this.indexList)
+        this.$store.commit(
+          'user/SET_DROPDOWN',
+          this.activeDropdown === this.indexList ? null : this.indexList
+        )
       } else {
         this.$store.commit('user/SET_DROPDOWN', this.indexList)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -80,31 +109,31 @@ export default {
   .dropdown-btn {
     width: 161px;
     height: 40px;
-    background: #FFFFFF;
-    border: 1px solid #E2E2E2;
-    border-radius: 5px ;
+    background: #ffffff;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
     // padding-left:18px;
     .card-dropdown {
       width: 120px;
       height: 100%;
       padding-left: 20px;
       .icon-prev {
-        margin-right:10px;
+        margin-right: 10px;
       }
       .icon-next {
-        margin-right:10px;
+        margin-right: 10px;
       }
       .title-dropdown {
         font-weight: 700;
         font-size: 14px;
         line-height: 18px;
-        color: #1B63D4;
+        color: #1b63d4;
       }
     }
     .btn-show {
-      width:40px;
-      height:100%;
-      border-left: 1px solid #E2E2E2;
+      width: 40px;
+      height: 100%;
+      border-left: 1px solid #e2e2e2;
     }
   }
   .dropdown-btn:hover {
@@ -113,26 +142,24 @@ export default {
   .dropdown-list {
     position: absolute;
     // top:55px;
-    z-index:3;
+    z-index: 3;
     width: 161px;
     .item-menu {
-        cursor: pointer;
+      cursor: pointer;
       height: 40px;
-    padding-left:20px;
-    border-left: 1px solid #E2E2E2;
-    border-right: 1px solid #E2E2E2;
-    width: 161px;
-    height: 40px;
-    background: #FFFFFF;
-    .icon-item {
-        margin-right:12px;
-    }
+      padding-left: 20px;
+      border-left: 1px solid #e2e2e2;
+      border-right: 1px solid #e2e2e2;
+      width: 161px;
+      height: 40px;
+      background: #ffffff;
+      .icon-item {
+        margin-right: 12px;
+      }
     }
     .item-menu:hover {
-
-    background-color: rgb(243 244 246);
+      background-color: rgb(243 244 246);
     }
   }
-
 }
 </style>

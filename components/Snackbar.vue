@@ -26,17 +26,17 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       show: false,
       message: '',
       type: 'loading',
       percentage: 0,
-      x: ''
+      x: '',
     }
   },
   computed: {
-    styleSnackbar () {
+    styleSnackbar() {
       if (this.type === 'loading') {
         return 'border-loading'
       }
@@ -45,9 +45,9 @@ export default {
       } else {
         return 'border-failed'
       }
-    }
+    },
   },
-  created () {
+  created() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'snackbar/showMessage') {
         this.message = state.snackbar.content
@@ -63,11 +63,11 @@ export default {
   },
 
   methods: {
-    closeSnackbar () {
+    closeSnackbar() {
       this.show = false
       clearInterval(this.x)
-    }
-  }
+    },
+  },
 }
 </script>
 <style scoped lang="scss">
@@ -93,7 +93,7 @@ export default {
   padding-right: 16px;
   padding-top: 16px;
   padding-bottom: 16px;
-  z-index:9999;
+  z-index: 9999;
 }
 .border-loading {
   border-left: 4px solid #fbab18;

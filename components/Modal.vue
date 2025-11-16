@@ -6,16 +6,14 @@
           <img
             src="~/assets/images/campaign/icon_filter_color.svg"
             class="icon-header"
-          >
-          <div class="name-header">
-            Filter & Sort Data
-          </div>
+          />
+          <div class="name-header">Filter & Sort Data</div>
         </div>
         <img
           src="~/assets/images/campaign/icon_close.svg"
           class="icon-close"
           @click="$emit('close-modal')"
-        >
+        />
       </div>
       <div class="status-filter flex items-center justify-around">
         <div
@@ -25,9 +23,7 @@
           "
           @click="statusActive('Filter')"
         >
-          <div class="name-status">
-            Filter Data
-          </div>
+          <div class="name-status">Filter Data</div>
         </div>
         <div
           class="flex items-center justify-center card-filter"
@@ -36,9 +32,7 @@
           "
           @click="statusActive('Sort')"
         >
-          <div class="name-status">
-            Sort Data
-          </div>
+          <div class="name-status">Sort Data</div>
         </div>
       </div>
       <div class="content-modal">
@@ -54,7 +48,7 @@
           class="flex items-center justify-center save-btn no-select"
           @click="$emit('save-filter')"
         >
-          <img src="~/assets/images/icon_apply.svg">
+          <img src="~/assets/images/icon_apply.svg" />
           <span class="name-btn">Apply</span>
         </button>
         <k-button
@@ -71,58 +65,57 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
       radio: 'asc',
       activeStatus: 'Filter',
       createdAt: null,
       advertiserIds: '',
-      campaignTypeId: ''
+      campaignTypeId: '',
     }
   },
   computed: {
-    ...mapState({})
+    ...mapState({}),
   },
-  mounted () {
+  mounted() {
     this.getAll()
   },
   methods: {
-    statusActive (x) {
+    statusActive(x) {
       this.activeStatus = x
     },
-    getAll () {
+    getAll() {
       this.getAdvertiser()
       this.getCampaignTypes()
     },
-    getAdvertiser () {
+    getAdvertiser() {
       this.$store
         .dispatch('campaign/getAdvertiser')
-        .then(() => {
-        })
+        .then(() => {})
         .catch(() => {})
     },
-    getCampaignTypes () {
+    getCampaignTypes() {
       this.$store
         .dispatch('campaign/getCampaignTypes')
         .then(() => {})
         .catch(() => {})
     },
-    reset () {
+    reset() {
       this.createdAt = null
       this.advertiserIds = ''
       this.campaignTypeId = ''
       this.radio = ''
     },
-    save () {
+    save() {
       const data = {
         advertiserIds: this.advertiserIds,
         campaignTypeId: this.campaignTypeId,
         createdAt: this.createdAt,
-        radio: this.radio
+        radio: this.radio,
       }
       // this.$store.commit('campaign/SET_DATA_FILTER', data)
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

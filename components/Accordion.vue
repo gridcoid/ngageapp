@@ -22,17 +22,17 @@ export default {
   props: {
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     show: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     return {}
   },
-  methods: {}
+  methods: {},
 }
 </script>
 <style lang="scss" scoped>

@@ -24,7 +24,7 @@
         </div>
       </div>
       <audio :id="'yourAudio' + index">
-        <source :src="item.fileUrl" type="audio/mpeg">
+        <source :src="item.fileUrl" type="audio/mpeg" />
       </audio>
       <div v-if="index !== 0">
         <img
@@ -32,7 +32,7 @@
           src="https://dev-space.unimind.id/icon/play_v1.png"
           style="height: 15px; margin-right: 5px"
           @click="togglePlay(index)"
-        >
+        />
       </div>
       <div v-else>
         <img
@@ -40,7 +40,7 @@
           src=""
           style="height: 15px; margin-right: 5px"
           @click="togglePlay(index)"
-        >
+        />
       </div>
     </div>
   </div>
@@ -53,43 +53,43 @@ export default {
   props: {
     titleForm: {
       default: '',
-      type: String
+      type: String,
     },
     mood: {
       default: '',
-      type: String
-    }
+      type: String,
+    },
   },
-  data () {
+  data() {
     return {
       dataAudio: {},
       defaultData: {},
       selectedAudio: {},
-      isLoading: false
+      isLoading: false,
     }
   },
   computed: {
     ...mapState({
       dataForm: (state) => {
         return state.creative.dataForm
-      }
+      },
     }),
 
-    currentValue () {
+    currentValue() {
       const data = this.dataForm.find(
-        item => item.title === this.titleForm
+        (item) => item.title === this.titleForm
       ).default
       // data.forEach((item, index) => {
       //   item.url = 'https://unimind.kgnow.com/' + item.url
       // })
       return data
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.getDetail()
   },
   methods: {
-    async getAudio () {
+    async getAudio() {
       await this.$axios
         .get('audio?mood=' + this.mood)
         .then((res) => {
@@ -98,28 +98,28 @@ export default {
             this.$set(item, 'status', false)
           })
           const index = this.dataAudio.findIndex(
-            x => x.name === this.currentValue.name
+            (x) => x.name === this.currentValue.name
           )
           this.dataAudio[index].status = true
           this.selectedAudio = {
             fileUrl: this.dataAudio[index].fileUrl,
-            name: this.dataAudio[index].name
+            name: this.dataAudio[index].name,
           }
           this.$emit('changeAudio', this.selectedAudio)
         })
         .catch((error) => {
           this.$notifier.showMessage({
             content: 'Get Audio failed. Please try again ! ' + error,
-            type: 'failed'
+            type: 'failed',
           })
         })
     },
-    togglePlay (index, type = '') {
+    togglePlay(index, type = '') {
       const yourAudio = document.getElementById('yourAudio' + index)
       const ctrl = document.getElementById('audioControl' + index)
       if (type === '' && index !== 0) {
         const pause =
-        ctrl.src === 'https://dev-space.unimind.id/icon/pause_v1.png'
+          ctrl.src === 'https://dev-space.unimind.id/icon/pause_v1.png'
         ctrl.src = pause
           ? 'https://dev-space.unimind.id/icon/play_v1.png'
           : 'https://dev-space.unimind.id/icon/pause_v1.png'
@@ -151,19 +151,19 @@ export default {
           this.$set(item, 'status', true)
           this.selectedAudio = {
             fileUrl: item.fileUrl,
-            name: item.name
+            name: item.name,
           }
           this.$emit('changeAudio', this.selectedAudio)
         }
       })
     },
-    changeStatus (data, indexData) {
+    changeStatus(data, indexData) {
       this.dataAudio.forEach((item, index) => {
         if (index === indexData) {
           this.$set(item, 'status', true)
           this.selectedAudio = {
             fileUrl: item.fileUrl,
-            name: item.name
+            name: item.name,
           }
           this.$emit('changeAudio', this.selectedAudio)
           this.togglePlay(indexData)
@@ -173,9 +173,9 @@ export default {
         }
       })
     },
-    getDetail () {
+    getDetail() {
       const data = {
-        id: this.$route.params.edit
+        id: this.$route.params.edit,
       }
       this.isLoading = true
       this.$store
@@ -186,12 +186,12 @@ export default {
         })
         .catch(() => {})
     },
-    callAudio () {
-      const activeAudio = this.dataAudio.find(item => item.status)
+    callAudio() {
+      const activeAudio = this.dataAudio.find((item) => item.status)
       const activeAudioIndex = this.dataAudio.indexOf(activeAudio)
       this.togglePlay(activeAudioIndex, 'play')
-    }
-  }
+    },
+  },
 }
 </script>
 

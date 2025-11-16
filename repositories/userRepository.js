@@ -1,6 +1,6 @@
 const resource = 'user'
-export default $axios => ({
-  getById (payload) {
+export default ($axios) => ({
+  getById(payload) {
     let orgId = ''
     if (payload.orgId) {
       orgId = payload.orgId
@@ -9,55 +9,54 @@ export default $axios => ({
     }
     return $axios.get(`${resource}/${payload.id}?orgId=${orgId}`)
   },
-  getAll (payload) {
+  getAll(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`${resource}?orgId=${orgId}&page=${payload.page}&size=${payload.size}&name=${payload.name}&all=${payload.status}`)
+    return $axios.get(
+      `${resource}?orgId=${orgId}&page=${payload.page}&size=${payload.size}&name=${payload.name}&all=${payload.status}`
+    )
   },
-  getOrg (payload) {
+  getOrg(payload) {
     return $axios.get(`org?all=${payload.all}`)
   },
-  changePassword (payload) {
+  changePassword(payload) {
     return $axios.post(`${resource}/change-password`, {
       oldPassword: payload.oldPassword,
       newPassword: payload.newPassword,
       confirmNewPassword: payload.confirmNewPassword,
-      userId: payload.userId
+      userId: payload.userId,
     })
   },
-  getRoles () {
+  getRoles() {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(`${resource}/roles?orgId=${orgId}`)
   },
-  updateVerification (payload) {
+  updateVerification(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.patch(`${resource}/verified/${payload.id}?orgId=${orgId}`, {
-      isVerified: Boolean(payload.isVerified)
+      isVerified: Boolean(payload.isVerified),
     })
   },
-  delete (payload) {
+  delete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(`${resource}/${payload.id}?orgId=${orgId}`)
   },
-  update (payload) {
+  update(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.patch(
-      `${resource}/${payload.id}?orgId=${orgId}`,
-      {
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-        username: payload.username,
-        email: payload.email,
-        phone: payload.phone
-      }
-    )
-  },
-  createOrganization (payload) {
-    return $axios.post('org', {
-      name: payload.name,
-      typeId: 1
+    return $axios.patch(`${resource}/${payload.id}?orgId=${orgId}`, {
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      username: payload.username,
+      email: payload.email,
+      phone: payload.phone,
     })
   },
-  createUsers (payload) {
+  createOrganization(payload) {
+    return $axios.post('org', {
+      name: payload.name,
+      typeId: 1,
+    })
+  },
+  createUsers(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}?orgId=${orgId}`, {
       firstName: payload.firstName,
@@ -66,22 +65,18 @@ export default $axios => ({
       phone: payload.phone,
       username: payload.username,
       password: payload.password,
-      confirmPassword: payload.confirmPassword
+      confirmPassword: payload.confirmPassword,
     })
   },
-  assignOrg (payload) {
+  assignOrg(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}/org?orgId=${orgId}`, payload)
   },
-  updateRoles (payload) {
+  updateRoles(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.patch(
-      `${resource}/org/${payload.id}?orgId=${orgId}`,
-      {
-        roleId: payload.roleId,
-        orgId: payload.orgId
-      }
-    )
-  }
-
+    return $axios.patch(`${resource}/org/${payload.id}?orgId=${orgId}`, {
+      roleId: payload.roleId,
+      orgId: payload.orgId,
+    })
+  },
 })

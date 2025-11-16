@@ -1,5 +1,8 @@
 <template>
-  <div class="card-status flex items-center justify-center no-select" :style="checkType">
+  <div
+    class="card-status flex items-center justify-center no-select"
+    :style="checkType"
+  >
     <div :style="checkStatus" class="status-card" />
     {{ text }}
   </div>
@@ -9,11 +12,11 @@ export default {
   props: {
     text: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   computed: {
-    checkType () {
+    checkType() {
       if (this.text.toLowerCase() === 'paused') {
         return 'background: #C3CED9;border: 1px solid #5C6B7A;color: #5C6B7A;'
       }
@@ -26,7 +29,7 @@ export default {
         return 'background: #E1EDFF;border: 1px solid #1B63D4;color: #1B63D4;'
       }
     },
-    checkStatus () {
+    checkStatus() {
       if (this.text.toLowerCase() === 'paused') {
         return 'background: #5C6B7A;border: 2px solid #5C6B7A;'
       }
@@ -38,37 +41,37 @@ export default {
       } else {
         return 'background: #1B63D4;border: 2px solid #1B63D4;'
       }
-    }
+    },
   },
   methods: {
-    statusActive (x) {
+    statusActive(x) {
       this.activeStatus = x
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 .card-status {
-  padding-left:18px;
-  padding-right:18px;
-  width:fit-content;
+  padding-left: 18px;
+  padding-right: 18px;
+  width: fit-content;
   height: 33px;
-  background: #FFF3DD;
-  border: 1px solid #FBAB18;
+  background: #fff3dd;
+  border: 1px solid #fbab18;
   border-radius: 5px;
 
   font-family: 'Cabin';
   font-weight: 600;
   font-size: 18px;
-  color: #FBAB18;
-  text-transform:capitalize;
+  color: #fbab18;
+  text-transform: capitalize;
   .status-card {
     width: 10px;
     height: 10px;
-    background: #5C6B7A;
-    border: 2px solid #5C6B7A;
+    background: #5c6b7a;
+    border: 2px solid #5c6b7a;
     border-radius: 100px;
-    margin-right:10px;
+    margin-right: 10px;
   }
 }
 </style>

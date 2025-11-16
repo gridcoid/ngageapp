@@ -2,9 +2,7 @@
   <div v-if="!isLoading" class="form-input">
     <div class="style-box">
       <div class="flex flex-col color-container">
-        <div class="title-color">
-          Color :
-        </div>
+        <div class="title-color">Color :</div>
         <div class="color-card flex items-center">
           <v-swatches
             v-model="color"
@@ -16,7 +14,7 @@
             popover-x="right"
             @input="changeData()"
           />
-          <input v-model="color" disabled class="text-color">
+          <input v-model="color" disabled class="text-color" />
         </div>
       </div>
     </div>
@@ -30,56 +28,56 @@ import 'vue-swatches/dist/vue-swatches.css'
 
 export default {
   components: {
-    VSwatches
+    VSwatches,
   },
 
   props: {
     titleForm: {
       default: '',
-      type: String
-    }
+      type: String,
+    },
   },
 
-  data () {
+  data() {
     return {
       isLoading: true,
       swatches: ['#359EA6', '#473885', '#FABE19', '#F3631B', '#8C2466'],
       color: '#359EA6',
       defaultData: {},
-      text: ''
+      text: '',
     }
   },
   computed: {
     ...mapState({
       dataForm: (state) => {
         return state.creative.dataForm
-      }
-    })
+      },
+    }),
   },
 
-  mounted () {
+  mounted() {
     this.getDetail()
   },
   methods: {
-    getDetail () {
+    getDetail() {
       this.isLoading = true
       this.defaultData = this.dataForm.find(
-        item => item.title === this.titleForm
+        (item) => item.title === this.titleForm
       )
       console.log('edit color palete : ', this.defaultData)
       this.color = this.defaultData.default
       this.changeData()
       this.isLoading = false
     },
-    changeData () {
+    changeData() {
       const data = {
         title: this.titleForm,
         src: this.color,
-        type: 'Color_pallete'
+        type: 'Color_pallete',
       }
       this.$emit('changeColorOnly', data)
-    }
-  }
+    },
+  },
 }
 </script>
 

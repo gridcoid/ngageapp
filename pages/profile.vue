@@ -34,41 +34,31 @@
               {{ detailUser.lastName }}
             </div>
             <div class="flex items-center flex-row form-data">
-              <div class="label-data">
-                Email
-              </div>
+              <div class="label-data">Email</div>
               <div class="value-data">
                 {{ detailUser.email }}
               </div>
             </div>
             <div class="flex items-center flex-row form-data">
-              <div class="label-data">
-                First Name
-              </div>
+              <div class="label-data">First Name</div>
               <div class="value-data">
                 {{ detailUser.firstName }}
               </div>
             </div>
             <div class="flex items-center flex-row form-data">
-              <div class="label-data">
-                Last Name
-              </div>
+              <div class="label-data">Last Name</div>
               <div class="value-data">
                 {{ detailUser.lastName }}
               </div>
             </div>
             <div class="flex items-center flex-row form-data">
-              <div class="label-data">
-                Role
-              </div>
+              <div class="label-data">Role</div>
               <div class="value-data">
-                {{ capitalize(detailUser.roles ) }}
+                {{ capitalize(detailUser.roles) }}
               </div>
             </div>
             <div class="flex items-center flex-row form-data">
-              <div class="label-data">
-                Organization
-              </div>
+              <div class="label-data">Organization</div>
               <div class="value-data">
                 {{ detailUser.orgName }}
               </div>
@@ -78,9 +68,7 @@
       </div>
       <div v-if="activeItem === 2" class="content-card">
         <div class="organization">
-          <div class="title-org" style="margin-bottom: 0px">
-            User List
-          </div>
+          <div class="title-org" style="margin-bottom: 0px">User List</div>
           <div class="desc-tab">
             You can create, edit, and manage all access account in UNIMIND
           </div>
@@ -112,7 +100,7 @@
                         class="title-1"
                         placeholder="Find something.."
                         @change="searchData()"
-                      >
+                      />
                     </form>
                     <IconSearch @click.native="searchData()" />
                   </div>
@@ -144,57 +132,51 @@
               "
             >
               <el-table-column prop="name" sortable>
-                <template slot="header">
-                  Email
-                </template>
+                <template slot="header"> Email </template>
                 <template slot-scope="scope">
                   {{ scope.row.email }}
                 </template>
               </el-table-column>
               <el-table-column prop="name" sortable>
-                <template slot="header">
-                  Name
-                </template>
+                <template slot="header"> Name </template>
                 <template slot-scope="scope">
                   {{ scope.row.firstName }} {{ scope.row.lastName }}
                 </template>
               </el-table-column>
               <el-table-column prop="name" sortable>
-                <template slot="header">
-                  Organization
-                </template>
+                <template slot="header"> Organization </template>
                 <template slot-scope="scope">
                   {{ scope.row.userRoles.org.name }}
                 </template>
               </el-table-column>
               <el-table-column prop="name" sortable>
-                <template slot="header">
-                  Status
-                </template>
+                <template slot="header"> Status </template>
                 <template slot-scope="scope">
                   {{ scope.row.isVerified ? 'Active' : 'Inactive' }}
                 </template>
               </el-table-column>
               <el-table-column prop="name" sortable>
-                <template slot="header">
-                  Created On
-                </template>
+                <template slot="header"> Created On </template>
                 <template slot-scope="scope">
-                  {{ $moment( scope.row.createdAt).format('MMM Do, YYYY hh:mm') }}
+                  {{
+                    $moment(scope.row.createdAt).format('MMM Do, YYYY hh:mm')
+                  }}
                 </template>
               </el-table-column>
               <el-table-column prop="name">
-                <template slot="header">
-                  Action
-                </template>
+                <template slot="header"> Action </template>
                 <template slot-scope="scope">
                   <el-dropdown
                     trigger="click"
                     split-button
-                    @click="toCreate(scope.row.id,scope.row.userRoles.org.id)"
+                    @click="toCreate(scope.row.id, scope.row.userRoles.org.id)"
                   >
                     <span class="flex title-dropdown">
-                      <img src="~/assets/images/icon/edit.svg" width="27%" class="mr-2">
+                      <img
+                        src="~/assets/images/icon/edit.svg"
+                        width="27%"
+                        class="mr-2"
+                      />
                       Edit
                     </span>
                     <el-dropdown-menu slot="dropdown">
@@ -210,22 +192,25 @@
                       <el-dropdown-item>
                         <div
                           class="dropdown-action flex items-center no-select"
-                          @click="toVerification(scope.row.id, scope.row.isVerified)"
+                          @click="
+                            toVerification(scope.row.id, scope.row.isVerified)
+                          "
                         >
                           <iconLock />
-                          &nbsp;  {{ scope.row.isVerified ? 'Disable' : 'Enable' }}
+                          &nbsp;
+                          {{ scope.row.isVerified ? 'Disable' : 'Enable' }}
                         </div>
                       </el-dropdown-item>
                       <el-dropdown-item>
                         <div
                           class="dropdown-action flex items-center no-select"
-                          style="color: #ED543A;"
+                          style="color: #ed543a"
                           @click="deleteUser(scope.row)"
                         >
                           <img
                             src="~/assets/images/icon/delete.svg"
                             class="icon-item"
-                          >
+                          />
                           Delete
                         </div>
                       </el-dropdown-item>
@@ -235,10 +220,8 @@
               </el-table-column>
               <template slot="empty">
                 <div class="flex flex-col items-center mt-6 no-data">
-                  <img src="~/assets/images/campaign/empty_table.svg">
-                  <div class="title-1">
-                    It’s Very Clean Here
-                  </div>
+                  <img src="~/assets/images/campaign/empty_table.svg" />
+                  <div class="title-1">It’s Very Clean Here</div>
                 </div>
               </template>
             </el-table>
@@ -268,13 +251,11 @@
             class="flex items-center justify-between"
             style="margin-bottom: 14px"
           >
-            <div class="title-popup2">
-              Delete User?
-            </div>
+            <div class="title-popup2">Delete User?</div>
             <img
               src="~/assets/images/icon/delete_color.svg"
               class="icon-item"
-            >
+            />
           </div>
           <div class="title-popup">
             Are you sure want to
@@ -298,9 +279,7 @@
               </div>
             </div>
             <div class="flex flex-col">
-              <div class="date-popup">
-                Last modified
-              </div>
+              <div class="date-popup">Last modified</div>
               <div class="date-popup">
                 {{ $moment(dataDelete.date).format('MMM Do, YYYY hh:mm') }}
               </div>
@@ -332,7 +311,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
       activeItem: 1,
       dataCampaign: [],
@@ -342,7 +321,7 @@ export default {
         id: '',
         date: '',
         email: '',
-        name: ''
+        name: '',
       },
       popup: false,
       currentPage: 1,
@@ -353,7 +332,7 @@ export default {
       dialog: false,
       Number: '',
       selectedUserId: null,
-      userIdPassword: 0
+      userIdPassword: 0,
     }
   },
   computed: {
@@ -390,10 +369,10 @@ export default {
       },
       userChangePassword: (state) => {
         return state.user.userChangePassword
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     document.querySelector('body').style.overflow = 'auto'
     this.$store.commit('user/SET_DROPDOWN', null)
     this.getDataUser()
@@ -403,48 +382,51 @@ export default {
     this.$store.commit('user/SET_USER_PASSWORD_CHANGE_DIALOG', false)
   },
   methods: {
-    capitalize (str) {
-      if (!str) { return '' }
+    capitalize(str) {
+      if (!str) {
+        return ''
+      }
       return str
         .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
         .join(' ')
     },
-    searchData () {
+    searchData() {
       this.currentPage = 1
       this.showSearch = false
       this.getDataAll()
     },
-    btnChangePassword (id) {
+    btnChangePassword(id) {
       this.userIdPassword = id
       document.querySelector('body').style.overflow = 'hidden'
       this.$store.commit('user/SET_USER_PASSWORD_CHANGE_DIALOG', true)
     },
-    getDataUser () {
+    getDataUser() {
       const data = {
         id: this.userId,
-        pageType: 'accoundDetail'
+        pageType: 'accoundDetail',
       }
-      this.$store
-        .dispatch('user/getDetail', data)
+      this.$store.dispatch('user/getDetail', data)
     },
-    changeRowPage (ev) {
+    changeRowPage(ev) {
       this.rowPage = ev
       this.getDataAll()
     },
-    changePage (ev) {
+    changePage(ev) {
       if (ev > 0) {
         this.currentPage = ev
         this.getDataAll()
       }
     },
-    getDataAll () {
+    getDataAll() {
       this.isLoading = true
       const data = {
         status: true,
         page: this.currentPage,
         size: this.rowPage,
-        name: this.dataSearch
+        name: this.dataSearch,
       }
       this.$store
         .dispatch('user/getAll', data)
@@ -458,22 +440,22 @@ export default {
     // editUser () {
     //   alert('edit')
     // },
-    toCreate (id = null, orgId = null) {
+    toCreate(id = null, orgId = null) {
       if (id !== null) {
         this.selectedUserId = { id, orgId }
       }
       document.querySelector('body').style.overflow = 'hidden'
       this.$store.commit('user/SET_USER_CHANGE_DIALOG', true)
     },
-    toVerification (id, status) {
+    toVerification(id, status) {
       const isVerified = !status ? 1 : 0
       const data = {
         id,
-        isVerified
+        isVerified,
       }
       this.$notifier.showMessage({
         content: 'Update Status...',
-        type: 'loading'
+        type: 'loading',
       })
       const x = setTimeout(
         () =>
@@ -482,7 +464,7 @@ export default {
             .then((res) => {
               this.$notifier.showMessage({
                 content: 'Update Status',
-                type: 'success'
+                type: 'success',
               })
               this.getDataAll()
               this.closeDropdown = false
@@ -490,8 +472,9 @@ export default {
             })
             .catch((error) => {
               this.$notifier.showMessage({
-                content: 'Update Status User failed. Please try again! ' + error,
-                type: 'failed'
+                content:
+                  'Update Status User failed. Please try again! ' + error,
+                type: 'failed',
               })
               this.closeDropdown = false
               clearInterval(x)
@@ -499,11 +482,11 @@ export default {
         1000
       )
     },
-    closeDialog () {
+    closeDialog() {
       document.querySelector('body').style.overflow = ''
       this.popup = false
     },
-    deleteUser (idUser) {
+    deleteUser(idUser) {
       document.querySelector('body').style.overflow = 'hidden'
       this.dataDelete.id = idUser.id
       this.dataDelete.date = idUser.updatedAt
@@ -512,10 +495,10 @@ export default {
       this.popup = true
       this.$store.commit('user/SET_DROPDOWN', null)
     },
-    destroyUser () {
+    destroyUser() {
       this.isLoading = true
       const data = {
-        id: this.dataDelete.id
+        id: this.dataDelete.id,
       }
       if (this.totalAllUser > 10) {
         if (String(this.totalAllUser).slice(-1) === '1') {
@@ -528,7 +511,7 @@ export default {
       }
       this.$notifier.showMessage({
         content: 'Delete user...',
-        type: 'loading'
+        type: 'loading',
       })
       const x = setTimeout(
         () =>
@@ -540,7 +523,7 @@ export default {
               this.isLoading = false
               this.$notifier.showMessage({
                 content: 'User deleted.',
-                type: 'success'
+                type: 'success',
               })
               this.closeDropdown = false
               clearInterval(x)
@@ -549,7 +532,7 @@ export default {
             .catch((error) => {
               this.$notifier.showMessage({
                 content: 'User delete failed. Please try again! ' + error,
-                type: 'failed'
+                type: 'failed',
               })
               this.isLoading = false
               this.closeDropdown = false
@@ -559,17 +542,15 @@ export default {
         1000
       )
     },
-    onChangeDataOrg () {
-    }
-
-  }
+    onChangeDataOrg() {},
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .el-table thead {
   color: #5c6b7a !important;
-  font-family: "Cabin" !important;
+  font-family: 'Cabin' !important;
   font-weight: 600 !important;
 }
 .kg-containers {
@@ -578,7 +559,7 @@ export default {
   .header-content {
     margin-bottom: 25px;
     .title-header {
-      font-family: "Cabin";
+      font-family: 'Cabin';
       font-style: normal;
       font-weight: 600;
       font-size: 18px;
@@ -598,7 +579,7 @@ export default {
       padding-left: 20px;
       .item-tab {
         height: 40px;
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-size: 16px;
         font-style: normal;
         font-weight: 500;
@@ -615,7 +596,7 @@ export default {
     .content-card {
       .desc-tab {
         color: #7a8a99;
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -631,7 +612,7 @@ export default {
         margin-bottom: 20px;
         .title-sub {
           color: #5c6b7a;
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-size: 16px;
           font-style: normal;
           font-weight: 500;
@@ -639,7 +620,7 @@ export default {
         }
         .data-password {
           color: #5c6b7a;
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-size: 16px;
           font-style: normal;
           font-weight: 400;
@@ -649,7 +630,7 @@ export default {
         }
         .label-data2 {
           color: #5c6b7a;
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-size: 14px;
           font-style: normal;
           font-weight: 400;
@@ -658,7 +639,7 @@ export default {
         }
         .value-data2 {
           color: #5c6b7a;
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-size: 14px;
           font-style: normal;
           font-weight: 400;
@@ -672,7 +653,7 @@ export default {
           height: 150px;
           background: #1b63d4;
           border-radius: 50%;
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-size: 40px;
           font-style: normal;
           font-weight: 600;
@@ -682,7 +663,7 @@ export default {
         .detail-profile {
           .data-name {
             color: #5c6b7a;
-            font-family: "Cabin";
+            font-family: 'Cabin';
             font-size: 24px;
             font-style: normal;
             font-weight: 600;
@@ -693,7 +674,7 @@ export default {
           }
           .label-data {
             color: #5c6b7a;
-            font-family: "Cabin";
+            font-family: 'Cabin';
             font-size: 16px;
             font-style: normal;
             font-weight: 500;
@@ -702,7 +683,7 @@ export default {
           }
           .value-data {
             color: #5c6b7a;
-            font-family: "Cabin";
+            font-family: 'Cabin';
             font-size: 16px;
             font-style: normal;
             font-weight: 400;
@@ -713,14 +694,14 @@ export default {
         padding: 20px;
         .title-org {
           color: #5c6b7a;
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-size: 18px;
           font-style: normal;
           font-weight: 600;
           margin-bottom: 15px;
         }
         .table-content {
-           margin-right: 20px;
+          margin-right: 20px;
 
           .k-table {
             border: 1px solid #c3ced9 !important;
@@ -728,7 +709,7 @@ export default {
           }
           .no-data {
             .title-1 {
-              font-family: "Cabin";
+              font-family: 'Cabin';
               font-weight: 600;
               font-size: 20px;
               color: #454545;
@@ -842,18 +823,18 @@ export default {
 }
 
 .hr-vertical {
-    border-left: 1px solid #e2e2e2;
-    height: 24px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
+  border-left: 1px solid #e2e2e2;
+  height: 24px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
 .filter-content {
   padding-left: 10px;
   padding-right: 10px;
-  float:right;
+  float: right;
   .search-card {
     padding-bottom: 3px;
     .hide-search {
@@ -880,7 +861,7 @@ export default {
       -o-transition: width 0.3s ease-out;
       transition: width 0.3s ease-out;
       .title-1 {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         color: #9a9a9a;
         font-size: 14px;
         width: 180px;

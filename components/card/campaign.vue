@@ -52,9 +52,7 @@
         </div>
         <IconUser />
       </div> -->
-      <div class="audience">
-        1 creatives
-      </div>
+      <div class="audience">1 creatives</div>
       <div class="flex justify-between items-center">
         <div class="text-user flex items-center">
           <IconPriceUp class="mr-2" />
@@ -71,9 +69,7 @@
         "
         @click="statusActive('Goal')"
       >
-        <div class="name-status">
-          Impression
-        </div>
+        <div class="name-status">Impression</div>
       </div>
       <!-- <div
         class="flex items-center justify-center card-filter"
@@ -101,19 +97,19 @@ export default {
   props: {
     status: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
-  data () {
+  data() {
     return {
-      activeStatus: 'Goal'
+      activeStatus: 'Goal',
     }
   },
   methods: {
-    statusActive (x) {
+    statusActive(x) {
       this.activeStatus = x
-    }
-  }
+    },
+  },
 }
 </script>
 

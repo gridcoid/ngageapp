@@ -1,9 +1,5 @@
 <template>
-  <Popup2
-    class="kg-popup"
-    width="400"
-    @close-modal="closeDialog()"
-  >
+  <Popup2 class="kg-popup" width="400" @close-modal="closeDialog()">
     <template v-slot:body>
       <div class="body-popup">
         <div class="flex justify-between items-center">
@@ -13,14 +9,13 @@
           <iconAddUser />
         </div>
         <div class="sub-dialog">
-          Organization will separate user’s assets including Campaign, Placement, and Creative. Each organization can be under parent ones.
+          Organization will separate user’s assets including Campaign,
+          Placement, and Creative. Each organization can be under parent ones.
         </div>
 
-        <div class="subtitle-2">
-          Email
-        </div>
+        <div class="subtitle-2">Email</div>
         <div class="relative w-full">
-          <div class="flex ">
+          <div class="flex">
             <el-input
               v-model="email"
               type="email"
@@ -29,49 +24,59 @@
               :disabled="isEdit"
             />
           </div>
-          <div v-if="emailValidation !== ''" class="score" style="color: #ED543A;margin-top:5px;">
+          <div
+            v-if="emailValidation !== ''"
+            class="score"
+            style="color: #ed543a; margin-top: 5px"
+          >
             <span v-if="emailValidation">
               {{ emailValidation }}
             </span>
           </div>
         </div>
 
-        <div class="subtitle-2">
-          First Name
-        </div>
+        <div class="subtitle-2">First Name</div>
         <div class="relative w-full">
-          <div class="flex ">
+          <div class="flex">
             <el-input v-model="first_name" style="width: 100%" class="mt-2" />
           </div>
-          <div v-if="firstNameValidation !== ''" class="score" style="color: #ED543A;margin-top:5px;">
+          <div
+            v-if="firstNameValidation !== ''"
+            class="score"
+            style="color: #ed543a; margin-top: 5px"
+          >
             <span v-if="firstNameValidation">
               {{ firstNameValidation }}
             </span>
           </div>
         </div>
 
-        <div class="subtitle-2">
-          Last Name
-        </div>
+        <div class="subtitle-2">Last Name</div>
         <div class="relative w-full">
-          <div class="flex ">
+          <div class="flex">
             <el-input v-model="last_name" style="width: 100%" class="mt-2" />
           </div>
-          <div v-if="lastNameValidation !== ''" class="score" style="color: #ED543A;margin-top:5px;">
+          <div
+            v-if="lastNameValidation !== ''"
+            class="score"
+            style="color: #ed543a; margin-top: 5px"
+          >
             <span v-if="lastNameValidation">
               {{ lastNameValidation }}
             </span>
           </div>
         </div>
 
-        <div class="subtitle-2">
-          Username
-        </div>
+        <div class="subtitle-2">Username</div>
         <div class="relative w-full">
-          <div class="flex ">
+          <div class="flex">
             <el-input v-model="username" style="width: 100%" class="mt-2" />
           </div>
-          <div v-if="userNameValidation !== ''" class="score" style="color: #ED543A;margin-top:5px;">
+          <div
+            v-if="userNameValidation !== ''"
+            class="score"
+            style="color: #ed543a; margin-top: 5px"
+          >
             <span v-if="userNameValidation">
               {{ userNameValidation }}
             </span>
@@ -92,35 +97,25 @@
           </div>
         </div> -->
         <div v-if="!isEdit">
-          <div class="subtitle-2">
-            Password
-          </div>
+          <div class="subtitle-2">Password</div>
           <div class="relative w-full">
             <div class="absolute inset-y-0 right-0 flex items-center px-2">
               <input
                 id="toggle"
                 class="hidden js-password-toggle"
                 type="checkbox"
-              >
+              />
               <IconHidePassword
                 v-if="!passwordType2"
                 class="no-select"
-                style="
-                    margin-top: 10px;
-                    margin-right: 10px;
-                    cursor: pointer;
-                  "
+                style="margin-top: 10px; margin-right: 10px; cursor: pointer"
                 :bg-color="validationPassword2 ? '#ED543A' : '#9A9A9A'"
                 @click.native="passwordType2 = !passwordType2"
               />
               <IconShowPassword
                 v-else
                 class="no-select"
-                style="
-                    margin-top: 12px;
-                    margin-right: 10px;
-                    cursor: pointer;
-                  "
+                style="margin-top: 12px; margin-right: 10px; cursor: pointer"
                 :bg-color="validationPassword2 ? '#ED543A' : '#9A9A9A'"
                 @click.native="passwordType2 = !passwordType2"
               />
@@ -132,42 +127,36 @@
               :class="validationPassword2 ? 'border-red-500' : ''"
               :type="passwordType2 ? 'password' : 'text'"
               autocomplete="off"
-            >
+            />
           </div>
-          <passwd :password="password" style="height:4px;margin-top:5px;" @score="onScore" />
-          <div v-if="password !== ''" class="score" style="margin-top:5px;">
+          <passwd
+            :password="password"
+            style="height: 4px; margin-top: 5px"
+            @score="onScore"
+          />
+          <div v-if="password !== ''" class="score" style="margin-top: 5px">
             {{ score }}
           </div>
 
-          <div class="subtitle-2">
-            Confirm Password
-          </div>
+          <div class="subtitle-2">Confirm Password</div>
           <div class="relative w-full">
             <div class="absolute inset-y-0 right-0 flex items-center px-2">
               <input
                 id="toggle"
                 class="hidden js-password-toggle"
                 type="checkbox"
-              >
+              />
               <IconHidePassword
                 v-if="!passwordType3"
                 class="no-select"
-                style="
-                    margin-top: 10px;
-                    margin-right: 10px;
-                    cursor: pointer;
-                  "
+                style="margin-top: 10px; margin-right: 10px; cursor: pointer"
                 :bg-color="validationPassword3 ? '#ED543A' : '#9A9A9A'"
                 @click.native="passwordType3 = !passwordType3"
               />
               <IconShowPassword
                 v-else
                 class="no-select"
-                style="
-                    margin-top: 12px;
-                    margin-right: 10px;
-                    cursor: pointer;
-                  "
+                style="margin-top: 12px; margin-right: 10px; cursor: pointer"
                 :bg-color="validationPassword3 ? '#ED543A' : '#9A9A9A'"
                 @click.native="passwordType3 = !passwordType3"
               />
@@ -179,25 +168,23 @@
               :class="validationPassword3 ? 'border-red-validation' : ''"
               :type="passwordType3 ? 'password' : 'text'"
               autocomplete="off"
-            >
+            />
           </div>
-          <div v-if="confirm_password !== ''" class="score" style="color: #ED543A;margin-top:5px;">
-            <span v-if="validationPassword3">
-              Password doesn’t match
-            </span>
+          <div
+            v-if="confirm_password !== ''"
+            class="score"
+            style="color: #ed543a; margin-top: 5px"
+          >
+            <span v-if="validationPassword3"> Password doesn’t match </span>
           </div>
         </div>
 
         <div class="user-role-container">
-          <div class="user-role-subtitle">
-            USER ROLE
-          </div>
+          <div class="user-role-subtitle">USER ROLE</div>
 
-          <div class="subtitle-2">
-            Roles
-          </div>
+          <div class="subtitle-2">Roles</div>
           <div class="relative w-full">
-            <div class="flex ">
+            <div class="flex">
               <el-select
                 v-model="selectedRoles"
                 placeholder="Select roles"
@@ -214,11 +201,9 @@
             </div>
           </div>
 
-          <div class="subtitle-2">
-            Organization
-          </div>
+          <div class="subtitle-2">Organization</div>
           <div class="relative w-full">
-            <div class="flex ">
+            <div class="flex">
               <el-select
                 v-model="selectedOrg"
                 placeholder="Select organization"
@@ -235,7 +220,7 @@
 
               <ButtonDefault
                 icon="plus"
-                class="ml-5 mt-3 "
+                class="ml-5 mt-3"
                 @click.native="toCreateOrg()"
               />
             </div>
@@ -245,19 +230,26 @@
         <Transition>
           <Alert v-show="showMessage" class="mt-6 mb-0" :text="messageError" />
         </Transition>
-        <div class="footer-card-password grid grid-cols-2 gap-4 place-content-stretch">
+        <div
+          class="footer-card-password grid grid-cols-2 gap-4 place-content-stretch"
+        >
           <button
             class="flex items-center justify-center cancel-btn no-select"
             @click="closeDialog()"
           >
-            <span class="name-btn no-select" style="color: #1B63D4;">Cancel</span>
+            <span class="name-btn no-select" style="color: #1b63d4"
+              >Cancel</span
+            >
           </button>
           <button
             class="flex items-center justify-center no-select"
             :class="validationBtnSave ? 'save-btn' : 'disable-btn'"
             @click="isEdit ? saveUpdate() : save()"
           >
-            <IconSave class="mr-2" :bg-color="validationBtnSave ? 'white' : '#A1ADB9'" />
+            <IconSave
+              class="mr-2"
+              :bg-color="validationBtnSave ? 'white' : '#A1ADB9'"
+            />
             Save
           </button>
         </div>
@@ -272,10 +264,10 @@ export default {
   props: {
     iduser: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
-  data () {
+  data() {
     return {
       validationPassword: false,
       passwordType: true,
@@ -304,7 +296,7 @@ export default {
       lastNameValidation: '',
       userNameValidation: '',
       emailValidation: '',
-      phoneError: ''
+      phoneError: '',
     }
   },
 
@@ -315,16 +307,27 @@ export default {
       },
       rolesDropdown: (state) => {
         return state.user.rolesDropdown
-      }
+      },
     }),
-    validationBtnSave () {
-      if (this.isEdit || (!this.isEdit && (this.password.length >= 8 && this.confirm_password.length >= 8) && this.email !== '' && this.first_name !== '' && this.last_name !== '' && this.username !== '' && this.selectedRoles !== '' && this.selectedOrg !== '')) {
+    validationBtnSave() {
+      if (
+        this.isEdit ||
+        (!this.isEdit &&
+          this.password.length >= 8 &&
+          this.confirm_password.length >= 8 &&
+          this.email !== '' &&
+          this.first_name !== '' &&
+          this.last_name !== '' &&
+          this.username !== '' &&
+          this.selectedRoles !== '' &&
+          this.selectedOrg !== '')
+      ) {
         return true
       } else {
         return false
       }
     },
-    validationPassword3 () {
+    validationPassword3() {
       if (this.confirm_password.length > 0) {
         if (this.confirm_password !== this.password) {
           return true
@@ -334,23 +337,22 @@ export default {
       } else {
         return false
       }
-    }
-
+    },
   },
   watch: {
     iduser: {
-      handler (val) {
+      handler(val) {
         if (val) {
           this.clearForm()
           this.isEdit = true
           this.getUser(val)
         }
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
 
-  mounted () {
+  mounted() {
     this.isEdit = false
     if (!this.isEdit) {
       this.clearForm()
@@ -359,13 +361,13 @@ export default {
     }
   },
   methods: {
-    validatePhone () {
+    validatePhone() {
       if (!this.isEdit) {
         this.phone = this.phone.replace(/[^0-9]/g, '')
         this.phoneError = this.phone ? '' : 'Phone is required and number only'
       }
     },
-    onScore ({ score, strength }) {
+    onScore({ score, strength }) {
       if (score === 0 || score === 1) {
         this.score = 'Weak'
       }
@@ -376,27 +378,30 @@ export default {
         this.score = 'Strong'
       }
     },
-    closeDialog () {
+    closeDialog() {
       document.querySelector('body').style.overflow = ''
       this.clearForm()
       this.$store.commit('user/SET_USER_CHANGE_DIALOG', false)
       this.isEdit = false
     },
-    getOrg () {
-      this.$store.dispatch('user/getOrgUser', { all: true }).then((res) => {
-        const data = res.data.data
-        if (this.isEdit) {
-          this.selectedOrg = ''
-          this.selectedOrg = data.find(
-            item => item.id === parseInt(this.org)
-          ).id
-        }
-        this.$store.commit('user/SET_DROPDOWN_ORG', data)
-      }).catch(() => {
-        this.$store.commit('user/SET_DROPDOWN_ORG', [])
-      })
+    getOrg() {
+      this.$store
+        .dispatch('user/getOrgUser', { all: true })
+        .then((res) => {
+          const data = res.data.data
+          if (this.isEdit) {
+            this.selectedOrg = ''
+            this.selectedOrg = data.find(
+              (item) => item.id === parseInt(this.org)
+            ).id
+          }
+          this.$store.commit('user/SET_DROPDOWN_ORG', data)
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN_ORG', [])
+        })
     },
-    getUser (payload) {
+    getUser(payload) {
       const data = payload
       this.$store
         .dispatch('user/getDetail', data)
@@ -414,35 +419,33 @@ export default {
         })
         .catch(() => {})
     },
-    getRoles () {
+    getRoles() {
       this.selectedRoles = ''
-      this.$store.dispatch('user/getRoles')
+      this.$store
+        .dispatch('user/getRoles')
         .then((res) => {
           const data = res
           if (this.isEdit) {
             console.log('selected roles', this.selectedRolesId)
             this.selectedRoles = data.find(
-              item => item.id === parseInt(this.selectedRolesId)
+              (item) => item.id === parseInt(this.selectedRolesId)
             ).id
           }
           console.log('rolesid', this.selectedRoles)
-          this.$store.commit(
-            'user/SET_CHANGE_ROLES',
-            data
-          )
+          this.$store.commit('user/SET_CHANGE_ROLES', data)
         })
         .catch(() => {
           this.dataRoles = []
         })
     },
-    capitalizeAndReplace (item) {
+    capitalizeAndReplace(item) {
       return item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, ' ')
     },
-    toCreateOrg () {
+    toCreateOrg() {
       document.querySelector('body').style.overflow = 'hidden'
       this.$store.commit('user/SET_ORG_CHANGE_DIALOG', true)
     },
-    clearForm () {
+    clearForm() {
       this.first_name = ''
       this.last_name = ''
       this.username = ''
@@ -453,11 +456,11 @@ export default {
       this.selectedRolesId = ''
       // this.org = ''
     },
-    save () {
+    save() {
       if (this.validationBtnSave) {
         this.$notifier.showMessage({
           content: 'Saving changes...',
-          type: 'loading'
+          type: 'loading',
         })
 
         const data = {
@@ -467,7 +470,7 @@ export default {
           email: this.email,
           // phone: this.phone,
           password: this.password,
-          confirmPassword: this.confirm_password
+          confirmPassword: this.confirm_password,
         }
 
         const x = setTimeout(
@@ -479,29 +482,31 @@ export default {
                   const dataOrg = {
                     orgId: this.selectedOrg,
                     userId: res.data.data.id,
-                    roleId: this.selectedRoles
+                    roleId: this.selectedRoles,
                   }
-                  this.$store.dispatch('user/assignOrg', dataOrg).then((res) => {
-                    if (res.status === 201 || res.status === 200) {
-                      this.$notifier.showMessage({
-                        content: 'User Save!.',
-                        type: 'success'
-                      })
+                  this.$store
+                    .dispatch('user/assignOrg', dataOrg)
+                    .then((res) => {
+                      if (res.status === 201 || res.status === 200) {
+                        this.$notifier.showMessage({
+                          content: 'User Save!.',
+                          type: 'success',
+                        })
 
-                      // Reset input values
-                      this.clearForm()
-                      this.isLoading = false
+                        // Reset input values
+                        this.clearForm()
+                        this.isLoading = false
 
-                      document.querySelector('body').style.overflow = ''
-                      this.$store.commit('user/SET_USER_CHANGE_DIALOG', false)
-                      this.$parent.getDataAll()
-                      clearInterval(x)
-                    } else {
-                      this.showMessage = true
-                      this.messageError = res.data.data.message
-                      clearInterval(x)
-                    }
-                  })
+                        document.querySelector('body').style.overflow = ''
+                        this.$store.commit('user/SET_USER_CHANGE_DIALOG', false)
+                        this.$parent.getDataAll()
+                        clearInterval(x)
+                      } else {
+                        this.showMessage = true
+                        this.messageError = res.data.data.message
+                        clearInterval(x)
+                      }
+                    })
                 } else {
                   this.showMessage = true
                   this.messageError = res.data.data.message
@@ -514,23 +519,31 @@ export default {
           1000
         )
       } else {
-        this.firstNameValidation = this.firstName ? '' : 'First name is required'
+        this.firstNameValidation = this.firstName
+          ? ''
+          : 'First name is required'
         this.lastNameValidation = this.lastName ? '' : 'Last name is required'
-        this.userNameValidationError = this.userName ? '' : 'User name is required'
-        this.emailValidation = this.email ? (/\S+@\S+\.\S+/.test(this.email) ? '' : 'Email is invalid') : 'Email is required'
+        this.userNameValidationError = this.userName
+          ? ''
+          : 'User name is required'
+        this.emailValidation = this.email
+          ? /\S+@\S+\.\S+/.test(this.email)
+            ? ''
+            : 'Email is invalid'
+          : 'Email is required'
 
         this.showMessage = true
         this.messageError = 'Please fill all the fields'
       }
     },
-    saveUpdate () {
+    saveUpdate() {
       const data = {
         firstName: this.first_name,
         lastName: this.last_name,
         username: this.username,
         email: this.email,
         // phone: this.phone,
-        id: this.iduser.id
+        id: this.iduser.id,
       }
 
       const x = setTimeout(
@@ -542,28 +555,30 @@ export default {
                 const dataRoles = {
                   orgId: this.selectedOrg,
                   roleId: this.selectedRoles,
-                  id: this.iduser.id
+                  id: this.iduser.id,
                 }
-                this.$store.dispatch('user/updateRoles', dataRoles).then((res) => {
-                  if (res.status === 201 || res.status === 200) {
-                    this.$notifier.showMessage({
-                      content: 'User Update!.',
-                      type: 'success'
-                    })
+                this.$store
+                  .dispatch('user/updateRoles', dataRoles)
+                  .then((res) => {
+                    if (res.status === 201 || res.status === 200) {
+                      this.$notifier.showMessage({
+                        content: 'User Update!.',
+                        type: 'success',
+                      })
 
-                    // Reset input values
-                    this.clearForm()
-                    this.isLoading = false
+                      // Reset input values
+                      this.clearForm()
+                      this.isLoading = false
 
-                    this.closeDialog()
-                    this.$parent.getDataAll()
-                    clearInterval(x)
-                  } else {
-                    this.showMessage = true
-                    this.messageError = res.data.data.message
-                    clearInterval(x)
-                  }
-                })
+                      this.closeDialog()
+                      this.$parent.getDataAll()
+                      clearInterval(x)
+                    } else {
+                      this.showMessage = true
+                      this.messageError = res.data.data.message
+                      clearInterval(x)
+                    }
+                  })
               } else {
                 this.showMessage = true
                 this.messageError = res.data.data.message
@@ -575,19 +590,18 @@ export default {
             }),
         1000
       )
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 .border-red-validation {
-  border: 1.3px solid #ED543A;
-  box-shadow: 0px 2px 10px #FDCECE;
+  border: 1.3px solid #ed543a;
+  box-shadow: 0px 2px 10px #fdcece;
 }
 .kg-popup {
-
   .body-popup {
-    padding:20px;
+    padding: 20px;
     overflow: auto;
 
     .title-dialog {
@@ -595,30 +609,30 @@ export default {
       font-style: normal;
       font-weight: 600;
       font-size: 20px;
-      color: #5C6B7A;
+      color: #5c6b7a;
     }
     .sub-dialog {
       font-family: 'Cabin';
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
-      color: #7A8A99;
-      margin-top:5px;
-      margin-bottom:15px;
+      color: #7a8a99;
+      margin-top: 5px;
+      margin-bottom: 15px;
     }
     .score {
       font-family: 'Cabin';
       font-style: italic;
       font-weight: 400;
       font-size: 14px;
-      color: #7BBC49;
+      color: #7bbc49;
     }
     .subtitle-2 {
       font-family: 'Cabin';
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
-      color: #5C6B7A;
+      color: #5c6b7a;
       margin-top: 20px;
     }
     .user-role-subtitle {
@@ -626,24 +640,23 @@ export default {
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
-      color: #5C6B7A;
+      color: #5c6b7a;
     }
-    .user-role-container{
+    .user-role-container {
       margin-top: 20px;
       padding: 15px;
       gap: 15px;
       border-radius: 5px;
-      border: 1px solid #C3CED9;
-      border-color: #C3CED9;
+      border: 1px solid #c3ced9;
+      border-color: #c3ced9;
       background-color: #fafafa;
-
     }
 
     .footer-card-password {
       margin-top: 15px;
       .cancel-btn {
-        border: 1px solid #1B63D4;
-        color: #1B63D4;
+        border: 1px solid #1b63d4;
+        color: #1b63d4;
         font-weight: 700;
         font-size: 14px;
         border-radius: 5px;
@@ -655,8 +668,8 @@ export default {
       .save-btn {
         font-family: 'Cabin';
         font-size: 14px;
-        color: #FFFFFF;
-        background: #1B63D4;
+        color: #ffffff;
+        background: #1b63d4;
         color: #ffffff;
         border-radius: 5px;
         height: 40px;
@@ -667,10 +680,10 @@ export default {
       .disable-btn {
         font-family: 'Cabin';
         font-size: 14px;
-        background: #F1F1F1;
-        border: 1px solid #C3CED9;
+        background: #f1f1f1;
+        border: 1px solid #c3ced9;
         border-radius: 5px;
-        color: #A1ADB9;
+        color: #a1adb9;
         height: 40px;
       }
       .disable-btn:hover {

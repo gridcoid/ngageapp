@@ -25,7 +25,7 @@
         class="iframe-body"
         :style="'height: ' + height + 'px;width: ' + width + 'px;'"
       />
-      <img v-if="type === 'display'" :src="staticSrc">
+      <img v-if="type === 'display'" :src="staticSrc" />
       <div v-if="type === 'video'" style="height: 100%">
         <iframe
           :src="staticSrc"
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="footer-content flex items-center justify-between">
-      <img src="~/assets/images/hak_cipta.svg">
+      <img src="~/assets/images/hak_cipta.svg" />
       <k-button
         v-if="!isActive"
         text="Use this Template"
@@ -60,7 +60,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'PrevieTemplatePage',
   layout: 'login',
-  data () {
+  data() {
     return {
       url: '',
       isLoading: false,
@@ -70,7 +70,7 @@ export default {
       height: 0,
       width: 0,
       resolutionId: null,
-      showZoom: false
+      showZoom: false,
     }
   },
   computed: {
@@ -80,9 +80,9 @@ export default {
       },
       orgId: (state) => {
         return state.user.orgId
-      }
+      },
     }),
-    alignCenter () {
+    alignCenter() {
       if (this.width > 1000) {
         if (this.height > 1080) {
           return 'iframe-align'
@@ -94,23 +94,23 @@ export default {
       } else {
         return 'center-iframe'
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.getTemplateDetail()
   },
   methods: {
-    create (id, resId) {
+    create(id, resId) {
       this.$router.push({
-        path: `/creative/create/${id}?resolution=${resId}`
+        path: `/creative/create/${id}?resolution=${resId}`,
       })
     },
-    getTemplateDetail () {
+    getTemplateDetail() {
       this.isLoading = true
       this.$store
         .dispatch('template/getDetail', {
           id: this.$route.params.index,
-          resolution: this.$router.currentRoute.query.resolution
+          resolution: this.$router.currentRoute.query.resolution,
         })
         .then((res) => {
           this.type = res.data.data.format
@@ -145,11 +145,11 @@ export default {
           this.isLoading = false
         })
     },
-    back () {
+    back() {
       this.$router.go(-1)
     },
-    refresh () {}
-  }
+    refresh() {},
+  },
 }
 </script>
 

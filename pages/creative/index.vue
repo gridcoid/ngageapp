@@ -1,9 +1,7 @@
 <template>
   <div class="kg-containers" style="width: 100%">
     <div class="flex items-center justify-between header-content">
-      <div class="title-header">
-        All Creations
-      </div>
+      <div class="title-header">All Creations</div>
       <div class="flex">
         <ButtonDefault
           icon="plus"
@@ -96,7 +94,7 @@
                   class="title-1"
                   placeholder="Find something.."
                   @change="searchData()"
-                >
+                />
               </form>
               <IconSearch @click.native="searchData()" />
             </div>
@@ -118,10 +116,8 @@
       >
         <template slot="empty">
           <div class="flex flex-col items-center mt-6 no-data">
-            <img src="~/assets/images/campaign/empty_table.svg">
-            <div class="title-1">
-              It’s Very Clean Here
-            </div>
+            <img src="~/assets/images/campaign/empty_table.svg" />
+            <div class="title-1">It’s Very Clean Here</div>
             <div class="subtitle-1">
               Seems like you haven’t created any campaign yet. Create one now?
             </div>
@@ -130,9 +126,7 @@
               @click="toCreate()"
             >
               <IconSave bg-color="#1B63D4" />
-              <div class="name-btn">
-                Create New Creative
-              </div>
+              <div class="name-btn">Create New Creative</div>
             </button>
           </div>
         </template>
@@ -209,9 +203,9 @@
             <div
               v-if="
                 scope.row.status === 'draft' &&
-                  (scope.row.template.format === 'rmb' ||
-                    scope.row.template.format === 'custom_upload') &&
-                  scope.row.staticZipUrl === null
+                (scope.row.template.format === 'rmb' ||
+                  scope.row.template.format === 'custom_upload') &&
+                scope.row.staticZipUrl === null
               "
               class="status-card flex items-center justify-center no-select"
               style="background-color: #fff3dd; color: #fbab18"
@@ -222,9 +216,9 @@
             <div
               v-if="
                 scope.row.status === 'draft' &&
-                  scope.row.template.format === 'video' &&
-                  scope.row.videoId === null &&
-                  scope.row.videoUrl === null
+                scope.row.template.format === 'video' &&
+                scope.row.videoId === null &&
+                scope.row.videoUrl === null
               "
               class="status-card flex items-center justify-center no-select"
               style="background-color: #fff3dd; color: #fbab18"
@@ -238,12 +232,12 @@
             <div
               v-if="
                 scope.row.status === 'draft' &&
-                  scope.row.template.format === 'video' &&
-                  scope.row.videoId !== null &&
-                  scope.row.videoUrl === null
+                scope.row.template.format === 'video' &&
+                scope.row.videoId !== null &&
+                scope.row.videoUrl === null
               "
               class="status-card flex items-center justify-center no-select"
-              style="background-color: #EBF6FE; color: #0F79C6;"
+              style="background-color: #ebf6fe; color: #0f79c6"
             >
               Converting
             </div>
@@ -253,12 +247,12 @@
             <div
               v-if="
                 scope.row.status === 'draft' &&
-                  (scope.row.template.format === 'rmb' ||
-                    scope.row.template.format === 'custom_upload') &&
-                  scope.row.staticZipUrl !== null
+                (scope.row.template.format === 'rmb' ||
+                  scope.row.template.format === 'custom_upload') &&
+                scope.row.staticZipUrl !== null
               "
               class="status-card flex items-center justify-center no-select"
-              style="background-color: #F4FEFA; color: #12B76A;"
+              style="background-color: #f4fefa; color: #12b76a"
             >
               Converted
             </div>
@@ -266,13 +260,13 @@
             <div
               v-if="
                 scope.row.status === 'draft' &&
-                  scope.row.template.format === 'video' &&
-                  scope.row.videoId !== null &&
-                  scope.row.videoUrl !== null
+                scope.row.template.format === 'video' &&
+                scope.row.videoId !== null &&
+                scope.row.videoUrl !== null
               "
               class="status-card flex items-center justify-center no-select cursor-pointer"
-              style="background-color: #F4FEFA; color: #12B76A;"
-              @click=" downloadCreative(scope.row.id, scope.row.name, scope.row) "
+              style="background-color: #f4fefa; color: #12b76a"
+              @click="downloadCreative(scope.row.id, scope.row.name, scope.row)"
             >
               Converted
             </div>
@@ -288,18 +282,23 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="StudioHub" align="center" prop="studioHub" sortable>
+        <el-table-column
+          label="StudioHub"
+          align="center"
+          prop="studioHub"
+          sortable
+        >
           <template slot-scope="scope">
             <div
               v-if="
                 scope.row.status === 'draft' &&
-                  scope.row.template.format === 'video' &&
-                  scope.row.videoId !== null &&
-                  scope.row.videoUrl !== null &&
-                  scope.row.studioHub !== null
+                scope.row.template.format === 'video' &&
+                scope.row.videoId !== null &&
+                scope.row.videoUrl !== null &&
+                scope.row.studioHub !== null
               "
               class="status-card flex items-center justify-center no-select cursor-pointer"
-              style="background-color: #F4FEFA; color: #12B76A;"
+              style="background-color: #f4fefa; color: #12b76a"
             >
               Available
             </div>
@@ -322,7 +321,7 @@
               @click="detailCreative(scope.row.id)"
             >
               <span class="flex title-dropdown">
-                <img src="~/assets/images/icon/preview.svg" class="mr-2">
+                <img src="~/assets/images/icon/preview.svg" class="mr-2" />
                 View
               </span>
               <el-dropdown-menu slot="dropdown">
@@ -339,7 +338,7 @@
                     <img
                       src="~/assets/images/icon/edit.svg"
                       class="icon-item"
-                    >
+                    />
                     Edit
                   </div>
                   <div
@@ -350,7 +349,7 @@
                     <img
                       src="~/assets/images/icon/edit.svg"
                       class="icon-item"
-                    >
+                    />
                     Edit
                   </div>
                 </el-dropdown-item>
@@ -362,7 +361,7 @@
                     <img
                       src="~/assets/images/icon/duplicate.svg"
                       class="icon-item"
-                    >
+                    />
                     Duplicate
                   </div>
                 </el-dropdown-item>
@@ -370,8 +369,8 @@
                   <div
                     v-if="
                       scope.row.template.format === 'video' &&
-                        scope.row.videoId === null &&
-                        scope.row.videoUrl === null
+                      scope.row.videoId === null &&
+                      scope.row.videoUrl === null
                     "
                     class="dropdown-action flex items-center no-select"
                     @click="generateCreative(scope.row)"
@@ -379,14 +378,14 @@
                     <img
                       src="~/assets/images/icon/download.svg"
                       class="icon-item"
-                    >
+                    />
                     Generate
                   </div>
                   <div
                     v-if="
                       (scope.row.template.format === 'rmb' ||
                         scope.row.template.format === 'custom_upload') &&
-                        scope.row.staticZipUrl === null
+                      scope.row.staticZipUrl === null
                     "
                     class="dropdown-action flex items-center no-select"
                     @click="generateCreative(scope.row)"
@@ -394,14 +393,14 @@
                     <img
                       src="~/assets/images/icon/download.svg"
                       class="icon-item"
-                    >
+                    />
                     Generate
                   </div>
                   <div
                     v-if="
                       scope.row.template.format === 'video' &&
-                        scope.row.videoId !== null &&
-                        scope.row.videoUrl === null
+                      scope.row.videoId !== null &&
+                      scope.row.videoUrl === null
                     "
                     class="dropdown-action flex items-center no-select"
                   >
@@ -414,8 +413,8 @@
                   <div
                     v-if="
                       scope.row.template.format === 'video' &&
-                        scope.row.videoId !== null &&
-                        scope.row.videoUrl !== null
+                      scope.row.videoId !== null &&
+                      scope.row.videoUrl !== null
                     "
                     class="dropdown-action flex items-center no-select"
                     @click="
@@ -425,14 +424,14 @@
                     <img
                       src="~/assets/images/icon/download.svg"
                       class="icon-item"
-                    >
+                    />
                     Download
                   </div>
                   <div
                     v-if="
                       (scope.row.template.format === 'rmb' ||
                         scope.row.template.format === 'custom_upload') &&
-                        scope.row.staticZipUrl !== null
+                      scope.row.staticZipUrl !== null
                     "
                     class="dropdown-action flex items-center no-select"
                     @click="
@@ -442,7 +441,7 @@
                     <img
                       src="~/assets/images/icon/download.svg"
                       class="icon-item"
-                    >
+                    />
                     Download
                   </div>
                 </el-dropdown-item>
@@ -450,9 +449,9 @@
                   <div
                     v-if="
                       scope.row.template.format === 'video' &&
-                        scope.row.videoId !== null &&
-                        scope.row.videoUrl !== null &&
-                        scope.row.studioHub === null
+                      scope.row.videoId !== null &&
+                      scope.row.videoUrl !== null &&
+                      scope.row.studioHub === null
                     "
                     class="dropdown-action flex items-center no-select"
                     @click="sendToStudioHub(scope.row.id, scope.row.name)"
@@ -464,13 +463,13 @@
                 <el-dropdown-item>
                   <div
                     class="dropdown-action flex items-center no-select"
-                    style="color: #ED543A;"
+                    style="color: #ed543a"
                     @click="deleteCreative(scope.row)"
                   >
                     <img
                       src="~/assets/images/icon/delete.svg"
                       class="icon-item"
-                    >
+                    />
                     Delete
                   </div>
                 </el-dropdown-item>
@@ -502,13 +501,11 @@
             class="flex items-center justify-between"
             style="margin-bottom: 14px"
           >
-            <div class="title-popup2">
-              Delete Creative?
-            </div>
+            <div class="title-popup2">Delete Creative?</div>
             <img
               src="~/assets/images/icon/delete_color.svg"
               class="icon-item"
-            >
+            />
           </div>
           <div class="title-popup">
             Are you sure want to
@@ -532,9 +529,7 @@
               </div>
             </div>
             <div class="flex flex-col">
-              <div class="date-popup">
-                Last modified
-              </div>
+              <div class="date-popup">Last modified</div>
               <div class="date-popup">
                 {{ $moment(dataDelete.date).format('MMM Do, YYYY hh:mm') }}
               </div>
@@ -568,7 +563,7 @@ export default {
   name: 'CampaignPage',
   layout: 'default',
 
-  data () {
+  data() {
     return {
       url: '',
       popup: false,
@@ -583,7 +578,7 @@ export default {
         id: '',
         name: '',
         template: '',
-        date: ''
+        date: '',
       },
       showBtn: true,
       closeDropdown: false,
@@ -593,9 +588,9 @@ export default {
           title: 'CTA',
           default: {
             text: '<p style="text-align: center"><strong><span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; opacity: 100%;color:#ffffff">BOOK NOW</span></strong></p>',
-            bg_color: 'background-color: #e68e00; opacity:100%'
+            bg_color: 'background-color: #e68e00; opacity:100%',
           },
-          description: 'Enter your CTA here'
+          description: 'Enter your CTA here',
         },
         {
           type: 'Image',
@@ -603,33 +598,33 @@ export default {
           default:
             this.$config.baseURL +
             'obs?fileKey=defaults/creative_templates/single2col/logo.png',
-          description: 'Upload your logo here'
+          description: 'Upload your logo here',
         },
         {
           type: 'Text',
           title: 'Subline',
           default:
             '<p><span style="font-family: Arial, Helvetica, sans-serif; font-size: 10px;opacity: 100%;color: #FFFFFF;">Start from</span></p><p><strong><span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;opacity: 100%;color: #FFFFFF;">IDR 350.000 nett/night</span></strong></p><p><span style="font-family: Arial, Helvetica, sans-serif; font-size: 10px;opacity: 100%;color: #FFFFFF;">Free Breakfast<br>Free WiFi</span></p>',
-          description: 'Enter your subline here'
+          description: 'Enter your subline here',
         },
         {
           type: 'Color',
           title: 'Background Color',
           default: 'background-color: #2e2821; opacity:100%',
-          description: 'Your background color'
+          description: 'Your background color',
         },
         {
           type: 'Image',
           title: 'Background Image',
           default: null,
-          description: 'Your background image'
+          description: 'Your background image',
         },
         {
           type: 'Text',
           title: 'Headline',
           default:
             '<p><strong><span style="font-family: Arial, Helvetica, sans-serif; font-size: 21px; color: #FFFFFF; opacity: 100%">Staycation at Banten</span></strong></p>',
-          description: 'Enter your headline here'
+          description: 'Enter your headline here',
         },
         {
           type: 'Image',
@@ -637,18 +632,18 @@ export default {
           default:
             this.$config.baseURL +
             'obs?fileKey=defaults/creative_templates/single2col/rightimg.jpg',
-          description: 'Upload your right image here'
-        }
+          description: 'Upload your right image here',
+        },
       ],
       rowPage: 10,
       handleRole: true,
       loadGenerate: false,
-      dataSH: null
+      dataSH: null,
     }
   },
-  head () {
+  head() {
     return {
-      title: 'UNIMIND - Creative'
+      title: 'UNIMIND - Creative',
     }
   },
   computed: {
@@ -670,10 +665,10 @@ export default {
       },
       sendStudioHub: (state) => {
         return state.creative.sendStudioHub
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     this.$store.dispatch('reset')
     document.querySelector('body').style.overflow = 'auto'
     this.$store.commit('user/SET_DROPDOWN', null)
@@ -681,14 +676,14 @@ export default {
     this.checkRole()
   },
   methods: {
-    generateCreative (data) {
+    generateCreative(data) {
       this.$notifier.showMessage({
         content: 'Generate creative...',
-        type: 'loading'
+        type: 'loading',
       })
       const format = data.template.format
       const data2 = {
-        id: data.id
+        id: data.id,
       }
       if (format === 'video') {
         const x = setTimeout(
@@ -701,7 +696,7 @@ export default {
                   this.$notifier.showMessage({
                     content:
                       'Generate creative success, please wait until finish.',
-                    type: 'success'
+                    type: 'success',
                   })
                   this.triggerCreative(data.id)
                   clearInterval(x)
@@ -714,7 +709,7 @@ export default {
                   })
                   this.$notifier.showMessage({
                     content: 'Generate creative failed ! ' + arr.join(', '),
-                    type: 'failed'
+                    type: 'failed',
                   })
                   clearInterval(x)
                 }
@@ -734,7 +729,7 @@ export default {
                   this.getAll()
                   this.$notifier.showMessage({
                     content: 'Generate creative in progress',
-                    type: 'success'
+                    type: 'success',
                   })
                   clearInterval(x)
                 } else {
@@ -745,7 +740,7 @@ export default {
                   })
                   this.$notifier.showMessage({
                     content: 'Generate creative failed ! ' + arr.join(', '),
-                    type: 'failed'
+                    type: 'failed',
                   })
                   clearInterval(x)
                 }
@@ -757,38 +752,38 @@ export default {
         )
       }
     },
-    checkRole () {
+    checkRole() {
       if (this.roleId === 4) {
         this.handleRole = false
       } else {
         this.handleRole = true
       }
     },
-    closeDialog () {
+    closeDialog() {
       document.querySelector('body').style.overflow = ''
       this.popup = false
     },
-    changePage (ev) {
+    changePage(ev) {
       if (ev > 0) {
         this.currentPage = ev
         this.getData()
       }
     },
-    changeRowPage (ev) {
+    changeRowPage(ev) {
       this.rowPage = ev
       this.getData()
     },
-    getAll () {
+    getAll() {
       this.getData()
     },
-    getData () {
+    getData() {
       this.isLoading = true
       const data = {
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,
         format: this.activeStatus,
-        resolutionId: ''
+        resolutionId: '',
       }
       this.$store
         .dispatch('creative/getCreative', data)
@@ -800,7 +795,7 @@ export default {
         })
     },
 
-    forceFileDownload (response, title) {
+    forceFileDownload(response, title) {
       const url = window.URL.createObjectURL(new Blob([response.data]))
       const link = document.createElement('a')
       link.href = url
@@ -810,7 +805,7 @@ export default {
       link.click()
     },
 
-    downloadCreative (idCreative, name, row) {
+    downloadCreative(idCreative, name, row) {
       this.closeDropdown = false
       const format = row.template.format
       if (format !== 'video') {
@@ -835,12 +830,9 @@ export default {
       } else {
         // window.open(row.videoUrl, '_blank')
         this.$axios
-          .get(
-            row.rawVideoUrl,
-            {
-              responseType: 'blob'
-            }
-          )
+          .get(row.rawVideoUrl, {
+            responseType: 'blob',
+          })
           .then((res) => {
             if (res.status === 200) {
               this.forceFileDownload(res, name.replace(/ /g, '_') + '.mp4')
@@ -850,9 +842,9 @@ export default {
       }
     },
 
-    duplicateCreative (idCreative) {
+    duplicateCreative(idCreative) {
       const data = {
-        id: idCreative
+        id: idCreative,
       }
       this.$store
         .dispatch('creative/duplicateCreative', data)
@@ -864,7 +856,7 @@ export default {
         })
         .catch(() => {})
     },
-    deleteCreative (idCreative) {
+    deleteCreative(idCreative) {
       document.querySelector('body').style.overflow = 'hidden'
       this.dataDelete.id = idCreative.id
       this.dataDelete.name = idCreative.name
@@ -873,10 +865,10 @@ export default {
       this.popup = true
       this.$store.commit('user/SET_DROPDOWN', null)
     },
-    destroyCreative () {
+    destroyCreative() {
       // this.isLoading = true
       const data = {
-        id: this.dataDelete.id
+        id: this.dataDelete.id,
       }
       if (this.totalCreative > 10) {
         if (String(this.totalCreative).slice(-1) === '1') {
@@ -889,7 +881,7 @@ export default {
       }
       this.$notifier.showMessage({
         content: 'Delete creative...',
-        type: 'loading'
+        type: 'loading',
       })
       const x = setTimeout(
         () =>
@@ -901,7 +893,7 @@ export default {
               this.isLoading = false
               this.$notifier.showMessage({
                 content: 'Creative deleted.',
-                type: 'success'
+                type: 'success',
               })
               this.closeDropdown = false
               clearInterval(x)
@@ -910,7 +902,7 @@ export default {
             .catch((error) => {
               this.$notifier.showMessage({
                 content: 'Creative delete failed. Please try again! ' + error,
-                type: 'failed'
+                type: 'failed',
               })
               this.isLoading = false
               this.closeDropdown = false
@@ -920,38 +912,39 @@ export default {
         1000
       )
     },
-    statusActive (x) {
+    statusActive(x) {
       this.activeStatus = x
       this.currentPage = 1
       this.getData()
     },
-    searchData () {
+    searchData() {
       this.currentPage = 1
       this.showSearch = false
       this.getData()
     },
-    detailCreative (x) {
+    detailCreative(x) {
       // this.$router.push({
       //   path: `/creative/detail/${x}`
       // })
       const route = this.$router.resolve({
-        path: `/creative/detail/${x}?preview`
+        path: `/creative/detail/${x}?preview`,
       })
       window.open(route.href)
     },
-    editCreative (x) {
+    editCreative(x) {
       this.$router.push({
-        path: `/creative/edit/${x}`
+        path: `/creative/edit/${x}`,
       })
     },
-    toCreate () {
+    toCreate() {
       this.$router.push({ path: '/creative/templates' })
     },
-    toUpload () {
+    toUpload() {
       this.$router.push({ path: '/creative/upload' })
     },
-    getCreativeById (data) {
-      this.$store.dispatch('creative/getCreativeById', { creativeId: data })
+    getCreativeById(data) {
+      this.$store
+        .dispatch('creative/getCreativeById', { creativeId: data })
         .then((res) => {
           if (res.status === 200) {
             if (res.data.data.videoUrl !== null) {
@@ -963,9 +956,10 @@ export default {
               this.loadGenerate = true
             }
           }
-        }).catch(() => {})
+        })
+        .catch(() => {})
     },
-    triggerCreative (id) {
+    triggerCreative(id) {
       if (this.loadGenerate === true) {
         clearInterval(this.intervalId)
         this.intervalId = null
@@ -975,12 +969,12 @@ export default {
         }, 60000)
       }
     },
-    sendToStudioHub (idCreative, name) {
+    sendToStudioHub(idCreative, name) {
       document.querySelector('body').style.overflow = 'hidden'
       this.$store.commit('creative/SET_SEND_SH_CHANGE_DIALOG', true)
       this.dataSH = { id: idCreative, title: name }
-    }
-  }
+    },
+  },
 }
 </script>
 

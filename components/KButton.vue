@@ -36,35 +36,33 @@
       {{ text }}
     </button>
   </div>
-  <div v-else>
-    asd
-  </div>
+  <div v-else>asd</div>
 </template>
 <script>
 export default {
   props: {
     text: {
       type: String,
-      default: ''
+      default: '',
     },
     type: {
       type: String,
-      default: 'primary'
+      default: 'primary',
     },
     icon: {
       type: Boolean,
-      default: false
+      default: false,
     },
     size: {
       type: String,
-      default: 'medium'
-    }
+      default: 'medium',
+    },
   },
-  data () {
+  data() {
     return {}
   },
   computed: {
-    buttonSize () {
+    buttonSize() {
       if (this.size === 'large') {
         return 'height:40px'
       } else if (this.size === 'medium') {
@@ -72,12 +70,11 @@ export default {
       } else {
         return 'height:34px'
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
-
 .k-btn {
   font-family: 'Cabin';
   width: 100%;
@@ -89,10 +86,10 @@ export default {
   background: $colorBlue;
 }
 .k-btn:focus {
-  outline:0px !important;
+  outline: 0px !important;
 }
 .k-btn:active {
-  outline:0px !important;
+  outline: 0px !important;
 }
 .type-secondary {
   background: $colorWhite;

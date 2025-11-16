@@ -132,184 +132,184 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
-  name: "EditCampaignPage",
-  layout: "default",
+  name: 'EditCampaignPage',
+  layout: 'default',
   data() {
     return {
       showMessage: false,
-      messageError: "",
+      messageError: '',
       isLoading: false,
       data: {
-        id: "",
-        name: "",
-        description: "",
+        id: '',
+        name: '',
+        description: '',
         selectDate: null,
         selectDate2: null,
-        advertiser: "",
-        typeId: "",
+        advertiser: '',
+        typeId: '',
       },
       valueDate: [],
 
       pickerOptions: {
         shortcuts: [
           {
-            text: "Last week",
+            text: 'Last week',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
             },
           },
           {
-            text: "Last month",
+            text: 'Last month',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
             },
           },
           {
-            text: "Last 3 months",
+            text: 'Last 3 months',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
             },
           },
         ],
       },
-    };
+    }
   },
   computed: {
     ...mapState({
       dataAdvertiser: (state) => {
-        return state.campaign.dataAdvertiser;
+        return state.campaign.dataAdvertiser
       },
       dataCampaignType: (state) => {
-        return state.campaign.dataCampaignType;
+        return state.campaign.dataCampaignType
       },
       detailCampaign: (state) => {
-        return state.campaign.detailCampaign;
+        return state.campaign.detailCampaign
       },
     }),
   },
   mounted() {
-    this.getAll();
+    this.getAll()
   },
   methods: {
     getAll() {
-      this.getAdvertiser();
-      this.getCampaignTypes();
-      this.getDetail();
+      this.getAdvertiser()
+      this.getCampaignTypes()
+      this.getDetail()
     },
     getAdvertiser() {
-      this.isLoading = true;
+      this.isLoading = true
       this.$store
-        .dispatch("campaign/getAdvertiser")
+        .dispatch('campaign/getAdvertiser')
         .then(() => {
-          this.isLoading = false;
-          this.data.name = this.detailCampaign.name;
-          this.data.description = this.detailCampaign.description;
-          this.data.advertiserId = this.detailCampaign.advertiserId;
-          this.data.typeId = this.detailCampaign.typeId;
-          this.valueDate = [];
-          this.valueDate.push(this.detailCampaign.startDate);
-          this.valueDate.push(this.detailCampaign.endDate);
+          this.isLoading = false
+          this.data.name = this.detailCampaign.name
+          this.data.description = this.detailCampaign.description
+          this.data.advertiserId = this.detailCampaign.advertiserId
+          this.data.typeId = this.detailCampaign.typeId
+          this.valueDate = []
+          this.valueDate.push(this.detailCampaign.startDate)
+          this.valueDate.push(this.detailCampaign.endDate)
         })
         .catch(() => {
-          this.isLoading = false;
-        });
+          this.isLoading = false
+        })
     },
     getCampaignTypes() {
-      this.isLoading = true;
+      this.isLoading = true
       this.$store
-        .dispatch("campaign/getCampaignTypes")
+        .dispatch('campaign/getCampaignTypes')
         .then(() => {
-          this.isLoading = false;
+          this.isLoading = false
         })
         .catch(() => {
-          this.isLoading = false;
-        });
+          this.isLoading = false
+        })
     },
     getDetail() {
       const data = {
         campaignTypeId: this.$route.params.index,
-      };
+      }
       this.$store
-        .dispatch("campaign/getDetail", data)
+        .dispatch('campaign/getDetail', data)
         .then(() => {})
-        .catch(() => {});
+        .catch(() => {})
     },
     back() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     save() {
       this.$notifier.showMessage({
-        content: "Edit campaign...",
-        type: "loading",
-      });
-      this.isLoading = true;
-      this.data.id = this.$route.params.index;
+        content: 'Edit campaign...',
+        type: 'loading',
+      })
+      this.isLoading = true
+      this.data.id = this.$route.params.index
 
       if (this.valueDate !== null) {
-        this.data.startDate = this.valueDate[0];
-        this.data.endDate = this.valueDate[1];
+        this.data.startDate = this.valueDate[0]
+        this.data.endDate = this.valueDate[1]
       } else {
-        this.data.startDate = "";
-        this.data.endDate = "";
+        this.data.startDate = ''
+        this.data.endDate = ''
       }
 
       const x = setTimeout(
         () =>
           this.$store
-            .dispatch("campaign/update", this.data)
+            .dispatch('campaign/update', this.data)
             .then((res) => {
-              this.isLoading = false;
+              this.isLoading = false
               if (
                 res.data.status.code === 200 ||
                 res.data.status.code === 201 ||
                 res.data.status.code === 202
               ) {
-                this.$store.commit("campaign/SET_EDIT_CAMPAIGN", true);
+                this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
-                  content: "Campaign edited.",
-                  type: "success",
-                });
+                  content: 'Campaign edited.',
+                  type: 'success',
+                })
                 this.$router.push({
                   path: `/campaign/detail/${this.$route.params.index}`,
-                });
-                clearInterval(x);
+                })
+                clearInterval(x)
               } else {
-                this.showMessage = true;
-                const keys = Object.keys(res.data.data.errors[0]);
-                const arr = [];
+                this.showMessage = true
+                const keys = Object.keys(res.data.data.errors[0])
+                const arr = []
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key]);
-                });
-                this.messageError = arr.join(", ");
+                  arr.push(res.data.data.errors[0][key])
+                })
+                this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
                   content:
-                    "Campaign edit failed. Please try again!, " +
+                    'Campaign edit failed. Please try again!, ' +
                     this.messageError,
-                  type: "failed",
-                });
-                clearInterval(x);
+                  type: 'failed',
+                })
+                clearInterval(x)
               }
             })
             .catch(() => {
-              clearInterval(x);
-              this.isLoading = false;
+              clearInterval(x)
+              this.isLoading = false
             }),
         1000
-      );
+      )
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -333,7 +333,7 @@ export default {
       padding-right: 15px;
       cursor: pointer;
       .name-btn {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-weight: 700;
         font-size: 14px;
         padding-bottom: 1px;
@@ -357,7 +357,7 @@ export default {
       padding-left: 20px;
       padding-right: 20px;
       .title {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-weight: 600;
         font-size: 20px;
         color: #333333;
@@ -369,13 +369,13 @@ export default {
       padding-right: 20px;
       margin-top: 30px;
       .title-form {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-weight: 400;
         font-size: 16px;
         color: #454545;
       }
       .to-text {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-weight: 400;
         font-size: 16px;
         color: #454545;
@@ -405,7 +405,7 @@ export default {
         margin-left: 10px;
         cursor: pointer;
         .name-btn {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-weight: 700;
           font-size: 14px;
           padding-bottom: 1px;

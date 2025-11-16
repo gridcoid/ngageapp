@@ -2,9 +2,7 @@
   <div class="kg-container">
     <div class="header-content">
       <ButtonBackPage text="Back to Creatives" @click.native="back()" />
-      <div class="title-creative">
-        Creative Templates
-      </div>
+      <div class="title-creative">Creative Templates</div>
       <div class="subtitle-creative">
         Browse the right template for your creative assets.
       </div>
@@ -21,7 +19,7 @@
               class="title-1"
               placeholder="Quick find..."
               @input="getData()"
-            >
+            />
             <IconSearch @click.native="getData()" />
           </div>
         </div>
@@ -74,7 +72,7 @@
                 <img
                   :src="$config.baseURL + 'obs?fileKey=' + item2.thumbnail"
                   class="img-thumbnail"
-                >
+                />
               </div>
               <div class="template-body">
                 <div class="flex items-center justify-items-stretch">
@@ -130,7 +128,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'CreateTemplateCreativePage',
   layout: 'default',
-  data () {
+  data() {
     return {
       isLoading: false,
       isLoading2: false,
@@ -140,7 +138,7 @@ export default {
       activeItem: 11,
       show: false,
       dataTemplates: {},
-      resolutionId: ''
+      resolutionId: '',
     }
   },
 
@@ -157,38 +155,38 @@ export default {
       },
       currentResolution: (state) => {
         return state.creative.currentResolution
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     this.$store.dispatch('reset')
     this.getAll()
   },
   methods: {
-    clickActiveItem (x) {
+    clickActiveItem(x) {
       this.$store.commit('creative/SET_RESOLUTION_ID', x)
       const data = []
       data.push(x)
       this.resolutionId = JSON.stringify(data)
       this.getData()
     },
-    searchTemplate () {},
-    back () {
+    searchTemplate() {},
+    back() {
       this.$router.push({
-        path: '/creative'
+        path: '/creative',
       })
     },
-    create (id, resId) {
+    create(id, resId) {
       this.$router.push({
-        path: `/creative/create/${id}?resolution=${resId}`
+        path: `/creative/create/${id}?resolution=${resId}`,
       })
     },
-    preview (id, resId) {
+    preview(id, resId) {
       this.$router.push({
-        path: `/creative/templates/preview/${id}?resolution=${resId}`
+        path: `/creative/templates/preview/${id}?resolution=${resId}`,
       })
     },
-    getAll () {
+    getAll() {
       // const data = []
       // data.push(this.currentResolution)
       // this.resolutionId = JSON.stringify(data)
@@ -196,17 +194,17 @@ export default {
       // this.getData()
       this.getResolution()
     },
-    getResolution () {
+    getResolution() {
       this.isLoading2 = true
       const data = {
-        all: false
+        all: false,
       }
       this.$store
         .dispatch('creative/getResolution', data)
         .then(() => {
           if (
             this.dataResolution.find(
-              item => item.id === this.currentResolution
+              (item) => item.id === this.currentResolution
             ) === undefined
           ) {
             this.$store.commit(
@@ -224,12 +222,12 @@ export default {
           this.isLoading2 = false
         })
     },
-    getData () {
+    getData() {
       this.isLoading = true
       const data = {
         // page: this.currentPage,
         resolutionIds: this.resolutionId,
-        name: this.dataSearch
+        name: this.dataSearch,
       }
       this.$store
         .dispatch('template/getList', data)
@@ -239,8 +237,8 @@ export default {
         .catch(() => {
           this.isLoading = false
         })
-    }
-  }
+    },
+  },
 }
 </script>
 

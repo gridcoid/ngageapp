@@ -84,13 +84,13 @@
 import { mapState } from 'vuex'
 export default {
   components: {},
-  data () {
+  data() {
     return {
       hover: false,
       isCollapse: true,
       sideBar: true,
       data: [],
-      total: 0
+      total: 0,
     }
   },
   computed: {
@@ -103,10 +103,10 @@ export default {
       },
       roleId: (state) => {
         return state.user.roleId
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     if (
       this.$nuxt.$route.name.replace(
         /^./,
@@ -118,55 +118,55 @@ export default {
     this.checkRole()
   },
   methods: {
-    handleOpen (key, keyPath) {
+    handleOpen(key, keyPath) {
       console.log(key, keyPath)
     },
-    handleClose (key, keyPath) {
+    handleClose(key, keyPath) {
       console.log(key, keyPath)
     },
-    activeIcon (item) {
+    activeIcon(item) {
       this.$store.commit('user/SET_ACTIVE', item.name)
       this.$router.push({
-        path: item.path
+        path: item.path,
       })
     },
-    checkRole () {
+    checkRole() {
       if (this.roleId === 1) {
         this.data = [
           {
             path: '/',
             name: 'Dashboard',
-            type: 'single'
+            type: 'single',
           },
           {
             path: '/campaign',
             name: 'Campaign',
-            type: 'single'
+            type: 'single',
           },
           {
             path: '/survey',
             name: 'Survey',
-            type: 'single'
+            type: 'single',
           },
           {
             path: '/audience',
             name: 'Audience',
-            type: 'single'
+            type: 'single',
           },
           {
             path: '/creative',
             name: 'Creative',
-            type: 'single'
+            type: 'single',
           },
           {
             path: '/report',
             name: 'Report',
-            type: 'single'
+            type: 'single',
           },
           {
             path: '/tools',
             name: 'Tools',
-            type: 'single'
+            type: 'single',
           },
           {
             path: '',
@@ -176,15 +176,15 @@ export default {
               {
                 path: '/admin/user',
                 name: 'User Management',
-                icon: 'User'
+                icon: 'User',
               },
               {
                 path: '/admin/template',
                 name: 'Template Uploader',
-                icon: 'Template'
-              }
-            ]
-          }
+                icon: 'Template',
+              },
+            ],
+          },
         ]
       }
       if (this.roleId === 3) {
@@ -192,23 +192,23 @@ export default {
           {
             path: '/',
             name: 'Dashboard',
-            type: 'single'
+            type: 'single',
           },
           {
             path: '/campaign',
             name: 'Campaign',
-            type: 'single'
+            type: 'single',
           },
           {
             path: '/creative',
             name: 'Creative',
-            type: 'single'
+            type: 'single',
           },
           {
             path: '/report',
             name: 'Report',
-            type: 'single'
-          }
+            type: 'single',
+          },
         ]
       }
       if (this.roleId === 4) {
@@ -216,8 +216,8 @@ export default {
           {
             path: '/creative',
             name: 'Creative',
-            type: 'single'
-          }
+            type: 'single',
+          },
           // {
           //   path: '/report',
           //   name: 'Report',
@@ -226,8 +226,8 @@ export default {
         ]
       }
       this.total = this.data.length
-    }
-  }
+    },
+  },
 }
 </script>
 

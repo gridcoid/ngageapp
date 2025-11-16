@@ -2,9 +2,7 @@
   <div class="upload-container">
     <div v-if="step1" class="body-upload">
       <div class="card-upload">
-        <div class="card-header">
-          Template Uploader
-        </div>
+        <div class="card-header">Template Uploader</div>
         <div class="card-body">
           <el-upload
             class="upload-demo"
@@ -20,13 +18,13 @@
                 <img
                   src="~/assets/images/creative/upload.svg"
                   class="mr-2 icon-upload"
-                >
+                />
                 <div class="flex flex-col">
                   <div class="empty-space">
                     Drop File Here or use button below
                   </div>
                   <div class="upload-name">
-                    Supported format: .gif, .jpg/.jpeg, .png, .js, <br>
+                    Supported format: .gif, .jpg/.jpeg, .png, .js, <br />
                     .txt, .html, .html, .zip. Maximum of 50 files
                   </div>
                 </div>
@@ -50,7 +48,7 @@
                   v-if="uploadPercentage == 100"
                   src="~/assets/images/checklist.svg"
                   style="margin-right: 13px"
-                >
+                />
                 <div class="name-list">
                   {{ imageData.name }}
                 </div>
@@ -99,9 +97,7 @@
         <div class="grid grid-cols-2 card-uploads">
           <div class="left-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">
-                Uploaded Template
-              </div>
+              <div class="title-uploads">Uploaded Template</div>
             </div>
             <div class="body-uploads">
               <div class="flex items-center justify-between">
@@ -131,9 +127,7 @@
           </div>
           <div class="right-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">
-                Template Properties
-              </div>
+              <div class="title-uploads">Template Properties</div>
             </div>
             <div class="form-panel flex flex-col justify-center">
               <div class="flex flex-col box-form">
@@ -143,9 +137,7 @@
                 <el-input v-model="data.name" style="width: 100%" />
               </div>
               <div class="flex flex-col box-form mt-4">
-                <div class="title-form">
-                  Description
-                </div>
+                <div class="title-form">Description</div>
                 <el-input v-model="data.desc" style="width: 100%" />
               </div>
               <div class="flex flex-col box-form mt-4">
@@ -257,7 +249,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'TemplateUploader',
   layout: 'default',
-  data () {
+  data() {
     return {
       imageLoaded: false,
       imageData: '',
@@ -271,29 +263,29 @@ export default {
         dimension: '',
         group: '',
         format: '',
-        org: ''
+        org: '',
       },
       dataFormat: [
         {
           id: 'display',
-          name: 'Display'
+          name: 'Display',
         },
         {
           id: 'rmb',
-          name: 'RMB'
+          name: 'RMB',
         },
         {
           id: 'custom_script',
-          name: 'Custom Script'
+          name: 'Custom Script',
         },
         {
           id: 'video',
-          name: 'Video'
+          name: 'Video',
         },
         {
           id: 'custom_upload',
-          name: 'Custom Upload'
-        }
+          name: 'Custom Upload',
+        },
       ],
       dataOrg: [],
       dataGroup: [],
@@ -302,19 +294,19 @@ export default {
       messageError: '',
       showMessage: false,
       dataResolution: [],
-      dataUpload: {}
+      dataUpload: {},
     }
   },
   computed: {
     ...mapState({
       orgId: (state) => {
         return state.user.orgId
-      }
+      },
       // dataResolution: (state) => {
       //   return state.creative.dataResolution
       // }
     }),
-    disabledSave () {
+    disabledSave() {
       if (
         this.data.name === '' ||
         this.data.dimension === '' ||
@@ -326,17 +318,17 @@ export default {
       } else {
         return true
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.getResolution()
     this.getOrg()
   },
   methods: {
-    save () {
+    save() {
       this.$notifier.showMessage({
         content: 'Creating template...',
-        type: 'loading'
+        type: 'loading',
       })
       const data = {
         name: this.data.name,
@@ -348,7 +340,7 @@ export default {
         resolutionId: this.data.dimension,
         configSchema: this.dataUpload.configSchema,
         configExample: this.dataUpload.configExample,
-        orgId: this.data.org
+        orgId: this.data.org,
       }
       const x = setTimeout(
         () =>
@@ -360,7 +352,7 @@ export default {
                 this.step2 = false
                 this.$notifier.showMessage({
                   content: 'Template created.',
-                  type: 'success'
+                  type: 'success',
                 })
                 clearInterval(x)
               } else {
@@ -374,7 +366,7 @@ export default {
                 this.$notifier.showMessage({
                   content:
                     'Template failed. Please try again! ' + this.messageError,
-                  type: 'failed'
+                  type: 'failed',
                 })
                 clearInterval(x)
               }
@@ -386,7 +378,7 @@ export default {
         1000
       )
     },
-    async getResolution () {
+    async getResolution() {
       this.isLoading = true
       await this.$axios
         .get('creative/resolutions?orgId=' + this.orgId + '&all=true')
@@ -398,7 +390,7 @@ export default {
           this.isLoading = false
         })
     },
-    async getOrg () {
+    async getOrg() {
       this.isLoading = true
       await this.$axios
         .get('org')
@@ -410,7 +402,7 @@ export default {
           this.isLoading = false
         })
     },
-    async getGroup () {
+    async getGroup() {
       this.isLoading = true
       await this.$axios
         .get('template/group?orgId=' + this.data.org)
@@ -422,27 +414,27 @@ export default {
           this.isLoading = false
         })
     },
-    removeExtension (filename) {
+    removeExtension(filename) {
       return filename.substring(0, filename.lastIndexOf('.')) || filename
     },
-    continueTab () {
+    continueTab() {
       this.step1 = false
       this.step2 = true
     },
-    async uploadTemplate () {
+    async uploadTemplate() {
       this.imageLoaded = true
       const data = new FormData()
       data.append('file', this.imageData.raw)
       await this.$axios
         .post('zip/template', data, {
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           onUploadProgress: function (progressEvent) {
             this.uploadPercentage = parseInt(
               Math.round((progressEvent.loaded / progressEvent.total) * 100)
             )
-          }.bind(this)
+          }.bind(this),
         })
         .then((res) => {
           this.dataUpload = res.data.data
@@ -452,23 +444,23 @@ export default {
         .catch((error) => {
           this.$notifier.showMessage({
             content: 'Upload failed. Please try again ! ' + error,
-            type: 'failed'
+            type: 'failed',
           })
           this.imageLoaded = false
         })
     },
-    back () {
+    back() {
       this.$router.push({
-        path: '/creative'
+        path: '/creative',
       })
     },
-    backStep1 () {
+    backStep1() {
       this.imageData = ''
       this.step1 = true
       this.step2 = false
     },
-    beforeAvatarUpload (file) {},
-    handleChange (file) {
+    beforeAvatarUpload(file) {},
+    handleChange(file) {
       const formatData = file.raw.type
       console.log('format data : ', formatData)
       const origins = [
@@ -479,18 +471,18 @@ export default {
         'application/x-zip-compressed',
         'application/x-zip',
         'application/zip-compressed',
-        'application/zip'
+        'application/zip',
       ]
       if (!origins.includes(formatData)) {
         this.$notifier.showMessage({
           content:
             '.gif, .jpg/.jpeg, .png, .js, .txt, .html, .html, .zip. Maximum of 50 files',
-          type: 'failed'
+          type: 'failed',
         })
       } else if (file.size / 1000 > 4000) {
         this.$notifier.showMessage({
           content: 'File size can not exceed 4 MB !',
-          type: 'failed'
+          type: 'failed',
         })
       } else {
         this.imageData = file
@@ -499,8 +491,8 @@ export default {
         this.data.name = this.removeExtension(this.imageData.name)
         this.uploadTemplate()
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

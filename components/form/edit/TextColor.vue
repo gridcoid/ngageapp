@@ -2,9 +2,7 @@
   <div v-if="!isLoading" class="form-input">
     <div class="style-box">
       <div class="color-container mb-2">
-        <div class="title-color">
-          Text :
-        </div>
+        <div class="title-color">Text :</div>
         <div class="flex flex-col">
           <div
             class="text-area-custom flex items-center justify-between"
@@ -21,9 +19,7 @@
         </div>
       </div>
       <div class="flex flex-col color-container">
-        <div class="title-color">
-          Color :
-        </div>
+        <div class="title-color">Color :</div>
         <div class="color-card flex items-center">
           <v-swatches
             v-model="color"
@@ -35,7 +31,7 @@
             popover-x="right"
             @input="changeData()"
           />
-          <input v-model="color" disabled class="text-color">
+          <input v-model="color" disabled class="text-color" />
         </div>
         <!-- <v-swatches v-model="color" /> -->
       </div>
@@ -50,17 +46,17 @@ import 'vue-swatches/dist/vue-swatches.css'
 
 export default {
   components: {
-    VSwatches
+    VSwatches,
   },
 
   props: {
     titleForm: {
       default: '',
-      type: String
-    }
+      type: String,
+    },
   },
 
-  data () {
+  data() {
     return {
       lineHeight: 3,
       lineHeight2: '100',
@@ -71,29 +67,29 @@ export default {
         '#FABE19',
         '#F3631B',
         '#8C2466',
-        '#FFFFFF'
+        '#FFFFFF',
       ],
       color: '#359EA6',
       defaultData: {},
-      text: ''
+      text: '',
     }
   },
   computed: {
     ...mapState({
       dataForm: (state) => {
         return state.creative.dataForm
-      }
-    })
+      },
+    }),
   },
 
-  mounted () {
+  mounted() {
     this.getDetail()
   },
   methods: {
-    getDetail () {
+    getDetail() {
       this.isLoading = true
       this.defaultData = this.dataForm.find(
-        item => item.title === this.titleForm
+        (item) => item.title === this.titleForm
       )
       this.text = this.defaultData.default.text
       this.color = this.defaultData.default.color
@@ -106,19 +102,19 @@ export default {
       this.changeData()
       this.isLoading = false
     },
-    changeData () {
+    changeData() {
       const payload = {
         color: this.color,
-        text: this.text
+        text: this.text,
       }
       const data = {
         title: this.titleForm,
         src: payload,
-        type: 'Text_color'
+        type: 'Text_color',
       }
       this.$emit('changeTextColor', data)
-    }
-  }
+    },
+  },
 }
 </script>
 

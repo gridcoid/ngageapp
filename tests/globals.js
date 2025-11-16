@@ -11,18 +11,19 @@ const Builder = require('nuxt').Builder
 let nuxtInstance = null
 
 module.exports = {
-
   // The host for nuxt server
   serverHost: 'localhost',
 
   // Which port to run nuxt on
   serverPort: 5555,
 
-  async before (browser, done) {
+  async before(browser, done) {
     console.log('Starting Nuxt Server')
     const rootDir = resolve(__dirname, '../')
     let config = {}
-    try { config = require(resolve(rootDir, 'nuxt.config.js')) } catch (e) {}
+    try {
+      config = require(resolve(rootDir, 'nuxt.config.js'))
+    } catch (e) {}
     config.rootDir = rootDir // project folder
     const nuxt = new Nuxt(config)
     nuxtInstance = nuxt // We keep a reference to Nuxt so we can close the server at the end of the test
@@ -31,9 +32,9 @@ module.exports = {
     done()
   },
 
-  async after (browser, done) {
+  async after(browser, done) {
     console.log('Shutting Down Nuxt')
     await nuxtInstance.close()
     done()
-  }
+  },
 }

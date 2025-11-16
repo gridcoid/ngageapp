@@ -7,9 +7,7 @@
         class="input-box"
       />
       <div class="style-box">
-        <div class="title-box">
-          Style
-        </div>
+        <div class="title-box">Style</div>
         <div class="flex flex-row card-font">
           <el-select
             v-model="selectedFont"
@@ -83,7 +81,7 @@
           <div
             class="btn-card flex items-center justify-center"
             :class="{
-              'btn-card-active': editor.isActive({ textAlign: 'left' })
+              'btn-card-active': editor.isActive({ textAlign: 'left' }),
             }"
             @click="editor.commands.setTextAlign('left')"
           >
@@ -96,7 +94,7 @@
           <div
             class="btn-card flex items-center justify-center"
             :class="{
-              'btn-card-active': editor.isActive({ textAlign: 'center' })
+              'btn-card-active': editor.isActive({ textAlign: 'center' }),
             }"
             @click="editor.commands.setTextAlign('center')"
           >
@@ -109,7 +107,7 @@
           <div
             class="btn-card flex items-center justify-center"
             :class="{
-              'btn-card-active': editor.isActive({ textAlign: 'right' })
+              'btn-card-active': editor.isActive({ textAlign: 'right' }),
             }"
             @click="editor.commands.setTextAlign('right')"
           >
@@ -122,7 +120,7 @@
           <div
             class="btn-card flex items-center justify-center"
             :class="{
-              'btn-card-active': editor.isActive({ textAlign: 'justify' })
+              'btn-card-active': editor.isActive({ textAlign: 'justify' }),
             }"
             @click="editor.commands.setTextAlign('justify')"
           >
@@ -135,9 +133,7 @@
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div class="flex flex-col color-container">
-            <div class="title-color">
-              Text Color
-            </div>
+            <div class="title-color">Text Color</div>
             <div class="color-card flex items-center">
               <el-color-picker
                 v-model="color"
@@ -146,13 +142,11 @@
                 color-format="hex"
                 @change="changeColor($event)"
               />
-              <input v-model="color" class="text-color">
+              <input v-model="color" class="text-color" />
             </div>
           </div>
           <div class="flex flex-col color-container">
-            <div class="title-color">
-              Opacity
-            </div>
+            <div class="title-color">Opacity</div>
             <div
               class="color-card flex items-center justify-between"
               style="padding-left: 0px; padding-right: 0px"
@@ -161,7 +155,7 @@
                 v-model="opacity"
                 class="text-color"
                 @input="selectFontOpacity()"
-              >
+              />
               <div class="flex items-center justify-center percent-color">
                 <div class="hr-vertical" />
                 %
@@ -189,114 +183,115 @@ import { mapState } from 'vuex'
 
 const FontSize = Extension.create({
   name: 'fontSize',
-  addOptions () {
+  addOptions() {
     return {
-      types: ['textStyle']
+      types: ['textStyle'],
     }
   },
-  addGlobalAttributes () {
+  addGlobalAttributes() {
     return [
       {
         types: this.options.types,
         attributes: {
           fontSize: {
             default: null,
-            parseHTML: element => element.style.fontSize.replace(/['"]+/g, ''),
+            parseHTML: (element) =>
+              element.style.fontSize.replace(/['"]+/g, ''),
             renderHTML: (attributes) => {
               if (!attributes.fontSize) {
                 return {}
               }
               return {
-                style: `font-size: ${attributes.fontSize}`
+                style: `font-size: ${attributes.fontSize}`,
               }
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     ]
   },
-  addCommands () {
+  addCommands() {
     return {
       setFontSize:
-        fontSize =>
-          ({ chain }) => {
-            return chain()
-              .setMark('textStyle', { fontSize: fontSize + 'px' })
-              .run()
-          },
+        (fontSize) =>
+        ({ chain }) => {
+          return chain()
+            .setMark('textStyle', { fontSize: fontSize + 'px' })
+            .run()
+        },
       unsetFontSize:
         () =>
-          ({ chain }) => {
-            return chain()
-              .setMark('textStyle', { fontSize: null })
-              .removeEmptyTextStyle()
-              .run()
-          }
+        ({ chain }) => {
+          return chain()
+            .setMark('textStyle', { fontSize: null })
+            .removeEmptyTextStyle()
+            .run()
+        },
     }
-  }
+  },
 })
 
 const FontSize2 = Extension.create({
   name: 'fontSize2',
-  addOptions () {
+  addOptions() {
     return {
-      types: ['textStyle']
+      types: ['textStyle'],
     }
   },
-  addGlobalAttributes () {
+  addGlobalAttributes() {
     return [
       {
         types: this.options.types,
         attributes: {
           fontSize2: {
             default: null,
-            parseHTML: element => element.style.opacity.replace(/['"]+/g, ''),
+            parseHTML: (element) => element.style.opacity.replace(/['"]+/g, ''),
             renderHTML: (attributes) => {
               if (!attributes.fontSize2) {
                 return {}
               }
               return {
-                style: `opacity: ${attributes.fontSize2}`
+                style: `opacity: ${attributes.fontSize2}`,
               }
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     ]
   },
-  addCommands () {
+  addCommands() {
     return {
       setFontSize2:
-        fontSize2 =>
-          ({ chain }) => {
-            return chain()
-              .setMark('textStyle', { fontSize2: fontSize2 + '%' })
-              .run()
-          },
+        (fontSize2) =>
+        ({ chain }) => {
+          return chain()
+            .setMark('textStyle', { fontSize2: fontSize2 + '%' })
+            .run()
+        },
       unsetFontSize2:
         () =>
-          ({ chain }) => {
-            return chain()
-              .setMark('textStyle', { fontSize2: null })
-              .removeEmptyTextStyle()
-              .run()
-          }
+        ({ chain }) => {
+          return chain()
+            .setMark('textStyle', { fontSize2: null })
+            .removeEmptyTextStyle()
+            .run()
+        },
     }
-  }
+  },
 })
 
 export default {
   components: {
-    EditorContent
+    EditorContent,
   },
   props: {
     titleForm: {
       default: '',
-      type: String
-    }
+      type: String,
+    },
   },
 
-  data () {
+  data() {
     return {
       isLoading: true,
       defaultData: {},
@@ -308,214 +303,214 @@ export default {
       options: [
         {
           value: 'Arial, Helvetica, sans-serif',
-          label: 'Arial, Helvetica, sans-serif'
+          label: 'Arial, Helvetica, sans-serif',
         },
         {
           value: 'Arial, sans-serif',
-          label: 'Arial, sans-serif'
+          label: 'Arial, sans-serif',
         },
         {
           value: 'Comic Sans MS, Comic Sans',
-          label: 'Comic Sans MS'
+          label: 'Comic Sans MS',
         },
         {
           value: 'Inter',
-          label: 'Inter'
+          label: 'Inter',
         },
         {
           value: 'serif',
-          label: 'Serif'
+          label: 'Serif',
         },
         {
           value: 'monospace',
-          label: 'Monospace'
+          label: 'Monospace',
         },
         {
           value: 'cursive',
-          label: 'Cursive'
+          label: 'Cursive',
         },
         {
           value: 'Lato, Roboto',
-          label: 'Lato, Roboto'
+          label: 'Lato, Roboto',
         },
         {
           value: 'Montserrat',
-          label: 'Montserrat'
+          label: 'Montserrat',
         },
         {
           value: 'Fira Sans',
-          label: 'Fira Sans'
+          label: 'Fira Sans',
         },
         {
           value: 'Fira Code',
-          label: 'Fira Code'
+          label: 'Fira Code',
         },
         {
           value: 'Roboto',
-          label: 'Roboto'
+          label: 'Roboto',
         },
         {
           value: 'Roboto Mono',
-          label: 'Roboto Mono'
+          label: 'Roboto Mono',
         },
         {
           value: 'Roboto Condensed',
-          label: 'Roboto Condensed'
+          label: 'Roboto Condensed',
         },
         {
           value: 'Roboto Slab',
-          label: 'Roboto Slab'
+          label: 'Roboto Slab',
         },
         {
           value: 'IBM Plex Sans',
-          label: 'IBM Plex Sans'
+          label: 'IBM Plex Sans',
         },
         {
           value: 'IBM Plex Serif',
-          label: 'IBM Plex Serif'
+          label: 'IBM Plex Serif',
         },
         {
           value: 'Poppins',
-          label: 'Poppins'
+          label: 'Poppins',
         },
         {
           value: 'Oswald',
-          label: 'Oswald'
+          label: 'Oswald',
         },
         {
           value: 'Bebas Neue',
-          label: 'Bebas Neue'
+          label: 'Bebas Neue',
         },
         {
           value: 'Raleway',
-          label: 'Raleway'
+          label: 'Raleway',
         },
         {
           value: 'Noto Sans',
-          label: 'Noto Sans'
+          label: 'Noto Sans',
         },
         {
           value: 'Mukta',
-          label: 'Mukta'
+          label: 'Mukta',
         },
         {
           value: 'Nunito',
-          label: 'Nunito'
+          label: 'Nunito',
         },
         {
           value: 'Nunito Sans',
-          label: 'Nunito Sans'
+          label: 'Nunito Sans',
         },
         {
           value: 'Segoe UI, Arial, sans-serif',
-          label: 'Segoe UI, Arial, sans-serif'
-        }
+          label: 'Segoe UI, Arial, sans-serif',
+        },
       ],
       options2: [
         {
           value: '6',
-          label: '6px'
+          label: '6px',
         },
         {
           value: '7',
-          label: '7px'
+          label: '7px',
         },
         {
           value: '8',
-          label: '8px'
+          label: '8px',
         },
         {
           value: '9',
-          label: '9px'
+          label: '9px',
         },
         {
           value: '10',
-          label: '10px'
+          label: '10px',
         },
         {
           value: '11',
-          label: '11px'
+          label: '11px',
         },
         {
           value: '12',
-          label: '12px'
+          label: '12px',
         },
         {
           value: '13',
-          label: '13px'
+          label: '13px',
         },
         {
           value: '14',
-          label: '14px'
+          label: '14px',
         },
         {
           value: '15',
-          label: '15px'
+          label: '15px',
         },
         {
           value: '16',
-          label: '16px'
+          label: '16px',
         },
         {
           value: '17',
-          label: '17px'
+          label: '17px',
         },
         {
           value: '18',
-          label: '18px'
+          label: '18px',
         },
         {
           value: '19',
-          label: '19px'
+          label: '19px',
         },
         {
           value: '20',
-          label: '20px'
+          label: '20px',
         },
         {
           value: '21',
-          label: '21px'
+          label: '21px',
         },
         {
           value: '22',
-          label: '22px'
+          label: '22px',
         },
         {
           value: '23',
-          label: '23px'
+          label: '23px',
         },
         {
           value: '24',
-          label: '24px'
+          label: '24px',
         },
         {
           value: '25',
-          label: '25px'
+          label: '25px',
         },
         {
           value: '26',
-          label: '26px'
+          label: '26px',
         },
         {
           value: '27',
-          label: '27px'
+          label: '27px',
         },
         {
           value: '28',
-          label: '28px'
+          label: '28px',
         },
         {
           value: '29',
-          label: '29px'
+          label: '29px',
         },
         {
           value: '30',
-          label: '30px'
-        }
+          label: '30px',
+        },
       ],
       value: '',
       value2: '12',
-      dataFont: {}
+      dataFont: {},
     }
   },
   computed: {
@@ -525,19 +520,19 @@ export default {
       },
       selectedResolution: (state) => {
         return state.template.selectedResolution
-      }
-    })
+      },
+    }),
   },
 
-  mounted () {
+  mounted() {
     this.checkEditor()
   },
 
-  beforeUnmount () {
+  beforeUnmount() {
     this.editor.destroy()
   },
   methods: {
-    checkEditor () {
+    checkEditor() {
       this.isLoading = true
 
       this.editor = new Editor({
@@ -545,7 +540,7 @@ export default {
           const data = {
             title: this.titleForm,
             type: 'Text',
-            src: editor.getHTML()
+            src: editor.getHTML(),
           }
           this.$emit('changeText', data)
         },
@@ -554,8 +549,8 @@ export default {
           Document,
           Paragraph.configure({
             HTMLAttributes: {
-              class: 'text-unimind'
-            }
+              class: 'text-unimind',
+            },
           }),
           Text,
           TextStyle,
@@ -563,29 +558,29 @@ export default {
           FontSize,
           TextUnderline,
           TextAlign.configure({
-            types: ['paragraph']
+            types: ['paragraph'],
           }),
           Color,
-          FontSize2
+          FontSize2,
         ],
         content: `
           <p><span style="">Text</span></p>
-        `
+        `,
       })
       this.getTemplateDetail()
     },
-    changeFont (data) {
+    changeFont(data) {
       this.selectedFont = data
       this.editor.chain().focus().setFontFamily(data).run()
     },
-    findFamily () {
+    findFamily() {
       this.options.forEach((item, index) => {
         if (this.editor.isActive('textStyle', { fontFamily: item.value })) {
           this.selectedFont = item.value
         }
       })
     },
-    findSize () {
+    findSize() {
       this.options2.forEach((item, index) => {
         if (
           this.editor.isActive('textStyle', { fontSize: item.value + 'px' })
@@ -594,10 +589,10 @@ export default {
         }
       })
     },
-    findColor () {
+    findColor() {
       this.color = this.editor.getAttributes('textStyle').color
     },
-    findOpacity () {
+    findOpacity() {
       this.editor.on('update', ({ editor }) => {
         console.log(editor)
         console.log('the content has changed.')
@@ -638,7 +633,7 @@ export default {
       //   // this.opacity = this.editor.getAttributes('textStyle').fontSize2 * 100
       // }
     },
-    async getfont () {
+    async getfont() {
       await this.$axios
         .get(
           'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAdGPY4_bsWi8c9fHhfdDmwF881W8HLOvk'
@@ -649,20 +644,20 @@ export default {
         .catch((error) => {
           this.$notifier.showMessage({
             content: error,
-            type: 'failed'
+            type: 'failed',
           })
           this.imageLoaded = false
         })
     },
-    getTemplateDetail () {
+    getTemplateDetail() {
       this.defaultData = this.dataForm.find(
-        item => item.title === this.titleForm
+        (item) => item.title === this.titleForm
       )
       this.editor.commands.setContent(this.defaultData.default)
       for (let i = 0; i < this.options2.length; i++) {
         if (
           this.editor.isActive('textStyle', {
-            fontSize: this.options2[i].label
+            fontSize: this.options2[i].label,
           })
         ) {
           this.value2 = this.options2[i].value
@@ -679,10 +674,10 @@ export default {
       }
       this.isLoading = false
     },
-    selectFontSize () {
+    selectFontSize() {
       this.editor.commands.setFontSize(this.value2)
     },
-    rgb2hex (rgb) {
+    rgb2hex(rgb) {
       rgb = rgb.match(
         /^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i
       )
@@ -693,19 +688,19 @@ export default {
             ('0' + parseInt(rgb[3], 10).toString(16)).slice(-2)
         : ''
     },
-    selectFontOpacity () {
+    selectFontOpacity() {
       this.editor.commands.setFontSize2(this.opacity)
     },
-    setText (data1) {
+    setText(data1) {
       if (data1 === 'bold') {
         this.editor.chain().focus().toggleBold().run()
       }
     },
-    changeColor (x) {
+    changeColor(x) {
       this.editor.chain().focus().setColor(x).run()
       this.color = x
-    }
-  }
+    },
+  },
 }
 </script>
 

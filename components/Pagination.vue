@@ -1,24 +1,14 @@
 <template>
   <div class="kompas-pagination flex items-center justify-between">
     <div class="left-side flex items-center">
-      <div class="label-page">
-        Go to page:
-      </div>
-      <input
-        v-model="inputVal"
-        type="text"
-        class="to-page"
-      >
-      <div class="label-page">
-        of {{ totalPage }}
-      </div>
-      <div class="label-rows">
-        Show rows:
-      </div>
+      <div class="label-page">Go to page:</div>
+      <input v-model="inputVal" type="text" class="to-page" />
+      <div class="label-page">of {{ totalPage }}</div>
+      <div class="label-rows">Show rows:</div>
 
       <el-select
         v-model="dataItem"
-        style="width:72px;margin-right:12px;"
+        style="width: 72px; margin-right: 12px"
         @change="changeRow()"
       >
         <el-option
@@ -28,15 +18,30 @@
           :value="item"
         />
       </el-select>
-      <div class="label-rows">
-        1 - {{ dataItem }} of {{ total }}
-      </div>
+      <div class="label-rows">1 - {{ dataItem }} of {{ total }}</div>
     </div>
     <div class="right-side flex">
-      <ButtonPrevPage :value="inputVal" class="icon-btn" @click.native="inputVal === 1 ? '' : inputVal = 1" />
-      <ButtonPrev class="icon-btn" :value="inputVal" @click.native="inputVal === 1 ? '' : inputVal--" />
-      <ButtonNext class="icon-btn" :value="inputVal === totalPage" @click.native="inputVal === totalPage ? '' : inputVal++" />
-      <ButtonNextPage :value="inputVal === totalPage" :color="inputVal === totalPage ? '#1B63D4' : '#A1ADB9'" class="icon-btn" @click.native="inputVal === totalPage ? '' : inputVal = totalPage" />
+      <ButtonPrevPage
+        :value="inputVal"
+        class="icon-btn"
+        @click.native="inputVal === 1 ? '' : (inputVal = 1)"
+      />
+      <ButtonPrev
+        class="icon-btn"
+        :value="inputVal"
+        @click.native="inputVal === 1 ? '' : inputVal--"
+      />
+      <ButtonNext
+        class="icon-btn"
+        :value="inputVal === totalPage"
+        @click.native="inputVal === totalPage ? '' : inputVal++"
+      />
+      <ButtonNextPage
+        :value="inputVal === totalPage"
+        :color="inputVal === totalPage ? '#1B63D4' : '#A1ADB9'"
+        class="icon-btn"
+        @click.native="inputVal === totalPage ? '' : (inputVal = totalPage)"
+      />
     </div>
   </div>
 </template>
@@ -46,51 +51,51 @@ export default {
   props: {
     text: {
       type: String,
-      default: ''
+      default: '',
     },
     total: {
       type: Number,
-      default: 0
+      default: 0,
     },
     totalPage: {
       type: Number,
-      default: 0
+      default: 0,
     },
     value: {
       type: Number,
-      default: 1
+      default: 1,
     },
     dataItem: {
       type: Number,
-      default: 10
-    }
+      default: 10,
+    },
   },
-  data () {
+  data() {
     return {
-      items: [6, 10, 25, 50, 100]
+      items: [6, 10, 25, 50, 100],
     }
   },
   computed: {
     inputVal: {
-      get () {
+      get() {
         return this.value
       },
-      set (val) {
+      set(val) {
         this.$emit('input', val)
-      }
-    }
+      },
+    },
   },
   methods: {
-    changeRow () {
+    changeRow() {
       this.$emit('rowPage', this.dataItem)
     },
-    nextPage () {
+    nextPage() {
       this.inputVal++
     },
-    prevPage () {
+    prevPage() {
       this.inputVal--
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -100,32 +105,32 @@ export default {
       font-family: 'Cabin';
       font-weight: 700;
       font-size: 14px;
-      color: #5C6B7A;
-      margin-right:12px;
+      color: #5c6b7a;
+      margin-right: 12px;
     }
     .label-rows {
       font-family: 'Cabin';
       font-weight: 700;
       font-size: 14px;
-      color: #5C6B7A;
-      margin-left:13px;
-      margin-right:12px;
+      color: #5c6b7a;
+      margin-left: 13px;
+      margin-right: 12px;
     }
-    .to-page[type=text] {
+    .to-page[type='text'] {
       width: 72px;
       height: 40px;
-      background: #FFFFFF;
-      border: 1px solid #C3CED9;
+      background: #ffffff;
+      border: 1px solid #c3ced9;
       border-radius: 5px;
-      text-align:center;
+      text-align: center;
       font-family: 'Cabin';
       font-weight: 400;
       font-size: 16px;
-      color: #5C6B7A;
-      margin-right:12px;
+      color: #5c6b7a;
+      margin-right: 12px;
     }
     .to-page:focus {
-      border-color: #C3CED9;
+      border-color: #c3ced9;
       -webkit-box-shadow: none;
       box-shadow: none;
       outline: none;
@@ -133,9 +138,8 @@ export default {
   }
   .right-side {
     .icon-btn {
-      margin-left:10px;
+      margin-left: 10px;
     }
   }
-
 }
 </style>

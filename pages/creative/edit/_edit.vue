@@ -336,67 +336,67 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import CardForm from '~/components/card/Form.vue';
-import FormEditAudio from '~/components/form/edit/Audio.vue';
-import FormEditCustomSound from '~/components/form/edit/CustomSound.vue';
+import { mapState } from 'vuex'
+import CardForm from '~/components/card/Form.vue'
+import FormEditAudio from '~/components/form/edit/Audio.vue'
+import FormEditCustomSound from '~/components/form/edit/CustomSound.vue'
 
 export default {
-  name: "CreateCreativePage",
-  layout: "login",
+  name: 'CreateCreativePage',
+  layout: 'login',
   components: {
     CardForm,
     FormEditAudio,
-    FormEditCustomSound
+    FormEditCustomSound,
   },
   filters: {
     capitalising(data) {
-      const capitalized = [];
-      data.split(" ").forEach((word) => {
+      const capitalized = []
+      data.split(' ').forEach((word) => {
         capitalized.push(
           word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-        );
-      });
-      return capitalized.join(" ");
+        )
+      })
+      return capitalized.join(' ')
     },
     spaceUnderscore(data) {
       if (!data) {
-        return "";
+        return ''
       }
-      data = data.toString();
-      return data.replace(/_/g, " ");
+      data = data.toString()
+      return data.replace(/_/g, ' ')
     },
   },
 
   data() {
     return {
       isLoadingDuration: false,
-      duration: "0",
-      dataMood: "",
+      duration: '0',
+      dataMood: '',
       showIframe: false,
       thumbnail: null,
       showZoom: false,
-      templateName: "",
+      templateName: '',
       isLoading: false,
-      creativeName: "",
-      ads: "",
-      url: "",
+      creativeName: '',
+      ads: '',
+      url: '',
       youtubeId: null,
-      itemFilter: ["All", "Image", "Text", "Color", "Button"],
+      itemFilter: ['All', 'Image', 'Text', 'Color', 'Button'],
       imageLoaded: false,
       showPanel: true,
       show1: false,
       show2: false,
-      name: "",
+      name: '',
       resolutionId: 8,
-      imageData: "",
-      imageUrl: "",
-      imageName: "",
-      imageFormat: "",
-      imageSize: "",
+      imageData: '',
+      imageUrl: '',
+      imageName: '',
+      imageFormat: '',
+      imageSize: '',
       resolution: {
-        width: "",
-        height: "",
+        width: '',
+        height: '',
       },
       image: {
         width: 0,
@@ -405,315 +405,315 @@ export default {
       fileKey: [],
       fileKey2: [],
       dataResolution: [],
-      staticSrc: "",
-      activeItem: "All",
-      defaultImage: "",
+      staticSrc: '',
+      activeItem: 'All',
+      defaultImage: '',
       loadingData: false,
       showImages: false,
       dataImageEditor: {},
-      type: "",
+      type: '',
       newData: [],
       templateId: null,
       selectedResolution: [],
       isLoadingDetail: false,
       selectedAudio: {},
-    };
+    }
   },
   computed: {
     ...mapState({
       orgId: (state) => {
-        return state.user.orgId;
+        return state.user.orgId
       },
       dataDetailCreative: (state) => {
-        return state.creative.dataDetailCreative;
+        return state.creative.dataDetailCreative
       },
       dataForm: (state) => {
-        return state.creative.dataForm;
+        return state.creative.dataForm
       },
       dataImageRaw: (state) => {
-        return state.creative.dataImageRaw;
+        return state.creative.dataImageRaw
       },
       keyName: (state) => {
-        return state.creative.keyName;
+        return state.creative.keyName
       },
       keyFilter: (state) => {
-        return state.creative.keyFilter;
+        return state.creative.keyFilter
       },
       dataImageArrayRaw: (state) => {
-        return state.creative.dataImageArrayRaw;
+        return state.creative.dataImageArrayRaw
       },
       dataImageArrayRaw2: (state) => {
-        return state.creative.dataImageArrayRaw2;
+        return state.creative.dataImageArrayRaw2
       },
       filteredItems() {
-        return this.keyFilter.filter((item) => item.type !== "Json");
+        return this.keyFilter.filter((item) => item.type !== 'Json')
       },
     }),
     // eslint-disable-next-line vue/return-in-computed-property
     dataUrl() {
       if (this.dataImageRaw[0].default !== null) {
-        return URL.createObjectURL(this.dataImageRaw[0].default.raw);
+        return URL.createObjectURL(this.dataImageRaw[0].default.raw)
       }
     },
     alignCenter() {
       if (this.resolution.width > 1000) {
         if (this.resolution.height > 1080) {
-          return "iframe-align";
+          return 'iframe-align'
         } else if (this.resolution.height < 800) {
-          return "center-iframe-2";
+          return 'center-iframe-2'
         } else {
-          return "left-iframe";
+          return 'left-iframe'
         }
       } else {
-        return "center-iframe";
+        return 'center-iframe'
       }
     },
   },
   mounted() {
-    this.$store.commit("creative/SET_CLEAR_IMAGE");
-    this.getAll();
+    this.$store.commit('creative/SET_CLEAR_IMAGE')
+    this.getAll()
   },
   methods: {
     getDuration(bodyTxt, type) {
-      this.isLoadingDuration = true;
+      this.isLoadingDuration = true
       this.$store
-        .dispatch("creative/getDuration", {
+        .dispatch('creative/getDuration', {
           templateId: this.templateId,
           bodyTxt: bodyTxt,
           type: type,
         })
         .then((res) => {
-          console.log("res duration : ", res);
-          this.duration = res.data.data.duration + " seconds";
-          this.isLoadingDuration = false;
+          console.log('res duration : ', res)
+          this.duration = res.data.data.duration + ' seconds'
+          this.isLoadingDuration = false
         })
         .catch(() => {
-          this.isLoadingDuration = false;
-        });
+          this.isLoadingDuration = false
+        })
     },
     onChangeAudio(data) {
-      this.selectedAudio = data;
-      console.log("audio : ", this.selectedAudio);
+      this.selectedAudio = data
+      console.log('audio : ', this.selectedAudio)
     },
     toPlay() {
-      this.showIframe = true;
+      this.showIframe = true
     },
     clickActiveItem(x) {
-      this.activeItem = x;
+      this.activeItem = x
     },
     saveEditor(val) {
-      if (val.type === "Image") {
+      if (val.type === 'Image') {
         const dataJSON = {
           index: val.indexRawImage,
           default: val.data,
-        };
-        this.$store.commit("creative/SET_CHANGE_IMAGE", dataJSON);
+        }
+        this.$store.commit('creative/SET_CHANGE_IMAGE', dataJSON)
         const data = {
           index: val.indexForm,
           title: val.title,
-          type: "Image",
+          type: 'Image',
           src: val.src,
-        };
-        this.$store.commit("creative/SET_DATA_FORM", data);
-        this.sendToIframe();
-        this.showImages = false;
+        }
+        this.$store.commit('creative/SET_DATA_FORM', data)
+        this.sendToIframe()
+        this.showImages = false
       }
-      if (val.type === "ImageArray") {
+      if (val.type === 'ImageArray') {
         const dataJSON = {
           indexImage: val.indexRawImage,
           default: val.data,
-        };
-        this.$store.commit("creative/SET_CHANGE_IMAGEARRAY", dataJSON);
+        }
+        this.$store.commit('creative/SET_CHANGE_IMAGEARRAY', dataJSON)
 
         const dataJSON2 = {
           indexImage: val.indexRawImage,
           default: val.src,
-        };
-        this.$store.commit("creative/SET_CHANGE_IMAGEARRAY2", dataJSON2);
+        }
+        this.$store.commit('creative/SET_CHANGE_IMAGEARRAY2', dataJSON2)
 
         const data = {
           index: val.indexForm,
           title: val.title,
           type: val.type,
           src: this.dataImageArrayRaw2,
-        };
-        this.$store.commit("creative/SET_DATA_FORM", data);
-        this.sendToIframe();
-        this.showImages = false;
-        this.$store.commit("user/SET_DROPDOWN", null);
+        }
+        this.$store.commit('creative/SET_DATA_FORM', data)
+        this.sendToIframe()
+        this.showImages = false
+        this.$store.commit('user/SET_DROPDOWN', null)
       }
     },
     openEditor(val) {
-      this.showImages = val.dialog;
-      this.dataImageEditor = val;
+      this.showImages = val.dialog
+      this.dataImageEditor = val
     },
     async saveData() {
-      if (this.name !== "") {
-        this.fileKey = [];
-        this.fileKey2 = [];
-        const dataUpload = [];
+      if (this.name !== '') {
+        this.fileKey = []
+        this.fileKey2 = []
+        const dataUpload = []
         for (let i = 0; i < this.dataImageRaw.length; i++) {
           if (this.dataImageRaw[i].default instanceof Object) {
             this.fileKey.push({
               src: this.dataImageRaw[i],
-              fileKey: "",
-            });
+              fileKey: '',
+            })
           } else {
-            console.log("string : ", this.dataImageRaw[i].default);
+            console.log('string : ', this.dataImageRaw[i].default)
             if (this.dataImageRaw[i].default?.includes(this.$config.baseURL)) {
-              const text = this.dataImageRaw[i].default;
-              let data = text.indexOf("fileKey=");
-              data = data + 8;
+              const text = this.dataImageRaw[i].default
+              let data = text.indexOf('fileKey=')
+              data = data + 8
               dataUpload.push({
                 src: text.slice(data, text.length),
                 title: this.dataImageRaw[i].title,
-              });
+              })
             } else {
               dataUpload.push({
                 src: this.dataImageRaw[i].default,
                 title: this.dataImageRaw[i].title,
-              });
+              })
             }
           }
         }
         if (this.fileKey.length > 0) {
-          this.imageLoaded = true;
-          const data = new FormData();
+          this.imageLoaded = true
+          const data = new FormData()
           for (let i = 0; i < this.fileKey.length; i++) {
-            data.append("files", this.fileKey[i].src.default.raw);
+            data.append('files', this.fileKey[i].src.default.raw)
           }
           await this.$axios
-            .post("obs/array", data, {
+            .post('obs/array', data, {
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
             })
             .then((res) => {
-              const keys = res.data.data.fileKeys;
+              const keys = res.data.data.fileKeys
               for (let i = 0; i < keys.length; i++) {
-                this.fileKey[i].fileKey = keys[i];
+                this.fileKey[i].fileKey = keys[i]
               }
-              this.imageLoaded = false;
+              this.imageLoaded = false
             })
             .catch((error) => {
               this.$notifier.showMessage({
-                content: "Upload failed. Please try again ! " + error,
-                type: "failed",
-              });
-              this.imageLoaded = false;
-            });
+                content: 'Upload failed. Please try again ! ' + error,
+                type: 'failed',
+              })
+              this.imageLoaded = false
+            })
         }
         if (!this.imageLoaded) {
           for (let i = 0; i < this.fileKey.length; i++) {
             dataUpload.push({
               src: this.fileKey[i].fileKey,
               title: this.fileKey[i].src.title,
-            });
+            })
           }
 
           for (let i = 0; i < this.dataImageArrayRaw2.length; i++) {
             if (this.dataImageArrayRaw2[i]?.includes(this.$config.baseURL)) {
-              const text = this.dataImageArrayRaw2[i];
-              let data = text.indexOf("fileKey=");
-              data = data + 8;
-              this.dataImageArrayRaw2[i] = text.slice(data, text.length);
+              const text = this.dataImageArrayRaw2[i]
+              let data = text.indexOf('fileKey=')
+              data = data + 8
+              this.dataImageArrayRaw2[i] = text.slice(data, text.length)
             }
           }
           const payloadImage = this.keyName
-            .filter(({ type }) => type === "Image")
+            .filter(({ type }) => type === 'Image')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: dataUpload.filter(
                   ({ title }) => title === value.title
                 )[0].src,
-              };
-            }, {});
+              }
+            }, {})
           const payloadImage2 = this.keyName
-            .filter(({ type }) => type === "Image_array")
+            .filter(({ type }) => type === 'Image_array')
             .reduce((item, value) => {
-              return { ...item, [value.key]: this.dataImageArrayRaw2 };
-            }, {});
+              return { ...item, [value.key]: this.dataImageArrayRaw2 }
+            }, {})
           const payloadTextColor = this.keyName
-            .filter(({ type }) => type === "Text" || type === "Color")
+            .filter(({ type }) => type === 'Text' || type === 'Color')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
+              }
+            }, {})
           const payloadButton = this.keyName
-            .filter(({ type }) => type === "Button")
+            .filter(({ type }) => type === 'Button')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
+              }
+            }, {})
           const payloadTextOnly = this.keyName
-            .filter(({ type }) => type === "Text_only")
+            .filter(({ type }) => type === 'Text_only')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
+              }
+            }, {})
           const payloadAudio = this.keyName
-            .filter(({ type }) => type === "Audio")
+            .filter(({ type }) => type === 'Audio')
             .reduce((item, value) => {
-              return { ...item, [value.key]: this.selectedAudio };
-            }, {});
+              return { ...item, [value.key]: this.selectedAudio }
+            }, {})
           const payloadTextColor2 = this.keyName
-            .filter(({ type }) => type === "Text_color")
+            .filter(({ type }) => type === 'Text_color')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
+              }
+            }, {})
 
           const payloadColorOnly = this.keyName
-            .filter(({ type }) => type === "Color_pallete")
+            .filter(({ type }) => type === 'Color_pallete')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
-          console.log("payloadColorOnly : ", payloadColorOnly);
+              }
+            }, {})
+          console.log('payloadColorOnly : ', payloadColorOnly)
 
           const payloadJson = this.keyName
-            .filter(({ type }) => type === "Json")
+            .filter(({ type }) => type === 'Json')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
+              }
+            }, {})
           const payloadCustomAudio = this.keyName
-            .filter(({ type }) => type === "Custom_audio")
+            .filter(({ type }) => type === 'Custom_audio')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
-          let payload = {};
-          if (this.type !== "video") {
+              }
+            }, {})
+          let payload = {}
+          if (this.type !== 'video') {
             if (this.youtubeId === null) {
               payload = {
                 name: this.name,
@@ -722,7 +722,7 @@ export default {
                   clickUrl: this.url,
                   properties: {},
                 },
-              };
+              }
             } else {
               payload = {
                 name: this.name,
@@ -732,7 +732,7 @@ export default {
                   youtubeId: this.youtubeId,
                   properties: {},
                 },
-              };
+              }
             }
           } else {
             payload = {
@@ -741,14 +741,14 @@ export default {
               config: {
                 properties: {},
               },
-            };
+            }
           }
           if (payloadJson !== null) {
             payload.config.properties = Object.assign(
               payload.config.properties,
               payloadAudio,
               payloadJson
-            );
+            )
           }
 
           if (payloadImage.backupImg === undefined) {
@@ -763,10 +763,10 @@ export default {
               payloadTextColor2,
               payloadColorOnly,
               payloadCustomAudio
-            );
+            )
           } else {
-            payload.config.backupImg = payloadImage.backupImg;
-            delete payloadImage.backupImg;
+            payload.config.backupImg = payloadImage.backupImg
+            delete payloadImage.backupImg
             payload.config.properties = Object.assign(
               payload.config.properties,
               payloadImage,
@@ -778,10 +778,10 @@ export default {
               payloadTextColor2,
               payloadColorOnly,
               payloadCustomAudio
-            );
+            )
           }
           this.$store
-            .dispatch("creative/updateCreative", {
+            .dispatch('creative/updateCreative', {
               payload,
               id: this.$route.params.edit,
             })
@@ -793,185 +793,185 @@ export default {
               ) {
                 // this.$store.commit('creative/SET_CLEAR')
                 this.$notifier.showMessage({
-                  content: "Creative edited",
-                  type: "success",
-                });
+                  content: 'Creative edited',
+                  type: 'success',
+                })
                 this.$router.push({
-                  path: "/creative/",
-                });
+                  path: '/creative/',
+                })
               }
             })
             .catch((error) => {
               this.$notifier.showMessage({
-                content: "Creative failed. Please try again ! " + error,
-                type: "failed",
-              });
-            });
+                content: 'Creative failed. Please try again ! ' + error,
+                type: 'failed',
+              })
+            })
         }
       } else {
         this.$notifier.showMessage({
           content: '"Name" is not allowed to be empty',
-          type: "failed",
-        });
+          type: 'failed',
+        })
       }
     },
     async saveData2() {
-      if (this.name !== "") {
-        this.fileKey = [];
-        this.fileKey2 = [];
-        const dataUpload = [];
+      if (this.name !== '') {
+        this.fileKey = []
+        this.fileKey2 = []
+        const dataUpload = []
         for (let i = 0; i < this.dataImageRaw.length; i++) {
           if (this.dataImageRaw[i].default instanceof Object) {
             this.fileKey.push({
               src: this.dataImageRaw[i],
-              fileKey: "",
-            });
+              fileKey: '',
+            })
           } else {
-            console.log("string : ", this.dataImageRaw[i].default);
+            console.log('string : ', this.dataImageRaw[i].default)
             if (this.dataImageRaw[i].default?.includes(this.$config.baseURL)) {
-              const text = this.dataImageRaw[i].default;
-              let data = text.indexOf("fileKey=");
-              data = data + 8;
+              const text = this.dataImageRaw[i].default
+              let data = text.indexOf('fileKey=')
+              data = data + 8
               dataUpload.push({
                 src: text.slice(data, text.length),
                 title: this.dataImageRaw[i].title,
-              });
+              })
             } else {
               dataUpload.push({
                 src: this.dataImageRaw[i].default,
                 title: this.dataImageRaw[i].title,
-              });
+              })
             }
           }
         }
         if (this.fileKey.length > 0) {
-          this.imageLoaded = true;
-          const data = new FormData();
+          this.imageLoaded = true
+          const data = new FormData()
           for (let i = 0; i < this.fileKey.length; i++) {
-            data.append("files", this.fileKey[i].src.default.raw);
+            data.append('files', this.fileKey[i].src.default.raw)
           }
           await this.$axios
-            .post("obs/array", data, {
+            .post('obs/array', data, {
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
             })
             .then((res) => {
-              const keys = res.data.data.fileKeys;
+              const keys = res.data.data.fileKeys
               for (let i = 0; i < keys.length; i++) {
-                this.fileKey[i].fileKey = keys[i];
+                this.fileKey[i].fileKey = keys[i]
               }
-              this.imageLoaded = false;
+              this.imageLoaded = false
             })
             .catch((error) => {
               this.$notifier.showMessage({
-                content: "Upload failed. Please try again ! " + error,
-                type: "failed",
-              });
-              this.imageLoaded = false;
-            });
+                content: 'Upload failed. Please try again ! ' + error,
+                type: 'failed',
+              })
+              this.imageLoaded = false
+            })
         }
         if (!this.imageLoaded) {
           for (let i = 0; i < this.fileKey.length; i++) {
             dataUpload.push({
               src: this.fileKey[i].fileKey,
               title: this.fileKey[i].src.title,
-            });
+            })
           }
 
           for (let i = 0; i < this.dataImageArrayRaw2.length; i++) {
             if (this.dataImageArrayRaw2[i]?.includes(this.$config.baseURL)) {
-              const text = this.dataImageArrayRaw2[i];
-              let data = text.indexOf("fileKey=");
-              data = data + 8;
-              this.dataImageArrayRaw2[i] = text.slice(data, text.length);
+              const text = this.dataImageArrayRaw2[i]
+              let data = text.indexOf('fileKey=')
+              data = data + 8
+              this.dataImageArrayRaw2[i] = text.slice(data, text.length)
             }
           }
           const payloadImage = this.keyName
-            .filter(({ type }) => type === "Image")
+            .filter(({ type }) => type === 'Image')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: dataUpload.filter(
                   ({ title }) => title === value.title
                 )[0].src,
-              };
-            }, {});
+              }
+            }, {})
           const payloadImage2 = this.keyName
-            .filter(({ type }) => type === "Image_array")
+            .filter(({ type }) => type === 'Image_array')
             .reduce((item, value) => {
-              return { ...item, [value.key]: this.dataImageArrayRaw2 };
-            }, {});
+              return { ...item, [value.key]: this.dataImageArrayRaw2 }
+            }, {})
           const payloadTextColor = this.keyName
-            .filter(({ type }) => type === "Text" || type === "Color")
+            .filter(({ type }) => type === 'Text' || type === 'Color')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
+              }
+            }, {})
           const payloadButton = this.keyName
-            .filter(({ type }) => type === "Button")
+            .filter(({ type }) => type === 'Button')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
+              }
+            }, {})
           const payloadTextOnly = this.keyName
-            .filter(({ type }) => type === "Text_only")
+            .filter(({ type }) => type === 'Text_only')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
+              }
+            }, {})
           const payloadAudio = this.keyName
-            .filter(({ type }) => type === "Audio")
+            .filter(({ type }) => type === 'Audio')
             .reduce((item, value) => {
-              return { ...item, [value.key]: this.selectedAudio };
-            }, {});
+              return { ...item, [value.key]: this.selectedAudio }
+            }, {})
           const payloadTextColor2 = this.keyName
-            .filter(({ type }) => type === "Text_color")
+            .filter(({ type }) => type === 'Text_color')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
+              }
+            }, {})
 
           const payloadColorOnly = this.keyName
-            .filter(({ type }) => type === "Color_pallete")
+            .filter(({ type }) => type === 'Color_pallete')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
-          console.log("payloadColorOnly : ", payloadColorOnly);
+              }
+            }, {})
+          console.log('payloadColorOnly : ', payloadColorOnly)
           const payloadJson = this.keyName
-            .filter(({ type }) => type === "Json")
+            .filter(({ type }) => type === 'Json')
             .reduce((item, value) => {
               return {
                 ...item,
                 [value.key]: this.dataForm.filter(
                   ({ title }) => title === value.title
                 )[0].default,
-              };
-            }, {});
+              }
+            }, {})
 
-          let payload = {};
-          if (this.type !== "video") {
+          let payload = {}
+          if (this.type !== 'video') {
             if (this.youtubeId === null) {
               payload = {
                 name: this.name,
@@ -980,7 +980,7 @@ export default {
                   clickUrl: this.url,
                   properties: {},
                 },
-              };
+              }
             } else {
               payload = {
                 name: this.name,
@@ -990,7 +990,7 @@ export default {
                   youtubeId: this.youtubeId,
                   properties: {},
                 },
-              };
+              }
             }
           } else {
             payload = {
@@ -999,7 +999,7 @@ export default {
               config: {
                 properties: {},
               },
-            };
+            }
           }
 
           if (payloadJson !== null) {
@@ -1007,7 +1007,7 @@ export default {
               payload.config.properties,
               payloadAudio,
               payloadJson
-            );
+            )
           }
 
           if (payloadImage.backupImg === undefined) {
@@ -1021,10 +1021,10 @@ export default {
               payloadAudio,
               payloadTextColor2,
               payloadColorOnly
-            );
+            )
           } else {
-            payload.config.backupImg = payloadImage.backupImg;
-            delete payloadImage.backupImg;
+            payload.config.backupImg = payloadImage.backupImg
+            delete payloadImage.backupImg
             payload.config.properties = Object.assign(
               payload.config.properties,
               payloadImage,
@@ -1035,10 +1035,10 @@ export default {
               payloadAudio,
               payloadTextColor2,
               payloadColorOnly
-            );
+            )
           }
           this.$store
-            .dispatch("creative/updateCreative", {
+            .dispatch('creative/updateCreative', {
               payload,
               id: this.$route.params.edit,
             })
@@ -1050,220 +1050,220 @@ export default {
               ) {
                 const data = {
                   id: this.$route.params.edit,
-                };
+                }
                 this.$store
-                  .dispatch("creative/duplicateCreative", data)
+                  .dispatch('creative/duplicateCreative', data)
                   .then((res) => {
                     if (res.status === 201) {
                       this.$notifier.showMessage({
-                        content: "Creative update and duplicate success",
-                        type: "success",
-                      });
+                        content: 'Creative update and duplicate success',
+                        type: 'success',
+                      })
                       this.$router.push({
                         path: `/creative/edit/${res.data.data.id}`,
-                      });
+                      })
                     }
                   })
-                  .catch(() => {});
+                  .catch(() => {})
               }
             })
             .catch((error) => {
               this.$notifier.showMessage({
-                content: "Creative failed. Please try again ! " + error,
-                type: "failed",
-              });
-            });
+                content: 'Creative failed. Please try again ! ' + error,
+                type: 'failed',
+              })
+            })
         }
       } else {
         this.$notifier.showMessage({
           content: '"Name" is not allowed to be empty',
-          type: "failed",
-        });
+          type: 'failed',
+        })
       }
     },
     async toDataUrl(url, callback) {
-      const data = await fetch(url);
-      const blob = await data.blob();
+      const data = await fetch(url)
+      const blob = await data.blob()
       return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
+        const reader = new FileReader()
+        reader.readAsDataURL(blob)
         reader.onloadend = () => {
-          const base64data = reader.result;
-          resolve(base64data);
-        };
-      });
+          const base64data = reader.result
+          resolve(base64data)
+        }
+      })
     },
     setDefaultValue() {
-      this.loadingData = true;
+      this.loadingData = true
       for (let i = 0; i < this.dataForm.length; i++) {
-        if (this.dataForm[i].type === "Image") {
-          this.defaultImage = this.dataForm[i].default;
-          this.loadingData = false;
+        if (this.dataForm[i].type === 'Image') {
+          this.defaultImage = this.dataForm[i].default
+          this.loadingData = false
           this.toDataUrl(this.dataForm[i].default).then((res) => {
             const val = {
               index: i,
               title: this.dataForm[i].title,
-              type: "Image",
+              type: 'Image',
               src: res,
-            };
-            this.onChangeData(val);
-          });
+            }
+            this.onChangeData(val)
+          })
         }
-        if (this.dataForm[i].type === "Json") {
-          this.loadingData = false;
+        if (this.dataForm[i].type === 'Json') {
+          this.loadingData = false
         }
       }
-      this.isLoadingDetail = false;
+      this.isLoadingDetail = false
     },
     onChangeData(val) {
-      if (this.type === "rmb" || this.type === "video") {
-        this.$store.commit("creative/SET_DATA_FORM", val);
-        if (this.type !== "video") {
-          this.sendToIframe();
+      if (this.type === 'rmb' || this.type === 'video') {
+        this.$store.commit('creative/SET_DATA_FORM', val)
+        if (this.type !== 'video') {
+          this.sendToIframe()
         }
       }
-      this.newData = [];
+      this.newData = []
       for (let i = 0; i < this.dataImageArrayRaw.length; i++) {
-        this.newData.push(this.dataImageArrayRaw[i].img);
+        this.newData.push(this.dataImageArrayRaw[i].img)
       }
     },
     onChangeData2() {
       const data = {
-        title: "youtubeId",
+        title: 'youtubeId',
         src: this.youtubeId,
-      };
-      this.$store.commit("creative/SET_DATA_FORM", data);
-      this.sendToIframe();
+      }
+      this.$store.commit('creative/SET_DATA_FORM', data)
+      this.sendToIframe()
     },
     scrollX(e) {
-      this.$refs.scroll_container.scrollLeft += e.deltaY;
+      this.$refs.scroll_container.scrollLeft += e.deltaY
     },
     sendToIframe() {
-      if (this.type === "rmb" || this.type === "video") {
+      if (this.type === 'rmb' || this.type === 'video') {
         const payloadImage = this.keyName
-          .filter(({ type }) => type === "Image")
+          .filter(({ type }) => type === 'Image')
           .reduce((item, value) => {
             return {
               ...item,
               [value.key]: this.dataForm.filter(
                 ({ title }) => title === value.title
               )[0],
-            };
-          }, {});
+            }
+          }, {})
         const payloadImage2 = this.keyName
-          .filter(({ type }) => type === "Image_array")
+          .filter(({ type }) => type === 'Image_array')
           .reduce((item, value) => {
             return {
               ...item,
               [value.key]: this.dataForm.filter(
                 ({ title }) => title === value.title
               )[0],
-            };
-          }, {});
+            }
+          }, {})
         const payloadTextColor = this.keyName
-          .filter(({ type }) => type === "Text" || type === "Color")
+          .filter(({ type }) => type === 'Text' || type === 'Color')
           .reduce((item, value) => {
             return {
               ...item,
               [value.key]: this.dataForm.filter(
                 ({ title }) => title === value.title
               )[0],
-            };
-          }, {});
+            }
+          }, {})
         const payloadButton = this.keyName
-          .filter(({ type }) => type === "Button")
+          .filter(({ type }) => type === 'Button')
           .reduce((item, value) => {
             return {
               ...item,
               [value.key]: this.dataForm.filter(
                 ({ title }) => title === value.title
               )[0],
-            };
-          }, {});
+            }
+          }, {})
         const payloadTextOnly = this.keyName
-          .filter(({ type }) => type === "Text_only")
+          .filter(({ type }) => type === 'Text_only')
           .reduce((item, value) => {
             return {
               ...item,
               [value.key]: this.dataForm.filter(
                 ({ title }) => title === value.title
               )[0],
-            };
-          }, {});
+            }
+          }, {})
         const payloadAudio = this.keyName
-          .filter(({ type }) => type === "Audio")
+          .filter(({ type }) => type === 'Audio')
           .reduce((item, value) => {
-            return { ...item, [value.key]: this.selectedAudio };
-          }, {});
+            return { ...item, [value.key]: this.selectedAudio }
+          }, {})
         const payloadTextColor2 = this.keyName
-          .filter(({ type }) => type === "Text_color")
+          .filter(({ type }) => type === 'Text_color')
           .reduce((item, value) => {
             return {
               ...item,
               [value.key]: this.dataForm.filter(
                 ({ title }) => title === value.title
               )[0],
-            };
-          }, {});
+            }
+          }, {})
 
         const payloadColorOnly = this.keyName
-          .filter(({ type }) => type === "Color_pallete")
+          .filter(({ type }) => type === 'Color_pallete')
           .reduce((item, value) => {
             return {
               ...item,
               [value.key]: this.dataForm.filter(
                 ({ title }) => title === value.title
               )[0].default,
-            };
-          }, {});
+            }
+          }, {})
 
         const payloadJson = this.keyName
-          .filter(({ type }) => type === "Json")
+          .filter(({ type }) => type === 'Json')
           .reduce((item, value) => {
             return {
               ...item,
               [value.key]: this.dataForm.filter(
                 ({ title }) => title === value.title
               )[0].default,
-            };
-          }, {});
+            }
+          }, {})
 
         // console.log('payloadColorOnly : ', payloadColorOnly)
-        if (this.type === "video") {
-          if (this.keyName.some(({ key }) => key === "bodyTxt")) {
+        if (this.type === 'video') {
+          if (this.keyName.some(({ key }) => key === 'bodyTxt')) {
             const bodyTxt = this.keyName
-              .filter(({ key }) => key === "bodyTxt")
+              .filter(({ key }) => key === 'bodyTxt')
               .reduce((item, value) => {
                 return {
                   ...item,
                   [value.key]: this.dataForm.filter(
                     ({ title }) => title === value.title
                   )[0].default,
-                };
-              }, {});
-            this.getDuration(bodyTxt.bodyTxt.split("\n").join("\\n"), "text");
+                }
+              }, {})
+            this.getDuration(bodyTxt.bodyTxt.split('\n').join('\\n'), 'text')
           }
 
-          if (this.keyName.some(({ key }) => key === "dataCuaca")) {
+          if (this.keyName.some(({ key }) => key === 'dataCuaca')) {
             const jsonList = this.keyName
-              .filter(({ type }) => type === "Json")
+              .filter(({ type }) => type === 'Json')
               .reduce((item, value) => {
                 return {
                   ...item,
                   [value.key]: this.dataForm.filter(
                     ({ title }) => title === value.title
                   )[0].default,
-                };
-              }, {});
-            this.getDuration(jsonList.dataCuaca, "json");
+                }
+              }, {})
+            this.getDuration(jsonList.dataCuaca, 'json')
           }
 
           const configSchema = {
             properties: null,
             resolutions: this.selectedResolution,
             format: this.type,
-          };
-          delete payloadImage.backupImg;
+          }
+          delete payloadImage.backupImg
           configSchema.properties = Object.assign(
             payloadImage,
             payloadImage2,
@@ -1274,21 +1274,21 @@ export default {
             payloadTextColor2,
             payloadColorOnly,
             payloadJson
-          );
+          )
           const iframeWin2 =
-            document.getElementById("edit-iframe").contentWindow;
-          iframeWin2.postMessage(configSchema, "*");
-          this.isLoading = false;
+            document.getElementById('edit-iframe').contentWindow
+          iframeWin2.postMessage(configSchema, '*')
+          this.isLoading = false
         } else {
           const configSchema = {
             properties: null,
             clickUrl: {
               default: this.url,
-              description: "",
+              description: '',
             },
             resolutions: this.selectedResolution,
             format: this.type,
-          };
+          }
           configSchema.properties = Object.assign(
             payloadImage,
             payloadImage2,
@@ -1298,12 +1298,12 @@ export default {
             payloadAudio,
             payloadTextColor2,
             payloadColorOnly
-          );
-          console.log("schema : ", configSchema);
+          )
+          console.log('schema : ', configSchema)
           const iframeWin2 =
-            document.getElementById("edit-iframe").contentWindow;
-          iframeWin2.postMessage(configSchema, "*");
-          this.isLoading = false;
+            document.getElementById('edit-iframe').contentWindow
+          iframeWin2.postMessage(configSchema, '*')
+          this.isLoading = false
           //   console.log('schema : ', this.dataForm)
           //   const iframeWin2 =
           //     document.getElementById('edit-iframe').contentWindow
@@ -1313,10 +1313,10 @@ export default {
       }
     },
     refresh() {
-      const iframe = document.getElementById("edit-iframe");
-      iframe.src = iframe.src + "?c=" + Math.random();
-      const iframeWin = document.getElementById("edit-iframe").contentWindow;
-      iframeWin.postMessage(this.dataForm, "*");
+      const iframe = document.getElementById('edit-iframe')
+      iframe.src = iframe.src + '?c=' + Math.random()
+      const iframeWin = document.getElementById('edit-iframe').contentWindow
+      iframeWin.postMessage(this.dataForm, '*')
       // if (this.$refs.formEditAudio){
       //   this.$refs.formEditAudio[0].callAudio()
       // }
@@ -1326,185 +1326,185 @@ export default {
     },
     validateUrl(str) {
       const pattern = new RegExp(
-        "^(https?:\\/\\/)?" + // protocol
-          "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-          "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-          "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-          "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-          "(\\#[-a-z\\d_]*)?$",
-        "i"
-      ); // fragment locator
-      return !!pattern.test(str);
+        '^(https?:\\/\\/)?' + // protocol
+          '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+          '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+          '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+          '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+          '(\\#[-a-z\\d_]*)?$',
+        'i'
+      ) // fragment locator
+      return !!pattern.test(str)
     },
     back() {
       this.$router.push({
-        path: "/creative/",
-      });
+        path: '/creative/',
+      })
     },
     getAll() {
-      this.getData();
+      this.getData()
     },
     getData() {
       this.$store.commit(
-        "creative/SET_CHANGE_RESOLUTION",
+        'creative/SET_CHANGE_RESOLUTION',
         this.selectedResolution
-      );
-      this.isLoadingDetail = true;
+      )
+      this.isLoadingDetail = true
       const data = {
         id: this.$route.params.edit,
-      };
+      }
       this.$store
-        .dispatch("creative/getDetail", data)
+        .dispatch('creative/getDetail', data)
         .then((res) => {
-          this.type = res.data.data.template.format;
-          this.name = res.data.data.name;
+          this.type = res.data.data.template.format
+          this.name = res.data.data.name
           // this.dataResolution = res.data.data.configSchema.resolutions
-          this.resolutionId = res.data.data.resolution.resolutionId;
-          this.url = res.data.data.config.clickUrl;
-          this.staticSrc = res.data.data.template.staticSrc;
-          const thumbnail = res.data.data.template.thumbnail;
+          this.resolutionId = res.data.data.resolution.resolutionId
+          this.url = res.data.data.config.clickUrl
+          this.staticSrc = res.data.data.template.staticSrc
+          const thumbnail = res.data.data.template.thumbnail
           if (this.isValidUrl(thumbnail)) {
-            this.thumbnail = thumbnail;
+            this.thumbnail = thumbnail
           } else {
-            this.thumbnail = this.$config.baseURL + "obs?fileKey=" + thumbnail;
+            this.thumbnail = this.$config.baseURL + 'obs?fileKey=' + thumbnail
           }
-          this.resolution.height = res.data.data.resolution.height;
-          this.resolution.width = res.data.data.resolution.width;
-          this.templateName = res.data.data.template.name;
-          this.templateId = res.data.data.template.templateId;
-          const configSchema = res.data.data.configSchema;
+          this.resolution.height = res.data.data.resolution.height
+          this.resolution.width = res.data.data.resolution.width
+          this.templateName = res.data.data.template.name
+          this.templateId = res.data.data.template.templateId
+          const configSchema = res.data.data.configSchema
           if (configSchema !== null) {
             if (configSchema.youtubeId !== undefined) {
-              this.youtubeId = configSchema.youtubeId.currentValue;
+              this.youtubeId = configSchema.youtubeId.currentValue
             }
           }
-          this.setDefaultValue();
-          this.getResolutionTemplate();
-          console.log("data : ", res.data.data);
+          this.setDefaultValue()
+          this.getResolutionTemplate()
+          console.log('data : ', res.data.data)
           if (
             res.data.data.config.properties.dataCuaca &&
             Object.keys(res.data.data.config.properties.dataCuaca).length > 0
           ) {
-            this.getDuration(res.data.data.config.properties.dataCuaca, "json");
+            this.getDuration(res.data.data.config.properties.dataCuaca, 'json')
           } else {
             this.getDuration(
-              res.data.data.config.properties.bodyTxt.split("\n").join("\\n"),
-              "text"
-            );
+              res.data.data.config.properties.bodyTxt.split('\n').join('\\n'),
+              'text'
+            )
           }
         })
         .catch(() => {
-          this.imageLoaded = false;
-          this.isLoading = false;
-        });
+          this.imageLoaded = false
+          this.isLoading = false
+        })
     },
     isValidUrl(string) {
       try {
         // eslint-disable-next-line no-new
-        new URL(string);
-        return true;
+        new URL(string)
+        return true
       } catch (err) {
-        return false;
+        return false
       }
     },
     async getTemplateDetail() {
       this.$store.commit(
-        "creative/SET_CHANGE_RESOLUTION",
+        'creative/SET_CHANGE_RESOLUTION',
         this.selectedResolution
-      );
-      this.isLoadingDetail = true;
+      )
+      this.isLoadingDetail = true
       const payload = {
         id: this.templateId,
         resolution: this.selectedResolution,
-      };
-      const endpoint = `template/${payload.id}?orgId=${this.orgId}&resolutionId=${payload.resolution}`;
+      }
+      const endpoint = `template/${payload.id}?orgId=${this.orgId}&resolutionId=${payload.resolution}`
       await this.$axios
         .get(endpoint)
         .then((res) => {
-          this.templateName = res.data.data.name;
-          this.type = res.data.data.format;
-          if (this.type === "display") {
+          this.templateName = res.data.data.name
+          this.type = res.data.data.format
+          if (this.type === 'display') {
             this.staticSrc =
               this.$config.baseURL +
-              "obs?fileKey=" +
-              res.data.data.configExample.properties.image;
+              'obs?fileKey=' +
+              res.data.data.configExample.properties.image
           }
-          if (this.type === "rmb") {
-            this.staticSrc = res.data.data.staticSrc;
+          if (this.type === 'rmb') {
+            this.staticSrc = res.data.data.staticSrc
           }
-          if (this.type === "video") {
-            this.staticSrc = res.data.data.staticSrc;
+          if (this.type === 'video') {
+            this.staticSrc = res.data.data.staticSrc
           }
-          const configSchema = res.data.data.configSchema;
+          const configSchema = res.data.data.configSchema
           if (configSchema !== null) {
-            this.resolutionId = configSchema.resolutions[0].id;
-            this.resolution.height = configSchema.resolutions[0].height;
-            this.resolution.width = configSchema.resolutions[0].width;
+            this.resolutionId = configSchema.resolutions[0].id
+            this.resolution.height = configSchema.resolutions[0].height
+            this.resolution.width = configSchema.resolutions[0].width
           }
-          this.isLoadingDetail = false;
-          this.setDefaultValue();
+          this.isLoadingDetail = false
+          this.setDefaultValue()
         })
         .catch((e) => {
           this.$notifier.showMessage({
-            content: "Error status code: " + e.response.status,
-            type: "failed",
-          });
-        });
+            content: 'Error status code: ' + e.response.status,
+            type: 'failed',
+          })
+        })
     },
     getResolutionTemplate() {
       this.$store
-        .dispatch("template/getResolutionByTemplate", {
+        .dispatch('template/getResolutionByTemplate', {
           id: this.templateId,
         })
         .then((res) => {
           if (res.status === 201 || res.status === 200) {
-            const data = res.data.data;
+            const data = res.data.data
             if (data.length > 0) {
-              const id = this.resolutionId;
+              const id = this.resolutionId
               this.selectedResolution = data.find(
                 (item) => item.id === parseInt(id)
-              ).id;
-              this.dataResolution = data;
+              ).id
+              this.dataResolution = data
               this.$store.commit(
-                "creative/SET_CHANGE_RESOLUTION",
+                'creative/SET_CHANGE_RESOLUTION',
                 this.selectedResolution
-              );
+              )
               if (
                 this.dataResolution[0].height > 1000 ||
                 this.dataResolution[0].width > 1000
               ) {
-                this.showZoom = true;
+                this.showZoom = true
               } else {
-                this.showZoom = false;
+                this.showZoom = false
               }
             }
           }
         })
-        .catch(() => {});
+        .catch(() => {})
     },
     updateCreative() {
-      if (this.imageData === "" && this.imageUrl === "") {
+      if (this.imageData === '' && this.imageUrl === '') {
         this.$notifier.showMessage({
-          content: "Please select image",
-          type: "failed",
-        });
+          content: 'Please select image',
+          type: 'failed',
+        })
       }
-      if (this.imageData !== "" && this.imageUrl === "") {
+      if (this.imageData !== '' && this.imageUrl === '') {
         this.$notifier.showMessage({
-          content: "Please select image",
-          type: "failed",
-        });
+          content: 'Please select image',
+          type: 'failed',
+        })
       }
-      if (this.imageData === "" && this.imageUrl !== "") {
+      if (this.imageData === '' && this.imageUrl !== '') {
         if (this.validateUrl(this.url)) {
           this.$notifier.showMessage({
-            content: "Edit creative...",
-            type: "loading",
-          });
+            content: 'Edit creative...',
+            type: 'loading',
+          })
           const x = setTimeout(
             () =>
               this.$store
-                .dispatch("creative/updateCreative", {
+                .dispatch('creative/updateCreative', {
                   name: this.name,
                   id: this.$route.params.edit,
                   resolutionId: this.resolutionId,
@@ -1512,7 +1512,7 @@ export default {
                   url: this.url,
                   thumbnail: this.fileKey,
                   resolutions:
-                    this.resolution.width + "x" + this.resolution.height,
+                    this.resolution.width + 'x' + this.resolution.height,
                 })
                 .then((res) => {
                   if (
@@ -1521,56 +1521,56 @@ export default {
                     res.status === 202
                   ) {
                     this.$notifier.showMessage({
-                      content: "Creative edited.",
-                      type: "success",
-                    });
-                    clearInterval(x);
+                      content: 'Creative edited.',
+                      type: 'success',
+                    })
+                    clearInterval(x)
                     this.$router.push({
-                      path: "/creative/",
-                    });
+                      path: '/creative/',
+                    })
                   } else {
-                    const keys = Object.keys(res.data.data.errors[0]);
-                    const arr = [];
+                    const keys = Object.keys(res.data.data.errors[0])
+                    const arr = []
                     keys.forEach((key, index) => {
-                      arr.push(res.data.data.errors[0][key]);
-                    });
+                      arr.push(res.data.data.errors[0][key])
+                    })
 
                     this.$notifier.showMessage({
-                      content: "Creative edit failed : " + arr.join(", "),
-                      type: "failed",
-                    });
-                    clearInterval(x);
+                      content: 'Creative edit failed : ' + arr.join(', '),
+                      type: 'failed',
+                    })
+                    clearInterval(x)
                   }
                 })
                 .catch((error) => {
                   this.$notifier.showMessage({
-                    content: "Creative edit failed : " + error,
-                    type: "failed",
-                  });
-                  clearInterval(x);
+                    content: 'Creative edit failed : ' + error,
+                    type: 'failed',
+                  })
+                  clearInterval(x)
                 }),
             1000
-          );
+          )
         } else {
           this.$notifier.showMessage({
-            content: "URL is not valid",
-            type: "failed",
-          });
+            content: 'URL is not valid',
+            type: 'failed',
+          })
         }
       }
-      if (this.imageData !== "" && this.imageUrl !== "") {
+      if (this.imageData !== '' && this.imageUrl !== '') {
         if (this.validateUrl(this.url)) {
-          this.saveCreative();
+          this.saveCreative()
         } else {
           this.$notifier.showMessage({
-            content: "URL is not valid",
-            type: "failed",
-          });
+            content: 'URL is not valid',
+            type: 'failed',
+          })
         }
       }
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -1644,7 +1644,7 @@ export default {
 .dropdown-action {
   width: 160px;
   cursor: pointer;
-  font-family: "Cabin";
+  font-family: 'Cabin';
   font-style: normal;
   font-weight: normal;
   font-size: 14px;

@@ -1,13 +1,11 @@
 <template>
   <div class="kg-container">
     <div class="card-report flex items-center justify-between">
-      <div class="title-filter">
-        Campaign Performance
-      </div>
+      <div class="title-filter">Campaign Performance</div>
       <div class="flex items-center">
         <el-select
           v-model="selectedCampaign"
-          style="width: 300px;margin-right:15px;"
+          style="width: 300px; margin-right: 15px"
           placeholder="Choose Campaign"
         >
           <el-option
@@ -27,9 +25,7 @@
       </div>
     </div>
     <div class="card-report">
-      <div class="title-summary">
-        Marlboro Summary campaign performance
-      </div>
+      <div class="title-summary">Marlboro Summary campaign performance</div>
       <div class="flex justify-between">
         <div class="left-side flex flex-col">
           <div class="title-v2">
@@ -38,73 +34,79 @@
           <div class="desc-v2">
             {{ detail.date }}
           </div>
-          <div class="title-v2">
-            Interests targeting :
-          </div>
+          <div class="title-v2">Interests targeting :</div>
           <div class="desc-v2">
             {{ detail.targeting }}
           </div>
-          <div class="title-v2">
-            Creative Size :
-          </div>
+          <div class="title-v2">Creative Size :</div>
           <div class="desc-v2">
             {{ detail.creative }}
           </div>
         </div>
         <div class="right-side flex items-center flex-col">
           <div class="card-statistic flex items-center justify-center flex-col">
-            <div class="title-v3">
-              Impressions
-            </div>
+            <div class="title-v3">Impressions</div>
             <div class="value-v3">
               {{ detail.imp }}
             </div>
           </div>
           <div class="card-statistic flex items-center justify-center flex-col">
-            <div class="title-v3">
-              Clicks
-            </div>
+            <div class="title-v3">Clicks</div>
             <div class="value-v3">
               {{ detail.click }}
             </div>
           </div>
           <div class="card-statistic flex items-center justify-center flex-col">
-            <div class="title-v3">
-              CTR
-            </div>
+            <div class="title-v3">CTR</div>
             <div class="value-v3">
               {{ detail.ctr }}
             </div>
           </div>
         </div>
       </div>
-      <div class="title-v2">
-        Audience Segment
-      </div>
+      <div class="title-v2">Audience Segment</div>
       <div class="audience-segment flex items-center justify-stretch">
-        <div class="chart-container flex flex-col items-center ">
-          <div class="title-chart">
-            Top 20 Interest
-          </div>
+        <div class="chart-container flex flex-col items-center">
+          <div class="title-chart">Top 20 Interest</div>
           <div class="mt-5 w-full">
-            <div v-for="(item, index) in dataSegment" :key="index" class="flex justify-stretch items-center mb-3">
-              <div class="label-chart flex justify-end items-center" style="min-width: 200px;">
+            <div
+              v-for="(item, index) in dataSegment"
+              :key="index"
+              class="flex justify-stretch items-center mb-3"
+            >
+              <div
+                class="label-chart flex justify-end items-center"
+                style="min-width: 200px"
+              >
                 {{ item.interest }}
               </div>
-              <div class="value-chart" style="height: 21px;width:calc(100% - 200px)">
-                <el-tooltip class="item" effect="dark" :content="item.interest + ' : ' + item.relative_percentage" placement="top">
-                  <div class="item-chart cursor-pointer" :style="'width:' + item.relative_percentage" />
+              <div
+                class="value-chart"
+                style="height: 21px; width: calc(100% - 200px)"
+              >
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  :content="item.interest + ' : ' + item.relative_percentage"
+                  placement="top"
+                >
+                  <div
+                    class="item-chart cursor-pointer"
+                    :style="'width:' + item.relative_percentage"
+                  />
                 </el-tooltip>
               </div>
             </div>
           </div>
         </div>
         <div class="chart-container flex flex-col items-center">
-          <div class="title-chart">
-            Audience Category
-          </div>
+          <div class="title-chart">Audience Category</div>
           <div class="mt-5 w-full">
-            <div v-for="(item, index) in dataSegment" :key="index" class="flex items-center mb-3">
+            <div
+              v-for="(item, index) in dataSegment"
+              :key="index"
+              class="flex items-center mb-3"
+            >
               <!-- <div class="flex"> -->
               <el-tooltip placement="top-end">
                 <div slot="content">
@@ -114,26 +116,44 @@
                 <div
                   class="label-chart"
                   style="
-                      white-space: nowrap;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                      width: 200px;
-                    "
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 200px;
+                  "
                 >
                   {{ item.audience }}
                 </div>
               </el-tooltip>
-              <div class="value-chart" style="height: 21px;width:calc(100% - 200px)">
-                <div class="flex flex-row h-full" :style="'height: 100%;width:100%'">
+              <div
+                class="value-chart"
+                style="height: 21px; width: calc(100% - 200px)"
+              >
+                <div
+                  class="flex flex-row h-full"
+                  :style="'height: 100%;width:100%'"
+                >
                   <el-tooltip
                     v-for="(item2, index2) in item.sub"
                     :key="index2"
                     class="item"
                     effect="dark"
-                    :content="item2.audience_category + ' : ' + item2.relative_percentage__1 + ' %'"
+                    :content="
+                      item2.audience_category +
+                      ' : ' +
+                      item2.relative_percentage__1 +
+                      ' %'
+                    "
                     placement="top"
                   >
-                    <div class="item-chart cursor-pointer" :style="'width:' +((item2.relative_percentage__1/239.28) * 100)+ '%;height:100%;'" />
+                    <div
+                      class="item-chart cursor-pointer"
+                      :style="
+                        'width:' +
+                        (item2.relative_percentage__1 / 239.28) * 100 +
+                        '%;height:100%;'
+                      "
+                    />
                   </el-tooltip>
                 </div>
               </div>
@@ -141,22 +161,20 @@
           </div>
         </div>
       </div>
-      <div class="title-v2 mt-4">
-        Performance By Creative Versions
-      </div>
+      <div class="title-v2 mt-4">Performance By Creative Versions</div>
       <div
-        style="
-      border: 1px solid #E2E2E2;
-      border-radius: 10px;
-      margin-top:20px;
-      "
+        style="border: 1px solid #e2e2e2; border-radius: 10px; margin-top: 20px"
       >
         <apexchart
           type="bar"
           height="350"
           :options="chartOptions"
           :series="series"
-          :style="sidebar ? 'width:calc(' + width + 'px - 200px)' : 'width:calc(' + width + 'px - 340px)'"
+          :style="
+            sidebar
+              ? 'width:calc(' + width + 'px - 200px)'
+              : 'width:calc(' + width + 'px - 340px)'
+          "
         />
         <div
           v-if="dataCreative === 0"
@@ -167,49 +185,67 @@
       </div>
     </div>
     <div class="card-report">
-      <div class="title-summary">
-        Online to Offline Data Mapping
-      </div>
+      <div class="title-summary">Online to Offline Data Mapping</div>
       <div class="flex justify-between">
         <div class="left-side flex flex-col">
-          <div class="title-v2">
-            Interests targeting :
-          </div>
-          <div class="desc-v2">
-            None
-          </div>
+          <div class="title-v2">Interests targeting :</div>
+          <div class="desc-v2">None</div>
         </div>
       </div>
       <div class="audience-segment flex justify-stretch">
         <div class="chart-container flex flex-col">
-          <div class="title-chart">
-            Cities
-          </div>
+          <div class="title-chart">Cities</div>
           <div class="mt-5 w-full">
-            <div v-for="(item, index) in dataOval.city" :key="index" class="flex justify-stretch items-center mb-3">
+            <div
+              v-for="(item, index) in dataOval.city"
+              :key="index"
+              class="flex justify-stretch items-center mb-3"
+            >
               <div class="label-chart flex justify-end items-center">
                 {{ item.name }}
               </div>
               <div class="value-chart">
-                <el-tooltip class="item" effect="dark" :content="item.name + ' : ' + item.value" placement="top">
-                  <div class="item-chart cursor-pointer" :style="'width:' + item.value" />
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  :content="item.name + ' : ' + item.value"
+                  placement="top"
+                >
+                  <div
+                    class="item-chart cursor-pointer"
+                    :style="'width:' + item.value"
+                  />
                 </el-tooltip>
               </div>
             </div>
           </div>
         </div>
         <div class="chart-container flex flex-col">
-          <div class="title-chart">
-            Occupations
-          </div>
+          <div class="title-chart">Occupations</div>
           <div class="mt-5 w-full">
-            <div v-for="(item, index) in dataOccupation" :key="index" class="flex justify-stretch items-center mb-3">
-              <div class="label-chart flex justify-end items-center" style="width:220px;">
+            <div
+              v-for="(item, index) in dataOccupation"
+              :key="index"
+              class="flex justify-stretch items-center mb-3"
+            >
+              <div
+                class="label-chart flex justify-end items-center"
+                style="width: 220px"
+              >
                 {{ item.name }}
               </div>
               <div class="value-chart">
-                <el-tooltip class="item" effect="dark" :content="item.name + ' : ' + item.value" placement="top">
-                  <div class="item-chart cursor-pointer" :style="'width:' + item.value" style="background:#FBAB18;" />
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  :content="item.name + ' : ' + item.value"
+                  placement="top"
+                >
+                  <div
+                    class="item-chart cursor-pointer"
+                    :style="'width:' + item.value"
+                    style="background: #fbab18"
+                  />
                 </el-tooltip>
               </div>
             </div>
@@ -217,37 +253,66 @@
         </div>
       </div>
       <div class="audience-segment flex justify-stretch">
-        <div class="chart-container flex flex-col ">
-          <div class="title-chart">
-            Hotel Stars Rating
-          </div>
+        <div class="chart-container flex flex-col">
+          <div class="title-chart">Hotel Stars Rating</div>
           <div class="mt-5 w-full">
-            <div v-for="(item, index) in dataOval.hotelStar" :key="index" class="flex justify-stretch items-center mb-3">
+            <div
+              v-for="(item, index) in dataOval.hotelStar"
+              :key="index"
+              class="flex justify-stretch items-center mb-3"
+            >
               <div class="label-chart flex justify-end items-center">
-                <div v-for="i in parseInt(item.name)" :key="i" class="flex flex-row gap-2" style="padding-right:4px;">
-                  <img src="~/assets/images/star.svg">
+                <div
+                  v-for="i in parseInt(item.name)"
+                  :key="i"
+                  class="flex flex-row gap-2"
+                  style="padding-right: 4px"
+                >
+                  <img src="~/assets/images/star.svg" />
                 </div>
               </div>
               <div class="value-chart">
-                <el-tooltip class="item" effect="dark" :content="item.value" placement="top">
-                  <div class="item-chart cursor-pointer" :style="'width:' + item.value" />
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  :content="item.value"
+                  placement="top"
+                >
+                  <div
+                    class="item-chart cursor-pointer"
+                    :style="'width:' + item.value"
+                  />
                 </el-tooltip>
               </div>
             </div>
           </div>
         </div>
-        <div class="chart-container flex flex-col ">
-          <div class="title-chart">
-            Book Interest
-          </div>
+        <div class="chart-container flex flex-col">
+          <div class="title-chart">Book Interest</div>
           <div class="mt-5 w-full">
-            <div v-for="(item, index) in dataBook" :key="index" class="flex justify-stretch items-center mb-3">
-              <div class="label-chart flex justify-end items-center" style="width:220px;text-align:right;">
+            <div
+              v-for="(item, index) in dataBook"
+              :key="index"
+              class="flex justify-stretch items-center mb-3"
+            >
+              <div
+                class="label-chart flex justify-end items-center"
+                style="width: 220px; text-align: right"
+              >
                 {{ item.name }}
               </div>
               <div class="value-chart">
-                <el-tooltip class="item" effect="dark" :content="item.name + ' : ' + item.value" placement="top">
-                  <div class="item-chart cursor-pointer" :style="'width:' + item.value" style="background:#FBAB18;" />
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  :content="item.name + ' : ' + item.value"
+                  placement="top"
+                >
+                  <div
+                    class="item-chart cursor-pointer"
+                    :style="'width:' + item.value"
+                    style="background: #fbab18"
+                  />
                 </el-tooltip>
               </div>
             </div>
@@ -263,7 +328,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'ReportPage',
   layout: 'default',
-  data () {
+  data() {
     return {
       detail: {
         name: '',
@@ -272,7 +337,7 @@ export default {
         creative: '',
         imp: '',
         click: '',
-        ctr: ''
+        ctr: '',
       },
       selectedCampaign: null,
       dataCampaign: {},
@@ -281,32 +346,32 @@ export default {
         shortcuts: [
           {
             text: 'Last week',
-            onClick (picker) {
+            onClick(picker) {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', [start, end])
-            }
+            },
           },
           {
             text: 'Last month',
-            onClick (picker) {
+            onClick(picker) {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
               picker.$emit('pick', [start, end])
-            }
+            },
           },
           {
             text: 'Last 3 months',
-            onClick (picker) {
+            onClick(picker) {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
               picker.$emit('pick', [start, end])
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       width: 0,
       dataBook: {},
@@ -321,79 +386,96 @@ export default {
         chart: {
           height: 350,
           type: 'bar',
-          stacked: false
+          stacked: false,
         },
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         stroke: {
-          width: [1, 1, 1, 4]
+          width: [1, 1, 1, 4],
         },
         xaxis: {
           tooltip: {
-            enabled: false
+            enabled: false,
           },
-          categories: []
+          categories: [],
         },
         yaxis: [
           {
             axisTicks: {
-              show: true
+              show: true,
             },
             axisBorder: {
               show: true,
-              color: '#1B63D4'
+              color: '#1B63D4',
             },
             labels: {
               style: {
-                colors: '#1B63D4'
-              }
+                colors: '#1B63D4',
+              },
             },
             tooltip: {
               enabled: false,
-              offsetX: 0
+              offsetX: 0,
             },
             crosshairs: {
-              show: false
-            }
+              show: false,
+            },
           },
           {
             max: 10,
             opposite: true,
             axisTicks: {
-              show: true
+              show: true,
             },
             axisBorder: {
               show: true,
-              color: '#FBAB18'
+              color: '#FBAB18',
             },
             labels: {
               style: {
-                colors: '#FBAB18'
-              }
+                colors: '#FBAB18',
+              },
             },
             tooltip: {
               enabled: false,
-              offsetX: 0
+              offsetX: 0,
             },
             crosshairs: {
-              show: false
-            }
-          }
+              show: false,
+            },
+          },
         ],
         tooltip: {
-          custom ({ series, seriesIndex, dataPointIndex, w }) {
+          custom({ series, seriesIndex, dataPointIndex, w }) {
             const name = w.globals.initialSeries[0].data[dataPointIndex].x
             const data = w.globals.initialSeries[0].data[dataPointIndex].sub
-            const data2 = '<div style="padding-left:10px;padding-right:10px;padding-top:10px;padding-bottom:10px;background:#e2e2e2;"><div style="font-weight:bold;text-align:center;margin-bottom:10px;">' + name + '</div><li><div style="display:flex;align-items:center"><span style=" height: 15px;width: 15px;background-color: #1B63D4;border-radius: 50%;display: inline-block;"></span><div style="font-weight:bold;margin-left:5px;"> Impression : ' + series[0][dataPointIndex].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '</div></div></li><li><div style="display:flex;margin-top:4px;align-items:center"><span style=" height: 15px;width: 15px;background-color: #FBAB18;border-radius: 50%;display: inline-block;"></span><div style="font-weight:bold;margin-left:5px;"> CTR : ' + series[1][dataPointIndex] + '%' + '</div></div></li></div>'
-            return '<ul style="padding:0px;"> ' + data2 + '<div style="padding:10px;">' + data + '</div>' + '</ul>'
-          }
+            const data2 =
+              '<div style="padding-left:10px;padding-right:10px;padding-top:10px;padding-bottom:10px;background:#e2e2e2;"><div style="font-weight:bold;text-align:center;margin-bottom:10px;">' +
+              name +
+              '</div><li><div style="display:flex;align-items:center"><span style=" height: 15px;width: 15px;background-color: #1B63D4;border-radius: 50%;display: inline-block;"></span><div style="font-weight:bold;margin-left:5px;"> Impression : ' +
+              series[0][dataPointIndex]
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+              '</div></div></li><li><div style="display:flex;margin-top:4px;align-items:center"><span style=" height: 15px;width: 15px;background-color: #FBAB18;border-radius: 50%;display: inline-block;"></span><div style="font-weight:bold;margin-left:5px;"> CTR : ' +
+              series[1][dataPointIndex] +
+              '%' +
+              '</div></div></li></div>'
+            return (
+              '<ul style="padding:0px;"> ' +
+              data2 +
+              '<div style="padding:10px;">' +
+              data +
+              '</div>' +
+              '</ul>'
+            )
+          },
         },
         legend: {
           horizontalAlign: 'left',
-          offsetX: 40
-        }
-      }
+          offsetX: 40,
+        },
+      },
     }
   },
   computed: {
@@ -403,50 +485,53 @@ export default {
       },
       orgId: (state) => {
         return state.user.orgId
-      }
-    })
+      },
+    }),
   },
   filters: {
-    truncate (data, num) {
-      const reqdString =
-              data.split('').slice(0, num).join('')
+    truncate(data, num) {
+      const reqdString = data.split('').slice(0, num).join('')
       return reqdString + '..'
-    }
+    },
   },
-  created () {
+  created() {
     // eslint-disable-next-line nuxt/no-globals-in-created
     window.addEventListener('resize', this.handleResize)
     this.handleResize()
   },
-  destroyed () {
+  destroyed() {
     // eslint-disable-next-line nuxt/no-globals-in-created
     window.removeEventListener('resize', this.handleResize)
   },
-  mounted () {
+  mounted() {
     this.getDataCampaignId()
   },
   methods: {
-    numberWithCommas (x) {
+    numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
-    formatDate (date) {
+    formatDate(date) {
       const d = new Date(date)
       let month = '' + (d.getMonth() + 1)
       let day = '' + d.getDate()
       const year = d.getFullYear()
 
-      if (month.length < 2) { month = '0' + month }
-      if (day.length < 2) { day = '0' + day }
+      if (month.length < 2) {
+        month = '0' + month
+      }
+      if (day.length < 2) {
+        day = '0' + day
+      }
 
       return [year, month, day].join('-')
     },
-    filter () {
+    filter() {
       this.filterOval()
       this.filterDetail()
       this.filterCreative()
       this.filterCampaign()
     },
-    async filterDetail () {
+    async filterDetail() {
       await this.$axios
         .get('json/campaigns/' + this.selectedCampaign + '/details')
         .then((res) => {
@@ -469,9 +554,13 @@ export default {
           console.log('error : ', e)
         })
     },
-    async filterCreative () {
+    async filterCreative() {
       await this.$axios
-        .get('json/campaigns/' + this.selectedCampaign + '/creative_version_profile')
+        .get(
+          'json/campaigns/' +
+            this.selectedCampaign +
+            '/creative_version_profile'
+        )
         .then((res) => {
           const data1 = []
           console.log('res : ', res)
@@ -484,30 +573,40 @@ export default {
           this.chartOptions = {
             ...this.chartOptions,
             xaxis: {
-              categories: data1
-            }
+              categories: data1,
+            },
           }
           this.series = [
             {
               color: '#1B63D4',
               name: 'impression',
               type: 'column',
-              data: []
+              data: [],
             },
             {
               color: '#FBAB18',
               name: 'ctr',
               type: 'column',
-              data: []
-            }
+              data: [],
+            },
           ]
           data.forEach((item) => {
             let data = []
             data = []
             for (let i = 0; i < item.sub?.length; i++) {
-              item.sub[i].relative_percentage = parseFloat(item.sub[i].relative_percentage.replace('%', ''))
-              item.sub[i].relative_percentage = Math.round(item.sub[i].relative_percentage) + '%'
-              data.push('<li>' + '<b>' + item.sub[i].audience_profile + '</b> : ' + item.sub[i].relative_percentage + '</li>')
+              item.sub[i].relative_percentage = parseFloat(
+                item.sub[i].relative_percentage.replace('%', '')
+              )
+              item.sub[i].relative_percentage =
+                Math.round(item.sub[i].relative_percentage) + '%'
+              data.push(
+                '<li>' +
+                  '<b>' +
+                  item.sub[i].audience_profile +
+                  '</b> : ' +
+                  item.sub[i].relative_percentage +
+                  '</li>'
+              )
               // this.$set(item, 'join', ().join(','))
             }
             this.$set(item, 'join', data.join(' '))
@@ -516,11 +615,11 @@ export default {
             this.series[0].data.push({
               x: data[i].version,
               y: data[i].impression.toFixed(2),
-              sub: data[i].join
+              sub: data[i].join,
             })
             this.series[1].data.push({
               x: data[i].version,
-              y: parseFloat(data[i].ctr)
+              y: parseFloat(data[i].ctr),
             })
           }
           // console.log('series : ', this.series[0])
@@ -535,31 +634,46 @@ export default {
           console.log('error : ', e)
         })
     },
-    sortedArray () {
+    sortedArray() {
       return this.arrays.sort((a, b) => a.name - b.name)
     },
-    async filterCampaign () {
+    async filterCampaign() {
       await this.$axios
-        .get('json/campaigns/' + this.selectedCampaign + '/campaign_audience_category')
+        .get(
+          'json/campaigns/' +
+            this.selectedCampaign +
+            '/campaign_audience_category'
+        )
         .then((res) => {
           this.dataSegment = res.data.data.slice(0, 20)
           this.dataSegment.forEach((item, index) => {
             const data = []
             let total = ''
             // let totalPersen = 0
-            item.relative_percentage = parseFloat(item.relative_percentage.replace('%', ''))
-            item.relative_percentage = Math.round(item.relative_percentage) + '%'
+            item.relative_percentage = parseFloat(
+              item.relative_percentage.replace('%', '')
+            )
+            item.relative_percentage =
+              Math.round(item.relative_percentage) + '%'
             if (item.sub.length > 0) {
               for (let i = 0; i < item.sub.length; i++) {
                 data.push(item.sub[i].audience_category)
-                item.sub[i].relative_percentage__1 = item.sub[i].relative_percentage__1.replace('%', '')
-                item.sub[i].relative_percentage__1 = Math.round(item.sub[i].relative_percentage__1)
+                item.sub[i].relative_percentage__1 = item.sub[
+                  i
+                ].relative_percentage__1.replace('%', '')
+                item.sub[i].relative_percentage__1 = Math.round(
+                  item.sub[i].relative_percentage__1
+                )
                 // item.sub[i].relative_percentage__1 = parseFloat(item.sub[i].relative_percentage__1)
                 // totalPersen += item.sub[0].relative_percentage__1
               }
               total = data.join(', ')
               this.$set(item, 'audience', total)
-              this.$set(item, 'totalPersen', parseFloat(item.relative_percentage.replace('%', '')))
+              this.$set(
+                item,
+                'totalPersen',
+                parseFloat(item.relative_percentage.replace('%', ''))
+              )
               // for (let i = 0; i < item.sub.length; i++) {
               //   item.sub[i].relative_percentage__1 = ((item.sub[i].relative_percentage__1 / item.totalPersen) * 100).toFixed(2)
               // }
@@ -574,7 +688,7 @@ export default {
           console.log('error : ', e)
         })
     },
-    async filterOval () {
+    async filterOval() {
       await this.$axios
         .get('campaign/oval/reports?campaignId=' + this.selectedCampaign)
         .then((res) => {
@@ -592,32 +706,43 @@ export default {
             total2 += this.dataOval.city[i].value
           }
           for (let i = 0; i < this.dataOval.city.length; i++) {
-            this.dataOval.city[i].value = Math.round(((this.dataOval.city[i].value / total2) * 100).toFixed(2)) + '%'
+            this.dataOval.city[i].value =
+              Math.round(
+                ((this.dataOval.city[i].value / total2) * 100).toFixed(2)
+              ) + '%'
           }
           for (let i = 0; i < this.dataOccupation.length; i++) {
             total3 += this.dataOccupation[i].value
           }
           for (let i = 0; i < this.dataOccupation.length; i++) {
-            this.dataOccupation[i].value = Math.round(((this.dataOccupation[i].value / total3) * 100).toFixed(2)) + '%'
+            this.dataOccupation[i].value =
+              Math.round(
+                ((this.dataOccupation[i].value / total3) * 100).toFixed(2)
+              ) + '%'
           }
           for (let i = 0; i < this.dataOval.hotelStar.length; i++) {
             total4 += this.dataOval.hotelStar[i].value
           }
           for (let i = 0; i < this.dataOval.hotelStar.length; i++) {
-            this.dataOval.hotelStar[i].value = Math.round(((this.dataOval.hotelStar[i].value / total4) * 100).toFixed(2)) + '%'
+            this.dataOval.hotelStar[i].value =
+              Math.round(
+                ((this.dataOval.hotelStar[i].value / total4) * 100).toFixed(2)
+              ) + '%'
           }
           for (let i = 0; i < this.dataBook.length; i++) {
             total5 += this.dataBook[i].value
           }
           for (let i = 0; i < this.dataBook.length; i++) {
-            this.dataBook[i].value = Math.round(((this.dataBook[i].value / total5) * 100).toFixed(2)) + '%'
+            this.dataBook[i].value =
+              Math.round(((this.dataBook[i].value / total5) * 100).toFixed(2)) +
+              '%'
           }
         })
         .catch((e) => {
           console.log('error : ', e)
         })
     },
-    async getDataCampaignId () {
+    async getDataCampaignId() {
       await this.$axios
         .get('campaign/campaigns?orgId=' + this.orgId)
         .then((res) => {
@@ -636,7 +761,7 @@ export default {
           console.log('error : ', e)
         })
     },
-    async getDataCreative () {
+    async getDataCreative() {
       await this.$axios
         .get('json/creative_version_profile')
         .then((res) => {
@@ -651,8 +776,8 @@ export default {
           this.chartOptions = {
             ...this.chartOptions,
             xaxis: {
-              categories: data1
-            }
+              categories: data1,
+            },
             // tooltip: {
             //   custom('data')
             // }
@@ -662,22 +787,32 @@ export default {
               color: '#1B63D4',
               name: 'impression',
               type: 'column',
-              data: []
+              data: [],
             },
             {
               color: '#FBAB18',
               name: 'ctr',
               type: 'column',
-              data: []
-            }
+              data: [],
+            },
           ]
           data.forEach((item) => {
             let data = []
             data = []
             for (let i = 0; i < item.sub.length; i++) {
-              item.sub[i].relative_percentage = parseFloat(item.sub[i].relative_percentage.replace('%', ''))
-              item.sub[i].relative_percentage = Math.round(item.sub[i].relative_percentage) + '%'
-              data.push('<li>' + '<b>' + item.sub[i].audience_profile + '</b> : ' + item.sub[i].relative_percentage + '</li>')
+              item.sub[i].relative_percentage = parseFloat(
+                item.sub[i].relative_percentage.replace('%', '')
+              )
+              item.sub[i].relative_percentage =
+                Math.round(item.sub[i].relative_percentage) + '%'
+              data.push(
+                '<li>' +
+                  '<b>' +
+                  item.sub[i].audience_profile +
+                  '</b> : ' +
+                  item.sub[i].relative_percentage +
+                  '</li>'
+              )
               // this.$set(item, 'join', ().join(','))
             }
             this.$set(item, 'join', data.join(' '))
@@ -686,11 +821,11 @@ export default {
             this.series[0].data.push({
               x: data[i].version,
               y: data[i].impression.toFixed(2),
-              sub: data[i].join
+              sub: data[i].join,
             })
             this.series[1].data.push({
               x: data[i].version,
-              y: parseFloat(data[i].ctr)
+              y: parseFloat(data[i].ctr),
             })
           }
         })
@@ -698,10 +833,10 @@ export default {
           console.log('error : ', e)
         })
     },
-    handleResize () {
+    handleResize() {
       this.width = window.innerWidth
     },
-    async getDataSegment () {
+    async getDataSegment() {
       await this.$axios
         .get('json/campaign_audience_category')
         .then((res) => {
@@ -710,8 +845,8 @@ export default {
         .catch((e) => {
           console.log('error : ', e)
         })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -721,23 +856,23 @@ export default {
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
-  color: #5C6B7A;
+  color: #5c6b7a;
 }
 .desc-v2 {
   font-family: 'Cabin';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  color: #7A8A99;
-  margin-bottom:20px;
+  color: #7a8a99;
+  margin-bottom: 20px;
 }
 .kg-container {
   padding: 20px;
   .card-report {
     width: 100%;
     height: 100%;
-    background: #FFFFFF;
-    border: 1px solid #C3CED9;
+    background: #ffffff;
+    border: 1px solid #c3ced9;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
@@ -773,22 +908,22 @@ export default {
     }
     .audience-segment {
       height: 100%;
-      gap:20px;
-      margin-top:15px;
+      gap: 20px;
+      margin-top: 15px;
       .chart-container {
-        padding:20px;
+        padding: 20px;
         width: 100%;
-        background: #FFFFFF;
-        border: 1px solid #C3CED9;
+        background: #ffffff;
+        border: 1px solid #c3ced9;
         border-radius: 10px;
         .label-chart {
-          width:150px;
-          height:20px;
-          font-family: "Cabin";
+          width: 150px;
+          height: 20px;
+          font-family: 'Cabin';
           font-size: 14px;
           font-weight: 400;
           line-height: 16px;
-          margin-right:10px;
+          margin-right: 10px;
         }
         .value-chart {
           width: 100%;
@@ -798,19 +933,19 @@ export default {
             height: 100%;
           }
           .item-chart:nth-child(1n) {
-            background: #775BE8;
+            background: #775be8;
           }
           .item-chart:nth-child(2n) {
-            background: #1BD42D;
+            background: #1bd42d;
           }
           .item-chart:nth-child(3n) {
-            background: #FBAB18;
+            background: #fbab18;
           }
           .item-chart:nth-child(4n) {
-            background: #B25BE8;
+            background: #b25be8;
           }
           .item-chart:nth-child(5n) {
-            background: #E23C82;
+            background: #e23c82;
           }
         }
         .value2-chart {
@@ -822,7 +957,7 @@ export default {
           }
         }
         .title-chart {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-size: 16px;
           font-weight: 600;
           line-height: 22px;
@@ -834,29 +969,29 @@ export default {
     .card-notif {
       width: 100%;
       height: 100%;
-      background: #FFF3DD;
-      border: 1px solid #FBAB18;
+      background: #fff3dd;
+      border: 1px solid #fbab18;
       border-radius: 10px;
       padding: 12px 27px 12px 27px;
       .detail-notif {
-        margin-left:24px;
+        margin-left: 24px;
         .title-recomendation {
           font-family: 'Cabin';
           font-style: normal;
           font-weight: 700;
           font-size: 18px;
-          color: #2B3947;
-          margin-bottom:10px;
+          color: #2b3947;
+          margin-bottom: 10px;
         }
         .desc-recommendation {
           font-family: 'Cabin';
           font-style: normal;
           font-weight: 400;
           font-size: 16px;
-          color: #5C6B7A;
+          color: #5c6b7a;
         }
         .item-recommendation {
-          margin-top:10px;
+          margin-top: 10px;
           cursor: pointer;
           width: 158px;
           font-family: 'Cabin';
@@ -864,11 +999,11 @@ export default {
           font-weight: 700;
           font-size: 14px;
           height: 34px;
-          color: #1B63D4;
+          color: #1b63d4;
           .hr-vertical {
             height: 20px;
-            border: 1px solid #C3CED9;
-            margin-left:13px;
+            border: 1px solid #c3ced9;
+            margin-left: 13px;
           }
         }
         .item-recommendation:hover {
@@ -881,28 +1016,28 @@ export default {
       font-style: normal;
       font-weight: 700;
       font-size: 28px;
-      color: #5C6B7A;
-      margin-bottom:20px;
+      color: #5c6b7a;
+      margin-bottom: 20px;
     }
     .left-side {
-      width:500px;
+      width: 500px;
     }
     .right-side {
-      width:331px;
+      width: 331px;
       .card-statistic {
         width: 100%;
         height: 75px;
-        background: #FFFFFF;
-        border: 1px solid #C3CED9;
+        background: #ffffff;
+        border: 1px solid #c3ced9;
         border-radius: 10px;
-        margin-bottom:15px;
+        margin-bottom: 15px;
         .title-v3 {
           font-family: 'Cabin';
           font-style: normal;
           font-weight: 600;
           font-size: 20px;
           text-align: center;
-          color: #2B3947;
+          color: #2b3947;
         }
         .value-v3 {
           font-family: 'Cabin';
@@ -910,7 +1045,7 @@ export default {
           font-weight: 600;
           font-size: 28px;
           text-align: center;
-          color: #5C6B7A;
+          color: #5c6b7a;
         }
       }
     }
@@ -919,7 +1054,7 @@ export default {
       font-style: normal;
       font-weight: 600;
       font-size: 20px;
-      color: #2B3947;
+      color: #2b3947;
     }
     .save-btn {
       width: 140px;

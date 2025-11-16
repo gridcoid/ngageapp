@@ -1,5 +1,5 @@
 <template>
-  <div style="position:relative;">
+  <div style="position: relative">
     <span v-if="imageUrl">
       <el-upload
         class="upload-demo"
@@ -22,11 +22,14 @@
           </div>
         </div>
       </el-upload>
-      <div v-if="typeof dataImageRaw[indexImage].default === 'string' " class="image-data-2 gradient-pattern">
-        <img :src="dataImageRaw[indexImage].default" class="img-iklan">
+      <div
+        v-if="typeof dataImageRaw[indexImage].default === 'string'"
+        class="image-data-2 gradient-pattern"
+      >
+        <img :src="dataImageRaw[indexImage].default" class="img-iklan" />
       </div>
       <div v-else class="image-data-2 gradient-pattern">
-        <img :src="dataUrl" class="img-iklan">
+        <img :src="dataUrl" class="img-iklan" />
       </div>
       <!-- <div class="image-data-2 gradient-pattern">
         <img :src="imageUrl" class="img-iklan">
@@ -53,13 +56,11 @@
           <img
             src="~/assets/images/creative/upload.svg"
             class="mr-2 icon-upload"
-          >
+          />
           <div class="flex flex-col">
-            <div class="empty-space">
-              Upload Image Here
-            </div>
+            <div class="empty-space">Upload Image Here</div>
             <div class="upload-name">
-              Supported format:<br>.jpg, .jpeg .png, .gif, .bmp
+              Supported format:<br />.jpg, .jpeg .png, .gif, .bmp
             </div>
           </div>
         </div>
@@ -80,14 +81,14 @@ export default {
   props: {
     titleImage: {
       default: '',
-      type: String
+      type: String,
     },
     dataImage: {
       default: '',
-      type: String
-    }
+      type: String,
+    },
   },
-  data () {
+  data() {
     return {
       indexImage: null,
       defaultImage: '',
@@ -106,17 +107,17 @@ export default {
       imageSize: '',
       resolution: {
         width: '',
-        height: ''
+        height: '',
       },
       image: {
         width: 0,
-        height: 0
+        height: 0,
       },
       editor: null,
       value: '',
       imgBase64: '',
       itemFilter: ['All', 'Media', 'Text', 'Shape', 'URL', 'Button'],
-      activeItem: 'All'
+      activeItem: 'All',
     }
   },
   computed: {
@@ -129,32 +130,42 @@ export default {
       },
       dataImageRaw: (state) => {
         return state.creative.dataImageRaw
-      }
+      },
     }),
     // eslint-disable-next-line vue/return-in-computed-property
-    dataUrl () {
+    dataUrl() {
       if (this.dataImageRaw[this.indexImage].default !== null) {
-        return URL.createObjectURL(this.dataImageRaw[this.indexImage].default.raw)
+        return URL.createObjectURL(
+          this.dataImageRaw[this.indexImage].default.raw
+        )
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.imageUrl = this.dataImage
     this.getAll()
   },
   methods: {
-    cropImage () {
+    cropImage() {
       let imageCrop = ''
       if (typeof this.dataImageRaw[this.indexImage].default === 'string') {
-        if (this.dataImageRaw[this.indexImage].default?.includes(this.$config.baseURL)) {
+        if (
+          this.dataImageRaw[this.indexImage].default?.includes(
+            this.$config.baseURL
+          )
+        ) {
           imageCrop = this.imageUrl
         } else {
           imageCrop = this.imageUrl + '?v1=' + Date.now()
         }
       } else {
-        imageCrop = URL.createObjectURL(this.dataImageRaw[this.indexImage].default.raw)
+        imageCrop = URL.createObjectURL(
+          this.dataImageRaw[this.indexImage].default.raw
+        )
       }
-      const indexForm = this.dataForm.findIndex(x => x.title === this.titleImage)
+      const indexForm = this.dataForm.findIndex(
+        (x) => x.title === this.titleImage
+      )
       const data = {
         indexRawImage: this.indexImage,
         indexForm,
@@ -163,46 +174,50 @@ export default {
         img: imageCrop,
         dialog: true,
         height: this.dataForm[indexForm].height,
-        width: this.dataForm[indexForm].width
+        width: this.dataForm[indexForm].width,
       }
       this.$emit('openEditor', data)
     },
-    deleteImage () {
+    deleteImage() {
       this.imageUrl = null
-      const dataRaw = this.dataImageRaw.findIndex(x => x.title === this.titleImage)
+      const dataRaw = this.dataImageRaw.findIndex(
+        (x) => x.title === this.titleImage
+      )
       const dataJSON = {
         index: dataRaw,
-        default: 'blank.png'
+        default: 'blank.png',
       }
       this.$store.commit('creative/SET_CHANGE_IMAGE', dataJSON)
-      const indexImage = this.dataForm.findIndex(x => x.title === this.titleImage)
+      const indexImage = this.dataForm.findIndex(
+        (x) => x.title === this.titleImage
+      )
       const data = {
         index: indexImage,
         title: this.titleImage,
         type: 'Image',
-        src: 'https://unimind.kgnow.com/blank.png'
+        src: 'https://unimind.kgnow.com/blank.png',
       }
       this.$emit('reloadback', data)
     },
-    beforeAvatarUpload (file) {
+    beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg'
       const isLt2M = file.size / 1024 / 1024 < 2
 
       if (!isJPG) {
         this.$notifier.showMessage({
           content: 'Avatar picture must be JPG format!',
-          type: 'failed'
+          type: 'failed',
         })
       }
       if (!isLt2M) {
         this.$notifier.showMessage({
           content: 'Avatar picture size can not exceed 2MB!',
-          type: 'failed'
+          type: 'failed',
         })
       }
       return isJPG && isLt2M
     },
-    getBase64 (file) {
+    getBase64(file) {
       return new Promise(function (resolve, reject) {
         const reader = new FileReader()
         let imgResult = ''
@@ -218,7 +233,7 @@ export default {
         }
       })
     },
-    handleChange (file) {
+    handleChange(file) {
       const formatData = file.raw.type
       if (
         formatData === 'image/jpg' ||
@@ -230,7 +245,7 @@ export default {
         if (file.size / 1023.4 > 500) {
           this.$notifier.showMessage({
             content: 'Image size can not exceed 500KB!',
-            type: 'failed'
+            type: 'failed',
           })
         } else {
           this.imageData = file
@@ -264,33 +279,36 @@ export default {
       } else {
         this.$notifier.showMessage({
           content: 'Image must be JPG, JPEG, PNG, GIF & BMP format',
-          type: 'failed'
+          type: 'failed',
         })
       }
     },
-    async uploadFile () {
+    async uploadFile() {
       const data = new FormData()
       data.append('files', this.imageData.raw)
       await this.$axios
         .post('obs/array', data, {
           headers: {
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         })
         .then((res) => {
           console.log(res)
-          const fileKey = this.$config.baseURL + 'obs?fileKey=' + res.data.data.fileKeys[0]
-          const indexForm = this.dataForm.findIndex(x => x.title === this.titleImage)
+          const fileKey =
+            this.$config.baseURL + 'obs?fileKey=' + res.data.data.fileKeys[0]
+          const indexForm = this.dataForm.findIndex(
+            (x) => x.title === this.titleImage
+          )
           const dataJSON = {
             index: this.indexImage,
-            default: this.imageData
+            default: this.imageData,
           }
           this.$store.commit('creative/SET_CHANGE_IMAGE', dataJSON)
           const data = {
             index: indexForm,
             title: this.titleImage,
             type: 'Image',
-            src: fileKey
+            src: fileKey,
           }
           this.$store.commit('creative/SET_DATA_FORM', data)
           this.$emit('reloadback', data)
@@ -338,15 +356,15 @@ export default {
         .catch((error) => {
           this.$notifier.showMessage({
             content: 'Upload failed. Please try again ! ' + error,
-            type: 'failed'
+            type: 'failed',
           })
           this.imageUpload = false
         })
     },
-    getAll () {
+    getAll() {
       this.getData()
     },
-    getData () {
+    getData() {
       // this.isLoading = true
       // const data = {
       //   id: this.$route.params.edit
@@ -356,22 +374,23 @@ export default {
       //   .then(() => {
       //     this.isLoading = false
       this.defaultImage = this.dataForm.find(
-        item => item.title === this.titleImage
+        (item) => item.title === this.titleImage
       )
       this.imageUrl = this.defaultImage.default
       this.$store.commit('creative/SET_DATA_IMAGE', this.defaultImage)
-      this.indexImage = this.dataImageRaw.findIndex(x => x.title === this.titleImage)
+      this.indexImage = this.dataImageRaw.findIndex(
+        (x) => x.title === this.titleImage
+      )
       // })
       // .catch(() => {
       //   this.isLoading = false
       // })
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-
 .gradient-pattern {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -379,13 +398,66 @@ export default {
   width: 320px;
   height: 135px;
   border: none;
-  font: normal 100%/normal Arial, Helvetica, sans-serif;
-  color: rgba(255,255,255,1);
+  font: normal 100% / normal Arial, Helvetica, sans-serif;
+  color: rgba(255, 255, 255, 1);
   -o-text-overflow: clip;
   text-overflow: clip;
-  background: -webkit-linear-gradient(45deg, rgba(0,0,0,0.0980392) 25%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.0980392) 75%, rgba(0,0,0,0.0980392) 0), -webkit-linear-gradient(45deg, rgba(0,0,0,0.0980392) 25%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.0980392) 75%, rgba(0,0,0,0.0980392) 0), rgb(255, 255, 255);
-  background: -moz-linear-gradient(45deg, rgba(0,0,0,0.0980392) 25%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.0980392) 75%, rgba(0,0,0,0.0980392) 0), -moz-linear-gradient(45deg, rgba(0,0,0,0.0980392) 25%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.0980392) 75%, rgba(0,0,0,0.0980392) 0), rgb(255, 255, 255);
-  background: linear-gradient(45deg, rgba(0,0,0,0.0980392) 25%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.0980392) 75%, rgba(0,0,0,0.0980392) 0), linear-gradient(45deg, rgba(0,0,0,0.0980392) 25%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.0980392) 75%, rgba(0,0,0,0.0980392) 0), rgb(255, 255, 255);
+  background: -webkit-linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.0980392) 25%,
+      rgba(0, 0, 0, 0) 25%,
+      rgba(0, 0, 0, 0) 75%,
+      rgba(0, 0, 0, 0.0980392) 75%,
+      rgba(0, 0, 0, 0.0980392) 0
+    ),
+    -webkit-linear-gradient(45deg, rgba(0, 0, 0, 0.0980392) 25%, rgba(
+            0,
+            0,
+            0,
+            0
+          )
+          25%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.0980392) 75%, rgba(
+            0,
+            0,
+            0,
+            0.0980392
+          )
+          0),
+    rgb(255, 255, 255);
+  background: -moz-linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.0980392) 25%,
+      rgba(0, 0, 0, 0) 25%,
+      rgba(0, 0, 0, 0) 75%,
+      rgba(0, 0, 0, 0.0980392) 75%,
+      rgba(0, 0, 0, 0.0980392) 0
+    ),
+    -moz-linear-gradient(45deg, rgba(0, 0, 0, 0.0980392) 25%, rgba(0, 0, 0, 0)
+          25%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.0980392) 75%, rgba(
+            0,
+            0,
+            0,
+            0.0980392
+          )
+          0),
+    rgb(255, 255, 255);
+  background: linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.0980392) 25%,
+      rgba(0, 0, 0, 0) 25%,
+      rgba(0, 0, 0, 0) 75%,
+      rgba(0, 0, 0, 0.0980392) 75%,
+      rgba(0, 0, 0, 0.0980392) 0
+    ),
+    linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.0980392) 25%,
+      rgba(0, 0, 0, 0) 25%,
+      rgba(0, 0, 0, 0) 75%,
+      rgba(0, 0, 0, 0.0980392) 75%,
+      rgba(0, 0, 0, 0.0980392) 0
+    ),
+    rgb(255, 255, 255);
   background-position: 0 0, 40px 40px;
   -webkit-background-origin: padding-box;
   background-origin: padding-box;
@@ -394,65 +466,65 @@ export default {
   -webkit-background-size: 80px 80px;
   background-size: 80px 80px;
 }
-          .upload-demo {
-            width: 100%;
-            .el-upload {
-              width: 100%;
-            }
-          }
+.upload-demo {
+  width: 100%;
+  .el-upload {
+    width: 100%;
+  }
+}
 
-          .btn-icon {
-            height: 40px;
-            padding: 10px;
-            width: 40px;
-            position: absolute;
-            bottom: 18px;
-            right: 11px;
-            background: #ffffff;
-            border: 1px solid #e2e2e2;
-            border-radius: 5px;
-            margin-left: 18px;
-            cursor: pointer;
-          }
-          .btn-icon:hover {
-            background-color: rgb(243 244 246);
-          }
-          .btn-crop {
-            height: 40px;
-            padding: 10px;
-            width: 40px;
-            position: absolute;
-            bottom: 18px;
-            right: 60px;
-            background: #ffffff;
-            border: 1px solid #e2e2e2;
-            border-radius: 5px;
-            margin-left: 18px;
-            cursor: pointer;
-          }
-          .btn-crop:hover {
-            background-color: rgb(243 244 246);
-          }
+.btn-icon {
+  height: 40px;
+  padding: 10px;
+  width: 40px;
+  position: absolute;
+  bottom: 18px;
+  right: 11px;
+  background: #ffffff;
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+  margin-left: 18px;
+  cursor: pointer;
+}
+.btn-icon:hover {
+  background-color: rgb(243 244 246);
+}
+.btn-crop {
+  height: 40px;
+  padding: 10px;
+  width: 40px;
+  position: absolute;
+  bottom: 18px;
+  right: 60px;
+  background: #ffffff;
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+  margin-left: 18px;
+  cursor: pointer;
+}
+.btn-crop:hover {
+  background-color: rgb(243 244 246);
+}
 
-          .image-data-2 {
-            // position: absolute;
-            // top: 0px;
-            // width: 100%;
-            // left: 0px;
+.image-data-2 {
+  // position: absolute;
+  // top: 0px;
+  // width: 100%;
+  // left: 0px;
 
-            position: absolute;
-            top: 2px;
-            width: 267px;
-            left: 2px;
-            border-top-right-radius: 5px;
-            border-top-left-radius: 5px;
-            .img-iklan {
-              height: 135px;
-              border-radius: 5px 5px 0px 0px;
-              object-fit: cover;
-              width: 100%;
-            }
-          }
+  position: absolute;
+  top: 2px;
+  width: 267px;
+  left: 2px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  .img-iklan {
+    height: 135px;
+    border-radius: 5px 5px 0px 0px;
+    object-fit: cover;
+    width: 100%;
+  }
+}
 .kg-container {
   .preview {
     background: #fafbfc;

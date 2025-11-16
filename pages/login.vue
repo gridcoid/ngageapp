@@ -2,11 +2,8 @@
   <div class="flex flex-nowrap login-page">
     <div class="flex h-screen left-side items-center justify-center">
       <div class="flex flex-col">
-        <img src="~/assets/images/logo_baru.svg" class="logo-img">
-        <img
-          src="~/assets/images/logo_baru.svg"
-          class="logo-img-small"
-        >
+        <img src="~/assets/images/logo_baru.svg" class="logo-img" />
+        <img src="~/assets/images/logo_baru.svg" class="logo-img-small" />
         <div class="card-login">
           <span v-if="!isLoading">
             <div class="header-4">Getting Started</div>
@@ -22,7 +19,7 @@
                 name="email"
                 placeholder="Email"
                 @keyup.enter="login"
-              >
+              />
             </div>
             <div class="mt-4">
               <div class="subtitle-2">Password</div>
@@ -32,7 +29,7 @@
                     id="toggle"
                     class="hidden js-password-toggle"
                     type="checkbox"
-                  >
+                  />
                   <IconHidePassword
                     v-if="!passwordType"
                     class="no-select"
@@ -65,7 +62,7 @@
                   autocomplete="off"
                   placeholder="Password"
                   @keyup.enter="login"
-                >
+                />
               </div>
             </div>
             <Transition>
@@ -92,12 +89,8 @@
             v-else
             class="flex flex-col items-center justify-center loading-card"
           >
-            <div class="loading-title">
-              Logging you in...
-            </div>
-            <div class="loading-subtitle">
-              Setting up pages
-            </div>
+            <div class="loading-title">Logging you in...</div>
+            <div class="loading-subtitle">Setting up pages</div>
             <div class="card">
               <div class="percent">
                 <svg>
@@ -114,17 +107,17 @@
           </div>
         </div>
         <div class="footer-card">
-          Copyright Ⓒ 2023 Kompas Gramedia <br>
+          Copyright Ⓒ 2023 Kompas Gramedia <br />
           All rights reserved.
         </div>
         <div class="footer-card-small">
-          Copyright Ⓒ 2022 Kompas Gramedia <br>
+          Copyright Ⓒ 2022 Kompas Gramedia <br />
           All rights reserved.
         </div>
       </div>
     </div>
     <div class="flex-auto hidden sm:hidden md:hidden lg:flex xl:flex 2xl:flex">
-      <img src="~/assets/images/login/bg_login.png" class="right-side">
+      <img src="~/assets/images/login/bg_login.png" class="right-side" />
     </div>
   </div>
 </template>
@@ -133,7 +126,7 @@
 export default {
   name: 'LoginPage',
   layout: 'login',
-  data () {
+  data() {
     return {
       email: '',
       password: '',
@@ -145,14 +138,14 @@ export default {
       percentage: 0,
       validationEmail: false,
       validationPassword: false,
-      passwordType: true
+      passwordType: true,
     }
   },
-  mounted () {
+  mounted() {
     this.width = window.innerHeight
   },
   methods: {
-    countDownTimer () {
+    countDownTimer() {
       if (this.percentage < 15) {
         setTimeout(() => {
           this.percentage += 1
@@ -162,18 +155,18 @@ export default {
         this.$router.push({ path: '/' })
       }
     },
-    passwordToggle () {
+    passwordToggle() {
       if (this.passwordType) {
         this.passwordType = false
       } else {
         this.passwordType = true
       }
     },
-    validateEmail (email) {
+    validateEmail(email) {
       const re = /\S+@\S+\.\S+/
       return re.test(email)
     },
-    login () {
+    login() {
       if (this.email === '' || this.password === '') {
         if (this.email === '') {
           this.showMessage = true
@@ -206,7 +199,7 @@ export default {
         this.$store
           .dispatch('user/login', {
             email: this.email,
-            password: this.password
+            password: this.password,
           })
           .then((response) => {
             const data = response.status
@@ -222,8 +215,8 @@ export default {
             }
           })
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

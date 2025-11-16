@@ -3,9 +3,7 @@
     <div class="style-box">
       <div class="grid grid-cols-2 gap-2">
         <div class="flex flex-col color-container">
-          <div class="title-color">
-            Color
-          </div>
+          <div class="title-color">Color</div>
           <div class="color-card flex items-center">
             <el-color-picker
               v-model="color"
@@ -13,15 +11,17 @@
               size="mini"
               @change="changeData()"
             />
-            <input v-model="color" class="text-color" @change="changeData()">
+            <input v-model="color" class="text-color" @change="changeData()" />
           </div>
         </div>
         <div class="flex flex-col color-container">
-          <div class="title-color">
-            Opacity
-          </div>
+          <div class="title-color">Opacity</div>
           <div class="color-card flex items-center justify-between">
-            <input v-model="opacity" class="text-color" @change="changeData()">
+            <input
+              v-model="opacity"
+              class="text-color"
+              @change="changeData()"
+            />
             <div class="flex items-center justify-center percent-color">
               <div class="hr-vertical" />
               %
@@ -40,10 +40,10 @@ export default {
   props: {
     titleForm: {
       default: '',
-      type: String
-    }
+      type: String,
+    },
   },
-  data () {
+  data() {
     return {
       color: '#000000',
       opacity: 100,
@@ -61,39 +61,43 @@ export default {
         'hsva(120, 40, 94, 0.5)',
         'hsl(181, 100%, 37%)',
         'hsla(209, 100%, 56%, 0.73)',
-        '#c7158577'
+        '#c7158577',
       ],
-      defaultData: {}
+      defaultData: {},
     }
   },
   computed: {
     ...mapState({
       dataForm: (state) => {
         return state.creative.dataForm
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     this.getDetail()
   },
   methods: {
-    rgb2hex (rgb) {
-      rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i)
-      return (rgb && rgb.length === 4) ? '#' +
-  ('0' + parseInt(rgb[1], 10).toString(16)).slice(-2) +
-  ('0' + parseInt(rgb[2], 10).toString(16)).slice(-2) +
-  ('0' + parseInt(rgb[3], 10).toString(16)).slice(-2) : ''
+    rgb2hex(rgb) {
+      rgb = rgb.match(
+        /^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i
+      )
+      return rgb && rgb.length === 4
+        ? '#' +
+            ('0' + parseInt(rgb[1], 10).toString(16)).slice(-2) +
+            ('0' + parseInt(rgb[2], 10).toString(16)).slice(-2) +
+            ('0' + parseInt(rgb[3], 10).toString(16)).slice(-2)
+        : ''
     },
-    changeData () {
+    changeData() {
       const data = {
         title: this.titleForm,
         color: this.color,
         opacity: this.opacity,
-        type: 'Color'
+        type: 'Color',
       }
       this.$emit('changeColor', data)
     },
-    getDetail () {
+    getDetail() {
       // const data = {
       //   id: this.$route.params.edit
       // }
@@ -101,7 +105,7 @@ export default {
       //   .dispatch('creative/getDetail', data)
       //   .then((res) => {
       this.defaultData = this.dataForm.find(
-        item => item.title === this.titleForm
+        (item) => item.title === this.titleForm
       )
 
       this.color = this.defaultData.default.split(/[;]/)[0]
@@ -117,8 +121,8 @@ export default {
       // })
       // .catch(() => {
       // })
-    }
-  }
+    },
+  },
 }
 </script>
 

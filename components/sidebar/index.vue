@@ -7,7 +7,7 @@
             src="~/assets/images/logo_baru.svg"
             class="logo-unimind"
             @click="toHome()"
-          >
+          />
         </div>
         <div class="justify-self-end">
           <div class="btn-nav grid place-items-center" @click="onSidebar()">
@@ -40,7 +40,7 @@
             src="~/assets/images/logo_small.svg"
             style="cursor: pointer"
             @click="toHome()"
-          >
+          />
         </div>
         <div class="justify-self-center">
           <div class="btn-nav grid place-items-center" @click="onSidebar()">
@@ -53,7 +53,7 @@
         <IconPlus class="icon-arrow" bg-color="#1B63D4" />
       </div>
     </div>
-    <div class="flex flex-col justify-between" style="margin-top:30px;">
+    <div class="flex flex-col justify-between" style="margin-top: 30px">
       <SidebarItemList />
     </div>
   </div>
@@ -63,10 +63,10 @@
 import { mapState } from 'vuex'
 export default {
   components: {},
-  data () {
+  data() {
     return {
       handleRole: true,
-      tinggi: 0
+      tinggi: 0,
     }
   },
   computed: {
@@ -76,37 +76,37 @@ export default {
       },
       roleId: (state) => {
         return state.user.roleId
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     this.checkRole()
   },
 
   methods: {
-    open () {
+    open() {
       console.log('open')
     },
-    onSidebar () {
+    onSidebar() {
       this.$store.commit('user/SET_SIDEBAR')
     },
-    toHome () {
+    toHome() {
       this.$router.push({ path: '/' })
     },
-    checkRole () {
+    checkRole() {
       if (this.roleId === 4) {
         this.handleRole = false
       } else {
         this.handleRole = true
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 .title-navmenu {
-  padding-top:2px;
-  margin-left:10px;
+  padding-top: 2px;
+  margin-left: 10px;
 }
 .slide-enter-active,
 .slide-leave-active {
@@ -169,7 +169,7 @@ export default {
       background-color: rgb(243 244 246);
     }
     .k-btn {
-      font-family: "Cabin";
+      font-family: 'Cabin';
       margin-top: 20px;
       margin-bottom: 10px;
       background: #ffffff;

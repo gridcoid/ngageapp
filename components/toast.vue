@@ -1,9 +1,7 @@
 <template>
   <div class="alert-card flex items-center justify-center">
-    <img src="~/assets/images/icon_alert.svg" class="flex">
-    <div class="flex-auto text-alert">
-      Creating placement...
-    </div>
+    <img src="~/assets/images/icon_alert.svg" class="flex" />
+    <div class="flex-auto text-alert">Creating placement...</div>
   </div>
 </template>
 
@@ -12,13 +10,13 @@ export default {
   props: {
     text: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
-  data () {
+  data() {
     return {}
   },
-  computed: {}
+  computed: {},
 }
 </script>
 <style lang="scss" scoped>

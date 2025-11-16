@@ -19,7 +19,7 @@ export default {
     bgColor: {
       type: String,
       default: '#454545'
-    }
-  }
+    },
+  },
 }
 </script>

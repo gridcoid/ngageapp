@@ -1,9 +1,7 @@
 <template>
   <div class="containers" style="width: 100%">
     <div class="flex items-center header-content">
-      <div class="title-header">
-        Campaign
-      </div>
+      <div class="title-header">Campaign</div>
       <k-button
         text="Create New"
         class="ml-4"
@@ -98,7 +96,7 @@
           class="k-btn focus:bg-blue-700 focus:outline-none focus:ring-0 transition duration-100 ease-in-out flex align-center items-center justify-center"
           @click="showDialog()"
         >
-          <img src="~/assets/images/campaign/icon_filter.svg" class="mr-2">
+          <img src="~/assets/images/campaign/icon_filter.svg" class="mr-2" />
           Sort & Filter
         </button>
         <div class="hr-vertical" />
@@ -127,7 +125,7 @@
                   class="title-1"
                   placeholder="Find something.."
                   @change="searchCampaign()"
-                >
+                />
               </form>
               <IconSearch @click.native="searchCampaign()" />
             </div>
@@ -155,9 +153,7 @@
           <template v-slot:Summary>
             <div class="summary-card">
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  offers
-                </div>
+                <div class="title-1">offers</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -165,14 +161,10 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  bid%
-                </div>
+                <div class="title-1">bid%</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -180,14 +172,10 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  won%
-                </div>
+                <div class="title-1">won%</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -195,14 +183,10 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  impr.
-                </div>
+                <div class="title-1">impr.</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -210,14 +194,10 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  clicks
-                </div>
+                <div class="title-1">clicks</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -225,14 +205,10 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
               <div class="flex justify-between items-center item-summary">
-                <div class="title-1">
-                  ctr
-                </div>
+                <div class="title-1">ctr</div>
                 <apexchart
                   type="area"
                   height="60"
@@ -240,9 +216,7 @@
                   :series="series2"
                   style="width: 80px"
                 />
-                <div class="value-1">
-                  35.51 M
-                </div>
+                <div class="value-1">35.51 M</div>
               </div>
             </div>
           </template>
@@ -264,10 +238,8 @@
         >
           <template slot="empty">
             <div class="flex flex-col items-center mt-6 no-data">
-              <img src="~/assets/images/campaign/empty_table.svg">
-              <div class="title-1">
-                It’s Very Clean Here
-              </div>
+              <img src="~/assets/images/campaign/empty_table.svg" />
+              <div class="title-1">It’s Very Clean Here</div>
               <div class="subtitle-1">
                 Seems like you haven’t created any campaign yet. Create one now?
               </div>
@@ -276,16 +248,12 @@
                 @click="toCreate()"
               >
                 <IconSave bg-color="#1B63D4" />
-                <div class="name-btn">
-                  Create New Campaign
-                </div>
+                <div class="name-btn">Create New Campaign</div>
               </button>
             </div>
           </template>
           <el-table-column label="" prop="name" sortable width="300">
-            <template slot="header">
-              Campaign Name
-            </template>
+            <template slot="header"> Campaign Name </template>
             <template slot-scope="scope">
               <div
                 class="flex items-center cursor-pointer"
@@ -304,9 +272,9 @@
                   </el-tooltip>
                   <div class="k-subtitle">
                     Campaign period:
-                    {{ $moment(scope.row.startDate).format("MMM Do, YYYY") }}
+                    {{ $moment(scope.row.startDate).format('MMM Do, YYYY') }}
                     to
-                    {{ $moment(scope.row.endDate).format("MMM Do, YYYY") }}
+                    {{ $moment(scope.row.endDate).format('MMM Do, YYYY') }}
                   </div>
                 </div>
               </div>
@@ -354,11 +322,12 @@
                 v-if="Object.keys(scope.row.analytics).length !== 0"
                 class="view-text"
               >
-                {{ Number(scope.row.analytics.impression).toLocaleString() }} impression
+                {{
+                  Number(scope.row.analytics.impression).toLocaleString()
+                }}
+                impression
               </div>
-              <div v-else class="view-text">
-                0 impression
-              </div>
+              <div v-else class="view-text">0 impression</div>
             </template>
           </el-table-column>
           <el-table-column label="Click" header-align="center" align="center">
@@ -369,9 +338,7 @@
               >
                 {{ Number(scope.row.analytics.click).toLocaleString() }} click
               </div>
-              <div v-else class="view-text">
-                0 click
-              </div>
+              <div v-else class="view-text">0 click</div>
             </template>
           </el-table-column>
           <el-table-column label="CTR" header-align="center" align="center">
@@ -382,9 +349,7 @@
               >
                 {{ scope.row.analytics.ctr }} %
               </div>
-              <div v-else class="view-text">
-                0 %
-              </div>
+              <div v-else class="view-text">0 %</div>
             </template>
           </el-table-column>
           <el-table-column
@@ -394,7 +359,7 @@
           >
             <template slot-scope="scope">
               <div class="view-text">
-                {{ $moment(scope.row.updatedAt).format("DD/MM/YYYY") }}
+                {{ $moment(scope.row.updatedAt).format('DD/MM/YYYY') }}
               </div>
             </template>
           </el-table-column>
@@ -420,7 +385,7 @@
                     <img
                       src="~/assets/images/icon/duplicate.svg"
                       class="icon-item"
-                    >
+                    />
                     Duplicate
                   </div>
                   <div
@@ -436,7 +401,7 @@
                     <img
                       src="~/assets/images/icon/delete.svg"
                       class="icon-item"
-                    >
+                    />
                     Delete
                   </div>
                 </template>
@@ -562,13 +527,11 @@
               class="flex items-center justify-between"
               style="margin-bottom: 14px"
             >
-              <div class="title-popup2">
-                Duplicate Campaign?
-              </div>
+              <div class="title-popup2">Duplicate Campaign?</div>
               <img
                 src="~/assets/images/icon/duplicate_big.svg"
                 class="icon-item"
-              >
+              />
             </div>
             <div class="title-popup">
               How many duplicate of <b>{{ detailCampaign.name }}</b> campaign do
@@ -588,7 +551,7 @@
                 type="number"
                 min="1"
                 max="10"
-              >
+              />
               <div
                 style="width: 18px; height: 18px"
                 class="flex items-center cursor-pointer justify-center no-select"
@@ -632,13 +595,11 @@
               class="flex items-center justify-between"
               style="margin-bottom: 14px"
             >
-              <div class="title-popup2">
-                Disable Campaign?
-              </div>
+              <div class="title-popup2">Disable Campaign?</div>
               <img
                 src="~/assets/images/icon/delete_color.svg"
                 class="icon-item"
-              >
+              />
             </div>
             <div class="title-popup">
               Are you sure want to disable
@@ -674,11 +635,11 @@ export default {
   name: 'CampaignPage',
   layout: 'default',
 
-  data () {
+  data() {
     return {
       detailCampaign: {
         name: '',
-        id: ''
+        id: '',
       },
       countDuplicate: 1,
       radio: 'createdAt_desc',
@@ -706,32 +667,32 @@ export default {
         shortcuts: [
           {
             text: 'Last week',
-            onClick (picker) {
+            onClick(picker) {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', [start, end])
-            }
+            },
           },
           {
             text: 'Last month',
-            onClick (picker) {
+            onClick(picker) {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
               picker.$emit('pick', [start, end])
-            }
+            },
           },
           {
             text: 'Last 3 months',
-            onClick (picker) {
+            onClick(picker) {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
               picker.$emit('pick', [start, end])
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       chartData: {
         labels: ['2022-03-01', '2022-03-02', '2022-03-03'],
@@ -740,140 +701,140 @@ export default {
             label: 'Data One',
             backgroundColor: '#f87979',
             data: [0, 10, 5],
-            lineTension: 0.5
+            lineTension: 0.5,
           },
           {
             label: 'Data One',
             backgroundColor: '#f87979',
             data: [10, 4, 7],
-            lineTension: 0.5
-          }
-        ]
+            lineTension: 0.5,
+          },
+        ],
       },
       chartOptions: {
         responsive: true,
         legend: {
-          position: 'bottom'
-        }
+          position: 'bottom',
+        },
       },
       status: 'delivering',
       series: [
         {
           name: 'Data on selected period',
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
         },
         {
           name: 'Data compared to previous period',
-          data: [8, 41, 85, 70, 59, 62, 0, 91, 88]
-        }
+          data: [8, 41, 85, 70, 59, 62, 0, 91, 88],
+        },
       ],
       series2: [
         {
           name: 'Data',
-          data: [10, 41, 35]
-        }
+          data: [10, 41, 35],
+        },
       ],
       chartOptions2: {
         chart: {
           height: '100%',
           type: 'area',
           zoom: {
-            enabled: false
+            enabled: false,
           },
           toolbar: {
-            show: false
-          }
+            show: false,
+          },
         },
         tooltip: {
-          enabled: false
+          enabled: false,
         },
         curve: 'smooth',
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         colors: ['#1B63D4'],
         grid: {
           show: false,
           xaxis: {
             lines: {
-              show: false
-            }
+              show: false,
+            },
           },
           yaxis: {
             lines: {
-              show: false
-            }
-          }
+              show: false,
+            },
+          },
         },
         xaxis: {
           labels: {
-            show: false
-          }
+            show: false,
+          },
         },
         yaxis: {
           labels: {
-            show: false
-          }
-        }
+            show: false,
+          },
+        },
       },
       series3: [
         {
           name: 'Data on selected period',
-          data: [10, 41]
+          data: [10, 41],
         },
         {
           name: 'Data compared to previous period',
-          data: [8, 41]
-        }
+          data: [8, 41],
+        },
       ],
       chartOptions3: {
         chart: {
           height: 350,
           type: 'line',
           zoom: {
-            enabled: false
+            enabled: false,
           },
           toolbar: {
-            show: false
-          }
+            show: false,
+          },
         },
         curve: 'smooth',
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         stroke: {
           curve: 'straight',
-          dashArray: [0, 10]
+          dashArray: [0, 10],
         },
         legend: {
-          show: false
+          show: false,
         },
         colors: ['#1B63D4', '#FBAB18'],
         grid: {
           row: {
             colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-            opacity: 0.5
-          }
+            opacity: 0.5,
+          },
         },
 
         xaxis: {
-          categories: ['2022-03-31', '2022-04-12']
-        }
+          categories: ['2022-03-31', '2022-04-12'],
+        },
       },
       percentage: 0,
-      rowPage: 10
+      rowPage: 10,
     }
   },
   watch: {
-    $route (to, from) {
+    $route(to, from) {
       console.log('to : ', to, from)
       // this.$store.state.formRecord.field1 = ''
-    }
+    },
   },
   filters: {
-    numberWithCommas (x) {
+    numberWithCommas(x) {
       return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-    }
+    },
   },
   computed: {
     ...mapState({
@@ -900,10 +861,10 @@ export default {
       },
       dataCampaignType: (state) => {
         return state.campaign.dataCampaignType
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     const keys = Object.keys(this.$route.query)
     if (keys.length > 0) {
       this.activeStatus = this.$route.query.status
@@ -915,47 +876,47 @@ export default {
     this.getAll()
   },
   methods: {
-    closeDeleteDialog () {
+    closeDeleteDialog() {
       this.detailCampaign = null
       this.dialogDelete = false
     },
-    deleteCampaign (data) {
+    deleteCampaign(data) {
       document.querySelector('body').style.overflow = 'hidden'
       this.detailCampaign = data
       this.dialogDelete = true
     },
-    btnPlus () {
+    btnPlus() {
       if (this.countDuplicate < 10) {
         this.countDuplicate++
       }
     },
-    btnMinus () {
+    btnMinus() {
       if (this.countDuplicate > 1) {
         this.countDuplicate--
       }
     },
-    getAll () {
+    getAll() {
       this.getCampaign()
       this.getAdvertiser()
       this.getCampaignTypes()
     },
-    getAdvertiser () {
+    getAdvertiser() {
       this.$store.dispatch('campaign/getAdvertiser')
     },
-    getCampaignTypes () {
+    getCampaignTypes() {
       this.$store.dispatch('campaign/getCampaignTypes')
     },
-    changePage (ev) {
+    changePage(ev) {
       if (ev > 0) {
         this.currentPage = ev
         this.getCampaign()
       }
     },
-    changeRowPage (ev) {
+    changeRowPage(ev) {
       this.rowPage = ev
       this.getCampaign()
     },
-    getCampaign () {
+    getCampaign() {
       this.isLoading = true
       this.createdAt2 = []
       if (this.advertiserIds !== '') {
@@ -975,7 +936,7 @@ export default {
           campaignTypeId: this.campaignTypeId,
           advertiserIds: this.advertiserIds2,
           sort: this.radio,
-          createdAt: this.createdAt2
+          createdAt: this.createdAt2,
         }
         this.$store
           .dispatch('campaign/getList', data)
@@ -994,7 +955,7 @@ export default {
           campaignTypeId: this.campaignTypeId,
           advertiserIds: this.advertiserIds2,
           sort: this.radio,
-          createdAt: ''
+          createdAt: '',
         }
         this.$store
           .dispatch('campaign/getList', data)
@@ -1006,8 +967,8 @@ export default {
           })
       }
     },
-    filter () {},
-    resetFilter () {
+    filter() {},
+    resetFilter() {
       this.createdAt = ''
       this.createdAt2 = []
       this.advertiserIds = ''
@@ -1017,44 +978,44 @@ export default {
 
       this.getCampaign()
     },
-    statusActive (x) {
+    statusActive(x) {
       this.activeStatus = x
       this.currentPage = 1
       this.getCampaign()
     },
-    searchCampaign () {
+    searchCampaign() {
       this.currentPage = 1
       this.showSearch = false
       this.getCampaign()
     },
-    statusActivePopup (x) {
+    statusActivePopup(x) {
       this.activeStatusPopup = x
     },
-    statusLayout (x) {
+    statusLayout(x) {
       this.activeLayout = x
     },
-    showDialog () {
+    showDialog() {
       this.dialog = !this.dialog
     },
-    showChart () {
+    showChart() {
       this.$store.commit('user/SET_POPUP')
     },
-    toDetail (x) {
+    toDetail(x) {
       const route = this.$router.resolve({ path: `/campaign/detail/${x}` })
       window.open(route.href)
     },
-    toCreate () {
+    toCreate() {
       this.$router.push({ path: '/campaign/create' })
     },
-    changeActive (id, active) {
+    changeActive(id, active) {
       const data = {
         id,
-        isActive: !active
+        isActive: !active,
       }
 
       this.$notifier.showMessage({
         content: 'Change status campaign...',
-        type: 'loading'
+        type: 'loading',
       })
       const x = setTimeout(
         () =>
@@ -1069,7 +1030,7 @@ export default {
                 this.getAll()
                 this.$notifier.showMessage({
                   content: 'Change campaign status success.',
-                  type: 'success'
+                  type: 'success',
                 })
                 clearInterval(x)
               } else {
@@ -1077,7 +1038,7 @@ export default {
                   content:
                     'Change campaign status failed. Error : ' +
                     res.data.data.message,
-                  type: 'failed'
+                  type: 'failed',
                 })
                 this.showMessage = true
                 const keys = Object.keys(res.data.data.errors[0])
@@ -1094,26 +1055,26 @@ export default {
         1000
       )
     },
-    closeDialog () {
+    closeDialog() {
       document.querySelector('body').style.overflow = ''
       this.detailCampaign = null
       this.dialogDuplicate = false
       this.dialogDelete = false
       this.$store.commit('user/SET_DROPDOWN', null)
     },
-    openDuplicateDialog (data) {
+    openDuplicateDialog(data) {
       document.querySelector('body').style.overflow = 'hidden'
       this.detailCampaign = data
       this.dialogDuplicate = true
     },
-    duplicateCreative (id) {
+    duplicateCreative(id) {
       const data = {
         id,
-        count: this.countDuplicate
+        count: this.countDuplicate,
       }
       this.$notifier.showMessage({
         content: 'Duplicate campaign...',
-        type: 'loading'
+        type: 'loading',
       })
       const x = setTimeout(
         () =>
@@ -1128,7 +1089,7 @@ export default {
                 this.getAll()
                 this.$notifier.showMessage({
                   content: 'Duplicate campaign status success.',
-                  type: 'success'
+                  type: 'success',
                 })
                 this.detailCampaign = null
                 this.dialogDuplicate = false
@@ -1143,7 +1104,7 @@ export default {
                   content:
                     'Duplicate campaign status failed. Error : ' +
                     res.data.data.message,
-                  type: 'failed'
+                  type: 'failed',
                 })
                 this.showMessage = true
                 const keys = Object.keys(res.data.data.errors[0])
@@ -1162,13 +1123,13 @@ export default {
       )
       document.querySelector('body').style.overflow = ''
     },
-    deleteCreative (id) {
+    deleteCreative(id) {
       const data = {
-        id
+        id,
       }
       this.$notifier.showMessage({
         content: 'Delete campaign...',
-        type: 'loading'
+        type: 'loading',
       })
       const x = setTimeout(
         () =>
@@ -1185,7 +1146,7 @@ export default {
                 this.$store.commit('user/SET_DROPDOWN', null)
                 this.$notifier.showMessage({
                   content: 'Delete campaign status success.',
-                  type: 'success'
+                  type: 'success',
                 })
                 clearInterval(x)
               } else {
@@ -1203,7 +1164,7 @@ export default {
                   content:
                     'Delete campaign status failed. Error : ' +
                     res.data.data.message,
-                  type: 'failed'
+                  type: 'failed',
                 })
                 clearInterval(x)
               }
@@ -1213,15 +1174,15 @@ export default {
         1000
       )
       document.querySelector('body').style.overflow = ''
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .el-table thead {
   color: #5c6b7a !important;
-  font-family: "Cabin" !important;
+  font-family: 'Cabin' !important;
   font-weight: 600 !important;
 }
 .slide-enter-active,
@@ -1239,14 +1200,14 @@ export default {
   padding: 20px;
   .header-content {
     .title-header {
-      font-family: "Cabin";
+      font-family: 'Cabin';
       font-style: normal;
       font-weight: 600;
       font-size: 18px;
       color: #454545;
     }
     .btn-create {
-      font-family: "Cabin";
+      font-family: 'Cabin';
       width: 94px;
       font-size: 12px;
       padding-right: 0px;
@@ -1271,7 +1232,7 @@ export default {
         margin-left: 10px;
         cursor: pointer;
         .name-status {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           color: #454545;
           font-weight: 400;
           font-size: 16px;
@@ -1290,7 +1251,7 @@ export default {
     .layout-filter {
       //   margin-left: 20px;
       .name-filter {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         color: #454545;
         font-weight: 400;
         font-size: 16px;
@@ -1318,7 +1279,7 @@ export default {
       margin-right: 10px;
     }
     .k-btn {
-      font-family: "Cabin";
+      font-family: 'Cabin';
       background: #ffffff;
       border: 1px solid #e2e2e2;
       border-radius: 5px;
@@ -1357,7 +1318,7 @@ export default {
         -o-transition: width 0.3s ease-out;
         transition: width 0.3s ease-out;
         .title-1 {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           color: #9a9a9a;
           font-size: 14px;
           width: 180px;
@@ -1384,7 +1345,7 @@ export default {
         margin-right: 13px;
       }
       .k-title {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-weight: 500;
         font-size: 16px;
         color: #454545;
@@ -1397,14 +1358,14 @@ export default {
         color: #1b63d4;
       }
       .k-subtitle {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-weight: 400;
         font-size: 12px;
         color: #9a9a9a;
       }
 
       .status-card {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         color: #7bbc49;
         font-weight: 400;
         font-size: 14px;
@@ -1417,19 +1378,19 @@ export default {
         margin-left: auto;
       }
       .cpm-text {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-weight: 400;
         font-size: 14px;
         color: #454545;
       }
       .view-text {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-weight: 400;
         font-size: 14px;
         color: #454545;
       }
       .increase-text {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-size: 12px;
         font-weight: 400;
         color: #454545;
@@ -1451,14 +1412,14 @@ export default {
       }
       .no-data {
         .title-1 {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-weight: 600;
           font-size: 20px;
           color: #454545;
           line-height: 24px;
         }
         .subtitle-1 {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-weight: 400;
           font-size: 16px;
           color: #757575;
@@ -1480,7 +1441,7 @@ export default {
           line-height: normal !important;
           cursor: pointer;
           .name-btn {
-            font-family: "Cabin";
+            font-family: 'Cabin';
             font-weight: 700;
             font-size: 14px;
             padding-bottom: 1px;
@@ -1506,7 +1467,7 @@ export default {
         padding-right: 15px;
         cursor: pointer;
         .name-btn {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-weight: 700;
           font-size: 14px;
           padding-bottom: 1px;
@@ -1525,14 +1486,14 @@ export default {
       .item-summary {
         height: 30px;
         .title-1 {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-weight: 600;
           font-size: 14px;
           color: #333333;
           width: 60px;
         }
         .value-1 {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-weight: 400;
           font-size: 12px;
           color: #333333;
@@ -1567,7 +1528,7 @@ export default {
         margin-left: 10px;
         cursor: pointer;
         .name-status {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           color: #454545;
           font-weight: 400;
           font-size: 16px;
@@ -1582,14 +1543,14 @@ export default {
       .item-summary {
         height: 30px;
         .title-1 {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-weight: 600;
           font-size: 14px;
           color: #333333;
           width: 60px;
         }
         .value-1 {
-          font-family: "Cabin";
+          font-family: 'Cabin';
           font-weight: 400;
           font-size: 12px;
           color: #333333;
@@ -1607,7 +1568,7 @@ export default {
       width: 100%;
       height: 100%;
       .title-popup2 {
-        font-family: "Cabin";
+        font-family: 'Cabin';
         font-style: normal;
         font-weight: 600;
         font-size: 20px;

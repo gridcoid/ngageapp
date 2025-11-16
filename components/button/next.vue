@@ -1,5 +1,8 @@
 <template>
-  <div class="btn-next flex items-center justify-center" :class="value ? 'btn-disable' : 'btn-next'">
+  <div
+    class="btn-next flex items-center justify-center"
+    :class="value ? 'btn-disable' : 'btn-next'"
+  >
     <IconArrowRights :bg-color="value ? '#A1ADB9' : '#1B63D4'" />
   </div>
 </template>
@@ -8,29 +11,29 @@ export default {
   props: {
     value: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 .btn-next {
   width: 40px;
   height: 40px;
-  background: #FFFFFF;
-  border: 1px solid #C3CED9;
+  background: #ffffff;
+  border: 1px solid #c3ced9;
   border-radius: 5px;
-  cursor:pointer;
+  cursor: pointer;
 }
 .btn-next:hover {
-  background: #F1F1F1;
+  background: #f1f1f1;
 }
 .btn-disable {
   width: 40px;
   height: 40px;
-  background: #F1F1F1;
-  border: 1px solid #C3CED9;
+  background: #f1f1f1;
+  border: 1px solid #c3ced9;
   border-radius: 5px;
-  cursor:pointer;
+  cursor: pointer;
 }
 </style>

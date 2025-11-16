@@ -1,7 +1,7 @@
 const resource = 'campaign'
 
-export default $axios => ({
-  createCampaign (payload) {
+export default ($axios) => ({
+  createCampaign(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}?orgId=${orgId}`, {
       name: payload.name,
@@ -9,10 +9,10 @@ export default $axios => ({
       startDate: payload.startDate,
       endDate: payload.endDate,
       typeId: payload.typeId,
-      advertiserId: payload.advertiserId
+      advertiserId: payload.advertiserId,
     })
   },
-  update (payload) {
+  update(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.patch(`${resource}/${payload.id}?orgId=${orgId}`, {
       name: payload.name,
@@ -20,59 +20,59 @@ export default $axios => ({
       startDate: payload.startDate,
       endDate: payload.endDate,
       typeId: payload.typeId,
-      advertiserId: payload.advertiserId
+      advertiserId: payload.advertiserId,
     })
   },
-  getList (payload) {
+  getList(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
       `${resource}?orgId=${orgId}&page=${payload.page}&size=${payload.size}&name=${payload.name}&status=${payload.status}&typeId=${payload.campaignTypeId}&advertiserIds=${payload.advertiserIds}&sort=${payload.sort}&createdAt=${payload.createdAt}`
     )
   },
-  getListComplete (payload) {
+  getListComplete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
       `${resource}/complete?orgId=${orgId}&page=${payload.page}&size=${payload.size}&name=${payload.name}&status=${payload.status}&typeId=${payload.campaignTypeId}&advertiserIds=${payload.advertiserIds}&sort=${payload.sort}&createdAt=${payload.createdAt}`
     )
   },
-  getDetail (payload) {
+  getDetail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(`${resource}/${payload.campaignTypeId}?orgId=${orgId}`)
   },
-  getPerformance (payload) {
+  getPerformance(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
       `${resource}/${payload.campaignTypeId}/performance?orgId=${orgId}&range=${payload.range}`
     )
   },
-  getCampaignTypes () {
+  getCampaignTypes() {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(`${resource}/types?orgId=${orgId}`)
   },
-  getAdvertiser () {
+  getAdvertiser() {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(`${resource}/advertisers?orgId=${orgId}`)
   },
-  getSummary (payload) {
+  getSummary(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
       `${resource}/${payload.campaignTypeId}/summary?orgId=${orgId}&range=${payload.range}`
     )
   },
-  changeStatus (payload) {
+  changeStatus(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}/${payload.id}/is-active?orgId=${orgId}`, {
-      isActive: payload.isActive
+      isActive: payload.isActive,
     })
   },
-  duplicate (payload) {
+  duplicate(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}/duplicate/${payload.id}?orgId=${orgId}`, {
-      count: payload.count
+      count: payload.count,
     })
   },
-  delete (payload) {
+  delete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(`${resource}/${payload.id}?orgId=${orgId}`)
-  }
+  },
 })

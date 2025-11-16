@@ -15,23 +15,23 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
       changePassword: (state) => {
-        return state.user.changePassword;
+        return state.user.changePassword
       },
     }),
   },
   mounted() {
-    this.$store.commit("user/SET_CHANGE_DIALOG", false);
+    this.$store.commit('user/SET_CHANGE_DIALOG', false)
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 html {
-  font-family: "Cabin";
+  font-family: 'Cabin';
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

@@ -7,10 +7,7 @@
             class="color-card flex items-center justify-between"
             :style="'height:' + lineHeight2 + 'px'"
           >
-            <div
-              v-if="titleForm == 'Body Text' "
-              class="textarea-with-counter"
-            >
+            <div v-if="titleForm == 'Body Text'" class="textarea-with-counter">
               <textarea
                 v-model="data"
                 :rows="lineHeight"
@@ -18,9 +15,7 @@
                 :maxlength="maxLength"
                 @input="changeData()"
               />
-              <div class="char-counter">
-                {{ charCount }}/{{ maxLength }}
-              </div>
+              <div class="char-counter">{{ charCount }}/{{ maxLength }}</div>
             </div>
             <div v-else>
               <textarea
@@ -44,17 +39,17 @@ export default {
   props: {
     titleForm: {
       default: '',
-      type: String
-    }
+      type: String,
+    },
   },
-  data () {
+  data() {
     return {
       // data: '',
       defaultData: {},
       lineHeight: 3,
       lineHeight2: '100',
       charCount: 0,
-      maxLength: 2000
+      maxLength: 2000,
     }
   },
   computed: {
@@ -64,40 +59,41 @@ export default {
       },
       selectedResolution: (state) => {
         return state.template.selectedResolution
-      }
+      },
     }),
     data: {
-      get () {
-        return this.dataForm.find(item => item.title === this.titleForm).default
+      get() {
+        return this.dataForm.find((item) => item.title === this.titleForm)
+          .default
       },
-      set (newValue) {
+      set(newValue) {
         const data = {
           title: this.titleForm,
           src: newValue,
-          type: 'TextOnly'
+          type: 'TextOnly',
         }
         this.$emit('changeText', data)
-      }
-    }
+      },
+    },
   },
-  mounted () {
+  mounted() {
     this.getTemplateDetail()
   },
   methods: {
-    changeData () {
+    changeData() {
       if (this.titleForm === 'Body Text') {
         this.charCount = this.data.length
       }
       const data = {
         title: this.titleForm,
         src: this.data,
-        type: 'TextOnly'
+        type: 'TextOnly',
       }
       this.$emit('changeText', data)
     },
-    getTemplateDetail () {
+    getTemplateDetail() {
       this.defaultData = this.dataForm.find(
-        item => item.title === this.titleForm
+        (item) => item.title === this.titleForm
       )
       if (this.defaultData.lineHeight !== undefined) {
         this.lineHeight = Math.ceil(
@@ -106,8 +102,8 @@ export default {
         this.lineHeight2 = this.defaultData.lineHeight + 40
       }
       this.changeData()
-    }
-  }
+    },
+  },
 }
 </script>
 

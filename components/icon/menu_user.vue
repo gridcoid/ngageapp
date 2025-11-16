@@ -25,8 +25,8 @@ export default {
   props: {
     bgColor: {
       type: String,
-      default: '#5C6B7A'
-    }
-  }
+      default: '#5C6B7A',
+    },
+  },
 }
 </script>

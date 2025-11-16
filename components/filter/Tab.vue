@@ -5,10 +5,8 @@
       :style="activeStatus === 'all' ? 'border-bottom: 2px solid #1B63D4;' : ''"
       @click="statusActive('all')"
     >
-      <img src="~/assets/images/campaign/icon_all.svg">
-      <div class="name-status">
-        All
-      </div>
+      <img src="~/assets/images/campaign/icon_all.svg" />
+      <div class="name-status">All</div>
     </div>
     <div
       class="flex items-center justify-center card-filter"
@@ -17,10 +15,8 @@
       "
       @click="statusActive('delivering')"
     >
-      <img src="~/assets/images/campaign/icon_delivering.svg">
-      <div class="name-status">
-        Delivering
-      </div>
+      <img src="~/assets/images/campaign/icon_delivering.svg" />
+      <div class="name-status">Delivering</div>
     </div>
     <div
       class="flex items-center justify-center card-filter"
@@ -29,10 +25,8 @@
       "
       @click="statusActive('inactive')"
     >
-      <img src="~/assets/images/campaign/icon_inactive.svg">
-      <div class="name-status">
-        Inactive
-      </div>
+      <img src="~/assets/images/campaign/icon_inactive.svg" />
+      <div class="name-status">Inactive</div>
     </div>
   </div>
 </template>
@@ -41,13 +35,13 @@ export default {
   props: {
     activeStatus: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
-  data () {
+  data() {
     return {}
   },
-  methods: {}
+  methods: {},
 }
 </script>
 

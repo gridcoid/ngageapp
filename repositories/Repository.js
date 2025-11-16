@@ -6,12 +6,12 @@ import TemplateRepository from '~/repositories/templateRepository'
 import PublisherRepository from '~/repositories/publisherRepository'
 import AudienceRepository from '~/repositories/audienceRepository'
 
-export default $axios => ({
+export default ($axios) => ({
   user: UserRepository($axios),
   campaign: CampaignRepository($axios),
   placement: PlacementRepository($axios),
   creative: CreativeRepository($axios),
   template: TemplateRepository($axios),
   publisher: PublisherRepository($axios),
-  audience: AudienceRepository($axios)
+  audience: AudienceRepository($axios),
 })
