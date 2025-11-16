@@ -58,9 +58,7 @@
               :key="index2"
               class="card-template flex flex-col"
             >
-              <div
-                class="template-thumbnail flex flex items-center justify-center"
-              >
+              <div class="template-thumbnail flex items-center justify-center">
                 <div
                   class="circle-btn flex items-center justify-center"
                   @mouseover="hover = true"

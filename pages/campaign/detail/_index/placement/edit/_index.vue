@@ -2,18 +2,14 @@
   <div class="kg-container flex">
     <div class="w-full" style="padding-right: 20px">
       <ButtonBackPage text="Back to Campaign Details" @click.native="back()" />
-      <div class="title-1">
-        Campaign
-      </div>
+      <div class="title-1">Campaign</div>
       <div v-if="!isLoading_5" class="title-2">
         {{ detailCampaign.name }}
       </div>
       <!-- basic info -->
       <div class="kg-card">
         <div class="header-card flex items-center">
-          <div class="title-card">
-            Basic Info
-          </div>
+          <div class="title-card">Basic Info</div>
         </div>
         <div class="body-card">
           <div class="md:flex md:items-center mb-6">
@@ -27,13 +23,11 @@
                 v-model="data.placementName"
                 class="border-2 w-full rounded py-2 px-4 leading-tight title-form"
                 type="text"
-              >
+              />
             </div>
           </div>
           <div class="hr-horizontal" />
-          <div class="subtitle-card">
-            Delivery
-          </div>
+          <div class="subtitle-card">Delivery</div>
           <div class="md:flex md:items-center mb-6">
             <div class="md:w-1/3">
               <label class="title-form block md:text-left mb-1 md:mb-0 pr-4">
@@ -42,10 +36,7 @@
             </div>
             <div class="md:w-2/3 md:flex justify-items-stretch">
               <div class="flex flex-col" style="width: 100%">
-                <el-select
-                  v-model="data.dailyLimit1"
-                  style="width: 100%"
-                >
+                <el-select v-model="data.dailyLimit1" style="width: 100%">
                   <el-option
                     v-for="item in dataDailyLimitTypes"
                     :key="item.id"
@@ -64,7 +55,7 @@
                   style="width: 100%"
                   class="border-2 w-full rounded py-2 px-4 leading-tight title-form"
                   type="number"
-                >
+                />
                 <div class="sub-input">
                   Enter value of daily
                   <span style="font-weight: bold">max impression</span>
@@ -83,7 +74,7 @@
                 v-model="data.bookedImps"
                 class="border-2 w-full rounded py-2 px-4 leading-tight title-form"
                 type="number"
-              >
+              />
             </div>
           </div>
           <div class="md:flex md:items-center mb-2">
@@ -108,7 +99,7 @@
             </div>
           </div>
           <div class="cpm-dimension">
-            <div class="md:flex md:items-center" style="margin-bottom:20px;">
+            <div class="md:flex md:items-center" style="margin-bottom: 20px">
               <div class="md:w-1/3">
                 <label class="title-form block md:text-left mb-1 md:mb-0 pr-4">
                   Dimension
@@ -139,13 +130,16 @@
               <div class="md:w-2/3">
                 <div class="input-container flex items-center justify-center">
                   <div class="icon flex items-center justify-center">
-                    USD <div class="divider-vertical" />
+                    USD
+                    <div class="divider-vertical" />
                   </div>
-                  <input v-model="data.cpm" class="input-field" placeholder="Input value">
+                  <input
+                    v-model="data.cpm"
+                    class="input-field"
+                    placeholder="Input value"
+                  />
                 </div>
-                <div class="sub-input2">
-                  CPM on this dimension : USD 0,003
-                </div>
+                <div class="sub-input2">CPM on this dimension : USD 0,003</div>
                 <el-checkbox v-model="data.isActive" class="dynamic-bidding">
                   Dynamic bidding (based on the calculated performance)
                 </el-checkbox>
@@ -155,16 +149,14 @@
         </div>
       </div>
       <!-- Inventory -->
-      <div class="kg-card mt-6" style="padding-bottom:0px;">
-        <div
-          class="header-card pb-0 flex items-center justify-between"
-        >
-          <div class="title-card" style="font-size: 20px;font-family: 'Cabin';">
+      <div class="kg-card mt-6" style="padding-bottom: 0px">
+        <div class="header-card pb-0 flex items-center justify-between">
+          <div class="title-card" style="font-size: 20px; font-family: 'Cabin'">
             Inventory
           </div>
           <div class="flex items-center">
             <div
-              style="height: 40px;margin-right:30px;"
+              style="height: 40px; margin-right: 30px"
               class="mr-2 flex items-center justify-between btn-create no-select"
               @click="openDialog('inventory')"
             >
@@ -175,12 +167,12 @@
             <IconArrowDown
               v-if="!show"
               class="icon-arrow cursor-pointer no-select"
-              @click.native="(show = !show)"
+              @click.native="show = !show"
             />
             <IconArrowUp
               v-else
               class="icon-arrow cursor-pointer no-select"
-              @click.native="(show = !show)"
+              @click.native="show = !show"
             />
           </div>
         </div>
@@ -188,11 +180,9 @@
           <div
             v-if="selectedData3.length === 0"
             class="flex flex-col items-center justify-center h-full"
-            style="padding-top:20px;padding-bottom:20px;"
+            style="padding-top: 20px; padding-bottom: 20px"
           >
-            <div class="creative-1 mt-2">
-              No Inventory Assigned
-            </div>
+            <div class="creative-1 mt-2">No Inventory Assigned</div>
             <div class="creative-2">
               Assign some inventory for creative to be shown.
             </div>
@@ -212,7 +202,7 @@
                   {{ item.name }}
                 </div>
                 <div class="size-creative flex items-center">
-                  <img class="mr-2" src="~/assets/images/globe.svg">
+                  <img class="mr-2" src="~/assets/images/globe.svg" />
                   {{ item.publisher.name }}
                 </div>
               </div>
@@ -230,16 +220,14 @@
         </div>
       </div>
       <!-- Assigned Creative -->
-      <div class="kg-card mt-6" style="padding-bottom:0px;">
-        <div
-          class="header-card flex items-center justify-between"
-        >
-          <div class="title-card" style="font-size: 20px;font-family: 'Cabin'">
+      <div class="kg-card mt-6" style="padding-bottom: 0px">
+        <div class="header-card flex items-center justify-between">
+          <div class="title-card" style="font-size: 20px; font-family: 'Cabin'">
             Assigned Creative
           </div>
           <div class="flex items-center">
             <div
-              style="height: 40px;margin-right:30px;"
+              style="height: 40px; margin-right: 30px"
               class="mr-2 flex items-center justify-between btn-create no-select"
               @click="openDialog('creative')"
             >
@@ -263,11 +251,9 @@
           <div
             v-if="selected.length === 0"
             class="flex flex-col items-center justify-center h-full"
-            style="padding-top:20px;padding-bottom:20px;"
+            style="padding-top: 20px; padding-bottom: 20px"
           >
-            <div class="creative-1 mt-2">
-              No Creative Assigned
-            </div>
+            <div class="creative-1 mt-2">No Creative Assigned</div>
             <div class="creative-2">
               Assign some creatives you’ve made to this placement.
             </div>
@@ -287,7 +273,7 @@
                   {{ item.name }}
                 </div>
                 <div class="size-creative flex items-center">
-                  <img class="mr-2" src="~/assets/images/Vector.svg">
+                  <img class="mr-2" src="~/assets/images/Vector.svg" />
                   {{ item.template.name }}
                 </div>
               </div>
@@ -295,7 +281,7 @@
               <div class="flex items-center">
                 <div
                   class="btn-delete flex items-center justify-center cursor-pointer"
-                  style="margin-right:10px;"
+                  style="margin-right: 10px"
                   @click="deleteCreative(item)"
                 >
                   <IconDelete />
@@ -312,16 +298,14 @@
         </div>
       </div>
       <!-- Audience -->
-      <div class="kg-card mt-6" style="padding-bottom:0px;">
-        <div
-          class="header-card flex items-center justify-between"
-        >
-          <div class="title-card" style="font-size: 20px;font-family: 'Cabin'">
+      <div class="kg-card mt-6" style="padding-bottom: 0px">
+        <div class="header-card flex items-center justify-between">
+          <div class="title-card" style="font-size: 20px; font-family: 'Cabin'">
             Audience
           </div>
           <div class="flex items-center">
             <div
-              style="height: 40px;margin-right:30px;"
+              style="height: 40px; margin-right: 30px"
               class="mr-2 flex items-center justify-between btn-create no-select"
               @click="openDialog('audience')"
             >
@@ -332,12 +316,12 @@
             <IconArrowDown
               v-if="!show4"
               class="icon-arrow cursor-pointer no-select"
-              @click.native="(show4 = !show4)"
+              @click.native="show4 = !show4"
             />
             <IconArrowUp
               v-else
               class="icon-arrow cursor-pointer no-select"
-              @click.native="(show4 = !show4)"
+              @click.native="show4 = !show4"
             />
           </div>
         </div>
@@ -345,7 +329,7 @@
           <div
             v-if="selectedData2.length === 0"
             class="flex flex-col items-center justify-center h-full"
-            style="padding-top:20px;padding-bottom:20px;"
+            style="padding-top: 20px; padding-bottom: 20px"
           >
             <div class="creative-1 mt-2">
               No Specific Target Audience Selected
@@ -423,12 +407,15 @@
         </div>
       </div>
     </div>
-    <Popup2 v-if="popup" class="popup" width="1090" @close-modal="closeDialog()">
+    <Popup2
+      v-if="popup"
+      class="popup"
+      width="1090"
+      @close-modal="closeDialog()"
+    >
       <template v-slot:title>
         <div class="flex items-center justify-between k-header">
-          <div class="title-assign">
-            Assign Inventory
-          </div>
+          <div class="title-assign">Assign Inventory</div>
           <div class="flex items-center justify-center">
             <div class="dimension flex items-center justify-center">
               Chosen Dimension:
@@ -436,10 +423,11 @@
                 {{ selectedDataResolution }}
               </div>
             </div>
-            <div class="btn-close-creative flex items-center justify-center cursor-pointer" @click="closeDialog()">
-              <img
-                src="~/assets/images/campaign/icon_close.svg"
-              >
+            <div
+              class="btn-close-creative flex items-center justify-center cursor-pointer"
+              @click="closeDialog()"
+            >
+              <img src="~/assets/images/campaign/icon_close.svg" />
             </div>
           </div>
         </div>
@@ -448,24 +436,28 @@
         <div class="content-popup">
           <div class="flex items-center justify-between">
             <div
-              style="width:300px"
+              style="width: 300px"
               class="show-searchbar flex items-center justify-between cursor-pointer"
             >
-              <form autocomplete="off" style="width:100%;" @submit.prevent="searchInventory()">
+              <form
+                autocomplete="off"
+                style="width: 100%"
+                @submit.prevent="searchInventory()"
+              >
                 <input
                   v-model="dataSearchInventory"
                   type="text"
                   class="title-search"
                   placeholder="Find something.."
                   @change="searchInventory()"
-                >
+                />
               </form>
               <IconSearch />
             </div>
             <div class="flex items-center justify-center">
               <div
                 class="filter-bar flex items-center justify-center"
-                style="margin-right:20px;"
+                style="margin-right: 20px"
               >
                 Filter by Publisher:
                 <el-select
@@ -473,7 +465,7 @@
                   multiple
                   placeholder="Please select publisher"
                   collapse-tags
-                  style="margin-left:15px;width:280px;"
+                  style="margin-left: 15px; width: 280px"
                   @change="filterPublisher()"
                 >
                   <el-option
@@ -484,16 +476,14 @@
                   />
                 </el-select>
               </div>
-              <div
-                class="filter-bar flex items-center justify-center"
-              >
+              <div class="filter-bar flex items-center justify-center">
                 Filter Format:
                 <el-select
                   v-model="selectInventory"
                   multiple
                   placeholder="Choose Format"
                   collapse-tags
-                  style="margin-left:15px;width:180px;"
+                  style="margin-left: 15px; width: 180px"
                   @change="filterPublisher()"
                 >
                   <el-option
@@ -506,20 +496,26 @@
               </div>
             </div>
           </div>
-          <div style="overflow-y:scroll;overflow-x:hidden;height:400px;width:100%;margin-top:15px;">
+          <div
+            style="
+              overflow-y: scroll;
+              overflow-x: hidden;
+              height: 400px;
+              width: 100%;
+              margin-top: 15px;
+            "
+          >
             <div
               v-if="dataInventories.length === 0"
               class="flex flex-col items-center justify-center h-full"
-              style="padding-top:20px;padding-bottom:20px;"
+              style="padding-top: 20px; padding-bottom: 20px"
             >
-              <div class="creative-1 mt-2">
-                No Inventory
-              </div>
+              <div class="creative-1 mt-2">No Inventory</div>
             </div>
             <span
               v-for="(item, index) in dataInventories"
               :key="index"
-              class="flex flex-col "
+              class="flex flex-col"
             >
               <div
                 :style="$options.filters.filterData(item.id, selected3)"
@@ -530,7 +526,10 @@
                     {{ item.name }}
                   </div>
                   <div class="flex items-center subtitle-inv">
-                    <img src="~/assets/images/globe.svg" style="margin-right:4px">
+                    <img
+                      src="~/assets/images/globe.svg"
+                      style="margin-right: 4px"
+                    />
                     {{ item.publisher.name }}
                   </div>
                 </div>
@@ -549,12 +548,12 @@
                     v-if="$options.filters.filterData(item.id, selected3)"
                     class="mr-2"
                     src="~/assets/images/campaign/check_true.svg"
-                  >
+                  />
                   <img
                     v-else
                     class="mr-2"
                     src="~/assets/images/campaign/check_false.svg"
-                  >
+                  />
                   <span
                     class="name-btn"
                     :style="
@@ -563,7 +562,8 @@
                         : 'color: #1B63D4;'
                     "
                     style="padding-left: 0px; padding-right: 10px"
-                  >Assign Inventory</span>
+                    >Assign Inventory</span
+                  >
                 </div>
               </div>
             </span>
@@ -595,24 +595,31 @@
         </div>
       </template>
     </Popup2>
-    <Popup2 v-if="popup2" class="popup" width="1094" @close-modal="closeDialog()">
+    <Popup2
+      v-if="popup2"
+      class="popup"
+      width="1094"
+      @close-modal="closeDialog()"
+    >
       <template v-slot:title>
         <div class="flex items-center justify-between k-header">
-          <div class="title-assign">
-            Assign Creative
-          </div>
+          <div class="title-assign">Assign Creative</div>
           <div class="flex items-center justify-center">
             <div
               class="show-searchbar flex items-center justify-between cursor-pointer"
             >
-              <form autocomplete="off" style="width:100%;" @submit.prevent="searchCreative()">
+              <form
+                autocomplete="off"
+                style="width: 100%"
+                @submit.prevent="searchCreative()"
+              >
                 <input
                   v-model="dataSearch"
                   type="text"
                   class="title-search"
                   placeholder="Find something.."
                   @change="searchCreative()"
-                >
+                />
               </form>
               <IconSearch />
             </div>
@@ -622,43 +629,54 @@
                 {{ selectedDataResolution }}
               </div>
             </div>
-            <div class="btn-close-creative flex items-center justify-center cursor-pointer" @click="closeDialog()">
-              <img
-                src="~/assets/images/campaign/icon_close.svg"
-              >
+            <div
+              class="btn-close-creative flex items-center justify-center cursor-pointer"
+              @click="closeDialog()"
+            >
+              <img src="~/assets/images/campaign/icon_close.svg" />
             </div>
           </div>
         </div>
       </template>
       <template v-slot:body>
         <div v-if="!isLoading_4" class="content-popup">
-          <div class="scroll-content" style="overflow-y:scroll;overflow-x:hidden;height:400px;width:100%;">
+          <div
+            class="scroll-content"
+            style="
+              overflow-y: scroll;
+              overflow-x: hidden;
+              height: 400px;
+              width: 100%;
+            "
+          >
             <div
               v-if="dataCreative.length === 0"
               class="flex flex-col items-center justify-center h-full"
-              style="padding-top:20px;padding-bottom:20px;"
+              style="padding-top: 20px; padding-bottom: 20px"
             >
-              <div class="creative-1 mt-2">
-                No Creative
-              </div>
+              <div class="creative-1 mt-2">No Creative</div>
             </div>
             <div v-else class="flex flex-wrap gap-2">
-              <span
-                v-for="(item, index) in dataCreative"
-                :key="index"
-              >
+              <span v-for="(item, index) in dataCreative" :key="index">
                 <div
                   :style="$options.filters.filterData(item.id, selected)"
                   class="card-creative flex flex-col justify-strecth"
                 >
                   <img
                     crossorigin="anonymous"
-                    :src="item.config.backupImg !== undefined ? $config.baseURL + 'obs?fileKey=' + item.config.backupImg : $config.baseURL + 'obs?fileKey=' + item.template.thumbnail"
+                    :src="
+                      item.config.backupImg !== undefined
+                        ? $config.baseURL +
+                          'obs?fileKey=' +
+                          item.config.backupImg
+                        : $config.baseURL +
+                          'obs?fileKey=' +
+                          item.template.thumbnail
+                    "
                     class="img-content"
-                  >
-                  <div class="flex justify-center flex-col justify-between creative-desc">
+                  />
+                  <div class="flex flex-col justify-between creative-desc">
                     <div>
-
                       <el-tooltip :open-delay="1000" placement="top-end">
                         <div slot="content" class="title-creative">
                           {{ item.name }}
@@ -669,7 +687,10 @@
                         </div>
                       </el-tooltip>
                       <div class="flex items-center template-creative">
-                        <img src="~/assets/images/Vector.svg" style="margin-right:4px">
+                        <img
+                          src="~/assets/images/Vector.svg"
+                          style="margin-right: 4px"
+                        />
                         {{ item.template.name }}
                       </div>
                     </div>
@@ -687,12 +708,12 @@
                         v-if="$options.filters.filterData(item.id, selected)"
                         class="mr-2"
                         src="~/assets/images/campaign/check_true.svg"
-                      >
+                      />
                       <img
                         v-else
                         class="mr-2"
                         src="~/assets/images/campaign/check_false.svg"
-                      >
+                      />
                       <span
                         class="name-btn"
                         :style="
@@ -701,7 +722,8 @@
                             : 'color: #1B63D4;'
                         "
                         style="padding-left: 0px; padding-right: 10px"
-                      >Assign Creative</span>
+                        >Assign Creative</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -735,28 +757,35 @@
         </div>
       </template>
     </Popup2>
-    <Popup2 v-if="popup3" class="popup" width="1090" @close-modal="closeDialog()">
+    <Popup2
+      v-if="popup3"
+      class="popup"
+      width="1090"
+      @close-modal="closeDialog()"
+    >
       <template v-slot:title>
         <div class="flex items-center justify-between k-header">
-          <div class="title-assign">
-            Assign Audience
-          </div>
+          <div class="title-assign">Assign Audience</div>
         </div>
       </template>
       <template v-slot:body>
         <div class="content-popup">
           <div
             class="show-searchbar flex items-center justify-between cursor-pointer"
-            style="width:100%"
+            style="width: 100%"
           >
-            <form autocomplete="off" style="width:100%;" @submit.prevent="searchAudience()">
+            <form
+              autocomplete="off"
+              style="width: 100%"
+              @submit.prevent="searchAudience()"
+            >
               <input
                 v-model="dataSearchAudience"
                 type="text"
                 class="title-search"
                 placeholder="Find something.."
                 @change="searchAudience()"
-              >
+              />
             </form>
             <IconSearch />
           </div>
@@ -764,11 +793,9 @@
           <div
             v-if="dataAudience.length === 0"
             class="flex flex-col items-center justify-center h-full"
-            style="padding-top:20px;padding-bottom:20px;"
+            style="padding-top: 20px; padding-bottom: 20px"
           >
-            <div class="creative-1 mt-2">
-              No Audience
-            </div>
+            <div class="creative-1 mt-2">No Audience</div>
           </div>
           <div class="grid grid-cols-2 gap-4 mt-6">
             <span v-for="(item, index) in dataAudience" :key="index">
@@ -780,14 +807,18 @@
                   crossorigin="anonymous"
                   :src="$config.baseURL + 'obs?fileKey=' + item.thumbnail"
                   class="img-content"
-                >
+                />
                 <div class="flex flex-col data-content w-3/4">
                   <div class="title-creative">
                     {{ item.name }}
                   </div>
                   <div
                     class="flex items-center justify-center k-btn no-select"
-                    style="background: #1b63d4;margin-left:0px;margin-right:0px;"
+                    style="
+                      background: #1b63d4;
+                      margin-left: 0px;
+                      margin-right: 0px;
+                    "
                     :style="
                       $options.filters.filterData(item.id, selected2)
                         ? 'background: #1b63d4;'
@@ -799,12 +830,12 @@
                       v-if="$options.filters.filterData(item.id, selected2)"
                       class="mr-2"
                       src="~/assets/images/campaign/check_true.svg"
-                    >
+                    />
                     <img
                       v-else
                       class="mr-2"
                       src="~/assets/images/campaign/check_false.svg"
-                    >
+                    />
                     <span
                       class="name-btn"
                       :style="
@@ -813,7 +844,8 @@
                           : 'color: #1B63D4;'
                       "
                       style="padding-left: 0px; padding-right: 10px"
-                    >Choose Preset</span>
+                      >Choose Preset</span
+                    >
                   </div>
                 </div>
               </div>
@@ -854,7 +886,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'CreatePlacementPage',
   layout: 'default',
-  data () {
+  data() {
     return {
       valueDate: [],
       isLoading: false,
@@ -876,7 +908,7 @@ export default {
         inventory: '',
         cpm: 0,
         isActive: false,
-        bookedImps: 0
+        bookedImps: 0,
       },
       startDate: '',
       endDate: '',
@@ -889,32 +921,32 @@ export default {
         shortcuts: [
           {
             text: 'Last week',
-            onClick (picker) {
+            onClick(picker) {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', [start, end])
-            }
+            },
           },
           {
             text: 'Last month',
-            onClick (picker) {
+            onClick(picker) {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
               picker.$emit('pick', [start, end])
-            }
+            },
           },
           {
             text: 'Last 3 months',
-            onClick (picker) {
+            onClick(picker) {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
               picker.$emit('pick', [start, end])
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       currentPage: 1,
       dataSearch: '',
@@ -941,7 +973,7 @@ export default {
       dataSearchInventory: '',
       currentPageInventory: 1,
       rowPageInventory: 10,
-      selectedDataResolution: ''
+      selectedDataResolution: '',
     }
   },
   computed: {
@@ -993,10 +1025,10 @@ export default {
       },
       typeInventories: (state) => {
         return state.placement.typeInventories
-      }
-    })
+      },
+    }),
   },
-  mounted () {
+  mounted() {
     const str = this.$router.currentRoute.path
     const after_ = str.slice(
       str.indexOf('/detail/') + 1,
@@ -1007,8 +1039,10 @@ export default {
     this.getAll()
   },
   methods: {
-    changeResolution () {
-      const data = this.dataResolution.find(item => item.id === this.data.resolusi)
+    changeResolution() {
+      const data = this.dataResolution.find(
+        (item) => item.id === this.data.resolusi
+      )
       this.selectedDataResolution = data.width + 'x' + data.height
       this.getDataCreative()
       this.getInventories()
@@ -1017,11 +1051,11 @@ export default {
       this.selectedData = []
       this.selectedData3 = []
     },
-    detailCreative (x) {
+    detailCreative(x) {
       const route = this.$router.resolve({ path: `/creative/detail/${x}` })
       window.open(route.href)
     },
-    openDialog (x) {
+    openDialog(x) {
       document.querySelector('body').style.overflow = 'hidden'
       if (x === 'inventory') {
         this.popup = true
@@ -1033,29 +1067,29 @@ export default {
         this.popup3 = true
       }
     },
-    closeDialog () {
+    closeDialog() {
       document.querySelector('body').style.overflow = ''
       this.popup = false
       this.popup2 = false
       this.popup3 = false
     },
-    deleteAudience (x) {
+    deleteAudience(x) {
       this.selected2.splice(this.selected2.indexOf(x.id), 1)
       this.selectedData2.splice(this.selectedData2.indexOf(x), 1)
     },
-    deleteCreative (x) {
+    deleteCreative(x) {
       this.selected.splice(this.selected.indexOf(x.id), 1)
       this.selectedData.splice(this.selectedData.indexOf(x), 1)
     },
-    deleteInventory (x) {
+    deleteInventory(x) {
       this.selected3.splice(this.selected3.indexOf(x.id), 1)
       this.selectedData3.splice(this.selectedData3.indexOf(x), 1)
     },
-    selectItem2 (x) {
+    selectItem2(x) {
       if (this.selected2.length === 0) {
         this.selected2.push(x.id)
         this.selectedData2.push(x)
-      } else if (this.selected2.find(item => item === x.id) !== x.id) {
+      } else if (this.selected2.find((item) => item === x.id) !== x.id) {
         this.selected2.push(x.id)
         this.selectedData2.push(x)
       } else {
@@ -1063,11 +1097,11 @@ export default {
         this.selectedData2.splice(this.selectedData2.indexOf(x), 1)
       }
     },
-    selectItem3 (x) {
+    selectItem3(x) {
       if (this.selected3.length === 0) {
         this.selected3.push(x.id)
         this.selectedData3.push(x)
-      } else if (this.selected3.find(item => item === x.id) !== x.id) {
+      } else if (this.selected3.find((item) => item === x.id) !== x.id) {
         this.selected3.push(x.id)
         this.selectedData3.push(x)
       } else {
@@ -1075,15 +1109,15 @@ export default {
         this.selectedData3.splice(this.selectedData3.indexOf(x), 1)
       }
     },
-    searchAudience () {
+    searchAudience() {
       this.currentPageAudience = 1
       this.getDataAudience()
     },
-    searchCreative () {
+    searchCreative() {
       this.currentPage = 1
       this.getDataCreative()
     },
-    getAll () {
+    getAll() {
       this.getPriorities()
       this.getDailyLimitTypes()
       // this.getInventories()
@@ -1093,7 +1127,7 @@ export default {
       this.getDataResolusi()
       this.getDataPublisher()
     },
-    getDataPublisher () {
+    getDataPublisher() {
       this.isLoading = true
       this.$store
         .dispatch('publisher/getList')
@@ -1104,10 +1138,10 @@ export default {
           this.isLoading = false
         })
     },
-    getDataResolusi () {
+    getDataResolusi() {
       this.isLoading = true
       const data = {
-        all: true
+        all: true,
       }
       this.$store
         .dispatch('creative/getResolution', data)
@@ -1122,22 +1156,22 @@ export default {
           this.isLoading = false
         })
     },
-    changePageAudience (ev) {
+    changePageAudience(ev) {
       if (ev > 0) {
         this.currentPageAudience = ev
         this.getDataAudience()
       }
     },
-    changeRowPageAudience (ev) {
+    changeRowPageAudience(ev) {
       this.rowPageAudience = ev
       this.getDataAudience()
     },
-    getDataAudience () {
+    getDataAudience() {
       this.isLoading = true
       const data = {
         page: this.currentPageAudience,
         size: this.rowPageAudience,
-        name: this.dataSearchAudience
+        name: this.dataSearchAudience,
       }
       this.$store
         .dispatch('placement/getListInterest', data)
@@ -1148,7 +1182,7 @@ export default {
           this.isLoading = false
         })
     },
-    getPriorities () {
+    getPriorities() {
       this.isLoading_1 = true
       this.$store
         .dispatch('placement/getPriorities')
@@ -1159,7 +1193,7 @@ export default {
           this.isLoading_1 = false
         })
     },
-    getDailyLimitTypes () {
+    getDailyLimitTypes() {
       this.isLoading_2 = true
       this.$store
         .dispatch('placement/getDailyLimitTypes')
@@ -1170,25 +1204,25 @@ export default {
           this.isLoading_2 = false
         })
     },
-    searchInventory () {
+    searchInventory() {
       this.currentPageInventory = 1
       this.getInventories()
     },
-    filterPublisher () {
+    filterPublisher() {
       this.currentPageInventory = 1
       this.getInventories()
     },
-    changePageInventory (ev) {
+    changePageInventory(ev) {
       if (ev > 0) {
         this.currentPageInventory = ev
         this.getInventories()
       }
     },
-    changeRowPageInventory (ev) {
+    changeRowPageInventory(ev) {
       this.rowPageInventory = ev
       this.getInventories()
     },
-    getInventories () {
+    getInventories() {
       this.isLoading = true
       let publisher = JSON.stringify(this.selectPublisher)
       const typeInventory = JSON.stringify(this.selectInventory)
@@ -1201,7 +1235,7 @@ export default {
         name: this.dataSearchInventory,
         publisherIds: publisher,
         resolutionId: this.data.resolusi,
-        type: typeInventory
+        type: typeInventory,
       }
       this.$store
         .dispatch('placement/getInventories', data)
@@ -1212,24 +1246,24 @@ export default {
           this.isLoading = false
         })
     },
-    changePage (ev) {
+    changePage(ev) {
       if (ev > 0) {
         this.currentPage = ev
         this.getDataCreative()
       }
     },
-    changeRowPage (ev) {
+    changeRowPage(ev) {
       this.rowPage = ev
       this.getDataCreative()
     },
-    getDataCreative () {
+    getDataCreative() {
       this.isLoading_4 = true
       const data = {
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,
         format: 'all',
-        resolutionId: this.data.resolusi
+        resolutionId: this.data.resolusi,
       }
       this.$store
         .dispatch('creative/getCreative', data)
@@ -1240,10 +1274,10 @@ export default {
           this.isLoading_4 = false
         })
     },
-    getDetail () {
+    getDetail() {
       this.isLoading_5 = true
       const data = {
-        campaignTypeId: this.campaignId
+        campaignTypeId: this.campaignId,
       }
       this.$store
         .dispatch('campaign/getDetail', data)
@@ -1254,10 +1288,10 @@ export default {
           this.isLoading_5 = false
         })
     },
-    getDetailPlacement () {
+    getDetailPlacement() {
       this.isLoading_6 = true
       const data = {
-        id: this.$route.params.index
+        id: this.$route.params.index,
       }
       this.$store
         .dispatch('placement/getDetail', data)
@@ -1268,7 +1302,9 @@ export default {
           this.data.isActive = data.delivery.isDynamicBidding
           this.data.resolusi = data.delivery.resolution.id
           this.data.bookedImps = data.delivery.bookedImps
-          const data2 = this.dataResolution.find(item => item.id === this.data.resolusi)
+          const data2 = this.dataResolution.find(
+            (item) => item.id === this.data.resolusi
+          )
           this.selectedDataResolution = data2.width + 'x' + data2.height
           this.valueDate = []
           this.valueDate.push(this.detailPlacement.startDate)
@@ -1296,7 +1332,9 @@ export default {
           this.selected2 = []
           this.selectedData2 = []
           for (let i = 0; i < data.targeting.interests.length; i++) {
-            this.selected2.push(data.targeting.interests[i].TargetingInterest.interestId)
+            this.selected2.push(
+              data.targeting.interests[i].TargetingInterest.interestId
+            )
             this.selectedData2.push(data.targeting.interests[i])
           }
           this.isActive = data.isActive
@@ -1308,17 +1346,17 @@ export default {
           this.isLoading_6 = false
         })
     },
-    back () {
+    back() {
       this.$router.push({ path: '/campaign/detail/' + this.campaignId })
     },
-    close () {
+    close() {
       this.popup = false
     },
-    selectItem (x) {
+    selectItem(x) {
       if (this.selected.length === 0) {
         this.selected.push(x.id)
         this.selectedData.push(x)
-      } else if (this.selected.find(item => item === x.id) !== x.id) {
+      } else if (this.selected.find((item) => item === x.id) !== x.id) {
         this.selected.push(x.id)
         this.selectedData.push(x)
       } else {
@@ -1326,13 +1364,13 @@ export default {
         this.selectedData.splice(this.selectedData.indexOf(x), 1)
       }
     },
-    assignBtn () {
+    assignBtn() {
       this.popup = false
     },
-    updatePlacement () {
+    updatePlacement() {
       this.$notifier.showMessage({
         content: 'Edit placement...',
-        type: 'loading'
+        type: 'loading',
       })
       this.isLoading = true
       const x = setTimeout(
@@ -1345,21 +1383,21 @@ export default {
                 dailyLimits: [
                   {
                     typeId: parseInt(this.data.dailyLimit1),
-                    value: parseInt(this.data.dailyLimit2)
-                  }
+                    value: parseInt(this.data.dailyLimit2),
+                  },
                 ],
                 priorityId: this.data.priority,
                 resolutionId: this.data.resolusi,
                 cpm: this.data.cpm,
                 isDynamicBidding: this.data.isActive,
-                bookedImps: parseInt(this.data.bookedImps)
+                bookedImps: parseInt(this.data.bookedImps),
               },
               targeting: {
                 inventoryIds: this.selected3,
-                interestIds: this.selected2
+                interestIds: this.selected2,
               },
               creativeIds: this.selected,
-              isActive: this.isActive
+              isActive: this.isActive,
             })
             .then((res) => {
               this.isLoading = false
@@ -1368,7 +1406,7 @@ export default {
                 this.$router.go(-1)
                 this.$notifier.showMessage({
                   content: 'Placement edited...',
-                  type: 'success'
+                  type: 'success',
                 })
                 clearInterval(x)
               } else {
@@ -1383,7 +1421,7 @@ export default {
                   content:
                     'Placement edit failed. Please try again! ' +
                     this.messageError,
-                  type: 'failed'
+                  type: 'failed',
                 })
                 clearInterval(x)
               }
@@ -1394,8 +1432,8 @@ export default {
             }),
         1000
       )
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -1448,12 +1486,12 @@ export default {
     border-radius: 10px;
     .header-card {
       border-bottom: 1px solid #e2e2e2;
-      padding-bottom:10px;
+      padding-bottom: 10px;
       .title-card {
         font-family: 'Cabin';
         font-weight: 600;
         font-size: 20px;
-        color: #2B3947;
+        color: #2b3947;
         padding-left: 20px;
       }
       .title-action {
@@ -1462,11 +1500,11 @@ export default {
         font-weight: 600;
         font-size: 14px;
         color: #454545;
-        margin-left:20px;
+        margin-left: 20px;
       }
-        .icon-arrow {
-          margin-right: 20px;
-        }
+      .icon-arrow {
+        margin-right: 20px;
+      }
     }
     .body-card {
       padding-left: 20px;
@@ -1481,44 +1519,44 @@ export default {
         font-size: 14px;
         letter-spacing: 0.05em;
         text-transform: uppercase;
-        color: #5C6B7A;
-        margin-bottom:20px;
+        color: #5c6b7a;
+        margin-bottom: 20px;
       }
       .cpm-dimension {
         width: 100%;
         height: 198px;
-        background: #FAFAFA;
-        border: 1px solid #C3CED9;
+        background: #fafafa;
+        border: 1px solid #c3ced9;
         border-radius: 5px;
-        margin-top:20px;
-        padding:20px;
+        margin-top: 20px;
+        padding: 20px;
         .dynamic-bidding {
           font-family: 'Cabin';
           font-style: normal;
           font-weight: 400;
           font-size: 16px;
-          color: #5C6B7A;
+          color: #5c6b7a;
         }
         .sub-input2 {
           font-family: 'Cabin';
           font-weight: 400;
           font-size: 12px;
           color: #757575;
-          margin-bottom:15px;
+          margin-bottom: 15px;
         }
         .divider-vertical {
           width: 0px;
           height: 16px;
-          border: 1px solid #C3CED9;
-          margin-left:8px;
+          border: 1px solid #c3ced9;
+          margin-left: 8px;
         }
         .input-container {
           display: flex;
           width: 100%;
           margin-bottom: 5px;
           height: 40px;
-          background: #FFFFFF;
-          border: 1px solid #C3CED9;
+          background: #ffffff;
+          border: 1px solid #c3ced9;
           border-radius: 5px;
         }
 
@@ -1530,9 +1568,9 @@ export default {
           font-style: normal;
           font-weight: 500;
           font-size: 16px;
-          color: #5C6B7A;
-          padding-left:10px;
-          margin-right:10px;
+          color: #5c6b7a;
+          padding-left: 10px;
+          margin-right: 10px;
         }
         .input-field {
           width: 100%;
@@ -1540,12 +1578,8 @@ export default {
           font-style: normal;
           font-weight: 400;
           font-size: 16px;
-          color: #A1ADB9;
+          color: #a1adb9;
           outline: none;
-        }
-
-        .input-field:focus {
-          // border: 2px solid dodgerblue;
         }
       }
       .audience-title {
@@ -1824,10 +1858,10 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     .k-header {
-      height:60px;
-      width:100%;
-      padding-left:15px;
-      padding-right:15px;
+      height: 60px;
+      width: 100%;
+      padding-left: 15px;
+      padding-right: 15px;
       .title-assign {
         font-family: 'Cabin';
         font-style: normal;
@@ -1836,25 +1870,25 @@ export default {
         color: #333333;
       }
       .dimension {
-        margin-left:15px;
+        margin-left: 15px;
         font-family: 'Cabin';
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
-        color: #5C6B7A;
-        margin-right:15px;
+        color: #5c6b7a;
+        margin-right: 15px;
         .border-circle {
           width: 88px;
           height: 30px;
-          background: #FFFFFF;
-          border: 1px solid #C3CED9;
+          background: #ffffff;
+          border: 1px solid #c3ced9;
           border-radius: 500px;
           font-family: 'Cabin';
           font-style: normal;
           font-weight: 400;
           font-size: 14px;
-          color: #5C6B7A;
-          margin-left:10px;
+          color: #5c6b7a;
+          margin-left: 10px;
         }
       }
       .show-searchbar {
@@ -1885,8 +1919,8 @@ export default {
       .btn-close-creative {
         width: 40px;
         height: 40px;
-        background: #FFFFFF;
-        border: 1px solid #C3CED9;
+        background: #ffffff;
+        border: 1px solid #c3ced9;
         border-radius: 5px;
       }
       .btn-close-creative:hover {
@@ -1930,17 +1964,17 @@ export default {
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
-        color: #5C6B7A;
+        color: #5c6b7a;
       }
       .card-inventory {
-        width:100%;
-        margin-bottom:15px;
+        width: 100%;
+        margin-bottom: 15px;
         height: 72px;
-        background: #FFFFFF;
-        border: 1px solid #C3CED9;
+        background: #ffffff;
+        border: 1px solid #c3ced9;
         border-radius: 5px;
-        padding-left:15px;
-        padding-right:15px;
+        padding-left: 15px;
+        padding-right: 15px;
         .left-inventory {
           .title-inv {
             font-family: 'Cabin';
@@ -1953,7 +1987,7 @@ export default {
             font-style: normal;
             font-weight: 400;
             font-size: 12px;
-            color: #A1ADB9;
+            color: #a1adb9;
           }
         }
         .k-pagination {
@@ -1982,23 +2016,23 @@ export default {
             border: 0px;
           }
         }
-          .k-btn2 {
-            width: 154px;
-            height: 34px;
-            background: #1b63d4;
-            border: 1px solid #1b63d4;
-            border-radius: 5px;
-            margin: 10px 0px 0px 0px;
-            cursor:pointer;
-            .name-btn {
-              font-family: 'Cabin';
-              font-weight: 700;
-              font-size: 14px;
-            }
+        .k-btn2 {
+          width: 154px;
+          height: 34px;
+          background: #1b63d4;
+          border: 1px solid #1b63d4;
+          border-radius: 5px;
+          margin: 10px 0px 0px 0px;
+          cursor: pointer;
+          .name-btn {
+            font-family: 'Cabin';
+            font-weight: 700;
+            font-size: 14px;
           }
-          .k-btn2:hover {
-            background-color: rgb(243 244 246);
-          }
+        }
+        .k-btn2:hover {
+          background-color: rgb(243 244 246);
+        }
       }
       .card-creative {
         width: 200px;
@@ -2006,7 +2040,7 @@ export default {
         max-height: 334px;
         min-height: 130px;
         background: #ffffff;
-        border: 1px solid #C3CED9;
+        border: 1px solid #c3ced9;
         border-radius: 5px;
         .img-content {
           width: 200px;
@@ -2024,8 +2058,8 @@ export default {
             font-style: normal;
             font-weight: 600;
             font-size: 16px;
-            color: #5C6B7A;
-            margin-bottom:2px;
+            color: #5c6b7a;
+            margin-bottom: 2px;
           }
 
           .ellipsis-2line {
@@ -2033,6 +2067,7 @@ export default {
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
           }
           .template-creative {
@@ -2048,7 +2083,7 @@ export default {
             border: 1px solid #1b63d4;
             border-radius: 5px;
             margin: 10px 0px 0px 0px;
-            cursor:pointer;
+            cursor: pointer;
             .name-btn {
               font-family: 'Cabin';
               font-weight: 700;

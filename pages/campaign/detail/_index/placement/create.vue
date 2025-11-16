@@ -664,9 +664,7 @@
                     class="img-content"
                   />
                   <!-- previewUrl -->
-                  <div
-                    class="flex justify-center flex-col justify-between creative-desc"
-                  >
+                  <div class="flex flex-col justify-between creative-desc">
                     <div>
                       <el-tooltip :open-delay="1000" placement="top-end">
                         <div slot="content" class="title-creative">
@@ -1513,10 +1511,6 @@ export default {
           color: #a1adb9;
           outline: none;
         }
-
-        .input-field:focus {
-          // border: 2px solid dodgerblue;
-        }
       }
       .audience-title {
         font-family: 'Cabin';
@@ -2003,6 +1997,7 @@ export default {
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
           }
           .template-creative {
