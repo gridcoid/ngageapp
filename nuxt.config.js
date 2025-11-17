@@ -44,6 +44,7 @@ export default {
     '~/plugins/persistedState.client.js',
     '~/plugins/datepicker.js',
     '~/plugins/filterData.js',
+    '~/plugins/icons.js',
     { src: '~/plugins/chart.js', mode: 'client' },
     { src: '~/plugins/select.js', mode: 'client' },
     { src: '~/plugins/table.js', mode: 'client' },
@@ -125,7 +126,9 @@ export default {
 
   content: {},
 
-  build: {},
+  build: {
+    transpile: ['ico']
+  },
 
   telemetry: false,
 
