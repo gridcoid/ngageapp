@@ -15,13 +15,10 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/icon.svg' }],
   },
-
   publicRuntimeConfig: {
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
   },
-
   css: ['@/assets/css/main.scss'],
-
   layoutTransition: {
     name: 'fade-transform',
   },
@@ -33,11 +30,9 @@ export default {
       Cabin: true,
     },
   },
-
   styleResources: {
     scss: ['./assets/css/*.scss'],
   },
-
   plugins: [
     '~/plugins/notifier.js',
     '~/plugins/repository.js',
@@ -53,15 +48,12 @@ export default {
     { src: '~/plugins/password.js', mode: 'client' },
     { src: '~/plugins/codemirror', ssr: false },
   ],
-
   components: true,
-
   buildModules: [
     '@nuxtjs/google-fonts',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/moment',
   ],
-
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
@@ -71,21 +63,19 @@ export default {
     '@nuxtjs/sentry',
   ],
   sentry: {
-    dsn: 'https://ac3229f38bf6456e88f80dd4e00b8836@o4504495035580416.ingest.sentry.io/4504495039250432',
+    // dsn: 'https://ac3229f38bf6456e88f80dd4e00b8836@o4504495035580416.ingest.sentry.io/4504495039250432',
+    dsn: '',
     config: {},
   },
   moment: {
     // locales: ['id']
   },
-
   axios: {
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
   },
-
   router: {
     middleware: ['auth'],
   },
-
   auth: {
     redirect: {
       login: '/login',
@@ -123,14 +113,10 @@ export default {
     },
     plugins: ['~/plugins/auth.js'],
   },
-
   content: {},
-
   build: {
-    transpile: ['ico']
+    transpile: ['ico'],
   },
-
   telemetry: false,
-
-  target: 'server',
+  target: 'static',
 }
