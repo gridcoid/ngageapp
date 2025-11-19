@@ -37,7 +37,7 @@
       <div class="grid grid-flow-row auto-rows-max place-items-center">
         <div class="justify-self-center" style="margin-bottom: 20px">
           <img
-            src="~/assets/images/logo_small.svg"
+            src="~/assets/images/logo_small.png"
             style="cursor: pointer"
             @click="toHome()"
           />
