@@ -2,15 +2,15 @@ export default {
   ssr: true,
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'UNIMIND',
+    title: 'n-gage',
     meta: [
       { charset: 'utf-8' },
-      { title: 'UNIMIND' },
+      { title: 'n-gage' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: 'Made with UNIMIND. Copyright Ⓒ 2023 Kompas Gramedia',
+        content: 'Made with n-gage. Copyright Ⓒ 2023 Kompas Gramedia',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/icon.svg' }],

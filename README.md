@@ -1,4 +1,4 @@
-# Unimind App
+# n-gage App
 
 ## Node Version
 

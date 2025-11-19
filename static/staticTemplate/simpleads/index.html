@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>2 Column Ads | UNIMIND Template</title>
+    <title>2 Column Ads | n-gage Template</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
@@ -198,69 +198,69 @@
     />
   </body>
   <script>
-    let urllink = document.getElementById("url").value;
-    let animateloop = 2;
+    let urllink = document.getElementById('url').value
+    let animateloop = 2
 
-    init();
+    init()
     function init() {
-      TweenLite.to(logo, 0, { scale: 0.5, opacity: 0, ease: Expo.SineInOut });
-      TweenLite.to(headline, 0, { y: -10, opacity: 0, ease: Expo.SineInOut });
-      TweenLite.to(subline, 0, { y: -10, opacity: 0, ease: Expo.SineInOut });
-      TweenLite.to(cta, 0, { y: -10, opacity: 0, ease: Expo.SineInOut });
-      TweenLite.to(shineefct, 0, { x: 0, ease: Expo.SineOut });
+      TweenLite.to(logo, 0, { scale: 0.5, opacity: 0, ease: Expo.SineInOut })
+      TweenLite.to(headline, 0, { y: -10, opacity: 0, ease: Expo.SineInOut })
+      TweenLite.to(subline, 0, { y: -10, opacity: 0, ease: Expo.SineInOut })
+      TweenLite.to(cta, 0, { y: -10, opacity: 0, ease: Expo.SineInOut })
+      TweenLite.to(shineefct, 0, { x: 0, ease: Expo.SineOut })
       TweenLite.to(cover, 0, {
         scale: 1.5,
         ease: Expo.SineOut,
         onComplete: frame2,
-      });
+      })
     }
 
-    hit.addEventListener("click", gotoURL);
+    hit.addEventListener('click', gotoURL)
 
     function frame2() {
-      TweenLite.to(logo, 0.5, { scale: 1, opacity: 1, ease: Expo.SineOut });
+      TweenLite.to(logo, 0.5, { scale: 1, opacity: 1, ease: Expo.SineOut })
       TweenLite.to(headline, 0.5, {
         y: 0,
         opacity: 1,
         ease: Expo.SineOut,
         delay: 0.3,
-      });
+      })
       TweenLite.to(subline, 0.5, {
         y: 0,
         opacity: 1,
         ease: Expo.SineOut,
         delay: 0.5,
-      });
+      })
       TweenLite.to(cta, 0.5, {
         y: 0,
         opacity: 1,
         ease: Expo.SineOut,
         delay: 0.9,
         onComplete: () => {
-          TweenLite.to(shineefct, 3, { x: 450, ease: Expo.SineOut });
-          TweenLite.to(shineefct, 0, { x: 0, ease: Expo.SineOut, delay: 3.1 });
+          TweenLite.to(shineefct, 3, { x: 450, ease: Expo.SineOut })
+          TweenLite.to(shineefct, 0, { x: 0, ease: Expo.SineOut, delay: 3.1 })
           TweenLite.to(shineefct, 3, {
             x: 450,
             ease: Expo.SineOut,
             delay: 3.5,
             onComplete: () => {
               if (animateloop >= 1) {
-                init();
-                animateloop--;
+                init()
+                animateloop--
               }
             },
-          });
+          })
         },
-      });
-      TweenLite.to(cover, 4, { scale: 1, ease: Expo.SineOut });
+      })
+      TweenLite.to(cover, 4, { scale: 1, ease: Expo.SineOut })
     }
 
     function gotoURL() {
-      window.open("https://unimind.id", "_BLANK");
+      window.open('https://unimind.id', '_BLANK')
     }
 
     function displayMessage(evt) {
-      var message;
+      var message
       console.log('evt : ', evt)
       // var origins = [
       //   "https://dev-space.unimind.id",
@@ -271,34 +271,34 @@
       // if (!origins.includes(evt.origin)) {
       //   message = "check origin domain";
       // } else {
-        message = evt.data;
+      message = evt.data
       // }
-      document.getElementById("headline").innerHTML = message[6].default;
-      document.getElementById("subline").innerHTML = message[3].default;
-      document.getElementById("logo").src = message[1].default;
-      document.getElementById("cover").src = message[2].default;
+      document.getElementById('headline').innerHTML = message[6].default
+      document.getElementById('subline').innerHTML = message[3].default
+      document.getElementById('logo').src = message[1].default
+      document.getElementById('cover').src = message[2].default
       document
-        .getElementById("container")
+        .getElementById('container')
         .setAttribute(
-          "style",
+          'style',
           message[4].default +
             ";background-image:url('" +
             message[5].default +
             "')"
-        );
-      document.getElementById("cta_text").innerHTML = message[0].default.text;
+        )
+      document.getElementById('cta_text').innerHTML = message[0].default.text
       document
-        .getElementById("cta")
-        .setAttribute("style", message[0].default.bg_color);
+        .getElementById('cta')
+        .setAttribute('style', message[0].default.bg_color)
 
-      init();
+      init()
     }
 
     if (window.addEventListener) {
       // For standards-compliant web browsers
-      window.addEventListener("message", displayMessage, false);
+      window.addEventListener('message', displayMessage, false)
     } else {
-      window.attachEvent("onmessage", displayMessage);
+      window.attachEvent('onmessage', displayMessage)
     }
   </script>
 </html>

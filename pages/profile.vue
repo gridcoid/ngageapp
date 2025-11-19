@@ -70,7 +70,7 @@
         <div class="organization">
           <div class="title-org" style="margin-bottom: 0px">User List</div>
           <div class="desc-tab">
-            You can create, edit, and manage all access account in UNIMIND
+            You can create, edit, and manage all access account in n-gage
           </div>
 
           <div class="flex items-center filter-content justify-between">

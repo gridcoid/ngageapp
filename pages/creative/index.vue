@@ -643,7 +643,7 @@ export default {
   },
   head() {
     return {
-      title: 'UNIMIND - Creative',
+      title: 'n-gage - Creative',
     }
   },
   computed: {

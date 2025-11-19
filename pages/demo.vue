@@ -262,17 +262,17 @@ export default {
   },
   head() {
     return {
-      title: 'UNIMIND Preview | ' + titlePage,
+      title: 'n-gage Preview | ' + titlePage,
       meta: [
         {
           hid: 'og:title',
           property: 'og:title',
-          content: 'UNIMIND Preview | ' + titlePage,
+          content: 'n-gage Preview | ' + titlePage,
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: 'Made with UNIMIND. Copyright Ⓒ 2023 Kompas Gramedia',
+          content: 'Made with n-gage. Copyright Ⓒ 2023 Kompas Gramedia',
         },
         {
           hid: 'og:image',
