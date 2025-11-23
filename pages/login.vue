@@ -107,7 +107,8 @@
           </div>
         </div>
         <div class="footer-card">
-          Copyright Ⓒ 2023 Kompas Gramedia <br />
+          Copyright &copy; 2023-{{ new Date().getFullYear() }} Kompas Gramedia
+          <br />
           All rights reserved.
         </div>
         <div class="footer-card-small">
@@ -117,7 +118,16 @@
       </div>
     </div>
     <div class="flex-auto hidden sm:hidden md:hidden lg:flex xl:flex 2xl:flex">
-      <img src="~/assets/images/login/bg_login.png" class="right-side" />
+      <img
+        v-if="!isDevHost"
+        src="~/assets/images/login/bg_login.jpg"
+        class="right-side"
+      />
+      <img
+        v-else
+        src="~/assets/images/login/bg_login_dev.jpg"
+        class="right-side"
+      />
     </div>
   </div>
 </template>
@@ -215,6 +225,24 @@ export default {
             }
           })
       }
+    },
+    isDevHost() {
+      if (process.client) {
+        const host = window.location.hostname.toLowerCase()
+
+        // match localhost / 127.0.0.1
+        if (host === 'localhost' || host === '127.0.0.1') return true
+
+        // match local networks like 192.168.x.x or 10.x.x.x (optional)
+        if (/^(192\.168|10\.)/.test(host)) return true
+
+        // match contains "dev"
+        if (host.includes('dev')) return true
+
+        return false
+      }
+
+      return false
     },
   },
 }
