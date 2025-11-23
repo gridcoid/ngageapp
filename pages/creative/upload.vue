@@ -185,6 +185,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'UploadCreative',
   layout: 'default',
+  head() {
+    return {
+      title: 'Upload - Creative - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       imageLoaded: false,

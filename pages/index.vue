@@ -483,7 +483,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'HomePage',
   layout: 'default',
-
+  head() {
+    return {
+      title: 'Dashboard - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       radio: 'asc',

@@ -60,6 +60,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'PrevieTemplatePage',
   layout: 'login',
+  head() {
+    return {
+      title: 'Preview - Templates - Creative - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       url: '',

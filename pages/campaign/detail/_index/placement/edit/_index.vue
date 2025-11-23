@@ -886,6 +886,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'CreatePlacementPage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Edit - Placement - Campaign - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       valueDate: [],

@@ -126,6 +126,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'CreateTemplateCreativePage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Templates - Creative - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       isLoading: false,

@@ -299,6 +299,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'DetailCampaignPage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Placement - Campaign - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       isActive: true,

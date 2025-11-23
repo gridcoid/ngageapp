@@ -11,6 +11,11 @@
 export default {
   name: 'AudiencePage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Survey - ' + this.$config.appName,
+    }
+  },
 }
 </script>
 

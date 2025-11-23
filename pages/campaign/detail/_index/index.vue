@@ -631,6 +631,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'DetailCampaignPage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Detail - Campaign - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       dialogVisible: true,

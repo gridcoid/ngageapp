@@ -249,6 +249,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'TemplateUploader',
   layout: 'default',
+  head() {
+    return {
+      title: 'Template - Admin - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       imageLoaded: false,

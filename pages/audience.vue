@@ -48,6 +48,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'AudiencePage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Audience Segment - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       window: {

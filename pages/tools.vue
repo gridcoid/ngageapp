@@ -11,6 +11,11 @@
 export default {
   name: 'AudiencePage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Tools - ' + this.$config.appName,
+    }
+  },
 }
 </script>
 

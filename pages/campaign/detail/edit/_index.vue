@@ -136,6 +136,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'EditCampaignPage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Edit - Campaign - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       showMessage: false,

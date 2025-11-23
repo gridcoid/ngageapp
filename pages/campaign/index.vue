@@ -322,9 +322,7 @@
                 v-if="Object.keys(scope.row.analytics).length !== 0"
                 class="view-text"
               >
-                {{
-                  Number(scope.row.analytics.impression).toLocaleString()
-                }}
+                {{ Number(scope.row.analytics.impression).toLocaleString() }}
                 impression
               </div>
               <div v-else class="view-text">0 impression</div>
@@ -634,7 +632,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'CampaignPage',
   layout: 'default',
-
+  head() {
+    return {
+      title: 'Campaign - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       detailCampaign: {

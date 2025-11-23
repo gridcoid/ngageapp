@@ -574,7 +574,11 @@ import FormCustomSound from '~/components/form/CustomSound.vue'
 export default {
   name: 'CreateCreativePage',
   layout: 'login',
-
+  head() {
+    return {
+      title: 'Create - Creative - ' + this.$config.appName,
+    }
+  },
   components: {
     CardForm,
     FormAudio,

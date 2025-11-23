@@ -11,6 +11,11 @@
 export default {
   name: 'UserManagementPage',
   layout: 'default',
+  head() {
+    return {
+      title: 'User - Admin - ' + this.$config.appName,
+    }
+  },
 }
 </script>
 

@@ -576,7 +576,11 @@ export default {
   name: 'LoremIpsumPage',
   layout: 'login',
   auth: false,
-
+  head() {
+    return {
+      title: 'KG Rhythm - ' + this.$config.appName,
+    }
+  },
   components: {
     CardForm,
     FormAudio,

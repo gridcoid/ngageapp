@@ -344,6 +344,11 @@ import FormEditCustomSound from '~/components/form/edit/CustomSound.vue'
 export default {
   name: 'CreateCreativePage',
   layout: 'login',
+  head() {
+    return {
+      title: 'Edit - Creative - ' + this.$config.appName,
+    }
+  },
   components: {
     CardForm,
     FormEditAudio,

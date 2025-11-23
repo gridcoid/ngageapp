@@ -179,6 +179,11 @@ function isValidHttpUrl(string) {
 }
 export default {
   name: 'PrevieTemplatePage',
+  head() {
+    return {
+      title: 'Demo - ' + this.$config.appName,
+    }
+  },
   async asyncData({ params }) {
     await axios
       .get(`https://dev-api.unimind.id/v1/creative/${params.detail}`)

@@ -562,7 +562,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'CampaignPage',
   layout: 'default',
-
+  head() {
+    return {
+      title: 'Creative - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       url: '',

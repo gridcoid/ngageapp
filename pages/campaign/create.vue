@@ -110,6 +110,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'CreateCampaignPage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Create - Campaign - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       rules: {

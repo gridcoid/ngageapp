@@ -2,20 +2,22 @@ export default {
   ssr: true,
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'n-gage',
+    title: process.env.APP_NAME,
     meta: [
       { charset: 'utf-8' },
-      { title: 'n-gage' },
+      { title: process.env.APP_NAME },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: 'Made with n-gage. Copyright Ⓒ 2023 Kompas Gramedia',
+        content:
+          'Centralized platform to manage audiences, segments, campaigns, surveys and PR—target, engage, and measure results with data-driven tools.',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/icon.svg' }],
   },
   publicRuntimeConfig: {
+    appName: process.env.APP_NAME,
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
   },
   css: ['@/assets/css/main.scss'],

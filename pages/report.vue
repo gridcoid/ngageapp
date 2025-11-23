@@ -328,6 +328,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'ReportPage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Report - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       detail: {

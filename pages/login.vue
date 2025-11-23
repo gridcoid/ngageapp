@@ -138,6 +138,11 @@
 export default {
   name: 'LoginPage',
   layout: 'login',
+  head() {
+    return {
+      title: 'Login - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       email: '',

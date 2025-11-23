@@ -875,6 +875,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'CreatePlacementPage',
   layout: 'default',
+  head() {
+    return {
+      title: 'Create - Placement - Campaign - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       isLoading: false,

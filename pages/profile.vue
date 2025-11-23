@@ -311,6 +311,11 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  head() {
+    return {
+      title: 'Profile - ' + this.$config.appName,
+    }
+  },
   data() {
     return {
       activeItem: 1,

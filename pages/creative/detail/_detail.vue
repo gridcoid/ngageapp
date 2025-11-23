@@ -331,6 +331,11 @@ function isValidHttpUrl(string) {
 }
 export default {
   name: 'PrevieTemplatePage',
+  head() {
+    return {
+      title: 'Detail - Creative - ' + this.$config.appName,
+    }
+  },
   async asyncData({ params }) {
     await axios
       .get(`https://api.unimind.id/v1/creative/${params.detail}`)
