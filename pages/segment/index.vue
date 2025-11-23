@@ -5,10 +5,16 @@
       <div class="flex">
         <ButtonDefault
           icon="plus"
-          text="Create New"
+          text="Create New Segment"
           class="ml-4"
           type="secondary"
           @click.native="toCreate()"
+        />
+        <ButtonDefault
+          icon="plus"
+          text="Import Audiences"
+          class="ml-4"
+          type="secondary"
         />
       </div>
     </div>
