@@ -67,7 +67,7 @@
         class="card-list flex flex-row items-center justify-between"
       >
         <div class="flex items-center justify-start flex-row">
-          <img src="~/assets/images/thumb_audience.png" class="thumbnail" />
+          <img src="~/assets/images/target.jpg" class="thumbnail opacity-50" />
           <div class="name-data flex flex-col">
             <span>
               {{ item.name }}
