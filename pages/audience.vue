@@ -7,9 +7,8 @@
       </div>
     </div>
     <div class="desc-page">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut
-      ullamcorper dui, in sollicitudin ipsum. Nunc vulputate cursus mi, non
-      mollis urna auctor vitae.
+      Discover and manage different audience groups to tailor your campaigns
+      effectively.
     </div>
     <div class="body-content flex flex-col">
       <div
