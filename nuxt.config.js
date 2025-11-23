@@ -18,7 +18,8 @@ export default {
   },
   publicRuntimeConfig: {
     appName: process.env.APP_NAME,
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    baseURL: process.env.BASE_URL,
+    isDev: process.env.IS_DEV,
   },
   css: ['@/assets/css/main.scss'],
   layoutTransition: {
@@ -73,7 +74,7 @@ export default {
     // locales: ['id']
   },
   axios: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    baseURL: process.env.BASE_URL,
   },
   router: {
     middleware: ['auth'],

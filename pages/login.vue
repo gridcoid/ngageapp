@@ -73,7 +73,7 @@
               />
             </Transition>
             <k-button
-              v-if="!isDevHost"
+              v-if="!$config.isDev"
               text="Login"
               class="mt-6"
               size="large"
@@ -121,7 +121,7 @@
     </div>
     <div class="flex-auto hidden sm:hidden md:hidden lg:flex xl:flex 2xl:flex">
       <img
-        v-if="!isDevHost"
+        v-if="!$config.isDev"
         src="~/assets/images/login/bg_login.jpg"
         class="right-side"
       />
@@ -232,24 +232,6 @@ export default {
             }
           })
       }
-    },
-    isDevHost() {
-      if (process.client) {
-        const host = window.location.hostname.toLowerCase()
-
-        // match localhost / 127.0.0.1
-        if (host === 'localhost' || host === '127.0.0.1') return true
-
-        // match local networks like 192.168.x.x or 10.x.x.x (optional)
-        if (/^(192\.168|10\.)/.test(host)) return true
-
-        // match contains "dev"
-        if (host.includes('dev')) return true
-
-        return false
-      }
-
-      return false
     },
   },
 }
