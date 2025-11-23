@@ -7,6 +7,7 @@
 ## ENV
 
 ```env
-APP_NAME='n-gage'
+IS_DEV=false
+APP_NAME='N-gage'
 BASE_URL='http://localhost:8080/v1/'
 ```
