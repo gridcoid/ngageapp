@@ -5,7 +5,8 @@
     >
       <div class="flex items-center header-content">
         <div class="title-header">Your Running Campaign</div>
-        <k-button
+        <ButtonDefault
+          icon="view"
           text="View All"
           class="ml-4"
           type="secondary"
