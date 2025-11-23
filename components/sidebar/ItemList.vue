@@ -149,7 +149,7 @@ export default {
             type: 'single',
           },
           {
-            path: '/audience',
+            path: '/segment',
             name: 'Audience',
             type: 'single',
           },
