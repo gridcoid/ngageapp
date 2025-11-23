@@ -5,6 +5,7 @@ import CreativeRepository from '~/repositories/creativeRepository'
 import TemplateRepository from '~/repositories/templateRepository'
 import PublisherRepository from '~/repositories/publisherRepository'
 import AudienceRepository from '~/repositories/audienceRepository'
+import SegmentRepository from '~/repositories/segmentRepository'
 
 export default ($axios) => ({
   user: UserRepository($axios),
@@ -14,4 +15,5 @@ export default ($axios) => ({
   template: TemplateRepository($axios),
   publisher: PublisherRepository($axios),
   audience: AudienceRepository($axios),
+  segment: SegmentRepository($axios),
 })
