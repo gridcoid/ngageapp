@@ -1,18 +1,19 @@
 <template>
   <div class="kg-containers" style="width: 100%">
-    <div class="flex items-center justify-between header-content">
+    <div class="flex items-center header-content">
       <div class="title-header">All Creations</div>
       <div class="flex">
         <ButtonDefault
           icon="plus"
           text="Create New"
-          class="mr-3"
+          class="ml-4"
           @click.native="toCreate()"
         />
         <ButtonDefault
           v-show="handleRole"
           icon="upload"
           text="Upload"
+          class="ml-4"
           @click.native="toUpload()"
         />
       </div>

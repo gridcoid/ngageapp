@@ -1,9 +1,15 @@
 <template>
   <div class="kg-containers" style="width: 100%">
-    <div class="flex items-center justify-between header-content">
+    <div class="flex items-center header-content">
       <div class="title-header">Audience Segments</div>
       <div class="flex">
-        <ButtonDefault icon="plus" text="Create Custom Audience" class="mr-3" />
+        <ButtonDefault
+          icon="plus"
+          text="Create New"
+          class="ml-4"
+          type="secondary"
+          @click.native="toCreate()"
+        />
       </div>
     </div>
     <div class="desc-page">
@@ -77,6 +83,9 @@ export default {
         .dispatch('audience/getAudience')
         .then(() => {})
         .catch(() => {})
+    },
+    toCreate() {
+      this.$router.push({ path: '/segment/create' })
     },
   },
 }

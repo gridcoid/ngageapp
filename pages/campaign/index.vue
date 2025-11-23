@@ -2,7 +2,8 @@
   <div class="containers" style="width: 100%">
     <div class="flex items-center header-content">
       <div class="title-header">Campaign</div>
-      <k-button
+      <ButtonDefault
+        icon="plus"
         text="Create New"
         class="ml-4"
         type="secondary"
