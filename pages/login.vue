@@ -73,17 +73,19 @@
               />
             </Transition>
             <k-button
+              v-if="!isDevHost"
               text="Login"
               class="mt-6"
               size="large"
               @click.native="login()"
             />
-            <!-- <k-button
-              text="Forgot Password?"
-              class="mt-2"
-              type="text"
-              size="large"
-            /> -->
+            <button
+              v-else
+              class="bg-red-500 hover:bg-red-700 text-white py-2 mt-6 rounded w-full"
+              @click="login()"
+            >
+              Login
+            </button>
           </span>
           <div
             v-else
