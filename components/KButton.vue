@@ -36,7 +36,7 @@
       {{ text }}
     </button>
   </div>
-  <div v-else>asd</div>
+  <div v-else class="text-red-500">k-button error properties</div>
 </template>
 <script>
 export default {
