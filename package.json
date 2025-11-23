@@ -1,16 +1,18 @@
 {
-  "name": "unimind",
+  "name": "n-gage",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node --max-old-space-size=1024 node_modules/nuxt/bin/nuxt.js",
+    "dev": "node --max-old-space-size=2048 node_modules/nuxt/bin/nuxt.js",
     "build": "node --max-old-space-size=2048 node_modules/nuxt/bin/nuxt.js build",
     "start": "node --max-old-space-size=2048 node_modules/nuxt/bin/nuxt.js start",
-    "generate": "nuxt generate",
+    "generate": "BASE_URL=https://api.ngage.grid.co.id/v1/ nuxt generate",
+    "generate:dev": "BASE_URL=https://api.dev.ngage.grid.co.id/v1/ nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "npm run lint:js",
     "test": "nightwatch",
-    "rsync": "rsync -avzh ./dist/ unimind@117.53.44.121:~/apps/ngage/app/"
+    "rsync": "rsync -avzh ./dist/ unimind@117.53.44.121:~/apps/ngage/app/",
+    "rsync:dev": "rsync -avzh ./dist/ unimind@117.53.44.121:~/apps/ngage/app.dev/"
   },
   "dependencies": {
     "@nuxt/content": "^1.9.0",
