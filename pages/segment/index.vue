@@ -24,7 +24,7 @@
           @click="showDialog()"
         >
           <img src="~/assets/images/campaign/icon_filter.svg" class="mr-2" />
-          Sort & Filter
+          Sort
         </button>
         <div class="hr-vertical" />
         <div class="search-card">
@@ -493,7 +493,7 @@ export default {
       font-size: 14px;
       font-weight: 700;
       height: 36px;
-      width: 138px;
+      width: 100px;
       align-items: center;
     }
     .k-btn:hover {
