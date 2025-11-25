@@ -96,7 +96,7 @@
             class="mr-6"
           >
             <template slot="body">
-              <div
+              <!--div
                 class="item-menu flex items-center no-select"
                 @click="openDuplicateDialog(item)"
               >
@@ -105,7 +105,7 @@
                   class="icon-item"
                 />
                 Duplicate
-              </div>
+              </div-->
               <div
                 class="item-menu flex items-center no-select"
                 style="
@@ -133,19 +133,28 @@
         @rowPage="changeRowPage($event)"
       />
     </div>
-    <div v-else class="flex flex-col items-center mt-6 no-data">
+    <div v-else class="flex flex-col items-center mt-24 no-data">
       <img src="~/assets/images/campaign/empty_table.svg" />
-      <div class="title-1">It’s Very Clean Here</div>
+      <div class="title-1 mt-2">It’s Very Clean Here</div>
       <div class="subtitle-1">
         Seems like you haven’t created any segment yet. Create one now?
       </div>
-      <button
-        class="flex items-center justify-center save-btn no-select"
-        @click="toCreate()"
-      >
-        <IconSave bg-color="#1B63D4" />
-        <div class="name-btn">Create New Audience Segment</div>
-      </button>
+      <div class="flex items-center justify-center mt-4">
+        <button
+          class="flex items-center justify-center save-btn no-select"
+          @click="toCreate()"
+        >
+          <IconPlus bg-color="#1B63D4" />
+          <div class="name-btn">Create New Segment</div>
+        </button>
+        <button
+          class="flex items-center justify-center save-btn no-select"
+          @click="$router.go(0)"
+        >
+          <IconRefresh bg-color="#1B63D4" />
+          <div class="name-btn">Reload This Page</div>
+        </button>
+      </div>
     </div>
 
     <transition name="slide">
