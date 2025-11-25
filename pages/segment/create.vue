@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     back() {
-      this.$router.push({ path: '/audience' })
+      this.$router.push({ path: '/segment' })
     },
     save() {
       this.$notifier.showMessage({
