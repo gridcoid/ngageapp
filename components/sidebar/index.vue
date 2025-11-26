@@ -84,9 +84,7 @@ export default {
   },
 
   methods: {
-    open() {
-      console.log('open')
-    },
+    open() {},
     onSidebar() {
       this.$store.commit('user/SET_SIDEBAR')
     },

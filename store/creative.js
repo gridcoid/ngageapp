@@ -77,7 +77,7 @@ export const mutations = {
       const format = item.template.format
       const dataForm = item.configSchema.properties
       const keys = Object.keys(dataForm)
-      console.log('keys : ', keys)
+
       const sortedKeys = [
         'titleTxt',
         'bodyTxt',
@@ -103,7 +103,7 @@ export const mutations = {
           return indexA - indexB
         })
       }
-      console.log('keys sorted : ', keys)
+
       const data = []
       const keyName = []
       keys.forEach((key, index) => {

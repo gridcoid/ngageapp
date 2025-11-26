@@ -1847,10 +1847,10 @@
                 darkWrap = document.querySelector(".js-darkWrapper"),
                 darkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
-            // console.log('1 : ', darkBtn)
-            // console.log('2 : ', darkSettingBtn)
-            // console.log('3 : ', darkWrap)
-            // console.log('4 : ', dardarkSchemekBtn)
+            //
+            //
+            //
+            //
             function checkTheme() {
                 let e = getDarkCookies("_mode");
                 if ("dark" == e || "light" == e) {
@@ -1863,7 +1863,7 @@
                 }
             }
             function setTheme(e) {
-                console.log('set theme : ', e)
+
                 if (e) {
                     document.body.classList.remove("theme-dark"),
                         document.body.classList.remove("theme-light"),
@@ -1884,7 +1884,7 @@
                 }
             }
             function toggleDarkSetting(e) {
-                console.log('toogle : ', e)
+
                 e &&
                     ((" " + e.className + " ").replace(/[\n\t]/g, " ").indexOf("-setting") > -1
                         ? (e.classList.remove("-setting"),
@@ -2929,7 +2929,7 @@
 
 
                         <script async>
-                            console.log('show_rekomendasi_konten_pilihan_untukmu');
+
 
                             let content_tags = document.querySelector('meta[name="content_tags"]').content;
                             let title = document.querySelector('title').innerHTML;
@@ -3224,7 +3224,7 @@
                                         }
                                     } catch (err) {
                                         jxRecHelper.error(901);
-                                        console.log(err.stack);
+
                                     }
                                 });
                             }
@@ -3317,7 +3317,7 @@
                                                 })
                                         })
                                         .catch(function (error) {
-                                            console.log(`Unable to create recommendations widget ${error.stack} ${error.message}`);
+
                                         });
                                 }
                             }
@@ -3358,7 +3358,7 @@
                                         tracker = ga.getAll()[0];
                                         if (tracker) {
                                             tracker.send("event", category, action, label);
-                                            console.log('track event ', category, action, label)
+
                                         }
                                     })
                                 }
@@ -3372,9 +3372,9 @@
                                             el.parentElement.classList.toggle('-active')
                                         })
                                         document.addEventListener("click", function (e) {
-                                            // console.log(e.target)
+                                            //
                                             if (el.contains(e.target)) {
-                                                // console.log(tdd)
+                                                //
                                             } else {
                                                 el.parentElement.classList.remove('-active')
                                             }
@@ -3450,9 +3450,9 @@
                                             }
                                         })
                                         document.addEventListener("click", function (e) {
-                                            // console.log(e.target)
+                                            //
                                             if (el.contains(e.target)) {
-                                                // console.log(tdd)
+                                                //
                                             } else {
                                                 el.parentElement.classList.remove('-active')
                                             }
@@ -4144,7 +4144,7 @@
                             });
                         }
 
-                        console.log('show_rekomendasi');
+
                         var rekomendasi_xhr = new XMLHttpRequest();
                         rekomendasi_xhr.onreadystatechange = function () {
                             if (this.readyState == 4 && this.status == 200) {
@@ -4175,7 +4175,7 @@
                                 // if(document.cookie.indexOf('pushRelated=') == -1 && Notification.permission == "granted"){
                                 //     setTimeout(function(){
                                 //         pushRelated(pr_title,pr_img,pr_path);
-                                //         console.log('after 5 second, show push message related article');
+                                //
                                 //     }, 5000); // show notif after 5 second
                                 // }
                             }
@@ -5261,7 +5261,7 @@ z-index: 9999;
         //         message = evt.data
         //     }
         //     data = message
-        //     console.log('message : ', data)
+        //
         //     if (data.format === 'rmb' || data.format === 'custom_upload') {
         //         document.getElementById('img404x150').style.display = 'none';
         //         document.getElementById('img404x110').style.display = 'none';

@@ -60,7 +60,6 @@ export default {
     }),
   },
   mounted() {
-    console.log('ini', this.titleForm)
     this.getDetail()
   },
   methods: {

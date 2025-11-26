@@ -250,7 +250,7 @@ export default {
         confirmNewPassword: this.confirm_password,
         userId: this.userid,
       }
-      console.log('datanya', data)
+
       const x = setTimeout(
         () =>
           this.$store

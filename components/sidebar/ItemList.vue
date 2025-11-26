@@ -118,12 +118,8 @@ export default {
     this.checkRole()
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath)
-    },
+    handleOpen(key, keyPath) {},
+    handleClose(key, keyPath) {},
     activeIcon(item) {
       this.$store.commit('user/SET_ACTIVE', item.name)
       this.$router.push({

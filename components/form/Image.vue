@@ -183,7 +183,7 @@ export default {
         height: this.dataForm[indexForm].height,
         width: this.dataForm[indexForm].width,
       }
-      // console.log('crop :', data)
+      //
       this.$emit('openEditor', data)
     },
     deleteImage() {
@@ -308,13 +308,12 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res)
           const fileKey =
             this.$config.baseURL + 'obs?fileKey=' + res.data.data.fileKeys[0]
           const indexForm = this.dataForm.findIndex(
             (x) => x.title === this.titleImage
           )
-          console.log('dataFile : ', this.imageData)
+
           const dataJSON = {
             index: this.indexImage,
             default: this.imageData,

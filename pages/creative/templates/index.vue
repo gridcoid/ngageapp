@@ -193,7 +193,7 @@ export default {
       // const data = []
       // data.push(this.currentResolution)
       // this.resolutionId = JSON.stringify(data)
-      // console.log('currentResolution: ', this.currentResolution)
+      //
       // this.getData()
       this.getResolution()
     },

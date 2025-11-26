@@ -830,7 +830,6 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log('to : ', to, from)
       // this.$store.state.formRecord.field1 = ''
     },
   },

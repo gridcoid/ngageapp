@@ -178,7 +178,6 @@
         margin-bottom: 0 !important;
       }
 
-
       #igpro {
         position: absolute;
         bottom: 14px;
@@ -206,42 +205,27 @@
   <body>
     <div id="border"></div>
     <div id="main-container">
-      <div id="container" style="background-color: #bb9165;"></div>
+      <div id="container" style="background-color: #bb9165"></div>
 
       <div class="tiles-container">
         <div class="tiles tl1">
-          <img
-            id="p1a"
-            class="imga"
-          />
+          <img id="p1a" class="imga" />
           <img id="p1b" class="imgb" />
         </div>
         <div class="tiles tl2">
-          <img
-            id="p2a"
-            class="imga"
-          />
+          <img id="p2a" class="imga" />
           <img id="p2b" class="imgb" />
         </div>
         <div class="tiles tl3">
-          <img
-            id="p3a"
-            class="imga"
-          />
+          <img id="p3a" class="imga" />
           <img id="p3b" class="imgb" />
         </div>
         <div class="tiles tl4">
-          <img
-            id="p4a"
-            class="imga"
-          />
+          <img id="p4a" class="imga" />
           <img id="p4b" class="imgb" />
         </div>
         <div class="tiles tl5">
-          <img
-            id="p5a"
-            class="imgb"
-          />
+          <img id="p5a" class="imgb" />
           <img id="p5b" class="imgb" />
         </div>
       </div>
@@ -276,49 +260,75 @@
         </p>
       </div>
       <div id="cta" style="background-color: #333333">
-        <span id="cta_text"><p style="color: #ffffff; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 16px;">Reserve Now</p></span>
+        <span id="cta_text"
+          ><p
+            style="
+              color: #ffffff;
+              font-family: 'Inter', sans-serif;
+              font-weight: 700;
+              font-size: 16px;
+            "
+          >
+            Reserve Now
+          </p></span
+        >
       </div>
       <img
         src="https://dev-api.unimind.id/v1/obs?fileKey=defaults/creative_templates/tiles_1_320x480/logo.jpg"
         id="pro"
       />
-      <div id="foll"><span style="font-weight: 400; font-size: 12px; font-family: 'Inter', Roboto, sans-serif; color: #ffffff;">Follow us</span></div>
-      <div id="igpro"><span style="font-weight: 500; font-size: 14px; font-family: 'Inter', Roboto, sans-serif; color: #ffffff;">@kgcoffeehouse</span></div>
+      <div id="foll">
+        <span
+          style="
+            font-weight: 400;
+            font-size: 12px;
+            font-family: 'Inter', Roboto, sans-serif;
+            color: #ffffff;
+          "
+          >Follow us</span
+        >
+      </div>
+      <div id="igpro">
+        <span
+          style="
+            font-weight: 500;
+            font-size: 14px;
+            font-family: 'Inter', Roboto, sans-serif;
+            color: #ffffff;
+          "
+          >@kgcoffeehouse</span
+        >
+      </div>
       <div id="exithit"></div>
-      <input
-        type="hidden"
-        id="pics"
-        value=""
-      />
+      <input type="hidden" id="pics" value="" />
       <input type="hidden" id="url" value="https://google.com" />
     </div>
     <script>
-      let urllink = document.getElementById("url").value;
-      let tla = 150;
-      let tlb = 0;
+      let urllink = document.getElementById('url').value
+      let tla = 150
+      let tlb = 0
       // var limg = [p1a.src, p2a.src, p3a.src, p4a.src, p5a.src];
-      var limg = document.getElementById("pics").value.split(",");
-      let postsld = 1;
-      let loops = 50;
+      var limg = document.getElementById('pics').value.split(',')
+      let postsld = 1
+      let loops = 50
       var dataFromVue = []
       dataFromVue = limg
 
-      TweenLite.to(p1b, 0, { y: -150, ease: Expo.easeOut });
-      TweenLite.to(p2b, 0, { y: -150, ease: Expo.easeOut });
-      TweenLite.to(p3b, 0, { y: -150, ease: Expo.easeOut });
-      TweenLite.to(p4b, 0, { y: -150, ease: Expo.easeOut });
-      TweenLite.to(p5b, 0, { y: -150, ease: Expo.easeOut });
+      TweenLite.to(p1b, 0, { y: -150, ease: Expo.easeOut })
+      TweenLite.to(p2b, 0, { y: -150, ease: Expo.easeOut })
+      TweenLite.to(p3b, 0, { y: -150, ease: Expo.easeOut })
+      TweenLite.to(p4b, 0, { y: -150, ease: Expo.easeOut })
+      TweenLite.to(p5b, 0, { y: -150, ease: Expo.easeOut })
 
       // initimages();
 
-      exithit.addEventListener("click", exitUrl);
+      exithit.addEventListener('click', exitUrl)
 
       function exitUrl() {
-        window.open(urllink, "_BLANK");
+        window.open(urllink, '_BLANK')
       }
 
       function initimages() {
-        console.log('initimages')
         // limg = dataFromVue
         dataFromVue.forEach((e, index) => {
           if (typeof e !== 'string') {
@@ -331,42 +341,41 @@
             })
           }
         })
-        console.log('dataFromVue : ', dataFromVue)
-        p1a.src = dataFromVue[0];
-        p1b.src = dataFromVue[3];
-        p2a.src = dataFromVue[1];
-        p2b.src = dataFromVue[0];
-        p3a.src = dataFromVue[2];
-        p3b.src = dataFromVue[1];
-        p4a.src = dataFromVue[3];
-        p4b.src = dataFromVue[2];
-        p5a.src = dataFromVue[0];
-        p5b.src = dataFromVue[4];
-        runslide();
+
+        p1a.src = dataFromVue[0]
+        p1b.src = dataFromVue[3]
+        p2a.src = dataFromVue[1]
+        p2b.src = dataFromVue[0]
+        p3a.src = dataFromVue[2]
+        p3b.src = dataFromVue[1]
+        p4a.src = dataFromVue[3]
+        p4b.src = dataFromVue[2]
+        p5a.src = dataFromVue[0]
+        p5b.src = dataFromVue[4]
+        runslide()
       }
 
       function runslide() {
-        console.log('runslide')
-        TweenLite.to(p1a, 2, { y: tla, ease: Expo.easeInOut });
-        TweenLite.to(p1b, 2, { y: tlb, ease: Expo.easeInOut });
+        TweenLite.to(p1a, 2, { y: tla, ease: Expo.easeInOut })
+        TweenLite.to(p1b, 2, { y: tlb, ease: Expo.easeInOut })
 
-        TweenLite.to(p2a, 2, { y: tla, ease: Expo.easeInOut });
-        TweenLite.to(p2b, 2, { y: tlb, ease: Expo.easeInOut });
+        TweenLite.to(p2a, 2, { y: tla, ease: Expo.easeInOut })
+        TweenLite.to(p2b, 2, { y: tlb, ease: Expo.easeInOut })
 
-        TweenLite.to(p3a, 2, { y: tla, ease: Expo.easeInOut });
-        TweenLite.to(p3b, 2, { y: tlb, ease: Expo.easeInOut });
+        TweenLite.to(p3a, 2, { y: tla, ease: Expo.easeInOut })
+        TweenLite.to(p3b, 2, { y: tlb, ease: Expo.easeInOut })
 
-        TweenLite.to(p4a, 2, { y: tla, ease: Expo.easeInOut });
-        TweenLite.to(p4b, 2, { y: tlb, ease: Expo.easeInOut });
+        TweenLite.to(p4a, 2, { y: tla, ease: Expo.easeInOut })
+        TweenLite.to(p4b, 2, { y: tlb, ease: Expo.easeInOut })
 
-        p5a.src = dataFromVue[0];
-        p5b.src = dataFromVue[1];
-        TweenLite.to(p5a, 2, { y: tla, ease: Expo.easeInOut });
+        p5a.src = dataFromVue[0]
+        p5b.src = dataFromVue[1]
+        TweenLite.to(p5a, 2, { y: tla, ease: Expo.easeInOut })
         TweenLite.to(p5b, 2, {
           y: tlb,
           ease: Expo.easeInOut,
           onComplete: updateimage,
-        });
+        })
 
         // setTimeout(runslide, 3000);
         TweenLite.to(foll, 0, {
@@ -374,136 +383,132 @@
           ease: Expo.easeOut,
           delay: 3.5,
           onComplete: autoSlide,
-        });
+        })
       }
 
       function autoSlide() {
-        console.log('autoSlide')
         if (loops >= 0) {
-          runslide();
+          runslide()
         }
-        loops--;
-        // console.log('loop : ', loops)
+        loops--
+        //
       }
 
       function updateimage() {
-        console.log('updateimage')
-        postsld++;
+        postsld++
 
         if (postsld > 4) {
-          postsld = 1;
+          postsld = 1
         }
 
         switch (postsld) {
           case 1:
-            p2b.src = dataFromVue[0];
-            p1b.src = dataFromVue[1];
-            p4b.src = dataFromVue[2];
-            p3b.src = dataFromVue[3];
-            break;
+            p2b.src = dataFromVue[0]
+            p1b.src = dataFromVue[1]
+            p4b.src = dataFromVue[2]
+            p3b.src = dataFromVue[3]
+            break
           case 2:
-            p3a.src = dataFromVue[0];
-            p4a.src = dataFromVue[1];
-            p1a.src = dataFromVue[2];
-            p2a.src = dataFromVue[3];
-            break;
+            p3a.src = dataFromVue[0]
+            p4a.src = dataFromVue[1]
+            p1a.src = dataFromVue[2]
+            p2a.src = dataFromVue[3]
+            break
           case 3:
-            p4b.src = dataFromVue[0];
-            p1b.src = dataFromVue[1];
-            p2b.src = dataFromVue[2];
-            p3b.src = dataFromVue[3];
-            break;
+            p4b.src = dataFromVue[0]
+            p1b.src = dataFromVue[1]
+            p2b.src = dataFromVue[2]
+            p3b.src = dataFromVue[3]
+            break
           case 4:
-            p1a.src = dataFromVue[0];
-            p3a.src = dataFromVue[2];
-            p4a.src = dataFromVue[3];
-            p2a.src = dataFromVue[1];
-            break;
+            p1a.src = dataFromVue[0]
+            p3a.src = dataFromVue[2]
+            p4a.src = dataFromVue[3]
+            p2a.src = dataFromVue[1]
+            break
         }
 
         if (tla == 150) {
-          TweenLite.to(p1a, 0, { y: -150, ease: Expo.easeOut });
-          TweenLite.to(p2a, 0, { y: -150, ease: Expo.easeOut });
-          TweenLite.to(p3a, 0, { y: -150, ease: Expo.easeOut });
-          TweenLite.to(p4a, 0, { y: -150, ease: Expo.easeOut });
-          TweenLite.to(p5a, 0, { y: -150, ease: Expo.easeOut });
+          TweenLite.to(p1a, 0, { y: -150, ease: Expo.easeOut })
+          TweenLite.to(p2a, 0, { y: -150, ease: Expo.easeOut })
+          TweenLite.to(p3a, 0, { y: -150, ease: Expo.easeOut })
+          TweenLite.to(p4a, 0, { y: -150, ease: Expo.easeOut })
+          TweenLite.to(p5a, 0, { y: -150, ease: Expo.easeOut })
 
-          tla = 0;
-          tlb = 150;
+          tla = 0
+          tlb = 150
         } else {
-          TweenLite.to(p1b, 0, { y: -150, ease: Expo.easeOut });
-          TweenLite.to(p2b, 0, { y: -150, ease: Expo.easeOut });
-          TweenLite.to(p3b, 0, { y: -150, ease: Expo.easeOut });
-          TweenLite.to(p4b, 0, { y: -150, ease: Expo.easeOut });
-          TweenLite.to(p5b, 0, { y: -150, ease: Expo.easeOut });
+          TweenLite.to(p1b, 0, { y: -150, ease: Expo.easeOut })
+          TweenLite.to(p2b, 0, { y: -150, ease: Expo.easeOut })
+          TweenLite.to(p3b, 0, { y: -150, ease: Expo.easeOut })
+          TweenLite.to(p4b, 0, { y: -150, ease: Expo.easeOut })
+          TweenLite.to(p5b, 0, { y: -150, ease: Expo.easeOut })
 
-          tla = 150;
-          tlb = 0;
+          tla = 150
+          tlb = 0
         }
       }
 
-    function displayMessage(evt) {
-        console.log('displayMessage')
-      var message;
-      message = evt.data
-      console.log('message : ', message)
-      // background color and image
-      document
-        .getElementById("container")
-        .setAttribute(
-          "style",
-          message[6].default +
-            ";background-image:url('" +
-            message[7].default +
-            "')"
-        );
-      // button
-      document.getElementById("cta_text").innerHTML = message[0].default.text;
-      document
-        .getElementById("cta")
-        .setAttribute("style", message[0].default.bg_color);
-      // image
-      document.getElementById("pro").src = message[1].default;
-      // text
-      document.getElementById("foll").innerHTML = message[2].default;
-      document.getElementById("igpro").innerHTML = message[4].default;
-      // document.getElementById("subline").innerHTML = '<p><span style="font-family: Roboto Slab, Roboto, sans-serif; font-size: 18px; color: rgb(255, 255, 255)">weasd</span></p>'
-      document.getElementById("subline").innerHTML = message[5].default;
-      document.getElementById("headline").innerHTML = message[8].default;
-      // image array
-      if(typeof message[3].default === 'object') {
-        dataFromVue = message[3].default
+      function displayMessage(evt) {
+        var message
+        message = evt.data
+
+        // background color and image
+        document
+          .getElementById('container')
+          .setAttribute(
+            'style',
+            message[6].default +
+              ";background-image:url('" +
+              message[7].default +
+              "')"
+          )
+        // button
+        document.getElementById('cta_text').innerHTML = message[0].default.text
+        document
+          .getElementById('cta')
+          .setAttribute('style', message[0].default.bg_color)
+        // image
+        document.getElementById('pro').src = message[1].default
+        // text
+        document.getElementById('foll').innerHTML = message[2].default
+        document.getElementById('igpro').innerHTML = message[4].default
+        // document.getElementById("subline").innerHTML = '<p><span style="font-family: Roboto Slab, Roboto, sans-serif; font-size: 18px; color: rgb(255, 255, 255)">weasd</span></p>'
+        document.getElementById('subline').innerHTML = message[5].default
+        document.getElementById('headline').innerHTML = message[8].default
+        // image array
+        if (typeof message[3].default === 'object') {
+          dataFromVue = message[3].default
+        } else {
+          dataFromVue = message[3].default.split(',')
+        }
+
+        initimages()
+      }
+
+      if (window.addEventListener) {
+        // For standards-compliant web browsers
+        window.addEventListener('message', displayMessage, false)
       } else {
-        dataFromVue = message[3].default.split(',')
+        window.attachEvent('onmessage', displayMessage)
       }
-      console.log('resultData: ', dataFromVue)
-      initimages();
 
-    }
-
-    if (window.addEventListener) {
-      // For standards-compliant web browsers
-      window.addEventListener("message", displayMessage, false);
-    } else {
-      window.attachEvent("onmessage", displayMessage);
-    }
-
-    function getBase64 (file) {
-      return new Promise(function (resolve, reject) {
-        const reader = new FileReader()
-        let imgResult = ''
-        reader.readAsDataURL(file)
-        reader.onload = function () {
-          imgResult = reader.result
-        }
-        reader.onerror = function (error) {
-          reject(error)
-        }
-        reader.onloadend = function () {
-          resolve(imgResult)
-        }
-      })
-    }
+      function getBase64(file) {
+        return new Promise(function (resolve, reject) {
+          const reader = new FileReader()
+          let imgResult = ''
+          reader.readAsDataURL(file)
+          reader.onload = function () {
+            imgResult = reader.result
+          }
+          reader.onerror = function (error) {
+            reject(error)
+          }
+          reader.onloadend = function () {
+            resolve(imgResult)
+          }
+        })
+      }
     </script>
   </body>
 </html>

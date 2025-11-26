@@ -593,39 +593,33 @@ export default {
       this.color = this.editor.getAttributes('textStyle').color
     },
     findOpacity() {
-      this.editor.on('update', ({ editor }) => {
-        console.log(editor)
-        console.log('the content has changed.')
-      })
+      this.editor.on('update', ({ editor }) => {})
 
-      this.editor.on('selectionUpdate', ({ editor }) => {
-        console.log(editor)
-        console.log('the content has selection.')
-      })
+      this.editor.on('selectionUpdate', ({ editor }) => {})
 
       // this.editor.on('transaction', ({ editor, transaction }) => {
-      //   console.log(editor)
-      //   console.log('the content has transaction.')
+      //
+      //
       // })
 
       // this.editor.on('focus', ({ editor, event }) => {
-      //   console.log(editor)
-      //   console.log('the content has focus.')
+      //
+      //
       // })
 
       // this.editor.on('blur', ({ editor, event }) => {
-      //   console.log(editor)
-      //   console.log('the content has blur.')
+      //
+      //
       // })
 
       // this.editor.on('destroy', () => {
-      //   console.log(editor)
-      //   console.log('the content has destroy.')
+      //
+      //
       // })
       // if (this.editor.getAttributes('textStyle').fontSize2 === '') {
       //   this.opacity = 100
       // } else {
-      //   console.log('opac : ', this.opacity)
+      //
       //   console.log(
       //     'getAttributes : ',
       //     this.editor.getAttributes('textStyle').fontSize2

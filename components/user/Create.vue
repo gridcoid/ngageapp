@@ -413,7 +413,7 @@ export default {
           // this.phone = result.data.data.phone
           this.selectedRolesId = result.data.data.userRoles[0].role.id
           this.org = result.data.data.userRoles[0].orgId
-          console.log('roles di get user', this.selectedRolesId)
+
           this.getRoles()
           this.getOrg()
         })
@@ -426,12 +426,11 @@ export default {
         .then((res) => {
           const data = res
           if (this.isEdit) {
-            console.log('selected roles', this.selectedRolesId)
             this.selectedRoles = data.find(
               (item) => item.id === parseInt(this.selectedRolesId)
             ).id
           }
-          console.log('rolesid', this.selectedRoles)
+
           this.$store.commit('user/SET_CHANGE_ROLES', data)
         })
         .catch(() => {

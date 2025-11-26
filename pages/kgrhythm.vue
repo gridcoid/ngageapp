@@ -798,14 +798,13 @@ export default {
             this.name = this.dataScrapeText.titleTxt
             this.dataMood = this.dataScrapeText.mood
             const keys = Object.keys(this.dataScrapeText)
-            console.log('dataScrapeText : ', keys)
+
             const keysProperties = Object.keys(this.dataProperties)
-            console.log('dataProperties : ', keysProperties)
+
             const dataTemplateScraping = Object.keys(this.dataTemplateScraping)
-            console.log('dataTemplateScraping : ', this.dataTemplateScraping)
+
             keys.forEach((key, index) => {
               if (dataTemplateScraping.includes(key)) {
-                console.log('masuk : ', this.dataScrapeText[key])
                 const scrapeTextColor = {
                   color: '',
                   text: '',
@@ -1015,7 +1014,7 @@ export default {
             type: 'ImageArray',
             src: dataImageArrayRaw2Array,
           }
-          console.log('set data form', data)
+
           this.$store.commit('template/SET_DATA_FORM', data)
           this.isLoadingForm = false
           this.toPlay()
@@ -1052,7 +1051,6 @@ export default {
       }
       const endpoint = `template/${payload.id}/resolution?orgId=${this.orgId}`
       this.$axios.get(endpoint).then((res) => {
-        console.log('res getResolutionTemplateNew', res.data.data)
         const data = res.data.data
         if (data.length > 0) {
           const id = this.$router.currentRoute.query.resolution
@@ -1079,7 +1077,6 @@ export default {
           id: this.$router.currentRoute.query.id,
         })
         .then((res) => {
-          console.log('res get res', res.status)
           if (res.status === 201 || res.status === 200) {
             const data = res.data.data
             if (data.length > 0) {
@@ -1136,9 +1133,8 @@ export default {
         resolution: this.selectedResolution,
       }
       const endpoint = `template/${payload.id}?orgId=${this.orgId}&resolutionId=${payload.resolution}`
-      console.log('endpoint getTemplateDetailNew', endpoint)
+
       this.$axios.get(endpoint).then((res) => {
-        console.log('res getTemplateDetailNew', res.data.data)
         this.$store.commit('template/SET_DATA_DETAIL_TEMPLATE', res.data.data)
         this.nameTemplate = res.data.data.name
         this.type = res.data.data.format
@@ -1611,9 +1607,7 @@ export default {
                     this.saveLoaded = false
                   })
               })
-              .catch((err) => {
-                console.log('error : ', err)
-              })
+              .catch((err) => {})
           } else {
             this.$store
               .dispatch('creative/createCreative', payload)
@@ -1788,7 +1782,7 @@ export default {
                 )[0].default,
               }
             }, {})
-          console.log('payloadColorOnly : ', payloadColorOnly)
+
           const payloadJson = this.keyName
             .filter(({ type }) => type === 'Json')
             .reduce((item, value) => {
@@ -2123,9 +2117,9 @@ export default {
             payloadColorOnly,
             payloadJson
           )
-          console.log('aschema : ', configSchema)
+
           const iframeWin = document.getElementById('da-iframe').contentWindow
-          console.log('iframeWin : ', iframeWin)
+
           iframeWin.postMessage(configSchema, '*')
           this.isLoading = false
         } else {
@@ -2148,7 +2142,7 @@ export default {
             payloadTextColor2,
             payloadColorOnly
           )
-          console.log('schema : ', configSchema)
+
           const iframeWin = document.getElementById('da-iframe').contentWindow
           iframeWin.postMessage(configSchema, '*')
           this.isLoading = false
@@ -2157,7 +2151,7 @@ export default {
     },
     refresh() {
       const iframe = document.getElementById('da-iframe')
-      console.log('iframe : ', iframe)
+
       iframe.src = iframe.src + '?c=' + Math.random()
       const iframeWin = document.getElementById('da-iframe').contentWindow
       iframeWin.postMessage(this.dataForm, '*')

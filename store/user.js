@@ -391,7 +391,6 @@ export const actions = {
     }
   },
   async userChangePassword({ commit }, payload) {
-    console.log(payload)
     try {
       const response = await this.$repositories.user.changePassword(payload)
       return response

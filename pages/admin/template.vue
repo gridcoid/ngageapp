@@ -467,7 +467,7 @@ export default {
     beforeAvatarUpload(file) {},
     handleChange(file) {
       const formatData = file.raw.type
-      console.log('format data : ', formatData)
+
       const origins = [
         'image/gif',
         'image/jpg',

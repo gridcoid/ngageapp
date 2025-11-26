@@ -817,10 +817,10 @@
                 darkWrap = document.querySelector(".js-darkWrapper"),
                 darkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
-            // console.log('1 : ', darkBtn)
-            // console.log('2 : ', darkSettingBtn)
-            // console.log('3 : ', darkWrap)
-            // console.log('4 : ', dardarkSchemekBtn)
+            //
+            //
+            //
+            //
             function checkTheme() {
                 let e = getDarkCookies("_mode");
                 if ("dark" == e || "light" == e) {
@@ -833,7 +833,7 @@
                 }
             }
             function setTheme(e) {
-                console.log('set theme : ', e)
+
                 if (e) {
                     document.body.classList.remove("theme-dark"),
                         document.body.classList.remove("theme-light"),
@@ -854,7 +854,7 @@
                 }
             }
             function toggleDarkSetting(e) {
-                console.log('toogle : ', e)
+
                 e &&
                     ((" " + e.className + " ").replace(/[\n\t]/g, " ").indexOf("-setting") > -1
                         ? (e.classList.remove("-setting"),
@@ -1882,7 +1882,7 @@
 		// 		message = evt.data
 		// 	}
 		// 	data = message
-		// 	console.log('message : ', data)
+		//
 
 		// 	if (data.format === 'rmb' || data.format === 'custom_upload') {
 		// 		document.getElementById('img300x600').style.display = 'none';

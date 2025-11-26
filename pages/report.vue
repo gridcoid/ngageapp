@@ -555,9 +555,7 @@ export default {
             this.detail.ctr = data.ctr + '%'
           }
         })
-        .catch((e) => {
-          console.log('error : ', e)
-        })
+        .catch((e) => {})
     },
     async filterCreative() {
       await this.$axios
@@ -568,7 +566,6 @@ export default {
         )
         .then((res) => {
           const data1 = []
-          console.log('res : ', res)
 
           const data = res.data.data
           this.dataCreative = data.length
@@ -627,17 +624,15 @@ export default {
               y: parseFloat(data[i].ctr),
             })
           }
-          // console.log('series : ', this.series[0])
+          //
           // this.series[0].data.sort((a, b) => b.y - a.y)
-          // console.log(this.series)
+          //
           // for (let i = 0; i < this.series[0].length; i++) {
           //   // if (this.series[1][i].y)
           //   this.series[0].i
           // }
         })
-        .catch((e) => {
-          console.log('error : ', e)
-        })
+        .catch((e) => {})
     },
     sortedArray() {
       return this.arrays.sort((a, b) => a.name - b.name)
@@ -689,15 +684,12 @@ export default {
 
           this.totalSegement = res.data.data.length
         })
-        .catch((e) => {
-          console.log('error : ', e)
-        })
+        .catch((e) => {})
     },
     async filterOval() {
       await this.$axios
         .get('campaign/oval/reports?campaignId=' + this.selectedCampaign)
         .then((res) => {
-          console.log('res: ', res.data.data)
           this.dataOval = res.data.data
           this.dataOval.city = this.dataOval.city.slice(0, 5)
           this.dataOccupation = res.data.data.occupation.slice(0, 5)
@@ -743,9 +735,7 @@ export default {
               '%'
           }
         })
-        .catch((e) => {
-          console.log('error : ', e)
-        })
+        .catch((e) => {})
     },
     async getDataCampaignId() {
       await this.$axios
@@ -762,9 +752,7 @@ export default {
           this.valueDate.push(lastDay)
           this.filter()
         })
-        .catch((e) => {
-          console.log('error : ', e)
-        })
+        .catch((e) => {})
     },
     async getDataCreative() {
       await this.$axios
@@ -834,9 +822,7 @@ export default {
             })
           }
         })
-        .catch((e) => {
-          console.log('error : ', e)
-        })
+        .catch((e) => {})
     },
     handleResize() {
       this.width = window.innerWidth
@@ -844,12 +830,8 @@ export default {
     async getDataSegment() {
       await this.$axios
         .get('json/campaign_audience_category')
-        .then((res) => {
-          console.log('getDataSegment : ', res)
-        })
-        .catch((e) => {
-          console.log('error : ', e)
-        })
+        .then((res) => {})
+        .catch((e) => {})
     },
   },
 }

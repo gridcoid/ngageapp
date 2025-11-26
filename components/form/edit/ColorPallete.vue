@@ -64,7 +64,7 @@ export default {
       this.defaultData = this.dataForm.find(
         (item) => item.title === this.titleForm
       )
-      console.log('edit color palete : ', this.defaultData)
+
       this.color = this.defaultData.default
       this.changeData()
       this.isLoading = false

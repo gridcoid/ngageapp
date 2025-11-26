@@ -293,7 +293,6 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res)
           const fileKey =
             this.$config.baseURL + 'obs?fileKey=' + res.data.data.fileKeys[0]
           const indexForm = this.dataForm.findIndex(

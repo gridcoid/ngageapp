@@ -488,7 +488,6 @@ export default {
           type: type,
         })
         .then((res) => {
-          console.log('res duration : ', res)
           this.duration = res.data.data.duration + ' seconds'
           this.isLoadingDuration = false
         })
@@ -498,7 +497,6 @@ export default {
     },
     onChangeAudio(data) {
       this.selectedAudio = data
-      console.log('audio : ', this.selectedAudio)
     },
     toPlay() {
       this.showIframe = true
@@ -564,7 +562,6 @@ export default {
               fileKey: '',
             })
           } else {
-            console.log('string : ', this.dataImageRaw[i].default)
             if (this.dataImageRaw[i].default?.includes(this.$config.baseURL)) {
               const text = this.dataImageRaw[i].default
               let data = text.indexOf('fileKey=')
@@ -695,7 +692,6 @@ export default {
                 )[0].default,
               }
             }, {})
-          console.log('payloadColorOnly : ', payloadColorOnly)
 
           const payloadJson = this.keyName
             .filter(({ type }) => type === 'Json')
@@ -832,7 +828,6 @@ export default {
               fileKey: '',
             })
           } else {
-            console.log('string : ', this.dataImageRaw[i].default)
             if (this.dataImageRaw[i].default?.includes(this.$config.baseURL)) {
               const text = this.dataImageRaw[i].default
               let data = text.indexOf('fileKey=')
@@ -963,7 +958,7 @@ export default {
                 )[0].default,
               }
             }, {})
-          console.log('payloadColorOnly : ', payloadColorOnly)
+
           const payloadJson = this.keyName
             .filter(({ type }) => type === 'Json')
             .reduce((item, value) => {
@@ -1233,7 +1228,7 @@ export default {
             }
           }, {})
 
-        // console.log('payloadColorOnly : ', payloadColorOnly)
+        //
         if (this.type === 'video') {
           if (this.keyName.some(({ key }) => key === 'bodyTxt')) {
             const bodyTxt = this.keyName
@@ -1304,12 +1299,12 @@ export default {
             payloadTextColor2,
             payloadColorOnly
           )
-          console.log('schema : ', configSchema)
+
           const iframeWin2 =
             document.getElementById('edit-iframe').contentWindow
           iframeWin2.postMessage(configSchema, '*')
           this.isLoading = false
-          //   console.log('schema : ', this.dataForm)
+          //
           //   const iframeWin2 =
           //     document.getElementById('edit-iframe').contentWindow
           //   iframeWin2.postMessage(this.dataForm, '*')
@@ -1385,7 +1380,7 @@ export default {
           }
           this.setDefaultValue()
           this.getResolutionTemplate()
-          console.log('data : ', res.data.data)
+
           if (
             res.data.data.config.properties.dataCuaca &&
             Object.keys(res.data.data.config.properties.dataCuaca).length > 0

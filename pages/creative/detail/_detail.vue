@@ -340,7 +340,6 @@ export default {
     await axios
       .get(`https://api.unimind.id/v1/creative/${params.detail}`)
       .then((res) => {
-        console.log('res : ', res)
         titlePage = res.data.data.name
         if (res.data.data.config.backupImg !== undefined) {
           if (isValidHttpUrl(res.data.data.config.backupImg)) {
@@ -523,7 +522,7 @@ export default {
         .dispatch('creative/getDetail', data)
         .then((res) => {
           titlePage = res.data.data.name
-          console.log('titlepage : ', titlePage)
+
           this.format = res.data.data.template.format
           if (this.format === 'display') {
             this.staticSrc =

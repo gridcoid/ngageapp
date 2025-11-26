@@ -18,7 +18,6 @@ module.exports = {
   serverPort: 5555,
 
   async before(browser, done) {
-    console.log('Starting Nuxt Server')
     const rootDir = resolve(__dirname, '../')
     let config = {}
     try {
@@ -33,7 +32,6 @@ module.exports = {
   },
 
   async after(browser, done) {
-    console.log('Shutting Down Nuxt')
     await nuxtInstance.close()
     done()
   },

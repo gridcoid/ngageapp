@@ -78,7 +78,7 @@ export const mutations = {
         const format = item.format
         const dataForm = item.configSchema.properties
         const keys = Object.keys(dataForm)
-        console.log('keys start : ', keys)
+
         const sortedKeys = [
           'titleTxt',
           'bodyTxt',
@@ -104,7 +104,7 @@ export const mutations = {
             return indexA - indexB
           })
         }
-        console.log('keys sorted : ', keys)
+
         const data = []
         const keyName = []
         keys.forEach((key, index) => {
@@ -147,11 +147,11 @@ export const mutations = {
         // if (format === 'video') {
         //   data.push(false)
         // }
-        // console.log('keyname : ', keyName)
+        //
         // const image = keyName.filter(item => item.type === 'Image' || item.type === 'Image_array')
         // const text = keyName.filter(item => item.type === 'Text' || item.type === 'Text_only')
-        // console.log('image : ', image)
-        // console.log('text : ', text)
+        //
+        //
         state.keyName = keyName
         state.keyFilter = keyName.filter(
           (value, index, self) =>
@@ -252,11 +252,10 @@ export const mutations = {
     state.dataImageRaw.forEach((item, index) => {
       finalData.push(item)
     })
-    console.log('finalData 1 : ', finalData)
+
     finalData[payload.index].default = payload.default
-    console.log('finalData 2 : ', finalData)
+
     state.dataImageRaw = finalData
-    console.log('state.dataImageRaw 2: ', state.dataImageRaw)
   },
   SET_DATA_IMAGEARRAY(state, payload) {
     state.dataImageArrayRaw = []
@@ -393,7 +392,7 @@ export const mutations = {
       // keys.forEach((key, index) => {
       //   item[key] = item[key].join('')
       // })
-      console.log('SET_DATA_SCRAPE_TEXT : ', item)
+
       state.dataScrapeText = item
     } else {
       state.dataScrapeText = null
