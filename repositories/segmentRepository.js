@@ -30,7 +30,7 @@ export default ($axios) => ({
   // segment:detail
   detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`${resource}/${payload.segmentTypeId}?orgId=${orgId}`)
+    return $axios.get(`${resource}/${payload.segmentId}?orgId=${orgId}`)
   },
 
   // segment:duplicate

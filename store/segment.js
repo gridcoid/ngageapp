@@ -1,6 +1,6 @@
 const initialState = () => ({
   isLoading: false,
-  editSegment: false,
+  isEdit: false,
   dataList: [],
   totalList: 0,
   totalPages: 0,
@@ -25,7 +25,7 @@ export const mutations = {
     state.isLoading = isLoading
   },
   SET_DATA_EDIT: (state, payload) => {
-    state.editSegment = payload
+    state.isEdit = payload
   },
   SET_DATA_LIST(state, item) {
     if (item !== null) {

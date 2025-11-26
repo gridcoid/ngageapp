@@ -55,12 +55,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'CreateSegmentPage',
+  name: 'UpdateSegmentPage',
   layout: 'default',
   head() {
     return {
-      title: 'Create - Segment - ' + this.$config.appName,
+      title: 'Update - Segment - ' + this.$config.appName,
     }
   },
   data() {
@@ -90,18 +91,46 @@ export default {
       showMessage: false,
       messageError: '',
       data: {
+        id: null,
         name: '',
         description: '',
       },
     }
   },
+  mounted() {
+    this.getDetail()
+  },
+  computed: {
+    ...mapState({
+      dataDetail: (state) => {
+        return state.segment.dataDetail
+      },
+    }),
+  },
   methods: {
+    getDetail() {
+      this.isLoading = true
+      const data = {
+        segmentId: this.$route.params.index,
+      }
+      this.$store
+        .dispatch('segment/detail', data)
+        .then(() => {
+          this.isLoading = false
+          this.data.id = this.dataDetail.id
+          this.data.name = this.dataDetail.name
+          this.data.description = this.dataDetail.description
+        })
+        .catch(() => {
+          this.isLoading = false
+        })
+    },
     back() {
       this.$router.push({ path: '/segment' })
     },
     save() {
       this.$notifier.showMessage({
-        content: 'Creating segment...',
+        content: 'Updating segment...',
         type: 'loading',
       })
 
@@ -110,13 +139,17 @@ export default {
       const sto = setTimeout(
         () =>
           this.$store
-            .dispatch('segment/create', this.data)
+            .dispatch('segment/update', this.data)
             .then((res) => {
-              if (res.status === 201 || res.status === 200) {
+              if (
+                res.status === 200 ||
+                res.status === 201 ||
+                res.status === 202
+              ) {
                 this.$router.push({ path: '/segment' })
 
                 this.$notifier.showMessage({
-                  content: 'Segment created.',
+                  content: 'Segment updated.',
                   type: 'success',
                 })
 

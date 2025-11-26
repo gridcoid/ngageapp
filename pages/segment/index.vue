@@ -100,13 +100,13 @@
                 />
                 Duplicate
               </div-->
-              <div
+              <NuxtLink
                 class="item-menu flex items-center no-select"
-                @click="openDuplicateDialog(item)"
+                :to="`/segment/edit/${item.id}`"
               >
                 <img src="~/assets/images/icon/edit.svg" class="icon-item" />
-                Edit
-              </div>
+                <span class="ml-3">Edit</span>
+              </NuxtLink>
               <div
                 class="item-menu flex items-center no-select"
                 @click="openDuplicateDialog(item)"
@@ -121,7 +121,6 @@
                 class="item-menu flex items-center no-select"
                 style="
                   border-bottom: 1px solid #e2e2e2;
-                  border-top: 1px solid #e2e2e2;
                   border-end-end-radius: 5px;
                   border-end-start-radius: 5px;
                 "
