@@ -5,7 +5,7 @@
     </div>
     <div class="card-content">
       <div class="header-card flex items-center">
-        <div class="title">Audience Segment Details</div>
+        <div class="title">Create New Segment</div>
       </div>
       <div class="body-card">
         <el-form

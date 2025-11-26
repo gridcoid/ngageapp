@@ -5,7 +5,11 @@
     </div>
     <div class="card-content">
       <div class="header-card flex items-center">
-        <div class="title">Update Segment</div>
+        <div class="title">
+          Import Audiences to
+          <span v-if="data.name" class="text-blue-900">“{{ data.name }}”</span>
+          Segment
+        </div>
       </div>
       <div class="body-card">
         <el-form

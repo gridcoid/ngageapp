@@ -107,16 +107,16 @@
                 <img src="~/assets/images/icon/edit.svg" class="icon-item" />
                 <span class="ml-3">Edit</span>
               </NuxtLink>
-              <div
+              <NuxtLink
                 class="item-menu flex items-center no-select"
-                @click="openDuplicateDialog(item)"
+                :to="`/segment/import/${item.id}`"
               >
                 <img
                   src="~/assets/images/icon/download.svg"
                   class="icon-item"
                 />
-                Import
-              </div>
+                <span class="ml-3">Import</span>
+              </NuxtLink>
               <div
                 class="item-menu flex items-center no-select"
                 style="
