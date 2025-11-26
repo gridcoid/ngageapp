@@ -10,12 +10,6 @@
           type="secondary"
           @click.native="toCreate()"
         />
-        <ButtonDefault
-          icon="plus"
-          text="Import Audiences"
-          class="ml-4"
-          type="secondary"
-        />
       </div>
     </div>
     <div class="flex items-center filter-content justify-between">
@@ -106,6 +100,23 @@
                 />
                 Duplicate
               </div-->
+              <div
+                class="item-menu flex items-center no-select"
+                @click="openDuplicateDialog(item)"
+              >
+                <img src="~/assets/images/icon/edit.svg" class="icon-item" />
+                Edit
+              </div>
+              <div
+                class="item-menu flex items-center no-select"
+                @click="openDuplicateDialog(item)"
+              >
+                <img
+                  src="~/assets/images/icon/download.svg"
+                  class="icon-item"
+                />
+                Import
+              </div>
               <div
                 class="item-menu flex items-center no-select"
                 style="
