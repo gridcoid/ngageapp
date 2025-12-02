@@ -43,6 +43,8 @@
     "ico": "../ico",
     "node-fetch-native": "^1.6.2",
     "nuxt": "^2.14.6",
+    "primeicons": "^7.0.0",
+    "primevue": "2",
     "prosemirror-state": "^1.4.3",
     "prosemirror-view": "^1.32.7",
     "remixicon": "^1.1.1",
