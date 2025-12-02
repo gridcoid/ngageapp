@@ -146,6 +146,11 @@ export default {
           },
           {
             path: '/segment',
+            name: 'Segment',
+            type: 'single',
+          },
+          {
+            path: '/audience',
             name: 'Audience',
             type: 'single',
           },

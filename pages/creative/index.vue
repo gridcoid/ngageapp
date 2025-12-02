@@ -18,9 +18,11 @@
         />
       </div>
     </div>
+
     <div class="desc-page">
       All creative you’ve created and uploaded has been stored here.
     </div>
+
     <div class="flex items-center filter-content justify-between">
       <div class="status-filter flex items-center">
         <div
@@ -103,6 +105,7 @@
         </div>
       </div>
     </div>
+
     <div class="body-content">
       <el-table
         v-loading="isLoading"

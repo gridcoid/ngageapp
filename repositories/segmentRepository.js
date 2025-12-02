@@ -33,14 +33,6 @@ export default ($axios) => ({
     return $axios.get(`${resource}/${payload.segmentId}?orgId=${orgId}`)
   },
 
-  // segment:duplicate
-  duplicate(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}/duplicate/${payload.id}?orgId=${orgId}`, {
-      count: payload.count,
-    })
-  },
-
   // segment:delete
   delete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId

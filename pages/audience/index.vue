@@ -1,23 +1,27 @@
 <template>
   <div class="kg-containers" style="width: 100%">
+    <!-- Header -->
     <div class="flex items-center header-content">
-      <div class="title-header">Audience Segments</div>
+      <div class="title-header">Audiences</div>
       <div class="flex">
         <ButtonDefault
           icon="plus"
-          text="Create New Segment"
+          text="Create New Audience"
           class="ml-4"
           type="secondary"
           @click.native="toCreate()"
         />
       </div>
     </div>
+
+    <!-- Filters -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Discover and manage different audience groups to tailor your campaigns
-        effectively.
+        Manage and explore your audiences to better understand and engage them.
       </div>
+
       <div class="flex items-center">
+        <!-- Sort button -->
         <button
           type="button"
           class="k-btn focus:bg-blue-700 focus:outline-none focus:ring-0 transition duration-100 ease-in-out flex align-center items-center justify-center"
@@ -26,7 +30,10 @@
           <img src="~/assets/images/campaign/icon_filter.svg" class="mr-2" />
           Sort
         </button>
+
         <div class="hr-vertical" />
+
+        <!-- Search -->
         <div class="search-card">
           <transition name="slide">
             <div
@@ -44,97 +51,149 @@
               <form
                 autocomplete="off"
                 style="width: 100%"
-                @submit.prevent="searchSegment()"
+                @submit.prevent="searchAudience()"
               >
                 <input
                   v-model="dataSearch"
                   type="text"
                   class="title-1"
                   placeholder="Find something.."
-                  @change="searchSegment()"
+                  @change="searchAudience()"
                 />
               </form>
-              <IconSearch @click.native="searchSegment()" />
+              <IconSearch @click.native="searchAudience()" />
             </div>
           </transition>
         </div>
       </div>
     </div>
-    <div v-if="dataSegments.length > 0" class="body-content flex flex-col">
-      <div
-        v-for="(item, index) in dataSegments"
-        :key="index"
-        class="card-list flex flex-row items-center justify-between"
-      >
-        <div class="flex items-center justify-start flex-row">
-          <img src="~/assets/images/target.jpg" class="thumbnail opacity-50" />
-          <div class="name-data flex flex-col">
-            <span>
-              {{ item.name }}
-            </span>
-            <span>
-              {{ item.description }}
-            </span>
-          </div>
-        </div>
-        <div class="flex flex-row items-center">
-          <div class="flex user-data items-center justify-start">
-            <IconUser class="mr-1" bg-color="#7A8A99" style="height: 14px" />
-            {{ Number(0).toLocaleString() }} users
-          </div>
-          <Dropdown
-            :index-list="index"
-            name-btn="Detail"
-            icons="preview"
-            color-text="#1B63D4"
-            class="mr-6"
-            @preview="viewDetail(item)"
-          >
-            <template slot="body">
-              <!--div
-                class="item-menu flex items-center no-select"
-                @click="openDuplicateDialog(item)"
-              >
-                <img
-                  src="~/assets/images/icon/duplicate.svg"
-                  class="icon-item"
-                />
-                Duplicate
-              </div-->
-              <NuxtLink
-                class="item-menu flex items-center no-select"
-                :to="`/segment/edit/${item.id}`"
-              >
-                <img src="~/assets/images/icon/edit.svg" class="icon-item" />
-                <span class="ml-3">Edit</span>
-              </NuxtLink>
-              <NuxtLink
-                class="item-menu flex items-center no-select"
-                :to="`/segment/import/${item.id}`"
-              >
-                <img
-                  src="~/assets/images/icon/download.svg"
-                  class="icon-item"
-                />
-                <span class="ml-3">Import</span>
-              </NuxtLink>
-              <div
-                class="item-menu flex items-center no-select"
-                style="
-                  border-bottom: 1px solid #e2e2e2;
-                  border-end-end-radius: 5px;
-                  border-end-start-radius: 5px;
-                "
-                @click="deleteSegment(item)"
-              >
-                <img src="~/assets/images/icon/delete.svg" class="icon-item" />
-                Delete
-              </div>
-            </template>
-          </Dropdown>
-        </div>
-      </div>
 
+    <div class="body-content">
+      <!-- TABLE -->
+      <el-table
+        v-loading="isLoading"
+        element-loading-text="Loading..."
+        element-loading-spinner="el-icon-loading"
+        fit
+        lazy
+        :data="dataAudiences"
+        stripe
+        class="k-table"
+        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'"
+      >
+        <template slot="empty">
+          <div class="flex flex-col items-center mt-6 no-data">
+            <img src="~/assets/images/campaign/empty_table.svg" />
+            <div class="title-1">It’s Very Clean Here</div>
+            <div class="subtitle-1">
+              Seems like you haven’t created any audience yet. Create one now?
+            </div>
+            <button
+              class="flex items-center justify-center save-btn no-select"
+              @click="toCreate()"
+            >
+              <IconSave bg-color="#1B63D4" />
+              <div class="name-btn">Create New Audience</div>
+            </button>
+          </div>
+        </template>
+
+        <!-- Name -->
+        <el-table-column label="Name" prop="name" sortable width="250">
+          <template slot-scope="scope">
+            <div
+              class="flex items-center cursor-pointer"
+              @click="editAudience(scope.row.id)"
+            >
+              <div class="flex flex-col">
+                <el-tooltip :open-delay="1000" placement="top-end">
+                  <div slot="content">{{ scope.row.name }}</div>
+                  <div
+                    class="k-title"
+                    style="
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      width: 240px;
+                    "
+                  >
+                    {{ scope.row.name }}
+                  </div>
+                </el-tooltip>
+
+                <div class="k-subtitle">
+                  {{
+                    scope.row.yearOfBirth
+                      ? 'Age: ' + calcAge(scope.row.yearOfBirth)
+                      : '-'
+                  }}
+                </div>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- Gender -->
+        <el-table-column label="Gender" prop="gender.name" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.gender?.name || '-' }}
+          </template>
+        </el-table-column>
+
+        <!-- Contact -->
+        <el-table-column label="Contact" width="250">
+          <template slot-scope="scope">
+            <div v-if="scope.row.contacts && scope.row.contacts.length > 0">
+              <div v-for="(c, i) in scope.row.contacts" :key="i">
+                <span class="k-subtitle">{{ c.type }}: {{ c.value }}</span>
+              </div>
+            </div>
+            <div v-else>-</div>
+          </template>
+        </el-table-column>
+
+        <!-- Actions -->
+        <el-table-column label="" width="120">
+          <template slot-scope="scope">
+            <Dropdown
+              :index-list="scope.$index"
+              name-btn="Detail"
+              icons="preview"
+              color-text="#1B63D4"
+              class="mr-6"
+              @preview="viewDetail(scope.row)"
+            >
+              <template slot="body">
+                <NuxtLink
+                  class="item-menu flex items-center no-select"
+                  :to="`/audience/edit/${scope.row.id}`"
+                >
+                  <img src="~/assets/images/icon/edit.svg" class="icon-item" />
+                  <span class="ml-3">Edit</span>
+                </NuxtLink>
+
+                <div
+                  class="item-menu flex items-center no-select"
+                  style="
+                    border-bottom: 1px solid #e2e2e2;
+                    border-end-end-radius: 5px;
+                    border-end-start-radius: 5px;
+                  "
+                  @click="deleteAudience(scope.row)"
+                >
+                  <img
+                    src="~/assets/images/icon/delete.svg"
+                    class="icon-item"
+                  />
+                  Delete
+                </div>
+              </template>
+            </Dropdown>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!-- Pagination -->
       <Pagination
         class="k-pagination"
         :value="currentPage"
@@ -144,30 +203,8 @@
         @rowPage="changeRowPage($event)"
       />
     </div>
-    <div v-else class="flex flex-col items-center mt-24 no-data">
-      <img src="~/assets/images/campaign/empty_table.svg" />
-      <div class="title-1 mt-2">It’s Very Clean Here</div>
-      <div class="subtitle-1">
-        Seems like you haven’t created any segment yet. Create one now?
-      </div>
-      <div class="flex items-center justify-center mt-4">
-        <button
-          class="flex items-center justify-center save-btn no-select"
-          @click="toCreate()"
-        >
-          <IconPlus bg-color="#1B63D4" />
-          <div class="name-btn">Create New Segment</div>
-        </button>
-        <button
-          class="flex items-center justify-center save-btn no-select"
-          @click="$router.go(0)"
-        >
-          <IconRefresh bg-color="#1B63D4" />
-          <div class="name-btn">Reload This Page</div>
-        </button>
-      </div>
-    </div>
 
+    <!-- Sort Modal -->
     <transition name="slide">
       <ModalSort
         v-if="dialog"
@@ -179,30 +216,10 @@
           <Accordion title="Sort by" class="mb-4" show>
             <template v-slot:body>
               <div class="flex flex-col">
-                <el-radio
-                  v-model="radio"
-                  class="flex mb-4"
-                  label="createdAt_asc"
-                  style="
-                    font-family: 'Cabin';
-                    font-weight: 400;
-                    font-size: 16px;
-                    color: #333333;
-                  "
-                >
+                <el-radio v-model="radio" class="mb-4" label="createdAt_asc">
                   Ascending
                 </el-radio>
-                <el-radio
-                  v-model="radio"
-                  class="flex"
-                  label="createdAt_desc"
-                  style="
-                    font-family: 'Cabin';
-                    font-weight: 400;
-                    font-size: 16px;
-                    color: #333333;
-                  "
-                >
+                <el-radio v-model="radio" label="createdAt_desc">
                   Descending
                 </el-radio>
               </div>
@@ -212,6 +229,7 @@
       </ModalSort>
     </transition>
 
+    <!-- Delete Popup -->
     <transition name="fade">
       <Popup
         v-if="dialogDelete"
@@ -222,35 +240,31 @@
       >
         <template v-slot:body>
           <div class="content-popup flex flex-col">
-            <div
-              class="flex items-center justify-between"
-              style="margin-bottom: 14px"
-            >
-              <div class="title-popup2">Delete Segment?</div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="title-popup2">Delete Audience?</div>
               <img
                 src="~/assets/images/icon/delete_color.svg"
                 class="icon-item"
               />
             </div>
+
             <div class="title-popup">
               Are you sure want to delete
-              <b>{{ detailSegment.name }}</b> segment?
+              <b>{{ detailAudience.name }}</b
+              >?
             </div>
+
             <div
               class="footer-card grid grid-cols-2 gap-4 place-content-stretch"
             >
-              <button
-                class="flex items-center justify-center cancel-btn2 no-select"
-                @click="closeDialog()"
-              >
-                <span class="name-btn no-select">Cancel</span>
+              <button class="cancel-btn2 no-select" @click="closeDialog()">
+                Cancel
               </button>
               <button
-                class="flex items-center justify-center save-btn2 no-select"
-                @click="doDeleteSegment(detailSegment.id)"
+                class="save-btn2 no-select"
+                @click="doDeleteAudience(detailAudience.id)"
               >
-                <IconCompleted bg-color="white" class="mr-2 pl-1" />
-                <span class="name-btn no-select">Confirm</span>
+                Confirm
               </button>
             </div>
           </div>
@@ -262,66 +276,48 @@
 
 <script>
 import { mapState } from 'vuex'
+
 export default {
   name: 'AudiencePage',
   layout: 'default',
   head() {
     return {
-      title: 'Audience Segments - ' + this.$config.appName,
+      title: 'Audiences - ' + this.$config.appName,
     }
   },
   data() {
     return {
-      detailSegment: {
-        name: '',
-        id: '',
-      },
+      detailAudience: { name: '', id: '' },
       radio: 'createdAt_desc',
-      createdAt: '',
       dataSearch: '',
       showSearch: false,
       currentPage: 1,
       isLoading: false,
-      activeStatus: 'all',
       rowPage: 6,
       dialog: false,
       dialogDelete: false,
-      resetFilter() {
-        this.radio = 'createdAt_desc'
-        this.getData()
-      },
     }
   },
   computed: {
     ...mapState({
-      orgId: (state) => {
-        return state.user.orgId
-      },
-      sidebar: (state) => {
-        return state.user.sidebar
-      },
-      popup: (state) => {
-        return state.user.popup
-      },
-      dataSegments: (state) => {
-        return state.segment.dataList
-      },
-      totalList: (state) => {
-        return state.segment.totalList
-      },
-      totalPages: (state) => {
-        return state.segment.totalPages
-      },
+      sidebar: (state) => state.user.sidebar,
+      dataAudiences: (state) => state.audience.dataList,
+      totalList: (state) => state.audience.totalList,
+      totalPages: (state) => state.audience.totalPages,
     }),
   },
   mounted() {
     this.getData()
   },
   methods: {
+    calcAge(year) {
+      return new Date().getFullYear() - Number(year)
+    },
+
     getData() {
       this.isLoading = true
 
-      const data = {
+      const params = {
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,
@@ -329,102 +325,69 @@ export default {
       }
 
       this.$store
-        .dispatch('segment/list', data)
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+        .dispatch('audience/list', params)
+        .finally(() => (this.isLoading = false))
     },
+
     toCreate() {
-      this.$router.push({ path: '/segment/create' })
+      this.$router.push({ path: '/audience/create' })
     },
-    searchSegment() {
+
+    searchAudience() {
       this.currentPage = 1
       this.showSearch = false
       this.getData()
     },
+
     showDialog() {
       this.dialog = !this.dialog
     },
-    deleteSegment(data) {
+
+    deleteAudience(row) {
       document.querySelector('body').style.overflow = 'hidden'
-      this.detailSegment = data
+      this.detailAudience = row
       this.dialogDelete = true
     },
-    doDeleteSegment(id) {
-      const data = {
-        id,
-      }
-      this.$notifier.showMessage({
-        content: 'Delete segment...',
-        type: 'loading',
+
+    doDeleteAudience(id) {
+      this.$store.dispatch('audience/delete', { id }).then(() => {
+        this.dialogDelete = false
+        this.getData()
+        this.$notifier.showMessage({
+          content: 'Delete audience success.',
+          type: 'success',
+        })
       })
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('segment/delete', data)
-            .then((res) => {
-              if (
-                res.data.status.code === 200 ||
-                res.data.status.code === 201 ||
-                res.data.status.code === 202
-              ) {
-                this.dialogDelete = false
-                this.$store.commit('user/SET_DROPDOWN', null)
+    },
 
-                this.getData()
-
-                this.$notifier.showMessage({
-                  content: 'Delete segment status success.',
-                  type: 'success',
-                })
-
-                clearInterval(sto)
-              } else {
-                this.dialogDelete = false
-                this.showMessage = true
-                this.$store.commit('user/SET_DROPDOWN', null)
-
-                const keys = Object.keys(res.data.data.errors[0])
-                const arr = []
-
-                keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
-                })
-
-                this.messageError = arr.join(', ')
-
-                this.$notifier.showMessage({
-                  content:
-                    'Delete segment status failed. Error : ' +
-                    res.data.data.message,
-                  type: 'failed',
-                })
-
-                clearInterval(sto)
-              }
-
-              this.getData()
-            })
-            .catch(() => {}),
-        1000
-      )
+    closeDialog() {
+      this.dialogDelete = false
       document.querySelector('body').style.overflow = ''
     },
-    changePage(ev) {
-      if (ev > 0) {
-        this.currentPage = ev
+
+    changePage(e) {
+      if (e > 0) {
+        this.currentPage = e
         this.getData()
       }
     },
-    changeRowPage(ev) {
-      this.rowPage = ev
+
+    changeRowPage(e) {
+      this.rowPage = e
       this.getData()
     },
+
     viewDetail(item) {
-      this.$router.push({ path: '/segment/detail/' + item.id })
+      this.$router.push({ path: '/audience/detail/' + item.id })
+    },
+
+    editAudience(id) {
+      this.$router.push({ path: '/audience/edit/' + id })
+    },
+
+    resetFilter() {
+      this.radio = 'createdAt_desc'
+      this.getData()
     },
   },
 }
@@ -574,57 +537,105 @@ export default {
     color: #757575;
   }
   .body-content {
-    margin-top: 30px;
-    gap: 15px;
-    .card-list {
-      border-radius: 5px;
-      border: 1px solid #c3ced9;
-      background: #fff;
-      height: 100%;
-      width: 100%;
-      .thumbnail {
-        width: 96px;
-        height: 96px;
-        object-fit: cover;
-        border-top-left-radius: 5px;
-        border-end-start-radius: 5px;
-        margin-right: 20px;
+    margin-top: 20px;
+    .k-table {
+      border: 1px solid #c3ced9 !important;
+      border-radius: 10px !important;
+      .k-circle {
+        width: 11px;
+        height: 11px;
+        border: 2px solid #7bbc49;
+        border-radius: 50%;
+        margin-right: 13px;
       }
-      .name-data > span:nth-child(1) {
-        color: #5c6b7a;
+      .k-title {
         font-family: 'Cabin';
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 600;
+        font-weight: 500;
+        font-size: 16px;
+        color: #454545;
       }
-      .name-data > span:nth-child(2) {
-        color: #999;
-        font-size: 14px;
-      }
-      .user-data {
-        color: #7a8a99;
+      .k-subtitle {
         font-family: 'Cabin';
-        font-size: 12px;
-        font-style: normal;
         font-weight: 400;
-        width: 180px;
-        text-align: left;
+        font-size: 14px;
+        color: #757575;
       }
-      .k-btn {
+      .title-tabel {
         font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 16px;
+        color: #454545;
+      }
+      .status-card {
+        font-family: 'Cabin';
+        color: #7bbc49;
+        font-weight: 400;
+        font-size: 14px;
+        background: #ecf5e5;
+        border-radius: 5px;
+        height: 34px;
+        margin-top: 10px;
+        width: 80px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 100px;
+      }
+      .btn-icon {
+        height: 100%;
+        padding: 10px;
+        width: 40px;
         background: #ffffff;
         border: 1px solid #e2e2e2;
         border-radius: 5px;
-        color: #1b63d4;
-        font-size: 14px;
-        font-weight: 700;
-        height: 36px;
-        width: 138px;
-        align-items: center;
-        margin-right: 20px;
+        // margin-left: 10px;
+        cursor: pointer;
+        margin-right: 10px;
       }
-      .k-btn:hover {
+      .btn-icon:hover {
         background-color: rgb(243 244 246);
+      }
+      .no-data {
+        .title-1 {
+          font-family: 'Cabin';
+          font-weight: 600;
+          font-size: 20px;
+          color: #454545;
+          line-height: 24px;
+        }
+        .subtitle-1 {
+          font-family: 'Cabin';
+          font-weight: 400;
+          font-size: 16px;
+          color: #757575;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          line-height: 24px;
+        }
+        .save-btn {
+          width: 220px;
+          background: #ffffff;
+          border: 1px solid #1b63d4;
+          color: #1b63d4;
+          border-radius: 5px;
+          height: 40px;
+          padding-left: 15px;
+          padding-right: 15px;
+          margin-left: 10px;
+          margin-bottom: 100px;
+          line-height: normal !important;
+          cursor: pointer;
+          .name-btn {
+            font-family: 'Cabin';
+            font-weight: 700;
+            font-size: 14px;
+            padding-bottom: 1px;
+            color: #1b63d4;
+            padding-left: 10px;
+          }
+        }
+        .save-btn:hover {
+          background-color: rgb(243 244 246);
+        }
       }
     }
     .k-pagination {
@@ -652,49 +663,6 @@ export default {
         background-color: rgb(243 244 246);
         border: 0px;
       }
-    }
-  }
-  .no-data {
-    .title-1 {
-      font-family: 'Cabin';
-      font-weight: 600;
-      font-size: 20px;
-      color: #454545;
-      line-height: 24px;
-    }
-    .subtitle-1 {
-      font-family: 'Cabin';
-      font-weight: 400;
-      font-size: 16px;
-      color: #757575;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      line-height: 24px;
-    }
-    .save-btn {
-      width: 220px;
-      background: #ffffff;
-      border: 1px solid #1b63d4;
-      color: #1b63d4;
-      border-radius: 5px;
-      height: 40px;
-      padding-left: 15px;
-      padding-right: 15px;
-      margin-left: 10px;
-      margin-bottom: 100px;
-      line-height: normal !important;
-      cursor: pointer;
-      .name-btn {
-        font-family: 'Cabin';
-        font-weight: 700;
-        font-size: 14px;
-        padding-bottom: 1px;
-        color: #1b63d4;
-        padding-left: 10px;
-      }
-    }
-    .save-btn:hover {
-      background-color: rgb(243 244 246);
     }
   }
 }
