@@ -12,11 +12,7 @@
           @click="activeIcon(item)"
         >
           <div class="flex items-center h-full">
-            <component
-              :is="'IconMenu' + item.name"
-              :bg-color="item.name === activeItem ? '#1B63D4' : '#454545'"
-              class="icon-menu"
-            />
+            <i :class="item.icon" />
             <div
               v-if="!showSidebar"
               class="name-menu"
@@ -34,12 +30,7 @@
         >
           <template slot="title">
             <div class="flex items-center h-full">
-              <component
-                :is="'IconMenu' + item.name"
-                :bg-color="item.name === activeItem ? '#1B63D4' : '#454545'"
-                class="icon-menu"
-                style="margin-left: 1.6px"
-              />
+              <i :class="item.icon" />
               <div
                 v-if="showSidebar"
                 class="close-icon"
@@ -61,10 +52,10 @@
             @click="activeIcon(item2)"
           >
             <div class="flex items-center h-full">
-              <component
-                :is="'IconMenu' + item2.icon"
+              <i
+                :class="item2.icon + ' icon-menu'"
+                style="margin-left: 1.6px"
                 :bg-color="item2.name === activeItem ? '#1B63D4' : '#454545'"
-                class="icon-menu"
               />
               <div
                 class="name-menu"
@@ -133,56 +124,65 @@ export default {
             path: '/',
             name: 'Dashboard',
             type: 'single',
+            icon: 'pi pi-home',
           },
           {
             path: '/campaign',
             name: 'Campaign',
             type: 'single',
+            icon: 'pi pi-megaphone',
           },
           {
             path: '/survey',
             name: 'Survey',
             type: 'single',
+            icon: 'pi pi-list-check',
           },
           {
             path: '/segment',
             name: 'Segment',
             type: 'single',
+            icon: 'pi pi-filter',
           },
           {
             path: '/audience',
             name: 'Audience',
             type: 'single',
+            icon: 'pi pi-users',
           },
           {
             path: '/creative',
             name: 'Creative',
             type: 'single',
+            icon: 'pi pi-palette',
           },
           {
             path: '/report',
             name: 'Report',
             type: 'single',
+            icon: 'pi pi-chart-bar',
           },
           {
             path: '/tools',
             name: 'Tools',
             type: 'single',
+            icon: 'pi pi-wrench',
           },
           {
             path: '',
             name: 'Admin',
             type: 'multiple',
+            icon: 'pi pi-cog',
             child: [
               {
                 path: '/admin/user',
                 name: 'User Management',
-                icon: 'User',
+                icon: 'pi pi-user',
               },
               {
                 path: '/admin/template',
                 name: 'Template Uploader',
-                icon: 'Template',
+                icon: 'pi pi-upload',
               },
             ],
           },
