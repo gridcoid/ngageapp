@@ -2,11 +2,11 @@
   <div class="containers" style="width: 100%">
     <!-- Header -->
     <div class="flex items-center header-content">
-      <div class="title-header">All Audiences</div>
+      <div class="title-header">Audiences for {{ data?.name }}</div>
       <div class="flex">
         <ButtonDefault
           icon="plus"
-          text="Create New"
+          text="Add Audiences"
           class="ml-4"
           type="secondary"
           @click.native="toCreate()"
@@ -17,9 +17,7 @@
     <!-- Filters -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        <!-- Manage and explore your audiences to better understand and engage them. -->
-        Manage and explore your segmented and unsegmented audiences to better
-        understand.
+        {{ data?.description }}
       </div>
 
       <div class="flex items-center">
@@ -89,14 +87,14 @@
             <img src="~/assets/images/campaign/empty_table.svg" />
             <div class="title-1">It’s Very Clean Here</div>
             <div class="subtitle-1">
-              Seems like you haven’t created any audience yet. Create one now?
+              Seems like you haven’t added any audience yet. Add some now?
             </div>
             <button
               class="flex items-center justify-center save-btn no-select"
               @click="toCreate()"
             >
               <IconPlus bg-color="#1B63D4" />
-              <div class="name-btn">Create New Audience</div>
+              <div class="name-btn">Add Audiences</div>
             </button>
           </div>
         </template>
@@ -307,6 +305,7 @@ export default {
   },
   data() {
     return {
+      data: {},
       detailAudience: { name: '', id: '' },
       radio: 'createdAt_desc',
       dataSearch: '',
@@ -320,6 +319,7 @@ export default {
   },
   computed: {
     ...mapState({
+      dataDetail: (state) => state.segment.dataDetail,
       sidebar: (state) => state.user.sidebar,
       dataAudiences: (state) => state.audienceBySegment.dataList,
       totalList: (state) => state.audienceBySegment.totalList,
@@ -327,11 +327,22 @@ export default {
     }),
   },
   mounted() {
+    this.getDetail()
     this.getData()
   },
   methods: {
     calcAge(year) {
       return new Date().getFullYear() - Number(year)
+    },
+
+    getDetail() {
+      this.isLoading = true
+      const data = {
+        segmentId: this.$route.params.index,
+      }
+      this.$store
+        .dispatch('segment/detail', data)
+        .finally(() => (this.isLoading = false))
     },
 
     getData() {
@@ -409,6 +420,14 @@ export default {
     resetFilter() {
       this.radio = 'createdAt_desc'
       this.getData()
+    },
+  },
+  watch: {
+    dataDetail(val) {
+      this.data.id = val.id
+      this.data.orgId = val.orgId
+      this.data.name = val.name
+      this.data.description = val.description
     },
   },
 }

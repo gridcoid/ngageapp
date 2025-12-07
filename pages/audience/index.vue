@@ -17,7 +17,6 @@
     <!-- Filters -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        <!-- Manage and explore your audiences to better understand and engage them. -->
         Manage and explore your segmented and unsegmented audiences to better
         understand.
       </div>
