@@ -60,7 +60,7 @@
               class="w-full"
             >
               <el-option
-                v-for="item in dataGender"
+                v-for="item in dataGenders"
                 :key="item.id"
                 :label="item.name"
                 :value="item.id"
@@ -245,17 +245,6 @@ export default {
         additionalInfo: null,
         additionalInfoRaw: '',
       },
-
-      // Dropdown dummy (ganti dari API Anda)
-      orgOptions: [],
-
-      genderOptions: [],
-      religionOptions: [],
-
-      provinceOptions: [],
-      regencyOptions: [],
-      districtOptions: [],
-      villageOptions: [],
     }
   },
   computed: {
@@ -265,14 +254,17 @@ export default {
       dataDistricts: (state) => state.district.dataList,
       dataVillages: (state) => state.village.dataList,
 
-      dataGender: (state) => state.gender.dataList,
+      dataGenders: (state) => state.gender.dataList,
       dataReligions: (state) => state.religion.dataList,
+
+      dataContactTypes: (state) => state.contactType.dataList,
     }),
   },
   mounted() {
     this.getProvince()
     this.getGender()
     this.getReligion()
+    this.getContactType()
   },
   methods: {
     back() {
@@ -344,6 +336,14 @@ export default {
 
       this.$store
         .dispatch('religion/list')
+        .finally(() => (this.isLoading = false))
+    },
+
+    getContactType() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('contactType/list')
         .finally(() => (this.isLoading = false))
     },
 
