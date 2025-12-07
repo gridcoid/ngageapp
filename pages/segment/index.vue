@@ -5,7 +5,7 @@
       <div class="flex">
         <ButtonDefault
           icon="plus"
-          text="Create New Segment"
+          text="Create New"
           class="ml-4"
           type="secondary"
           @click.native="toCreate()"

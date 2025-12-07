@@ -34,21 +34,19 @@
           <Alert v-show="showMessage" class="mt-6 mb-0" :text="messageError" />
         </Transition>
       </div>
-      <div class="footer-card flex justify-end">
-        <k-button
-          text="Discard"
-          class="ml-4"
-          style="width: 165px"
-          type="secondary"
-          @click.native="back()"
+      <div class="footer-card flex justify-end gap-3">
+        <Button
+          label="Discard"
+          class="p-button-sm p-button-outlined p-button-primary w-36"
+          @click="back()"
         />
-        <button
-          class="flex items-center justify-center save-btn no-select"
+        <Button
+          label="Save"
+          icon="pi pi-save"
+          iconPos="left"
+          class="p-button-sm p-button-primary w-36 ml-3"
           @click="save()"
-        >
-          <IconSave />
-          <span class="name-btn">Save</span>
-        </button>
+        />
       </div>
     </div>
   </div>
@@ -204,37 +202,6 @@ export default {
     .footer-card {
       border-top: 1px solid #e2e2e2;
       padding: 20px;
-      .btn-discard {
-        width: 165px;
-      }
-      .btn-discard:hover {
-        background-color: rgb(243 244 246);
-        border: 0px;
-      }
-      .save-btn {
-        width: 165px;
-        background: #1b63d4;
-        border: 1px solid #1b63d4;
-        color: #ffffff;
-        border-radius: 5px;
-        height: 34px;
-        padding-left: 15px;
-        padding-right: 15px;
-        margin-left: 10px;
-        cursor: pointer;
-        .name-btn {
-          font-family: 'Cabin';
-          font-weight: 700;
-          font-size: 14px;
-          padding-bottom: 1px;
-          color: #ffffff;
-          padding-left: 10px;
-        }
-      }
-      .save-btn:hover {
-        background-color: #053f67;
-        border: 0px;
-      }
     }
   }
 }

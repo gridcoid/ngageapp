@@ -6,7 +6,7 @@
       <div class="flex">
         <ButtonDefault
           icon="plus"
-          text="Create New Audience"
+          text="Create New"
           class="ml-4"
           type="secondary"
           @click.native="toCreate()"
@@ -92,7 +92,7 @@
               class="flex items-center justify-center save-btn no-select"
               @click="toCreate()"
             >
-              <IconSave bg-color="#1B63D4" />
+              <IconPlus bg-color="#1B63D4" />
               <div class="name-btn">Create New Audience</div>
             </button>
           </div>
