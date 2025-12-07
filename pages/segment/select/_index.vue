@@ -3,15 +3,6 @@
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">Audiences for {{ data?.name }}</div>
-      <div class="flex">
-        <ButtonDefault
-          icon="plus"
-          text="Add Audiences"
-          class="ml-4"
-          type="secondary"
-          @click.native="toCreate()"
-        />
-      </div>
     </div>
 
     <!-- Filters -->
@@ -89,15 +80,18 @@
             <div class="subtitle-1">
               Seems like you haven’t added any audience yet. Add some now?
             </div>
-            <button
-              class="flex items-center justify-center save-btn no-select"
-              @click="toCreate()"
-            >
-              <IconPlus bg-color="#1B63D4" />
-              <div class="name-btn">Add Audiences</div>
-            </button>
           </div>
         </template>
+
+        <!-- Checkbox for selector -->
+        <el-table-column type="selection" width="55">
+          <template slot-scope="scope">
+            <el-checkbox
+              v-model="scope.row.selected"
+              @change="handleCheckboxChange(scope.row)"
+            />
+          </template>
+        </el-table-column>
 
         <!-- NAME (unchanged) -->
         <el-table-column label="Name" prop="name" sortable width="300">
@@ -296,11 +290,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'SegmentAudiencePage',
+  name: 'SelectAudiencePage',
   layout: 'default',
   head() {
     return {
-      title: 'Segmented Audiences - ' + this.$config.appName,
+      title: 'Select Audiences - ' + this.$config.appName,
     }
   },
   data() {
@@ -321,9 +315,9 @@ export default {
     ...mapState({
       dataDetail: (state) => state.segment.dataDetail,
       sidebar: (state) => state.user.sidebar,
-      dataAudiences: (state) => state.audienceBySegment.dataList,
-      totalList: (state) => state.audienceBySegment.totalList,
-      totalPages: (state) => state.audienceBySegment.totalPages,
+      dataAudiences: (state) => state.audience.dataList,
+      totalList: (state) => state.audience.totalList,
+      totalPages: (state) => state.audience.totalPages,
     }),
   },
   mounted() {
@@ -357,14 +351,8 @@ export default {
       }
 
       this.$store
-        .dispatch('audienceBySegment/list', params)
+        .dispatch('audience/list', params)
         .finally(() => (this.isLoading = false))
-    },
-
-    toCreate() {
-      this.$router.push({
-        path: '/segment/select/' + this.$route.params.index,
-      })
     },
 
     searchAudience() {

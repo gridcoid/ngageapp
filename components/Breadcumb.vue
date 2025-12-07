@@ -32,6 +32,14 @@
         <el-breadcrumb-item> Audience </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+    <div v-if="$route.name === 'segment'">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item class="cursor-pointer" @click.native="toHome()">
+          n-gage
+        </el-breadcrumb-item>
+        <el-breadcrumb-item> Segment </el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
     <div v-if="$route.name === 'creative'">
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item class="cursor-pointer" @click.native="toHome()">
