@@ -312,6 +312,7 @@ export default {
       // Form model sesuai tabel
       data: {
         id: null,
+        orgId: null,
         name: '',
         dateOfBirth: null,
         yearOfBirth: 1950,
@@ -489,6 +490,7 @@ export default {
   watch: {
     async dataDetail(val) {
       this.data.id = val.id
+      this.data.orgId = val.orgId
       this.data.name = val.name
       this.data.dateOfBirth = val.dateOfBirth
       this.data.yearOfBirth = val.yearOfBirth

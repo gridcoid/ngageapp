@@ -92,6 +92,7 @@ export default {
       messageError: '',
       data: {
         id: null,
+        orgId: null,
         name: '',
         description: '',
       },
@@ -175,6 +176,7 @@ export default {
   watch: {
     dataDetail(val) {
       this.data.id = val.id
+      this.data.orgId = val.orgId
       this.data.name = val.name
       this.data.description = val.description
     },
