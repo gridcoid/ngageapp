@@ -283,7 +283,7 @@ export default {
       currentPage: 1,
       isLoading: false,
       activeStatus: 'all',
-      rowPage: 6,
+      rowPage: 5,
       dialog: false,
       dialogDelete: false,
       resetFilter() {

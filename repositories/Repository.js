@@ -6,6 +6,10 @@ import TemplateRepository from '~/repositories/templateRepository'
 import PublisherRepository from '~/repositories/publisherRepository'
 import AudienceRepository from '~/repositories/audienceRepository'
 import SegmentRepository from '~/repositories/segmentRepository'
+import ProvinceRepository from '~/repositories/provinceRepository'
+import RegencyRepository from '~/repositories/regencyRepository'
+import DistrictRepository from '~/repositories/districtRepository'
+import VillageRepository from '~/repositories/villageRepository'
 
 export default ($axios) => ({
   user: UserRepository($axios),
@@ -16,4 +20,8 @@ export default ($axios) => ({
   publisher: PublisherRepository($axios),
   audience: AudienceRepository($axios),
   segment: SegmentRepository($axios),
+  province: ProvinceRepository($axios),
+  regency: RegencyRepository($axios),
+  district: DistrictRepository($axios),
+  village: VillageRepository($axios),
 })
