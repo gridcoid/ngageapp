@@ -1,7 +1,8 @@
 <template>
   <Transition name="nav">
     <nav class="flex nav-menu items-center justify-between" style="width: 100%">
-      <Breadcumb class="py-4" />
+      <Breadcrumb :home="home" :model="items" />
+
       <div class="py-4 flex items-center">
         <SwitchOrganization />
         <div
@@ -82,6 +83,7 @@ export default {
       iconSetting: false,
       changePassword: false,
       visible: false,
+      home: { icon: 'pi pi-home', to: '/' },
     }
   },
   computed: {
@@ -96,6 +98,18 @@ export default {
         return state.user.roleId
       },
     }),
+    items() {
+      // Split URL path into segments
+      const segments = this.$route.path.split('/').filter(Boolean)
+
+      return segments.map((segment, index) => {
+        const to = '/' + segments.slice(0, index + 1).join('/')
+        return {
+          label: this.formatLabel(segment),
+          to: to,
+        }
+      })
+    },
   },
   mounted() {
     this.checkRole()
@@ -120,11 +134,19 @@ export default {
         this.handleRole = true
       }
     },
+    formatLabel(segment) {
+      // Capitalize first letter
+      return segment.charAt(0).toUpperCase() + segment.slice(1)
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.p-breadcrumb {
+  border: 0;
+  background: transparent;
+}
 .nav-menu {
   height: 56px;
   // position: absolute;
