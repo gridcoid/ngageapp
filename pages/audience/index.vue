@@ -1,5 +1,5 @@
 <template>
-  <div class="kg-containers" style="width: 100%">
+  <div class="containers" style="width: 100%">
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">Audiences</div>
@@ -81,6 +81,7 @@
         class="k-table"
         :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'"
       >
+        <!-- EMPTY STATE (unchanged) -->
         <template slot="empty">
           <div class="flex flex-col items-center mt-6 no-data">
             <img src="~/assets/images/campaign/empty_table.svg" />
@@ -98,8 +99,8 @@
           </div>
         </template>
 
-        <!-- Name -->
-        <el-table-column label="Name" prop="name" sortable width="250">
+        <!-- NAME (unchanged) -->
+        <el-table-column label="Name" prop="name" sortable width="300">
           <template slot-scope="scope">
             <div
               class="flex items-center cursor-pointer"
@@ -133,27 +134,48 @@
           </template>
         </el-table-column>
 
-        <!-- Gender -->
-        <el-table-column label="Gender" prop="gender.name" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.gender?.name || '-' }}
-          </template>
-        </el-table-column>
-
-        <!-- Contact -->
-        <el-table-column label="Contact" width="250">
+        <!-- CONTACT (unchanged) -->
+        <el-table-column label="Contact">
           <template slot-scope="scope">
             <div v-if="scope.row.contacts && scope.row.contacts.length > 0">
               <div v-for="(c, i) in scope.row.contacts" :key="i">
-                <span class="k-subtitle">{{ c.type }}: {{ c.value }}</span>
+                <span class="k-subtitle"
+                  >{{ c.contactType.name }}: {{ c.value }}</span
+                >
               </div>
             </div>
             <div v-else>-</div>
           </template>
         </el-table-column>
 
-        <!-- Actions -->
-        <el-table-column label="" width="120">
+        <!-- GENDER (updated) -->
+        <el-table-column label="Gender" prop="gender.name">
+          <template slot-scope="scope">
+            {{ scope.row.gender?.name || '-' }}
+          </template>
+        </el-table-column>
+
+        <!-- RELIGION (NEW) -->
+        <el-table-column label="Religion" prop="religion.name">
+          <template slot-scope="scope">
+            {{ scope.row.religion?.name || '-' }}
+          </template>
+        </el-table-column>
+
+        <!-- ADDRESS (NEW) -->
+        <el-table-column label="Location">
+          <template slot-scope="scope">
+            <div class="k-subtitle">
+              {{ scope.row.province?.name || '-' }},
+              {{ scope.row.regency?.name || '-' }},
+              {{ scope.row.district?.name || '-' }},
+              {{ scope.row.village?.name || '-' }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- ACTIONS (unchanged) -->
+        <el-table-column>
           <template slot-scope="scope">
             <Dropdown
               :index-list="scope.$index"
@@ -394,7 +416,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.kg-containers {
+.el-table thead {
+  color: #5c6b7a !important;
+  font-family: 'Cabin' !important;
+  font-weight: 600 !important;
+}
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.2s ease;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: translateX(100%);
+  transition: all 150ms ease-in 0s;
+}
+
+.containers {
   padding: 20px;
   .header-content {
     .title-header {
@@ -485,7 +523,7 @@ export default {
       font-size: 14px;
       font-weight: 700;
       height: 36px;
-      width: 100px;
+      width: 138px;
       align-items: center;
     }
     .k-btn:hover {
@@ -530,12 +568,6 @@ export default {
       }
     }
   }
-  .desc-page {
-    font-family: 'Cabin';
-    font-weight: 400;
-    font-size: 16px;
-    color: #757575;
-  }
   .body-content {
     margin-top: 20px;
     .k-table {
@@ -553,19 +585,21 @@ export default {
         font-weight: 500;
         font-size: 16px;
         color: #454545;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 250px;
+      }
+      .k-title:hover {
+        color: #1b63d4;
       }
       .k-subtitle {
         font-family: 'Cabin';
         font-weight: 400;
-        font-size: 14px;
-        color: #757575;
+        font-size: 12px;
+        color: #9a9a9a;
       }
-      .title-tabel {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 16px;
-        color: #454545;
-      }
+
       .status-card {
         font-family: 'Cabin';
         color: #7bbc49;
@@ -573,13 +607,31 @@ export default {
         font-size: 14px;
         background: #ecf5e5;
         border-radius: 5px;
-        height: 34px;
+        height: 25px;
         margin-top: 10px;
         width: 80px;
-        margin-left: auto;
         margin-right: auto;
-        border-radius: 100px;
+        margin-left: auto;
       }
+      .cpm-text {
+        font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 14px;
+        color: #454545;
+      }
+      .view-text {
+        font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 14px;
+        color: #454545;
+      }
+      .increase-text {
+        font-family: 'Cabin';
+        font-size: 12px;
+        font-weight: 400;
+        color: #454545;
+      }
+
       .btn-icon {
         height: 100%;
         padding: 10px;
@@ -664,116 +716,194 @@ export default {
         border: 0px;
       }
     }
+    .summary-card {
+      padding: 10px 20px 0px 20px;
+      height: 100%;
+      .item-summary {
+        height: 30px;
+        .title-1 {
+          font-family: 'Cabin';
+          font-weight: 600;
+          font-size: 14px;
+          color: #333333;
+          width: 60px;
+        }
+        .value-1 {
+          font-family: 'Cabin';
+          font-weight: 400;
+          font-size: 12px;
+          color: #333333;
+        }
+      }
+    }
   }
-}
-.kg-popup {
-  .content-popup {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    width: 100%;
+  .dialog-filter {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 300px;
     height: 100%;
-    .title-popup2 {
-      font-family: 'Cabin';
-      font-style: normal;
-      font-weight: 600;
-      font-size: 20px;
-      color: #5c6b7a;
-    }
-    .title-popup {
-      font-weight: 400;
-      font-size: 16px;
-      color: #454545;
-    }
-    .input-number {
+    background: #fafafa;
+  }
+  .popup {
+    transition: all 0.5s ease-in-out;
+    position: fixed;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    // height: 100%;
+    .status-filter {
       width: 100%;
-      height: 40px;
-      background: #ffffff;
-      border: 1.5px solid #1b63d4;
-      box-shadow: 0px 2px 10px rgba(187, 209, 243, 0.5);
-      border-radius: 5px;
-      margin-top: 10px;
-      margin-bottom: 15px;
-      padding-left: 13px;
-      padding-right: 13px;
-      .input-text {
-        width: 70%;
-        text-align: center;
-        height: 37px;
-      }
-      .input-text:focus {
-        border-color: inherit;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        outline: none;
-      }
-    }
-    .box-popup {
+      height: 44px;
       background: #ffffff;
       border: 1px solid #e2e2e2;
       border-radius: 5px;
-      padding: 11px 10px 11px 10px;
-      margin-top: 10px;
-      .name-popup {
-        font-weight: 500;
+      .card-filter {
+        width: 100%;
+        margin-right: 10px;
+        margin-left: 10px;
+        cursor: pointer;
+        .name-status {
+          font-family: 'Cabin';
+          color: #454545;
+          font-weight: 400;
+          font-size: 16px;
+          margin-left: 10px;
+          line-height: 40px;
+        }
+      }
+    }
+    .summary-card {
+      padding: 10px 20px 0px 20px;
+      height: 100%;
+      .item-summary {
+        height: 30px;
+        .title-1 {
+          font-family: 'Cabin';
+          font-weight: 600;
+          font-size: 14px;
+          color: #333333;
+          width: 60px;
+        }
+        .value-1 {
+          font-family: 'Cabin';
+          font-weight: 400;
+          font-size: 12px;
+          color: #333333;
+        }
+      }
+    }
+  }
+
+  .kg-popup {
+    .content-popup {
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      width: 100%;
+      height: 100%;
+      .title-popup2 {
+        font-family: 'Cabin';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        color: #5c6b7a;
+      }
+      .title-popup {
+        font-weight: 400;
         font-size: 16px;
         color: #454545;
       }
-      .desc-popup {
-        font-weight: 400;
-        font-size: 14px;
-        color: #757575;
-      }
-      .date-popup {
-        font-weight: 400;
-        font-size: 14px;
-        text-align: right;
-        color: #757575;
-      }
-    }
-    .footer-card {
-      margin-top: 15px;
-      .cancel-btn {
-        border: 1px solid #1b63d4;
-        color: #1b63d4;
-        font-weight: 700;
-        font-size: 14px;
-        border-radius: 5px;
+      .input-number {
+        width: 100%;
         height: 40px;
-      }
-      .cancel-btn:hover {
-        background-color: rgb(243 244 246);
-      }
-      .save-btn {
-        background: #1b63d4;
-        color: #ffffff;
+        background: #ffffff;
+        border: 1.5px solid #1b63d4;
+        box-shadow: 0px 2px 10px rgba(187, 209, 243, 0.5);
         border-radius: 5px;
-        height: 40px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        padding-left: 13px;
+        padding-right: 13px;
+        .input-text {
+          width: 70%;
+          text-align: center;
+          height: 37px;
+        }
+        .input-text:focus {
+          border-color: inherit;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+          outline: none;
+        }
       }
-      .save-btn:hover {
-        opacity: 1.2;
-      }
-      .cancel-btn2 {
-        border: 1px solid #ed543a;
-        color: #ed543a;
-        font-weight: 700;
-        font-size: 14px;
+      .box-popup {
+        background: #ffffff;
+        border: 1px solid #e2e2e2;
         border-radius: 5px;
-        height: 40px;
+        padding: 11px 10px 11px 10px;
+        margin-top: 10px;
+        .name-popup {
+          font-weight: 500;
+          font-size: 16px;
+          color: #454545;
+        }
+        .desc-popup {
+          font-weight: 400;
+          font-size: 14px;
+          color: #757575;
+        }
+        .date-popup {
+          font-weight: 400;
+          font-size: 14px;
+          text-align: right;
+          color: #757575;
+        }
       }
-      .cancel-btn2:hover {
-        background-color: rgb(243 244 246);
-      }
-      .save-btn2 {
-        background: #ed543a;
-        border: 1px solid #ed543a;
-        border-radius: 5px;
-        height: 40px;
-        color: white;
-      }
-      .save-btn2:hover {
-        opacity: 1.2;
+      .footer-card {
+        margin-top: 15px;
+        .cancel-btn {
+          border: 1px solid #1b63d4;
+          color: #1b63d4;
+          font-weight: 700;
+          font-size: 14px;
+          border-radius: 5px;
+          height: 40px;
+        }
+        .cancel-btn:hover {
+          background-color: rgb(243 244 246);
+        }
+        .save-btn {
+          background: #1b63d4;
+          color: #ffffff;
+          border-radius: 5px;
+          height: 40px;
+        }
+        .save-btn:hover {
+          opacity: 1.2;
+        }
+        .cancel-btn2 {
+          border: 1px solid #ed543a;
+          color: #ed543a;
+          font-weight: 700;
+          font-size: 14px;
+          border-radius: 5px;
+          height: 40px;
+        }
+        .cancel-btn2:hover {
+          background-color: rgb(243 244 246);
+        }
+        .save-btn2 {
+          background: #ed543a;
+          border: 1px solid #ed543a;
+          border-radius: 5px;
+          height: 40px;
+          color: white;
+        }
+        .save-btn2:hover {
+          opacity: 1.2;
+        }
       }
     }
   }
