@@ -2,7 +2,7 @@
   <div class="containers" style="width: 100%">
     <!-- Header -->
     <div class="flex items-center header-content">
-      <div class="title-header">Audiences</div>
+      <div class="title-header">All Audiences</div>
       <div class="flex">
         <ButtonDefault
           icon="plus"
@@ -17,7 +17,9 @@
     <!-- Filters -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Manage and explore your audiences to better understand and engage them.
+        <!-- Manage and explore your audiences to better understand and engage them. -->
+        Manage and explore your segmented and unsegmented audiences to better
+        understand.
       </div>
 
       <div class="flex items-center">
@@ -138,10 +140,10 @@
         <el-table-column label="Contact">
           <template slot-scope="scope">
             <div v-if="scope.row.contacts && scope.row.contacts.length > 0">
-              <div v-for="(c, i) in scope.row.contacts" :key="i">
-                <span class="k-subtitle"
-                  >{{ c.contactType.name }}: {{ c.value }}</span
-                >
+              <div v-for="(c, i) in scope.row.contacts.slice(0, 2)" :key="i">
+                <span class="k-subtitle">
+                  {{ c.contactType.name }}: {{ c.value }}
+                </span>
               </div>
             </div>
             <div v-else>-</div>
@@ -311,7 +313,7 @@ export default {
       showSearch: false,
       currentPage: 1,
       isLoading: false,
-      rowPage: 6,
+      rowPage: 7,
       dialog: false,
       dialogDelete: false,
     }
