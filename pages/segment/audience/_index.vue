@@ -321,9 +321,9 @@ export default {
   computed: {
     ...mapState({
       sidebar: (state) => state.user.sidebar,
-      dataAudiences: (state) => state.audience.dataList,
-      totalList: (state) => state.audience.totalList,
-      totalPages: (state) => state.audience.totalPages,
+      dataAudiences: (state) => state.audienceBySegment.dataList,
+      totalList: (state) => state.audienceBySegment.totalList,
+      totalPages: (state) => state.audienceBySegment.totalPages,
     }),
   },
   mounted() {
@@ -338,6 +338,7 @@ export default {
       this.isLoading = true
 
       const params = {
+        segmentId: this.$route.params.index,
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,
@@ -345,7 +346,7 @@ export default {
       }
 
       this.$store
-        .dispatch('audience/list', params)
+        .dispatch('audienceBySegment/list', params)
         .finally(() => (this.isLoading = false))
     },
 
@@ -792,7 +793,6 @@ export default {
       }
     }
   }
-
   .kg-popup {
     .content-popup {
       padding-left: 20px;

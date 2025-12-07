@@ -1,7 +1,5 @@
 const resource = 'audience'
 
-import { stripFields } from '@/utils/helpers'
-
 export default ($axios) => ({
   // audience:create
   create(payload) {
