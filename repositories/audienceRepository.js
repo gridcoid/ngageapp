@@ -5,8 +5,8 @@ export default ($axios) => ({
   create(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}?orgId=${orgId}`, {
-      name: payload.name,
-      description: payload.description,
+      ...payload,
+      orgId,
     })
   },
 
@@ -14,8 +14,8 @@ export default ($axios) => ({
   update(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.patch(`${resource}/${payload.id}?orgId=${orgId}`, {
-      name: payload.name,
-      description: payload.description,
+      ...payload,
+      orgId,
     })
   },
 

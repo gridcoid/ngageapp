@@ -316,7 +316,6 @@ export default {
         yearOfBirth: 1950,
         genderId: null,
         religionId: null,
-        orgId: null,
         provinceCode: null,
         regencyCode: null,
         districtCode: null,
