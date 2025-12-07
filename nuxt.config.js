@@ -21,7 +21,12 @@ export default {
     baseURL: process.env.BASE_URL,
     isDev: process.env.IS_DEV,
   },
-  css: ['@/assets/css/main.scss', 'primeicons/primeicons.css'],
+  css: [
+    '@/assets/css/main.scss',
+    'primevue/resources/themes/saga-blue/theme.css',
+    'primevue/resources/primevue.min.css',
+    'primeicons/primeicons.css',
+  ],
   layoutTransition: {
     name: 'fade-transform',
   },
@@ -43,6 +48,7 @@ export default {
     '~/plugins/datepicker.js',
     '~/plugins/filterData.js',
     '~/plugins/icons.js',
+    { src: '~/plugins/primevue.js', mode: 'client' },
     { src: '~/plugins/chart.js', mode: 'client' },
     { src: '~/plugins/select.js', mode: 'client' },
     { src: '~/plugins/table.js', mode: 'client' },

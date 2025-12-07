@@ -90,7 +90,12 @@
           <!-- Address -->
           <el-form-item class="title-form" prop="address">
             <label slot="label" class="title-form">Address</label>
-            <el-input v-model="data.address" type="textarea" autosize />
+            <el-input
+              v-model="data.address"
+              type="textarea"
+              autosize
+              spellcheck="false"
+            />
           </el-form-item>
 
           <!-- Location Fields -->
@@ -163,16 +168,93 @@
 
           <hr class="mb-4" />
 
-          <!-- Additional Info -->
-          <el-form-item class="title-form" prop="additionalInfo">
-            <label slot="label" class="title-form">Additional Info</label>
-            <el-input
-              v-model="data.additionalInfoRaw"
-              type="textarea"
-              autosize
-              placeholder='{"key": "value"}'
+          <!-- Contact Info -->
+          <div class="mb-4">
+            <label class="title-form block mb-2">Contact Info</label>
+            <div
+              v-for="(contact, index) in data.contacts"
+              :key="'contact-' + index"
+              class="flex items-start mb-2"
+              style="gap: 10px"
+            >
+              <el-select
+                v-model="contact.typeId"
+                placeholder="Contact type"
+                style="width: 150px"
+              >
+                <el-option
+                  v-for="item in dataContactTypes"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                />
+              </el-select>
+              <el-input
+                v-model="contact.value"
+                :placeholder="
+                  contact.typeId === 1
+                    ? 'Email address'
+                    : contact.typeId === 2
+                    ? 'Phone number'
+                    : 'Value'
+                "
+                style="flex: 1"
+              />
+              <el-input
+                v-model="contact.label"
+                placeholder="Label info"
+                style="flex: 1"
+              />
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                circle
+                size="small"
+                @click="removeContact(index)"
+              />
+            </div>
+            <Button
+              label="Add Contact"
+              icon="pi pi-plus"
+              iconPos="left"
+              class="p-button-sm p-button-success w-36"
+              @click="addContact"
             />
-          </el-form-item>
+          </div>
+
+          <hr class="mb-4" />
+
+          <!-- Additional Info -->
+          <div class="mb-4">
+            <label class="title-form block mb-2">Additional Info</label>
+            <div
+              v-for="(info, index) in additionalInfoList"
+              :key="'info-' + index"
+              class="flex items-start mb-2"
+              style="gap: 10px"
+            >
+              <el-input v-model="info.key" placeholder="Key" style="flex: 1" />
+              <el-input
+                v-model="info.value"
+                placeholder="Value"
+                style="flex: 1"
+              />
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                circle
+                size="small"
+                @click="removeAdditionalInfo(index)"
+              />
+            </div>
+            <Button
+              label="Add Info"
+              icon="pi pi-plus"
+              iconPos="left"
+              class="p-button-sm p-button-success w-36"
+              @click="addAdditionalInfo"
+            />
+          </div>
         </el-form>
 
         <Transition>
@@ -242,9 +324,10 @@ export default {
         districtCode: null,
         villageCode: null,
         address: '',
+        contacts: [],
         additionalInfo: null,
-        additionalInfoRaw: '',
       },
+      additionalInfoList: [],
     }
   },
   computed: {
@@ -271,17 +354,28 @@ export default {
       this.$router.push({ path: '/audience' })
     },
 
+    addContact() {
+      this.data.contacts.push({ typeId: null, value: '', label: '' })
+    },
+    removeContact(index) {
+      this.data.contacts.splice(index, 1)
+    },
+    addAdditionalInfo() {
+      this.additionalInfoList.push({ key: '', value: '' })
+    },
+    removeAdditionalInfo(index) {
+      this.additionalInfoList.splice(index, 1)
+    },
+
     save() {
-      // Convert JSON input
-      try {
-        this.data.additionalInfo = this.data.additionalInfoRaw
-          ? JSON.parse(this.data.additionalInfoRaw)
-          : null
-      } catch (e) {
-        this.messageError = 'Invalid JSON in Additional Info'
-        this.showMessage = true
-        return
-      }
+      // Process Additional Info
+      const info = {}
+      this.additionalInfoList.forEach((item) => {
+        if (item.key && item.key.trim() !== '') {
+          info[item.key] = item.value
+        }
+      })
+      this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
 
       this.$notifier.showMessage({
         content: 'Creating audience...',
