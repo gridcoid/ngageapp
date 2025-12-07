@@ -1,5 +1,7 @@
 const resource = 'audience'
 
+import { stripFields } from '@/utils/helpers'
+
 export default ($axios) => ({
   // audience:create
   create(payload) {
@@ -12,10 +14,18 @@ export default ($axios) => ({
 
   // audience:update
   update(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.patch(`${resource}/${payload.id}?orgId=${orgId}`, {
-      ...payload,
-      orgId,
+    const { id, orgId, contacts = [], ...rest } = payload
+
+    // clean contacts
+    const cleanedContacts = contacts.map((c) => ({
+      typeId: c.typeId,
+      value: c.value,
+      label: c.label ?? null,
+    }))
+
+    return $axios.patch(`${resource}/${id}?orgId=${orgId}`, {
+      ...rest,
+      contacts: cleanedContacts,
     })
   },
 

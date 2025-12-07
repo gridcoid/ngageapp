@@ -25,3 +25,18 @@ export const generateItems = (count, creator) => {
   }
   return result
 }
+
+export const stripFields = (obj, disallowed = []) => {
+  if (Array.isArray(obj)) {
+    return obj.map((item) => stripFields(item, disallowed))
+  } else if (obj && typeof obj === 'object') {
+    const cleaned = {}
+    for (const key in obj) {
+      if (!disallowed.includes(key)) {
+        cleaned[key] = stripFields(obj[key], disallowed)
+      }
+    }
+    return cleaned
+  }
+  return obj
+}

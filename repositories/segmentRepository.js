@@ -4,18 +4,14 @@ export default ($axios) => ({
   // segment:create
   create(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}?orgId=${orgId}`, {
-      name: payload.name,
-      description: payload.description,
-    })
+    return $axios.post(`${resource}?orgId=${orgId}`, { ...payload, orgId })
   },
 
   // segment:update
   update(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.patch(`${resource}/${payload.id}?orgId=${orgId}`, {
-      name: payload.name,
-      description: payload.description,
+    const { id, orgId, ...rest } = payload
+    return $axios.patch(`${resource}/${id}?orgId=${orgId}`, {
+      ...rest,
     })
   },
 

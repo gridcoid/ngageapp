@@ -6,7 +6,7 @@
 
     <div class="card-content">
       <div class="header-card flex items-center">
-        <div class="title">Create New Audience</div>
+        <div class="title">Update Audience</div>
       </div>
 
       <div class="body-card">
@@ -284,11 +284,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'CreateAudiencePage',
+  name: 'UpdateAudiencePage',
   layout: 'default',
   head() {
     return {
-      title: 'Create - Audience - ' + this.$config.appName,
+      title: 'Update - Audience - ' + this.$config.appName,
     }
   },
   data() {
@@ -400,13 +400,13 @@ export default {
 
       const sto = setTimeout(() => {
         this.$store
-          .dispatch('audience/create', this.data)
+          .dispatch('audience/update', this.data)
           .then((res) => {
-            if (res.status === 201 || res.status === 200) {
+            if (res.status === 202 || res.status === 200) {
               this.$router.push({ path: '/audience' })
 
               this.$notifier.showMessage({
-                content: 'Audience created.',
+                content: 'Audience updated.',
                 type: 'success',
               })
               clearInterval(sto)
