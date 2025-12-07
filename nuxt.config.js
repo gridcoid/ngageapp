@@ -21,7 +21,7 @@ export default {
     baseURL: process.env.BASE_URL,
     isDev: process.env.IS_DEV,
   },
-  css: ['@/assets/css/main.scss'],
+  css: ['@/assets/css/main.scss', 'primeicons/primeicons.css'],
   layoutTransition: {
     name: 'fade-transform',
   },

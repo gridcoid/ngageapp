@@ -103,20 +103,17 @@
               </div-->
               <NuxtLink
                 class="item-menu flex items-center no-select"
-                :to="`/segment/edit/${item.id}`"
+                :to="`/segment/import/${item.id}`"
               >
-                <img src="~/assets/images/icon/edit.svg" class="icon-item" />
-                <span class="ml-3">Edit</span>
+                <i class="pi pi-file-import text-green-500"></i>
+                <span class="ml-3">Import</span>
               </NuxtLink>
               <NuxtLink
                 class="item-menu flex items-center no-select"
-                :to="`/segment/import/${item.id}`"
+                :to="`/segment/edit/${item.id}`"
               >
-                <img
-                  src="~/assets/images/icon/download.svg"
-                  class="icon-item"
-                />
-                <span class="ml-3">Import</span>
+                <i class="pi pi-pencil text-yellow-500"></i>
+                <span class="ml-3">Edit</span>
               </NuxtLink>
               <div
                 class="item-menu flex items-center no-select"
@@ -127,8 +124,8 @@
                 "
                 @click="deleteSegment(item)"
               >
-                <img src="~/assets/images/icon/delete.svg" class="icon-item" />
-                Delete
+                <i class="pi pi-trash text-red-500"></i>
+                <span class="ml-3">Delete</span>
               </div>
             </template>
           </Dropdown>
