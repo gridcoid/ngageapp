@@ -102,9 +102,7 @@ export default {
   },
   computed: {
     ...mapState({
-      dataDetail: (state) => {
-        return state.segment.dataDetail
-      },
+      dataDetail: (state) => state.segment.dataDetail,
     }),
   },
   methods: {
@@ -115,15 +113,7 @@ export default {
       }
       this.$store
         .dispatch('segment/detail', data)
-        .then(() => {
-          this.isLoading = false
-          this.data.id = this.dataDetail.id
-          this.data.name = this.dataDetail.name
-          this.data.description = this.dataDetail.description
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
     back() {
       this.$router.push({ path: '/segment' })
@@ -180,6 +170,13 @@ export default {
             }),
         1000
       )
+    },
+  },
+  watch: {
+    dataDetail(val) {
+      this.data.id = val.id
+      this.data.name = val.name
+      this.data.description = val.description
     },
   },
 }

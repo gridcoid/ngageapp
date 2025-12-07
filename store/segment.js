@@ -45,11 +45,11 @@ export const mutations = {
       state.dataCreate = []
     }
   },
-  SET_DATA_DETAIL_SEGMENT(state, item) {
+  SET_DATA_DETAIL(state, item) {
     if (item !== null) {
       state.dataDetail = item
     } else {
-      state.dataDetail = []
+      state.dataDetail = {}
     }
   },
 }
@@ -95,10 +95,10 @@ export const actions = {
   async detail({ commit }, payload) {
     try {
       const response = await this.$repositories.segment.detail(payload)
-      commit('SET_DATA_DETAIL_SEGMENT', response.data.data)
+      commit('SET_DATA_DETAIL', response.data.data)
       return response
     } catch (e) {
-      commit('SET_DATA_DETAIL_SEGMENT', null)
+      commit('SET_DATA_DETAIL', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
         type: 'failed',
