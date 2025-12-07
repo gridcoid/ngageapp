@@ -10,6 +10,8 @@ import ProvinceRepository from '~/repositories/provinceRepository'
 import RegencyRepository from '~/repositories/regencyRepository'
 import DistrictRepository from '~/repositories/districtRepository'
 import VillageRepository from '~/repositories/villageRepository'
+import GenderRepository from '~/repositories/genderRepository'
+import ReligionRepository from '~/repositories/religionRepository'
 
 export default ($axios) => ({
   user: UserRepository($axios),
@@ -24,4 +26,6 @@ export default ($axios) => ({
   regency: RegencyRepository($axios),
   district: DistrictRepository($axios),
   village: VillageRepository($axios),
+  gender: GenderRepository($axios),
+  religion: ReligionRepository($axios),
 })

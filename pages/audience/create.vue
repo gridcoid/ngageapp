@@ -60,7 +60,7 @@
               class="w-full"
             >
               <el-option
-                v-for="item in genderOptions"
+                v-for="item in dataGender"
                 :key="item.id"
                 :label="item.name"
                 :value="item.id"
@@ -77,7 +77,7 @@
               class="w-full"
             >
               <el-option
-                v-for="item in religionOptions"
+                v-for="item in dataReligions"
                 :key="item.id"
                 :label="item.name"
                 :value="item.id"
@@ -247,9 +247,11 @@ export default {
       },
 
       // Dropdown dummy (ganti dari API Anda)
+      orgOptions: [],
+
       genderOptions: [],
       religionOptions: [],
-      orgOptions: [],
+
       provinceOptions: [],
       regencyOptions: [],
       districtOptions: [],
@@ -262,10 +264,15 @@ export default {
       dataRegencies: (state) => state.regency.dataList,
       dataDistricts: (state) => state.district.dataList,
       dataVillages: (state) => state.village.dataList,
+
+      dataGender: (state) => state.gender.dataList,
+      dataReligions: (state) => state.religion.dataList,
     }),
   },
   mounted() {
     this.getProvince()
+    this.getGender()
+    this.getReligion()
   },
   methods: {
     back() {
@@ -322,6 +329,22 @@ export default {
             clearInterval(sto)
           })
       }, 1000)
+    },
+
+    getGender() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('gender/list')
+        .finally(() => (this.isLoading = false))
+    },
+
+    getReligion() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('religion/list')
+        .finally(() => (this.isLoading = false))
     },
 
     getProvince() {
