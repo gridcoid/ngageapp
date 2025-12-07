@@ -315,7 +315,7 @@ export default {
       data: {
         name: '',
         dateOfBirth: null,
-        yearOfBirth: null,
+        yearOfBirth: 1950,
         genderId: null,
         religionId: null,
         orgId: null,
@@ -490,6 +490,23 @@ export default {
       this.data.villageCode = null // reset village when district changes
       if (val) {
         this.getVillage(val)
+      }
+    },
+    'data.dateOfBirth'(val) {
+      if (val) {
+        const year = parseInt(val.split('-')[0])
+        if (this.data.yearOfBirth !== year) {
+          this.data.yearOfBirth = year
+        }
+      }
+    },
+    'data.yearOfBirth'(val) {
+      if (val && this.data.dateOfBirth) {
+        const parts = this.data.dateOfBirth.split('-')
+        const year = parseInt(parts[0])
+        if (year !== val) {
+          this.data.dateOfBirth = `${val}-${parts[1]}-${parts[2]}`
+        }
       }
     },
   },
