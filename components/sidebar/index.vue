@@ -15,14 +15,7 @@
           </div>
         </div>
       </div>
-      <button
-        v-show="handleRole"
-        type="button"
-        class="k-btn flex items-center justify-center"
-      >
-        <IconPlus class="icon-btn" bg-color="#1B63D4" />
-        Create Something
-      </button>
+      <hr class="mt-5" />
     </div>
     <div class="flex flex-col justify-between mt-0" style="margin-top: 10px">
       <SidebarItemList />
