@@ -421,7 +421,7 @@ export default {
       this.getData()
     },
     viewDetail(item) {
-      this.$router.push({ path: '/segment/detail/' + item.id })
+      this.$router.push({ path: '/segment/audience/' + item.id })
     },
   },
 }
