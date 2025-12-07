@@ -166,10 +166,10 @@
         <el-table-column label="Location">
           <template slot-scope="scope">
             <div class="k-subtitle">
-              {{ scope.row.province?.name || '-' }},
+              {{ scope.row.village?.name || '-' }},
+              {{ scope.row.district?.name || '-' }}<br />
               {{ scope.row.regency?.name || '-' }},
-              {{ scope.row.district?.name || '-' }},
-              {{ scope.row.village?.name || '-' }}
+              {{ scope.row.province?.name || '-' }}
             </div>
           </template>
         </el-table-column>
@@ -190,10 +190,9 @@
                   class="item-menu flex items-center no-select"
                   :to="`/audience/edit/${scope.row.id}`"
                 >
-                  <img src="~/assets/images/icon/edit.svg" class="icon-item" />
+                  <i class="pi pi-pencil text-yellow-500"></i>
                   <span class="ml-3">Edit</span>
                 </NuxtLink>
-
                 <div
                   class="item-menu flex items-center no-select"
                   style="
@@ -203,11 +202,8 @@
                   "
                   @click="deleteAudience(scope.row)"
                 >
-                  <img
-                    src="~/assets/images/icon/delete.svg"
-                    class="icon-item"
-                  />
-                  Delete
+                  <i class="pi pi-trash text-red-500"></i>
+                  <span class="ml-3">Delete</span>
                 </div>
               </template>
             </Dropdown>
