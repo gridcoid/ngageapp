@@ -239,8 +239,8 @@
         >
           <template slot="empty">
             <div class="flex flex-col items-center mt-6 no-data">
-              <img src="~/assets/images/campaign/empty_table.svg" />
-              <div class="title-1">It’s Very Clean Here</div>
+              <img src="~/assets/images/empty_table.png" width="150" />
+              <div class="title-1">No records found.</div>
               <div class="subtitle-1">
                 Seems like you haven’t created any campaign yet. Create one now?
               </div>

@@ -220,8 +220,8 @@
               </el-table-column>
               <template slot="empty">
                 <div class="flex flex-col items-center mt-6 no-data">
-                  <img src="~/assets/images/campaign/empty_table.svg" />
-                  <div class="title-1">It’s Very Clean Here</div>
+                  <img src="~/assets/images/empty_table.png" width="150" />
+                  <div class="title-1">No records found.</div>
                 </div>
               </template>
             </el-table>

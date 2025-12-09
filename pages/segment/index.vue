@@ -142,8 +142,8 @@
       />
     </div>
     <div v-else class="flex flex-col items-center mt-24 no-data">
-      <img src="~/assets/images/campaign/empty_table.svg" />
-      <div class="title-1 mt-2">It’s Very Clean Here</div>
+      <img src="~/assets/images/empty_table.png" width="150" />
+      <div class="title-1 mt-2">No records found.</div>
       <div class="subtitle-1">
         Seems like you haven’t created any segment yet. Create one now?
       </div>
