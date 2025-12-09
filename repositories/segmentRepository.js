@@ -23,6 +23,12 @@ export default ($axios) => ({
     )
   },
 
+  // segment:all
+  all() {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(`${resource}/all?orgId=${orgId}`)
+  },
+
   // segment:detail
   detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId

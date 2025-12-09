@@ -134,15 +134,8 @@ export default {
     getSegments() {
       this.isLoading = true
 
-      const data = {
-        page: 1,
-        size: 1000,
-        name: '',
-        sort: 'createdAt_desc',
-      }
-
       this.$store
-        .dispatch('segment/list', data)
+        .dispatch('segment/all')
         .then(() => {
           this.isLoading = false
         })
@@ -222,7 +215,7 @@ export default {
 
   watch: {
     dataSegments(val) {
-      console.log(val)
+      // console.log(val)
     },
   },
 

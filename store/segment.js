@@ -38,6 +38,13 @@ export const mutations = {
       state.totalPages = 0
     }
   },
+  SET_DATA_ALL(state, item) {
+    if (item !== null) {
+      state.dataList = item.data
+    } else {
+      state.dataList = []
+    }
+  },
   SET_DATA_CREATE(state, item) {
     if (item !== null) {
       state.dataCreate = item
@@ -83,6 +90,22 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_LIST', null)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + e.response.status,
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // segment:all
+  async all({ commit }) {
+    try {
+      const response = await this.$repositories.segment.all()
+      commit('SET_DATA_ALL', response.data)
+      return response
+    } catch (e) {
+      commit('SET_DATA_ALL', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
         type: 'failed',
