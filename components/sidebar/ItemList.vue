@@ -175,6 +175,11 @@ export default {
             icon: 'pi pi-cog',
             child: [
               {
+                path: '/admin/api-key',
+                name: 'API Key Management',
+                icon: 'pi pi-key',
+              },
+              {
                 path: '/admin/user',
                 name: 'User Management',
                 icon: 'pi pi-user',
