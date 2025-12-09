@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'CreateApiKeyPage',
   layout: 'default',
@@ -129,6 +131,26 @@ export default {
   },
 
   methods: {
+    getSegments() {
+      this.isLoading = true
+
+      const data = {
+        page: 1,
+        size: 1000,
+        name: '',
+        sort: 'createdAt_desc',
+      }
+
+      this.$store
+        .dispatch('segment/list', data)
+        .then(() => {
+          this.isLoading = false
+        })
+        .catch(() => {
+          this.isLoading = false
+        })
+    },
+
     back() {
       this.$router.push({ path: '/apikey' })
     },
@@ -188,6 +210,24 @@ export default {
         1000
       )
     },
+  },
+
+  computed: {
+    ...mapState({
+      dataSegments: (state) => {
+        return state.segment.dataList
+      },
+    }),
+  },
+
+  watch: {
+    dataSegments(val) {
+      console.log(val)
+    },
+  },
+
+  mounted() {
+    this.getSegments()
   },
 }
 </script>
