@@ -98,7 +98,7 @@
           <template slot-scope="scope">
             <div
               class="flex items-center cursor-pointer"
-              @click="editAudience(scope.row.id)"
+              @click="viewDetail(scope.row)"
             >
               <div class="flex flex-col">
                 <el-tooltip :open-delay="1000" placement="top-end">
@@ -401,10 +401,6 @@ export default {
 
     viewDetail(item) {
       this.$router.push({ path: '/audience/detail/' + item.id })
-    },
-
-    editAudience(id) {
-      this.$router.push({ path: '/audience/edit/' + id })
     },
 
     resetFilter() {
