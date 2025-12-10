@@ -53,12 +53,48 @@
 
           <!-- Scopes -->
           <el-form-item class="title-form" prop="scopes">
-            <label slot="label" class="title-form"
-              >Scopes (comma-separated)</label
+            <label slot="label" class="title-form">Scopes</label>
+
+            <div
+              v-for="(row, index) in scopeRows"
+              :key="index"
+              class="flex items-center mb-3"
             >
-            <el-input
-              v-model="scopesText"
-              placeholder="Example: read,write,admin (optional)"
+              <el-select
+                v-model="row.segmentId"
+                placeholder="Select Segment"
+                class="mr-3"
+                style="width: 250px"
+              >
+                <el-option
+                  v-for="item in dataSegments"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                >
+                </el-option>
+              </el-select>
+
+              <div class="ml-4"></div>
+
+              <el-checkbox v-model="row.read" class="mr-3">Read</el-checkbox>
+              <el-checkbox v-model="row.write" class="mr-3">Write</el-checkbox>
+
+              <div class="ml-4"></div>
+
+              <Button
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-danger p-button-text"
+                @click="removeScopeRow(index)"
+              />
+            </div>
+
+            <Button
+              label="Add Scope"
+              icon="pi pi-plus"
+              iconPos="left"
+              class="p-button-sm p-button-success w-36 h-9"
+              @click="addScopeRow"
             />
           </el-form-item>
         </el-form>
@@ -125,7 +161,13 @@ export default {
       showMessage: false,
       messageError: '',
 
-      scopesText: '', // UI only
+      scopeRows: [
+        {
+          segmentId: null,
+          read: false,
+          write: false,
+        },
+      ],
 
       data: {
         name: '',
@@ -150,18 +192,38 @@ export default {
         })
     },
 
+    addScopeRow() {
+      this.scopeRows.push({
+        segmentId: null,
+        read: false,
+        write: false,
+      })
+    },
+
+    removeScopeRow(index) {
+      this.scopeRows.splice(index, 1)
+    },
+
     back() {
       this.$router.push({ path: '/apikey' })
     },
 
     save() {
-      // convert scopesText → array
-      if (this.scopesText.trim() !== '') {
-        this.data.scopes = this.scopesText
-          .split(',')
-          .map((s) => s.trim())
-          .filter((s) => s.length > 0)
-      }
+      // Process scopeRows into data.scopes
+      const scopes = []
+      this.scopeRows.forEach((row) => {
+        if (row.segmentId) {
+          const segment = this.dataSegments.find((s) => s.id === row.segmentId)
+          if (segment) {
+            // Use segment name or uuid? Using name as it's more readable,
+            // but might need to be careful with spaces.
+            // Assuming format "Segment Name:read"
+            if (row.read) scopes.push(`${segment.name}:read`)
+            if (row.write) scopes.push(`${segment.name}:write`)
+          }
+        }
+      })
+      this.data.scopes = scopes
 
       this.$notifier.showMessage({
         content: 'Creating API key...',
