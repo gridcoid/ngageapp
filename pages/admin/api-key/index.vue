@@ -1,7 +1,7 @@
 <template>
   <div class="kg-containers" style="width: 100%">
     <div class="flex items-center header-content">
-      <div class="title-header">Api Key Management</div>
+      <div class="title-header">API Key Management</div>
       <div class="flex">
         <ButtonDefault
           icon="plus"
@@ -197,7 +197,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Api Key Management - ' + this.$config.appName,
+      title: 'API Key Management - ' + this.$config.appName,
     }
   },
   data() {
