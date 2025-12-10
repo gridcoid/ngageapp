@@ -11,7 +11,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Survey - ' + this.$config.appName,
+      title: 'Surveys - ' + this.$config.appName,
     }
   },
 }

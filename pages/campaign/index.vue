@@ -1,7 +1,7 @@
 <template>
   <div class="containers" style="width: 100%">
     <div class="flex items-center header-content">
-      <div class="title-header">Campaign</div>
+      <div class="title-header">Campaigns</div>
       <ButtonDefault
         icon="plus"
         text="Create New"
@@ -635,7 +635,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Campaign - ' + this.$config.appName,
+      title: 'Campaigns - ' + this.$config.appName,
     }
   },
   data() {

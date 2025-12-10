@@ -128,37 +128,37 @@ export default {
           },
           {
             path: '/campaign',
-            name: 'Campaign',
+            name: 'Campaigns',
             type: 'single',
             icon: 'pi pi-megaphone',
           },
           {
             path: '/survey',
-            name: 'Survey',
+            name: 'Surveys',
             type: 'single',
             icon: 'pi pi-list-check',
           },
           {
             path: '/segment',
-            name: 'Segment',
+            name: 'Segments',
             type: 'single',
             icon: 'pi pi-filter',
           },
           {
             path: '/audience',
-            name: 'Audience',
+            name: 'Audiences',
             type: 'single',
             icon: 'pi pi-users',
           },
           {
             path: '/creative',
-            name: 'Creative',
+            name: 'Creatives',
             type: 'single',
             icon: 'pi pi-palette',
           },
           {
             path: '/report',
-            name: 'Report',
+            name: 'Reports',
             type: 'single',
             icon: 'pi pi-chart-bar',
           },
@@ -170,7 +170,7 @@ export default {
           },
           {
             path: '',
-            name: 'Admin',
+            name: 'Admins',
             type: 'multiple',
             icon: 'pi pi-cog',
             child: [
@@ -202,17 +202,17 @@ export default {
           },
           {
             path: '/campaign',
-            name: 'Campaign',
+            name: 'Campaigns',
             type: 'single',
           },
           {
             path: '/creative',
-            name: 'Creative',
+            name: 'Creatives',
             type: 'single',
           },
           {
             path: '/report',
-            name: 'Report',
+            name: 'Reports',
             type: 'single',
           },
         ]
@@ -221,7 +221,7 @@ export default {
         this.data = [
           {
             path: '/creative',
-            name: 'Creative',
+            name: 'Creatives',
             type: 'single',
           },
           // {
