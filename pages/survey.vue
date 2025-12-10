@@ -1,9 +1,7 @@
 <template>
   <div class="kg-construction flex flex-col items-center justify-center">
-    <img src="~/assets/images/construction.svg" />
-    <div class="title-cons">
-      Ups, this gonna be interesting stuff, we're cooking it!
-    </div>
+    <img src="~/assets/images/not_ready.png" width="150" />
+    <div class="title-cons">This page is not available yet.</div>
   </div>
 </template>
 
