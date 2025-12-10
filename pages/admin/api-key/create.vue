@@ -23,18 +23,6 @@
             <el-input v-model="data.name" />
           </el-form-item>
 
-          <!-- Description -->
-          <el-form-item class="title-form" prop="description">
-            <label slot="label" class="title-form">Description</label>
-            <el-input
-              v-model="data.description"
-              type="textarea"
-              :rows="3"
-              maxlength="255"
-              spellcheck="false"
-            />
-          </el-form-item>
-
           <!-- Expiration -->
           <el-form-item
             class="title-form"
@@ -142,7 +130,7 @@ export default {
         name: [
           {
             required: true,
-            message: 'API Key Name is required',
+            message: 'API key name is required',
             trigger: 'blur',
           },
           {
@@ -152,7 +140,6 @@ export default {
             trigger: 'blur',
           },
         ],
-        description: [{ required: false }],
         expiresAt: [{ required: false }],
         scopes: [{ required: false }],
       },
@@ -172,7 +159,6 @@ export default {
 
       data: {
         name: '',
-        description: '',
         expiresAt: null,
         scopes: [],
       },
@@ -206,7 +192,7 @@ export default {
     },
 
     back() {
-      this.$router.push({ path: '/apikey' })
+      this.$router.push({ path: '/admin/api-key' })
     },
 
     save() {
@@ -229,10 +215,10 @@ export default {
       const sto = setTimeout(
         () =>
           this.$store
-            .dispatch('apikey/create', this.data)
+            .dispatch('apiKey/create', this.data)
             .then((res) => {
               if (res.status === 201 || res.status === 200) {
-                this.$router.push({ path: '/apikey' })
+                this.$router.push({ path: '/admin/api-key' })
 
                 this.$notifier.showMessage({
                   content: 'API Key created.',
