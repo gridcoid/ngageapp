@@ -31,6 +31,7 @@
               type="textarea"
               :rows="3"
               maxlength="255"
+              spellcheck="false"
             />
           </el-form-item>
 
@@ -210,20 +211,13 @@ export default {
 
     save() {
       // Process scopeRows into data.scopes
-      const scopes = []
-      this.scopeRows.forEach((row) => {
-        if (row.segmentId) {
-          const segment = this.dataSegments.find((s) => s.id === row.segmentId)
-          if (segment) {
-            // Use segment name or uuid? Using name as it's more readable,
-            // but might need to be careful with spaces.
-            // Assuming format "Segment Name:read"
-            if (row.read) scopes.push(`${segment.name}:read`)
-            if (row.write) scopes.push(`${segment.name}:write`)
-          }
-        }
-      })
-      this.data.scopes = scopes
+      this.data.scopes = this.scopeRows
+        .filter((row) => row.segmentId)
+        .map((row) => ({
+          segmentId: row.segmentId,
+          read: row.read,
+          write: row.write,
+        }))
 
       this.$notifier.showMessage({
         content: 'Creating API key...',
