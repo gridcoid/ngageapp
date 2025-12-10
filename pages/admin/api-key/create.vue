@@ -35,12 +35,18 @@
           </el-form-item>
 
           <!-- Expiration -->
-          <el-form-item class="title-form" prop="expiresAt">
-            <label slot="label" class="title-form">Expiration Date</label>
+          <el-form-item
+            class="title-form"
+            prop="expiresAt"
+            label="Expiration Date"
+          >
             <el-date-picker
               v-model="data.expiresAt"
               type="date"
-              placeholder="Optional"
+              placeholder="Select date (optional)"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              placement="bottom-start"
               style="width: 100%"
             />
           </el-form-item>
