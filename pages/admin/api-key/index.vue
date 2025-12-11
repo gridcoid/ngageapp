@@ -14,8 +14,8 @@
     </div>
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Discover and manage different audience groups to tailor your campaigns
-        effectively.
+        Generate and configure API keys with custom scopes to safely integrate
+        external apps and services.
       </div>
       <div class="flex items-center">
         <button
