@@ -261,12 +261,6 @@ export default {
     }),
   },
 
-  watch: {
-    dataSegments(val) {
-      // console.log(val)
-    },
-  },
-
   mounted() {
     this.getSegments()
   },

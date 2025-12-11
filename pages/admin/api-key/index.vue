@@ -62,7 +62,61 @@
     </div>
 
     <div v-if="dataApiKeys.length > 0" class="body-content flex flex-col">
-      <!-- complete this line -->
+      <el-table :data="dataApiKeys" class="w-full">
+        <el-table-column label="Name" min-width="200">
+          <template slot-scope="scope">
+            <div class="font-cabin font-semibold text-sm text-gray-700">
+              {{ scope.row.name }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Scopes" min-width="150">
+          <template slot-scope="scope">
+            <div class="font-cabin font-normal text-sm text-gray-500">
+              {{
+                scope.row.scopes
+                  ? (scope.row.scopes?.length || 0) + ' Segments'
+                  : 'No Scopes'
+              }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Status" min-width="120">
+          <template slot-scope="scope">
+            <div
+              class="font-cabin font-medium text-sm"
+              :class="scope.row.revoked ? 'text-red-500' : 'text-green-500'"
+            >
+              {{ scope.row.revoked ? 'Revoked' : 'Active' }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Expires" min-width="150">
+          <template slot-scope="scope">
+            <div class="font-cabin font-normal text-sm text-gray-500">
+              {{
+                scope.row.expiresAt
+                  ? new Date(scope.row.expiresAt).toLocaleDateString()
+                  : 'Never'
+              }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Action" width="100" align="center">
+          <template slot-scope="scope">
+            <div
+              class="cursor-pointer flex items-center justify-center"
+              @click="deleteApiKey(scope.row)"
+            >
+              <img src="~/assets/images/icon/delete.svg" />
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
 
       <Pagination
         class="k-pagination"

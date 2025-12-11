@@ -60,7 +60,6 @@
     </div>
 
     <div class="body-content">
-      <!-- TABLE -->
       <el-table
         v-loading="isLoading"
         element-loading-text="Loading..."
@@ -72,14 +71,22 @@
         class="k-table"
         :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'"
       >
-        <!-- EMPTY STATE (unchanged) -->
+        <!-- EMPTY STATE -->
         <template slot="empty">
           <div class="flex flex-col items-center mt-6 no-data">
             <img src="~/assets/images/empty_table.png" width="150" />
             <div class="title-1">No records found.</div>
             <div class="subtitle-1">
-              Seems like you haven’t added any audience yet. Add some now?
+              Seems like you haven’t created any audience yet. Create one now?
             </div>
+
+            <button
+              class="flex items-center justify-center save-btn no-select"
+              @click="toCreate()"
+            >
+              <IconPlus bg-color="#1B63D4" />
+              <div class="name-btn">Create New Audience</div>
+            </button>
           </div>
         </template>
 
@@ -93,8 +100,8 @@
           </template>
         </el-table-column>
 
-        <!-- NAME (unchanged) -->
-        <el-table-column label="Name" prop="name" sortable width="300">
+        <!-- NAME -->
+        <el-table-column label="Name" prop="name" sortable>
           <template slot-scope="scope">
             <div
               class="flex items-center cursor-pointer"
@@ -103,14 +110,10 @@
               <div class="flex flex-col">
                 <el-tooltip :open-delay="1000" placement="top-end">
                   <div slot="content">{{ scope.row.name }}</div>
+
+                  <!-- replaced ellipsis inline css with tailwind -->
                   <div
-                    class="k-title"
-                    style="
-                      white-space: nowrap;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                      width: 240px;
-                    "
+                    class="k-title whitespace-nowrap overflow-hidden overflow-ellipsis w-60"
                   >
                     {{ scope.row.name }}
                   </div>
@@ -128,7 +131,7 @@
           </template>
         </el-table-column>
 
-        <!-- CONTACT (unchanged) -->
+        <!-- CONTACT -->
         <el-table-column label="Contact">
           <template slot-scope="scope">
             <div v-if="scope.row.contacts && scope.row.contacts.length > 0">
@@ -142,24 +145,24 @@
           </template>
         </el-table-column>
 
-        <!-- GENDER (updated) -->
+        <!-- GENDER -->
         <el-table-column label="Gender" prop="gender.name">
           <template slot-scope="scope">
             {{ scope.row.gender?.name || '-' }}
           </template>
         </el-table-column>
 
-        <!-- RELIGION (NEW) -->
+        <!-- RELIGION -->
         <el-table-column label="Religion" prop="religion.name">
           <template slot-scope="scope">
             {{ scope.row.religion?.name || '-' }}
           </template>
         </el-table-column>
 
-        <!-- ADDRESS (NEW) -->
+        <!-- ADDRESS -->
         <el-table-column label="Location">
           <template slot-scope="scope">
-            <div class="k-subtitle">
+            <div class="k-subtitle leading-5">
               {{ scope.row.village?.name || '-' }},
               {{ scope.row.district?.name || '-' }}<br />
               {{ scope.row.regency?.name || '-' }},
@@ -168,7 +171,7 @@
           </template>
         </el-table-column>
 
-        <!-- ACTIONS (unchanged) -->
+        <!-- ACTIONS -->
         <el-table-column>
           <template slot-scope="scope">
             <Dropdown
@@ -187,13 +190,10 @@
                   <i class="pi pi-pencil text-yellow-500"></i>
                   <span class="ml-3">Edit</span>
                 </NuxtLink>
+
+                <!-- replaced border inline css with tailwind -->
                 <div
-                  class="item-menu flex items-center no-select"
-                  style="
-                    border-bottom: 1px solid #e2e2e2;
-                    border-end-end-radius: 5px;
-                    border-end-start-radius: 5px;
-                  "
+                  class="item-menu flex items-center no-select border-b border-gray-300 rounded-b-md"
                   @click="deleteAudience(scope.row)"
                 >
                   <i class="pi pi-trash text-red-500"></i>
