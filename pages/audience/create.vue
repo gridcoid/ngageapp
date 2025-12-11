@@ -213,12 +213,12 @@
                 @click="removeContact(index)"
               />
             </div>
-            <Button
-              label="Add Contact"
-              icon="pi pi-plus"
-              iconPos="left"
-              class="p-button-sm p-button-success w-36"
+            <el-button
+              type="success"
+              icon="el-icon-plus"
               @click="addContact"
+              size="small"
+              circle
             />
           </div>
 
@@ -247,12 +247,12 @@
                 @click="removeAdditionalInfo(index)"
               />
             </div>
-            <Button
-              label="Add Info"
-              icon="pi pi-plus"
-              iconPos="left"
-              class="p-button-sm p-button-success w-36"
+            <el-button
+              type="success"
+              icon="el-icon-plus"
               @click="addAdditionalInfo"
+              size="small"
+              circle
             />
           </div>
         </el-form>
@@ -263,18 +263,17 @@
       </div>
 
       <div class="footer-card flex justify-end gap-3">
-        <Button
-          label="Discard"
-          class="p-button-sm p-button-outlined p-button-primary w-36"
-          @click="back()"
-        />
-        <Button
-          label="Save"
-          icon="pi pi-save"
-          iconPos="left"
-          class="p-button-sm p-button-primary w-36 ml-3"
+        <el-button type="primary" @click="back()" plain class="w-32">
+          Discard
+        </el-button>
+        <el-button
+          icon="el-icon-check"
+          type="primary"
           @click="save()"
-        />
+          class="w-32"
+        >
+          Save
+        </el-button>
       </div>
     </div>
   </div>

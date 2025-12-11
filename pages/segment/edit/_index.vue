@@ -21,7 +21,6 @@
           </el-form-item>
           <el-form-item class="title-form" prop="description">
             <label slot="label" class="title-form">Description</label>
-
             <el-input
               v-model="data.description"
               type="textarea"
@@ -36,18 +35,17 @@
       </div>
 
       <div class="footer-card flex justify-end gap-3">
-        <Button
-          label="Discard"
-          class="p-button-sm p-button-outlined p-button-primary w-36"
-          @click="back()"
-        />
-        <Button
-          label="Save"
-          icon="pi pi-save"
-          iconPos="left"
-          class="p-button-sm p-button-primary w-36 ml-3"
+        <el-button type="primary" @click="back()" plain class="w-32">
+          Discard
+        </el-button>
+        <el-button
+          icon="el-icon-check"
+          type="primary"
           @click="save()"
-        />
+          class="w-32"
+        >
+          Save
+        </el-button>
       </div>
     </div>
   </div>
