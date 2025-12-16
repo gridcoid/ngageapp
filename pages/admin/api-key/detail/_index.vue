@@ -153,7 +153,7 @@ export default {
     },
 
     back() {
-      this.$router.push({ path: '/apiKey' })
+      this.$router.push({ path: '/admin/api-key' })
     },
   },
   watch: {
