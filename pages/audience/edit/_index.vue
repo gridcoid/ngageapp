@@ -391,7 +391,7 @@ export default {
       this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
 
       this.$notifier.showMessage({
-        content: 'Creating audience...',
+        content: 'Updating audience...',
         type: 'loading',
       })
 
