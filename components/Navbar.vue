@@ -135,8 +135,10 @@ export default {
       }
     },
     formatLabel(segment) {
-      // Capitalize first letter
-      return segment.charAt(0).toUpperCase() + segment.slice(1)
+      return segment
+        .split('-')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
     },
   },
 }

@@ -127,6 +127,12 @@ export default {
             icon: 'pi pi-home',
           },
           {
+            path: '/running-campaign',
+            name: 'Running Campaigns',
+            type: 'single',
+            icon: 'pi pi-play-circle',
+          },
+          {
             path: '/campaign',
             name: 'Campaigns',
             type: 'single',
@@ -198,6 +204,11 @@ export default {
           {
             path: '/',
             name: 'Dashboard',
+            type: 'single',
+          },
+          {
+            path: '/running-campaign',
+            name: 'Running Campaigns',
             type: 'single',
           },
           {
