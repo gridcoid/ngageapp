@@ -72,15 +72,21 @@
                       <i class="pi pi-users text-gray-400"></i>
                     </div>
                     <div class="ml-3">
-                      <div
-                        class="text-xs text-gray-500 font-semibold uppercase flex gap-2"
-                      >
-                        <span class="normal-case font-normal text-gray-400">
-                          Read: {{ scope.read ? 'Yes' : 'No' }}</span
-                        >
-                        <span class="normal-case font-normal text-gray-400">
-                          Write: {{ scope.write ? 'Yes' : 'No' }}</span
-                        >
+                      <div class="text-xs font-semibold uppercase flex gap-2">
+                        <span class="normal-case font-normal">
+                          Read:
+                          <span v-if="scope.read" class="text-green-500">
+                            Yes
+                          </span>
+                          <span v-else class="text-red-500">No</span>
+                        </span>
+                        <span class="normal-case font-normal">
+                          Write:
+                          <span v-if="scope.write" class="text-green-500">
+                            Yes
+                          </span>
+                          <span v-else class="text-red-500">No</span>
+                        </span>
                       </div>
                       <div class="text-gray-900 font-medium break-all">
                         {{ scope.segmentName }}
@@ -89,7 +95,7 @@
                   </div>
                 </div>
                 <div v-else class="text-gray-400 italic text-sm">
-                  No contact information available.
+                  No scopes available.
                 </div>
               </div>
             </div>
