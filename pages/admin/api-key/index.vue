@@ -116,14 +116,35 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Action" width="100" align="center">
+        <!-- ACTIONS -->
+        <el-table-column>
           <template slot-scope="scope">
-            <div
-              class="cursor-pointer flex items-center justify-center"
-              @click="deleteApiKey(scope.row)"
+            <Dropdown
+              :index-list="scope.$index"
+              name-btn="Detail"
+              icons="preview"
+              color-text="#1B63D4"
+              class="mr-6"
+              @preview="viewDetail(scope.row)"
             >
-              <img src="~/assets/images/icon/delete.svg" />
-            </div>
+              <template slot="body">
+                <NuxtLink
+                  class="item-menu flex items-center no-select"
+                  :to="`/admin/api-key/edit/${scope.row.id}`"
+                >
+                  <i class="pi pi-pencil text-yellow-500"></i>
+                  <span class="ml-3">Edit</span>
+                </NuxtLink>
+
+                <div
+                  class="item-menu flex items-center no-select border-b border-gray-300 rounded-b-md"
+                  @click="deleteApiKey(scope.row)"
+                >
+                  <i class="pi pi-trash text-red-500"></i>
+                  <span class="ml-3">Delete</span>
+                </div>
+              </template>
+            </Dropdown>
           </template>
         </el-table-column>
       </el-table>
