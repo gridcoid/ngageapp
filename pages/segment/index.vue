@@ -80,7 +80,7 @@
         <div class="flex flex-row items-center">
           <div class="flex user-data items-center justify-start">
             <IconUser class="mr-1" bg-color="#7A8A99" style="height: 14px" />
-            {{ Number(item.audienceCount).toLocaleString() }} users
+            {{ Number(item.audienceCount).toLocaleString() }} audiences
           </div>
           <Dropdown
             :index-list="index"

@@ -97,6 +97,12 @@
                       </div>
                       <div class="text-gray-900 font-medium break-all">
                         {{ scope.segmentName }}
+                        <span class="text-xs text-gray-400"
+                          >({{
+                            Number(scope.audienceCount).toLocaleString()
+                          }}
+                          audiences)</span
+                        >
                       </div>
                     </div>
                   </div>
@@ -170,7 +176,6 @@ export default {
   watch: {
     async dataDetail(val) {
       if (val) {
-        console.log(val)
         this.data = {
           id: val.id,
           orgId: val.orgId,
