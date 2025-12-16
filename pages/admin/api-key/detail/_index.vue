@@ -73,14 +73,14 @@
                     </div>
                     <div class="ml-3">
                       <div class="text-xs font-semibold uppercase flex gap-2">
-                        <span class="normal-case font-normal">
+                        <span class="normal-case font-normal text-gray-500">
                           Read:
                           <span v-if="scope.read" class="text-green-500">
                             Yes
                           </span>
                           <span v-else class="text-red-500">No</span>
                         </span>
-                        <span class="normal-case font-normal">
+                        <span class="normal-case font-normal text-gray-500">
                           Write:
                           <span v-if="scope.write" class="text-green-500">
                             Yes
