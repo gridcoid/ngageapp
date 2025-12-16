@@ -138,9 +138,7 @@
           :data="dataCampaignComplete"
           stripe
           class="k-table"
-          :style="
-            sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'
-          "
+          :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'"
         >
           <el-table-column label="Campaign Name" sortable width="400">
             <template slot-scope="scope">

@@ -86,7 +86,7 @@
         :data="dataAudiences"
         stripe
         class="k-table"
-        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'"
+        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'"
       >
         <!-- EMPTY STATE -->
         <template slot="empty">

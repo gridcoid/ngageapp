@@ -80,7 +80,7 @@
         :data="dataAudiences"
         stripe
         class="k-table w-full"
-        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'"
+        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'"
       >
         <!-- EMPTY STATE -->
         <template slot="empty">
@@ -400,6 +400,11 @@ export default {
     resetFilter() {
       this.radio = 'createdAt_desc'
       this.getData()
+    },
+  },
+  watch: {
+    sidebar(val) {
+      console.log(val)
     },
   },
 }

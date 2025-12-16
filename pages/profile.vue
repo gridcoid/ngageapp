@@ -128,7 +128,7 @@
               stripe
               class="k-table"
               :style="
-                sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'
+                sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'
               "
             >
               <el-table-column prop="name" sortable>

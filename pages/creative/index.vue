@@ -116,7 +116,7 @@
         :data="dataCreative"
         stripe
         class="k-table"
-        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'"
+        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'"
       >
         <template slot="empty">
           <div class="flex flex-col items-center mt-6 no-data">
