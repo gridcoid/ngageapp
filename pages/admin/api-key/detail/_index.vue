@@ -26,8 +26,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-user mr-2 text-blue-500"></i> API Key
-                Information
+                <i class="pi pi-key mr-2 text-blue-500"></i> API Key Information
               </h2>
               <div class="bg-gray-50 rounded-lg p-5 space-y-4">
                 <div>
@@ -77,7 +76,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-id-card mr-2 text-green-500"></i> Scopes
+                <i class="pi pi-building mr-2 text-green-500"></i> Scopes
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div v-if="data.scopes && data.scopes.length" class="space-y-3">
