@@ -1,7 +1,8 @@
 <template>
   <Transition name="nav">
     <nav class="flex nav-menu items-center justify-between" style="width: 100%">
-      <Breadcrumb :home="home" :model="items" />
+      <Breadcrumb class="hidden 2xl:block" :home="home" :model="items" />
+      <div class="2xl:hidden"></div>
 
       <div class="py-4 flex items-center">
         <SwitchOrganization />
