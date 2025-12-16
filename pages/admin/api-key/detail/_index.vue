@@ -1,0 +1,169 @@
+<template>
+  <div class="p-6">
+    <div class="mb-6">
+      <ButtonBackPage text="Back to API Keys" @click.native="back()" />
+    </div>
+
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+      <!-- Header -->
+      <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+        <h1 class="text-xl font-bold text-gray-800">API Key Details</h1>
+      </div>
+
+      <div class="p-6">
+        <!-- Main Info Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <!-- Left Column: Personal & Location -->
+          <div class="space-y-8">
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="pi pi-user mr-2 text-blue-500"></i> API Key
+                Information
+              </h2>
+              <div class="bg-gray-50 rounded-lg p-5 space-y-4">
+                <div>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                    >Name</label
+                  >
+                  <div class="text-gray-900 font-medium text-lg">
+                    {{ data.name }}
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                    >API Key</label
+                  >
+                  <div class="text-gray-900 font-medium text-xs">
+                    <code class="">{{ data.apiKey }}</code>
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                    >Expires At</label
+                  >
+                  <div class="text-gray-900">{{ data.expiresAt }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-8">
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="pi pi-id-card mr-2 text-green-500"></i> Scopes
+              </h2>
+              <div class="bg-gray-50 rounded-lg p-5">
+                <div v-if="data.scopes && data.scopes.length" class="space-y-3">
+                  <div
+                    v-for="(scope, idx) in data.scopes"
+                    :key="idx"
+                    class="flex items-start p-3 bg-white rounded border border-gray-100 shadow-sm"
+                  >
+                    <div class="flex-shrink-0 mt-1">
+                      <i class="pi pi-users text-gray-400"></i>
+                    </div>
+                    <div class="ml-3">
+                      <div
+                        class="text-xs text-gray-500 font-semibold uppercase flex gap-2"
+                      >
+                        <span class="normal-case font-normal text-gray-400">
+                          Read: {{ scope.read ? 'Yes' : 'No' }}</span
+                        >
+                        <span class="normal-case font-normal text-gray-400">
+                          Write: {{ scope.write ? 'Yes' : 'No' }}</span
+                        >
+                      </div>
+                      <div class="text-gray-900 font-medium break-all">
+                        {{ scope.segmentName }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-else class="text-gray-400 italic text-sm">
+                  No contact information available.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'DetailApiKeyPage',
+  layout: 'default',
+  head() {
+    return {
+      title: 'Detail - API Key - ' + this.$config.appName,
+    }
+  },
+  data() {
+    return {
+      isLoading: false,
+
+      // Form model sesuai tabel
+      data: {
+        id: null,
+        orgId: null,
+        name: '',
+        expiresAt: null,
+        scopes: [],
+      },
+    }
+  },
+  computed: {
+    ...mapState({
+      dataDetail: (state) => state.apiKey.dataDetail,
+    }),
+  },
+  async mounted() {
+    this.getDetail()
+  },
+  methods: {
+    getDetail() {
+      const data = {
+        apiKeyId: this.$route.params.index,
+      }
+
+      this.isLoading = true
+
+      this.$store
+        .dispatch('apiKey/detail', data)
+        .finally(() => (this.isLoading = false))
+    },
+
+    back() {
+      this.$router.push({ path: '/apiKey' })
+    },
+  },
+  watch: {
+    async dataDetail(val) {
+      if (val) {
+        console.log(val)
+        this.data = {
+          id: val.id,
+          orgId: val.orgId,
+          name: val.name,
+          apiKey: val.hash,
+          expiresAt: val.expiresAt,
+          scopes: val.scopes,
+        }
+      }
+    },
+  },
+}
+</script>

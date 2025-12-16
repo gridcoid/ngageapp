@@ -438,7 +438,7 @@ export default {
       this.getData()
     },
     viewDetail(item) {
-      this.$router.push({ path: '/apiKey/audience/' + item.id })
+      this.$router.push({ path: '/admin/api-key/detail/' + item.id })
     },
   },
 }
