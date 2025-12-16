@@ -73,7 +73,7 @@
         class="w-full"
         :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'"
       >
-        <el-table-column label="Name" min-width="200">
+        <el-table-column label="Name">
           <template slot-scope="scope">
             <div class="font-cabin font-semibold text-sm text-gray-700">
               {{ scope.row.name }}
@@ -81,7 +81,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Scopes" min-width="150">
+        <el-table-column label="Scopes">
           <template slot-scope="scope">
             <div class="font-cabin font-normal text-sm text-gray-500">
               {{
@@ -93,7 +93,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Status" min-width="120">
+        <el-table-column label="Status">
           <template slot-scope="scope">
             <div
               class="font-cabin font-medium text-sm"
@@ -104,7 +104,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Expires" min-width="150">
+        <el-table-column label="Expires">
           <template slot-scope="scope">
             <div class="font-cabin font-normal text-sm text-gray-500">
               {{
