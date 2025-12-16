@@ -6,8 +6,15 @@
 
     <div class="bg-white rounded-lg shadow-sm border border-gray-200">
       <!-- Header -->
-      <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+      <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex">
         <h1 class="text-xl font-bold text-gray-800">API Key Details</h1>
+        <ButtonDefault
+          icon="edit"
+          text="Edit"
+          class="ml-4"
+          type="secondary"
+          @click.native="toEdit()"
+        />
       </div>
 
       <div class="p-6">
@@ -154,6 +161,10 @@ export default {
 
     back() {
       this.$router.push({ path: '/admin/api-key' })
+    },
+
+    toEdit() {
+      this.$router.push({ path: '/admin/api-key/edit/' + this.data.id })
     },
   },
   watch: {

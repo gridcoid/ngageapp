@@ -2,6 +2,7 @@
   <div class="flex items-center justify-center btn-back no-select">
     <IconEyes v-if="icon === 'view'" />
     <IconLeft v-if="icon === 'prev'" />
+    <IconEdit v-if="icon === 'edit'" />
     <IconPlus v-if="icon === 'plus'" bg-color="#1B63D4" />
     <IconUpload v-if="icon === 'upload'" />
     <span class="name-btn">{{ text }}</span>
