@@ -6,10 +6,17 @@
       <div class="flex">
         <ButtonDefault
           icon="plus"
-          text="Add Audiences"
+          text="Import XLS"
           class="ml-4"
           type="secondary"
-          @click.native="toCreate()"
+          @click.native="toImport()"
+        />
+        <ButtonDefault
+          icon="plus"
+          text="Import JSON"
+          class="ml-4"
+          type="secondary"
+          @click.native="toImport()"
         />
       </div>
     </div>
@@ -90,13 +97,22 @@
               Seems like you haven’t created any audience yet. Create one now?
             </div>
 
-            <button
-              class="flex items-center justify-center save-btn no-select"
-              @click="toCreate()"
-            >
-              <IconPlus bg-color="#1B63D4" />
-              <div class="name-btn">Create New Audience</div>
-            </button>
+            <div class="flex items-center">
+              <button
+                class="flex items-center justify-center save-btn no-select"
+                @click="toImport()"
+              >
+                <IconPlus bg-color="#1B63D4" />
+                <div class="name-btn">Import XLS</div>
+              </button>
+              <button
+                class="flex items-center justify-center save-btn no-select"
+                @click="toImport()"
+              >
+                <IconPlus bg-color="#1B63D4" />
+                <div class="name-btn">Import JSON</div>
+              </button>
+            </div>
           </div>
         </template>
 
@@ -358,9 +374,9 @@ export default {
         .finally(() => (this.isLoading = false))
     },
 
-    toCreate() {
+    toImport() {
       this.$router.push({
-        path: '/segment/select/' + this.$route.params.index,
+        path: '/segment/import/' + this.$route.params.index,
       })
     },
 
@@ -677,7 +693,7 @@ export default {
           line-height: 24px;
         }
         .save-btn {
-          width: 220px;
+          width: 150px;
           background: #ffffff;
           border: 1px solid #1b63d4;
           color: #1b63d4;
