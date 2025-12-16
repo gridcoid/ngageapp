@@ -46,7 +46,7 @@
                     >API Key</label
                   >
                   <div class="text-gray-900 font-medium text-xs">
-                    <code class="">{{ data.apiKey }}</code>
+                    <code class="bg-white">{{ data.apiKey }}</code>
                   </div>
                 </div>
 
@@ -56,6 +56,15 @@
                     >Expires At</label
                   >
                   <div class="text-gray-900">{{ data.expiresAt }}</div>
+                </div>
+
+                <div>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                    >Revoked</label
+                  >
+                  <div class="text-gray-900" v-if="data.revoked">Yes</div>
+                  <div class="text-gray-900" v-else>No</div>
                 </div>
               </div>
             </div>
@@ -183,6 +192,7 @@ export default {
           apiKey: val.hash,
           expiresAt: val.expiresAt,
           scopes: val.scopes,
+          revoked: val.revoked,
         }
       }
     },
