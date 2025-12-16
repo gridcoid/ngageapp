@@ -55,7 +55,9 @@
                     class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
                     >Expires At</label
                   >
-                  <div class="text-gray-900">{{ data.expiresAt }}</div>
+                  <div class="text-gray-900">
+                    {{ data.expiresAt || 'Never' }}
+                  </div>
                 </div>
 
                 <div>
