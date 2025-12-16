@@ -23,6 +23,72 @@
             <el-input v-model="data.name" />
           </el-form-item>
 
+          <!-- Expiration -->
+          <el-form-item
+            class="title-form"
+            prop="expiresAt"
+            label="Expiration Date"
+          >
+            <el-date-picker
+              v-model="data.expiresAt"
+              type="date"
+              placeholder="Select date (optional)"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              placement="bottom-start"
+              style="width: 100%"
+            />
+          </el-form-item>
+
+          <!-- Scopes -->
+          <el-form-item class="title-form" prop="scopes">
+            <label slot="label" class="title-form">Scopes</label>
+
+            <div
+              v-for="(row, index) in scopeRows"
+              :key="index"
+              class="flex items-center mb-3"
+            >
+              <el-select
+                v-model="row.segmentId"
+                placeholder="Select Segment"
+                class="mr-3"
+                style="width: 250px"
+              >
+                <el-option
+                  v-for="item in dataSegments"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                >
+                </el-option>
+              </el-select>
+
+              <div class="ml-4"></div>
+
+              <el-checkbox v-model="row.read" class="mr-3">Read</el-checkbox>
+              <el-checkbox v-model="row.write" class="mr-3">Write</el-checkbox>
+
+              <div class="ml-6"></div>
+
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                @click="removeScopeRow(index)"
+                size="small"
+                circle
+              />
+            </div>
+
+            <el-button
+              type="success"
+              icon="el-icon-plus"
+              @click="addScopeRow"
+              size="small"
+              circle
+            />
+          </el-form-item>
+
           <!-- Revoked -->
           <el-form-item class="title-form" prop="revoked">
             <label slot="label" class="title-form">Revoked</label>
