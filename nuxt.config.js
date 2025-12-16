@@ -23,6 +23,7 @@ export default {
   },
   css: [
     '@/assets/css/main.scss',
+    '@/assets/css/k.scss',
     'primevue/resources/themes/saga-blue/theme.css',
     'primevue/resources/primevue.min.css',
     'primeicons/primeicons.css',

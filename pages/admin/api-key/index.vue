@@ -62,7 +62,17 @@
     </div>
 
     <div v-if="dataApiKeys.length > 0" class="body-content flex flex-col">
-      <el-table :data="dataApiKeys" class="w-full">
+      <el-table
+        v-loading="isLoading"
+        element-loading-text="Loading..."
+        element-loading-spinner="el-icon-loading"
+        fit
+        lazy
+        :data="dataApiKeys"
+        stripe
+        class="w-full"
+        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'"
+      >
         <el-table-column label="Name" min-width="200">
           <template slot-scope="scope">
             <div class="font-cabin font-semibold text-sm text-gray-700">
@@ -119,7 +129,6 @@
       </el-table>
 
       <Pagination
-        class="k-pagination"
         :value="currentPage"
         :total-page="totalPages"
         :total="totalList"
@@ -560,32 +569,6 @@ export default {
   .body-content {
     margin-top: 30px;
     gap: 15px;
-    .k-pagination {
-      margin-top: 20px;
-      margin-bottom: 20px;
-      .k-btn {
-        width: 165px;
-        background: #f1f1f1;
-        border: 1px solid #f1f1f1;
-        border-radius: 5px;
-        height: 40px;
-        padding-left: 15px;
-        padding-right: 15px;
-        cursor: pointer;
-        .name-btn {
-          font-family: 'Cabin';
-          font-weight: 700;
-          font-size: 14px;
-          padding-bottom: 1px;
-          color: #9a9a9a;
-          padding-left: 10px;
-        }
-      }
-      .k-btn:hover {
-        background-color: rgb(243 244 246);
-        border: 0px;
-      }
-    }
   }
   .no-data {
     .title-1 {

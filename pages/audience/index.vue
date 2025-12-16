@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <div class="body-content">
+    <div class="body-content flex flex-col">
       <!-- TABLE -->
       <el-table
         v-loading="isLoading"
@@ -79,7 +79,7 @@
         lazy
         :data="dataAudiences"
         stripe
-        class="k-table"
+        class="w-full"
         :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px )'"
       >
         <!-- EMPTY STATE -->
@@ -211,7 +211,6 @@
 
       <!-- Pagination -->
       <Pagination
-        class="k-pagination"
         :value="currentPage"
         :total-page="totalPages"
         :total="totalList"
@@ -560,152 +559,6 @@ export default {
   }
   .body-content {
     margin-top: 20px;
-    .k-table {
-      border: 1px solid #c3ced9 !important;
-      border-radius: 10px !important;
-      .k-circle {
-        width: 11px;
-        height: 11px;
-        border: 2px solid #7bbc49;
-        border-radius: 50%;
-        margin-right: 13px;
-      }
-      .k-title {
-        font-family: 'Cabin';
-        font-weight: 500;
-        font-size: 16px;
-        color: #454545;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 250px;
-      }
-      .k-title:hover {
-        color: #1b63d4;
-      }
-      .k-subtitle {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 12px;
-        color: #9a9a9a;
-      }
-
-      .status-card {
-        font-family: 'Cabin';
-        color: #7bbc49;
-        font-weight: 400;
-        font-size: 14px;
-        background: #ecf5e5;
-        border-radius: 5px;
-        height: 25px;
-        margin-top: 10px;
-        width: 80px;
-        margin-right: auto;
-        margin-left: auto;
-      }
-      .cpm-text {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 14px;
-        color: #454545;
-      }
-      .view-text {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 14px;
-        color: #454545;
-      }
-      .increase-text {
-        font-family: 'Cabin';
-        font-size: 12px;
-        font-weight: 400;
-        color: #454545;
-      }
-
-      .btn-icon {
-        height: 100%;
-        padding: 10px;
-        width: 40px;
-        background: #ffffff;
-        border: 1px solid #e2e2e2;
-        border-radius: 5px;
-        // margin-left: 10px;
-        cursor: pointer;
-        margin-right: 10px;
-      }
-      .btn-icon:hover {
-        background-color: rgb(243 244 246);
-      }
-      .no-data {
-        .title-1 {
-          font-family: 'Cabin';
-          font-weight: 600;
-          font-size: 20px;
-          color: #454545;
-          line-height: 24px;
-        }
-        .subtitle-1 {
-          font-family: 'Cabin';
-          font-weight: 400;
-          font-size: 16px;
-          color: #757575;
-          margin-top: 20px;
-          margin-bottom: 20px;
-          line-height: 24px;
-        }
-        .save-btn {
-          width: 220px;
-          background: #ffffff;
-          border: 1px solid #1b63d4;
-          color: #1b63d4;
-          border-radius: 5px;
-          height: 40px;
-          padding-left: 15px;
-          padding-right: 15px;
-          margin-left: 10px;
-          margin-bottom: 100px;
-          line-height: normal !important;
-          cursor: pointer;
-          .name-btn {
-            font-family: 'Cabin';
-            font-weight: 700;
-            font-size: 14px;
-            padding-bottom: 1px;
-            color: #1b63d4;
-            padding-left: 10px;
-          }
-        }
-        .save-btn:hover {
-          background-color: rgb(243 244 246);
-        }
-      }
-    }
-    .k-pagination {
-      margin-top: 20px;
-      margin-bottom: 20px;
-      .k-btn {
-        width: 165px;
-        background: #f1f1f1;
-        border: 1px solid #f1f1f1;
-        border-radius: 5px;
-        height: 40px;
-        padding-left: 15px;
-        padding-right: 15px;
-        cursor: pointer;
-        .name-btn {
-          font-family: 'Cabin';
-          font-weight: 700;
-          font-size: 14px;
-          padding-bottom: 1px;
-          color: #9a9a9a;
-          padding-left: 10px;
-        }
-      }
-      .k-btn:hover {
-        background-color: rgb(243 244 246);
-        border: 0px;
-      }
-    }
     .summary-card {
       padding: 10px 20px 0px 20px;
       height: 100%;
