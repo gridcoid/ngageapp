@@ -231,6 +231,39 @@
                 </div>
               </div>
             </div>
+
+            <!-- Segments -->
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="pi pi-folder mr-2 text-yellow-500"></i> Segments
+              </h2>
+              <div class="bg-gray-50 rounded-lg p-5">
+                <div
+                  v-if="data.segments && data.segments.length"
+                  class="space-y-3"
+                >
+                  <div
+                    v-for="(segment, idx) in data.segments"
+                    :key="idx"
+                    class="flex items-start p-3 bg-white rounded border border-gray-100 shadow-sm"
+                  >
+                    <div class="flex-shrink-0 mt-1">
+                      <i class="pi pi-users text-gray-400"></i>
+                    </div>
+                    <div class="ml-3">
+                      <div class="text-gray-900 font-medium break-all">
+                        {{ segment.name }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-else class="text-gray-400 italic text-sm">
+                  No segments information available.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -411,6 +444,7 @@ export default {
   },
   watch: {
     async dataDetail(val) {
+      console.log(val)
       this.data.id = val.id
       this.data.orgId = val.orgId
       this.data.name = val.name
@@ -442,6 +476,8 @@ export default {
       this.additionalInfoList = Object.entries(val.additionalInfo || {}).map(
         ([key, value]) => ({ key, value })
       )
+
+      this.data.segments = val.segments
     },
   },
 }
