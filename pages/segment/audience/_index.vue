@@ -9,14 +9,14 @@
           text="Import XLS"
           class="ml-4"
           type="secondary"
-          @click.native="toImport()"
+          @click.native="toImport('sheet')"
         />
         <ButtonDefault
           icon="plus"
           text="Import JSON"
           class="ml-4"
           type="secondary"
-          @click.native="toImport()"
+          @click.native="toImport('json')"
         />
       </div>
     </div>
@@ -100,14 +100,14 @@
             <div class="flex items-center">
               <button
                 class="flex items-center justify-center save-btn no-select"
-                @click="toImport()"
+                @click="toImport('sheet')"
               >
                 <IconPlus bg-color="#1B63D4" />
                 <div class="name-btn">Import XLS</div>
               </button>
               <button
                 class="flex items-center justify-center save-btn no-select"
-                @click="toImport()"
+                @click="toImport('json')"
               >
                 <IconPlus bg-color="#1B63D4" />
                 <div class="name-btn">Import JSON</div>
@@ -374,9 +374,9 @@ export default {
         .finally(() => (this.isLoading = false))
     },
 
-    toImport() {
+    toImport(type) {
       this.$router.push({
-        path: '/segment/import/' + this.$route.params.index,
+        path: '/segment/import-' + type + '/' + this.$route.params.index,
       })
     },
 
