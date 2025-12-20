@@ -1,53 +1,58 @@
 <template>
-  <div v-if="!sidebar" class="flex flex-col h-screen overflow-y-auto k-sidebar">
-    <div class="header">
-      <div class="grid grid-cols-2 place-items-center">
-        <div class="justify-self-start">
-          <img
-            src="~/assets/images/logo_baru.svg"
-            class="logo-unimind"
-            @click="toHome()"
-          />
-        </div>
-        <div class="justify-self-end">
-          <div class="btn-nav grid place-items-center" @click="onSidebar()">
-            <IconArrowLeft class="icon-arrow-expand" bg-color="#1B63D4" />
+  <div>
+    <div
+      v-show="!sidebar"
+      class="flex flex-col h-screen overflow-y-auto k-sidebar"
+    >
+      <div class="header">
+        <div class="grid grid-cols-2 place-items-center">
+          <div class="justify-self-start">
+            <img
+              src="~/assets/images/logo_baru.svg"
+              class="logo-unimind"
+              @click="toHome()"
+            />
+          </div>
+          <div class="justify-self-end">
+            <div class="btn-nav grid place-items-center" @click="onSidebar()">
+              <IconArrowLeft class="icon-arrow-expand" bg-color="#1B63D4" />
+            </div>
           </div>
         </div>
+        <hr class="mt-5" />
       </div>
-      <hr class="mt-5" />
+      <div class="flex flex-col justify-between mt-0" style="margin-top: 10px">
+        <SidebarItemList />
+      </div>
     </div>
-    <div class="flex flex-col justify-between mt-0" style="margin-top: 10px">
-      <SidebarItemList />
-    </div>
-  </div>
-  <div
-    v-else
-    class="flex flex-col h-screen overflow-y-auto k-sidebar"
-    style="width: 84px"
-  >
-    <div class="header">
-      <div class="grid grid-flow-row auto-rows-max place-items-center">
-        <div class="justify-self-center" style="margin-bottom: 20px">
-          <img
-            src="~/assets/images/logo_small.png"
-            style="cursor: pointer"
-            @click="toHome()"
-          />
-        </div>
-        <div class="justify-self-center">
-          <div class="btn-nav grid place-items-center" @click="onSidebar()">
-            <IconArrowRight bg-color="#1B63D4" class="icon-arrow-collapse" />
+    <div
+      v-show="sidebar"
+      class="flex flex-col h-screen overflow-y-auto k-sidebar"
+      style="width: 84px"
+    >
+      <div class="header">
+        <div class="grid grid-flow-row auto-rows-max place-items-center">
+          <div class="justify-self-center" style="margin-bottom: 20px">
+            <img
+              src="~/assets/images/logo_small.png"
+              style="cursor: pointer"
+              @click="toHome()"
+            />
+          </div>
+          <div class="justify-self-center">
+            <div class="btn-nav grid place-items-center" @click="onSidebar()">
+              <IconArrowRight bg-color="#1B63D4" class="icon-arrow-collapse" />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div v-show="handleRole" class="btn-plus grid place-items-center">
-        <IconPlus class="icon-arrow" bg-color="#1B63D4" />
+        <div v-show="handleRole" class="btn-plus grid place-items-center">
+          <IconPlus class="icon-arrow" bg-color="#1B63D4" />
+        </div>
       </div>
-    </div>
-    <div class="flex flex-col justify-between" style="margin-top: 30px">
-      <SidebarItemList />
+      <div class="flex flex-col justify-between" style="margin-top: 30px">
+        <SidebarItemList />
+      </div>
     </div>
   </div>
 </template>
