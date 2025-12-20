@@ -90,13 +90,11 @@
         <div class="grid grid-cols-2 card-uploads">
           <div class="left-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">Uploaded Template</div>
+              <div class="title-uploads">Uploaded Spreadsheet</div>
             </div>
             <div class="body-uploads">
               <div class="flex items-center justify-between">
-                <div class="tick-title">
-                  Tick a creative to edit it’s properties
-                </div>
+                <div class="tick-title">Columns in {{ sheetData.name }}</div>
               </div>
               <div class="list-card">
                 <div class="card-list flex items-center justify-between">
@@ -107,7 +105,6 @@
                   </div>
                   <div
                     class="delete-btn flex items-center justify-center cursor-pointer"
-                    @click="backStep1()"
                   >
                     <IconDelete />
                   </div>
@@ -254,7 +251,8 @@ export default {
           }.bind(this),
         })
         .then((res) => {
-          this.sheetUploaded = res.data.data.file
+          this.sheetUploaded = res.data.data
+          console.log(this.sheetUploaded)
         })
         .catch((error) => {
           this.$notifier.showMessage({
