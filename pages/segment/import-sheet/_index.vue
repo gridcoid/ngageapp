@@ -93,14 +93,15 @@
               <div class="title-uploads">Uploaded Spreadsheet</div>
             </div>
             <div class="body-uploads">
-              <div class="flex items-center justify-between">
-                <div class="tick-title">Columns in {{ sheetData.name }}</div>
-              </div>
               <div class="list-card">
-                <div class="card-list flex items-center justify-between">
+                <div
+                  v-for="(item, i) in sheetUploaded?.columns"
+                  :key="i"
+                  class="card-list flex items-center justify-between"
+                >
                   <div class="flex items-center left-card">
                     <div class="name-list">
-                      {{ sheetData.name }}
+                      {{ item }}
                     </div>
                   </div>
                   <div
@@ -111,16 +112,30 @@
                 </div>
               </div>
             </div>
-            <div class="circle-next flex no-select items-center justify-center">
-              <IconArrowRight />
-            </div>
           </div>
           <div class="right-side">
             <div class="header-uploads flex items-center justify-between">
               <div class="title-uploads">Column Mapping</div>
             </div>
-            <div class="form-panel flex flex-col justify-center">
-              <!-- Form -->
+            <div class="body-uploads">
+              <div class="list-card">
+                <div
+                  v-for="(item, i) in sheetUploaded?.columns"
+                  :key="i"
+                  class="card-list flex items-center justify-between"
+                >
+                  <div class="flex items-center left-card">
+                    <div class="name-list">
+                      {{ item }}
+                    </div>
+                  </div>
+                  <div
+                    class="delete-btn flex items-center justify-center cursor-pointer"
+                  >
+                    <IconDelete />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -252,7 +267,6 @@ export default {
         })
         .then((res) => {
           this.sheetUploaded = res.data.data
-          console.log(this.sheetUploaded)
         })
         .catch((error) => {
           this.$notifier.showMessage({
@@ -362,7 +376,6 @@ export default {
           .el-upload {
             width: 100%;
           }
-
           .upload-card {
             height: 100%;
             border: 1px dashed #1b63d4;
@@ -421,23 +434,11 @@ export default {
     border-radius: 10px;
     .card-uploads {
       min-height: 550px;
-      .left-side {
+      .left-side,
+      .right-side {
         position: relative;
         height: 100%;
-        background: #fafafa;
-        border-radius: 10px 0px 0px 10px;
-        border-right: 1px solid #c3ced9;
-        .circle-next {
-          cursor: pointer;
-          position: absolute;
-          top: 200px;
-          right: -18px;
-          width: 36px;
-          height: 36px;
-          background: #ffffff;
-          border: 1px solid #c3ced9;
-          border-radius: 1000px;
-        }
+
         .header-uploads {
           height: 54px;
           border-bottom: 1px solid #c3ced9;
@@ -503,36 +504,14 @@ export default {
           }
         }
       }
+      .left-side {
+        border-right: 1px solid #c3ced9;
+        border-radius: 10px 0px 0px 10px;
+        background: #fafafa;
+      }
       .right-side {
         border-radius: 0px 10px 10px 0px;
-        background: white;
-
-        .header-uploads {
-          height: 54px;
-          border-bottom: 1px solid #c3ced9;
-          background: white;
-          .title-uploads {
-            font-family: 'Cabin';
-            font-style: normal;
-            font-weight: 600;
-            font-size: 18px;
-            color: #2b3947;
-            padding-left: 20px;
-          }
-        }
-        .form-panel {
-          height: 540px;
-          padding-left: 40px;
-          padding-right: 40px;
-          .title-form {
-            margin-bottom: 5px;
-            font-family: 'Cabin';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            color: #5c6b7a;
-          }
-        }
+        background: #fff;
       }
     }
   }
