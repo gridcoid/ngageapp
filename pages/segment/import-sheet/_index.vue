@@ -117,7 +117,7 @@
           </div>
           <div class="right-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">Template Properties</div>
+              <div class="title-uploads">Column Mapping</div>
             </div>
             <div class="form-panel flex flex-col justify-center">
               <!-- Form -->
