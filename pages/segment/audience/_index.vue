@@ -78,15 +78,15 @@
     <div class="body-content">
       <!-- TABLE -->
       <el-table
+        v-if="tableVisible"
         v-loading="isLoading"
         element-loading-text="Loading..."
         element-loading-spinner="el-icon-loading"
         fit
         lazy
-        :data="dataAudiences"
         stripe
+        :data="dataAudiences"
         class="k-table"
-        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'"
       >
         <!-- EMPTY STATE -->
         <template slot="empty">
@@ -318,6 +318,7 @@ export default {
   },
   data() {
     return {
+      tableVisible: true,
       data: {},
       detailAudience: { name: '', id: '' },
       radio: 'createdAt_desc',
@@ -439,6 +440,12 @@ export default {
       this.data.orgId = val.orgId
       this.data.name = val.name
       this.data.description = val.description
+    },
+    sidebar() {
+      this.tableVisible = false
+      this.$nextTick(() => {
+        this.tableVisible = true
+      })
     },
   },
 }

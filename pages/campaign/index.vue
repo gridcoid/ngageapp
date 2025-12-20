@@ -225,15 +225,15 @@
       </div>
       <div v-else>
         <el-table
+          v-if="tableVisible"
           v-loading="isLoading"
           element-loading-text="Loading..."
           element-loading-spinner="el-icon-loading"
           fit
           lazy
-          :data="dataCampaign"
           stripe
+          :data="dataCampaign"
           class="k-table"
-          :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'"
         >
           <template slot="empty">
             <div class="flex flex-col items-center mt-6 no-data">
@@ -251,6 +251,10 @@
               </button>
             </div>
           </template>
+
+          <!-- padding -->
+          <el-table-column label="" width="10" />
+
           <el-table-column label="" prop="name" sortable width="300">
             <template slot="header"> Campaign Name </template>
             <template slot-scope="scope">
@@ -279,6 +283,7 @@
               </div>
             </template>
           </el-table-column>
+
           <el-table-column label="Status" header-align="center" align="center">
             <template slot-scope="scope">
               <div
@@ -311,6 +316,7 @@
               </div>
             </template>
           </el-table-column>
+
           <el-table-column
             label="Impression"
             header-align="center"
@@ -327,6 +333,7 @@
               <div v-else class="view-text">0 impression</div>
             </template>
           </el-table-column>
+
           <el-table-column label="Click" header-align="center" align="center">
             <template slot-scope="scope">
               <div
@@ -338,6 +345,7 @@
               <div v-else class="view-text">0 click</div>
             </template>
           </el-table-column>
+
           <el-table-column label="CTR" header-align="center" align="center">
             <template slot-scope="scope">
               <div
@@ -349,6 +357,7 @@
               <div v-else class="view-text">0 %</div>
             </template>
           </el-table-column>
+
           <el-table-column
             label="Last Modified"
             header-align="center"
@@ -360,6 +369,7 @@
               </div>
             </template>
           </el-table-column>
+
           <el-table-column
             label="Action"
             header-align="center"
@@ -640,6 +650,7 @@ export default {
   },
   data() {
     return {
+      tableVisible: true,
       detailCampaign: {
         name: '',
         id: '',
@@ -1176,6 +1187,14 @@ export default {
         1000
       )
       document.querySelector('body').style.overflow = ''
+    },
+  },
+  watch: {
+    sidebar() {
+      this.tableVisible = false
+      this.$nextTick(() => {
+        this.tableVisible = true
+      })
     },
   },
 }

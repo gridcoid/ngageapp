@@ -63,15 +63,15 @@
 
     <div v-if="dataApiKeys.length > 0" class="body-content flex flex-col">
       <el-table
+        v-if="tableVisible"
         v-loading="isLoading"
         element-loading-text="Loading..."
         element-loading-spinner="el-icon-loading"
         fit
         lazy
-        :data="dataApiKeys"
         stripe
+        :data="dataApiKeys"
         class="w-full k-table"
-        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'"
       >
         <!-- padding -->
         <el-table-column label="" width="10" />
@@ -294,6 +294,7 @@ export default {
   },
   data() {
     return {
+      tableVisible: true,
       detailApiKey: {
         name: '',
         id: '',
@@ -447,6 +448,14 @@ export default {
     },
     viewDetail(item) {
       this.$router.push({ path: '/admin/api-key/detail/' + item.id })
+    },
+  },
+  watch: {
+    sidebar() {
+      this.tableVisible = false
+      this.$nextTick(() => {
+        this.tableVisible = true
+      })
     },
   },
 }

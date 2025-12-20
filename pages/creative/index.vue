@@ -108,15 +108,15 @@
 
     <div class="body-content">
       <el-table
+        v-if="tableVisible"
         v-loading="isLoading"
         element-loading-text="Loading..."
         element-loading-spinner="el-icon-loading"
         fit
         lazy
-        :data="dataCreative"
         stripe
+        :data="dataCreative"
         class="k-table"
-        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'"
       >
         <template slot="empty">
           <div class="flex flex-col items-center mt-6 no-data">
@@ -134,6 +134,10 @@
             </button>
           </div>
         </template>
+
+        <!-- padding -->
+        <el-table-column label="" width="10" />
+
         <el-table-column label="Name" prop="name" sortable width="250">
           <template slot-scope="scope">
             <div
@@ -174,6 +178,7 @@
             </div>
           </template>
         </el-table-column>
+
         <el-table-column label="Size" align="center" prop="width" sortable>
           <template slot-scope="scope">
             <div class="title-tabel">
@@ -182,6 +187,7 @@
             </div>
           </template>
         </el-table-column>
+
         <!-- <el-table-column label="Campaign Name" align="center">
           <template slot-scope="scope">
             <div class="title-tabel">
@@ -189,6 +195,7 @@
             </div>
           </template>
         </el-table-column> -->
+
         <el-table-column
           label="Modified"
           align="center"
@@ -201,6 +208,7 @@
             </div>
           </template>
         </el-table-column>
+
         <el-table-column label="Status" align="center" prop="status" sortable>
           <template slot-scope="scope">
             <!-- S: Draft -->
@@ -286,6 +294,7 @@
             </div>
           </template>
         </el-table-column>
+
         <el-table-column
           label="StudioHub"
           align="center"
@@ -317,6 +326,7 @@
             </div>
           </template>
         </el-table-column>
+
         <el-table-column label="Action">
           <template slot-scope="scope">
             <el-dropdown
@@ -573,6 +583,7 @@ export default {
   },
   data() {
     return {
+      tableVisible: true,
       url: '',
       popup: false,
       isLoading: false,
@@ -981,6 +992,14 @@ export default {
       document.querySelector('body').style.overflow = 'hidden'
       this.$store.commit('creative/SET_SEND_SH_CHANGE_DIALOG', true)
       this.dataSH = { id: idCreative, title: name }
+    },
+  },
+  watch: {
+    sidebar() {
+      this.tableVisible = false
+      this.$nextTick(() => {
+        this.tableVisible = true
+      })
     },
   },
 }

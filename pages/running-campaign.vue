@@ -130,16 +130,19 @@
       </div>
       <div v-else>
         <el-table
+          v-if="tableVisible"
           :loading="isLoading"
           element-loading-text="Loading..."
           element-loading-spinner="el-icon-loading"
           fit
           lazy
-          :data="dataCampaignComplete"
           stripe
+          :data="dataCampaignComplete"
           class="k-table"
-          :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'"
         >
+          <!-- padding -->
+          <el-table-column label="" width="10" />
+
           <el-table-column label="Campaign Name" sortable width="400">
             <template slot-scope="scope">
               <div
@@ -161,6 +164,7 @@
               </div>
             </template>
           </el-table-column>
+
           <el-table-column label="Status" width="150">
             <template slot-scope="scope">
               <div
@@ -189,11 +193,13 @@
               </div> -->
             </template>
           </el-table-column>
+
           <el-table-column label="CPM">
             <template slot-scope="scope">
               <div class="cpm-text">0 USD</div>
             </template>
           </el-table-column>
+
           <el-table-column label="Impression">
             <template slot-scope="scope">
               <div class="view-text">0 views</div>
@@ -202,6 +208,7 @@
               </div>
             </template>
           </el-table-column>
+
           <el-table-column label="Creatives">
             <template slot-scope="scope">
               <div class="view-text">0 views</div>
@@ -210,6 +217,7 @@
               </div>
             </template>
           </el-table-column>
+
           <!-- <el-table-column label="Action">
             <template slot-scope="scope">
               <div class="flex">
@@ -489,6 +497,7 @@ export default {
   },
   data() {
     return {
+      tableVisible: true,
       radio: 'asc',
       createdAt: '',
       createdAt2: [],
@@ -825,6 +834,14 @@ export default {
     toCreate() {
       this.$router.push({ path: '/campaign/create' })
       this.$store.commit('user/SET_ACTIVE', 'Campaign')
+    },
+  },
+  watch: {
+    sidebar() {
+      this.tableVisible = false
+      this.$nextTick(() => {
+        this.tableVisible = true
+      })
     },
   },
 }
