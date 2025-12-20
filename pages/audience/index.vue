@@ -72,15 +72,15 @@
     <div class="body-content flex flex-col">
       <!-- TABLE -->
       <el-table
+        v-if="tableVisible"
         v-loading="isLoading"
         element-loading-text="Loading..."
         element-loading-spinner="el-icon-loading"
         fit
         lazy
-        :data="dataAudiences"
         stripe
+        :data="dataAudiences"
         class="k-table w-full"
-        :style="sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'"
       >
         <!-- EMPTY STATE -->
         <template slot="empty">
@@ -303,6 +303,7 @@ export default {
   },
   data() {
     return {
+      tableVisible: true,
       detailAudience: { name: '', id: '' },
       radio: 'createdAt_desc',
       dataSearch: '',
@@ -403,8 +404,11 @@ export default {
     },
   },
   watch: {
-    sidebar(val) {
-      console.log(val)
+    sidebar() {
+      this.tableVisible = false
+      this.$nextTick(() => {
+        this.tableVisible = true
+      })
     },
   },
 }
