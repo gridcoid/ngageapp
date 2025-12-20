@@ -4,6 +4,7 @@
       default-active="0"
       class="el-menu-vertical-demo"
       :collapse="showSidebar"
+      :collapse-transition="false"
     >
       <div v-for="(item, index) in data" :key="index">
         <el-menu-item
@@ -14,7 +15,7 @@
           <div class="flex items-center h-full">
             <i :class="item.icon" />
             <div
-              v-if="!showSidebar"
+              v-show="!showSidebar"
               class="name-menu"
               :class="item.name === activeItem ? 'item-active' : ''"
             >
@@ -32,12 +33,12 @@
             <div class="flex items-center h-full">
               <i :class="item.icon" />
               <div
-                v-if="showSidebar"
+                v-show="showSidebar"
                 class="close-icon"
                 :style="hover ? 'background-color: #ecf5ff' : ''"
               />
               <div
-                v-if="!showSidebar"
+                v-show="!showSidebar"
                 class="name-menu"
                 :class="item.name === activeItem ? 'item-active' : ''"
               >
