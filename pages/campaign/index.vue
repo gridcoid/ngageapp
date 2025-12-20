@@ -416,6 +416,7 @@
         @rowPage="changeRowPage($event)"
       />
     </div>
+
     <transition name="slide">
       <Modal
         v-if="dialog"
@@ -578,6 +579,7 @@
         </template>
       </Popup>
     </transition>
+
     <transition name="fade">
       <Popup
         v-if="dialogDelete"
