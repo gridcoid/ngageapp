@@ -100,15 +100,22 @@ export default {
       },
     }),
     items() {
-      // Split URL path into segments
-      const segments = this.$route.path.split('/').filter(Boolean)
+      let segments = this.$route.path.split('/').filter(Boolean)
 
-      return segments.map((segment, index) => {
-        const to = '/' + segments.slice(0, index + 1).join('/')
-        return {
-          label: this.formatLabel(segment),
-          to: to,
+      // remove last segment if it's a number
+      if (segments.length && /^\d+$/.test(segments[segments.length - 1])) {
+        segments = segments.slice(0, -1)
+      }
+
+      return segments.map((segment) => {
+        let label = this.formatLabel(segment)
+
+        // rename Api → API (also covers api, aPi, etc.)
+        if (label.toLowerCase().includes('api')) {
+          label = label.replace(/api/gi, 'API')
         }
+
+        return { label }
       })
     },
   },
