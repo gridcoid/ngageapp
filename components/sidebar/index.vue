@@ -99,6 +99,7 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
 .title-navmenu {
   padding-top: 2px;
@@ -108,13 +109,11 @@ export default {
 .slide-leave-active {
   transition: transform 0.2s ease;
 }
-
 .slide-enter,
 .slide-leave-to {
   transform: translateX(-100%);
   transition: all 50ms ease-in 0s;
 }
-
 .k-sidebar {
   width: 310px;
   // border: 1px solid #f1f1f1;
@@ -186,12 +185,10 @@ export default {
     }
   }
 }
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 1s ease-out;
 }
-
 .fade-enter,
 .fade-leave-to {
   opacity: 0;

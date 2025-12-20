@@ -276,7 +276,6 @@ export default {
 .icon-menu {
   margin-left: 4px;
 }
-
 .title-navmenu {
   padding-top: 2px;
   margin-left: 10px;
@@ -291,27 +290,10 @@ export default {
   height: 36px;
   color: #383838;
 }
-
 .navigations:hover {
   background-color: rgb(243 244 246);
   border-left-color: #1b63d4;
 }
-// .navigations.nuxt-link-active {
-//   background: #ffffff;
-//   border-left-color: #1b63d4;
-//   .name-menu {
-//     color: #1b63d4;
-//     font-weight: 700;
-//   }
-// }
-// .navigations.nuxt-link-exact-active {
-//   background: #ffffff;
-//   border-left-color: #1b63d4;
-//   .name-menu {
-//     color: #1b63d4;
-//     font-weight: 700;
-//   }
-// }
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s;
