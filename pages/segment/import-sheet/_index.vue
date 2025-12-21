@@ -94,20 +94,16 @@
             </div>
             <div class="body-uploads">
               <div class="list-card">
-                <div
-                  v-for="(item, i) in sheetUploaded?.columns"
-                  :key="i"
-                  class="card-list flex items-center justify-between"
-                >
+                <div class="card-list flex items-center justify-between">
                   <div class="flex items-center left-card">
                     <div class="name-list">
-                      {{ item }}
+                      {{ sheetUploaded?.file?.originalname }}
                     </div>
                   </div>
                   <div
-                    class="delete-btn flex items-center justify-center cursor-pointer"
+                    class="flex items-center justify-center text-gray-400 italic text-sm"
                   >
-                    <IconDelete />
+                    xxx num of rows
                   </div>
                 </div>
               </div>
@@ -129,10 +125,18 @@
                       {{ item }}
                     </div>
                   </div>
-                  <div
-                    class="delete-btn flex items-center justify-center cursor-pointer"
-                  >
-                    <IconDelete />
+                  <div class="flex items-center justify-center cursor-pointer">
+                    <el-select v-model="value" placeholder="Select">
+                      <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      >
+                      </el-option>
+                    </el-select>
+
+                    <IconDelete class="ml-3" />
                   </div>
                 </div>
               </div>
@@ -175,17 +179,38 @@ export default {
     return {
       step1: true,
       step2: false,
-
       uploadIndicator: false,
       sheetData: null,
-
       dataGroup: [],
       uploadPercentage: 0,
       isLoading: false,
       messageError: '',
       showMessage: false,
-
       sheetUploaded: {},
+
+      options: [
+        {
+          value: 'Option1',
+          label: 'Option1',
+        },
+        {
+          value: 'Option2',
+          label: 'Option2',
+        },
+        {
+          value: 'Option3',
+          label: 'Option3',
+        },
+        {
+          value: 'Option4',
+          label: 'Option4',
+        },
+        {
+          value: 'Option5',
+          label: 'Option5',
+        },
+      ],
+      value: '',
     }
   },
   computed: {
@@ -267,6 +292,7 @@ export default {
         })
         .then((res) => {
           this.sheetUploaded = res.data.data
+          console.log(this.sheetUploaded)
         })
         .catch((error) => {
           this.$notifier.showMessage({
