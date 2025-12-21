@@ -172,7 +172,7 @@
           :series="series"
           :style="
             sidebar
-              ? 'width:calc(' + width + 'px - 200px)'
+              ? 'width:calc(' + width + 'px - 120px)'
               : 'width:calc(' + width + 'px - 340px)'
           "
         />
@@ -825,7 +825,8 @@ export default {
         .catch((e) => {})
     },
     handleResize() {
-      this.width = window.innerWidth
+      // this.width = window.innerWidth
+      this.width = window.innerWidth - 100
     },
     async getDataSegment() {
       await this.$axios
