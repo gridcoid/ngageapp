@@ -15,6 +15,7 @@ import ReligionRepository from '~/repositories/religionRepository'
 import ContactTypeRepository from '~/repositories/contactTypeRepository'
 import AudienceBySegmentRepository from '~/repositories/audienceBySegmentRepository'
 import ApiKeyRepository from '~/repositories/apiKeyRepository'
+import SheetRepository from '~/repositories/sheetRepository'
 
 export default ($axios) => ({
   user: UserRepository($axios),
@@ -34,4 +35,5 @@ export default ($axios) => ({
   contactType: ContactTypeRepository($axios),
   audienceBySegment: AudienceBySegmentRepository($axios),
   apiKey: ApiKeyRepository($axios),
+  sheet: SheetRepository($axios),
 })

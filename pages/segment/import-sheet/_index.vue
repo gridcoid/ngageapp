@@ -122,21 +122,34 @@
                 >
                   <div class="flex items-center left-card">
                     <div class="name-list">
-                      <span class="text-gray-400">{{ item }}</span>
+                      <span
+                        :class="{
+                          'text-gray-400 line-through italic':
+                            value[item].deleted,
+                        }"
+                      >
+                        {{ item }}
+                      </span>
                     </div>
                   </div>
                   <div class="flex items-center justify-center cursor-pointer">
-                    <el-select v-model="value[item]" placeholder="Select">
+                    <el-select
+                      v-model="value[item].target"
+                      placeholder="Select"
+                      :disabled="value[item].deleted"
+                    >
                       <el-option
-                        v-for="item in selector"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
+                        v-for="opt in selector"
+                        :key="opt.value"
+                        :label="opt.label"
+                        :value="opt.value"
                       >
                       </el-option>
                     </el-select>
 
-                    <IconDelete class="ml-3" />
+                    <el-checkbox v-model="value[item].deleted" class="ml-3">
+                      Ignore
+                    </el-checkbox>
                   </div>
                 </div>
               </div>
@@ -154,11 +167,10 @@
         />
         <button
           style="margin-right: 20px"
-          class="flex items-center justify-center no-select"
-          :class="disabledSave ? 'save-btn' : 'disabled-btn'"
+          class="flex items-center justify-center no-select save-btn"
           @click="save()"
         >
-          <IconSave :bg-color="disabledSave ? 'white' : '#9a9a9a'" />
+          <IconSave bg-color="#fff" />
           <span class="name-btn">Save</span>
         </button>
       </div>
@@ -192,54 +204,55 @@ export default {
       value: {},
     }
   },
-  computed: {
-    disabledSave() {
-      return false
-    },
-  },
   methods: {
     save() {
       this.$notifier.showMessage({
-        content: 'Creating template...',
+        content: 'Importing spreadsheet...',
         type: 'loading',
       })
-      const data = {
-        staticSrc: this.sheetUploaded.staticSrc,
-        thumbnail: this.sheetUploaded.thumbnail,
-        configSchema: this.sheetUploaded.configSchema,
-        configExample: this.sheetUploaded.configExample,
-      }
+
       const x = setTimeout(
         () =>
           this.$store
-            .dispatch('template/createTemplateCustom', data)
+            .dispatch('sheet/import', {
+              file: this.sheetUploaded.file,
+              mapping: this.value,
+            })
             .then((res) => {
               if (res.status === 201 || res.status === 200) {
                 this.step1 = true
                 this.step2 = false
+
                 this.$notifier.showMessage({
-                  content: 'Template created.',
+                  content: 'Spreadsheet imported.',
                   type: 'success',
                 })
+
                 clearInterval(x)
               } else {
                 this.showMessage = true
+
                 const keys = Object.keys(res.data.data.errors[0])
                 const arr = []
+
                 keys.forEach((key, index) => {
                   arr.push(res.data.data.errors[0][key])
                 })
+
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
                   content:
-                    'Template failed. Please try again! ' + this.messageError,
+                    'Spreadsheet import failed. Please try again! ' +
+                    this.messageError,
                   type: 'failed',
                 })
+
                 clearInterval(x)
               }
             })
             .catch(() => {
               this.isLoading = false
+
               clearInterval(x)
             }),
         1000
@@ -281,20 +294,26 @@ export default {
           })
 
           res.data.data.columns.forEach((c) => {
-            this.$set(this.value, c, '')
+            this.$set(this.value, c, {
+              target: '',
+              deleted: false,
+            })
           })
 
           Object.keys(res.data.data.mapping).forEach((key) => {
             if (res.data.data.mapping[key].confidence === 'auto') {
-              this.$set(
-                this.value,
-                key,
-                res.data.data.mapping[key].target +
+              this.$set(this.value, key, {
+                target:
+                  res.data.data.mapping[key].target +
                   '.' +
-                  res.data.data.mapping[key].field
-              )
+                  res.data.data.mapping[key].field,
+                deleted: false,
+              })
             } else {
-              this.$set(this.value, key, 'Audience.additionalInfo')
+              this.$set(this.value, key, {
+                target: 'Audience.additionalInfo',
+                deleted: false,
+              })
             }
           })
         })
