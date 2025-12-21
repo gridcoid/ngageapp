@@ -122,7 +122,7 @@
                 >
                   <div class="flex items-center left-card">
                     <div class="name-list">
-                      {{ item }}
+                      <span class="text-gray-400">{{ item }}</span>
                     </div>
                   </div>
                   <div class="flex items-center justify-center cursor-pointer">
@@ -542,6 +542,13 @@ export default {
       .right-side {
         border-radius: 0px 10px 10px 0px;
         background: #fff;
+        .body-uploads {
+          .list-card {
+            .card-list {
+              background-color: #fafafa;
+            }
+          }
+        }
       }
     }
   }
