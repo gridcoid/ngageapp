@@ -67,11 +67,16 @@
         class="card-list flex flex-row items-center justify-between"
       >
         <div class="flex items-center justify-start flex-row">
-          <img src="~/assets/images/target.jpg" class="thumbnail opacity-50" />
+          <NuxtLink :to="`/segment/audience/${item.id}`">
+            <img
+              src="~/assets/images/target.png"
+              class="thumbnail opacity-90 hover:opacity-100"
+            />
+          </NuxtLink>
           <div class="name-data flex flex-col">
-            <span>
+            <NuxtLink :to="`/segment/audience/${item.id}`">
               {{ item.name }}
-            </span>
+            </NuxtLink>
             <span>
               {{ item.description }}
             </span>
