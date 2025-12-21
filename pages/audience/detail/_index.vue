@@ -252,9 +252,14 @@
                     <div class="flex-shrink-0 mt-1">
                       <i class="pi pi-users text-gray-400"></i>
                     </div>
-                    <div class="ml-3">
+                    <div class="ml-3 w-full">
                       <div class="text-gray-900 font-medium break-all">
-                        {{ segment.name }}
+                        <NuxtLink
+                          :to="`/segment/audience/${segment.id}`"
+                          class="block"
+                        >
+                          {{ segment.name }}
+                        </NuxtLink>
                       </div>
                     </div>
                   </div>
