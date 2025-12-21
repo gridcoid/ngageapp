@@ -103,7 +103,7 @@
                   <div
                     class="flex items-center justify-center text-gray-400 italic text-sm"
                   >
-                    xxx num of rows
+                    {{ sheetUploaded?.rowNum - 1 }} rows
                   </div>
                 </div>
               </div>
@@ -126,9 +126,9 @@
                     </div>
                   </div>
                   <div class="flex items-center justify-center cursor-pointer">
-                    <el-select v-model="value" placeholder="Select">
+                    <el-select v-model="value[item]" placeholder="Select">
                       <el-option
-                        v-for="item in options"
+                        v-for="item in selector"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value"
@@ -188,29 +188,8 @@ export default {
       showMessage: false,
       sheetUploaded: {},
 
-      options: [
-        {
-          value: 'Option1',
-          label: 'Option1',
-        },
-        {
-          value: 'Option2',
-          label: 'Option2',
-        },
-        {
-          value: 'Option3',
-          label: 'Option3',
-        },
-        {
-          value: 'Option4',
-          label: 'Option4',
-        },
-        {
-          value: 'Option5',
-          label: 'Option5',
-        },
-      ],
-      value: '',
+      selector: [],
+      value: {},
     }
   },
   computed: {
@@ -292,7 +271,32 @@ export default {
         })
         .then((res) => {
           this.sheetUploaded = res.data.data
-          console.log(this.sheetUploaded)
+
+          this.selector = []
+          this.selector = this.sheetUploaded.selector.map((s) => {
+            return {
+              value: s,
+              label: s,
+            }
+          })
+
+          res.data.data.columns.forEach((c) => {
+            this.$set(this.value, c, '')
+          })
+
+          Object.keys(res.data.data.mapping).forEach((key) => {
+            if (res.data.data.mapping[key].confidence === 'auto') {
+              this.$set(
+                this.value,
+                key,
+                res.data.data.mapping[key].target +
+                  '.' +
+                  res.data.data.mapping[key].field
+              )
+            } else {
+              this.$set(this.value, key, 'Audience.additionalInfo')
+            }
+          })
         })
         .catch((error) => {
           this.$notifier.showMessage({
