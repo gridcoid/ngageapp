@@ -215,6 +215,7 @@ export default {
         () =>
           this.$store
             .dispatch('sheet/import', {
+              segmentId: this.$route.params.index,
               file: this.sheetUploaded.file,
               mapping: this.value,
             })
@@ -229,6 +230,10 @@ export default {
                 })
 
                 clearInterval(x)
+
+                this.$router.push(
+                  `/segment/audience/${this.$route.params.index}`
+                )
               } else {
                 this.showMessage = true
 

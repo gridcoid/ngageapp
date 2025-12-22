@@ -182,10 +182,13 @@
         <el-table-column label="Location">
           <template slot-scope="scope">
             <div class="k-subtitle leading-5">
-              {{ scope.row.village?.name || '-' }},
-              {{ scope.row.district?.name || '-' }}<br />
-              {{ scope.row.regency?.name || '-' }},
-              {{ scope.row.province?.name || '-' }}
+              <template v-if="hasLocation(scope.row)">
+                {{ scope.row.village?.name }}, {{ scope.row.district?.name
+                }}<br />
+                {{ scope.row.regency?.name }},
+                {{ scope.row.province?.name }}
+              </template>
+              <template v-else> - </template>
             </div>
           </template>
         </el-table-column>
@@ -432,6 +435,15 @@ export default {
     resetFilter() {
       this.radio = 'createdAt_desc'
       this.getData()
+    },
+
+    hasLocation(row) {
+      return (
+        row.village?.name ||
+        row.district?.name ||
+        row.regency?.name ||
+        row.province?.name
+      )
     },
   },
   watch: {
