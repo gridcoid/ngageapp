@@ -488,11 +488,11 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'HomePage',
+  name: 'RunningCampaignPage',
   layout: 'default',
   head() {
     return {
-      title: 'Dashboard - ' + this.$config.appName,
+      title: 'Running Campaigns - ' + this.$config.appName,
     }
   },
   data() {

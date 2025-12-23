@@ -182,6 +182,11 @@ export default {
             icon: 'pi pi-cog',
             child: [
               {
+                path: '/admin/query',
+                name: 'Query Management',
+                icon: 'pi pi-code',
+              },
+              {
                 path: '/admin/api-key',
                 name: 'API Key Management',
                 icon: 'pi pi-key',

@@ -17,7 +17,11 @@
         >
           <el-form-item class="title-form" prop="type">
             <label slot="label" class="title-form">Widget Type</label>
-            <el-select v-model="data.type" placeholder="Select Widget Type">
+            <el-select
+              v-model="data.type"
+              placeholder="Select Widget Type"
+              class="w-full"
+            >
               <el-option label="Metric" value="metric" />
               <el-option label="Chart" value="chart" />
               <el-option label="Table" value="table" />
@@ -26,7 +30,19 @@
 
           <el-form-item class="title-form" prop="queryId">
             <label slot="label" class="title-form">Query</label>
-            <el-input v-model="data.queryId" placeholder="Enter query ID" />
+            <el-select
+              v-model="data.queryId"
+              placeholder="Select Query"
+              filterable
+              class="w-full"
+            >
+              <el-option
+                v-for="q in queries"
+                :key="q.id"
+                :label="q.name"
+                :value="q.id"
+              />
+            </el-select>
           </el-form-item>
 
           <el-form-item class="title-form" prop="title">
@@ -76,6 +92,7 @@ export default {
         queryId: '', // linked query id
         title: '', // widget title
       },
+      queries: [],
     }
   },
   methods: {
@@ -131,3 +148,60 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+:root {
+  --vs-line-height: 1.75;
+}
+:deep() {
+  --vs-line-height: 1.75;
+}
+.container {
+  padding: 20px;
+  .header-content {
+    margin-bottom: 20px;
+  }
+  .card-content {
+    width: 720px;
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    padding: 15px 0px 0px 0px;
+    .header-card {
+      padding-left: 20px;
+      padding-right: 20px;
+      .title {
+        font-family: 'Cabin';
+        font-weight: 600;
+        font-size: 20px;
+        color: #333333;
+        margin-right: 10px;
+      }
+    }
+    .body-card {
+      padding-left: 20px;
+      padding-right: 20px;
+      margin-top: 30px;
+      .title-form {
+        font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 16px;
+        color: #454545;
+      }
+      .to-text {
+        font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 16px;
+        color: #454545;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    }
+    .footer-card {
+      border-top: 1px solid #e2e2e2;
+      padding: 20px;
+    }
+  }
+}
+</style>
