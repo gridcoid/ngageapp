@@ -167,11 +167,8 @@
         <el-table-column label="Location">
           <template slot-scope="scope">
             <div class="k-subtitle leading-5">
-              <template v-if="hasLocation(scope.row)">
-                {{ scope.row.village?.name }}, {{ scope.row.district?.name
-                }}<br />
-                {{ scope.row.regency?.name }},
-                {{ scope.row.province?.name }}
+              <template v-if="formatLocation(scope.row)">
+                <span v-html="formatLocation(scope.row)" />
               </template>
               <template v-else> - </template>
             </div>
@@ -406,13 +403,18 @@ export default {
       this.getData()
     },
 
-    hasLocation(row) {
-      return (
-        row.village?.name ||
-        row.district?.name ||
-        row.regency?.name ||
-        row.province?.name
-      )
+    formatLocation(row) {
+      const line1 = [row.village?.name, row.district?.name]
+        .filter(Boolean)
+        .join(', ')
+
+      const line2 = [row.regency?.name, row.province?.name]
+        .filter(Boolean)
+        .join(', ')
+
+      const lines = [line1, line2].filter(Boolean)
+
+      return lines.length ? lines.join('<br />') : ''
     },
   },
   watch: {
