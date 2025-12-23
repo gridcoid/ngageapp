@@ -106,6 +106,38 @@
             </div>
           </template>
         </el-table-column>
+
+        <!-- ACTIONS -->
+        <el-table-column width="180">
+          <template slot-scope="scope">
+            <Dropdown
+              :index-list="scope.$index"
+              name-btn="Detail"
+              icons="preview"
+              color-text="#1B63D4"
+              class="mr-6"
+              @preview="viewDetail(scope.row)"
+            >
+              <template slot="body">
+                <NuxtLink
+                  class="item-menu flex items-center no-select"
+                  :to="`/admin/query/edit/${scope.row.id}`"
+                >
+                  <i class="pi pi-pencil text-yellow-500"></i>
+                  <span class="ml-3">Edit</span>
+                </NuxtLink>
+
+                <div
+                  class="item-menu flex items-center no-select border-b border-gray-300 rounded-b-md"
+                  @click="deleteQuery(scope.row)"
+                >
+                  <i class="pi pi-trash text-red-500"></i>
+                  <span class="ml-3">Delete</span>
+                </div>
+              </template>
+            </Dropdown>
+          </template>
+        </el-table-column>
       </el-table>
 
       <Pagination
@@ -247,6 +279,18 @@ export default {
     changeRowPage(ev) {
       this.rowPage = ev
       this.getData()
+    },
+    viewDetail(data) {
+      this.$router.push({ path: `/admin/query/edit/${data.id}` })
+    },
+    deleteQuery(data) {
+      this.$store.dispatch('query/delete', data).then(() => {
+        this.getData()
+        this.$notifier.showMessage({
+          content: 'Delete query success.',
+          type: 'success',
+        })
+      })
     },
   },
   watch: {
