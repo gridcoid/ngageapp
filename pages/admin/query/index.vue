@@ -99,7 +99,7 @@
         </el-table-column>
 
         <!-- created -->
-        <el-table-column label="Created At" width="180">
+        <el-table-column label="Created At" width="200">
           <template slot-scope="scope">
             <div class="text-sm text-gray-500">
               {{ $moment(scope.row.createdAt).format('DD MMM YYYY') }}

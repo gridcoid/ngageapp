@@ -255,7 +255,7 @@
           <!-- padding -->
           <el-table-column label="" width="10" />
 
-          <el-table-column label="" prop="name" sortable width="300">
+          <el-table-column label="" prop="name" sortable>
             <template slot="header"> Campaign Name </template>
             <template slot-scope="scope">
               <div
@@ -284,7 +284,12 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="Status" header-align="center" align="center">
+          <el-table-column
+            label="Status"
+            header-align="center"
+            align="center"
+            width="140"
+          >
             <template slot-scope="scope">
               <div
                 v-if="scope.row.status === 'running'"
@@ -321,6 +326,7 @@
             label="Impression"
             header-align="center"
             align="center"
+            width="140"
           >
             <template slot-scope="scope">
               <div
@@ -334,7 +340,12 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="Click" header-align="center" align="center">
+          <el-table-column
+            label="Click"
+            header-align="center"
+            align="center"
+            width="100"
+          >
             <template slot-scope="scope">
               <div
                 v-if="Object.keys(scope.row.analytics).length !== 0"
@@ -346,7 +357,12 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="CTR" header-align="center" align="center">
+          <el-table-column
+            label="CTR"
+            header-align="center"
+            align="center"
+            width="100"
+          >
             <template slot-scope="scope">
               <div
                 v-if="Object.keys(scope.row.analytics).length !== 0"
@@ -362,6 +378,7 @@
             label="Last Modified"
             header-align="center"
             align="center"
+            width="140"
           >
             <template slot-scope="scope">
               <div class="view-text">
@@ -371,10 +388,10 @@
           </el-table-column>
 
           <el-table-column
-            label="Action"
+            label=""
             header-align="center"
             align="center"
-            width="190"
+            width="200"
           >
             <template slot-scope="scope">
               <Dropdown

@@ -392,7 +392,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          label="Action"
+          label=""
           header-align="center"
           align="center"
           width="100"

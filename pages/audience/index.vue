@@ -176,7 +176,7 @@
         </el-table-column>
 
         <!-- ACTIONS -->
-        <el-table-column width="180">
+        <el-table-column width="200">
           <template slot-scope="scope">
             <Dropdown
               :index-list="scope.$index"

@@ -138,7 +138,7 @@
         <!-- padding -->
         <el-table-column label="" width="10" />
 
-        <el-table-column label="Name" prop="name" sortable width="250">
+        <el-table-column label="Name" prop="name" sortable>
           <template slot-scope="scope">
             <div
               class="flex items-center cursor-pointer"
@@ -179,7 +179,13 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Size" align="center" prop="width" sortable>
+        <el-table-column
+          label="Size"
+          align="center"
+          prop="width"
+          sortable
+          width="180"
+        >
           <template slot-scope="scope">
             <div class="title-tabel">
               {{ scope.row.resolution.width }} x
@@ -201,6 +207,7 @@
           align="center"
           prop="updatedAt"
           sortable
+          width="180"
         >
           <template slot-scope="scope">
             <div class="title-tabel">
@@ -209,7 +216,13 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Status" align="center" prop="status" sortable>
+        <el-table-column
+          label="Status"
+          align="center"
+          prop="status"
+          sortable
+          width="140"
+        >
           <template slot-scope="scope">
             <!-- S: Draft -->
             <div
@@ -300,6 +313,7 @@
           align="center"
           prop="studioHub"
           sortable
+          width="140"
         >
           <template slot-scope="scope">
             <div
@@ -327,7 +341,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Action">
+        <el-table-column label="" width="200">
           <template slot-scope="scope">
             <el-dropdown
               trigger="click"
