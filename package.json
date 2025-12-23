@@ -58,6 +58,7 @@
     "vue-chartjs": "^4.1.1",
     "vue-codemirror": "^4.0.6",
     "vue-form-json-schema": "^2.9.5",
+    "vue-grid-layout": "^2.4.0",
     "vue-select": "^3.18.3",
     "vue-simple-password-meter": "^0.1.2",
     "vue-smooth-dnd": "^0.8.1",
