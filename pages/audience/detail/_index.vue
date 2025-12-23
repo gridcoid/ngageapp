@@ -449,7 +449,6 @@ export default {
   },
   watch: {
     async dataDetail(val) {
-      console.log(val)
       this.data.id = val.id
       this.data.orgId = val.orgId
       this.data.name = val.name

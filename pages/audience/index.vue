@@ -149,20 +149,6 @@
           </template>
         </el-table-column>
 
-        <!-- GENDER -->
-        <el-table-column label="Gender" prop="gender.name">
-          <template slot-scope="scope">
-            {{ scope.row.gender?.name || '-' }}
-          </template>
-        </el-table-column>
-
-        <!-- RELIGION -->
-        <el-table-column label="Religion" prop="religion.name">
-          <template slot-scope="scope">
-            {{ scope.row.religion?.name || '-' }}
-          </template>
-        </el-table-column>
-
         <!-- ADDRESS -->
         <el-table-column label="Location">
           <template slot-scope="scope">
@@ -175,8 +161,22 @@
           </template>
         </el-table-column>
 
+        <!-- GENDER -->
+        <el-table-column label="Gender" prop="gender.name" width="140">
+          <template slot-scope="scope">
+            {{ scope.row.gender?.name || '-' }}
+          </template>
+        </el-table-column>
+
+        <!-- RELIGION -->
+        <el-table-column label="Religion" prop="religion.name" width="140">
+          <template slot-scope="scope">
+            {{ scope.row.religion?.name || '-' }}
+          </template>
+        </el-table-column>
+
         <!-- ACTIONS -->
-        <el-table-column>
+        <el-table-column width="180">
           <template slot-scope="scope">
             <Dropdown
               :index-list="scope.$index"
@@ -367,14 +367,64 @@ export default {
     },
 
     doDeleteAudience(id) {
-      this.$store.dispatch('audience/delete', { id }).then(() => {
-        this.dialogDelete = false
-        this.getData()
-        this.$notifier.showMessage({
-          content: 'Delete audience success.',
-          type: 'success',
-        })
+      const data = {
+        id,
+      }
+      this.$notifier.showMessage({
+        content: 'Delete audience...',
+        type: 'loading',
       })
+      const sto = setTimeout(
+        () =>
+          this.$store
+            .dispatch('audience/delete', data)
+            .then((res) => {
+              if (
+                res.data.status.code === 200 ||
+                res.data.status.code === 201 ||
+                res.data.status.code === 202
+              ) {
+                this.dialogDelete = false
+                this.$store.commit('user/SET_DROPDOWN', null)
+
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Delete audience status success.',
+                  type: 'success',
+                })
+
+                clearInterval(sto)
+              } else {
+                this.dialogDelete = false
+                this.showMessage = true
+                this.$store.commit('user/SET_DROPDOWN', null)
+
+                const keys = Object.keys(res.data.data.errors[0])
+                const arr = []
+
+                keys.forEach((key, index) => {
+                  arr.push(res.data.data.errors[0][key])
+                })
+
+                this.messageError = arr.join(', ')
+
+                this.$notifier.showMessage({
+                  content:
+                    'Delete audience status failed. Error : ' +
+                    res.data.data.message,
+                  type: 'failed',
+                })
+
+                clearInterval(sto)
+              }
+
+              this.getData()
+            })
+            .catch(() => {}),
+        1000
+      )
+      document.querySelector('body').style.overflow = ''
     },
 
     closeDialog() {

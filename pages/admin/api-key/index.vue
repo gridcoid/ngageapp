@@ -86,7 +86,7 @@
         </el-table-column>
 
         <!-- scopes -->
-        <el-table-column label="Scopes">
+        <el-table-column label="Scopes" width="180">
           <template slot-scope="scope">
             <div class="font-cabin font-normal text-sm text-gray-500">
               {{
@@ -99,7 +99,7 @@
         </el-table-column>
 
         <!-- status -->
-        <el-table-column label="Status">
+        <el-table-column label="Status" width="140">
           <template slot-scope="scope">
             <div
               class="font-cabin font-medium text-sm"
@@ -111,7 +111,7 @@
         </el-table-column>
 
         <!-- expires -->
-        <el-table-column label="Expires">
+        <el-table-column label="Expires" width="140">
           <template slot-scope="scope">
             <div class="font-cabin font-normal text-sm text-gray-500">
               {{
@@ -124,7 +124,7 @@
         </el-table-column>
 
         <!-- ACTIONS -->
-        <el-table-column>
+        <el-table-column width="180">
           <template slot-scope="scope">
             <Dropdown
               :index-list="scope.$index"

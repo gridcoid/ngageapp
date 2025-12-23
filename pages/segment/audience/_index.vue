@@ -164,20 +164,6 @@
           </template>
         </el-table-column>
 
-        <!-- GENDER -->
-        <el-table-column label="Gender" prop="gender.name">
-          <template slot-scope="scope">
-            {{ scope.row.gender?.name || '-' }}
-          </template>
-        </el-table-column>
-
-        <!-- RELIGION -->
-        <el-table-column label="Religion" prop="religion.name">
-          <template slot-scope="scope">
-            {{ scope.row.religion?.name || '-' }}
-          </template>
-        </el-table-column>
-
         <!-- ADDRESS -->
         <el-table-column label="Location">
           <template slot-scope="scope">
@@ -190,8 +176,22 @@
           </template>
         </el-table-column>
 
+        <!-- GENDER -->
+        <el-table-column label="Gender" prop="gender.name" width="140">
+          <template slot-scope="scope">
+            {{ scope.row.gender?.name || '-' }}
+          </template>
+        </el-table-column>
+
+        <!-- RELIGION -->
+        <el-table-column label="Religion" prop="religion.name" width="140">
+          <template slot-scope="scope">
+            {{ scope.row.religion?.name || '-' }}
+          </template>
+        </el-table-column>
+
         <!-- ACTIONS -->
-        <el-table-column>
+        <el-table-column width="180">
           <template slot-scope="scope">
             <Dropdown
               :index-list="scope.$index"
@@ -635,19 +635,18 @@ export default {
         font-weight: 500;
         font-size: 16px;
         color: #454545;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 250px;
-      }
-      .k-title:hover {
-        color: #1b63d4;
       }
       .k-subtitle {
         font-family: 'Cabin';
         font-weight: 400;
-        font-size: 12px;
-        color: #9a9a9a;
+        font-size: 14px;
+        color: #757575;
+      }
+      .title-tabel {
+        font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 16px;
+        color: #454545;
       }
 
       .status-card {
@@ -657,29 +656,12 @@ export default {
         font-size: 14px;
         background: #ecf5e5;
         border-radius: 5px;
-        height: 25px;
+        height: 34px;
         margin-top: 10px;
         width: 80px;
-        margin-right: auto;
         margin-left: auto;
-      }
-      .cpm-text {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 14px;
-        color: #454545;
-      }
-      .view-text {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 14px;
-        color: #454545;
-      }
-      .increase-text {
-        font-family: 'Cabin';
-        font-size: 12px;
-        font-weight: 400;
-        color: #454545;
+        margin-right: auto;
+        border-radius: 100px;
       }
 
       .btn-icon {
@@ -714,7 +696,7 @@ export default {
           line-height: 24px;
         }
         .save-btn {
-          width: 150px;
+          width: 220px;
           background: #ffffff;
           border: 1px solid #1b63d4;
           color: #1b63d4;
@@ -764,26 +746,6 @@ export default {
       .k-btn:hover {
         background-color: rgb(243 244 246);
         border: 0px;
-      }
-    }
-    .summary-card {
-      padding: 10px 20px 0px 20px;
-      height: 100%;
-      .item-summary {
-        height: 30px;
-        .title-1 {
-          font-family: 'Cabin';
-          font-weight: 600;
-          font-size: 14px;
-          color: #333333;
-          width: 60px;
-        }
-        .value-1 {
-          font-family: 'Cabin';
-          font-weight: 400;
-          font-size: 12px;
-          color: #333333;
-        }
       }
     }
   }
