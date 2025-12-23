@@ -1,4 +1,4 @@
-const resource = 'dashboards'
+const resource = 'dashboard'
 
 export default ($axios) => ({
   // dashboard:create

@@ -17,6 +17,7 @@ import AudienceBySegmentRepository from '~/repositories/audienceBySegmentReposit
 import ApiKeyRepository from '~/repositories/apiKeyRepository'
 import SheetRepository from '~/repositories/sheetRepository'
 import QueryRepository from '~/repositories/queryRepository'
+import DashboardRepository from '~/repositories/dashboardRepository'
 
 export default ($axios) => ({
   user: UserRepository($axios),
@@ -38,4 +39,5 @@ export default ($axios) => ({
   apiKey: ApiKeyRepository($axios),
   sheet: SheetRepository($axios),
   query: QueryRepository($axios),
+  dashboard: DashboardRepository($axios),
 })

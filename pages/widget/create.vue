@@ -145,6 +145,21 @@ export default {
           this.isLoading = false
         })
     },
+    getQueries() {
+      this.$store
+        .dispatch('query/list', {
+          page: 1,
+          size: 100,
+          name: '',
+          sort: 'createdAt_desc',
+        })
+        .then((res) => {
+          this.queries = res.data?.data?.rows || []
+        })
+    },
+  },
+  mounted() {
+    this.getQueries()
   },
 }
 </script>
