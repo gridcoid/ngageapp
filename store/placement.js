@@ -1,4 +1,5 @@
 const initialState = () => ({
+  isLoading: false,
   dataPlacement: [],
   dataPlacement2: {
     name: '',
@@ -26,6 +27,7 @@ const initialState = () => ({
 export const state = initialState
 
 export const getters = {
+  isLoading: (state) => state.isLoading,
   dataPlacement: (state) => state.dataPlacement,
   dataPlacement2: (state) => state.dataPlacement2,
   detailPlacement: (state) => state.detailPlacement,
@@ -42,6 +44,9 @@ export const getters = {
 export const mutations = {
   RESET(state) {
     Object.assign(state, initialState())
+  },
+  SET_LOADING: (state, isLoading) => {
+    state.isLoading = isLoading
   },
   SET_DATA_PLACEMENT(state, item) {
     if (item !== null) {
@@ -170,9 +175,11 @@ export const actions = {
     }
   },
   async getList({ commit }, payload) {
+    commit('SET_LOADING', true)
     try {
       const response = await this.$repositories.placement.getList(payload)
       commit('SET_DATA_PLACEMENT', response.data.data)
+      commit('SET_LOADING', false)
       return response
     } catch (e) {
       commit('SET_DATA_PLACEMENT', null)
@@ -180,6 +187,7 @@ export const actions = {
         content: 'Error status code: ' + e.response.status,
         type: 'failed',
       })
+      commit('SET_LOADING', false)
       return e.response
     }
   },
