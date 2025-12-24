@@ -248,7 +248,7 @@ export default {
         previewUrl: this.data.previewUrl,
         backupImg: this.data.backupImg,
       }
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('creative/createCreativeCustom', data)
@@ -259,7 +259,7 @@ export default {
                   content: 'Creative created.',
                   type: 'success',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 this.showMessage = true
                 const keys = Object.keys(res.data.data.errors[0])
@@ -273,12 +273,12 @@ export default {
                     'Creative failed. Please try again! ' + this.messageError,
                   type: 'failed',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               }
             })
             .catch(() => {
               this.isLoading = false
-              clearInterval(x)
+              clearInterval(sto)
             }),
         1000
       )

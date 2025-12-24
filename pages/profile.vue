@@ -457,7 +457,7 @@ export default {
         content: 'Update Status...',
         type: 'loading',
       })
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('user/updateVerification', data)
@@ -468,7 +468,7 @@ export default {
               })
               this.getDataAll()
               this.closeDropdown = false
-              clearInterval(x)
+              clearInterval(sto)
             })
             .catch((error) => {
               this.$notifier.showMessage({
@@ -477,7 +477,7 @@ export default {
                 type: 'failed',
               })
               this.closeDropdown = false
-              clearInterval(x)
+              clearInterval(sto)
             }),
         1000
       )
@@ -513,7 +513,7 @@ export default {
         content: 'Delete user...',
         type: 'loading',
       })
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('user/deleteUser', data)
@@ -526,7 +526,7 @@ export default {
                 type: 'success',
               })
               this.closeDropdown = false
-              clearInterval(x)
+              clearInterval(sto)
               document.querySelector('body').style.overflow = ''
             })
             .catch((error) => {
@@ -536,7 +536,7 @@ export default {
               })
               this.isLoading = false
               this.closeDropdown = false
-              clearInterval(x)
+              clearInterval(sto)
               document.querySelector('body').style.overflow = ''
             }),
         1000

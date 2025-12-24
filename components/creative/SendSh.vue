@@ -236,7 +236,7 @@ export default {
           id: this.datash.id,
         }
 
-        const x = setTimeout(
+        const sto = setTimeout(
           () =>
             this.$store
               .dispatch('creative/sendToStudioHub', data)
@@ -254,15 +254,15 @@ export default {
                     false
                   )
                   this.clearForm()
-                  clearInterval(x)
+                  clearInterval(sto)
                 } else {
                   this.showMessage = true
                   this.messageError = res.data.data.message
-                  clearInterval(x)
+                  clearInterval(sto)
                 }
               })
               .catch(() => {
-                clearInterval(x)
+                clearInterval(sto)
               }),
           1000
         )

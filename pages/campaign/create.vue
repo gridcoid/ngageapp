@@ -285,7 +285,7 @@ export default {
         this.data.startDate = ''
         this.data.endDate = ''
       }
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('campaign/createCampaign', this.data)
@@ -296,7 +296,7 @@ export default {
                   content: 'Campaign created.',
                   type: 'success',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 this.showMessage = true
                 const keys = Object.keys(res.data.data.errors[0])
@@ -309,12 +309,12 @@ export default {
                   content: 'Campaign failed. Please try again!',
                   type: 'failed',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               }
             })
             .catch(() => {
               this.isLoading = false
-              clearInterval(x)
+              clearInterval(sto)
             }),
         1000
       )

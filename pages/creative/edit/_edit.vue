@@ -1500,7 +1500,7 @@ export default {
             content: 'Edit creative...',
             type: 'loading',
           })
-          const x = setTimeout(
+          const sto = setTimeout(
             () =>
               this.$store
                 .dispatch('creative/updateCreative', {
@@ -1523,7 +1523,7 @@ export default {
                       content: 'Creative edited.',
                       type: 'success',
                     })
-                    clearInterval(x)
+                    clearInterval(sto)
                     this.$router.push({
                       path: '/creative/',
                     })
@@ -1538,7 +1538,7 @@ export default {
                       content: 'Creative edit failed : ' + arr.join(', '),
                       type: 'failed',
                     })
-                    clearInterval(x)
+                    clearInterval(sto)
                   }
                 })
                 .catch((error) => {
@@ -1546,7 +1546,7 @@ export default {
                     content: 'Creative edit failed : ' + error,
                     type: 'failed',
                   })
-                  clearInterval(x)
+                  clearInterval(sto)
                 }),
             1000
           )

@@ -1037,7 +1037,7 @@ export default {
         content: 'Change status campaign...',
         type: 'loading',
       })
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('campaign/changeStatus', data)
@@ -1052,7 +1052,7 @@ export default {
                   content: 'Change campaign status success.',
                   type: 'success',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 this.$notifier.showMessage({
                   content:
@@ -1067,7 +1067,7 @@ export default {
                   arr.push(res.data.data.errors[0][key])
                 })
                 this.messageError = arr.join(', ')
-                clearInterval(x)
+                clearInterval(sto)
               }
               this.getAll()
             })
@@ -1096,7 +1096,7 @@ export default {
         content: 'Duplicate campaign...',
         type: 'loading',
       })
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('campaign/duplicate', data)
@@ -1115,7 +1115,7 @@ export default {
                 this.dialogDuplicate = false
                 this.$store.commit('user/SET_DROPDOWN', null)
                 this.countDuplicate = 1
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 this.detailCampaign = null
                 this.dialogDuplicate = false
@@ -1134,7 +1134,7 @@ export default {
                 })
                 this.messageError = arr.join(', ')
                 this.$store.commit('user/SET_DROPDOWN', null)
-                clearInterval(x)
+                clearInterval(sto)
               }
               this.getAll()
             })
@@ -1151,7 +1151,7 @@ export default {
         content: 'Delete campaign...',
         type: 'loading',
       })
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('campaign/delete', data)
@@ -1168,7 +1168,7 @@ export default {
                   content: 'Delete campaign status success.',
                   type: 'success',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 this.dialogDelete = false
                 // this.detailCampaign = null
@@ -1186,7 +1186,7 @@ export default {
                     res.data.data.message,
                   type: 'failed',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               }
               this.getAll()
             })

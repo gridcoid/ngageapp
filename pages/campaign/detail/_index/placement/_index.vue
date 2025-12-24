@@ -571,7 +571,7 @@ export default {
         content: 'Change status placement...',
         type: 'loading',
       })
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('placement/changeStatus', data)
@@ -592,7 +592,7 @@ export default {
                     type: 'success',
                   })
                 }
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 this.$notifier.showMessage({
                   content:
@@ -607,7 +607,7 @@ export default {
                   arr.push(res.data.data.errors[0][key])
                 })
                 this.messageError = arr.join(', ')
-                clearInterval(x)
+                clearInterval(sto)
               }
               this.getAll()
             })

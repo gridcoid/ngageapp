@@ -211,7 +211,7 @@ export default {
         type: 'loading',
       })
 
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('sheet/import', {
@@ -229,7 +229,7 @@ export default {
                   type: 'success',
                 })
 
-                clearInterval(x)
+                clearInterval(sto)
 
                 this.$router.push(
                   `/segment/audience/${this.$route.params.index}`
@@ -252,12 +252,12 @@ export default {
                   type: 'failed',
                 })
 
-                clearInterval(x)
+                clearInterval(sto)
               }
             })
             .catch(() => {
               this.isLoading = false
-              clearInterval(x)
+              clearInterval(sto)
             }),
         1000
       )

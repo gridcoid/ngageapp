@@ -719,7 +719,7 @@ export default {
         id: data.id,
       }
       if (format === 'video') {
-        const x = setTimeout(
+        const sto = setTimeout(
           () =>
             this.$store
               .dispatch('creative/generateCreativeVideo', data2)
@@ -732,7 +732,7 @@ export default {
                     type: 'success',
                   })
                   this.triggerCreative(data.id)
-                  clearInterval(x)
+                  clearInterval(sto)
                 } else {
                   this.showMessage = true
                   const keys = Object.keys(res.data.data.errors[0])
@@ -744,16 +744,16 @@ export default {
                     content: 'Generate creative failed ! ' + arr.join(', '),
                     type: 'failed',
                   })
-                  clearInterval(x)
+                  clearInterval(sto)
                 }
               })
               .catch(() => {
-                clearInterval(x)
+                clearInterval(sto)
               }),
           1000
         )
       } else {
-        const x = setTimeout(
+        const sto = setTimeout(
           () =>
             this.$store
               .dispatch('creative/generateCreativeVideoStatic', data2)
@@ -764,7 +764,7 @@ export default {
                     content: 'Generate creative in progress',
                     type: 'success',
                   })
-                  clearInterval(x)
+                  clearInterval(sto)
                 } else {
                   const keys = Object.keys(res.data.data.errors[0])
                   const arr = []
@@ -775,11 +775,11 @@ export default {
                     content: 'Generate creative failed ! ' + arr.join(', '),
                     type: 'failed',
                   })
-                  clearInterval(x)
+                  clearInterval(sto)
                 }
               })
               .catch(() => {
-                clearInterval(x)
+                clearInterval(sto)
               }),
           1000
         )
@@ -911,7 +911,7 @@ export default {
         content: 'Delete creative...',
         type: 'loading',
       })
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('creative/deleteCreative', data)
@@ -923,7 +923,7 @@ export default {
                 type: 'success',
               })
               this.closeDropdown = false
-              clearInterval(x)
+              clearInterval(sto)
               document.querySelector('body').style.overflow = ''
             })
             .catch((error) => {
@@ -932,7 +932,7 @@ export default {
                 type: 'failed',
               })
               this.closeDropdown = false
-              clearInterval(x)
+              clearInterval(sto)
               document.querySelector('body').style.overflow = ''
             })
             .finally(() => {

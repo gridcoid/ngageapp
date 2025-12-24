@@ -1273,7 +1273,7 @@ export default {
       // }
 
       this.isLoading = true
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('placement/createPlacement', {
@@ -1307,7 +1307,7 @@ export default {
                   type: 'success',
                 })
                 this.$router.go(-1)
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 this.showMessage = true
                 const keys = Object.keys(res.data.data.errors[0])
@@ -1322,11 +1322,11 @@ export default {
                     this.messageError,
                   type: 'failed',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               }
             })
             .catch(() => {
-              clearInterval(x)
+              clearInterval(sto)
               this.isLoading = false
             }),
         1000

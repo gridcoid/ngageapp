@@ -263,7 +263,7 @@ export default {
         this.data.endDate = ''
       }
 
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('campaign/update', this.data)
@@ -282,7 +282,7 @@ export default {
                 this.$router.push({
                   path: `/campaign/detail/${this.$route.params.index}`,
                 })
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 this.showMessage = true
                 const keys = Object.keys(res.data.data.errors[0])
@@ -297,11 +297,11 @@ export default {
                     this.messageError,
                   type: 'failed',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               }
             })
             .catch(() => {
-              clearInterval(x)
+              clearInterval(sto)
               this.isLoading = false
             }),
         1000

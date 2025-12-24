@@ -472,7 +472,7 @@ export default {
           confirmPassword: this.confirm_password,
         }
 
-        const x = setTimeout(
+        const sto = setTimeout(
           () =>
             this.$store
               .dispatch('user/createUser', data)
@@ -499,21 +499,21 @@ export default {
                         document.querySelector('body').style.overflow = ''
                         this.$store.commit('user/SET_USER_CHANGE_DIALOG', false)
                         this.$parent.getDataAll()
-                        clearInterval(x)
+                        clearInterval(sto)
                       } else {
                         this.showMessage = true
                         this.messageError = res.data.data.message
-                        clearInterval(x)
+                        clearInterval(sto)
                       }
                     })
                 } else {
                   this.showMessage = true
                   this.messageError = res.data.data.message
-                  clearInterval(x)
+                  clearInterval(sto)
                 }
               })
               .catch(() => {
-                clearInterval(x)
+                clearInterval(sto)
               }),
           1000
         )
@@ -545,7 +545,7 @@ export default {
         id: this.iduser.id,
       }
 
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('user/updateUser', data)
@@ -571,21 +571,21 @@ export default {
 
                       this.closeDialog()
                       this.$parent.getDataAll()
-                      clearInterval(x)
+                      clearInterval(sto)
                     } else {
                       this.showMessage = true
                       this.messageError = res.data.data.message
-                      clearInterval(x)
+                      clearInterval(sto)
                     }
                   })
               } else {
                 this.showMessage = true
                 this.messageError = res.data.data.message
-                clearInterval(x)
+                clearInterval(sto)
               }
             })
             .catch(() => {
-              clearInterval(x)
+              clearInterval(sto)
             }),
         1000
       )

@@ -82,7 +82,7 @@ export default {
           name: this.name,
         }
 
-        const x = setTimeout(
+        const sto = setTimeout(
           () =>
             this.$store
               .dispatch('user/createOrganization', data)
@@ -96,15 +96,15 @@ export default {
                   document.querySelector('body').style.overflow = ''
                   this.$store.commit('user/SET_ORG_CHANGE_DIALOG', false)
                   this.$store.dispatch('user/getOrgUser', { all: true })
-                  clearInterval(x)
+                  clearInterval(sto)
                 } else {
                   this.showMessage = true
                   this.messageError = res.data.data.message
-                  clearInterval(x)
+                  clearInterval(sto)
                 }
               })
               .catch(() => {
-                clearInterval(x)
+                clearInterval(sto)
               }),
           1000
         )

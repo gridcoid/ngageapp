@@ -232,7 +232,7 @@ export default {
         newPassword: this.new_password,
         confirmNewPassword: this.confirm_password,
       }
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('user/changePassword', data)
@@ -245,7 +245,7 @@ export default {
                 })
                 document.querySelector('body').style.overflow = ''
                 this.$store.commit('user/SET_CHANGE_DIALOG', false)
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 if (res.data.data.message === 'Incorrect Password') {
                   this.validationPassword = true
@@ -254,11 +254,11 @@ export default {
                   this.showMessage = true
                   this.messageError = res.data.data.message
                 }
-                clearInterval(x)
+                clearInterval(sto)
               }
             })
             .catch(() => {
-              clearInterval(x)
+              clearInterval(sto)
             }),
         1000
       )

@@ -1341,7 +1341,7 @@ export default {
         type: 'loading',
       })
       this.isLoading = true
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('placement/updatePlacement', {
@@ -1376,7 +1376,7 @@ export default {
                   content: 'Placement edited...',
                   type: 'success',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 this.showMessage = true
                 const keys = Object.keys(res.data.data.errors[0])
@@ -1391,11 +1391,11 @@ export default {
                     this.messageError,
                   type: 'failed',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               }
             })
             .catch(() => {
-              clearInterval(x)
+              clearInterval(sto)
               this.isLoading = false
             }),
         1000

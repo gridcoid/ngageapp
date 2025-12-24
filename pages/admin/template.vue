@@ -342,7 +342,7 @@ export default {
         configExample: this.dataUpload.configExample,
         orgId: this.data.org,
       }
-      const x = setTimeout(
+      const sto = setTimeout(
         () =>
           this.$store
             .dispatch('template/createTemplateCustom', data)
@@ -354,7 +354,7 @@ export default {
                   content: 'Template created.',
                   type: 'success',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               } else {
                 this.showMessage = true
                 const keys = Object.keys(res.data.data.errors[0])
@@ -368,12 +368,12 @@ export default {
                     'Template failed. Please try again! ' + this.messageError,
                   type: 'failed',
                 })
-                clearInterval(x)
+                clearInterval(sto)
               }
             })
             .catch(() => {
               this.isLoading = false
-              clearInterval(x)
+              clearInterval(sto)
             }),
         1000
       )
