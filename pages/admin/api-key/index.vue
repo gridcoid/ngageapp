@@ -233,52 +233,6 @@
         </template>
       </ModalSort>
     </transition>
-
-    <transition name="fade">
-      <Popup
-        v-if="dialogDelete"
-        class="kg-popup"
-        width="30"
-        :border-header="false"
-        @close-modal="closeDialog()"
-      >
-        <template v-slot:body>
-          <div class="content-popup flex flex-col">
-            <div
-              class="flex items-center justify-between"
-              style="margin-bottom: 14px"
-            >
-              <div class="title-popup2">Delete Api Key?</div>
-              <img
-                src="~/assets/images/icon/delete_color.svg"
-                class="icon-item"
-              />
-            </div>
-            <div class="title-popup">
-              Are you sure want to delete
-              <b>{{ detailApiKey.name }}</b> api key?
-            </div>
-            <div
-              class="footer-card grid grid-cols-2 gap-4 place-content-stretch"
-            >
-              <button
-                class="flex items-center justify-center cancel-btn2 no-select"
-                @click="closeDialog()"
-              >
-                <span class="name-btn no-select">Cancel</span>
-              </button>
-              <button
-                class="flex items-center justify-center save-btn2 no-select"
-                @click="doDeleteApiKey(detailApiKey.id)"
-              >
-                <IconCompleted bg-color="white" class="mr-2 pl-1" />
-                <span class="name-btn no-select">Confirm</span>
-              </button>
-            </div>
-          </div>
-        </template>
-      </Popup>
-    </transition>
   </div>
 </template>
 
@@ -295,10 +249,6 @@ export default {
   data() {
     return {
       tableVisible: true,
-      detailApiKey: {
-        name: '',
-        id: '',
-      },
       radio: 'createdAt_desc',
       createdAt: '',
       dataSearch: '',
@@ -308,7 +258,6 @@ export default {
       activeStatus: 'all',
       rowPage: 5,
       dialog: false,
-      dialogDelete: false,
       resetFilter() {
         this.radio = 'createdAt_desc'
         this.getData()
@@ -372,69 +321,44 @@ export default {
       this.dialog = !this.dialog
     },
     deleteApiKey(data) {
-      document.querySelector('body').style.overflow = 'hidden'
-      this.detailApiKey = data
-      this.dialogDelete = true
-    },
-    doDeleteApiKey(id) {
-      const data = {
-        id,
-      }
-      this.$notifier.showMessage({
-        content: 'Delete api key...',
-        type: 'loading',
+      this.$confirm('Are you sure you want to delete?', 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
       })
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('apiKey/delete', data)
-            .then((res) => {
-              if (
-                res.data.status.code === 200 ||
-                res.data.status.code === 201 ||
-                res.data.status.code === 202
-              ) {
-                this.dialogDelete = false
-                this.$store.commit('user/SET_DROPDOWN', null)
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Delete api key...',
+            type: 'loading',
+          })
 
+          this.$store
+            .dispatch('apiKey/delete', {
+              id: data.id,
+            })
+            .then((res) => {
+              if (res.data.status.code === 200) {
                 this.getData()
 
                 this.$notifier.showMessage({
                   content: 'Delete api key status success.',
                   type: 'success',
                 })
-
-                clearInterval(sto)
               } else {
-                this.dialogDelete = false
-                this.showMessage = true
-                this.$store.commit('user/SET_DROPDOWN', null)
-
-                const keys = Object.keys(res.data.data.errors[0])
-                const arr = []
-
-                keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
-                })
-
-                this.messageError = arr.join(', ')
-
                 this.$notifier.showMessage({
                   content:
                     'Delete api key status failed. Error : ' +
                     res.data.data.message,
                   type: 'failed',
                 })
-
-                clearInterval(sto)
               }
 
-              this.getData()
+              this.$store.commit('user/SET_DROPDOWN', null)
             })
-            .catch(() => {}),
-        1000
-      )
-      document.querySelector('body').style.overflow = ''
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
     changePage(ev) {
       if (ev > 0) {
@@ -776,118 +700,6 @@ export default {
     }
     .save-btn:hover {
       background-color: rgb(243 244 246);
-    }
-  }
-}
-.kg-popup {
-  .content-popup {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    width: 100%;
-    height: 100%;
-    .title-popup2 {
-      font-family: 'Cabin';
-      font-style: normal;
-      font-weight: 600;
-      font-size: 20px;
-      color: #5c6b7a;
-    }
-    .title-popup {
-      font-weight: 400;
-      font-size: 16px;
-      color: #454545;
-    }
-    .input-number {
-      width: 100%;
-      height: 40px;
-      background: #ffffff;
-      border: 1.5px solid #1b63d4;
-      box-shadow: 0px 2px 10px rgba(187, 209, 243, 0.5);
-      border-radius: 5px;
-      margin-top: 10px;
-      margin-bottom: 15px;
-      padding-left: 13px;
-      padding-right: 13px;
-      .input-text {
-        width: 70%;
-        text-align: center;
-        height: 37px;
-      }
-      .input-text:focus {
-        border-color: inherit;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        outline: none;
-      }
-    }
-    .box-popup {
-      background: #ffffff;
-      border: 1px solid #e2e2e2;
-      border-radius: 5px;
-      padding: 11px 10px 11px 10px;
-      margin-top: 10px;
-      .name-popup {
-        font-weight: 500;
-        font-size: 16px;
-        color: #454545;
-      }
-      .desc-popup {
-        font-weight: 400;
-        font-size: 14px;
-        color: #757575;
-      }
-      .date-popup {
-        font-weight: 400;
-        font-size: 14px;
-        text-align: right;
-        color: #757575;
-      }
-    }
-    .footer-card {
-      margin-top: 15px;
-      .cancel-btn {
-        border: 1px solid #1b63d4;
-        color: #1b63d4;
-        font-weight: 700;
-        font-size: 14px;
-        border-radius: 5px;
-        height: 40px;
-      }
-      .cancel-btn:hover {
-        background-color: rgb(243 244 246);
-      }
-      .save-btn {
-        background: #1b63d4;
-        color: #ffffff;
-        border-radius: 5px;
-        height: 40px;
-      }
-      .save-btn:hover {
-        opacity: 1.2;
-      }
-      .cancel-btn2 {
-        border: 1px solid #ed543a;
-        color: #ed543a;
-        font-weight: 700;
-        font-size: 14px;
-        border-radius: 5px;
-        height: 40px;
-      }
-      .cancel-btn2:hover {
-        background-color: rgb(243 244 246);
-      }
-      .save-btn2 {
-        background: #ed543a;
-        border: 1px solid #ed543a;
-        border-radius: 5px;
-        height: 40px;
-        color: white;
-      }
-      .save-btn2:hover {
-        opacity: 1.2;
-      }
     }
   }
 }
