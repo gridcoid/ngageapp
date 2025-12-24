@@ -1134,14 +1134,9 @@ export default {
     },
     getDataPublisher() {
       this.isLoading = true
-      this.$store
-        .dispatch('publisher/getList')
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('publisher/getList').finally(() => {
+        this.isLoading = false
+      })
     },
     getDataResolusi() {
       this.isLoading = true
@@ -1151,13 +1146,12 @@ export default {
       this.$store
         .dispatch('creative/getResolution', data)
         .then((res) => {
-          this.isLoading = false
           // this.data.resolusi = res.data.data[0].id
           // const data = res.data.data.find(item => item.id === this.data.resolusi)
           // this.selectedDataResolution = data.width + 'x' + data.height
           this.getDetailPlacement()
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },
@@ -1178,36 +1172,21 @@ export default {
         size: this.rowPageAudience,
         name: this.dataSearchAudience,
       }
-      this.$store
-        .dispatch('placement/getListInterest', data)
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('placement/getListInterest', data).finally(() => {
+        this.isLoading = false
+      })
     },
     getPriorities() {
       this.isLoading_1 = true
-      this.$store
-        .dispatch('placement/getPriorities')
-        .then(() => {
-          this.isLoading_1 = false
-        })
-        .catch(() => {
-          this.isLoading_1 = false
-        })
+      this.$store.dispatch('placement/getPriorities').finally(() => {
+        this.isLoading_1 = false
+      })
     },
     getDailyLimitTypes() {
       this.isLoading_2 = true
-      this.$store
-        .dispatch('placement/getDailyLimitTypes')
-        .then(() => {
-          this.isLoading_2 = false
-        })
-        .catch(() => {
-          this.isLoading_2 = false
-        })
+      this.$store.dispatch('placement/getDailyLimitTypes').finally(() => {
+        this.isLoading_2 = false
+      })
     },
     searchInventory() {
       this.currentPageInventory = 1
@@ -1242,14 +1221,9 @@ export default {
         resolutionId: this.data.resolusi,
         type: typeInventory,
       }
-      this.$store
-        .dispatch('placement/getInventories', data)
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('placement/getInventories', data).finally(() => {
+        this.isLoading = false
+      })
     },
     changePage(ev) {
       if (ev > 0) {
@@ -1270,28 +1244,18 @@ export default {
         format: 'all',
         resolutionId: this.data.resolusi,
       }
-      this.$store
-        .dispatch('creative/getCreative', data)
-        .then(() => {
-          this.isLoading_4 = false
-        })
-        .catch(() => {
-          this.isLoading_4 = false
-        })
+      this.$store.dispatch('creative/getCreative', data).finally(() => {
+        this.isLoading_4 = false
+      })
     },
     getDetail() {
       this.isLoading_5 = true
       const data = {
         campaignTypeId: this.campaignId,
       }
-      this.$store
-        .dispatch('campaign/getDetail', data)
-        .then(() => {
-          this.isLoading_5 = false
-        })
-        .catch(() => {
-          this.isLoading_5 = false
-        })
+      this.$store.dispatch('campaign/getDetail', data).finally(() => {
+        this.isLoading_5 = false
+      })
     },
     getDetailPlacement() {
       this.isLoading_6 = true
@@ -1343,11 +1307,10 @@ export default {
             this.selectedData2.push(data.targeting.interests[i])
           }
           this.isActive = data.isActive
-          this.isLoading_6 = false
           this.getInventories()
           this.getDataCreative()
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading_6 = false
         })
     },

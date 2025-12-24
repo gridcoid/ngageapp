@@ -1048,9 +1048,8 @@ export default {
               }
             }
           }
-          this.isLoading = false
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },
@@ -1064,9 +1063,8 @@ export default {
         })
         .then((res) => {
           this.duration = res.data.data.duration + ' seconds'
-          this.isLoadingDuration = false
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoadingDuration = false
         })
     },

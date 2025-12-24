@@ -103,10 +103,11 @@ export default {
       this.$store
         .dispatch('creative/getDetail', data)
         .then((res) => {
-          this.isLoading = false
           this.changeData()
         })
-        .catch(() => {})
+        .finally(() => {
+          this.isLoading = false
+        })
     },
     changeData() {
       const data = {

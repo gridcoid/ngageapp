@@ -126,14 +126,9 @@ export default {
     getSegments() {
       this.isLoading = true
 
-      this.$store
-        .dispatch('segment/all')
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('segment/all').finally(() => {
+        this.isLoading = false
+      })
     },
 
     addScopeRow() {

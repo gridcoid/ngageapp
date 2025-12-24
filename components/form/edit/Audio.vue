@@ -182,9 +182,10 @@ export default {
         .dispatch('creative/getDetail', data)
         .then((res) => {
           this.getAudio()
+        })
+        .finally(() => {
           this.isLoading = false
         })
-        .catch(() => {})
     },
     callAudio() {
       const activeAudio = this.dataAudio.find((item) => item.status)

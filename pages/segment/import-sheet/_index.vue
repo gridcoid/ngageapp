@@ -257,7 +257,6 @@ export default {
             })
             .catch(() => {
               this.isLoading = false
-
               clearInterval(x)
             }),
         1000

@@ -217,9 +217,8 @@ export default {
         .get('category')
         .then((res) => {
           this.dataCategory = res.data.data
-          this.isLoading = false
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },

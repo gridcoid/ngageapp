@@ -765,10 +765,7 @@ export default {
         }
         this.$store
           .dispatch('campaign/getCampaignComplete', data)
-          .then(() => {
-            this.isLoading = false
-          })
-          .catch(() => {
+          .finally(() => {
             this.isLoading = false
           })
       } else {

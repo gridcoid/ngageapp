@@ -85,9 +85,8 @@ export default {
         .then((res) => {
           const data = res.data.data.find((x) => x.id === this.orgId)
           this.$store.dispatch('user/setOrganization', data)
-          this.isLoading = false
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },

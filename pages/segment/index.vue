@@ -279,14 +279,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store
-        .dispatch('segment/list', data)
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('segment/list', data).finally(() => {
+        this.isLoading = false
+      })
     },
     toCreate() {
       this.$router.push({ path: '/segment/create' })

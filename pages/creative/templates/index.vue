@@ -219,9 +219,8 @@ export default {
             this.resolutionId = JSON.stringify(data)
             this.getData()
           }
-          this.isLoading2 = false
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading2 = false
         })
     },
@@ -232,14 +231,9 @@ export default {
         resolutionIds: this.resolutionId,
         name: this.dataSearch,
       }
-      this.$store
-        .dispatch('template/getList', data)
-        .then((res) => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('template/getList', data).finally(() => {
+        this.isLoading = false
+      })
     },
   },
 }

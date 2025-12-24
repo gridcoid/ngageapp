@@ -144,9 +144,8 @@ export default {
           } else {
             this.showZoom = false
           }
-          this.isLoading = false
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },

@@ -247,25 +247,15 @@ export default {
     },
     getAdvertiser() {
       this.isLoading = true
-      this.$store
-        .dispatch('campaign/getAdvertiser')
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('campaign/getAdvertiser').finally(() => {
+        this.isLoading = false
+      })
     },
     getCampaignTypes() {
       this.isLoading = true
-      this.$store
-        .dispatch('campaign/getCampaignTypes')
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('campaign/getCampaignTypes').finally(() => {
+        this.isLoading = false
+      })
     },
     back() {
       this.$router.push({ path: '/campaign' })

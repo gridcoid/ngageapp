@@ -818,14 +818,9 @@ export default {
         format: this.activeStatus,
         resolutionId: '',
       }
-      this.$store
-        .dispatch('creative/getCreative', data)
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('creative/getCreative', data).finally(() => {
+        this.isLoading = false
+      })
     },
 
     forceFileDownload(response, title) {
@@ -923,7 +918,6 @@ export default {
             .then((res) => {
               this.getData()
               this.popup = false
-              this.isLoading = false
               this.$notifier.showMessage({
                 content: 'Creative deleted.',
                 type: 'success',
@@ -937,10 +931,12 @@ export default {
                 content: 'Creative delete failed. Please try again! ' + error,
                 type: 'failed',
               })
-              this.isLoading = false
               this.closeDropdown = false
               clearInterval(x)
               document.querySelector('body').style.overflow = ''
+            })
+            .finally(() => {
+              this.isLoading = false
             }),
         1000
       )

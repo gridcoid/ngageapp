@@ -384,9 +384,8 @@ export default {
         .get('creative/resolutions?orgId=' + this.orgId + '&all=true')
         .then((res) => {
           this.dataResolution = res.data.data
-          this.isLoading = false
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },
@@ -396,9 +395,8 @@ export default {
         .get('org')
         .then((res) => {
           this.dataOrg = res.data.data
-          this.isLoading = false
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },
@@ -408,9 +406,8 @@ export default {
         .get('template/group?orgId=' + this.data.org)
         .then((res) => {
           this.dataGroup = res.data.data
-          this.isLoading = false
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },

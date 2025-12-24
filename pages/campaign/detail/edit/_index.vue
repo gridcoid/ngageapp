@@ -217,7 +217,6 @@ export default {
       this.$store
         .dispatch('campaign/getAdvertiser')
         .then(() => {
-          this.isLoading = false
           this.data.name = this.detailCampaign.name
           this.data.description = this.detailCampaign.description
           this.data.advertiserId = this.detailCampaign.advertiserId
@@ -226,20 +225,15 @@ export default {
           this.valueDate.push(this.detailCampaign.startDate)
           this.valueDate.push(this.detailCampaign.endDate)
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },
     getCampaignTypes() {
       this.isLoading = true
-      this.$store
-        .dispatch('campaign/getCampaignTypes')
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('campaign/getCampaignTypes').finally(() => {
+        this.isLoading = false
+      })
     },
     getDetail() {
       const data = {

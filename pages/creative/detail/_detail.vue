@@ -564,10 +564,9 @@ export default {
           }
           this.contentHTML = res.data.data.htmlContent
           // this.sendToIframe()
-          this.isLoading = false
           this.getPreviewDevices()
         })
-        .catch((er) => {
+        .finally(() => {
           this.isLoading = false
         })
     },

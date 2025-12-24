@@ -968,14 +968,9 @@ export default {
           sort: this.radio,
           createdAt: this.createdAt2,
         }
-        this.$store
-          .dispatch('campaign/getList', data)
-          .then(() => {
-            this.isLoading = false
-          })
-          .catch(() => {
-            this.isLoading = false
-          })
+        this.$store.dispatch('campaign/getList', data).finally(() => {
+          this.isLoading = false
+        })
       } else {
         const data = {
           page: this.currentPage,
@@ -987,14 +982,9 @@ export default {
           sort: this.radio,
           createdAt: '',
         }
-        this.$store
-          .dispatch('campaign/getList', data)
-          .then(() => {
-            this.isLoading = false
-          })
-          .catch(() => {
-            this.isLoading = false
-          })
+        this.$store.dispatch('campaign/getList', data).finally(() => {
+          this.isLoading = false
+        })
       }
     },
     filter() {},

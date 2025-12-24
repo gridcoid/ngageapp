@@ -1064,25 +1064,15 @@ export default {
     },
     getDataTypeInventory() {
       this.isLoading = true
-      this.$store
-        .dispatch('placement/getInventoriesType')
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('placement/getInventoriesType').finally(() => {
+        this.isLoading = false
+      })
     },
     getDataPublisher() {
       this.isLoading = true
-      this.$store
-        .dispatch('publisher/getList')
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('publisher/getList').finally(() => {
+        this.isLoading = false
+      })
     },
     getDataResolusi() {
       this.isLoading = true
@@ -1101,7 +1091,7 @@ export default {
           this.getInventories()
           this.getDataCreative()
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },
@@ -1122,14 +1112,9 @@ export default {
         size: this.rowPageAudience,
         name: this.dataSearchAudience,
       }
-      this.$store
-        .dispatch('placement/getListInterest', data)
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('placement/getListInterest', data).finally(() => {
+        this.isLoading = false
+      })
     },
     getDetail() {
       const data = {
@@ -1142,25 +1127,15 @@ export default {
     },
     getPriorities() {
       this.isLoading = true
-      this.$store
-        .dispatch('placement/getPriorities')
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('placement/getPriorities').finally(() => {
+        this.isLoading = false
+      })
     },
     getDailyLimitTypes() {
       this.isLoading = true
-      this.$store
-        .dispatch('placement/getDailyLimitTypes')
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('placement/getDailyLimitTypes').finally(() => {
+        this.isLoading = false
+      })
     },
     changePageInventory(ev) {
       if (ev > 0) {
@@ -1187,14 +1162,9 @@ export default {
         resolutionId: this.data.resolusi,
         type: typeInventory,
       }
-      this.$store
-        .dispatch('placement/getInventories', data)
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('placement/getInventories', data).finally(() => {
+        this.isLoading = false
+      })
     },
     changePage(ev) {
       if (ev > 0) {
@@ -1227,14 +1197,9 @@ export default {
         format: 'all',
         resolutionId: this.data.resolusi,
       }
-      this.$store
-        .dispatch('creative/getCreative', data)
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('creative/getCreative', data).finally(() => {
+        this.isLoading = false
+      })
     },
     back() {
       this.$router.push({ path: '/campaign/detail/' + this.detailCampaign.id })

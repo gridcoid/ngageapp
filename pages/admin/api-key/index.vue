@@ -300,14 +300,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store
-        .dispatch('apiKey/list', data)
-        .then(() => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('apiKey/list', data).finally(() => {
+        this.isLoading = false
+      })
     },
     toCreate() {
       this.$router.push({ path: '/admin/api-key/create' })

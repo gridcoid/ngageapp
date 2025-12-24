@@ -289,19 +289,16 @@ export default {
         .get('creative/resolutions?orgId=' + this.orgId + '&all=true')
         .then((res) => {
           this.dataResolution = res.data.data
+        })
+        .finally(() => {
           this.isLoading = false
         })
-        .catch(() => {
-          this.isLoading = false
-        })
+
       // this.$store
       //   .dispatch('creative/getResolution')
-      //   .then(() => {
-      //     this.isLoading = false
-      //   })
-      //   .catch(() => {
-      //     this.isLoading = false
-      //   })
+      // .finally(() => {
+      //   this.isLoading = false
+      // })
     },
     removeExtension(filename) {
       return filename.substring(0, filename.lastIndexOf('.')) || filename

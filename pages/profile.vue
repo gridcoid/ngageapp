@@ -433,14 +433,9 @@ export default {
         size: this.rowPage,
         name: this.dataSearch,
       }
-      this.$store
-        .dispatch('user/getAll', data)
-        .then((res) => {
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.isLoading = false
-        })
+      this.$store.dispatch('user/getAll', data).finally(() => {
+        this.isLoading = false
+      })
     },
     // editUser () {
     //   alert('edit')

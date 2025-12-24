@@ -1096,9 +1096,8 @@ export default {
               }
             }
           }
-          this.isLoading = false
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false
         })
     },
