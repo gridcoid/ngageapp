@@ -131,9 +131,7 @@
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div class="space-y-3">
-                  <!--  -->
-                  <!--  -->
-                  <!-- Example Usage -->
+                  <!-- Example Usage / How-To -->
                   <div
                     class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6"
                   >
@@ -142,14 +140,15 @@
                     </h2>
 
                     <p class="text-gray-600 mb-4">
-                      Use this key to access allowed segments from your systems.
-                      Add it to the
+                      Use this key to fetch audiences from segments you have
+                      access to. Always include it in the
                       <code class="bg-gray-100 px-1 rounded"
                         >Authorization</code
                       >
                       header.
                     </p>
 
+                    <!-- Endpoint -->
                     <div class="mb-4">
                       <h3 class="text-sm font-semibold text-gray-700 mb-1">
                         Endpoint
@@ -162,9 +161,10 @@ GET /api/public/segment/:segmentUuid?page=1&amp;num=50
                       >
                     </div>
 
-                    <div>
+                    <!-- cURL -->
+                    <div class="mb-6">
                       <h3 class="text-sm font-semibold text-gray-700 mb-1">
-                        Example (curl)
+                        Example (cURL)
                       </h3>
                       <pre
                         class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
@@ -177,16 +177,125 @@ curl -X GET \
                       >
                     </div>
 
-                    <p class="text-gray-500 text-sm mt-3">
+                    <!-- PHP -->
+                    <div class="mb-6">
+                      <h3 class="text-sm font-semibold text-gray-700 mb-1">
+                        Example (PHP)
+                      </h3>
+                      <p class="text-gray-600 text-sm mb-2">
+                        Save as
+                        <code class="bg-gray-100 px-1 rounded">index.php</code>
+                        and run:
+                        <code class="bg-gray-100 px-1 rounded"
+                          >php index.php</code
+                        >.
+                      </p>
+
+                      <pre
+                        class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
+                      >
+&lt;?php
+
+$apiKey = "{{ data.apiKey }}";
+$segmentUuid = "SEGMENT_UUID";
+
+$url = "https://your-domain.com/api/public/segment/$segmentUuid?page=1&num=50";
+
+$opts = [
+    "http" => [
+        "method" => "GET",
+        "header" =>
+            "Authorization: ApiKey $apiKey\r\n" .
+            "Accept: application/json\r\n"
+    ]
+];
+
+$context = stream_context_create($opts);
+$response = file_get_contents($url, false, $context);
+
+echo $response;
+    </pre
+                      >
+                    </div>
+
+                    <!-- Python -->
+                    <div class="mb-6">
+                      <h3 class="text-sm font-semibold text-gray-700 mb-1">
+                        Example (Python)
+                      </h3>
+                      <p class="text-gray-600 text-sm mb-2">
+                        Works with built-in Python. Save as
+                        <code class="bg-gray-100 px-1 rounded">app.py</code>:
+                      </p>
+
+                      <pre
+                        class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
+                      >
+python
+import urllib.request
+
+api_key = "{{ data.apiKey }}"
+segment_uuid = "SEGMENT_UUID"
+
+url = f"https://your-domain.com/api/public/segment/{segment_uuid}?page=1&num=50"
+
+req = urllib.request.Request(
+    url,
+    headers={
+        "Authorization": f"ApiKey {api_key}",
+        "Accept": "application/json",
+    },
+)
+
+with urllib.request.urlopen(req) as res:
+    print(res.read().decode())
+    </pre
+                      >
+                    </div>
+
+                    <!-- Node.js -->
+                    <div class="mb-2">
+                      <h3 class="text-sm font-semibold text-gray-700 mb-1">
+                        Example (Node.js)
+                      </h3>
+                      <p class="text-gray-600 text-sm mb-2">
+                        Save as
+                        <code class="bg-gray-100 px-1 rounded">index.js</code>
+                        and run:
+                        <code class="bg-gray-100 px-1 rounded"
+                          >node index.js</code
+                        >. (Node 18+)
+                      </p>
+
+                      <pre
+                        class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
+                      >
+javascript
+const apiKey = "{{ data.apiKey }}";
+const segmentUuid = "SEGMENT_UUID";
+
+const url = `https://your-domain.com/api/public/segment/${segmentUuid}?page=1&num=50`;
+
+fetch(url, {
+  headers: {
+    Authorization: `ApiKey ${apiKey}`,
+    Accept: "application/json",
+  },
+})
+  .then(res => res.text())
+  .then(console.log)
+  .catch(console.error);
+    </pre
+                      >
+                    </div>
+
+                    <p class="text-gray-500 text-sm mt-4">
                       Tip: You can also send the key as
                       <code class="bg-gray-100 px-1 rounded"
                         >Bearer {{ data.apiKey }}</code
                       >.
                     </p>
                   </div>
-
-                  <!--  -->
-                  <!--  -->
                 </div>
               </div>
             </div>
