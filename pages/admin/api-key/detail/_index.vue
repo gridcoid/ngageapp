@@ -103,7 +103,7 @@
                           <span v-else class="text-red-500">No</span>
                         </span>
                       </div>
-                      <div class="text-gray-900 font-medium break-all">
+                      <div class="text-gray-900 font-medium break-all mt-1">
                         {{ scope.segmentName }}
                         <span class="text-xs text-gray-400"
                           >({{
@@ -111,6 +111,12 @@
                           }}
                           audiences)</span
                         >
+                      </div>
+                      <div class="font-mono text-sm mt-1">
+                        <span class="text-gray-500">UUID:</span>
+                        <span class="text-blue-500">{{
+                          scope.segmentUuid
+                        }}</span>
                       </div>
                     </div>
                   </div>
@@ -357,6 +363,7 @@ export default {
   watch: {
     async dataDetail(val) {
       if (val) {
+        console.log(val)
         this.data = {
           id: val.id,
           orgId: val.orgId,
