@@ -69,9 +69,7 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="space-y-8">
             <div>
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
@@ -119,6 +117,76 @@
                 </div>
                 <div v-else class="text-gray-400 italic text-sm">
                   No scopes available.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-8">
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="pi pi-building mr-2 text-green-500"></i> Scopes
+              </h2>
+              <div class="bg-gray-50 rounded-lg p-5">
+                <div class="space-y-3">
+                  <!--  -->
+                  <!--  -->
+                  <!-- Example Usage -->
+                  <div
+                    class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+                  >
+                    <h2 class="text-lg font-semibold text-gray-800 mb-3">
+                      How to Use This API Key
+                    </h2>
+
+                    <p class="text-gray-600 mb-4">
+                      Use this key to access allowed segments from your systems.
+                      Add it to the
+                      <code class="bg-gray-100 px-1 rounded"
+                        >Authorization</code
+                      >
+                      header.
+                    </p>
+
+                    <div class="mb-4">
+                      <h3 class="text-sm font-semibold text-gray-700 mb-1">
+                        Endpoint
+                      </h3>
+                      <pre
+                        class="bg-gray-900 text-gray-100 p-3 rounded text-sm overflow-x-auto"
+                      >
+GET /api/public/segment/:segmentUuid?page=1&amp;num=50
+    </pre
+                      >
+                    </div>
+
+                    <div>
+                      <h3 class="text-sm font-semibold text-gray-700 mb-1">
+                        Example (curl)
+                      </h3>
+                      <pre
+                        class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
+                      >
+curl -X GET \
+  "https://your-domain.com/api/public/segment/SEGMENT_UUID?page=1&amp;num=50" \
+  -H "Authorization: ApiKey {{ data.apiKey }}" \
+  -H "Accept: application/json"
+    </pre
+                      >
+                    </div>
+
+                    <p class="text-gray-500 text-sm mt-3">
+                      Tip: You can also send the key as
+                      <code class="bg-gray-100 px-1 rounded"
+                        >Bearer {{ data.apiKey }}</code
+                      >.
+                    </p>
+                  </div>
+
+                  <!--  -->
+                  <!--  -->
                 </div>
               </div>
             </div>
