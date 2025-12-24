@@ -39,7 +39,7 @@
                 range-separator="To"
                 start-placeholder="Start date"
                 end-placeholder="End date"
-                align="right"
+                placement="bottom-start"
                 style="width: 100%"
               />
             </div>
