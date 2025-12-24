@@ -127,18 +127,14 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-building mr-2 text-green-500"></i> Scopes
+                <i class="pi pi-code mr-2 text-green-500"></i> How to Use
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div class="space-y-3">
                   <!-- Example Usage / How-To -->
                   <div
-                    class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+                    class="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
                   >
-                    <h2 class="text-lg font-semibold text-gray-800 mb-3">
-                      How to Use This API Key
-                    </h2>
-
                     <p class="text-gray-600 mb-4">
                       Use this key to fetch audiences from segments you have
                       access to. Always include it in the
@@ -156,7 +152,7 @@
                       <pre
                         class="bg-gray-900 text-gray-100 p-3 rounded text-sm overflow-x-auto"
                       >
-GET /api/public/segment/:segmentUuid?page=1&amp;num=50
+GET /public/segment/:segmentUuid?page=1&amp;num=50
     </pre
                       >
                     </div>
@@ -170,7 +166,7 @@ GET /api/public/segment/:segmentUuid?page=1&amp;num=50
                         class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
                       >
 curl -X GET \
-  "https://your-domain.com/api/public/segment/SEGMENT_UUID?page=1&amp;num=50" \
+  "{{ $config.baseURL }}public/segment/SEGMENT_UUID?page=1&amp;num=50" \
   -H "Authorization: ApiKey {{ data.apiKey }}" \
   -H "Accept: application/json"
     </pre
@@ -199,7 +195,7 @@ curl -X GET \
 $apiKey = "{{ data.apiKey }}";
 $segmentUuid = "SEGMENT_UUID";
 
-$url = "https://your-domain.com/api/public/segment/$segmentUuid?page=1&num=50";
+$url = "{{ $config.baseURL }}public/segment/$segmentUuid?page=1&num=50";
 
 $opts = [
     "http" => [
@@ -231,13 +227,12 @@ echo $response;
                       <pre
                         class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
                       >
-python
 import urllib.request
 
 api_key = "{{ data.apiKey }}"
 segment_uuid = "SEGMENT_UUID"
 
-url = f"https://your-domain.com/api/public/segment/{segment_uuid}?page=1&num=50"
+url = f"{{ $config.baseURL }}public/segment/{segment_uuid}?page=1&num=50"
 
 req = urllib.request.Request(
     url,
@@ -270,11 +265,10 @@ with urllib.request.urlopen(req) as res:
                       <pre
                         class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
                       >
-javascript
 const apiKey = "{{ data.apiKey }}";
 const segmentUuid = "SEGMENT_UUID";
 
-const url = `https://your-domain.com/api/public/segment/${segmentUuid}?page=1&num=50`;
+const url = `{{ $config.baseURL }}public/segment/${segmentUuid}?page=1&num=50`;
 
 fetch(url, {
   headers: {
