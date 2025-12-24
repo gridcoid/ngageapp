@@ -1,6 +1,4 @@
 const initialState = () => ({
-  isLoading: false,
-  isEdit: false,
   dataList: [],
   totalList: 0,
   totalPages: 0,
@@ -11,7 +9,6 @@ const initialState = () => ({
 export const state = initialState
 
 export const getters = {
-  isLoading: (state) => state.isLoading,
   dataList: (state) => state.dataList,
   dataDetail: (state) => state.dataDetail,
   dataCreate: (state) => state.dataCreate,
@@ -21,15 +18,6 @@ export const mutations = {
   RESET(state) {
     Object.assign(state, initialState())
   },
-
-  SET_LOADING(state, isLoading) {
-    state.isLoading = isLoading
-  },
-
-  SET_DATA_EDIT(state, payload) {
-    state.isEdit = payload
-  },
-
   SET_DATA_LIST(state, item) {
     if (item !== null) {
       state.dataList = item.data.rows
@@ -41,7 +29,6 @@ export const mutations = {
       state.totalPages = 0
     }
   },
-
   SET_DATA_CREATE(state, item) {
     if (item !== null) {
       state.dataCreate = item
@@ -49,7 +36,6 @@ export const mutations = {
       state.dataCreate = {}
     }
   },
-
   SET_DATA_DETAIL(state, item) {
     if (item !== null) {
       state.dataDetail = item

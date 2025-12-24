@@ -1,5 +1,4 @@
 const initialState = () => ({
-  isLoading: false,
   editCampaign: false,
   dataCampaign: [],
   totalCampaign: 0,
@@ -30,7 +29,6 @@ const initialState = () => ({
 export const state = initialState
 
 export const getters = {
-  isLoading: (state) => state.isLoading,
   dataCampaign: (state) => state.dataCampaign,
   dataAdvertiser: (state) => state.dataAdvertiser,
   detailCampaign: (state) => state.detailCampaign,
@@ -43,9 +41,6 @@ export const getters = {
 export const mutations = {
   RESET(state) {
     Object.assign(state, initialState())
-  },
-  SET_LOADING: (state, isLoading) => {
-    state.isLoading = isLoading
   },
   SET_EDIT_CAMPAIGN: (state, payload) => {
     state.editCampaign = payload

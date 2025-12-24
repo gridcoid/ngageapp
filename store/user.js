@@ -1,5 +1,4 @@
 export const state = () => ({
-  isLoading: false,
   sidebar: true,
   popup: false,
   activeItem: '',
@@ -46,7 +45,6 @@ export const state = () => ({
 })
 
 export const getters = {
-  isLoading: (state) => state.isLoading,
   activeItem: (state) => state.activeItem,
   detailUser: (state) => state.detailUser,
   dataAllUser: (state) => state.dataAllUser,
@@ -136,9 +134,6 @@ export const mutations = {
   },
   SET_DROPDOWN: (state, payload) => {
     state.activeDropdown = payload
-  },
-  SET_LOADING: (state, isLoading) => {
-    state.isLoading = isLoading
   },
   SET_SIDEBAR(state) {
     state.sidebar = !state.sidebar

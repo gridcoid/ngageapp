@@ -1,15 +1,10 @@
-const initialState = () => ({
-  isLoading: false,
-})
+const initialState = () => ({})
 
 export const state = initialState
 
 export const mutations = {
   RESET(state) {
     Object.assign(state, initialState())
-  },
-  SET_LOADING: (state, isLoading) => {
-    state.isLoading = isLoading
   },
 }
 

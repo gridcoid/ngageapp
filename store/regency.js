@@ -1,5 +1,4 @@
 const initialState = () => ({
-  isLoading: false,
   dataList: [],
   totalList: 0,
   totalPages: 0,
@@ -8,16 +7,12 @@ const initialState = () => ({
 export const state = initialState
 
 export const getters = {
-  isLoading: (state) => state.isLoading,
   dataList: (state) => state.dataList,
 }
 
 export const mutations = {
   RESET(state) {
     Object.assign(state, initialState())
-  },
-  SET_LOADING: (state, isLoading) => {
-    state.isLoading = isLoading
   },
   SET_DATA_LIST(state, item) {
     if (item !== null) {

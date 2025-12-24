@@ -1,5 +1,4 @@
 const initialState = () => ({
-  isLoading: false,
   dataTemplate: {},
   totalTemplate: 0,
   totalPages: 0,
@@ -24,7 +23,6 @@ const initialState = () => ({
 export const state = initialState
 
 export const getters = {
-  isLoading: (state) => state.isLoading,
   dataTemplate: (state) => state.dataTemplate,
   dataDetailTemplate: (state) => state.dataDetailTemplate,
   dataImageArrayRaw2: (state) => state.dataImageArrayRaw2,
@@ -35,9 +33,6 @@ export const getters = {
 export const mutations = {
   RESET(state) {
     Object.assign(state, initialState())
-  },
-  SET_LOADING: (state, isLoading) => {
-    state.isLoading = isLoading
   },
   SET_CHANGE_RESOLUTION: (state, item) => {
     state.selectedResolution = item

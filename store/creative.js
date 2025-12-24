@@ -1,5 +1,4 @@
 const initialState = () => ({
-  isLoading: true,
   totalPages: 0,
   totalCreative: 0,
   dataCreative: [],
@@ -20,7 +19,6 @@ const initialState = () => ({
 export const state = initialState
 
 export const getters = {
-  isLoading: (state) => state.isLoading,
   totalPages: (state) => state.totalPages,
   totalCreative: (state) => state.totalCreative,
   dataCreative: (state) => state.dataCreative,
@@ -46,9 +44,6 @@ export const mutations = {
     })
     state.dataForm[index].default[payload.index].status = true
   },
-  SET_LOADING: (state, isLoading) => {
-    state.isLoading = isLoading
-  },
   SET_DATA_CREATIVE(state, item) {
     if (item !== null) {
       state.dataCreative = item.rows
@@ -69,7 +64,6 @@ export const mutations = {
   },
   SET_DATA_DETAIL_CREATIVE(state, item) {
     if (item !== null) {
-      state.isLoading = true
       state.dataDetailCreative = item
       state.dataForm = []
       state.keyName = []
@@ -158,12 +152,9 @@ export const mutations = {
         type: 'All',
         title: 'All',
       })
-      state.isLoading = false
     } else {
-      state.isLoading = true
       state.dataDetailCreative = []
       state.dataForm = ''
-      state.isLoading = false
     }
   },
   SET_DATA_RESOLUTION(state, item) {
