@@ -363,7 +363,6 @@ export default {
   watch: {
     async dataDetail(val) {
       if (val) {
-        console.log(val)
         this.data = {
           id: val.id,
           orgId: val.orgId,
