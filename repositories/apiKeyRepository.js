@@ -18,13 +18,13 @@ export default ($axios) => ({
   // apiKey:detail
   detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`${resource}/${payload.apiKeyId}?orgId=${orgId}`)
+    return $axios.get(`${resource}/${payload.apiKeyUuid}?orgId=${orgId}`)
   },
 
   // apiKey:update
   update(payload) {
-    const { id, orgId, ...rest } = payload
-    return $axios.patch(`${resource}/${id}?orgId=${orgId}`, {
+    const { id, uuid, orgId, ...rest } = payload
+    return $axios.patch(`${resource}/${uuid}?orgId=${orgId}`, {
       ...rest,
     })
   },

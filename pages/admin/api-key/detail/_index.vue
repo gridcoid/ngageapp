@@ -173,7 +173,7 @@ GET /public/segment/:segmentUuid?page=1&amp;num=50
                       >
 curl -X GET \
   "{{ $config.baseURL }}public/segment/SEGMENT_UUID?page=1&amp;num=50" \
-  -H "Authorization: ApiKey {{ data.apiKey }}" \
+  -H "Authorization: APIKey {{ data.apiKey }}" \
   -H "Accept: application/json"
     </pre
                       >
@@ -207,7 +207,7 @@ $opts = [
     "http" => [
         "method" => "GET",
         "header" =>
-            "Authorization: ApiKey $apiKey\r\n" .
+            "Authorization: APIKey $apiKey\r\n" .
             "Accept: application/json\r\n"
     ]
 ];
@@ -243,7 +243,7 @@ url = f"{{ $config.baseURL }}public/segment/{segment_uuid}?page=1&num=50"
 req = urllib.request.Request(
     url,
     headers={
-        "Authorization": f"ApiKey {api_key}",
+        "Authorization": f"APIKey {api_key}",
         "Accept": "application/json",
     },
 )
@@ -278,7 +278,7 @@ const url = `{{ $config.baseURL }}public/segment/${segmentUuid}?page=1&num=50`;
 
 fetch(url, {
   headers: {
-    Authorization: `ApiKey ${apiKey}`,
+    Authorization: `APIKey ${apiKey}`,
     Accept: "application/json",
   },
 })
@@ -290,10 +290,10 @@ fetch(url, {
                     </div>
 
                     <p class="text-gray-500 text-sm mt-4">
-                      Tip: You can also send the key as
+                      Tip: You can also send the key as<br />
                       <code class="bg-gray-100 px-1 rounded"
                         >Bearer {{ data.apiKey }}</code
-                      >.
+                      >
                     </p>
                   </div>
                 </div>
@@ -342,7 +342,7 @@ export default {
   methods: {
     getDetail() {
       const data = {
-        apiKeyId: this.$route.params.index,
+        apiKeyUuid: this.$route.params.index,
       }
 
       this.isLoading = true

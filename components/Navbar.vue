@@ -102,8 +102,18 @@ export default {
     items() {
       let segments = this.$route.path.split('/').filter(Boolean)
 
-      // remove last segment if it's a number
-      if (segments.length && /^\d+$/.test(segments[segments.length - 1])) {
+      // regex for UUID v1–v5 (case-insensitive)
+      const isUuid = (val) =>
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+          val
+        )
+
+      // remove last segment if it's a number OR uuid
+      if (
+        segments.length &&
+        (/^\d+$/.test(segments[segments.length - 1]) ||
+          isUuid(segments[segments.length - 1]))
+      ) {
         segments = segments.slice(0, -1)
       }
 

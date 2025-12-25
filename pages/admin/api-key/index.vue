@@ -137,7 +137,7 @@
               <template slot="body">
                 <NuxtLink
                   class="item-menu flex items-center no-select"
-                  :to="`/admin/api-key/edit/${scope.row.id}`"
+                  :to="`/admin/api-key/edit/${scope.row.uuid}`"
                 >
                   <i class="pi pi-pencil text-yellow-500"></i>
                   <span class="ml-3">Edit</span>
@@ -366,7 +366,7 @@ export default {
       this.getData()
     },
     viewDetail(item) {
-      this.$router.push({ path: '/admin/api-key/detail/' + item.id })
+      this.$router.push({ path: '/admin/api-key/detail/' + item.uuid })
     },
   },
   watch: {

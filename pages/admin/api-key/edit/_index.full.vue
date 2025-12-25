@@ -175,7 +175,7 @@ export default {
   methods: {
     getDetail() {
       const data = {
-        apiKeyId: this.$route.params.index,
+        apiKeyUuid: this.$route.params.index,
       }
 
       this.isLoading = true

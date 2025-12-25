@@ -109,7 +109,7 @@ export default {
   methods: {
     getDetail() {
       const data = {
-        apiKeyId: this.$route.params.index,
+        apiKeyUuid: this.$route.params.index,
       }
 
       this.isLoading = true
@@ -226,6 +226,7 @@ export default {
       if (val) {
         this.data = {
           id: val.id,
+          uuid: val.uuid,
           orgId: val.orgId,
           name: val.name,
           expiresAt: val.expiresAt,
