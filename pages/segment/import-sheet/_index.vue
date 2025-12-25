@@ -180,11 +180,11 @@
 
 <script>
 export default {
-  name: 'ImportSheet',
+  name: 'ImportSheetPage',
   layout: 'default',
   head() {
     return {
-      title: 'Spreadsheet Importer - ' + this.$config.appName,
+      title: 'Import Spreadsheet - Segment - ' + this.$config.appName,
     }
   },
   data() {

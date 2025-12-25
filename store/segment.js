@@ -2,6 +2,7 @@ const initialState = () => ({
   dataList: [],
   totalList: 0,
   totalPages: 0,
+
   dataCreate: {},
   dataDetail: {},
 })
@@ -10,8 +11,8 @@ export const state = initialState
 
 export const getters = {
   dataList: (state) => state.dataList,
-  dataDetail: (state) => state.dataDetail,
   dataCreate: (state) => state.dataCreate,
+  dataDetail: (state) => state.dataDetail,
 }
 
 export const mutations = {
@@ -57,22 +58,6 @@ export const actions = {
     commit('RESET')
   },
 
-  // segment:create
-  async create({ commit }, payload) {
-    try {
-      const response = await this.$repositories.segment.create(payload)
-      commit('SET_DATA_CREATE', response.data.data)
-      return response
-    } catch (e) {
-      commit('SET_DATA_CREATE', null)
-      this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
-        type: 'failed',
-      })
-      return e.response
-    }
-  },
-
   // segment:list
   async list({ commit }, payload) {
     try {
@@ -97,6 +82,22 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_ALL', null)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + e.response.status,
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // segment:create
+  async create({ commit }, payload) {
+    try {
+      const response = await this.$repositories.segment.create(payload)
+      commit('SET_DATA_CREATE', response.data.data)
+      return response
+    } catch (e) {
+      commit('SET_DATA_CREATE', null)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response.status,
         type: 'failed',
