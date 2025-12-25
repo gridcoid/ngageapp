@@ -426,7 +426,7 @@ export default {
     },
 
     viewDetail(item) {
-      this.$router.push({ path: '/audience/detail/' + item.id })
+      this.$router.push({ path: '/segment/audience/detail/' + item.id })
     },
 
     resetFilter() {
