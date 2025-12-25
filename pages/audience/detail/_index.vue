@@ -218,14 +218,23 @@
                     :key="idx"
                     class="flex justify-between items-center p-3 bg-white rounded border border-gray-100 shadow-sm"
                   >
-                    <span class="text-gray-600 font-medium text-sm">{{
-                      info.key
-                    }}</span>
-                    <span class="text-gray-900 font-semibold text-sm">{{
-                      info.value
-                    }}</span>
+                    <!-- LEFT: key + icon -->
+                    <div
+                      class="flex items-center gap-2 text-gray-600 font-medium text-sm"
+                    >
+                      <i class="pi pi-info-circle text-gray-400"></i>
+                      <span class="font-semibold">{{ info.key }}</span>
+                    </div>
+
+                    <!-- RIGHT: value badge -->
+                    <span
+                      class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full border whitespace-nowrap"
+                    >
+                      {{ info.value }}
+                    </span>
                   </div>
                 </div>
+
                 <div v-else class="text-gray-400 italic text-sm">
                   No additional information available.
                 </div>
@@ -252,18 +261,29 @@
                     <div class="flex-shrink-0 mt-1">
                       <i class="pi pi-users text-gray-400"></i>
                     </div>
+
                     <div class="ml-3 w-full">
-                      <div class="text-gray-900 font-medium break-all">
+                      <!-- 👇 justify-between -->
+                      <div class="flex items-center justify-between w-full">
                         <NuxtLink
                           :to="`/segment/audience/${segment.id}`"
-                          class="block"
+                          class="text-gray-900 font-medium break-all block"
                         >
                           {{ segment.name }}
                         </NuxtLink>
+
+                        <span
+                          class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full border whitespace-nowrap"
+                        >
+                          {{ segment.audienceCount }} audience{{
+                            segment.audienceCount === 1 ? '' : 's'
+                          }}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div v-else class="text-gray-400 italic text-sm">
                   No segments information available.
                 </div>
