@@ -118,13 +118,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'CreateApiKeyPage',
   layout: 'default',
-
   head() {
     return {
       title: 'Create - API Key - ' + this.$config.appName,
     }
   },
-
   data() {
     return {
       rules: {
@@ -165,7 +163,6 @@ export default {
       },
     }
   },
-
   methods: {
     getSegments() {
       this.isLoading = true
@@ -248,7 +245,6 @@ export default {
       )
     },
   },
-
   computed: {
     ...mapState({
       dataSegments: (state) => {
@@ -256,7 +252,6 @@ export default {
       },
     }),
   },
-
   mounted() {
     this.getSegments()
   },

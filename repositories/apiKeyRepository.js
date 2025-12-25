@@ -1,20 +1,6 @@
 const resource = 'api-key'
 
 export default ($axios) => ({
-  // apiKey:create
-  create(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}?orgId=${orgId}`, { ...payload, orgId })
-  },
-
-  // apiKey:update
-  update(payload) {
-    const { id, orgId, ...rest } = payload
-    return $axios.patch(`${resource}/${id}?orgId=${orgId}`, {
-      ...rest,
-    })
-  },
-
   // apiKey:list
   list(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
@@ -23,10 +9,24 @@ export default ($axios) => ({
     )
   },
 
+  // apiKey:create
+  create(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(`${resource}?orgId=${orgId}`, { ...payload, orgId })
+  },
+
   // apiKey:detail
   detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(`${resource}/${payload.apiKeyId}?orgId=${orgId}`)
+  },
+
+  // apiKey:update
+  update(payload) {
+    const { id, orgId, ...rest } = payload
+    return $axios.patch(`${resource}/${id}?orgId=${orgId}`, {
+      ...rest,
+    })
   },
 
   // apiKey:delete
