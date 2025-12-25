@@ -488,37 +488,39 @@ export default {
   },
   watch: {
     async dataDetail(val) {
-      this.data.id = val.id
-      this.data.orgId = val.orgId
-      this.data.name = val.name
-      this.data.dateOfBirth = val.dateOfBirth
-      this.data.yearOfBirth = val.yearOfBirth
+      if (val) {
+        this.data.id = val.id
+        this.data.orgId = val.orgId
+        this.data.name = val.name
+        this.data.dateOfBirth = val.dateOfBirth
+        this.data.yearOfBirth = val.yearOfBirth
 
-      this.data.genderId = val.genderId
-      this.data.religionId = val.religionId
+        this.data.genderId = val.genderId
+        this.data.religionId = val.religionId
 
-      this.data.provinceCode = val.provinceCode
-      if (val.provinceCode) {
-        await this.getRegency(val.provinceCode)
-        this.data.regencyCode = val.regencyCode
+        this.data.provinceCode = val.provinceCode
+        if (val.provinceCode) {
+          await this.getRegency(val.provinceCode)
+          this.data.regencyCode = val.regencyCode
 
-        if (val.regencyCode) {
-          await this.getDistrict(val.regencyCode)
-          this.data.districtCode = val.districtCode
+          if (val.regencyCode) {
+            await this.getDistrict(val.regencyCode)
+            this.data.districtCode = val.districtCode
 
-          if (val.districtCode) {
-            await this.getVillage(val.districtCode)
-            this.data.villageCode = val.villageCode
+            if (val.districtCode) {
+              await this.getVillage(val.districtCode)
+              this.data.villageCode = val.villageCode
+            }
           }
         }
-      }
 
-      this.data.address = val.address
-      this.data.contacts = val.contacts
-      this.data.additionalInfo = val.additionalInfo
-      this.additionalInfoList = Object.entries(val.additionalInfo).map(
-        ([key, value]) => ({ key, value })
-      )
+        this.data.address = val.address
+        this.data.contacts = val.contacts
+        this.data.additionalInfo = val.additionalInfo
+        this.additionalInfoList = Object.entries(val.additionalInfo).map(
+          ([key, value]) => ({ key, value })
+        )
+      }
     },
     'data.provinceCode'(val) {
       this.data.regencyCode = null // reset regency when province changes
