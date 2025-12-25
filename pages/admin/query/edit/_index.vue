@@ -37,7 +37,7 @@
           <!-- Source -->
           <el-form-item class="title-form">
             <label slot="label" class="title-form">Source</label>
-            <el-select v-model="data.definition.source" disabled>
+            <el-select v-model="data.definition.source" class="w-full" disabled>
               <el-option label="Audiences" value="audiences" />
               <el-option label="Audience Contacts" value="audience_contacts" />
               <el-option label="Audience Segments" value="audience_segments" />

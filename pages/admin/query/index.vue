@@ -281,7 +281,7 @@ export default {
       this.getData()
     },
     viewDetail(data) {
-      this.$router.push({ path: `/admin/query/edit/${data.id}` })
+      this.$router.push({ path: `/admin/query/detail/${data.id}` })
     },
     deleteQuery(data) {
       this.$confirm('Are you sure you want to delete?', 'Confirmation', {
