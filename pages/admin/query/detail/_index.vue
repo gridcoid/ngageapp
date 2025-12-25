@@ -180,7 +180,7 @@ export default {
 
       this.$store
         .dispatch('query/detail', {
-          queryId: this.$route.params.index,
+          queryUuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
     },

@@ -174,7 +174,7 @@ export default {
     getDetail() {
       this.isLoading = true
       const payload = {
-        queryId: this.$route.params.index,
+        queryUuid: this.$route.params.index,
       }
 
       this.$store.dispatch('query/detail', payload).finally(() => {

@@ -121,7 +121,7 @@
               <template slot="body">
                 <NuxtLink
                   class="item-menu flex items-center no-select"
-                  :to="`/admin/query/edit/${scope.row.id}`"
+                  :to="`/admin/query/edit/${scope.row.uuid}`"
                 >
                   <i class="pi pi-pencil text-yellow-500"></i>
                   <span class="ml-3">Edit</span>
@@ -281,7 +281,7 @@ export default {
       this.getData()
     },
     viewDetail(data) {
-      this.$router.push({ path: `/admin/query/detail/${data.id}` })
+      this.$router.push({ path: `/admin/query/detail/${data.uuid}` })
     },
     deleteQuery(data) {
       this.$confirm('Are you sure you want to delete?', 'Confirmation', {

@@ -352,7 +352,7 @@ export default {
     getDetail() {
       this.isLoading = true
       const data = {
-        segmentId: this.$route.params.index,
+        segmentUuid: this.$route.params.index,
       }
       this.$store
         .dispatch('segment/detail', data)
@@ -363,7 +363,7 @@ export default {
       this.isLoading = true
 
       const params = {
-        segmentId: this.$route.params.index,
+        segmentUuid: this.$route.params.index,
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,

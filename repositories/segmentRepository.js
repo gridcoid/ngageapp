@@ -24,13 +24,13 @@ export default ($axios) => ({
   // segment:detail
   detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`${resource}/${payload.segmentId}?orgId=${orgId}`)
+    return $axios.get(`${resource}/${payload.segmentUuid}?orgId=${orgId}`)
   },
 
   // segment:update
   update(payload) {
-    const { id, orgId, ...rest } = payload
-    return $axios.patch(`${resource}/${id}?orgId=${orgId}`, {
+    const { id, uuid, orgId, ...rest } = payload
+    return $axios.patch(`${resource}/${uuid}?orgId=${orgId}`, {
       ...rest,
     })
   },
