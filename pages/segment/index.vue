@@ -115,7 +115,7 @@
               </NuxtLink>
               <NuxtLink
                 class="item-menu flex items-center no-select"
-                :to="`/segment/edit/${item.id}`"
+                :to="`/segment/edit/${item.uuid}`"
               >
                 <i class="pi pi-pencil text-yellow-500"></i>
                 <span class="ml-3">Edit</span>

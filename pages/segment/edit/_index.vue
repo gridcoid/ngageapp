@@ -107,7 +107,7 @@ export default {
     getDetail() {
       this.isLoading = true
       const data = {
-        segmentId: this.$route.params.index,
+        segmentUuid: this.$route.params.index,
       }
       this.$store
         .dispatch('segment/detail', data)
@@ -168,10 +168,13 @@ export default {
   },
   watch: {
     dataDetail(val) {
-      this.data.id = val.id
-      this.data.orgId = val.orgId
-      this.data.name = val.name
-      this.data.description = val.description
+      if (val) {
+        this.data.id = val.id
+        this.data.uuid = val.uuid
+        this.data.orgId = val.orgId
+        this.data.name = val.name
+        this.data.description = val.description
+      }
     },
   },
 }

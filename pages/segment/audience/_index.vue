@@ -450,10 +450,12 @@ export default {
   },
   watch: {
     dataDetail(val) {
-      this.data.id = val.id
-      this.data.orgId = val.orgId
-      this.data.name = val.name
-      this.data.description = val.description
+      if (val) {
+        this.data.id = val.id
+        this.data.orgId = val.orgId
+        this.data.name = val.name
+        this.data.description = val.description
+      }
     },
     sidebar() {
       this.tableVisible = false

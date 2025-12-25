@@ -204,14 +204,14 @@ export default {
 
   watch: {
     dataDetail(val) {
-      if (!val) return
-
-      this.data = {
-        id: val.data.id,
-        orgId: val.data.orgId,
-        name: val.data.name,
-        description: val.data.description,
-        definition: { ...val.data.definition },
+      if (val) {
+        this.data = {
+          id: val.data.id,
+          orgId: val.data.orgId,
+          name: val.data.name,
+          description: val.data.description,
+          definition: { ...val.data.definition },
+        }
       }
     },
   },

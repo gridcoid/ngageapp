@@ -226,15 +226,16 @@ export default {
 
   watch: {
     dataDetail(val) {
-      if (!val) return
-      this.data.id = val.data.id
-      this.data.orgId = val.data.orgId
-      this.data.name = val.data.name
-      this.data.description = val.data.description
-      try {
-        this.data.definition = JSON.parse(JSON.stringify(val.data.definition))
-      } catch (error) {
-        console.log(error)
+      if (val) {
+        this.data.id = val.data.id
+        this.data.orgId = val.data.orgId
+        this.data.name = val.data.name
+        this.data.description = val.data.description
+        try {
+          this.data.definition = JSON.parse(JSON.stringify(val.data.definition))
+        } catch (error) {
+          console.log(error)
+        }
       }
     },
   },
