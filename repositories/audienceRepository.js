@@ -54,4 +54,12 @@ export default ($axios) => ({
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(`${resource}/${payload.id}?orgId=${orgId}`)
   },
+
+  // audience:removeFromSegment
+  removeFromSegment(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.delete(
+      `${resource}/removeFromSegment/${payload.id}?segmentId=${payload.segmentId}&orgId=${orgId}`
+    )
+  },
 })

@@ -142,4 +142,20 @@ export const actions = {
       return e.response
     }
   },
+
+  // audience:removeFromSegment
+  async removeFromSegment({ commit }, payload) {
+    try {
+      const response = await this.$repositories.audience.removeFromSegment(
+        payload
+      )
+      return response
+    } catch (e) {
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + e.response.status,
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
 }

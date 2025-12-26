@@ -357,13 +357,49 @@ export default {
     },
 
     deleteAudience(row) {
-      // this.$store.dispatch('audience/delete', { id }).then(() => {
-      //   this.getData()
-      //   this.$notifier.showMessage({
-      //     content: 'Delete audience success.',
-      //     type: 'success',
-      //   })
-      // })
+      this.$confirm(
+        `Remove "${row.name}" from "${this.data.name}"?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+        }
+      )
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Remove audience...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('audience/removeFromSegment', {
+              id: row.id, // user id
+              segmentId: this.data.id,
+            })
+            .then((res) => {
+              if (res.data.status.code === 200) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Remove audience status success.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Remove audience status failed. Error : ' +
+                    res.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
 
     changePage(e) {
