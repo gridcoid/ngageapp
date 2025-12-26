@@ -295,7 +295,7 @@ export default {
       this.dialog = !this.dialog
     },
     deleteSegment(data) {
-      this.$confirm('Are you sure you want to delete?', 'Confirmation', {
+      this.$confirm(`Delete segment "${data.name}"?`, 'Confirmation', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',

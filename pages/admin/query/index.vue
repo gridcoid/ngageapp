@@ -284,7 +284,7 @@ export default {
       this.$router.push({ path: `/admin/query/detail/${data.uuid}` })
     },
     deleteQuery(data) {
-      this.$confirm('Are you sure you want to delete?', 'Confirmation', {
+      this.$confirm(`Delete query "${data.name}"?`, 'Confirmation', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',

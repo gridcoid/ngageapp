@@ -316,7 +316,7 @@ export default {
     },
 
     deleteAudience(data) {
-      this.$confirm('Are you sure you want to delete?', 'Confirmation', {
+      this.$confirm(`Delete contact "${data.name}"?`, 'Confirmation', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',
