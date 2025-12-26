@@ -13,7 +13,6 @@ import VillageRepository from '~/repositories/villageRepository'
 import GenderRepository from '~/repositories/genderRepository'
 import ReligionRepository from '~/repositories/religionRepository'
 import ContactTypeRepository from '~/repositories/contactTypeRepository'
-import AudienceBySegmentRepository from '~/repositories/audienceBySegmentRepository'
 import ApiKeyRepository from '~/repositories/apiKeyRepository'
 import SheetRepository from '~/repositories/sheetRepository'
 import QueryRepository from '~/repositories/queryRepository'
@@ -35,7 +34,6 @@ export default ($axios) => ({
   gender: GenderRepository($axios),
   religion: ReligionRepository($axios),
   contactType: ContactTypeRepository($axios),
-  audienceBySegment: AudienceBySegmentRepository($axios),
   apiKey: ApiKeyRepository($axios),
   sheet: SheetRepository($axios),
   query: QueryRepository($axios),

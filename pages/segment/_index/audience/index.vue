@@ -300,9 +300,9 @@ export default {
     ...mapState({
       dataDetail: (state) => state.segment.dataDetail,
       sidebar: (state) => state.user.sidebar,
-      dataAudiences: (state) => state.audienceBySegment.dataList,
-      totalList: (state) => state.audienceBySegment.totalList,
-      totalPages: (state) => state.audienceBySegment.totalPages,
+      dataAudiences: (state) => state.audience.dataList,
+      totalList: (state) => state.audience.totalList,
+      totalPages: (state) => state.audience.totalPages,
     }),
   },
   mounted() {
@@ -336,7 +336,7 @@ export default {
       }
 
       this.$store
-        .dispatch('audienceBySegment/list', params)
+        .dispatch('audience/listBySegment', params)
         .finally(() => (this.isLoading = false))
     },
 

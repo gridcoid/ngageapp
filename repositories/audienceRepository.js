@@ -9,6 +9,14 @@ export default ($axios) => ({
     )
   },
 
+  // audience:listBySegment
+  listBySegment(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(
+      `${resource}/listBySegment?orgId=${orgId}&segmentUuid=${payload.segmentUuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+    )
+  },
+
   // audience:create
   create(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
