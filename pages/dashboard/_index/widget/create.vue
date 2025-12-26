@@ -109,7 +109,7 @@ export default {
 
       this.$store
         .dispatch('dashboard/addWidget', {
-          dashboardId: this.$route.query.dashboardId, // pass dashboardId as query
+          dashboardUuid: this.$route.params.index,
           widget: {
             ...this.data,
             x: 0, // full width default

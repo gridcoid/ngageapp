@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'HomePage',
   layout: 'default',
@@ -28,12 +29,37 @@ export default {
   },
   data() {
     return {
-      //
+      isLoading: false,
     }
+  },
+  computed: {
+    ...mapState({
+      orgId: (state) => {
+        return state.user.orgId
+      },
+      sidebar: (state) => {
+        return state.user.sidebar
+      },
+      popup: (state) => {
+        return state.user.popup
+      },
+      dataDashboard: (state) => {
+        return state.dashboard.dataList
+      },
+    }),
+  },
+  mounted() {
+    this.getData()
   },
   methods: {
     toAddWidget() {
-      this.$router.push('/widget/create')
+      this.$router.push(`/dashboard/${this.dataDashboard.uuid}/widget/create`)
+    },
+    getData() {
+      this.isLoading = true
+      this.$store.dispatch('dashboard/list').finally(() => {
+        this.isLoading = false
+      })
     },
   },
 }
