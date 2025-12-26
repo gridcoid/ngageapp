@@ -610,52 +610,6 @@
         </template>
       </Popup>
     </transition>
-
-    <transition name="fade">
-      <Popup
-        v-if="dialogDelete"
-        class="kg-popup"
-        width="30"
-        :border-header="false"
-        @close-modal="closeDialog()"
-      >
-        <template v-slot:body>
-          <div class="content-popup flex flex-col">
-            <div
-              class="flex items-center justify-between"
-              style="margin-bottom: 14px"
-            >
-              <div class="title-popup2">Disable Campaign?</div>
-              <img
-                src="~/assets/images/icon/delete_color.svg"
-                class="icon-item"
-              />
-            </div>
-            <div class="title-popup">
-              Are you sure want to disable
-              <b>{{ detailCampaign.name }}</b> campaign?
-            </div>
-            <div
-              class="footer-card grid grid-cols-2 gap-4 place-content-stretch"
-            >
-              <button
-                class="flex items-center justify-center cancel-btn2 no-select"
-                @click="closeDialog()"
-              >
-                <span class="name-btn no-select">Cancel</span>
-              </button>
-              <button
-                class="flex items-center justify-center save-btn2 no-select"
-                @click="deleteCreative(detailCampaign.id)"
-              >
-                <IconCompleted bg-color="white" class="mr-2 pl-1" />
-                <span class="name-btn no-select">Confirm</span>
-              </button>
-            </div>
-          </div>
-        </template>
-      </Popup>
-    </transition>
   </div>
 </template>
 
@@ -695,7 +649,6 @@ export default {
       selectedDate: null,
       dialog: false,
       dialogDuplicate: false,
-      dialogDelete: false,
       dialogChart: false,
       data2: [],
       pickerOptions: {
@@ -910,14 +863,45 @@ export default {
     this.getAll()
   },
   methods: {
-    closeDeleteDialog() {
-      this.detailCampaign = null
-      this.dialogDelete = false
-    },
     deleteCampaign(data) {
-      document.querySelector('body').style.overflow = 'hidden'
-      this.detailCampaign = data
-      this.dialogDelete = true
+      this.$confirm(`Delete "${data.name}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Delete campaign...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('campaign/delete', {
+              id: data.id,
+            })
+            .then((res) => {
+              if (res.data.status.code === 200) {
+                this.getAll()
+
+                this.$notifier.showMessage({
+                  content: 'Delete campaign status success.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Delete campaign status failed. Error : ' +
+                    res.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
     btnPlus() {
       if (this.countDuplicate < 10) {
@@ -1083,7 +1067,6 @@ export default {
       document.querySelector('body').style.overflow = ''
       this.detailCampaign = null
       this.dialogDuplicate = false
-      this.dialogDelete = false
       this.$store.commit('user/SET_DROPDOWN', null)
     },
     openDuplicateDialog(data) {
@@ -1138,58 +1121,6 @@ export default {
                 })
                 this.messageError = arr.join(', ')
                 this.$store.commit('user/SET_DROPDOWN', null)
-                clearInterval(sto)
-              }
-              this.getAll()
-            })
-            .catch(() => {}),
-        1000
-      )
-      document.querySelector('body').style.overflow = ''
-    },
-    deleteCreative(id) {
-      const data = {
-        id,
-      }
-      this.$notifier.showMessage({
-        content: 'Delete campaign...',
-        type: 'loading',
-      })
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('campaign/delete', data)
-            .then((res) => {
-              if (
-                res.data.status.code === 200 ||
-                res.data.status.code === 201 ||
-                res.data.status.code === 202
-              ) {
-                this.dialogDelete = false
-                this.getAll()
-                this.$store.commit('user/SET_DROPDOWN', null)
-                this.$notifier.showMessage({
-                  content: 'Delete campaign status success.',
-                  type: 'success',
-                })
-                clearInterval(sto)
-              } else {
-                this.dialogDelete = false
-                // this.detailCampaign = null
-                this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
-                })
-                this.$store.commit('user/SET_DROPDOWN', null)
-                this.messageError = arr.join(', ')
-                this.$notifier.showMessage({
-                  content:
-                    'Delete campaign status failed. Error : ' +
-                    res.data.data.message,
-                  type: 'failed',
-                })
                 clearInterval(sto)
               }
               this.getAll()
