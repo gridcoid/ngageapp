@@ -67,14 +67,14 @@
         class="card-list flex flex-row items-center justify-between"
       >
         <div class="flex items-center justify-start flex-row">
-          <NuxtLink :to="`/segment/audience/${item.id}`">
+          <NuxtLink :to="`/segment/${item.uuid}/audience`">
             <img
               src="~/assets/images/target.png"
               class="thumbnail opacity-90 hover:opacity-100"
             />
           </NuxtLink>
           <div class="name-data flex flex-col">
-            <NuxtLink :to="`/segment/audience/${item.id}`">
+            <NuxtLink :to="`/segment/${item.uuid}/audience`">
               {{ item.name }}
             </NuxtLink>
             <span>

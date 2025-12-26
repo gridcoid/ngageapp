@@ -232,7 +232,7 @@ export default {
                 clearInterval(sto)
 
                 this.$router.push(
-                  `/segment/audience/${this.$route.params.index}`
+                  `/segment/${this.$route.params.index}/audience`
                 )
               } else {
                 this.showMessage = true
