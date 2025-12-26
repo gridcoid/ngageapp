@@ -123,7 +123,7 @@
                   class="item-menu flex items-center no-select"
                   :to="`/admin/query/edit/${scope.row.uuid}`"
                 >
-                  <i class="ti ti-pencil text-yellow-500"></i>
+                  <i class="ti ti-edit text-yellow-500"></i>
                   <span class="ml-3">Edit</span>
                 </NuxtLink>
 

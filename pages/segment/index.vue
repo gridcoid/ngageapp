@@ -98,6 +98,7 @@
             <template slot="body">
               <div
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
+                @click="duplicateSegment(item)"
               >
                 <i class="ti ti-copy text-purple-500"></i>
                 <span class="ml-3">Duplicate</span>
@@ -120,7 +121,7 @@
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
                 :to="`/segment/edit/${item.uuid}`"
               >
-                <i class="ti ti-pencil text-yellow-500"></i>
+                <i class="ti ti-edit text-yellow-500"></i>
                 <span class="ml-3">Edit</span>
               </NuxtLink>
               <div
@@ -306,6 +307,46 @@ export default {
     },
     showDialog() {
       this.dialog = !this.dialog
+    },
+    duplicateSegment(data) {
+      this.$confirm(`Duplicate segment "${data.name}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Duplicate segment...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('segment/duplicate', {
+              uuid: data.uuid,
+            })
+            .then((res) => {
+              if (res.data.status.code === 200) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Duplicate segment status success.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Duplicate segment status failed. Error : ' +
+                    res.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
     deleteSegment(data) {
       this.$confirm(`Delete segment "${data.name}"?`, 'Confirmation', {

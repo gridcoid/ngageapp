@@ -149,4 +149,18 @@ export const actions = {
       return e.response
     }
   },
+
+  // segment:duplicate
+  async duplicate({ commit }, payload) {
+    try {
+      const response = await this.$repositories.segment.duplicate(payload)
+      return response
+    } catch (e) {
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + e.response.status,
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
 }

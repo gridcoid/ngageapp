@@ -357,7 +357,7 @@
                   v-if="scope.row.template.format === 'custom_upload'"
                   class="item-menu flex items-center no-select"
                 >
-                  <i class="ti ti-pencil" />
+                  <i class="ti ti-edit" />
                   <span class="ml-3">Edit</span>
                 </div>
                 <div
@@ -365,7 +365,7 @@
                   class="item-menu flex items-center no-select"
                   @click="editCreative(scope.row.id)"
                 >
-                  <i class="ti ti-pencil" />
+                  <i class="ti ti-edit" />
                   <span class="ml-3">Edit</span>
                 </div>
 
