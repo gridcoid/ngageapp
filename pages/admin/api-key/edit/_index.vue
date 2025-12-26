@@ -217,7 +217,6 @@ export default {
 
   mounted() {
     this.getSegments()
-
     this.getDetail()
   },
 

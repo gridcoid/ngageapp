@@ -255,6 +255,59 @@
               circle
             />
           </div>
+
+          <hr class="mb-4" />
+
+          <!-- Segment Info -->
+          <div class="mb-4">
+            <label class="title-form block mb-2">Segments</label>
+
+            <div
+              v-for="(segment, index) in segmentsList"
+              :key="'segment-' + index"
+              class="flex items-start mb-2"
+              style="gap: 10px"
+            >
+              <!-- Select segment from available list -->
+              <el-select
+                v-model="segmentsList[index]"
+                placeholder="Select segment"
+                style="flex: 1"
+              >
+                <el-option
+                  v-for="item in dataSegments"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                />
+              </el-select>
+
+              <!-- Optional: show segment description or audience count -->
+              <div class="text-gray-400 text-sm italic flex-1 pt-3 ml-5">
+                <span v-if="segmentsList[index]">
+                  {{ getSegmentDescription(segmentsList[index]) }}
+                </span>
+              </div>
+
+              <!-- Remove button -->
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                circle
+                size="small"
+                @click="removeSegment(index)"
+              />
+            </div>
+
+            <!-- Add new segment -->
+            <el-button
+              type="success"
+              icon="el-icon-plus"
+              @click="addSegment"
+              size="small"
+              circle
+            />
+          </div>
         </el-form>
 
         <Transition>
@@ -322,12 +375,16 @@ export default {
         address: '',
         contacts: [],
         additionalInfo: null,
+        segmentIds: [],
       },
       additionalInfoList: [],
+      segmentsList: [],
     }
   },
   computed: {
     ...mapState({
+      dataSegments: (state) => state.segment.dataList,
+
       dataProvinces: (state) => state.province.dataList,
       dataRegencies: (state) => state.regency.dataList,
       dataDistricts: (state) => state.district.dataList,
@@ -340,12 +397,35 @@ export default {
     }),
   },
   mounted() {
+    this.getSegments()
     this.getProvince()
     this.getGender()
     this.getReligion()
     this.getContactType()
   },
   methods: {
+    getSegments() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('segment/all')
+        .finally(() => (this.isLoading = false))
+    },
+
+    addSegment() {
+      this.segmentsList.push(null)
+    },
+
+    removeSegment(index) {
+      this.segmentsList.splice(index, 1)
+    },
+
+    getSegmentDescription(segmentId) {
+      const seg = this.dataSegments.find((s) => s.id === segmentId)
+      if (seg) return `${seg.audienceCount} audiences`
+      return ''
+    },
+
     back() {
       this.$router.push({ path: '/audience' })
     },
@@ -372,6 +452,8 @@ export default {
         }
       })
       this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
+
+      this.data.segmentIds = this.segmentsList.filter((s) => s !== null)
 
       this.$notifier.showMessage({
         content: 'Creating audience...',
