@@ -90,7 +90,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-map-marker mr-2 text-red-500"></i> Location
+                <i class="ti ti-map-pin mr-2 text-red-500"></i> Location
               </h2>
               <div class="bg-gray-50 rounded-lg p-5 space-y-4">
                 <div>
@@ -152,7 +152,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-id-card mr-2 text-green-500"></i> Contact
+                <i class="ti ti-address-book mr-2 text-green-500"></i> Contact
                 Information
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
@@ -205,7 +205,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-list mr-2 text-purple-500"></i> Additional
+                <i class="ti ti-mist mr-2 text-purple-500"></i> Additional
                 Information
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">

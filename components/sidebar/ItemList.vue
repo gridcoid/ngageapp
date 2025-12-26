@@ -149,7 +149,7 @@ export default {
             path: '/segment',
             name: 'Segments',
             type: 'single',
-            icon: 'ti ti-filter',
+            icon: 'ti ti-folder',
           },
           {
             path: '/audience',
