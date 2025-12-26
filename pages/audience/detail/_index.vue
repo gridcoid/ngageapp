@@ -98,7 +98,7 @@
                     class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
                     >Address</label
                   >
-                  <div class="text-gray-900 whitespace-pre-line">
+                  <div class="text-gray-900">
                     {{ data.address || '-' }}
                   </div>
                 </div>

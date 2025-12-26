@@ -10,7 +10,7 @@
     <div class="bg-white rounded-lg shadow-sm border border-gray-200">
       <!-- Header -->
       <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex">
-        <h1 class="text-xl font-bold text-gray-800">Audience Summary</h1>
+        <h1 class="text-xl font-bold text-gray-800">Audience Details</h1>
         <ButtonDefault
           icon="edit"
           text="Edit"
@@ -43,10 +43,114 @@
                     {{ data.name || '-' }}
                   </div>
                 </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                      >Date of Birth</label
+                    >
+                    <div class="text-gray-900">
+                      {{ data.dateOfBirth || '-' }}
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                      >Year of Birth</label
+                    >
+                    <div class="text-gray-900">
+                      {{ data.yearOfBirth || '-' }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                      >Gender</label
+                    >
+                    <div class="text-gray-900">
+                      {{ getGenderName(data.genderId) }}
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                      >Religion</label
+                    >
+                    <div class="text-gray-900">
+                      {{ getReligionName(data.religionId) }}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
             <!-- Location Info -->
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="ti ti-map-marker mr-2 text-red-500"></i> Location
+              </h2>
+              <div class="bg-gray-50 rounded-lg p-5 space-y-4">
+                <div>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                    >Address</label
+                  >
+                  <div class="text-gray-900">
+                    {{ data.address || '-' }}
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                      >Province</label
+                    >
+                    <div class="text-gray-900">
+                      {{ getProvinceName(data.provinceCode) }}
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                      >Regency</label
+                    >
+                    <div class="text-gray-900">
+                      {{ getRegencyName(data.regencyCode) }}
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                      >District</label
+                    >
+                    <div class="text-gray-900">
+                      {{ getDistrictName(data.districtCode) }}
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                      >Village</label
+                    >
+                    <div class="text-gray-900">
+                      {{ getVillageName(data.villageCode) }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Contacts & Additional -->
+          <div class="space-y-8">
+            <!-- Contacts -->
             <div>
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
@@ -98,16 +202,54 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Right Column: Contacts & Additional -->
-          <div class="space-y-8">
+            <!-- Additional Info -->
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="ti ti-list mr-2 text-purple-500"></i> Additional
+                Information
+              </h2>
+              <div class="bg-gray-50 rounded-lg p-5">
+                <div
+                  v-if="additionalInfoList && additionalInfoList.length"
+                  class="space-y-2"
+                >
+                  <div
+                    v-for="(info, idx) in additionalInfoList"
+                    :key="idx"
+                    class="flex justify-between items-center p-3 bg-white rounded border border-gray-100 shadow-sm"
+                  >
+                    <!-- LEFT: key + icon -->
+                    <div
+                      class="flex items-center gap-2 text-gray-600 font-medium text-sm"
+                    >
+                      <i class="ti ti-info-circle text-gray-400"></i>
+                      <span class="font-semibold">{{ info.key }}</span>
+                    </div>
+
+                    <!-- RIGHT: value badge -->
+                    <span
+                      class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full border whitespace-nowrap"
+                    >
+                      {{ info.value }}
+                    </span>
+                  </div>
+                </div>
+
+                <div v-else class="text-gray-400 italic text-sm">
+                  No additional information available.
+                </div>
+              </div>
+            </div>
+
             <!-- Segments -->
             <div>
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-folder mr-2 text-yellow-500"></i> Other Segments
+                <i class="ti ti-folder mr-2 text-yellow-500"></i> Segments
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div
@@ -161,11 +303,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'AudienceSummaryPage',
+  name: 'AudienceDetailPage',
   layout: 'default',
   head() {
     return {
-      title: 'Summary - Audience - ' + this.$config.appName,
+      title: 'Detail - Audience - ' + this.$config.appName,
     }
   },
   data() {
@@ -348,7 +490,13 @@ export default {
     },
 
     toEdit() {
-      this.$router.push({ path: '/audience/edit/' + this.data.id })
+      this.$router.push({
+        path:
+          '/segment/' +
+          this.$route.params.index +
+          '/audience/edit/' +
+          this.data.id,
+      })
     },
   },
   watch: {
@@ -387,9 +535,7 @@ export default {
           ([key, value]) => ({ key, value })
         )
 
-        this.data.segments = val.segments.filter(
-          (x) => x.uuid !== this.$route.params.index
-        )
+        this.data.segments = val.segments
       }
     },
   },

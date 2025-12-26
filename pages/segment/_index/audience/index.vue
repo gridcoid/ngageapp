@@ -202,7 +202,10 @@
               @preview="viewDetail(scope.row)"
             >
               <template slot="body">
-                <NuxtLink class="item-menu flex items-center no-select" to="#">
+                <NuxtLink
+                  class="item-menu flex items-center no-select"
+                  :to="`/segment/${$route.params.index}/audience/edit/${scope.row.id}`"
+                >
                   <i class="ti ti-pencil text-yellow-500"></i>
                   <span class="ml-3">Edit</span>
                 </NuxtLink>
@@ -437,7 +440,7 @@ export default {
         path:
           '/segment/' +
           this.$route.params.index +
-          '/audience/summary/' +
+          '/audience/detail/' +
           item.id,
       })
     },

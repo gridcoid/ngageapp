@@ -1,0 +1,734 @@
+<template>
+  <div class="container">
+    <div class="header-content">
+      <ButtonBackPage
+        :text="`Back to segment ${dataSegment.name}`"
+        @click.native="back()"
+      />
+    </div>
+
+    <div class="card-content">
+      <div class="header-card flex items-center">
+        <div class="title">Update Audience</div>
+      </div>
+
+      <div class="body-card">
+        <el-form
+          ref="ruleForm"
+          :model="data"
+          label-width="226px"
+          label-position="left"
+          :rules="rules"
+          hide-required-asterisk
+        >
+          <!-- Name -->
+          <el-form-item class="title-form" prop="name">
+            <label slot="label" class="title-form">Name</label>
+            <el-input v-model="data.name" />
+          </el-form-item>
+
+          <!-- Date of Birth -->
+          <el-form-item
+            class="title-form"
+            prop="dateOfBirth"
+            label="Date of Birth"
+          >
+            <el-date-picker
+              v-model="data.dateOfBirth"
+              type="date"
+              placeholder="Select date"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              placement="bottom-start"
+              style="width: 100%"
+            />
+          </el-form-item>
+
+          <!-- Year of Birth -->
+          <el-form-item class="title-form" prop="yearOfBirth">
+            <label slot="label" class="title-form">Year of Birth</label>
+            <el-input-number
+              v-model="data.yearOfBirth"
+              :min="1900"
+              :max="2100"
+            />
+          </el-form-item>
+
+          <!-- Gender -->
+          <el-form-item class="title-form" prop="genderId">
+            <label slot="label" class="title-form">Gender</label>
+            <el-select
+              v-model="data.genderId"
+              placeholder="Select gender"
+              class="w-full"
+            >
+              <el-option
+                v-for="item in dataGenders"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              />
+            </el-select>
+          </el-form-item>
+
+          <!-- Religion -->
+          <el-form-item class="title-form" prop="religionId">
+            <label slot="label" class="title-form">Religion</label>
+            <el-select
+              v-model="data.religionId"
+              placeholder="Select religion"
+              class="w-full"
+            >
+              <el-option
+                v-for="item in dataReligions"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              />
+            </el-select>
+          </el-form-item>
+
+          <hr class="mb-4" />
+
+          <!-- Address -->
+          <el-form-item class="title-form" prop="address">
+            <label slot="label" class="title-form">Address</label>
+            <el-input
+              v-model="data.address"
+              type="textarea"
+              autosize
+              spellcheck="false"
+            />
+          </el-form-item>
+
+          <!-- Location Fields -->
+          <el-form-item class="title-form" prop="provinceCode">
+            <label slot="label" class="title-form">Province</label>
+            <el-select
+              v-model="data.provinceCode"
+              placeholder="Select province"
+              class="w-full"
+            >
+              <el-option
+                v-for="p in dataProvinces"
+                :key="p.code"
+                :label="p.name"
+                :value="p.code"
+              />
+            </el-select>
+          </el-form-item>
+
+          <el-form-item class="title-form" prop="regencyCode">
+            <label slot="label" class="title-form">Regency</label>
+            <el-select
+              v-model="data.regencyCode"
+              placeholder="Select regency"
+              class="w-full"
+              :disabled="!data.provinceCode"
+            >
+              <el-option
+                v-for="r in dataRegencies"
+                :key="r.code"
+                :label="r.name"
+                :value="r.code"
+              />
+            </el-select>
+          </el-form-item>
+
+          <el-form-item class="title-form" prop="districtCode">
+            <label slot="label" class="title-form">District</label>
+            <el-select
+              v-model="data.districtCode"
+              placeholder="Select district"
+              class="w-full"
+              :disabled="!data.regencyCode"
+            >
+              <el-option
+                v-for="d in dataDistricts"
+                :key="d.code"
+                :label="d.name"
+                :value="d.code"
+              />
+            </el-select>
+          </el-form-item>
+
+          <el-form-item class="title-form" prop="villageCode">
+            <label slot="label" class="title-form">Village</label>
+            <el-select
+              v-model="data.villageCode"
+              placeholder="Select village"
+              class="w-full"
+              :disabled="!data.districtCode"
+            >
+              <el-option
+                v-for="v in dataVillages"
+                :key="v.code"
+                :label="v.name"
+                :value="v.code"
+              />
+            </el-select>
+          </el-form-item>
+
+          <hr class="mb-4" />
+
+          <!-- Contact Info -->
+          <div class="mb-4">
+            <label class="title-form block mb-2">Contact Info</label>
+            <div
+              v-for="(contact, index) in contactsList"
+              :key="'contact-' + index"
+              class="flex items-start mb-2"
+              style="gap: 10px"
+            >
+              <el-select
+                v-model="contact.typeId"
+                placeholder="Contact type"
+                style="width: 150px"
+              >
+                <el-option
+                  v-for="item in dataContactTypes"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                />
+              </el-select>
+              <el-input
+                v-model="contact.value"
+                :placeholder="
+                  contact.typeId === 1
+                    ? 'Email address'
+                    : contact.typeId === 2
+                    ? 'Phone number'
+                    : 'Value'
+                "
+                style="flex: 1"
+              />
+              <el-input
+                v-model="contact.label"
+                placeholder="Label info"
+                style="flex: 1"
+              />
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                circle
+                size="small"
+                @click="removeContact(index)"
+              />
+            </div>
+            <el-button
+              type="success"
+              icon="el-icon-plus"
+              @click="addContact"
+              size="small"
+              circle
+            />
+          </div>
+
+          <hr class="mb-4" />
+
+          <!-- Additional Info -->
+          <div class="mb-4">
+            <label class="title-form block mb-2">Additional Info</label>
+            <div
+              v-for="(info, index) in additionalInfoList"
+              :key="'info-' + index"
+              class="flex items-start mb-2"
+              style="gap: 10px"
+            >
+              <el-input v-model="info.key" placeholder="Key" style="flex: 1" />
+              <el-input
+                v-model="info.value"
+                placeholder="Value"
+                style="flex: 1"
+              />
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                circle
+                size="small"
+                @click="removeAdditionalInfo(index)"
+              />
+            </div>
+            <el-button
+              type="success"
+              icon="el-icon-plus"
+              @click="addAdditionalInfo"
+              size="small"
+              circle
+            />
+          </div>
+
+          <hr class="mb-4" />
+
+          <!-- Segment Info -->
+          <div class="mb-4">
+            <label class="title-form block mb-2">Segments</label>
+
+            <div
+              v-for="(segment, index) in segmentsList"
+              :key="'segment-' + index"
+              class="flex items-start mb-2"
+              style="gap: 10px"
+            >
+              <!-- Select segment from available list -->
+              <el-select
+                v-model="segmentsList[index]"
+                placeholder="Select segment"
+                style="flex: 1"
+              >
+                <el-option
+                  v-for="item in dataSegments"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                />
+              </el-select>
+
+              <!-- Optional: show segment description or audience count -->
+              <div class="text-gray-400 text-sm italic flex-1 pt-3 ml-5">
+                <span v-if="segmentsList[index]">
+                  {{ getSegmentDescription(segmentsList[index]) }}
+                </span>
+              </div>
+
+              <!-- Remove button -->
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                circle
+                size="small"
+                @click="removeSegment(index)"
+              />
+            </div>
+
+            <!-- Add new segment -->
+            <el-button
+              type="success"
+              icon="el-icon-plus"
+              @click="addSegment"
+              size="small"
+              circle
+            />
+          </div>
+        </el-form>
+
+        <Transition>
+          <Alert v-show="showMessage" class="mt-6 mb-0" :text="messageError" />
+        </Transition>
+      </div>
+
+      <div class="footer-card flex justify-end gap-3">
+        <el-button type="primary" @click="back()" plain class="w-32">
+          Discard
+        </el-button>
+        <el-button
+          icon="el-icon-check"
+          type="primary"
+          @click="save()"
+          class="w-32"
+        >
+          Save
+        </el-button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'UpdateAudiencePage',
+  layout: 'default',
+  head() {
+    return {
+      title: 'Update - Audience - ' + this.$config.appName,
+    }
+  },
+  data() {
+    return {
+      rules: {
+        name: [
+          {
+            required: true,
+            message: 'Audience Name is required',
+            trigger: 'blur',
+          },
+          { min: 0, max: 150, message: 'Max 150 characters', trigger: 'blur' },
+        ],
+      },
+
+      isLoading: false,
+      isLoadingToast: false,
+      showMessage: false,
+      messageError: '',
+
+      // Form model sesuai tabel
+      data: {
+        id: null,
+        orgId: null,
+        name: '',
+        dateOfBirth: null,
+        yearOfBirth: 1950,
+        genderId: null,
+        religionId: null,
+        provinceCode: null,
+        regencyCode: null,
+        districtCode: null,
+        villageCode: null,
+        address: '',
+        contacts: [],
+        additionalInfo: null,
+        segmentIds: [],
+      },
+      contactsList: [],
+      additionalInfoList: [],
+      segmentsList: [],
+    }
+  },
+  computed: {
+    ...mapState({
+      dataSegment: (state) => state.segment.dataDetail,
+      dataSegments: (state) => state.segment.dataList,
+
+      dataDetail: (state) => state.audience.dataDetail,
+
+      dataProvinces: (state) => state.province.dataList,
+      dataRegencies: (state) => state.regency.dataList,
+      dataDistricts: (state) => state.district.dataList,
+      dataVillages: (state) => state.village.dataList,
+
+      dataGenders: (state) => state.gender.dataList,
+      dataReligions: (state) => state.religion.dataList,
+
+      dataContactTypes: (state) => state.contactType.dataList,
+    }),
+  },
+  async mounted() {
+    this.getSegment()
+    this.getSegments()
+    await this.getProvince()
+    this.getGender()
+    this.getReligion()
+    this.getContactType()
+    this.getDetail()
+  },
+  methods: {
+    getSegment() {
+      const data = {
+        segmentUuid: this.$route.params.index,
+      }
+
+      this.isLoading = true
+
+      this.$store
+        .dispatch('segment/detail', data)
+        .finally(() => (this.isLoading = false))
+    },
+
+    getSegments() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('segment/all')
+        .finally(() => (this.isLoading = false))
+    },
+
+    addSegment() {
+      this.segmentsList.push(null)
+    },
+
+    removeSegment(index) {
+      this.segmentsList.splice(index, 1)
+    },
+
+    getSegmentDescription(segmentId) {
+      const seg = this.dataSegments.find((s) => s.id === segmentId)
+      if (seg) return `${seg.audienceCount} audiences`
+      return ''
+    },
+
+    getDetail() {
+      const data = {
+        audienceId: this.$route.params.id,
+      }
+
+      this.isLoading = true
+
+      this.$store
+        .dispatch('audience/detail', data)
+        .finally(() => (this.isLoading = false))
+    },
+
+    back() {
+      this.$router.push({
+        path: `/segment/${this.$route.params.index}/audience`,
+      })
+    },
+
+    addContact() {
+      this.contactsList.push({ typeId: null, value: '', label: '' })
+    },
+    removeContact(index) {
+      this.contactsList.splice(index, 1)
+    },
+    addAdditionalInfo() {
+      this.additionalInfoList.push({ key: '', value: '' })
+    },
+    removeAdditionalInfo(index) {
+      this.additionalInfoList.splice(index, 1)
+    },
+
+    save() {
+      // Process Additional Info
+      const info = {}
+      this.additionalInfoList.forEach((item) => {
+        if (item.key && item.key.trim() !== '') {
+          info[item.key] = item.value
+        }
+      })
+      this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
+
+      this.data.segmentIds = this.segmentsList.filter((s) => s !== null)
+
+      this.data.contacts = this.contactsList.filter(
+        (c) => c.typeId !== null && c.value !== ''
+      )
+
+      this.$notifier.showMessage({
+        content: 'Updating audience...',
+        type: 'loading',
+      })
+
+      this.isLoadingToast = true
+
+      const sto = setTimeout(() => {
+        this.$store
+          .dispatch('audience/update', this.data)
+          .then((res) => {
+            if (res.status === 202 || res.status === 200) {
+              this.$router.push({
+                path: `/segment/${this.$route.params.index}/audience`,
+              })
+
+              this.$notifier.showMessage({
+                content: 'Audience updated.',
+                type: 'success',
+              })
+              clearInterval(sto)
+            } else {
+              this.showMessage = true
+              const keys = Object.keys(res.data.data.errors[0])
+              const arr = []
+              keys.forEach((key) => arr.push(res.data.data.errors[0][key]))
+              this.messageError = arr.join(', ')
+
+              this.$notifier.showMessage({
+                content: 'Audience failed. Please try again!',
+                type: 'failed',
+              })
+              clearInterval(sto)
+            }
+          })
+          .catch(() => {
+            this.isLoading = false
+            clearInterval(sto)
+          })
+      }, 1000)
+    },
+
+    getGender() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('gender/list')
+        .finally(() => (this.isLoading = false))
+    },
+
+    getReligion() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('religion/list')
+        .finally(() => (this.isLoading = false))
+    },
+
+    getContactType() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('contactType/list')
+        .finally(() => (this.isLoading = false))
+    },
+
+    getProvince() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('province/list')
+        .finally(() => (this.isLoading = false))
+    },
+
+    getRegency(provinceCode) {
+      this.isLoading = true
+
+      this.$store.dispatch('regency/list', { provinceCode }).finally(() => {
+        this.isLoading = false
+      })
+    },
+
+    getDistrict(regencyCode) {
+      this.isLoading = true
+
+      this.$store.dispatch('district/list', { regencyCode }).finally(() => {
+        this.isLoading = false
+      })
+    },
+
+    getVillage(districtCode) {
+      this.isLoading = true
+
+      this.$store.dispatch('village/list', { districtCode }).finally(() => {
+        this.isLoading = false
+      })
+    },
+  },
+  watch: {
+    async dataDetail(val) {
+      if (val) {
+        this.data.id = val.id
+        this.data.orgId = val.orgId
+        this.data.name = val.name
+        this.data.dateOfBirth = val.dateOfBirth
+        this.data.yearOfBirth = val.yearOfBirth
+
+        this.data.genderId = val.genderId
+        this.data.religionId = val.religionId
+
+        this.data.provinceCode = val.provinceCode
+        if (val.provinceCode) {
+          await this.getRegency(val.provinceCode)
+          this.data.regencyCode = val.regencyCode
+
+          if (val.regencyCode) {
+            await this.getDistrict(val.regencyCode)
+            this.data.districtCode = val.districtCode
+
+            if (val.districtCode) {
+              await this.getVillage(val.districtCode)
+              this.data.villageCode = val.villageCode
+            }
+          }
+        }
+
+        this.data.address = val.address
+
+        this.additionalInfoList = Object.entries(val.additionalInfo).map(
+          ([key, value]) => ({ key, value })
+        )
+
+        this.contactsList = val.contacts.map((c) => ({
+          typeId: c.typeId,
+          value: c.value,
+          label: c.label,
+        }))
+
+        this.segmentsList = val.segments.map((s) => s.id)
+      }
+    },
+    'data.provinceCode'(val) {
+      this.data.regencyCode = null // reset regency when province changes
+      if (val) {
+        this.getRegency(val)
+      }
+    },
+    'data.regencyCode'(val) {
+      this.data.districtCode = null // reset district when regency changes
+      if (val) {
+        this.getDistrict(val)
+      }
+    },
+    'data.districtCode'(val) {
+      this.data.villageCode = null // reset village when district changes
+      if (val) {
+        this.getVillage(val)
+      }
+    },
+    'data.dateOfBirth'(val) {
+      if (val) {
+        const year = parseInt(val.split('-')[0])
+        if (this.data.yearOfBirth !== year) {
+          this.data.yearOfBirth = year
+        }
+      }
+    },
+    'data.yearOfBirth'(val) {
+      if (val && this.data.dateOfBirth) {
+        const parts = this.data.dateOfBirth.split('-')
+        const year = parseInt(parts[0])
+        if (year !== val) {
+          this.data.dateOfBirth = `${val}-${parts[1]}-${parts[2]}`
+        }
+      }
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+:root {
+  --vs-line-height: 1.75;
+}
+:deep() {
+  --vs-line-height: 1.75;
+}
+.container {
+  padding: 20px;
+  .header-content {
+    margin-bottom: 20px;
+  }
+  .card-content {
+    width: 720px;
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    padding: 15px 0px 0px 0px;
+    .header-card {
+      padding-left: 20px;
+      padding-right: 20px;
+      .title {
+        font-family: 'Cabin';
+        font-weight: 600;
+        font-size: 20px;
+        color: #333333;
+        margin-right: 10px;
+      }
+    }
+    .body-card {
+      padding-left: 20px;
+      padding-right: 20px;
+      margin-top: 30px;
+      .title-form {
+        font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 16px;
+        color: #454545;
+      }
+      .to-text {
+        font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 16px;
+        color: #454545;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    }
+    .footer-card {
+      border-top: 1px solid #e2e2e2;
+      padding: 20px;
+    }
+  }
+}
+</style>
