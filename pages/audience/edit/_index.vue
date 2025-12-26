@@ -172,7 +172,7 @@
           <div class="mb-4">
             <label class="title-form block mb-2">Contact Info</label>
             <div
-              v-for="(contact, index) in data.contacts"
+              v-for="(contact, index) in contactsList"
               :key="'contact-' + index"
               class="flex items-start mb-2"
               style="gap: 10px"
@@ -379,6 +379,7 @@ export default {
         additionalInfo: null,
         segmentIds: [],
       },
+      contactsList: [],
       additionalInfoList: [],
       segmentsList: [],
     }
@@ -448,10 +449,10 @@ export default {
     },
 
     addContact() {
-      this.data.contacts.push({ typeId: null, value: '', label: '' })
+      this.contactsList.push({ typeId: null, value: '', label: '' })
     },
     removeContact(index) {
-      this.data.contacts.splice(index, 1)
+      this.contactsList.splice(index, 1)
     },
     addAdditionalInfo() {
       this.additionalInfoList.push({ key: '', value: '' })
@@ -469,6 +470,12 @@ export default {
         }
       })
       this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
+
+      this.data.segmentIds = this.segmentsList.filter((s) => s !== null)
+
+      this.data.contacts = this.contactsList.filter(
+        (c) => c.typeId !== null && c.value !== ''
+      )
 
       this.$notifier.showMessage({
         content: 'Updating audience...',
@@ -595,11 +602,16 @@ export default {
         }
 
         this.data.address = val.address
-        this.data.contacts = val.contacts
-        this.data.additionalInfo = val.additionalInfo
+
         this.additionalInfoList = Object.entries(val.additionalInfo).map(
           ([key, value]) => ({ key, value })
         )
+
+        this.contactsList = val.contacts.map((c) => ({
+          typeId: c.typeId,
+          value: c.value,
+          label: c.label,
+        }))
 
         this.segmentsList = val.segments.map((s) => s.id)
       }
