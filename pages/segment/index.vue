@@ -104,10 +104,17 @@
               </div>
               <NuxtLink
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
-                :to="`/segment/import/${item.id}`"
+                :to="`/segment/import-sheet/${item.uuid}`"
               >
-                <i class="ti ti-file-import text-green-500"></i>
-                <span class="ml-3">Import</span>
+                <i class="ti ti-table text-green-500"></i>
+                <span class="ml-3">Import XLS</span>
+              </NuxtLink>
+              <NuxtLink
+                class="item-menu flex items-center no-select text-gray-500 text-sm"
+                :to="`/segment/import-json/${item.uuid}`"
+              >
+                <i class="ti ti-brackets-contain text-blue-500"></i>
+                <span class="ml-3">Import JSON</span>
               </NuxtLink>
               <NuxtLink
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
@@ -120,7 +127,6 @@
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
                 style="
                   border-bottom: 1px solid #e2e2e2;
-                  border-top: 1px solid #e2e2e2;
                   border-end-end-radius: 5px;
                   border-end-start-radius: 5px;
                 "

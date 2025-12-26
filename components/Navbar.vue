@@ -130,6 +130,10 @@ export default {
           label = label.replace(/api/gi, 'API')
         }
 
+        if (label.toLowerCase().includes('json')) {
+          label = label.replace(/json/gi, 'JSON')
+        }
+
         return { label }
       })
     },
