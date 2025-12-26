@@ -463,8 +463,18 @@
         :value="currentPage"
         :total-page="totalPages"
         :total="totalPlacement"
-        @input="changePage($event)"
-        @rowPage="changeRowPage($event)"
+        @input="
+          (page) => {
+            $store.commit('user/SET_DROPDOWN', null)
+            changePage(page)
+          }
+        "
+        @rowPage="
+          (size) => {
+            $store.commit('user/SET_DROPDOWN', null)
+            changeRowPage(size)
+          }
+        "
       />
     </div>
 

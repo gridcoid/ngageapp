@@ -216,7 +216,7 @@
                   @click="deleteAudience(scope.row)"
                 >
                   <i class="pi pi-trash text-red-500"></i>
-                  <span class="ml-3">Delete</span>
+                  <span class="ml-3">Remove</span>
                 </div>
               </template>
             </Dropdown>
@@ -230,8 +230,18 @@
         :value="currentPage"
         :total-page="totalPages"
         :total="totalList"
-        @input="changePage($event)"
-        @rowPage="changeRowPage($event)"
+        @input="
+          (page) => {
+            $store.commit('user/SET_DROPDOWN', null)
+            changePage(page)
+          }
+        "
+        @rowPage="
+          (size) => {
+            $store.commit('user/SET_DROPDOWN', null)
+            changeRowPage(size)
+          }
+        "
       />
     </div>
 

@@ -96,32 +96,28 @@
             @preview="viewDetail(item)"
           >
             <template slot="body">
-              <!--div
-                class="item-menu flex items-center no-select"
-                @click="openDuplicateDialog(item)"
+              <div
+                class="item-menu flex items-center no-select text-gray-500 text-sm"
               >
-                <img
-                  src="~/assets/images/icon/duplicate.svg"
-                  class="icon-item"
-                />
-                Duplicate
-              </div-->
+                <i class="pi pi-copy text-purple-500"></i>
+                <span class="ml-3">Duplicate</span>
+              </div>
               <NuxtLink
-                class="item-menu flex items-center no-select"
+                class="item-menu flex items-center no-select text-gray-500 text-sm"
                 :to="`/segment/import/${item.id}`"
               >
                 <i class="pi pi-file-import text-green-500"></i>
                 <span class="ml-3">Import</span>
               </NuxtLink>
               <NuxtLink
-                class="item-menu flex items-center no-select"
+                class="item-menu flex items-center no-select text-gray-500 text-sm"
                 :to="`/segment/edit/${item.uuid}`"
               >
                 <i class="pi pi-pencil text-yellow-500"></i>
                 <span class="ml-3">Edit</span>
               </NuxtLink>
               <div
-                class="item-menu flex items-center no-select"
+                class="item-menu flex items-center no-select text-gray-500 text-sm"
                 style="
                   border-bottom: 1px solid #e2e2e2;
                   border-end-end-radius: 5px;
@@ -142,8 +138,18 @@
         :value="currentPage"
         :total-page="totalPages"
         :total="totalList"
-        @input="changePage($event)"
-        @rowPage="changeRowPage($event)"
+        @input="
+          (page) => {
+            $store.commit('user/SET_DROPDOWN', null)
+            changePage(page)
+          }
+        "
+        @rowPage="
+          (size) => {
+            $store.commit('user/SET_DROPDOWN', null)
+            changeRowPage(size)
+          }
+        "
       />
     </div>
     <div v-else class="flex flex-col items-center mt-24 no-data">
