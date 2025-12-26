@@ -475,71 +475,6 @@
       />
     </div>
 
-    <Popup
-      v-if="popup"
-      class="kg-popup"
-      width="30"
-      :border-header="false"
-      @close-modal="closeDialog()"
-    >
-      <template v-slot:body>
-        <div class="content-popup flex flex-col">
-          <div
-            class="flex items-center justify-between"
-            style="margin-bottom: 14px"
-          >
-            <div class="title-popup2">Delete Creative?</div>
-            <img
-              src="~/assets/images/icon/delete_color.svg"
-              class="icon-item"
-            />
-          </div>
-          <div class="title-popup">
-            Are you sure want to
-            <span style="font-weight: bold">delete this creative</span>?
-          </div>
-          <div class="box-popup flex justify-between items-center">
-            <div class="flex flex-col">
-              <div
-                class="name-popup"
-                style="
-                  max-width: 200px;
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                "
-              >
-                {{ dataDelete.name }}
-              </div>
-              <div class="desc-popup">
-                {{ dataDelete.template }}
-              </div>
-            </div>
-            <div class="flex flex-col">
-              <div class="date-popup">Last modified</div>
-              <div class="date-popup">
-                {{ $moment(dataDelete.date).format('MMM Do, YYYY hh:mm') }}
-              </div>
-            </div>
-          </div>
-          <div class="footer-card grid grid-cols-2 gap-4 place-content-stretch">
-            <button
-              class="flex items-center justify-center cancel-btn no-select"
-              @click="closeDialog()"
-            >
-              <span class="name-btn no-select">Cancel</span>
-            </button>
-            <button
-              class="flex items-center justify-center save-btn no-select"
-              @click="destroyCreative()"
-            >
-              <IconCompleted bg-color="white" class="mr-2 pl-1" />
-              <span class="name-btn no-select">Confirm</span>
-            </button>
-          </div>
-        </div>
-      </template>
-    </Popup>
     <CreativeSendSh v-show="sendStudioHub" :datash="dataSH" />
   </div>
 </template>
@@ -558,7 +493,6 @@ export default {
     return {
       tableVisible: true,
       url: '',
-      popup: false,
       isLoading: false,
       currentPage: 1,
       per_page: 10,
@@ -566,12 +500,6 @@ export default {
       showSearch: false,
       activeStatus: 'all',
       lastPage: false,
-      dataDelete: {
-        id: '',
-        name: '',
-        template: '',
-        date: '',
-      },
       showBtn: true,
       closeDropdown: false,
       defaultForm: [
@@ -751,10 +679,6 @@ export default {
         this.handleRole = true
       }
     },
-    closeDialog() {
-      document.querySelector('body').style.overflow = ''
-      this.popup = false
-    },
     changePage(ev) {
       if (ev > 0) {
         this.currentPage = ev
@@ -843,62 +767,45 @@ export default {
         })
         .catch(() => {})
     },
-    deleteCreative(idCreative) {
-      document.querySelector('body').style.overflow = 'hidden'
-      this.dataDelete.id = idCreative.id
-      this.dataDelete.name = idCreative.name
-      this.dataDelete.template = idCreative.template.name
-      this.dataDelete.date = idCreative.updatedAt
-      this.popup = true
-      this.$store.commit('user/SET_DROPDOWN', null)
-    },
-    destroyCreative() {
-      // this.isLoading = true
-      const data = {
-        id: this.dataDelete.id,
-      }
-      if (this.totalCreative > 10) {
-        if (String(this.totalCreative).slice(-1) === '1') {
-          this.lastPage = true
-        } else {
-          this.lastPage = false
-        }
-      } else {
-        this.lastPage = false
-      }
-      this.$notifier.showMessage({
-        content: 'Delete creative...',
-        type: 'loading',
+    deleteCreative(data) {
+      this.$confirm(`Delete "${data.name}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
       })
-      const sto = setTimeout(
-        () =>
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Delete creative...',
+            type: 'loading',
+          })
+
           this.$store
-            .dispatch('creative/deleteCreative', data)
+            .dispatch('creative/deleteCreative', {
+              id: data.id,
+            })
             .then((res) => {
-              this.getData()
-              this.popup = false
-              this.$notifier.showMessage({
-                content: 'Creative deleted.',
-                type: 'success',
-              })
-              this.closeDropdown = false
-              clearInterval(sto)
-              document.querySelector('body').style.overflow = ''
+              if (res.data.status.code === 200) {
+                this.getAll()
+
+                this.$notifier.showMessage({
+                  content: 'Delete creative status success.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Delete creative status failed. Error : ' +
+                    res.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
             })
-            .catch((error) => {
-              this.$notifier.showMessage({
-                content: 'Creative delete failed. Please try again! ' + error,
-                type: 'failed',
-              })
-              this.closeDropdown = false
-              clearInterval(sto)
-              document.querySelector('body').style.overflow = ''
-            })
-            .finally(() => {
-              this.isLoading = false
-            }),
-        1000
-      )
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
     statusActive(x) {
       this.activeStatus = x
@@ -1285,80 +1192,6 @@ export default {
           font-weight: 400;
           font-size: 12px;
           color: #333333;
-        }
-      }
-    }
-  }
-  .kg-popup {
-    .content-popup {
-      padding-top: 20px;
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-bottom: 20px;
-      width: 100%;
-      height: 100%;
-      .title-popup2 {
-        font-family: 'Cabin';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 20px;
-        color: #5c6b7a;
-      }
-      .title-popup {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 16px;
-        color: #454545;
-      }
-      .box-popup {
-        background: #ffffff;
-        border: 1px solid #e2e2e2;
-        border-radius: 5px;
-        padding: 11px 10px 11px 10px;
-        margin-top: 10px;
-        .name-popup {
-          font-family: 'Cabin';
-          font-weight: 500;
-          font-size: 16px;
-          color: #454545;
-        }
-        .desc-popup {
-          font-family: 'Cabin';
-          font-weight: 400;
-          font-size: 14px;
-          color: #757575;
-        }
-        .date-popup {
-          font-family: 'Cabin';
-          font-weight: 400;
-          font-size: 14px;
-          text-align: right;
-          color: #757575;
-        }
-      }
-      .footer-card {
-        margin-top: 15px;
-        .cancel-btn {
-          font-family: 'Cabin';
-          border: 1px solid #ed543a;
-          color: #ed543a;
-          font-weight: 700;
-          font-size: 14px;
-          border-radius: 5px;
-          height: 40px;
-        }
-        .cancel-btn:hover {
-          background-color: rgb(243 244 246);
-        }
-        .save-btn {
-          background: #ed543a;
-          border: 1px solid #ed543a;
-          color: #ffffff;
-          border-radius: 5px;
-          height: 40px;
-        }
-        .save-btn:hover {
-          opacity: 1.2;
         }
       }
     }
