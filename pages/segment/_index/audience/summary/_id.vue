@@ -1,7 +1,10 @@
 <template>
   <div class="p-6">
     <div class="mb-6">
-      <ButtonBackPage text="Back to Segment" @click.native="back()" />
+      <ButtonBackPage
+        :text="`Back to segment ${dataSegment.name}`"
+        @click.native="back()"
+      />
     </div>
 
     <div class="bg-white rounded-lg shadow-sm border border-gray-200">
@@ -124,8 +127,8 @@
                       <!-- 👇 justify-between -->
                       <div class="flex items-center justify-between w-full">
                         <NuxtLink
-                          :to="`/segment/audience/${segment.id}`"
-                          class="text-gray-900 font-medium break-all block"
+                          :to="`/segment/${segment.uuid}/audience`"
+                          class="text-blue-500 hover:text-blue-700 font-medium break-all block"
                         >
                           {{ segment.name }}
                         </NuxtLink>
@@ -172,6 +175,7 @@ export default {
       // Form model sesuai tabel
       data: {
         id: null,
+        uuid: null,
         orgId: null,
         name: '',
         dateOfBirth: null,
@@ -191,6 +195,8 @@ export default {
   },
   computed: {
     ...mapState({
+      dataSegment: (state) => state.segment.dataDetail,
+
       dataDetail: (state) => state.audience.dataDetail,
 
       dataProvinces: (state) => state.province.dataList,
@@ -205,6 +211,7 @@ export default {
     }),
   },
   async mounted() {
+    this.getSegment()
     await this.getProvince()
     this.getGender()
     this.getReligion()
@@ -212,6 +219,18 @@ export default {
     this.getDetail()
   },
   methods: {
+    getSegment() {
+      const data = {
+        segmentUuid: this.$route.params.index,
+      }
+
+      this.isLoading = true
+
+      this.$store
+        .dispatch('segment/detail', data)
+        .finally(() => (this.isLoading = false))
+    },
+
     getDetail() {
       const data = {
         audienceId: this.$route.params.id,
@@ -286,37 +305,42 @@ export default {
       })
     },
 
-    // Helper methods for display
     getGenderName(id) {
       if (!id) return '-'
       const item = this.dataGenders.find((x) => x.id === id)
       return item ? item.name : '-'
     },
+
     getReligionName(id) {
       if (!id) return '-'
       const item = this.dataReligions.find((x) => x.id === id)
       return item ? item.name : '-'
     },
+
     getProvinceName(code) {
       if (!code) return '-'
       const item = this.dataProvinces.find((x) => x.code === code)
       return item ? item.name : '-'
     },
+
     getRegencyName(code) {
       if (!code) return '-'
       const item = this.dataRegencies.find((x) => x.code === code)
       return item ? item.name : '-'
     },
+
     getDistrictName(code) {
       if (!code) return '-'
       const item = this.dataDistricts.find((x) => x.code === code)
       return item ? item.name : '-'
     },
+
     getVillageName(code) {
       if (!code) return '-'
       const item = this.dataVillages.find((x) => x.code === code)
       return item ? item.name : '-'
     },
+
     getContactTypeName(id) {
       if (!id) return '-'
       const item = this.dataContactTypes.find((x) => x.id === id)
@@ -331,6 +355,7 @@ export default {
     async dataDetail(val) {
       if (val) {
         this.data.id = val.id
+        this.data.uuid = val.uuid
         this.data.orgId = val.orgId
         this.data.name = val.name
         this.data.dateOfBirth = val.dateOfBirth
