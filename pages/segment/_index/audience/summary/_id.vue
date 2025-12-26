@@ -107,7 +107,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-folder mr-2 text-yellow-500"></i> Segments
+                <i class="pi pi-folder mr-2 text-yellow-500"></i> Other Segments
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div
@@ -387,7 +387,9 @@ export default {
           ([key, value]) => ({ key, value })
         )
 
-        this.data.segments = val.segments
+        this.data.segments = val.segments.filter(
+          (x) => x.uuid !== this.$route.params.index
+        )
       }
     },
   },
