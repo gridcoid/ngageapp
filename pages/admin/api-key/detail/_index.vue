@@ -26,7 +26,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-key mr-2 text-blue-500"></i> API Key Information
+                <i class="ti ti-key mr-2 text-blue-500"></i> API Key Information
               </h2>
               <div class="bg-gray-50 rounded-lg p-5 space-y-4">
                 <div>
@@ -74,7 +74,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-building mr-2 text-green-500"></i> Scopes
+                <i class="ti ti-building mr-2 text-green-500"></i> Scopes
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div v-if="data.scopes && data.scopes.length" class="space-y-3">
@@ -84,7 +84,7 @@
                     class="flex items-start p-3 bg-white rounded border border-gray-100 shadow-sm"
                   >
                     <div class="flex-shrink-0 mt-1">
-                      <i class="pi pi-users text-gray-400"></i>
+                      <i class="ti ti-users text-gray-400"></i>
                     </div>
                     <div class="ml-3">
                       <div class="text-xs font-semibold uppercase flex gap-2">
@@ -133,7 +133,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-code mr-2 text-green-500"></i> How to Use
+                <i class="ti ti-code mr-2 text-green-500"></i> How to Use
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div class="space-y-3">

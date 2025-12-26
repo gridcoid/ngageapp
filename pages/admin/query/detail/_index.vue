@@ -26,7 +26,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-database mr-2 text-blue-500"></i>
+                <i class="ti ti-database mr-2 text-blue-500"></i>
                 Query Information
               </h2>
 
@@ -81,7 +81,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-sliders-h mr-2 text-green-500"></i>
+                <i class="ti ti-sliders-h mr-2 text-green-500"></i>
                 Metrics
               </h2>
 
@@ -99,7 +99,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-objects-column mr-2 text-purple-500"></i>
+                <i class="ti ti-objects-column mr-2 text-purple-500"></i>
                 Group By
               </h2>
 
@@ -114,7 +114,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="pi pi-filter mr-2 text-red-500"></i>
+                <i class="ti ti-filter mr-2 text-red-500"></i>
                 Filters
               </h2>
 

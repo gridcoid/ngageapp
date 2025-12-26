@@ -343,166 +343,115 @@
 
         <el-table-column label="" width="200">
           <template slot-scope="scope">
-            <el-dropdown
-              trigger="click"
-              split-button
-              @click="detailCreative(scope.row.id)"
+            <Dropdown
+              :index-list="scope.$index"
+              name-btn="View"
+              icons="preview"
+              color-text="#1B63D4"
+              class="mr-6"
+              @preview="detailCreative(scope.row.id)"
             >
-              <span class="flex title-dropdown">
-                <img src="~/assets/images/icon/preview.svg" class="mr-2" />
-                View
-              </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>
-                  <div
-                    v-if="scope.row.template.format === 'custom_upload'"
-                    class="dropdown-action flex items-center no-select"
-                    style="
-                      background: #f1f1f1;
-                      cursor: not-allowed;
-                      color: #9a9a9a;
-                    "
-                  >
-                    <img
-                      src="~/assets/images/icon/edit.svg"
-                      class="icon-item"
-                    />
-                    Edit
-                  </div>
-                  <div
-                    v-else
-                    class="dropdown-action flex items-center no-select"
-                    @click="editCreative(scope.row.id)"
-                  >
-                    <img
-                      src="~/assets/images/icon/edit.svg"
-                      class="icon-item"
-                    />
-                    Edit
-                  </div>
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <div
-                    class="dropdown-action flex items-center no-select"
-                    @click="duplicateCreative(scope.row.id)"
-                  >
-                    <img
-                      src="~/assets/images/icon/duplicate.svg"
-                      class="icon-item"
-                    />
-                    Duplicate
-                  </div>
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <div
-                    v-if="
-                      scope.row.template.format === 'video' &&
+              <template slot="body">
+                <!-- Edit -->
+                <div
+                  v-if="scope.row.template.format === 'custom_upload'"
+                  class="item-menu flex items-center no-select"
+                >
+                  <i class="ti ti-pencil" />
+                  <span class="ml-3">Edit</span>
+                </div>
+                <div
+                  v-else
+                  class="item-menu flex items-center no-select"
+                  @click="editCreative(scope.row.id)"
+                >
+                  <i class="ti ti-pencil" />
+                  <span class="ml-3">Edit</span>
+                </div>
+
+                <!-- Duplicate -->
+                <div
+                  class="item-menu flex items-center no-select"
+                  @click="duplicateCreative(scope.row.id)"
+                >
+                  <i class="ti ti-copy" />
+                  <span class="ml-3">Duplicate</span>
+                </div>
+
+                <!-- Generate -->
+                <div
+                  v-if="
+                    (scope.row.template.format === 'video' &&
                       scope.row.videoId === null &&
-                      scope.row.videoUrl === null
-                    "
-                    class="dropdown-action flex items-center no-select"
-                    @click="generateCreative(scope.row)"
-                  >
-                    <img
-                      src="~/assets/images/icon/download.svg"
-                      class="icon-item"
-                    />
-                    Generate
-                  </div>
-                  <div
-                    v-if="
-                      (scope.row.template.format === 'rmb' ||
-                        scope.row.template.format === 'custom_upload') &&
-                      scope.row.staticZipUrl === null
-                    "
-                    class="dropdown-action flex items-center no-select"
-                    @click="generateCreative(scope.row)"
-                  >
-                    <img
-                      src="~/assets/images/icon/download.svg"
-                      class="icon-item"
-                    />
-                    Generate
-                  </div>
-                  <div
-                    v-if="
-                      scope.row.template.format === 'video' &&
+                      scope.row.videoUrl === null) ||
+                    ((scope.row.template.format === 'rmb' ||
+                      scope.row.template.format === 'custom_upload') &&
+                      scope.row.staticZipUrl === null)
+                  "
+                  class="item-menu flex items-center no-select"
+                  @click="generateCreative(scope.row)"
+                >
+                  <i class="ti ti-download" />
+                  <span class="ml-3">Generate</span>
+                </div>
+
+                <!-- In Progress -->
+                <div
+                  v-if="
+                    scope.row.template.format === 'video' &&
+                    scope.row.videoId !== null &&
+                    scope.row.videoUrl === null
+                  "
+                  class="item-menu flex items-center no-select"
+                >
+                  <i class="ti ti-loader text-base animate-spin" />
+                  <span class="ml-3">In Progress</span>
+                </div>
+
+                <!-- Download -->
+                <div
+                  v-if="
+                    (scope.row.template.format === 'video' &&
                       scope.row.videoId !== null &&
-                      scope.row.videoUrl === null
-                    "
-                    class="dropdown-action flex items-center no-select"
-                  >
-                    <i
-                      class="el-icon-loading icon-item"
-                      style="font-size: 17px"
-                    />
-                    In Progress
-                  </div>
-                  <div
-                    v-if="
-                      scope.row.template.format === 'video' &&
-                      scope.row.videoId !== null &&
-                      scope.row.videoUrl !== null
-                    "
-                    class="dropdown-action flex items-center no-select"
-                    @click="
-                      downloadCreative(scope.row.id, scope.row.name, scope.row)
-                    "
-                  >
-                    <img
-                      src="~/assets/images/icon/download.svg"
-                      class="icon-item"
-                    />
-                    Download
-                  </div>
-                  <div
-                    v-if="
-                      (scope.row.template.format === 'rmb' ||
-                        scope.row.template.format === 'custom_upload') &&
-                      scope.row.staticZipUrl !== null
-                    "
-                    class="dropdown-action flex items-center no-select"
-                    @click="
-                      downloadCreative(scope.row.id, scope.row.name, scope.row)
-                    "
-                  >
-                    <img
-                      src="~/assets/images/icon/download.svg"
-                      class="icon-item"
-                    />
-                    Download
-                  </div>
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <div
-                    v-if="
-                      scope.row.template.format === 'video' &&
-                      scope.row.videoId !== null &&
-                      scope.row.videoUrl !== null &&
-                      scope.row.studioHub === null
-                    "
-                    class="dropdown-action flex items-center no-select"
-                    @click="sendToStudioHub(scope.row.id, scope.row.name)"
-                  >
-                    <IconSend class="icon-item" />
-                    Send to SH
-                  </div>
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <div
-                    class="dropdown-action flex items-center no-select"
-                    style="color: #ed543a"
-                    @click="deleteCreative(scope.row)"
-                  >
-                    <img
-                      src="~/assets/images/icon/delete.svg"
-                      class="icon-item"
-                    />
-                    Delete
-                  </div>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+                      scope.row.videoUrl !== null) ||
+                    ((scope.row.template.format === 'rmb' ||
+                      scope.row.template.format === 'custom_upload') &&
+                      scope.row.staticZipUrl !== null)
+                  "
+                  class="item-menu flex items-center no-select"
+                  @click="
+                    downloadCreative(scope.row.id, scope.row.name, scope.row)
+                  "
+                >
+                  <i class="ti ti-download" />
+                  <span class="ml-3">Download</span>
+                </div>
+
+                <!-- Send to Studio Hub -->
+                <div
+                  v-if="
+                    scope.row.template.format === 'video' &&
+                    scope.row.videoId !== null &&
+                    scope.row.videoUrl !== null &&
+                    scope.row.studioHub === null
+                  "
+                  class="item-menu flex items-center no-select"
+                  @click="sendToStudioHub(scope.row.id, scope.row.name)"
+                >
+                  <i class="ti ti-send" />
+                  <span class="ml-3">Send to SH</span>
+                </div>
+
+                <!-- Delete -->
+                <div
+                  class="item-menu flex items-center no-select text-red-500 border-t border-gray-300 rounded-b-md"
+                  @click="deleteCreative(scope.row)"
+                >
+                  <i class="ti ti-trash" />
+                  <span class="ml-3">Delete</span>
+                </div>
+              </template>
+            </Dropdown>
           </template>
         </el-table-column>
       </el-table>

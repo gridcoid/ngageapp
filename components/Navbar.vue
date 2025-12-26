@@ -3,7 +3,9 @@
     <nav class="flex nav-menu items-center justify-between" style="width: 100%">
       <el-breadcrumb separator="/">
         <!-- Home -->
-        <el-breadcrumb-item :to="{ path: '/' }"> Home </el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/' }">
+          <i class="ti ti-home text-gray-500" />
+        </el-breadcrumb-item>
 
         <!-- Dynamic segments -->
         <el-breadcrumb-item v-for="(item, idx) in items" :key="idx">
@@ -92,7 +94,7 @@ export default {
       iconSetting: false,
       changePassword: false,
       visible: false,
-      home: { icon: 'pi pi-home', to: '/' },
+      home: { icon: 'ti ti-home', to: '/' },
     }
   },
   computed: {

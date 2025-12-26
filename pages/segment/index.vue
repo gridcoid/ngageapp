@@ -99,21 +99,21 @@
               <div
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
               >
-                <i class="pi pi-copy text-purple-500"></i>
+                <i class="ti ti-copy text-purple-500"></i>
                 <span class="ml-3">Duplicate</span>
               </div>
               <NuxtLink
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
                 :to="`/segment/import/${item.id}`"
               >
-                <i class="pi pi-file-import text-green-500"></i>
+                <i class="ti ti-file-import text-green-500"></i>
                 <span class="ml-3">Import</span>
               </NuxtLink>
               <NuxtLink
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
                 :to="`/segment/edit/${item.uuid}`"
               >
-                <i class="pi pi-pencil text-yellow-500"></i>
+                <i class="ti ti-pencil text-yellow-500"></i>
                 <span class="ml-3">Edit</span>
               </NuxtLink>
               <div
@@ -125,7 +125,7 @@
                 "
                 @click="deleteSegment(item)"
               >
-                <i class="pi pi-trash text-red-500"></i>
+                <i class="ti ti-trash text-red-500"></i>
                 <span class="ml-3">Delete</span>
               </div>
             </template>

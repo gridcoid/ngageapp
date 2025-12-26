@@ -1956,6 +1956,18 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
+"@tabler/icons-webfont@2":
+  version "2.47.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-webfont/-/icons-webfont-2.47.0.tgz#4b4303170d1ed616140044848d6ef99cc993abf9"
+  integrity sha512-yfV9zDal0iYDmyGz4BS9IlhaaMydtLdyOrY2UAZToP65sVWj7AFIi6symNzsoBaX867xAZWVHdKcocah0BfSog==
+  dependencies:
+    "@tabler/icons" "2.47.0"
+
+"@tabler/icons@2.47.0":
+  version "2.47.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-2.47.0.tgz#c41c680d1947e3ab2d60af3febc4132287c60596"
+  integrity sha512-4w5evLh+7FUUiA1GucvGj2ReX2TvOjEr4ejXdwL/bsjoSkof6r1gQmzqI+VHrE2CpJpB3al7bCTulOkFa/RcyA==
+
 "@testim/chrome-version@^1.1.3":
   version "1.1.3"
   resolved "https://registry.npmjs.org/@testim/chrome-version/-/chrome-version-1.1.3.tgz"
@@ -10526,16 +10538,6 @@ pretty-time@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/pretty-time/-/pretty-time-1.1.0.tgz"
   integrity sha512-28iF6xPQrP8Oa6uxE6a1biz+lWeTOAPKggvjB8HAs6nVMKZwf5bG++632Dx614hIWgUPkgivRfG+a8uAXGTIbA==
-
-primeicons@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-7.0.0.tgz#6b25c3fdcb29bb745a3035bdc1ed5902f4a419cf"
-  integrity sha512-jK3Et9UzwzTsd6tzl2RmwrVY/b8raJ3QZLzoDACj+oTJ0oX7L9Hy+XnVwgo4QVKlKpnP/Ur13SXV/pVh4LzaDw==
-
-primevue@2.10.4:
-  version "2.10.4"
-  resolved "https://registry.yarnpkg.com/primevue/-/primevue-2.10.4.tgz#f803404ef1580f5b229bd126a46b754f52776e14"
-  integrity sha512-lJWtocP4l6C6K8VzMo58xPhyWERtWWhd+OTCoXHuQDKLI9o+YZKbLqAw42EdyGcA05eXLSvXXz1ESEMnIxBB7A==
 
 prismjs@^1.23.0:
   version "1.28.0"

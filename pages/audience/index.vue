@@ -191,7 +191,7 @@
                   class="item-menu flex items-center no-select"
                   :to="`/audience/edit/${scope.row.id}`"
                 >
-                  <i class="pi pi-pencil text-yellow-500"></i>
+                  <i class="ti ti-pencil text-yellow-500"></i>
                   <span class="ml-3">Edit</span>
                 </NuxtLink>
 
@@ -200,7 +200,7 @@
                   class="item-menu flex items-center no-select border-b border-gray-300 rounded-b-md"
                   @click="deleteAudience(scope.row)"
                 >
-                  <i class="pi pi-trash text-red-500"></i>
+                  <i class="ti ti-trash text-red-500"></i>
                   <span class="ml-3">Delete</span>
                 </div>
               </template>

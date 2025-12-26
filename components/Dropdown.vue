@@ -9,27 +9,31 @@
       "
     >
       <div class="flex card-dropdown items-center" @click="$emit('preview')">
-        <img
+        <i
           v-if="icons === 'preview'"
-          src="~/assets/images/icon/preview.svg"
-          class="icon-prev"
+          class="ti ti-eye mr-3"
+          style="color: #1b63d4"
         />
-        <img
+        <i
           v-if="icons === 'refresh'"
-          src="~/assets/images/icon/refresh.svg"
-          class="icon-prev"
+          class="ti ti-refresh mr-3"
+          style="color: #1b63d4"
         />
-        <IconPlayV2
+        <i
           v-if="icons === 'play'"
-          bg-color="#1B63D4"
-          class="icon-prev"
+          class="ti ti-player-play mr-3"
+          style="color: #1b63d4"
         />
-        <IconPauseV2
+        <i
           v-if="icons === 'pause'"
-          bg-color="#1B63D4"
-          class="icon-prev"
+          class="ti ti-player-pause mr-3"
+          style="color: #1b63d4"
         />
-        <IconStop v-if="icons === 'stop'" class="icon-prev" />
+        <i
+          v-if="icons === 'stop'"
+          class="ti ti-player-stop mr-3"
+          style="color: #1b63d4"
+        />
 
         <div class="title-dropdown" :style="'color: ' + colorText">
           {{ nameBtn }}
