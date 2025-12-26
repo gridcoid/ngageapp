@@ -163,8 +163,7 @@
                   }}
                 </template>
               </el-table-column>
-              <el-table-column prop="name">
-                <template slot="header"> Action </template>
+              <el-table-column prop="name" width="200">
                 <template slot-scope="scope">
                   <el-dropdown
                     trigger="click"
@@ -185,8 +184,8 @@
                           class="dropdown-action flex items-center no-select"
                           @click="btnChangePassword(scope.row.id)"
                         >
-                          <IconPassword bg-color="#1B63D4" />
-                          &nbsp; Change Password
+                          <i class="ti ti-key text-green-500"></i>
+                          <span class="ml-3">Change Password</span>
                         </div>
                       </el-dropdown-item>
                       <el-dropdown-item>
@@ -196,22 +195,19 @@
                             toVerification(scope.row.id, scope.row.isVerified)
                           "
                         >
-                          <iconLock />
-                          &nbsp;
-                          {{ scope.row.isVerified ? 'Disable' : 'Enable' }}
+                          <i class="ti ti-lock text-purple-500"></i>
+                          <span class="ml-3">{{
+                            scope.row.isVerified ? 'Disable' : 'Enable'
+                          }}</span>
                         </div>
                       </el-dropdown-item>
                       <el-dropdown-item>
                         <div
                           class="dropdown-action flex items-center no-select"
-                          style="color: #ed543a"
                           @click="deleteUser(scope.row)"
                         >
-                          <img
-                            src="~/assets/images/icon/delete.svg"
-                            class="icon-item"
-                          />
-                          Delete
+                          <i class="ti ti-trash text-red-500"></i>
+                          <span class="ml-3">Delete</span>
                         </div>
                       </el-dropdown-item>
                     </el-dropdown-menu>
@@ -238,71 +234,6 @@
       </div>
     </div>
 
-    <Popup
-      v-if="popup"
-      class="kg-popup"
-      width="30"
-      :border-header="false"
-      @close-modal="closeDialog()"
-    >
-      <template v-slot:body>
-        <div class="content-popup flex flex-col">
-          <div
-            class="flex items-center justify-between"
-            style="margin-bottom: 14px"
-          >
-            <div class="title-popup2">Delete User?</div>
-            <img
-              src="~/assets/images/icon/delete_color.svg"
-              class="icon-item"
-            />
-          </div>
-          <div class="title-popup">
-            Are you sure want to
-            <span style="font-weight: bold">delete this user</span>?
-          </div>
-          <div class="box-popup flex justify-between items-center">
-            <div class="flex flex-col">
-              <div
-                class="name-popup"
-                style="
-                  max-width: 200px;
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                "
-              >
-                {{ dataDelete.name }}
-              </div>
-              <div class="desc-popup">
-                {{ dataDelete.email }}
-              </div>
-            </div>
-            <div class="flex flex-col">
-              <div class="date-popup">Last modified</div>
-              <div class="date-popup">
-                {{ $moment(dataDelete.date).format('MMM Do, YYYY hh:mm') }}
-              </div>
-            </div>
-          </div>
-          <div class="footer-card grid grid-cols-2 gap-4 place-content-stretch">
-            <button
-              class="flex items-center justify-center cancel-btn no-select"
-              @click="closeDialog()"
-            >
-              <span class="name-btn no-select">Cancel</span>
-            </button>
-            <button
-              class="flex items-center justify-center save-btn no-select"
-              @click="destroyUser()"
-            >
-              <IconCompleted bg-color="white" class="mr-2 pl-1" />
-              <span class="name-btn no-select">Confirm</span>
-            </button>
-          </div>
-        </div>
-      </template>
-    </Popup>
     <UserCreate v-show="createUser" :iduser="selectedUserId" />
     <UserCreateOrganization v-show="createOrganization" />
     <UserChangePassword v-show="userChangePassword" :userid="userIdPassword" />
@@ -322,13 +253,6 @@ export default {
       dataCampaign: [],
       isLoading: false,
       showSearch: false,
-      dataDelete: {
-        id: '',
-        date: '',
-        email: '',
-        name: '',
-      },
-      popup: false,
       currentPage: 1,
       per_page: 10,
       dataSearch: '',
@@ -482,65 +406,45 @@ export default {
         1000
       )
     },
-    closeDialog() {
-      document.querySelector('body').style.overflow = ''
-      this.popup = false
-    },
-    deleteUser(idUser) {
-      document.querySelector('body').style.overflow = 'hidden'
-      this.dataDelete.id = idUser.id
-      this.dataDelete.date = idUser.updatedAt
-      this.dataDelete.email = idUser.email
-      this.dataDelete.name = idUser.firstName
-      this.popup = true
-      this.$store.commit('user/SET_DROPDOWN', null)
-    },
-    destroyUser() {
-      this.isLoading = true
-      const data = {
-        id: this.dataDelete.id,
-      }
-      if (this.totalAllUser > 10) {
-        if (String(this.totalAllUser).slice(-1) === '1') {
-          this.lastPage = true
-        } else {
-          this.lastPage = false
-        }
-      } else {
-        this.lastPage = false
-      }
-      this.$notifier.showMessage({
-        content: 'Delete user...',
-        type: 'loading',
+    deleteUser(data) {
+      this.$confirm(`Remove "${data.username}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
       })
-      const sto = setTimeout(
-        () =>
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Remove user...',
+            type: 'loading',
+          })
+
           this.$store
-            .dispatch('user/deleteUser', data)
-            .then((res) => {
-              this.getDataAll()
-              this.popup = false
-              this.isLoading = false
-              this.$notifier.showMessage({
-                content: 'User deleted.',
-                type: 'success',
-              })
-              this.closeDropdown = false
-              clearInterval(sto)
-              document.querySelector('body').style.overflow = ''
+            .dispatch('user/deleteUser', {
+              id: data.id,
             })
-            .catch((error) => {
-              this.$notifier.showMessage({
-                content: 'User delete failed. Please try again! ' + error,
-                type: 'failed',
-              })
-              this.isLoading = false
-              this.closeDropdown = false
-              clearInterval(sto)
-              document.querySelector('body').style.overflow = ''
-            }),
-        1000
-      )
+            .then((res) => {
+              if (res.data.status.code === 200) {
+                this.getDataAll()
+
+                this.$notifier.showMessage({
+                  content: 'Remove user status success.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Remove user status failed. Error : ' +
+                    res.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
     onChangeDataOrg() {},
   },
@@ -742,80 +646,6 @@ export default {
               border: 0px;
             }
           }
-        }
-      }
-    }
-  }
-  .kg-popup {
-    .content-popup {
-      padding-top: 20px;
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-bottom: 20px;
-      width: 100%;
-      height: 100%;
-      .title-popup2 {
-        font-family: 'Cabin';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 20px;
-        color: #5c6b7a;
-      }
-      .title-popup {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 16px;
-        color: #454545;
-      }
-      .box-popup {
-        background: #ffffff;
-        border: 1px solid #e2e2e2;
-        border-radius: 5px;
-        padding: 11px 10px 11px 10px;
-        margin-top: 10px;
-        .name-popup {
-          font-family: 'Cabin';
-          font-weight: 500;
-          font-size: 16px;
-          color: #454545;
-        }
-        .desc-popup {
-          font-family: 'Cabin';
-          font-weight: 400;
-          font-size: 14px;
-          color: #757575;
-        }
-        .date-popup {
-          font-family: 'Cabin';
-          font-weight: 400;
-          font-size: 14px;
-          text-align: right;
-          color: #757575;
-        }
-      }
-      .footer-card {
-        margin-top: 15px;
-        .cancel-btn {
-          font-family: 'Cabin';
-          border: 1px solid #ed543a;
-          color: #ed543a;
-          font-weight: 700;
-          font-size: 14px;
-          border-radius: 5px;
-          height: 40px;
-        }
-        .cancel-btn:hover {
-          background-color: rgb(243 244 246);
-        }
-        .save-btn {
-          background: #ed543a;
-          border: 1px solid #ed543a;
-          color: #ffffff;
-          border-radius: 5px;
-          height: 40px;
-        }
-        .save-btn:hover {
-          opacity: 1.2;
         }
       }
     }
