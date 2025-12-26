@@ -42,30 +42,31 @@
               class="btn-popover flex items-center mt-2"
               @click="toProfile()"
             >
-              <IconProfile class="ml-1" style="width: 30px" />
+              <i class="ti ti-user-circle ml-1" />
               <div class="title-1">Your Profile</div>
             </div>
+
             <div
               v-show="handleRole"
               class="btn-popover flex items-center"
               @click="btnChangePassword()"
             >
-              <IconPassword class="ml-1" style="width: 30px" />
+              <i class="ti ti-key ml-1" />
               <div class="title-1">Change Password</div>
             </div>
+
             <div v-show="handleRole" class="btn-popover flex items-center">
-              <IconUser class="ml-1" style="width: 30px" />
+              <i class="ti ti-users ml-1" />
               <div class="title-1">Manage User</div>
             </div>
+
             <div v-show="handleRole" class="btn-popover flex items-center">
-              <IconOrganization class="ml-1" style="width: 30px" />
+              <i class="ti ti-building-warehouse ml-1" />
               <div class="title-1">Manage Organization</div>
             </div>
-            <div
-              class="btn-popover flex items-center mb-2 mt-2"
-              @click="logout()"
-            >
-              <IconLogout class="ml-1" style="width: 30px" />
+
+            <div class="btn-popover flex items-center mb-2" @click="logout()">
+              <i class="ti ti-logout ml-1" />
               <div class="title-1">Logout</div>
             </div>
           </div>
