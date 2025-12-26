@@ -1,7 +1,15 @@
 <template>
   <Transition name="nav">
     <nav class="flex nav-menu items-center justify-between" style="width: 100%">
-      <Breadcrumb class="hidden 2xl:block" :home="home" :model="items" />
+      <el-breadcrumb separator="/">
+        <!-- Home -->
+        <el-breadcrumb-item :to="{ path: '/' }"> Home </el-breadcrumb-item>
+
+        <!-- Dynamic segments -->
+        <el-breadcrumb-item v-for="(item, idx) in items" :key="idx">
+          {{ item.label }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
       <div class="2xl:hidden"></div>
 
       <div class="py-4 flex items-center">
