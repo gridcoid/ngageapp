@@ -351,7 +351,7 @@ export default {
       this.getData()
     },
     viewDetail(item) {
-      this.$router.push({ path: '/segment/audience/' + item.uuid })
+      this.$router.push({ path: '/segment/' + item.uuid + '/audience' })
     },
   },
 }

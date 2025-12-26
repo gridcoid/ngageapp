@@ -300,7 +300,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'DetailAudiencePage',
+  name: 'AudienceDetailPage',
   layout: 'default',
   head() {
     return {

@@ -195,17 +195,14 @@
           <template slot-scope="scope">
             <Dropdown
               :index-list="scope.$index"
-              name-btn="Detail"
+              name-btn="View"
               icons="preview"
               color-text="#1B63D4"
               class="mr-6"
               @preview="viewDetail(scope.row)"
             >
               <template slot="body">
-                <NuxtLink
-                  class="item-menu flex items-center no-select"
-                  :to="`/audience/edit/${scope.row.id}`"
-                >
+                <NuxtLink class="item-menu flex items-center no-select" to="#">
                   <i class="pi pi-pencil text-yellow-500"></i>
                   <span class="ml-3">Edit</span>
                 </NuxtLink>
@@ -436,7 +433,13 @@ export default {
     },
 
     viewDetail(item) {
-      this.$router.push({ path: '/segment/audience/detail/' + item.id })
+      this.$router.push({
+        path:
+          '/segment/' +
+          this.$route.params.index +
+          '/audience/summary/' +
+          item.id,
+      })
     },
 
     resetFilter() {

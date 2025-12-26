@@ -108,14 +108,8 @@ export default {
           val
         )
 
-      // remove last segment if it's a number OR uuid
-      if (
-        segments.length &&
-        (/^\d+$/.test(segments[segments.length - 1]) ||
-          isUuid(segments[segments.length - 1]))
-      ) {
-        segments = segments.slice(0, -1)
-      }
+      // ❗ remove ANY segment that is a number OR UUID
+      segments = segments.filter((s) => !(/^\d+$/.test(s) || isUuid(s)))
 
       return segments.map((segment) => {
         let label = this.formatLabel(segment)
