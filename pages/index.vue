@@ -6,7 +6,7 @@
       <div class="flex items-center header-content">
         <div class="title-header">Dashboard</div>
         <ButtonDefault
-          icon="add"
+          icon="plus"
           text="Add Widget"
           class="ml-4"
           type="secondary"

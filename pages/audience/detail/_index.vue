@@ -167,7 +167,7 @@
                   >
                     <div class="flex-shrink-0 mt-1">
                       <i
-                        class="ti ti-envelope text-gray-400"
+                        class="ti ti-mail text-gray-400"
                         v-if="contact.typeId === 1"
                       ></i>
                       <i
