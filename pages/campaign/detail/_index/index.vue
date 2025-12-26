@@ -887,7 +887,7 @@ export default {
       }
     },
     handleResize() {
-      this.width = window.innerWidth
+      this.width = window.innerWidth - 100
       this.isLoading = false
     },
     changePage(ev) {

@@ -544,7 +544,7 @@ export default {
   },
   methods: {
     handleResize() {
-      this.width = window.innerWidth
+      this.width = window.innerWidth - 100
       this.isLoading = false
     },
     detailCreative(x) {
