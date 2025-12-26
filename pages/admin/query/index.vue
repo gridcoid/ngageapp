@@ -130,6 +130,12 @@
                 <div
                   class="item-menu flex items-center no-select border-b border-gray-300 rounded-b-md"
                   @click="deleteQuery(scope.row)"
+                  style="
+                    border-bottom: 1px solid #e2e2e2;
+                    border-top: 1px solid #e2e2e2;
+                    border-end-end-radius: 5px;
+                    border-end-start-radius: 5px;
+                  "
                 >
                   <i class="ti ti-trash text-red-500"></i>
                   <span class="ml-3">Delete</span>

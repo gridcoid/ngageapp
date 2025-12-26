@@ -120,6 +120,7 @@
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
                 style="
                   border-bottom: 1px solid #e2e2e2;
+                  border-top: 1px solid #e2e2e2;
                   border-end-end-radius: 5px;
                   border-end-start-radius: 5px;
                 "

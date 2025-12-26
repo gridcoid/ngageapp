@@ -406,11 +406,8 @@
                     class="item-menu flex items-center no-select"
                     @click="openDuplicateDialog(scope.row)"
                   >
-                    <img
-                      src="~/assets/images/icon/duplicate.svg"
-                      class="icon-item"
-                    />
-                    Duplicate
+                    <i class="ti ti-copy text-purple-500"></i>
+                    <span class="ml-3">Duplicate</span>
                   </div>
                   <div
                     class="item-menu flex items-center no-select"
@@ -422,11 +419,8 @@
                     "
                     @click="deleteCampaign(scope.row)"
                   >
-                    <img
-                      src="~/assets/images/icon/delete.svg"
-                      class="icon-item"
-                    />
-                    Delete
+                    <i class="ti ti-trash text-red-500"></i>
+                    <span class="ml-3">Delete</span>
                   </div>
                 </template>
               </Dropdown>
