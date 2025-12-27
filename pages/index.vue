@@ -1,10 +1,11 @@
 <template>
-  <div class="containers p-6 w-full">
+  <div class="containers w-full">
     <div
       class="flex items-center header-content filter-content justify-between"
     >
-      <div class="flex items-center header-content">
+      <div class="flex items-center header-content p-6 pb-0">
         <div class="title-header">Dashboard</div>
+
         <ButtonDefault
           icon="plus"
           text="Add Widget"
@@ -14,404 +15,152 @@
         />
       </div>
     </div>
+
+    <GridLayout
+      v-if="layout.length"
+      :layout="layout"
+      :col-num="4"
+      :row-height="100"
+      :is-draggable="true"
+      :is-resizable="true"
+      :margin="[24, 24]"
+      @layout-updated="onLayoutUpdated"
+    >
+      <GridItem
+        v-for="item in layout"
+        :key="item.i"
+        v-bind="item"
+        class="bg-white border p-6 border-gray-200"
+      >
+        <template v-if="widgetById(item.i)">
+          <div class="font-semibold mb-2">
+            {{ widgetById(item.i).title }}
+          </div>
+
+          <MetricWidget
+            v-if="widgetById(item.i).type === 'metric'"
+            :data="widgetById(item.i).data"
+          />
+
+          <TableWidget
+            v-else-if="widgetById(item.i).type === 'table'"
+            :rows="widgetById(item.i).data"
+          />
+
+          <ChartWidget
+            v-else-if="widgetById(item.i).type === 'chart'"
+            :data="widgetById(item.i).data"
+          />
+
+          <div v-else class="text-gray-400">Unsupported widget</div>
+        </template>
+      </GridItem>
+    </GridLayout>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+
 export default {
   name: 'HomePage',
   layout: 'default',
+
   head() {
-    return {
-      title: 'Dashboard - ' + this.$config.appName,
-    }
+    return { title: 'Dashboard - ' + this.$config.appName }
   },
+
   data() {
     return {
       isLoading: false,
+      widgets: [],
+      layout: [],
     }
   },
+
   computed: {
     ...mapState({
-      orgId: (state) => {
-        return state.user.orgId
-      },
-      sidebar: (state) => {
-        return state.user.sidebar
-      },
-      popup: (state) => {
-        return state.user.popup
-      },
-      dataDashboard: (state) => {
-        return state.dashboard.dataList
-      },
+      dataDashboard: (state) => state.dashboard.dataList,
+      orgId: (state) => state.user.orgId,
+      sidebar: (state) => state.user.sidebar,
+      popup: (state) => state.user.popup,
     }),
+
+    // fast lookup helper
+    widgetById() {
+      const map = {}
+      this.widgets.forEach((w) => (map[String(w.uuid)] = w))
+      return (id) => map[id]
+    },
   },
+
   mounted() {
     this.getData()
   },
+
   methods: {
     toAddWidget() {
       this.$router.push(`/dashboard/${this.dataDashboard.uuid}/widget/create`)
     },
+
+    async loadWidgetData() {
+      for (const w of this.widgets) {
+        if (!w.queryId) continue
+        try {
+          const res = await this.$store.dispatch('query/run', w.queryId)
+          this.$set(w, 'data', res.data)
+        } catch {
+          this.$set(w, 'data', { error: true })
+        }
+      }
+    },
+
     getData() {
       this.isLoading = true
       this.$store.dispatch('dashboard/list').finally(() => {
         this.isLoading = false
       })
     },
+
+    onLayoutUpdated(newLayout) {
+      const updated = this.widgets.map((w) => {
+        const pos = newLayout.find((l) => l.i === String(w.uuid))
+        return { ...w, ...pos }
+      })
+
+      // push to store safely
+      this.$store.dispatch('dashboard/update', updated)
+
+      // update local copy so UI reacts instantly
+      this.widgets = updated
+    },
+  },
+
+  watch: {
+    dataDashboard: {
+      immediate: true,
+      handler(val) {
+        if (!val?.config?.widgets) return
+
+        this.widgets = JSON.parse(JSON.stringify(val.config.widgets))
+
+        this.layout = this.widgets.map((w, idx) => ({
+          x: w.x,
+          y: w.y ?? idx,
+          w: w.w,
+          h: w.h,
+          i: String(w.uuid),
+        }))
+
+        this.loadWidgetData()
+      },
+    },
   },
 }
 </script>
 
-<style lang="scss" scoped>
-.containers {
-  .header-content {
-    .title-header {
-      font-family: 'Cabin';
-      font-style: normal;
-      font-weight: 600;
-      font-size: 18px;
-      color: #454545;
-    }
-    .btn-create {
-      font-family: 'Cabin';
-      width: 94px;
-      font-size: 12px;
-      padding-right: 0px;
-      padding-left: 0px;
-    }
-    .btn-create:hover {
-      background-color: rgb(243 244 246);
-      border: 0px;
-    }
-  }
-  .filter-content {
-    .status-filter {
-      width: 420px;
-      height: 44px;
-      background: #ffffff;
-      border: 1px solid #e2e2e2;
-      border-radius: 5px;
-      .card-filter {
-        width: 100%;
-        margin-right: 10px;
-        margin-left: 10px;
-        cursor: pointer;
-        .name-status {
-          font-family: 'Cabin';
-          color: #454545;
-          font-weight: 400;
-          font-size: 16px;
-          margin-left: 10px;
-          line-height: 40px;
-        }
-      }
-    }
-    .date-filter {
-      margin-left: 30px;
-    }
-    .layout-filter {
-      //   margin-left: 20px;
-      .name-filter {
-        font-family: 'Cabin';
-        color: #454545;
-        font-weight: 400;
-        font-size: 16px;
-      }
-      .btn-icon {
-        height: 100%;
-        padding: 10px;
-        width: 100%;
-        background: #ffffff;
-        border: 1px solid #e2e2e2;
-        border-radius: 5px;
-        margin-left: 10px;
-        cursor: pointer;
-      }
-      .btn-icon:hover {
-        background-color: rgb(243 244 246);
-      }
-    }
-    .hr-vertical {
-      border-left: 1px solid #e2e2e2;
-      height: 24px;
-      padding-top: 2px;
-      padding-bottom: 2px;
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-    .k-btn {
-      font-family: 'Cabin';
-      background: #ffffff;
-      border: 1px solid #e2e2e2;
-      border-radius: 5px;
-      color: #1b63d4;
-      font-size: 14px;
-      font-weight: 700;
-      height: 36px;
-      width: 138px;
-      align-items: center;
-      padding-top: 9px;
-      padding-left: 14px;
-    }
-    .k-btn:hover {
-      background-color: rgb(243 244 246);
-    }
-    .search-card {
-      .hide-search {
-        width: 54px;
-        height: 40px;
-        background: #ffffff;
-        border: 1px solid #e2e2e2;
-        border-radius: 100px;
-        -webkit-transition: width 0.3s ease-out;
-        -moz-transition: width 0.3s ease-out;
-        -o-transition: width 0.3s ease-out;
-        transition: width 0.3s ease-out;
-      }
-      .show-search {
-        width: 240px;
-        height: 40px;
-        background: #ffffff;
-        border: 1px solid #e2e2e2;
-        border-radius: 100px;
-        padding-left: 15px;
-        padding-right: 15px;
-        -webkit-transition: width 0.3s ease-out;
-        -moz-transition: width 0.3s ease-out;
-        -o-transition: width 0.3s ease-out;
-        transition: width 0.3s ease-out;
-        .title-1 {
-          font-family: 'Cabin';
-          color: #9a9a9a;
-          font-size: 14px;
-          width: 180px;
-        }
-        .title-1:focus {
-          border-color: inherit;
-          -webkit-box-shadow: none;
-          box-shadow: none;
-          outline: none;
-        }
-      }
-    }
-  }
-  .no-data {
-    .title-1 {
-      font-family: 'Cabin';
-      font-weight: 600;
-      font-size: 20px;
-      color: #454545;
-      line-height: 24px;
-    }
-    .subtitle-1 {
-      font-family: 'Cabin';
-      font-weight: 400;
-      font-size: 16px;
-      color: #757575;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      line-height: 24px;
-    }
-    .save-btn {
-      width: 220px;
-      background: #ffffff;
-      border: 1px solid #1b63d4;
-      color: #1b63d4;
-      border-radius: 5px;
-      height: 40px;
-      padding-left: 15px;
-      padding-right: 15px;
-      margin-left: 10px;
-      margin-bottom: 100px;
-      line-height: normal !important;
-      cursor: pointer;
-      .name-btn {
-        font-family: 'Cabin';
-        font-weight: 700;
-        font-size: 14px;
-        padding-bottom: 1px;
-        color: #1b63d4;
-        padding-left: 10px;
-      }
-    }
-    .save-btn:hover {
-      background-color: rgb(243 244 246);
-    }
-  }
-  .body-content {
-    margin-top: 20px;
-    .k-table {
-      .k-circle {
-        width: 11px;
-        height: 11px;
-        border: 2px solid #7bbc49;
-        border-radius: 50%;
-        margin-right: 13px;
-      }
-      .k-title {
-        font-family: 'Cabin';
-        font-weight: 500;
-        font-size: 16px;
-        color: #454545;
-      }
-      .k-subtitle {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 12px;
-        color: #9a9a9a;
-      }
-
-      .status-card {
-        font-family: 'Cabin';
-        color: #7bbc49;
-        font-weight: 400;
-        font-size: 14px;
-        background: #ecf5e5;
-        border-radius: 5px;
-        height: 25px;
-        margin-top: 10px;
-        width: 120px;
-      }
-      .cpm-text {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 14px;
-        color: #454545;
-      }
-      .view-text {
-        font-family: 'Cabin';
-        font-weight: 400;
-        font-size: 14px;
-        color: #454545;
-      }
-      .increase-text {
-        font-family: 'Cabin';
-        font-size: 12px;
-        font-weight: 400;
-        color: #454545;
-      }
-
-      .btn-icon {
-        height: 100%;
-        padding: 10px;
-        width: 40px;
-        background: #ffffff;
-        border: 1px solid #e2e2e2;
-        border-radius: 5px;
-        // margin-left: 10px;
-        cursor: pointer;
-        margin-right: 10px;
-      }
-      .btn-icon:hover {
-        background-color: rgb(243 244 246);
-      }
-    }
-    .k-pagination {
-      margin-top: 20px;
-      margin-bottom: 20px;
-      .k-btn {
-        width: 165px;
-        background: #f1f1f1;
-        border: 1px solid #f1f1f1;
-        border-radius: 5px;
-        height: 40px;
-        padding-left: 15px;
-        padding-right: 15px;
-        cursor: pointer;
-        .name-btn {
-          font-family: 'Cabin';
-          font-weight: 700;
-          font-size: 14px;
-          padding-bottom: 1px;
-          color: #9a9a9a;
-          padding-left: 10px;
-        }
-      }
-      .k-btn:hover {
-        background-color: rgb(243 244 246);
-        border: 0px;
-      }
-    }
-    .summary-card {
-      padding: 10px 20px 0px 20px;
-      height: 100%;
-      .item-summary {
-        height: 30px;
-        .title-1 {
-          font-family: 'Cabin';
-          font-weight: 600;
-          font-size: 14px;
-          color: #333333;
-          width: 60px;
-        }
-        .value-1 {
-          font-family: 'Cabin';
-          font-weight: 400;
-          font-size: 12px;
-          color: #333333;
-        }
-      }
-    }
-  }
-  .dialog-filter {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 300px;
-    height: 100%;
-    background: #fafafa;
-  }
-  .popup {
-    transition: all 0.5s ease-in-out;
-    position: fixed;
-    top: 0%;
-    left: 50%;
-    transform: translateX(-50%);
-    // height: 100%;
-    .status-filter {
-      width: 100%;
-      height: 44px;
-      background: #ffffff;
-      border: 1px solid #e2e2e2;
-      border-radius: 5px;
-      .card-filter {
-        width: 100%;
-        margin-right: 10px;
-        margin-left: 10px;
-        cursor: pointer;
-        .name-status {
-          font-family: 'Cabin';
-          color: #454545;
-          font-weight: 400;
-          font-size: 16px;
-          margin-left: 10px;
-          line-height: 40px;
-        }
-      }
-    }
-    .summary-card {
-      padding: 10px 20px 0px 20px;
-      height: 100%;
-      .item-summary {
-        height: 30px;
-        .title-1 {
-          font-family: 'Cabin';
-          font-weight: 600;
-          font-size: 14px;
-          color: #333333;
-          width: 60px;
-        }
-        .value-1 {
-          font-family: 'Cabin';
-          font-weight: 400;
-          font-size: 12px;
-          color: #333333;
-        }
-      }
-    }
-  }
+<style>
+.vue-grid-item {
+  touch-action: none;
 }
 </style>

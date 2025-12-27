@@ -50,6 +50,7 @@ export default {
     { src: '~/plugins/imageEditor.js', mode: 'client' },
     { src: '~/plugins/password.js', mode: 'client' },
     { src: '~/plugins/codemirror', ssr: false },
+    { src: '~/plugins/vue-grid-layout.js', mode: 'client' },
   ],
   components: true,
   buildModules: [

@@ -126,4 +126,9 @@ export const actions = {
       return e.response
     }
   },
+
+  // query:run
+  async run({}, queryId) {
+    return this.$repositories.query.run(queryId)
+  },
 }

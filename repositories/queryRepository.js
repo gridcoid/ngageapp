@@ -40,4 +40,10 @@ export default ($axios) => ({
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(`${resource}/${payload.id}?orgId=${orgId}`)
   },
+
+  // query:run
+  run(id) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(`query/${id}/run?orgId=${orgId}`)
+  },
 })

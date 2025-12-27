@@ -19,6 +19,10 @@ export const mutations = {
       state.dataList = []
     }
   },
+  UPDATE_WIDGETS(state, widgets) {
+    if (!state.dataList?.config) return
+    state.dataList.config.widgets = JSON.parse(JSON.stringify(widgets))
+  },
 }
 
 export const actions = {
@@ -42,69 +46,17 @@ export const actions = {
     }
   },
 
-  // dashboard:update
-  async update({ commit }, payload) {
-    try {
-      const response = await this.$repositories.dashboard.update(payload)
-      return response
-    } catch (e) {
-      this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
-        type: 'failed',
-      })
-      return e.response
-    }
-  },
+  // dashboard:update (widgets)
+  async update({ commit, state }, widgets) {
+    commit('UPDATE_WIDGETS', widgets)
 
-  // dashboard:addWidget
-  async addWidget({ commit }, { dashboardUuid, widget }) {
     try {
-      const response = await this.$repositories.dashboard.addWidget(
-        dashboardUuid,
-        widget
-      )
-      return response
-    } catch (e) {
-      this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
-        type: 'failed',
+      await this.$repositories.dashboard.updateWidgets({
+        uuid: state.dataList.uuid,
+        config: state.dataList.config,
       })
-      return e.response
-    }
-  },
-
-  // dashboard:updateWidget
-  async updateWidget({ commit }, { dashboardId, widgetId, widget }) {
-    try {
-      const response = await this.$repositories.dashboard.updateWidget(
-        dashboardId,
-        widgetId,
-        widget
-      )
-      return response
     } catch (e) {
-      this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
-        type: 'failed',
-      })
-      return e.response
-    }
-  },
-
-  // dashboard:deleteWidget
-  async deleteWidget({ commit }, { dashboardId, widgetId }) {
-    try {
-      const response = await this.$repositories.dashboard.deleteWidget(
-        dashboardId,
-        widgetId
-      )
-      return response
-    } catch (e) {
-      this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
-        type: 'failed',
-      })
-      return e.response
+      console.error(e)
     }
   },
 }
