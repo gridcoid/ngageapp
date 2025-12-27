@@ -80,10 +80,32 @@
             />
           </el-form-item>
 
+          <!-- Joins -->
+          <el-form-item>
+            <label slot="label" class="title-form">Joins</label>
+            <el-input
+              v-model="joinsJson"
+              type="textarea"
+              :rows="5"
+              placeholder='[{"table":"Segments","type":"left","localField":"segmentId","foreignField":"id"}]'
+            />
+          </el-form-item>
+
+          <!-- Sort -->
+          <el-form-item>
+            <label slot="label" class="title-form">Sort</label>
+            <el-input
+              v-model="sortJson"
+              type="textarea"
+              :rows="4"
+              placeholder='[{"field":"createdAt","dir":"desc"}]'
+            />
+          </el-form-item>
+
           <!-- Limit -->
           <el-form-item>
             <label slot="label" class="title-form">Limit</label>
-            <el-input-number v-model="data.limit" :min="1" :max="1000" />
+            <el-input-number v-model="data.limit" :min="1" :max="5000" />
           </el-form-item>
         </el-form>
 
@@ -125,9 +147,11 @@ export default {
       showMessage: false,
       messageError: '',
 
-      metricsJson: '',
-      groupByJson: '',
-      filtersJson: '',
+      metricsJson: '[]',
+      groupByJson: '[]',
+      filtersJson: '[]',
+      joinsJson: '[]',
+      sortJson: '[]',
 
       rules: {
         name: [
@@ -159,11 +183,13 @@ export default {
 
       try {
         definition = {
-          source: this.data.source,
-          metrics: JSON.parse(this.metricsJson),
+          source: data.source,
+          metrics: JSON.parse(metricsJson),
           groupBy: this.groupByJson ? JSON.parse(this.groupByJson) : [],
           filters: this.filtersJson ? JSON.parse(this.filtersJson) : [],
-          limit: this.data.limit,
+          joins: this.joinsJson ? JSON.parse(this.joinsJson) : [],
+          sort: this.sortJson ? JSON.parse(this.sortJson) : [],
+          limit: data.limit,
         }
       } catch (e) {
         this.showMessage = true
