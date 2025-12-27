@@ -1,5 +1,8 @@
 <template>
-  <div class="upload-container">
+  <div class="upload-container p-6 w-full">
+    <div class="header-content mb-6">
+      <Back />
+    </div>
     <div v-if="step1" class="body-upload">
       <div class="card-upload">
         <div class="card-header">Spreadsheet Importer</div>
@@ -374,7 +377,6 @@ export default {
 
 <style lang="scss" scoped>
 .upload-container {
-  padding: 20px;
   min-height: calc(100vh - 60px);
   .body-upload {
     .card-upload {

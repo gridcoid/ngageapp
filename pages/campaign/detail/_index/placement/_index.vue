@@ -3,10 +3,7 @@
     <!-- header -->
     <div class="header-content">
       <div class="flex items-center justify-between">
-        <ButtonBackPage
-          text="Back to Campaign Details"
-          @click.native="back()"
-        />
+        <Back />
         <div
           class="flex items-center justify-between btn-edit no-select"
           @click="editPlacement()"
@@ -790,9 +787,6 @@ export default {
           categories: data,
         },
       }
-    },
-    back() {
-      this.$router.push({ path: '/campaign/detail/' + this.campaignId })
     },
     changeStatus() {
       this.status = !this.status

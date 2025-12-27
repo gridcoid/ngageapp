@@ -1,5 +1,5 @@
 <template>
-  <div class="kg-containers" style="width: 100%">
+  <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">API Key Management</div>
       <div class="flex">
@@ -397,7 +397,6 @@ export default {
 
 <style lang="scss" scoped>
 .kg-containers {
-  padding: 20px;
   .header-content {
     .title-header {
       font-family: 'Cabin';

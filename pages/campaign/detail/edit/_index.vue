@@ -1,12 +1,14 @@
 <template>
-  <div class="container">
+  <div class="container p-6 w-full">
     <div class="header-content">
-      <ButtonBackPage text="Back to Campaign Details" @click.native="back()" />
+      <Back />
     </div>
+
     <div class="card-content">
-      <div class="header-card flex items-center" @click="back()">
+      <div class="header-card flex items-center">
         <div class="title">Campaign Details</div>
       </div>
+
       <div class="body-card">
         <!-- Campaign Name -->
         <div class="md:flex md:items-center mb-6">
@@ -117,7 +119,7 @@
           class="ml-4"
           style="width: 165px"
           type="secondary"
-          @click.native="back()"
+          @click.native="$router.back()"
         />
         <div
           class="flex items-center justify-center save-btn no-select"
@@ -244,9 +246,6 @@ export default {
         .then(() => {})
         .catch(() => {})
     },
-    back() {
-      this.$router.go(-1)
-    },
     save() {
       this.$notifier.showMessage({
         content: 'Edit campaign...',
@@ -319,7 +318,6 @@ export default {
   --vs-line-height: 1.75;
 }
 .container {
-  padding: 20px;
   .header-content {
     margin-bottom: 20px;
     .btn-create {

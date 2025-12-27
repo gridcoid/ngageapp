@@ -1,8 +1,9 @@
 <template>
-  <div class="upload-container">
+  <div class="upload-container p-6 w-full">
     <div class="header-upload">
-      <ButtonBackPage text="Back to Creative" @click.native="back()" />
+      <Back />
     </div>
+
     <div v-if="step1" class="body-upload">
       <div class="card-upload">
         <div class="card-header">Bulk Upload Creatives</div>
@@ -67,12 +68,7 @@
                 :percentage="uploadPercentage"
                 :stroke-width="4"
                 :show-text="false"
-                style="
-              position: absolute;
-              bottom: 0px;
-              width: 100%;
-              left: 0px;
-          }"
+                style="position: absolute; bottom: 0px; width: 100%; left: 0px"
               />
             </div>
           </div>
@@ -83,7 +79,7 @@
             class="grow"
             type="secondary"
             style="width: 130px; margin-right: 10px"
-            @click.native="back()"
+            @click.native="$router.back()"
           />
           <k-button
             text="Continue"
@@ -334,11 +330,6 @@ export default {
           this.imageLoaded = false
         })
     },
-    back() {
-      this.$router.push({
-        path: '/creative',
-      })
-    },
     backStep1() {
       this.imageData = ''
       this.step1 = true
@@ -383,7 +374,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .upload-container {
-  padding: 20px;
   min-height: 100vh;
   .body-upload {
     margin-top: 20px;

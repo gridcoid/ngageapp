@@ -1,7 +1,8 @@
 <template>
   <div class="kg-container">
     <div class="header-content">
-      <ButtonBackPage text="Back to Creatives" @click.native="back()" />
+      <Back />
+
       <div class="title-creative">Creative Templates</div>
       <div class="subtitle-creative">
         Browse the right template for your creative assets.
@@ -174,11 +175,6 @@ export default {
       this.getData()
     },
     searchTemplate() {},
-    back() {
-      this.$router.push({
-        path: '/creative',
-      })
-    },
     create(id, resId) {
       this.$router.push({
         path: `/creative/create/${id}?resolution=${resId}`,

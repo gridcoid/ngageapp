@@ -1,5 +1,9 @@
 <template>
-  <div class="containers" style="width: 100%">
+  <div class="containers p-6 w-full">
+    <div class="mb-6">
+      <Back />
+    </div>
+
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">Audiences for {{ data?.name }}</div>
@@ -480,7 +484,6 @@ export default {
 }
 
 .containers {
-  padding: 20px;
   .header-content {
     .title-header {
       font-family: 'Cabin';

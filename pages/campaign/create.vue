@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container p-6 w-full">
     <div class="header-content">
-      <ButtonBackPage text="Back to Campaign" @click.native="back()" />
+      <Back />
     </div>
     <div class="card-content">
       <div class="header-card flex items-center">
@@ -85,7 +85,7 @@
           class="ml-4"
           style="width: 165px"
           type="secondary"
-          @click.native="back()"
+          @click.native="$router.back()"
         />
         <button
           class="flex items-center justify-center save-btn no-select"
@@ -257,9 +257,6 @@ export default {
         this.isLoading = false
       })
     },
-    back() {
-      this.$router.push({ path: '/campaign' })
-    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -347,7 +344,6 @@ export default {
   color: #9a9a9a;
 }
 .container {
-  padding: 20px;
   .header-content {
     margin-bottom: 20px;
   }

@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container p-6 w-full">
     <div class="header-content">
-      <ButtonBackPage text="Back to Queries" @click.native="back()" />
+      <Back />
     </div>
 
     <div class="card-content">
@@ -90,7 +90,7 @@
       </div>
 
       <div class="footer-card flex justify-end gap-3">
-        <el-button type="primary" plain class="w-32" @click="back()">
+        <el-button type="primary" plain class="w-32" @click="$router.back()">
           Discard
         </el-button>
         <el-button
@@ -151,10 +151,6 @@ export default {
   },
 
   methods: {
-    back() {
-      this.$router.push({ path: '/admin/query' })
-    },
-
     save() {
       let definition
 
@@ -208,7 +204,6 @@ export default {
   --vs-line-height: 1.75;
 }
 .container {
-  padding: 20px;
   .header-content {
     margin-bottom: 20px;
   }

@@ -1,10 +1,7 @@
 <template>
   <div class="p-6">
     <div class="mb-6">
-      <ButtonBackPage
-        :text="`Back to segment ${dataSegment.name}`"
-        @click.native="back()"
-      />
+      <Back />
     </div>
 
     <div class="bg-white rounded-lg shadow-sm border border-gray-200">
@@ -383,12 +380,6 @@ export default {
       this.$store
         .dispatch('audience/detail', data)
         .finally(() => (this.isLoading = false))
-    },
-
-    back() {
-      this.$router.push({
-        path: `/segment/${this.$route.params.index}/audience`,
-      })
     },
 
     getGender() {

@@ -6,7 +6,8 @@
         class="flex items-center justify-between"
         style="margin-bottom: 20px"
       >
-        <ButtonBackPage text="Back to Campaign List" @click.native="back()" />
+        <Back />
+
         <div class="flex set-campaign items-center">
           <div class="label-date">Set Campaign</div>
           <div
@@ -1288,9 +1289,6 @@ export default {
       this.$router.push({
         path: `/campaign/detail/${this.$route.params.index}/placement/create`,
       })
-    },
-    back() {
-      this.$router.push({ path: '/campaign' })
     },
     toEdit() {
       const route = this.$router.resolve({

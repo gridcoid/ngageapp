@@ -1,7 +1,8 @@
 <template>
   <div class="kg-container flex">
     <div class="w-full" style="padding-right: 20px">
-      <ButtonBackPage text="Back to Campaign Details" @click.native="back()" />
+      <Back />
+
       <div class="title-1">Campaign</div>
       <div v-if="!isLoading_5" class="title-2">
         {{ detailCampaign.name }}
@@ -395,7 +396,7 @@
             text="Discard"
             type="secondary"
             style="width: 100%"
-            @click.native="back()"
+            @click.native="$router.back()"
           />
           <button
             class="flex items-center justify-center save-btn no-select"
@@ -1313,9 +1314,6 @@ export default {
         .finally(() => {
           this.isLoading_6 = false
         })
-    },
-    back() {
-      this.$router.push({ path: '/campaign/detail/' + this.campaignId })
     },
     close() {
       this.popup = false

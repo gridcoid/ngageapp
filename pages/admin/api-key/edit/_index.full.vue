@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container p-6 w-full">
     <div class="header-content">
-      <ButtonBackPage text="Back to API Keys" @click.native="back()" />
+      <Back />
     </div>
 
     <div class="card-content">
@@ -102,7 +102,7 @@
       </div>
 
       <div class="footer-card flex justify-end gap-3">
-        <el-button type="primary" @click="back()" plain class="w-32">
+        <el-button type="primary" @click="$router.back()" plain class="w-32">
           Discard
         </el-button>
         <el-button
@@ -183,10 +183,6 @@ export default {
       this.$store
         .dispatch('apiKey/detail', data)
         .finally(() => (this.isLoading = false))
-    },
-
-    back() {
-      this.$router.push({ path: '/admin/api-key' })
     },
 
     getSegments() {
@@ -317,7 +313,6 @@ export default {
   --vs-line-height: 1.75;
 }
 .container {
-  padding: 20px;
   .header-content {
     margin-bottom: 20px;
   }

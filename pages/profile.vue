@@ -1,5 +1,5 @@
 <template>
-  <div class="kg-containers">
+  <div class="kg-containers p-6 w-full">
     <div class="flex items-center justify-between header-content">
       <div class="title-header">My Profile</div>
     </div>
@@ -458,8 +458,6 @@ export default {
   font-weight: 600 !important;
 }
 .kg-containers {
-  padding: 20px;
-  width: 100%;
   .header-content {
     margin-bottom: 25px;
     .title-header {

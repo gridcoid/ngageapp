@@ -1,7 +1,7 @@
 <template>
   <div class="p-6">
     <div class="mb-6">
-      <ButtonBackPage text="Back to Queries" @click.native="back()" />
+      <Back />
     </div>
 
     <div class="bg-white rounded-lg shadow-sm border border-gray-200">
@@ -183,10 +183,6 @@ export default {
           queryUuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
-    },
-
-    back() {
-      this.$router.push({ path: '/admin/query' })
     },
 
     toEdit() {

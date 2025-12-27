@@ -1,13 +1,8 @@
 <template>
   <div class="kg-container">
     <div class="header-content flex justify-between">
-      <div
-        class="flex items-center justify-between btn-create no-select"
-        @click="back()"
-      >
-        <IconLeft />
-        <span class="name-btn">Back to Templates</span>
-      </div>
+      <Back />
+
       <div
         class="flex items-center justify-center btn-refresh no-select"
         @click="getTemplateDetail()"
@@ -148,9 +143,6 @@ export default {
         .finally(() => {
           this.isLoading = false
         })
-    },
-    back() {
-      this.$router.go(-1)
     },
     refresh() {},
   },

@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container p-6 w-full">
     <div class="header-content">
-      <ButtonBackPage text="Back to Audience Segments" @click.native="back()" />
+      <Back />
     </div>
     <div class="card-content">
       <div class="header-card flex items-center">
@@ -34,7 +34,7 @@
         </Transition>
       </div>
       <div class="footer-card flex justify-end gap-3">
-        <el-button type="primary" @click="back()" plain class="w-32">
+        <el-button type="primary" @click="$router.back()" plain class="w-32">
           Discard
         </el-button>
         <el-button
@@ -92,9 +92,6 @@ export default {
     }
   },
   methods: {
-    back() {
-      this.$router.push({ path: '/segment' })
-    },
     save() {
       this.$notifier.showMessage({
         content: 'Creating segment...',
@@ -156,7 +153,6 @@ export default {
   --vs-line-height: 1.75;
 }
 .container {
-  padding: 20px;
   .header-content {
     margin-bottom: 20px;
   }
