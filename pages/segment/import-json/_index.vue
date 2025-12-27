@@ -5,8 +5,9 @@
     </div>
 
     <div class="card-content">
-      <div class="header-card flex items-center">
+      <div class="header-card flex items-center justify-between">
         <div class="title">Create JSON Import Source</div>
+        <i @click="clear()" class="ti ti-trash text-red-500 cursor-pointer" />
       </div>
 
       <div class="body-card">
@@ -212,6 +213,13 @@ export default {
           type: 'failed',
         })
       }
+    },
+    clear() {
+      localStorage.removeItem('jsonImportConfig')
+      this.$notifier.showMessage({
+        content: 'Config cleared.',
+        type: 'success',
+      })
     },
   },
 
