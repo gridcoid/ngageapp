@@ -8,9 +8,10 @@ export default ($axios) => ({
   },
 
   // dashboard:update (widgets)
-  update(dashboardUuid, widgets) {
-    return $axios.patch(`${resource}/${dashboardUuid}/widgets`, {
-      widgets,
+  update(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.patch(`${resource}/${payload.uuid}?orgId=${orgId}`, {
+      config: payload.config,
     })
   },
 })

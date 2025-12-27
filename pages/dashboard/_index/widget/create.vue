@@ -25,6 +25,7 @@
               <el-option label="Metric" value="metric" />
               <el-option label="Chart" value="chart" />
               <el-option label="Table" value="table" />
+              <el-option label="Map" value="map" />
             </el-select>
           </el-form-item>
 

@@ -107,7 +107,7 @@ export default {
       for (const w of this.widgets) {
         if (!w.queryId) continue
         try {
-          const res = await this.$store.dispatch('query/run', w.queryId)
+          const res = await this.$store.dispatch('query/run', w)
           this.$set(w, 'data', res.data)
         } catch {
           this.$set(w, 'data', { error: true })

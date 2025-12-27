@@ -42,8 +42,8 @@ export default ($axios) => ({
   },
 
   // query:run
-  run(id) {
+  run(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`query/${id}/run?orgId=${orgId}`)
+    return $axios.get(`query/${payload.uuid}/run?orgId=${orgId}`)
   },
 })

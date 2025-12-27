@@ -128,7 +128,16 @@ export const actions = {
   },
 
   // query:run
-  async run({}, queryId) {
-    return this.$repositories.query.run(queryId)
+  async run({ commit }, payload) {
+    try {
+      const response = await this.$repositories.query.run(payload)
+      return response
+    } catch (e) {
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + e.response.status,
+        type: 'failed',
+      })
+      return e.response
+    }
   },
 }
