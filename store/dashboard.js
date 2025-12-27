@@ -46,6 +46,23 @@ export const actions = {
     }
   },
 
+  // dashboard:add (widget)
+  async add({ commit }, { dashboardUuid, widget }) {
+    try {
+      const response = await this.$repositories.dashboard.add(
+        dashboardUuid,
+        widget
+      )
+      return response
+    } catch (e) {
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + e.response?.status,
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
   // dashboard:update (widgets)
   async update({ commit, state }, widgets) {
     commit('UPDATE_WIDGETS', widgets)

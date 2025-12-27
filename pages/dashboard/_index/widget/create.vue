@@ -106,7 +106,7 @@ export default {
       this.isLoading = true
 
       this.$store
-        .dispatch('dashboard/addWidget', {
+        .dispatch('dashboard/add', {
           dashboardUuid: this.$route.params.index,
           widget: {
             ...this.data,
