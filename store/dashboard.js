@@ -51,7 +51,7 @@ export const actions = {
     commit('UPDATE_WIDGETS', widgets)
 
     try {
-      await this.$repositories.dashboard.updateWidgets({
+      await this.$repositories.dashboard.update({
         uuid: state.dataList.uuid,
         config: state.dataList.config,
       })
