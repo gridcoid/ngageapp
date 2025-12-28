@@ -38,10 +38,14 @@
           <!-- Source -->
           <el-form-item prop="source">
             <label slot="label" class="title-form">Source</label>
+
             <el-select
               v-model="data.source"
               placeholder="Select source"
               class="w-full"
+              filterable
+              allow-create
+              default-first-option
             >
               <el-option label="Audiences" value="Audiences" />
               <el-option label="AudienceContacts" value="AudienceContacts" />
