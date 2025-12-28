@@ -60,7 +60,7 @@
 
               <button
                 class="text-red-300 hover:text-red-600"
-                @click.stop="onDelete(item.i)"
+                @click.stop="onDelete(item.i, widgetByUuidFunc(item.i).title)"
                 title="Delete"
               >
                 <i class="ti ti-trash"></i>
@@ -227,8 +227,20 @@ export default {
       )
     },
 
-    onDelete(uuid) {
-      this.$store.dispatch('dashboard/delete', uuid)
+    onDelete(uuid, name) {
+      this.$confirm(`Delete widget "${name}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(() => {
+        this.$notifier.showMessage({
+          content: 'Delete widget...',
+          type: 'loading',
+        })
+
+        console.log('widgets', this.widgets)
+        console.log('layout', this.layout)
+      })
     },
   },
 
@@ -260,11 +272,9 @@ export default {
   font-size: 18px;
   color: #333333;
 }
-
 .header-content {
   height: 58px;
 }
-
 .vue-grid-item {
   touch-action: none;
 }
