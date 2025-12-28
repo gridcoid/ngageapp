@@ -2,7 +2,9 @@
   <div class="kg-containers p-6 w-full">
     <!-- header -->
     <div class="flex items-center header-content">
-      <div class="title-header">Query Management</div>
+      <div class="title-header">
+        <i class="ti ti-code text-gray-400 mr-2"></i> Query Management
+      </div>
       <div class="flex">
         <ButtonDefault
           icon="plus"

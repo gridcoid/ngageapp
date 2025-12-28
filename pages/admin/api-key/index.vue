@@ -1,7 +1,9 @@
 <template>
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
-      <div class="title-header">API Key Management</div>
+      <div class="title-header">
+        <i class="ti ti-key text-gray-400 mr-2"></i> API Key Management
+      </div>
       <div class="flex">
         <ButtonDefault
           icon="plus"

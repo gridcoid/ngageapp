@@ -1,7 +1,9 @@
 <template>
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
-      <div class="title-header">Audience Segments</div>
+      <div class="title-header">
+        <i class="ti ti-folder text-gray-400 mr-2" /> Audience Segments
+      </div>
       <div class="flex">
         <ButtonDefault
           icon="plus"

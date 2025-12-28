@@ -2,7 +2,9 @@
   <div class="containers w-full">
     <div class="flex items-end justify-between w-full">
       <div class="flex items-center header-content p-6 pb-0 space-x-4">
-        <div class="title-header">Dashboard</div>
+        <div class="title-header">
+          <i class="ti ti-dashboard text-gray-400 mr-2" /> Dashboard
+        </div>
 
         <ButtonDefault
           v-show="isEditLayout"

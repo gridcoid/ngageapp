@@ -7,7 +7,9 @@
     <div class="bg-white rounded-lg shadow-sm border border-gray-200">
       <!-- Header -->
       <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex">
-        <h1 class="text-xl font-bold text-gray-800">Audience Details</h1>
+        <h1 class="text-xl font-bold text-gray-800">
+          <i class="ti ti-user text-gray-400 mr-2" /> Audience Details
+        </h1>
         <ButtonDefault
           icon="edit"
           text="Edit"

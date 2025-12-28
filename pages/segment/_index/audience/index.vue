@@ -6,7 +6,10 @@
 
     <!-- Header -->
     <div class="flex items-center header-content">
-      <div class="title-header">Audiences for {{ data?.name }}</div>
+      <div class="title-header">
+        <i class="ti ti-users text-gray-400 mr-2" /> Audiences for
+        {{ data?.name }}
+      </div>
       <div class="flex">
         <ButtonDefault
           icon="plus"

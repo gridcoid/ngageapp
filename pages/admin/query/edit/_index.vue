@@ -7,7 +7,9 @@
     <div class="flex gap-6">
       <div class="card-content">
         <div class="header-card flex items-center">
-          <div class="title">Update Query</div>
+          <div class="title">
+            <i class="ti ti-code text-gray-400 mr-2"></i> Update Query
+          </div>
         </div>
 
         <div class="body-card">
@@ -129,7 +131,9 @@
       </div>
       <div class="card-content">
         <div class="header-card flex items-center">
-          <div class="title">Query Example</div>
+          <div class="title">
+            <i class="ti ti-help text-gray-400 mr-2"></i> Query Example
+          </div>
         </div>
 
         <div class="body-card">

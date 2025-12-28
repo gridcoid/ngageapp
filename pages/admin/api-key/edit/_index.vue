@@ -6,7 +6,9 @@
 
     <div class="card-content">
       <div class="header-card flex items-center">
-        <div class="title">Update API Key</div>
+        <div class="title">
+          <i class="ti ti-key text-gray-400 mr-2"></i> Update API Key
+        </div>
       </div>
 
       <div class="body-card">

@@ -6,7 +6,9 @@
 
     <div class="card-content">
       <div class="header-card flex items-center">
-        <div class="title">Update Widget</div>
+        <div class="title">
+          <i class="ti ti-aspect-ratio text-gray-400 mr-2"></i> Update Widget
+        </div>
       </div>
 
       <div class="body-card">

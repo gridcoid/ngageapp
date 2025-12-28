@@ -7,7 +7,9 @@
     <div class="bg-white rounded-lg shadow-sm border border-gray-200">
       <!-- Header -->
       <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex">
-        <h1 class="text-xl font-bold text-gray-800">Query Details</h1>
+        <h1 class="text-xl font-bold text-gray-800">
+          <i class="ti ti-code text-gray-400 mr-2"></i> Query Details
+        </h1>
 
         <ButtonDefault
           icon="edit"
@@ -128,7 +130,7 @@
             <h2
               class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
             >
-              <i class="ti ti-code mr-2 text-red-500"></i>
+              <i class="ti ti-help mr-2 text-yellow-500"></i>
               Example
             </h2>
             <QueryExample />

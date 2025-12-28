@@ -6,7 +6,10 @@
 
     <div class="card-content">
       <div class="header-card flex items-center justify-between">
-        <div class="title">Create JSON Import Source</div>
+        <div class="title">
+          <i class="ti ti-brackets-contain text-gray-400 mr-2"></i> Create JSON
+          Import Source
+        </div>
         <i @click="clear()" class="ti ti-trash text-red-500 cursor-pointer" />
       </div>
 

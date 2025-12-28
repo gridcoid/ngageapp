@@ -6,7 +6,9 @@
 
     <div class="card-content">
       <div class="header-card flex items-center">
-        <div class="title">Create New API Key</div>
+        <div class="title">
+          <i class="ti ti-key text-gray-400 mr-2"></i> Create New API Key
+        </div>
       </div>
 
       <div class="body-card">

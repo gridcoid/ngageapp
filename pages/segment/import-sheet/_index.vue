@@ -5,7 +5,9 @@
     </div>
     <div v-if="step1" class="body-upload">
       <div class="card-upload">
-        <div class="card-header">Spreadsheet Importer</div>
+        <div class="card-header">
+          <i class="ti ti-table text-gray-400 mr-2" /> Spreadsheet Importer
+        </div>
         <div class="card-body">
           <el-upload
             class="upload-demo"
