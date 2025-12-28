@@ -20,8 +20,16 @@
       </p>
       <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
 [
-  { "field": "*", "op": "count", "as": "total" },
-  { "field": "amount", "op": "sum", "as": "total_amount" }
+  {
+    "field": "*",
+    "op": "count",
+    "as": "total"
+  },
+  {
+    "field": "amount",
+    "op": "sum",
+    "as": "total_amount"
+  }
 ]
       </pre>
     </div>
@@ -34,7 +42,10 @@
         group. Example:
       </p>
       <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
-["province", "gender"]
+[
+  "province",
+  "gender"
+]
       </pre>
     </div>
 
@@ -65,8 +76,16 @@
       <p class="font-medium">Array of simple filters:</p>
       <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
 [
-  { "field": "isActive", "op": "eq", "value": true },
-  { "field": "province", "op": "eq", "value": "Jakarta" }
+  {
+    "field": "isActive",
+    "op": "eq",
+    "value": true
+  },
+  {
+    "field": "province",
+    "op": "eq",
+    "value": "Jakarta"
+  }
 ]
   </pre
       >
@@ -99,8 +118,14 @@
       </p>
       <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
 [
-  { "field": "createdAt", "dir": "desc" },
-  { "field": "province", "dir": "asc" }
+  {
+    "field": "createdAt",
+    "dir": "desc"
+  },
+  {
+    "field": "province",
+    "dir": "asc"
+  }
 ]
       </pre>
     </div>
@@ -116,29 +141,9 @@
       </pre>
     </div>
 
-    <!-- Summary -->
-    <div class="bg-blue-50 p-6 rounded shadow space-y-2">
-      <h2 class="text-xl font-semibold">Example Full Query Definition</h2>
-      <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
-{
-  "source": "audienceContacts",
-  "metrics": [
-    { "field": "*", "op": "count", "as": "total" }
-  ],
-  "groupBy": ["province"],
-  "filters": { "and": [ { "field": "isActive", "op": "eq", "value": true } ] },
-  "joins": [
-    { "table": "Segments", "type": "left", "localField": "segmentId", "foreignField": "id" }
-  ],
-  "sort": [{ "field": "createdAt", "dir": "desc" }],
-  "limit": 100
-}
-      </pre>
-    </div>
-
-    <!-- Vocabulary -->
+    <!-- Glossary -->
     <div class="bg-white p-6 rounded shadow space-y-2 mt-6">
-      <h2 class="text-xl font-semibold">Vocabulary / Glossary</h2>
+      <h2 class="text-xl font-semibold">Glossary</h2>
       <p class="text-gray-700">
         Definitions of key terms used in metrics, filters, and query
         configuration.
@@ -177,12 +182,61 @@
         <li><strong>limit</strong>: Maximum number of rows to return.</li>
       </ul>
     </div>
+
+    <!-- Summary -->
+    <div class="bg-blue-50 p-6 rounded shadow space-y-2">
+      <h2 class="text-xl font-semibold">Example Full Query Definition</h2>
+      <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+{
+  "source": "AudienceContacts",
+  "metrics": [
+    {
+      "field": "*",
+      "op": "count",
+      "as": "total"
+    }
+  ],
+  "groupBy": ["province"],
+  "filters": {
+    "and": [
+      {
+        "field": "isActive",
+        "op": "eq",
+        "value": true
+      }
+    ]
+  },
+  "joins": [
+    {
+      "table": "Segments",
+      "type": "left",
+      "localField": "segmentId",
+      "foreignField": "id"
+    }
+  ],
+  "sort": [
+    {
+      "field": "createdAt",
+      "dir": "desc"
+    }
+  ],
+  "limit": 100
+}
+      </pre>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'QueryGuidePage',
+  layout: 'default',
+
+  head() {
+    return {
+      title: 'Query Example - ' + this.$config.appName,
+    }
+  },
 }
 </script>
 

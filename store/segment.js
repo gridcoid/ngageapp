@@ -21,9 +21,9 @@ export const mutations = {
   },
   SET_DATA_LIST(state, item) {
     if (item !== null) {
-      state.dataList = item.data.rows
-      state.totalList = item.data.totalRows
-      state.totalPages = item.data.totalPages
+      state.dataList = item.rows
+      state.totalList = item.totalRows
+      state.totalPages = item.totalPages
     } else {
       state.dataList = []
       state.totalList = 0
@@ -32,7 +32,7 @@ export const mutations = {
   },
   SET_DATA_ALL(state, item) {
     if (item !== null) {
-      state.dataList = item.data
+      state.dataList = item
     } else {
       state.dataList = []
     }
@@ -62,7 +62,7 @@ export const actions = {
   async list({ commit }, payload) {
     try {
       const response = await this.$repositories.segment.list(payload)
-      commit('SET_DATA_LIST', response.data)
+      commit('SET_DATA_LIST', response.data.data)
       return response
     } catch (e) {
       commit('SET_DATA_LIST', null)
@@ -78,7 +78,7 @@ export const actions = {
   async all({ commit }) {
     try {
       const response = await this.$repositories.segment.all()
-      commit('SET_DATA_ALL', response.data)
+      commit('SET_DATA_ALL', response.data.data)
       return response
     } catch (e) {
       commit('SET_DATA_ALL', null)

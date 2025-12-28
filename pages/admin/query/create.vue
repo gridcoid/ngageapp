@@ -43,12 +43,12 @@
               placeholder="Select source"
               class="w-full"
             >
-              <el-option label="Audiences" value="audiences" />
-              <el-option label="Audience Contacts" value="audienceContacts" />
-              <el-option label="Segments" value="segments" />
-              <el-option label="Audience Segments" value="audienceSegments" />
-              <el-option label="Locations" value="locations" />
-              <el-option label="Demographics" value="demographics" />
+              <el-option label="Audiences" value="Audiences" />
+              <el-option label="AudienceContacts" value="AudienceContacts" />
+              <el-option label="Segments" value="Segments" />
+              <el-option label="AudienceSegments" value="AudienceSegments" />
+              <el-option label="Locations" value="Locations" />
+              <el-option label="Demographics" value="Demographics" />
             </el-select>
           </el-form-item>
 

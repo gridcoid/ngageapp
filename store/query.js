@@ -5,6 +5,8 @@ const initialState = () => ({
 
   dataCreate: {},
   dataDetail: {},
+
+  dataResult: {},
 })
 
 export const state = initialState
@@ -21,9 +23,9 @@ export const mutations = {
   },
   SET_DATA_LIST(state, item) {
     if (item !== null) {
-      state.dataList = item.data.rows
-      state.totalList = item.data.totalRows
-      state.totalPages = item.data.totalPages
+      state.dataList = item.rows
+      state.totalList = item.totalRows
+      state.totalPages = item.totalPages
     } else {
       state.dataList = []
       state.totalList = 0
@@ -44,6 +46,11 @@ export const mutations = {
       state.dataDetail = {}
     }
   },
+  SET_DATA_RESULT(state, item) {
+    if (item !== null) {
+      state.dataResult[item.uuid] = item
+    }
+  },
 }
 
 export const actions = {
@@ -55,7 +62,7 @@ export const actions = {
   async list({ commit }, payload) {
     try {
       const response = await this.$repositories.query.list(payload)
-      commit('SET_DATA_LIST', response.data)
+      commit('SET_DATA_LIST', response.data.data)
       return response
     } catch (e) {
       commit('SET_DATA_LIST', null)
@@ -131,6 +138,7 @@ export const actions = {
   async run({ commit }, payload) {
     try {
       const response = await this.$repositories.query.run(payload)
+      commit('SET_DATA_RESULT', response.data.data)
       return response
     } catch (e) {
       this.$notifier.showMessage({

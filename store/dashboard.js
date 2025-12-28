@@ -14,7 +14,7 @@ export const mutations = {
   },
   SET_DATA_LIST(state, item) {
     if (item !== null) {
-      state.dataList = item.data
+      state.dataList = item
     } else {
       state.dataList = []
     }
@@ -34,7 +34,7 @@ export const actions = {
   async list({ commit }) {
     try {
       const response = await this.$repositories.dashboard.list()
-      commit('SET_DATA_LIST', response.data)
+      commit('SET_DATA_LIST', response.data.data)
       return response
     } catch (e) {
       commit('SET_DATA_LIST', null)

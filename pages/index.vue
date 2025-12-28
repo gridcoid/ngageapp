@@ -80,6 +80,7 @@ export default {
 
   computed: {
     ...mapState({
+      dataQuery: (state) => state.query.dataList,
       dataDashboard: (state) => state.dashboard.dataList,
       orgId: (state) => state.user.orgId,
       sidebar: (state) => state.user.sidebar,
@@ -95,6 +96,7 @@ export default {
   },
 
   mounted() {
+    this.getQuery()
     this.getData()
   },
 
@@ -106,13 +108,38 @@ export default {
     async loadWidgetData() {
       for (const w of this.widgets) {
         if (!w.queryId) continue
+
+        const queryUuid = this.dataQuery.find((q) => q.id === w.queryId)?.uuid
+
+        // Skip if null/undefined
+        if (!queryUuid) continue
+
+        const payload = {
+          ...w,
+          queryUuid,
+        }
+
         try {
-          const res = await this.$store.dispatch('query/run', w)
+          const res = await this.$store.dispatch('query/run', payload)
           this.$set(w, 'data', res.data)
         } catch {
           this.$set(w, 'data', { error: true })
         }
       }
+    },
+
+    getQuery() {
+      this.isLoading = true
+      this.$store
+        .dispatch('query/list', {
+          page: 1,
+          size: 1000,
+          name: '',
+          sort: 'createdAt_desc',
+        })
+        .finally(() => {
+          this.isLoading = false
+        })
     },
 
     getData() {
@@ -138,7 +165,7 @@ export default {
 
   watch: {
     dataDashboard: {
-      immediate: true,
+      // immediate: true,
       handler(val) {
         if (!val?.config?.widgets) return
 
