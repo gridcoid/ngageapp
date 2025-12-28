@@ -65,15 +65,22 @@
               <el-input
                 v-model="metricsJson"
                 type="textarea"
-                :rows="6"
+                :rows="10"
                 placeholder='[{"field":"id","op":"count","as":"total"}]'
+                class="font-mono"
               />
             </el-form-item>
 
             <!-- Group By -->
             <el-form-item>
               <label slot="label" class="title-form">Group By</label>
-              <el-input v-model="groupByJson" placeholder='["province"]' />
+              <el-input
+                v-model="groupByJson"
+                type="textarea"
+                :rows="10"
+                placeholder='["province"]'
+                class="font-mono"
+              />
             </el-form-item>
 
             <!-- Filters -->
@@ -82,8 +89,9 @@
               <el-input
                 v-model="filtersJson"
                 type="textarea"
-                :rows="5"
+                :rows="10"
                 placeholder='[{"field":"isActive","op":"eq","value":true}]'
+                class="font-mono"
               />
             </el-form-item>
 
@@ -93,8 +101,9 @@
               <el-input
                 v-model="joinsJson"
                 type="textarea"
-                :rows="5"
+                :rows="10"
                 placeholder='[{"table":"Segments","type":"left","localField":"segmentId","foreignField":"id"}]'
+                class="font-mono"
               />
             </el-form-item>
 
@@ -104,8 +113,9 @@
               <el-input
                 v-model="sortJson"
                 type="textarea"
-                :rows="4"
+                :rows="10"
                 placeholder='[{"field":"createdAt","dir":"desc"}]'
+                class="font-mono"
               />
             </el-form-item>
 
