@@ -28,6 +28,21 @@ export const mutations = {
   SELECT_WIDGET(state, widget) {
     state.widget = widget
   },
+  UPDATE_WIDGET(state, widget) {
+    if (!state.dataList?.config) return
+    state.dataList.config.widgets = state.dataList.config.widgets.map((w) => {
+      if (w.i === widget.i) {
+        // update only type, queryId, title
+        return {
+          ...w,
+          type: widget.type,
+          queryId: widget.queryId,
+          title: widget.title,
+        }
+      }
+      return w
+    })
+  },
 }
 
 export const actions = {
@@ -52,9 +67,9 @@ export const actions = {
   },
 
   // dashboard:add (widget)
-  async add({ commit }, { dashboardUuid, widget }) {
+  async addWidget({ commit }, { dashboardUuid, widget }) {
     try {
-      const response = await this.$repositories.dashboard.add(
+      const response = await this.$repositories.dashboard.addWidget(
         dashboardUuid,
         widget
       )
@@ -73,10 +88,11 @@ export const actions = {
     commit('UPDATE_WIDGETS', widgets)
 
     try {
-      await this.$repositories.dashboard.updateWidgets({
-        uuid: state.dataList.uuid,
+      const response = await this.$repositories.dashboard.updateWidgets({
+        dashboardUuid: state.dataList.uuid,
         config: state.dataList.config,
       })
+      return response
     } catch (e) {
       console.error(e)
     }
@@ -85,5 +101,21 @@ export const actions = {
   // dashboard:select (widget)
   select({ commit }, widget) {
     commit('SELECT_WIDGET', widget)
+  },
+
+  // dashboard:update (widget)
+  async updateWidget({ commit, state }, payload) {
+    commit('UPDATE_WIDGET', payload.widget)
+
+    try {
+      const response = await this.$repositories.dashboard.updateWidget({
+        dashboardUuid: payload.dashboardUuid,
+        widgetUuid: payload.widgetUuid,
+        widget: payload.widget,
+      })
+      return response
+    } catch (e) {
+      console.error(e)
+    }
   },
 }

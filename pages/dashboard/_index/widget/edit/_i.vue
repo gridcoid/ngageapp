@@ -145,7 +145,7 @@ export default {
       this.isLoading = true
 
       this.$store
-        .dispatch('dashboard/update', {
+        .dispatch('dashboard/updateWidget', {
           dashboardUuid: this.$route.params.index,
           widgetUuid: this.data.i,
           widget: {
@@ -155,8 +155,8 @@ export default {
           },
         })
         .then((res) => {
-          if (res.status === 200 || res.status === 202) {
-            this.$router.push({ path: '/' })
+          if (res.status === 200) {
+            this.$router.push({ path: '/' }) // dashboard
 
             this.$notifier.showMessage({
               content: 'Widget updated.',
@@ -170,7 +170,7 @@ export default {
                 .join(', ') || 'Failed to update widget'
 
             this.$notifier.showMessage({
-              content: 'Widget failed. Please try again!',
+              content: 'Failed to update widget!',
               type: 'failed',
             })
           }

@@ -106,7 +106,7 @@ export default {
       this.isLoading = true
 
       this.$store
-        .dispatch('dashboard/add', {
+        .dispatch('dashboard/addWidget', {
           dashboardUuid: this.$route.params.index,
           widget: {
             ...this.data,
@@ -117,8 +117,9 @@ export default {
           },
         })
         .then((res) => {
-          if (res.status === 200 || res.status === 201) {
+          if (res.status === 200) {
             this.$router.push({ path: '/' }) // dashboard
+
             this.$notifier.showMessage({
               content: 'Widget created.',
               type: 'success',
@@ -129,6 +130,7 @@ export default {
               res.data?.data?.errors
                 ?.map((e) => Object.values(e)[0])
                 .join(', ') || 'Failed to create widget'
+
             this.$notifier.showMessage({
               content: 'Failed to create widget!',
               type: 'failed',

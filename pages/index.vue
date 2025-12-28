@@ -14,7 +14,7 @@
         />
       </div>
 
-      <div class="mr-6">
+      <div class="mr-6 mb-2">
         <!-- Layout edit switch -->
         <el-switch v-model="isEditLayout" active-text="Edit Layout" />
       </div>
