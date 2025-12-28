@@ -81,7 +81,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-sliders-h mr-2 text-green-500"></i>
+                <i class="ti ti-adjustments mr-2 text-green-500"></i>
                 Metrics
               </h2>
 
@@ -91,15 +91,12 @@
                 </pre>
               </div>
             </div>
-          </div>
 
-          <!-- RIGHT COLUMN -->
-          <div class="space-y-8">
             <div>
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-objects-column mr-2 text-purple-500"></i>
+                <i class="ti ti-border-all mr-2 text-purple-500"></i>
                 Group By
               </h2>
 
@@ -124,6 +121,17 @@
                 </pre>
               </div>
             </div>
+          </div>
+
+          <!-- RIGHT COLUMN -->
+          <div class="space-y-0">
+            <h2
+              class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+            >
+              <i class="ti ti-code mr-2 text-red-500"></i>
+              Example
+            </h2>
+            <QueryExample />
           </div>
         </div>
       </div>
