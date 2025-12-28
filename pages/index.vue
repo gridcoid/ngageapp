@@ -1,25 +1,22 @@
 <template>
   <div class="containers w-full">
-    <div
-      class="flex items-center header-content filter-content justify-between"
-    >
-      <div class="flex items-end justify-between w-full">
-        <div class="flex items-center header-content p-6 pb-0 space-x-4">
-          <div class="title-header">Dashboard</div>
+    <div class="flex items-end justify-between w-full">
+      <div class="flex items-center header-content p-6 pb-0 space-x-4">
+        <div class="title-header">Dashboard</div>
 
-          <ButtonDefault
-            icon="plus"
-            text="Add Widget"
-            class="ml-4"
-            type="secondary"
-            @click.native="toAddWidget()"
-          />
-        </div>
+        <ButtonDefault
+          v-show="isEditLayout"
+          icon="plus"
+          text="Add Widget"
+          class="ml-4"
+          type="secondary"
+          @click.native="toAddWidget()"
+        />
+      </div>
 
-        <div class="mr-6">
-          <!-- Layout edit switch -->
-          <el-switch v-model="isEditLayout" active-text="Edit Layout" />
-        </div>
+      <div class="mr-6">
+        <!-- Layout edit switch -->
+        <el-switch v-model="isEditLayout" active-text="Edit Layout" />
       </div>
     </div>
 
@@ -262,6 +259,10 @@ export default {
   font-weight: 600;
   font-size: 18px;
   color: #333333;
+}
+
+.header-content {
+  height: 58px;
 }
 
 .vue-grid-item {
