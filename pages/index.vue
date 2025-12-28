@@ -232,15 +232,43 @@ export default {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',
-      }).then(() => {
-        this.$notifier.showMessage({
-          content: 'Delete widget...',
-          type: 'loading',
-        })
-
-        console.log('widgets', this.widgets)
-        console.log('layout', this.layout)
       })
+        .then(async () => {
+          this.$notifier.showMessage({
+            content: 'Deleting widget...',
+            type: 'loading',
+          })
+
+          try {
+            // remove from local widgets
+            this.widgets = this.widgets.filter((w) => w.uuid !== uuid)
+
+            // also update layout so grid refreshes
+            this.layout = this.layout.filter((l) => l.i !== String(uuid))
+
+            // prepare payload (no data field)
+            const updated = this.widgets.map(({ data, ...rest }) => ({
+              ...rest,
+            }))
+
+            // push to store
+            await this.$store.dispatch('dashboard/update', updated)
+
+            this.$notifier.showMessage({
+              content: `Widget "${name}" deleted`,
+              type: 'success',
+            })
+          } catch (err) {
+            this.$notifier.showMessage({
+              content: 'Failed to delete widget',
+              type: 'error',
+            })
+            console.error(err)
+          }
+        })
+        .catch(() => {
+          // user canceled — do nothing
+        })
     },
   },
 
