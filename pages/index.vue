@@ -82,6 +82,7 @@ export default {
     ...mapState({
       dataQuery: (state) => state.query.dataList,
       dataDashboard: (state) => state.dashboard.dataList,
+      dataResult: (state) => state.query.dataResult,
       orgId: (state) => state.user.orgId,
       sidebar: (state) => state.user.sidebar,
       popup: (state) => state.user.popup,
@@ -119,12 +120,16 @@ export default {
           queryUuid,
         }
 
-        try {
-          const res = await this.$store.dispatch('query/run', payload)
-          this.$set(w, 'data', res.data)
-        } catch {
-          this.$set(w, 'data', { error: true })
-        }
+        // try {
+        //   const res = await this.$store.dispatch('query/run', payload)
+        //   this.$set(w, 'data', res.data)
+        // } catch {
+        //   this.$set(w, 'data', { error: true })
+        // }
+        this.isLoading = true
+        this.$store.dispatch('query/run', payload).finally(() => {
+          this.isLoading = false
+        })
       }
     },
 
@@ -164,8 +169,20 @@ export default {
   },
 
   watch: {
+    dataResult: {
+      handler(val) {
+        // console.log(val)
+        /*
+        {
+          "87168486-95db-417a-a492-c2facd7b8656": {
+            "name": "Total Contacts by Type",
+            "total_contacts": "4"
+          }
+        }
+        */
+      },
+    },
     dataDashboard: {
-      // immediate: true,
       handler(val) {
         if (!val?.config?.widgets) return
 

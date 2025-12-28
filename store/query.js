@@ -15,6 +15,7 @@ export const getters = {
   dataList: (state) => state.dataList,
   dataCreate: (state) => state.dataCreate,
   dataDetail: (state) => state.dataDetail,
+  dataResult: (state) => state.dataResult,
 }
 
 export const mutations = {
@@ -46,10 +47,22 @@ export const mutations = {
       state.dataDetail = {}
     }
   },
-  SET_DATA_RESULT(state, item) {
-    if (item !== null) {
-      state.dataResult[item.uuid] = item
-    }
+  SET_DATA_RESULT(state, items) {
+    if (!items) return
+
+    // this does not work
+    /*
+    items.forEach((item) => {
+    state.dataResult[item.uuid] = item
+    })
+    */
+
+    const next = { ...state.dataResult }
+    items.forEach((item) => {
+      const { uuid, ...rest } = item
+      next[uuid] = rest
+    })
+    state.dataResult = next
   },
 }
 
@@ -137,6 +150,10 @@ export const actions = {
   // query:run
   async run({ commit }, payload) {
     try {
+      // if dataResult contains payload.queryUuid, skip it
+      if (payload.queryUuid in (this.state.dataResult || {}))
+        return this.state.dataResult[payload.queryUuid]
+
       const response = await this.$repositories.query.run(payload)
       commit('SET_DATA_RESULT', response.data.data)
       return response
