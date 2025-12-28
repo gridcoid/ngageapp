@@ -536,7 +536,7 @@ export default {
     )
     const after2 = after_.substring(after_.indexOf('/') + 1)
     this.campaignId = after2
-    this.placementId = this.$route.params.index
+    this.placementId = this.$route.params.placementIndex
     this.getAll()
   },
   methods: {
@@ -640,7 +640,7 @@ export default {
     },
     getPerformance() {
       const data = {
-        id: this.$route.params.index,
+        id: this.$route.params.placementIndex,
         range: this.value,
       }
       this.$store
@@ -731,7 +731,7 @@ export default {
     },
     getDetailPlacement() {
       const data = {
-        id: this.$route.params.index,
+        id: this.$route.params.placementIndex,
       }
       this.$store
         .dispatch('placement/getDetail', data)

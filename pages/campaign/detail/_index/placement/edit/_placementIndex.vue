@@ -1261,7 +1261,7 @@ export default {
     getDetailPlacement() {
       this.isLoading_6 = true
       const data = {
-        id: this.$route.params.index,
+        id: this.$route.params.placementIndex,
       }
       this.$store
         .dispatch('placement/getDetail', data)
