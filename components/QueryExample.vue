@@ -175,7 +175,9 @@
     <!-- Summary -->
     <div class="bg-blue-50 p-6 rounded shadow space-y-2">
       <h2 class="text-xl font-semibold">Example Full Query Definition</h2>
-      <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+      <pre
+        class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
+      >
 {
   "source": "AudienceContacts",
   "metrics": [
