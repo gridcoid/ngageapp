@@ -215,7 +215,7 @@ export default {
       })
 
       // push to store safely
-      this.$store.dispatch('dashboard/update', updatedWithoutData)
+      this.$store.dispatch('dashboard/updateWidgets', updatedWithoutData)
 
       // update local copy so UI reacts instantly
       this.widgets = updated
@@ -255,7 +255,10 @@ export default {
             )
 
             // push to store
-            await this.$store.dispatch('dashboard/update', updatedWithoutData)
+            await this.$store.dispatch(
+              'dashboard/updateWidgets',
+              updatedWithoutData
+            )
 
             this.$notifier.showMessage({
               content: `Widget "${name}" deleted`,

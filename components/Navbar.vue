@@ -152,6 +152,7 @@ export default {
     },
     logout() {
       this.$auth.logout()
+      this.$store.dispatch('reset')
       this.$router.push('/login')
     },
     checkRole() {

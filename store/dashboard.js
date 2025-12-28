@@ -1,5 +1,5 @@
 const initialState = () => ({
-  dataList: [],
+  dataList: {}, // for now only single dashboard
   widget: null,
 })
 
@@ -69,11 +69,11 @@ export const actions = {
   },
 
   // dashboard:update (widgets)
-  async update({ commit, state }, widgets) {
+  async updateWidgets({ commit, state }, widgets) {
     commit('UPDATE_WIDGETS', widgets)
 
     try {
-      await this.$repositories.dashboard.update({
+      await this.$repositories.dashboard.updateWidgets({
         uuid: state.dataList.uuid,
         config: state.dataList.config,
       })
