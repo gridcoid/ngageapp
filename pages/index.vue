@@ -3,16 +3,23 @@
     <div
       class="flex items-center header-content filter-content justify-between"
     >
-      <div class="flex items-center header-content p-6 pb-0">
-        <div class="title-header">Dashboard</div>
+      <div class="flex items-end justify-between w-full">
+        <div class="flex items-center header-content p-6 pb-0 space-x-4">
+          <div class="title-header">Dashboard</div>
 
-        <ButtonDefault
-          icon="plus"
-          text="Add Widget"
-          class="ml-4"
-          type="secondary"
-          @click.native="toAddWidget()"
-        />
+          <ButtonDefault
+            icon="plus"
+            text="Add Widget"
+            class="ml-4"
+            type="secondary"
+            @click.native="toAddWidget()"
+          />
+        </div>
+
+        <div class="mr-6">
+          <!-- Layout edit switch -->
+          <el-switch v-model="isEditLayout" active-text="Edit Layout" />
+        </div>
       </div>
     </div>
 
@@ -21,8 +28,8 @@
       :layout="layout"
       :col-num="4"
       :row-height="135"
-      :is-draggable="true"
-      :is-resizable="true"
+      :is-draggable="isEditLayout"
+      :is-resizable="isEditLayout"
       :margin="[24, 24]"
       @layout-updated="onLayoutUpdated"
     >
@@ -34,8 +41,34 @@
       >
         <!-- item.i is uuid -->
         <template v-if="widgetByUuidFunc(item.i)">
-          <div class="text-gray-500 mb-2">
-            {{ widgetByUuidFunc(item.i).title }}
+          <!-- HEADER (title + icons) -->
+          <div class="group flex justify-between items-center mb-4">
+            <!-- Title -->
+            <div class="text-gray-500">
+              {{ widgetByUuidFunc(item.i).title }}
+            </div>
+
+            <!-- Icons (hidden until hover on the title area) -->
+            <div
+              v-if="isEditLayout"
+              class="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition"
+            >
+              <button
+                class="text-yellow-300 hover:text-yellow-600"
+                @click.stop="onEdit(item.i)"
+                title="Edit"
+              >
+                <i class="ti ti-edit"></i>
+              </button>
+
+              <button
+                class="text-red-300 hover:text-red-600"
+                @click.stop="onDelete(item.i)"
+                title="Delete"
+              >
+                <i class="ti ti-trash"></i>
+              </button>
+            </div>
           </div>
 
           <MetricWidget
@@ -88,6 +121,7 @@ export default {
       isLoading: false,
       widgets: [],
       layout: [],
+      isEditLayout: false, // default off (locked)
     }
   },
 
@@ -189,6 +223,16 @@ export default {
       // update local copy so UI reacts instantly
       this.widgets = updated
     },
+
+    onEdit(uuid) {
+      this.$router.push(
+        `/dashboard/${this.dataDashboard.uuid}/widget/${uuid}/edit`
+      )
+    },
+
+    onDelete(uuid) {
+      this.$store.dispatch('dashboard/delete', uuid)
+    },
   },
 
   watch: {
@@ -213,7 +257,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.title-header {
+  font-weight: 600;
+  font-size: 18px;
+  color: #333333;
+}
+
 .vue-grid-item {
   touch-action: none;
 }
