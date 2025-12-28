@@ -1,11 +1,13 @@
 const initialState = () => ({
   dataList: [],
+  widget: null,
 })
 
 export const state = initialState
 
 export const getters = {
   dataList: (state) => state.dataList,
+  widget: (state) => state.widget,
 }
 
 export const mutations = {
@@ -22,6 +24,9 @@ export const mutations = {
   UPDATE_WIDGETS(state, widgets) {
     if (!state.dataList?.config) return
     state.dataList.config.widgets = JSON.parse(JSON.stringify(widgets))
+  },
+  SELECT_WIDGET(state, widget) {
+    state.widget = widget
   },
 }
 
@@ -75,5 +80,10 @@ export const actions = {
     } catch (e) {
       console.error(e)
     }
+  },
+
+  // dashboard:select (widget)
+  select({ commit }, widget) {
+    commit('SELECT_WIDGET', widget)
   },
 }

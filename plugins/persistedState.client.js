@@ -12,6 +12,7 @@ export default ({ store }) => {
         query: {
           ...state.query,
           dataResult: {}, // don't persist this cache
+          dataList: {}, // don't persist this cache
         },
       }
     },

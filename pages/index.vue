@@ -52,7 +52,7 @@
             >
               <button
                 class="text-yellow-300 hover:text-yellow-600"
-                @click.stop="onEdit(item.i)"
+                @click.stop="onEdit(item)"
                 title="Edit"
               >
                 <i class="ti ti-edit"></i>
@@ -135,7 +135,7 @@ export default {
     // fast lookup helper
     widgetByUuidFunc() {
       const map = {}
-      this.widgets.forEach((w) => (map[String(w.uuid)] = w))
+      this.widgets.forEach((w) => (map[String(w.i)] = w))
       const func = (id) => map[id]
       return func
     },
@@ -203,7 +203,7 @@ export default {
 
     onLayoutUpdated(newLayout) {
       const updated = this.widgets.map((w) => {
-        const pos = newLayout.find((l) => l.i === String(w.uuid))
+        const pos = newLayout.find((l) => l.i === String(w.i))
         return { ...w, ...pos }
       })
 
@@ -221,9 +221,10 @@ export default {
       this.widgets = updated
     },
 
-    onEdit(uuid) {
+    onEdit(item) {
+      this.$store.dispatch('dashboard/select', item)
       this.$router.push(
-        `/dashboard/${this.dataDashboard.uuid}/widget/${uuid}/edit`
+        `/dashboard/${this.dataDashboard.uuid}/widget/edit/${item.i}`
       )
     },
 
@@ -241,7 +242,7 @@ export default {
 
           try {
             // remove from local widgets
-            this.widgets = this.widgets.filter((w) => w.uuid !== uuid)
+            this.widgets = this.widgets.filter((w) => w.i !== uuid)
 
             // also update layout so grid refreshes
             this.layout = this.layout.filter((l) => l.i !== String(uuid))
@@ -284,7 +285,10 @@ export default {
           y: w.y ?? idx,
           w: w.w,
           h: w.h,
-          i: String(w.uuid),
+          i: w.i,
+          type: w.type,
+          queryId: w.queryId,
+          title: w.title,
         }))
 
         this.loadWidgetData()

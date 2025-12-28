@@ -3,10 +3,12 @@
     <div class="header-content">
       <Back />
     </div>
+
     <div class="card-content">
       <div class="header-card flex items-center">
-        <div class="title">Create New Widget</div>
+        <div class="title">Update Widget</div>
       </div>
+
       <div class="body-card">
         <el-form
           ref="widgetForm"
@@ -61,6 +63,7 @@
         <el-button type="primary" @click="$router.back()" plain class="w-32">
           Discard
         </el-button>
+
         <el-button
           icon="el-icon-check"
           type="primary"
@@ -76,11 +79,11 @@
 
 <script>
 export default {
-  name: 'CreateWidgetPage',
+  name: 'UpdateWidgetPage',
   layout: 'default',
   head() {
     return {
-      title: 'Create - Widget - ' + this.$config.appName,
+      title: 'Update - Widget - ' + this.$config.appName,
     }
   },
   data() {
@@ -89,60 +92,26 @@ export default {
       showMessage: false,
       messageError: '',
       data: {
-        type: '', // metric / chart / table
-        queryId: '', // linked query id
-        title: '', // widget title
+        type: '',
+        queryId: '',
+        title: '',
+        // grid metadata — preserved when updating
+        i: '',
+        x: 0,
+        y: 0,
+        w: 4,
+        h: 1,
       },
       queries: [],
     }
   },
+
+  mounted() {
+    this.getQueries()
+    this.getDetail()
+  },
+
   methods: {
-    save() {
-      this.$notifier.showMessage({
-        content: 'Creating widget...',
-        type: 'loading',
-      })
-
-      this.isLoading = true
-
-      this.$store
-        .dispatch('dashboard/add', {
-          dashboardUuid: this.$route.params.index,
-          widget: {
-            ...this.data,
-            x: 0, // full width default
-            y: 0,
-            w: 4, // grid width full
-            h: 1, // default height
-          },
-        })
-        .then((res) => {
-          if (res.status === 200 || res.status === 201) {
-            this.$router.push({ path: '/' }) // dashboard
-            this.$notifier.showMessage({
-              content: 'Widget created.',
-              type: 'success',
-            })
-          } else {
-            this.showMessage = true
-            this.messageError =
-              res.data?.data?.errors
-                ?.map((e) => Object.values(e)[0])
-                .join(', ') || 'Failed to create widget'
-            this.$notifier.showMessage({
-              content: 'Failed to create widget!',
-              type: 'failed',
-            })
-          }
-        })
-        .catch((e) => {
-          this.showMessage = true
-          this.messageError = 'Error: ' + e.message
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
-    },
     getQueries() {
       this.$store
         .dispatch('query/list', {
@@ -155,9 +124,62 @@ export default {
           this.queries = res.data?.data?.rows || []
         })
     },
-  },
-  mounted() {
-    this.getQueries()
+
+    getDetail() {
+      this.isLoading = true
+      if (this.$store.state.dashboard.widget) {
+        this.data = { ...this.$store.state.dashboard.widget }
+      } else {
+        this.showMessage = true
+        this.messageError = 'Widget not found'
+        this.$router.back()
+      }
+    },
+
+    save() {
+      this.$notifier.showMessage({
+        content: 'Updating widget...',
+        type: 'loading',
+      })
+
+      this.isLoading = true
+
+      this.$store
+        // 🔁 adjust if your action name differs
+        .dispatch('dashboard/updateWidget', {
+          dashboardUuid: this.$route.params.i,
+          widgetUuid: this.data.uuid,
+          widget: this.data,
+        })
+        .then((res) => {
+          if (res.status === 200 || res.status === 202) {
+            this.$router.push({ path: '/' })
+
+            this.$notifier.showMessage({
+              content: 'Widget updated.',
+              type: 'success',
+            })
+          } else {
+            this.showMessage = true
+            this.messageError =
+              res.data?.data?.errors
+                ?.map((e) => Object.values(e)[0])
+                .join(', ') || 'Failed to update widget'
+
+            this.$notifier.showMessage({
+              content: 'Widget failed. Please try again!',
+              type: 'failed',
+            })
+          }
+        })
+        .catch((e) => {
+          this.showMessage = true
+          this.messageError = 'Error: ' + e.message
+        })
+        .finally(() => {
+          this.isLoading = false
+        })
+    },
   },
 }
 </script>
