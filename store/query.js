@@ -15,7 +15,6 @@ export const getters = {
   dataList: (state) => state.dataList,
   dataCreate: (state) => state.dataCreate,
   dataDetail: (state) => state.dataDetail,
-  dataResult: (state) => state.dataResult,
 }
 
 export const mutations = {
@@ -47,21 +46,11 @@ export const mutations = {
       state.dataDetail = {}
     }
   },
-  SET_DATA_RESULT(state, items) {
-    if (!items) return
-
-    // this does not work
-    /*
-    items.forEach((item) => {
-    state.dataResult[item.uuid] = item
-    })
-    */
+  SET_DATA_RESULT(state, data) {
+    if (!data.id || !data.items) return
 
     const next = { ...state.dataResult }
-    items.forEach((item) => {
-      const { uuid, ...rest } = item
-      next[uuid] = rest
-    })
+    next[data.id] = data.items
     state.dataResult = next
   },
 }
@@ -150,12 +139,15 @@ export const actions = {
   // query:run
   async run({ commit }, payload) {
     try {
-      // if dataResult contains payload.queryUuid, skip it
-      if (payload.queryUuid in (this.state.dataResult || {}))
-        return this.state.dataResult[payload.queryUuid]
+      // if dataResult contains payload.queryId, skip
+      if (payload.queryId in (this.state.dataResult || {}))
+        return this.state.dataResult[payload.queryId]
 
       const response = await this.$repositories.query.run(payload)
-      commit('SET_DATA_RESULT', response.data.data)
+      commit('SET_DATA_RESULT', {
+        id: payload.queryId,
+        items: response.data.data,
+      })
       return response
     } catch (e) {
       this.$notifier.showMessage({

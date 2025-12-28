@@ -20,7 +20,7 @@
       v-if="layout.length"
       :layout="layout"
       :col-num="4"
-      :row-height="100"
+      :row-height="135"
       :is-draggable="true"
       :is-resizable="true"
       :margin="[24, 24]"
@@ -32,24 +32,37 @@
         v-bind="item"
         class="bg-white border p-6 border-gray-200"
       >
-        <template v-if="widgetById(item.i)">
-          <div class="font-semibold mb-2">
-            {{ widgetById(item.i).title }}
+        <!-- item.i is uuid -->
+        <template v-if="widgetByUuidFunc(item.i)">
+          <div class="text-gray-500 mb-2">
+            {{ widgetByUuidFunc(item.i).title }}
           </div>
 
           <MetricWidget
-            v-if="widgetById(item.i).type === 'metric'"
-            :data="widgetById(item.i).data"
+            v-if="widgetByUuidFunc(item.i).type === 'metric'"
+            :data="dataResult[widgetByUuidFunc(item.i).queryId]"
+            :metrics="
+              dataQuery.find((q) => q.id === widgetByUuidFunc(item.i).queryId)
+                ?.definition?.metrics
+            "
           />
 
           <TableWidget
-            v-else-if="widgetById(item.i).type === 'table'"
-            :rows="widgetById(item.i).data"
+            v-else-if="widgetByUuidFunc(item.i).type === 'table'"
+            :rows="dataResult[widgetByUuidFunc(item.i).queryId]"
+            :metrics="
+              dataQuery.find((q) => q.id === widgetByUuidFunc(item.i).queryId)
+                ?.metrics
+            "
           />
 
           <ChartWidget
-            v-else-if="widgetById(item.i).type === 'chart'"
-            :data="widgetById(item.i).data"
+            v-else-if="widgetByUuidFunc(item.i).type === 'chart'"
+            :data="dataResult[widgetByUuidFunc(item.i).queryId]"
+            :metrics="
+              dataQuery.find((q) => q.id === widgetByUuidFunc(item.i).queryId)
+                ?.metrics
+            "
           />
 
           <div v-else class="text-gray-400">Unsupported widget</div>
@@ -89,10 +102,11 @@ export default {
     }),
 
     // fast lookup helper
-    widgetById() {
+    widgetByUuidFunc() {
       const map = {}
       this.widgets.forEach((w) => (map[String(w.uuid)] = w))
-      return (id) => map[id]
+      const func = (id) => map[id]
+      return func
     },
   },
 
@@ -120,16 +134,18 @@ export default {
           queryUuid,
         }
 
-        // try {
-        //   const res = await this.$store.dispatch('query/run', payload)
-        //   this.$set(w, 'data', res.data)
-        // } catch {
-        //   this.$set(w, 'data', { error: true })
-        // }
         this.isLoading = true
-        this.$store.dispatch('query/run', payload).finally(() => {
-          this.isLoading = false
-        })
+        this.$store
+          .dispatch('query/run', payload)
+          .then((res) => {
+            this.$set(w, 'data', res.data.data)
+          })
+          .catch(() => {
+            this.$set(w, 'data', { error: true })
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
       }
     },
 
@@ -160,8 +176,15 @@ export default {
         return { ...w, ...pos }
       })
 
+      let updatedWithoutData = []
+
+      updated.forEach((w) => {
+        const { data, ...rest } = w
+        updatedWithoutData.push({ ...rest })
+      })
+
       // push to store safely
-      this.$store.dispatch('dashboard/update', updated)
+      this.$store.dispatch('dashboard/update', updatedWithoutData)
 
       // update local copy so UI reacts instantly
       this.widgets = updated
@@ -169,19 +192,6 @@ export default {
   },
 
   watch: {
-    dataResult: {
-      handler(val) {
-        // console.log(val)
-        /*
-        {
-          "87168486-95db-417a-a492-c2facd7b8656": {
-            "name": "Total Contacts by Type",
-            "total_contacts": "4"
-          }
-        }
-        */
-      },
-    },
     dataDashboard: {
       handler(val) {
         if (!val?.config?.widgets) return
