@@ -4,132 +4,147 @@
       <Back />
     </div>
 
-    <div class="card-content">
-      <div class="header-card flex items-center">
-        <div class="title">Create Query</div>
+    <div class="flex gap-6">
+      <div class="card-content">
+        <div class="header-card flex items-center">
+          <div class="title">Create Query</div>
+        </div>
+
+        <div class="body-card">
+          <el-form
+            ref="ruleForm"
+            :model="data"
+            :rules="rules"
+            label-width="226px"
+            label-position="left"
+            hide-required-asterisk
+          >
+            <!-- Name -->
+            <el-form-item prop="name">
+              <label slot="label" class="title-form">Name</label>
+              <el-input v-model="data.name" />
+            </el-form-item>
+
+            <!-- Description -->
+            <el-form-item prop="description">
+              <label slot="label" class="title-form">Description</label>
+              <el-input
+                v-model="data.description"
+                type="textarea"
+                :rows="3"
+                maxlength="255"
+              />
+            </el-form-item>
+
+            <!-- Source -->
+            <el-form-item prop="source">
+              <label slot="label" class="title-form">Source</label>
+
+              <el-select
+                v-model="data.source"
+                placeholder="Select source"
+                class="w-full"
+                filterable
+                allow-create
+                default-first-option
+              >
+                <el-option label="Audiences" value="Audiences" />
+                <el-option label="AudienceContacts" value="AudienceContacts" />
+                <el-option label="Segments" value="Segments" />
+                <el-option label="AudienceSegments" value="AudienceSegments" />
+                <el-option label="Locations" value="Locations" />
+                <el-option label="Demographics" value="Demographics" />
+              </el-select>
+            </el-form-item>
+
+            <!-- Metrics -->
+            <el-form-item prop="metrics">
+              <label slot="label" class="title-form">Metrics</label>
+              <el-input
+                v-model="metricsJson"
+                type="textarea"
+                :rows="6"
+                placeholder='[{"field":"id","op":"count","as":"total"}]'
+              />
+            </el-form-item>
+
+            <!-- Group By -->
+            <el-form-item>
+              <label slot="label" class="title-form">Group By</label>
+              <el-input v-model="groupByJson" placeholder='["province"]' />
+            </el-form-item>
+
+            <!-- Filters -->
+            <el-form-item>
+              <label slot="label" class="title-form">Filters</label>
+              <el-input
+                v-model="filtersJson"
+                type="textarea"
+                :rows="5"
+                placeholder='[{"field":"isActive","op":"eq","value":true}]'
+              />
+            </el-form-item>
+
+            <!-- Joins -->
+            <el-form-item>
+              <label slot="label" class="title-form">Joins</label>
+              <el-input
+                v-model="joinsJson"
+                type="textarea"
+                :rows="5"
+                placeholder='[{"table":"Segments","type":"left","localField":"segmentId","foreignField":"id"}]'
+              />
+            </el-form-item>
+
+            <!-- Sort -->
+            <el-form-item>
+              <label slot="label" class="title-form">Sort</label>
+              <el-input
+                v-model="sortJson"
+                type="textarea"
+                :rows="4"
+                placeholder='[{"field":"createdAt","dir":"desc"}]'
+              />
+            </el-form-item>
+
+            <!-- Limit -->
+            <el-form-item>
+              <label slot="label" class="title-form">Limit</label>
+              <el-input-number v-model="data.limit" :min="1" :max="5000" />
+            </el-form-item>
+          </el-form>
+
+          <Transition>
+            <Alert
+              v-show="showMessage"
+              class="mt-6 mb-0"
+              :text="messageError"
+            />
+          </Transition>
+        </div>
+
+        <div class="footer-card flex justify-end gap-3">
+          <el-button type="primary" plain class="w-32" @click="$router.back()">
+            Discard
+          </el-button>
+          <el-button
+            icon="el-icon-check"
+            type="primary"
+            class="w-32"
+            @click="save()"
+          >
+            Save
+          </el-button>
+        </div>
       </div>
+      <div class="card-content">
+        <div class="header-card flex items-center">
+          <div class="title">Query Example</div>
+        </div>
 
-      <div class="body-card">
-        <el-form
-          ref="ruleForm"
-          :model="data"
-          :rules="rules"
-          label-width="226px"
-          label-position="left"
-          hide-required-asterisk
-        >
-          <!-- Name -->
-          <el-form-item prop="name">
-            <label slot="label" class="title-form">Name</label>
-            <el-input v-model="data.name" />
-          </el-form-item>
-
-          <!-- Description -->
-          <el-form-item prop="description">
-            <label slot="label" class="title-form">Description</label>
-            <el-input
-              v-model="data.description"
-              type="textarea"
-              :rows="3"
-              maxlength="255"
-            />
-          </el-form-item>
-
-          <!-- Source -->
-          <el-form-item prop="source">
-            <label slot="label" class="title-form">Source</label>
-
-            <el-select
-              v-model="data.source"
-              placeholder="Select source"
-              class="w-full"
-              filterable
-              allow-create
-              default-first-option
-            >
-              <el-option label="Audiences" value="Audiences" />
-              <el-option label="AudienceContacts" value="AudienceContacts" />
-              <el-option label="Segments" value="Segments" />
-              <el-option label="AudienceSegments" value="AudienceSegments" />
-              <el-option label="Locations" value="Locations" />
-              <el-option label="Demographics" value="Demographics" />
-            </el-select>
-          </el-form-item>
-
-          <!-- Metrics -->
-          <el-form-item prop="metrics">
-            <label slot="label" class="title-form">Metrics</label>
-            <el-input
-              v-model="metricsJson"
-              type="textarea"
-              :rows="6"
-              placeholder='[{"field":"id","op":"count","as":"total"}]'
-            />
-          </el-form-item>
-
-          <!-- Group By -->
-          <el-form-item>
-            <label slot="label" class="title-form">Group By</label>
-            <el-input v-model="groupByJson" placeholder='["province"]' />
-          </el-form-item>
-
-          <!-- Filters -->
-          <el-form-item>
-            <label slot="label" class="title-form">Filters</label>
-            <el-input
-              v-model="filtersJson"
-              type="textarea"
-              :rows="5"
-              placeholder='[{"field":"isActive","op":"eq","value":true}]'
-            />
-          </el-form-item>
-
-          <!-- Joins -->
-          <el-form-item>
-            <label slot="label" class="title-form">Joins</label>
-            <el-input
-              v-model="joinsJson"
-              type="textarea"
-              :rows="5"
-              placeholder='[{"table":"Segments","type":"left","localField":"segmentId","foreignField":"id"}]'
-            />
-          </el-form-item>
-
-          <!-- Sort -->
-          <el-form-item>
-            <label slot="label" class="title-form">Sort</label>
-            <el-input
-              v-model="sortJson"
-              type="textarea"
-              :rows="4"
-              placeholder='[{"field":"createdAt","dir":"desc"}]'
-            />
-          </el-form-item>
-
-          <!-- Limit -->
-          <el-form-item>
-            <label slot="label" class="title-form">Limit</label>
-            <el-input-number v-model="data.limit" :min="1" :max="5000" />
-          </el-form-item>
-        </el-form>
-
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-0" :text="messageError" />
-        </Transition>
-      </div>
-
-      <div class="footer-card flex justify-end gap-3">
-        <el-button type="primary" plain class="w-32" @click="$router.back()">
-          Discard
-        </el-button>
-        <el-button
-          icon="el-icon-check"
-          type="primary"
-          class="w-32"
-          @click="save()"
-        >
-          Save
-        </el-button>
+        <div class="body-card">
+          <QueryExample />
+        </div>
       </div>
     </div>
   </div>
