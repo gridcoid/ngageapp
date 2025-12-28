@@ -145,11 +145,14 @@ export default {
       this.isLoading = true
 
       this.$store
-        // 🔁 adjust if your action name differs
-        .dispatch('dashboard/updateWidget', {
-          dashboardUuid: this.$route.params.i,
-          widgetUuid: this.data.uuid,
-          widget: this.data,
+        .dispatch('dashboard/update', {
+          dashboardUuid: this.$route.params.index,
+          widgetUuid: this.data.i,
+          widget: {
+            type: this.data.type,
+            queryId: this.data.queryId,
+            title: this.data.title,
+          },
         })
         .then((res) => {
           if (res.status === 200 || res.status === 202) {

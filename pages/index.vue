@@ -248,12 +248,14 @@ export default {
             this.layout = this.layout.filter((l) => l.i !== String(uuid))
 
             // prepare payload (no data field)
-            const updated = this.widgets.map(({ data, ...rest }) => ({
-              ...rest,
-            }))
+            const updatedWithoutData = this.widgets.map(
+              ({ data, ...rest }) => ({
+                ...rest,
+              })
+            )
 
             // push to store
-            await this.$store.dispatch('dashboard/update', updated)
+            await this.$store.dispatch('dashboard/update', updatedWithoutData)
 
             this.$notifier.showMessage({
               content: `Widget "${name}" deleted`,
