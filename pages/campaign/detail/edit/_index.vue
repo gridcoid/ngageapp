@@ -238,11 +238,10 @@ export default {
       })
     },
     getDetail() {
-      const data = {
-        campaignTypeId: this.$route.params.index,
-      }
       this.$store
-        .dispatch('campaign/getDetail', data)
+        .dispatch('campaign/getDetail', {
+          campaignTypeId: this.$route.params.index,
+        })
         .then(() => {})
         .catch(() => {})
     },

@@ -358,14 +358,12 @@ export default {
   },
   methods: {
     getDetail() {
-      const data = {
-        audienceId: this.$route.params.index,
-      }
-
       this.isLoading = true
 
       this.$store
-        .dispatch('audience/detail', data)
+        .dispatch('audience/detail', {
+          audienceId: this.$route.params.index,
+        })
         .finally(() => (this.isLoading = false))
     },
 

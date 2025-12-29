@@ -515,11 +515,10 @@ export default {
     },
     getDetail() {
       this.isLoading = true
-      const data = {
-        id: this.$route.params.detail,
-      }
       this.$store
-        .dispatch('creative/getDetail', data)
+        .dispatch('creative/getDetail', {
+          id: this.$route.params.detail,
+        })
         .then((res) => {
           titlePage = res.data.data.name
 
@@ -571,12 +570,11 @@ export default {
         })
     },
     getPreviewDevices() {
-      const data = {
-        id: this.templateId,
-      }
       this.previewDevice = []
       this.$store
-        .dispatch('template/getPreviewDevices', data)
+        .dispatch('template/getPreviewDevices', {
+          id: this.templateId,
+        })
         .then((res) => {
           if (res.status === 201 || res.status === 200) {
             if (res.data.data.length > 0) {
@@ -589,11 +587,10 @@ export default {
         .catch(() => {})
     },
     getPreviewWebsites(id) {
-      const data = {
-        id,
-      }
       this.$store
-        .dispatch('template/getPreviewWebsites', data)
+        .dispatch('template/getPreviewWebsites', {
+          id,
+        })
         .then((res) => {})
         .catch(() => {})
     },

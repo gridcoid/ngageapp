@@ -1047,11 +1047,10 @@ export default {
                 res.status === 200 ||
                 res.status === 202
               ) {
-                const data = {
-                  id: this.$route.params.edit,
-                }
                 this.$store
-                  .dispatch('creative/duplicateCreative', data)
+                  .dispatch('creative/duplicateCreative', {
+                    id: this.$route.params.edit,
+                  })
                   .then((res) => {
                     if (res.status === 201) {
                       this.$notifier.showMessage({
@@ -1349,11 +1348,10 @@ export default {
         this.selectedResolution
       )
       this.isLoadingDetail = true
-      const data = {
-        id: this.$route.params.edit,
-      }
       this.$store
-        .dispatch('creative/getDetail', data)
+        .dispatch('creative/getDetail', {
+          id: this.$route.params.edit,
+        })
         .then((res) => {
           this.type = res.data.data.template.format
           this.name = res.data.data.name

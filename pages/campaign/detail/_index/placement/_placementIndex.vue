@@ -630,11 +630,10 @@ export default {
       this.getDetailPlacement()
     },
     getDetail() {
-      const data = {
-        campaignTypeId: this.campaignId,
-      }
       this.$store
-        .dispatch('campaign/getDetail', data)
+        .dispatch('campaign/getDetail', {
+          campaignTypeId: this.campaignId,
+        })
         .then(() => {})
         .catch(() => {})
     },
@@ -730,11 +729,10 @@ export default {
         .catch(() => {})
     },
     getDetailPlacement() {
-      const data = {
-        id: this.$route.params.placementIndex,
-      }
       this.$store
-        .dispatch('placement/getDetail', data)
+        .dispatch('placement/getDetail', {
+          id: this.$route.params.placementIndex,
+        })
         .then((res) => {
           const data = res.data.data
           this.data.cpm = data.delivery.cpm

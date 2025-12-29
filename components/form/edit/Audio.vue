@@ -174,12 +174,11 @@ export default {
       })
     },
     getDetail() {
-      const data = {
-        id: this.$route.params.edit,
-      }
       this.isLoading = true
       this.$store
-        .dispatch('creative/getDetail', data)
+        .dispatch('creative/getDetail', {
+          id: this.$route.params.edit,
+        })
         .then((res) => {
           this.getAudio()
         })

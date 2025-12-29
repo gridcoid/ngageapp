@@ -195,11 +195,10 @@ export default {
     },
     getResolution() {
       this.isLoading2 = true
-      const data = {
-        all: false,
-      }
       this.$store
-        .dispatch('creative/getResolution', data)
+        .dispatch('creative/getResolution', {
+          all: false,
+        })
         .then(() => {
           if (
             this.dataResolution.find(

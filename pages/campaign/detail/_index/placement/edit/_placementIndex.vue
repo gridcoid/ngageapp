@@ -1141,11 +1141,10 @@ export default {
     },
     getDataResolusi() {
       this.isLoading = true
-      const data = {
-        all: true,
-      }
       this.$store
-        .dispatch('creative/getResolution', data)
+        .dispatch('creative/getResolution', {
+          all: true,
+        })
         .then((res) => {
           // this.data.resolusi = res.data.data[0].id
           // const data = res.data.data.find(item => item.id === this.data.resolusi)
@@ -1251,20 +1250,20 @@ export default {
     },
     getDetail() {
       this.isLoading_5 = true
-      const data = {
-        campaignTypeId: this.campaignId,
-      }
-      this.$store.dispatch('campaign/getDetail', data).finally(() => {
-        this.isLoading_5 = false
-      })
+      this.$store
+        .dispatch('campaign/getDetail', {
+          campaignTypeId: this.campaignId,
+        })
+        .finally(() => {
+          this.isLoading_5 = false
+        })
     },
     getDetailPlacement() {
       this.isLoading_6 = true
-      const data = {
-        id: this.$route.params.placementIndex,
-      }
       this.$store
-        .dispatch('placement/getDetail', data)
+        .dispatch('placement/getDetail', {
+          id: this.$route.params.placementIndex,
+        })
         .then((res) => {
           const data = res.data.data
           this.data.placementName = data.name

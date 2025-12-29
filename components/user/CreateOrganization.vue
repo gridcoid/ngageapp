@@ -78,14 +78,12 @@ export default {
           type: 'loading',
         })
 
-        const data = {
-          name: this.name,
-        }
-
         const sto = setTimeout(
           () =>
             this.$store
-              .dispatch('user/createOrganization', data)
+              .dispatch('user/createOrganization', {
+                name: this.name,
+              })
               .then((res) => {
                 if (res.status === 201 || res.status === 200) {
                   this.$notifier.showMessage({

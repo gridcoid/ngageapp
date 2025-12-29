@@ -415,14 +415,12 @@ export default {
   },
   methods: {
     getSegment() {
-      const data = {
-        segmentUuid: this.$route.params.index,
-      }
-
       this.isLoading = true
 
       this.$store
-        .dispatch('segment/detail', data)
+        .dispatch('segment/detail', {
+          segmentUuid: this.$route.params.index,
+        })
         .finally(() => (this.isLoading = false))
     },
 
@@ -449,14 +447,12 @@ export default {
     },
 
     getDetail() {
-      const data = {
-        audienceId: this.$route.params.id,
-      }
-
       this.isLoading = true
 
       this.$store
-        .dispatch('audience/detail', data)
+        .dispatch('audience/detail', {
+          audienceId: this.$route.params.id,
+        })
         .finally(() => (this.isLoading = false))
     },
 

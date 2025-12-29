@@ -323,11 +323,10 @@ export default {
 
     getDetail() {
       this.isLoading = true
-      const data = {
-        segmentUuid: this.$route.params.index,
-      }
       this.$store
-        .dispatch('segment/detail', data)
+        .dispatch('segment/detail', {
+          segmentUuid: this.$route.params.index,
+        })
         .finally(() => (this.isLoading = false))
     },
 

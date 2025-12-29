@@ -933,11 +933,10 @@ export default {
     },
     getScript(id) {
       this.isLoadingPlacement = true
-      const data = {
-        id,
-      }
       this.$store
-        .dispatch('placement/getScript', data)
+        .dispatch('placement/getScript', {
+          id,
+        })
         .then((res) => {
           if (
             res.data.status.code === 200 ||
@@ -1155,11 +1154,10 @@ export default {
       this.getPerformance()
     },
     getDetail() {
-      const data = {
-        campaignTypeId: this.$route.params.index,
-      }
       this.$store
-        .dispatch('campaign/getDetail', data)
+        .dispatch('campaign/getDetail', {
+          campaignTypeId: this.$route.params.index,
+        })
         .then(() => {})
         .catch(() => {})
     },

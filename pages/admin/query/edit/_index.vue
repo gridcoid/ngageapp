@@ -222,14 +222,12 @@ export default {
 
   methods: {
     getDetail() {
-      const data = {
-        queryUuid: this.$route.params.index,
-      }
-
       this.isLoading = true
 
       this.$store
-        .dispatch('query/detail', data)
+        .dispatch('query/detail', {
+          queryUuid: this.$route.params.index,
+        })
         .finally(() => (this.isLoading = false))
     },
     save() {

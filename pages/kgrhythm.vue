@@ -1869,11 +1869,10 @@ export default {
                 res.status === 200 ||
                 res.status === 202
               ) {
-                const data = {
-                  id: res.data.data.id,
-                }
                 this.$store
-                  .dispatch('creative/duplicateCreative', data)
+                  .dispatch('creative/duplicateCreative', {
+                    id: res.data.data.id,
+                  })
                   .then((res) => {
                     if (res.status === 201) {
                       this.$notifier.showMessage({

@@ -1077,11 +1077,10 @@ export default {
     },
     getDataResolusi() {
       this.isLoading = true
-      const data = {
-        all: true,
-      }
       this.$store
-        .dispatch('creative/getResolution', data)
+        .dispatch('creative/getResolution', {
+          all: true,
+        })
         .then((res) => {
           this.isLoading = false
           // this.data.resolusi = res.data.data[0].id
@@ -1118,11 +1117,10 @@ export default {
       })
     },
     getDetail() {
-      const data = {
-        campaignTypeId: this.$route.params.index,
-      }
       this.$store
-        .dispatch('campaign/getDetail', data)
+        .dispatch('campaign/getDetail', {
+          campaignTypeId: this.$route.params.index,
+        })
         .then(() => {})
         .catch(() => {})
     },

@@ -176,14 +176,12 @@ export default {
 
   methods: {
     getDetail() {
-      const data = {
-        apiKeyUuid: this.$route.params.index,
-      }
-
       this.isLoading = true
 
       this.$store
-        .dispatch('apiKey/detail', data)
+        .dispatch('apiKey/detail', {
+          apiKeyUuid: this.$route.params.index,
+        })
         .finally(() => (this.isLoading = false))
     },
 

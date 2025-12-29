@@ -754,11 +754,10 @@ export default {
     },
 
     duplicateCreative(idCreative) {
-      const data = {
-        id: idCreative,
-      }
       this.$store
-        .dispatch('creative/duplicateCreative', data)
+        .dispatch('creative/duplicateCreative', {
+          id: idCreative,
+        })
         .then((res) => {
           if (res.status === 201) {
             this.$store.commit('user/SET_DROPDOWN', null)
