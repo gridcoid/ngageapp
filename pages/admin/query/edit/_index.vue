@@ -16,18 +16,19 @@
           <el-form
             ref="ruleForm"
             :model="data"
+            :rules="rules"
             label-width="226px"
             label-position="left"
             hide-required-asterisk
           >
             <!-- Name -->
-            <el-form-item class="title-form" prop="name">
+            <el-form-item prop="name">
               <label slot="label" class="title-form">Name</label>
               <el-input v-model="data.name" />
             </el-form-item>
 
             <!-- Description -->
-            <el-form-item class="title-form" prop="description">
+            <el-form-item prop="description">
               <label slot="label" class="title-form">Description</label>
               <el-input
                 v-model="data.description"
@@ -38,71 +39,85 @@
             </el-form-item>
 
             <!-- Source -->
-            <el-form-item class="title-form">
+            <el-form-item prop="source">
               <label slot="label" class="title-form">Source</label>
+
               <el-select
-                v-model="data.definition.source"
+                v-model="data.source"
+                placeholder="Select source"
                 class="w-full"
-                disabled
+                filterable
+                allow-create
+                default-first-option
               >
-                <el-option label="Audiences" value="audiences" />
-                <el-option
-                  label="Audience Contacts"
-                  value="audience_contacts"
-                />
-                <el-option
-                  label="Audience Segments"
-                  value="audience_segments"
-                />
+                <el-option label="Audiences" value="Audiences" />
+                <el-option label="AudienceContacts" value="AudienceContacts" />
+                <el-option label="Segments" value="Segments" />
+                <el-option label="AudienceSegments" value="AudienceSegments" />
+                <el-option label="Locations" value="Locations" />
+                <el-option label="Demographics" value="Demographics" />
               </el-select>
             </el-form-item>
 
             <!-- Metrics -->
-            <el-form-item class="title-form">
+            <el-form-item prop="metricsJson">
               <label slot="label" class="title-form">Metrics</label>
               <el-input
-                v-model="metricsPreview"
+                v-model="metricsJson"
                 type="textarea"
-                :rows="4"
-                readonly
+                :rows="10"
+                class="font-mono"
               />
             </el-form-item>
 
             <!-- Group By -->
-            <el-form-item class="title-form">
+            <el-form-item>
               <label slot="label" class="title-form">Group By</label>
-              <el-select
-                v-model="data.definition.groupBy"
-                multiple
-                placeholder="Select group fields"
-              >
-                <el-option label="Gender" value="gender" />
-                <el-option label="Religion" value="religion" />
-                <el-option label="Province" value="province" />
-                <el-option label="Regency" value="regency" />
-                <el-option label="Created At (Month)" value="createdAt_month" />
-              </el-select>
+              <el-input
+                v-model="groupByJson"
+                type="textarea"
+                :rows="10"
+                class="font-mono"
+              />
             </el-form-item>
 
             <!-- Filters -->
-            <el-form-item class="title-form">
+            <el-form-item>
               <label slot="label" class="title-form">Filters</label>
               <el-input
-                v-model="filtersPreview"
+                v-model="filtersJson"
                 type="textarea"
-                :rows="4"
-                readonly
+                :rows="10"
+                class="font-mono"
+              />
+            </el-form-item>
+
+            <!-- Joins -->
+            <el-form-item>
+              <label slot="label" class="title-form">Joins</label>
+              <el-input
+                v-model="joinsJson"
+                type="textarea"
+                :rows="10"
+                class="font-mono"
+              />
+            </el-form-item>
+
+            <!-- Sort -->
+            <el-form-item>
+              <label slot="label" class="title-form">Sort</label>
+              <el-input
+                v-model="sortJson"
+                type="textarea"
+                :rows="10"
+                class="font-mono"
               />
             </el-form-item>
 
             <!-- Limit -->
-            <el-form-item class="title-form">
+            <el-form-item>
               <label slot="label" class="title-form">Limit</label>
-              <el-input-number
-                v-model="data.definition.limit"
-                :min="1"
-                :max="1000"
-              />
+              <el-input-number v-model="data.limit" :min="1" :max="5000" />
             </el-form-item>
           </el-form>
 
@@ -116,26 +131,27 @@
         </div>
 
         <div class="footer-card flex justify-end gap-3">
-          <el-button type="primary" @click="$router.back()" plain class="w-32">
+          <el-button type="primary" plain class="w-32" @click="$router.back()">
             Discard
           </el-button>
+
           <el-button
             icon="el-icon-check"
             type="primary"
-            @click="save()"
             class="w-32"
+            @click="save()"
           >
             Save
           </el-button>
         </div>
       </div>
+
       <div class="card-content">
         <div class="header-card flex items-center">
           <div class="title">
             <i class="ti ti-help text-gray-400 mr-2"></i> Query Example
           </div>
         </div>
-
         <div class="body-card">
           <QueryExample />
         </div>
@@ -145,54 +161,49 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 export default {
   name: 'UpdateQueryPage',
   layout: 'default',
 
   head() {
     return {
-      title: 'Update - Query - ' + this.$config.appName,
+      title: 'Update Query - ' + this.$config.appName,
     }
   },
 
   data() {
     return {
-      isLoading: false,
-      isLoadingToast: false,
       showMessage: false,
       messageError: '',
 
+      metricsJson: '[]',
+      groupByJson: '[]',
+      filtersJson: '[]',
+      joinsJson: '[]',
+      sortJson: '[]',
+
+      rules: {
+        name: [
+          {
+            required: true,
+            message: 'Query name is required',
+            trigger: 'blur',
+          },
+          { max: 150, message: 'Max 150 characters', trigger: 'blur' },
+        ],
+        source: [
+          { required: true, message: 'Source is required', trigger: 'change' },
+        ],
+      },
+
       data: {
-        id: null,
-        orgId: null,
+        uuid: null,
         name: '',
         description: '',
-        definition: {
-          source: '',
-          metrics: [],
-          groupBy: [],
-          filters: [],
-          sort: [],
-          limit: 10,
-        },
+        source: '',
+        limit: 100,
       },
     }
-  },
-
-  computed: {
-    ...mapState({
-      dataDetail: (state) => state.query.dataDetail,
-    }),
-
-    metricsPreview() {
-      return JSON.stringify(this.data.definition.metrics, null, 2)
-    },
-
-    filtersPreview() {
-      return JSON.stringify(this.data.definition.filters, null, 2)
-    },
   },
 
   mounted() {
@@ -201,67 +212,81 @@ export default {
 
   methods: {
     getDetail() {
-      this.isLoading = true
-      const payload = {
-        queryUuid: this.$route.params.index,
-      }
+      this.$store
+        .dispatch('query/detail', { queryUuid: this.$route.params.index })
+        .then((res) => {
+          const q = res.data?.data
+          if (!q) return
 
-      this.$store.dispatch('query/detail', payload).finally(() => {
-        this.isLoading = false
-      })
+          this.data.uuid = q.uuid
+          this.data.name = q.name
+          this.data.description = q.description
+          this.data.source = q.definition?.source || ''
+          this.data.limit = q.definition?.limit || 100
+
+          // Fill editor JSON fields
+          this.metricsJson = JSON.stringify(
+            q.definition?.metrics || [],
+            null,
+            2
+          )
+          this.groupByJson = JSON.stringify(
+            q.definition?.groupBy || [],
+            null,
+            2
+          )
+          this.filtersJson = JSON.stringify(
+            q.definition?.filters || [],
+            null,
+            2
+          )
+          this.joinsJson = JSON.stringify(q.definition?.joins || [], null, 2)
+          this.sortJson = JSON.stringify(q.definition?.sort || [], null, 2)
+        })
     },
 
     save() {
+      let definition
+      try {
+        definition = {
+          source: this.data.source,
+          metrics: JSON.parse(this.metricsJson || '[]'),
+          groupBy: JSON.parse(this.groupByJson || '[]'),
+          filters: JSON.parse(this.filtersJson || '[]'),
+          joins: JSON.parse(this.joinsJson || '[]'),
+          sort: JSON.parse(this.sortJson || '[]'),
+          limit: this.data.limit,
+        }
+      } catch (e) {
+        this.showMessage = true
+        this.messageError = 'Invalid JSON format in query definition'
+        return
+      }
+
       this.$notifier.showMessage({
         content: 'Updating query...',
         type: 'loading',
       })
 
-      const sto = setTimeout(() => {
-        this.$store
-          .dispatch('query/update', this.data)
-          .then((res) => {
-            if (res.status === 200 || res.status === 202) {
-              this.$router.push({ path: '/admin/query' })
-
-              this.$notifier.showMessage({
-                content: 'Query updated.',
-                type: 'success',
-              })
-            } else {
-              this.showMessage = true
-              this.messageError = 'Failed to update query.'
-
-              this.$notifier.showMessage({
-                content: 'Query update failed.',
-                type: 'failed',
-              })
-            }
-          })
-          .catch(() => {
+      this.$store
+        .dispatch('query/update', {
+          queryUuid: this.data.uuid,
+          name: this.data.name,
+          description: this.data.description,
+          definition,
+        })
+        .then((res) => {
+          if (res.status === 200 || res.status === 202) {
+            this.$router.push({ path: '/admin/query' })
+            this.$notifier.showMessage({
+              content: 'Query updated',
+              type: 'success',
+            })
+          } else {
             this.showMessage = true
-            this.messageError = 'Unexpected error occurred.'
-          })
-          .finally(() => {
-            clearInterval(sto)
-          })
-      }, 800)
-    },
-  },
-
-  watch: {
-    dataDetail(val) {
-      if (val) {
-        this.data.id = val.data.id
-        this.data.orgId = val.data.orgId
-        this.data.name = val.data.name
-        this.data.description = val.data.description
-        try {
-          this.data.definition = JSON.parse(JSON.stringify(val.data.definition))
-        } catch (error) {
-          console.log(error)
-        }
-      }
+            this.messageError = 'Failed to update query'
+          }
+        })
     },
   },
 }
