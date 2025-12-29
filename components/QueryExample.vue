@@ -2,7 +2,7 @@
   <div>
     <!-- Metrics -->
     <div class="bg-white p-6 rounded shadow space-y-2">
-      <h2 class="text-xl font-semibold">1. Metrics</h2>
+      <h2 class="text-xl font-semibold">Metrics</h2>
       <p class="text-gray-700">
         Metrics define the calculation you want to perform on a field, e.g.,
         count, sum, avg. Example:
@@ -25,7 +25,7 @@
 
     <!-- Group By -->
     <div class="bg-white p-6 rounded shadow space-y-2">
-      <h2 class="text-xl font-semibold">2. Group By</h2>
+      <h2 class="text-xl font-semibold">Group By</h2>
       <p class="text-gray-700">
         Group your results by one or more fields to get aggregated data per
         group. Example:
@@ -40,7 +40,7 @@
 
     <!-- Filters -->
     <div class="bg-white p-6 rounded shadow space-y-2">
-      <h2 class="text-xl font-semibold">3. Filters</h2>
+      <h2 class="text-xl font-semibold">Filters</h2>
       <p class="text-gray-700">
         Filters narrow down the rows to include in the result. You can combine
         filters with <strong>and/or</strong> logic. Examples:
@@ -82,7 +82,7 @@
 
     <!-- Joins -->
     <div class="bg-white p-6 rounded shadow space-y-2">
-      <h2 class="text-xl font-semibold">4. Joins</h2>
+      <h2 class="text-xl font-semibold">Joins</h2>
       <p class="text-gray-700">
         Join other tables to enrich your query. Specify join type, local field,
         and foreign field. Example:
@@ -101,7 +101,7 @@
 
     <!-- Sort -->
     <div class="bg-white p-6 rounded shadow space-y-2">
-      <h2 class="text-xl font-semibold">5. Sort</h2>
+      <h2 class="text-xl font-semibold">Sort</h2>
       <p class="text-gray-700">
         Sort the results by one or more fields. Example:
       </p>
@@ -121,13 +121,256 @@
 
     <!-- Limit -->
     <div class="bg-white p-6 rounded shadow space-y-2">
-      <h2 class="text-xl font-semibold">6. Limit</h2>
+      <h2 class="text-xl font-semibold">Limit</h2>
       <p class="text-gray-700">
         Limit the number of results returned. Maximum allowed is 5000. Example:
       </p>
       <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
 100
       </pre>
+    </div>
+
+    <!-- Database -->
+    <div class="bg-white p-6 rounded shadow space-y-4">
+      <h2 class="text-xl font-semibold">Database</h2>
+
+      <p class="text-gray-700">
+        Below is the list of database tables, including their fields and default
+        values (when available).
+      </p>
+
+      <!-- AudienceContacts -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">AudienceContacts</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "audienceId",
+  "typeId",
+  "value",
+  "label",
+  "createdAt",
+  "updatedAt",
+  "deletedAt"
+]
+    </pre
+        >
+      </div>
+
+      <!-- AudienceSegments -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">AudienceSegments</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "audienceId",
+  "segmentId"
+]
+    </pre
+        >
+      </div>
+
+      <!-- Audiences -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">Audiences</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "name",
+  "dateOfBirth",
+  "yearOfBirth",
+  "genderId",
+  "religionId",
+  "orgId",
+  "provinceCode",
+  "regencyCode",
+  "districtCode",
+  "villageCode",
+  "address",
+  "additionalInfo",
+  "createdAt",
+  "updatedAt",
+  "deletedAt"
+]
+    </pre
+        >
+      </div>
+
+      <!-- ContactTypes -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">ContactTypes</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "name",
+  "aliases"
+]
+  </pre
+        >
+
+        <p class="text-gray-700 font-medium">default values:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  { "id": 1, "name": "email" },
+  { "id": 2, "name": "phone" }
+]
+  </pre
+        >
+      </div>
+
+      <!-- Districts -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">Districts</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "code",
+  "regencyCode",
+  "name",
+  "lat",
+  "lng"
+]
+  </pre
+        >
+      </div>
+
+      <!-- Genders -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">Genders</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "name",
+  "aliases"
+]
+  </pre
+        >
+
+        <p class="text-gray-700 font-medium">default values:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  { "id": 1, "name": "Laki-laki" },
+  { "id": 2, "name": "Perempuan" }
+]
+  </pre
+        >
+      </div>
+
+      <!-- Provinces -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">Provinces</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "code",
+  "name",
+  "lat",
+  "lng"
+]
+  </pre
+        >
+      </div>
+
+      <!-- Regencies -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">Regencies</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "code",
+  "provinceCode",
+  "name",
+  "lat",
+  "lng"
+]
+  </pre
+        >
+      </div>
+
+      <!-- Religions -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">Religions</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "name",
+  "aliases"
+]
+  </pre
+        >
+
+        <p class="text-gray-700 font-medium">default values:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  { "id": 1, "name": "Islam" },
+  { "id": 3, "name": "Kristen Katolik" },
+  { "id": 2, "name": "Kristen Protestan" },
+  { "id": 4, "name": "Hindu" },
+  { "id": 5, "name": "Buddha" },
+  { "id": 6, "name": "Konghucu" },
+  { "id": 7, "name": "Lainnya" }
+]
+  </pre
+        >
+      </div>
+
+      <!-- Segments -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">Segments</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "uuid",
+  "name",
+  "description",
+  "orgId",
+  "createdAt",
+  "updatedAt",
+  "deletedAt",
+  "createdBy"
+]
+  </pre
+        >
+      </div>
+
+      <!-- Villages -->
+      <div class="space-y-2">
+        <h3 class="text-md font-semibold">Villages</h3>
+
+        <p class="text-gray-700 font-medium">fields:</p>
+        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+[
+  "id",
+  "code",
+  "districtCode",
+  "name",
+  "lat",
+  "lng",
+  "postalCode"
+]
+  </pre
+        >
+      </div>
     </div>
 
     <!-- Glossary -->

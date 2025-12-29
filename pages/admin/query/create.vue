@@ -52,10 +52,8 @@
               >
                 <el-option label="Audiences" value="Audiences" />
                 <el-option label="AudienceContacts" value="AudienceContacts" />
-                <el-option label="Segments" value="Segments" />
                 <el-option label="AudienceSegments" value="AudienceSegments" />
-                <el-option label="Locations" value="Locations" />
-                <el-option label="Demographics" value="Demographics" />
+                <el-option label="Segments" value="Segments" />
               </el-select>
             </el-form-item>
 
@@ -216,13 +214,13 @@ export default {
 
       try {
         definition = {
-          source: data.source,
-          metrics: JSON.parse(metricsJson),
+          source: this.data.source,
+          metrics: JSON.parse(this.metricsJson),
           groupBy: this.groupByJson ? JSON.parse(this.groupByJson) : [],
           filters: this.filtersJson ? JSON.parse(this.filtersJson) : [],
           joins: this.joinsJson ? JSON.parse(this.joinsJson) : [],
           sort: this.sortJson ? JSON.parse(this.sortJson) : [],
-          limit: data.limit,
+          limit: this.data.limit,
         }
       } catch (e) {
         this.showMessage = true
