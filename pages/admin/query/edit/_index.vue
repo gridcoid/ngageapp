@@ -117,7 +117,7 @@
             <!-- Limit -->
             <el-form-item>
               <label slot="label" class="title-form">Limit</label>
-              <el-input-number v-model="data.limit" :min="1" :max="5000" />
+              <el-input-number v-model="data.limit" :min="1" :max="1000" />
             </el-form-item>
           </el-form>
 
@@ -161,6 +161,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'UpdateQueryPage',
   layout: 'default',
@@ -189,10 +191,18 @@ export default {
             message: 'Query name is required',
             trigger: 'blur',
           },
-          { max: 150, message: 'Max 150 characters', trigger: 'blur' },
+          {
+            max: 150,
+            message: 'Max 150 characters',
+            trigger: 'blur',
+          },
         ],
         source: [
-          { required: true, message: 'Source is required', trigger: 'change' },
+          {
+            required: true,
+            message: 'Source is required',
+            trigger: 'change',
+          },
         ],
       },
 
@@ -212,39 +222,16 @@ export default {
 
   methods: {
     getDetail() {
+      const data = {
+        queryUuid: this.$route.params.index,
+      }
+
+      this.isLoading = true
+
       this.$store
-        .dispatch('query/detail', { queryUuid: this.$route.params.index })
-        .then((res) => {
-          const q = res.data?.data
-          if (!q) return
-
-          this.data.uuid = q.uuid
-          this.data.name = q.name
-          this.data.description = q.description
-          this.data.source = q.definition?.source || ''
-          this.data.limit = q.definition?.limit || 100
-
-          // Fill editor JSON fields
-          this.metricsJson = JSON.stringify(
-            q.definition?.metrics || [],
-            null,
-            2
-          )
-          this.groupByJson = JSON.stringify(
-            q.definition?.groupBy || [],
-            null,
-            2
-          )
-          this.filtersJson = JSON.stringify(
-            q.definition?.filters || [],
-            null,
-            2
-          )
-          this.joinsJson = JSON.stringify(q.definition?.joins || [], null, 2)
-          this.sortJson = JSON.stringify(q.definition?.sort || [], null, 2)
-        })
+        .dispatch('query/detail', data)
+        .finally(() => (this.isLoading = false))
     },
-
     save() {
       let definition
       try {
@@ -287,6 +274,41 @@ export default {
             this.messageError = 'Failed to update query'
           }
         })
+    },
+  },
+  computed: {
+    ...mapState({
+      dataDetail: (state) => state.query.dataDetail,
+    }),
+  },
+  watch: {
+    dataDetail(val) {
+      if (val) {
+        this.data.uuid = val.uuid
+        this.data.name = val.name
+        this.data.description = val.description
+        this.data.source = val.definition?.source || ''
+        this.data.limit = val.definition?.limit || 100
+
+        // Fill editor JSON fields
+        this.metricsJson = JSON.stringify(
+          val.definition?.metrics || [],
+          null,
+          2
+        )
+        this.groupByJson = JSON.stringify(
+          val.definition?.groupBy || [],
+          null,
+          2
+        )
+        this.filtersJson = JSON.stringify(
+          val.definition?.filters || [],
+          null,
+          2
+        )
+        this.joinsJson = JSON.stringify(val.definition?.joins || [], null, 2)
+        this.sortJson = JSON.stringify(val.definition?.sort || [], null, 2)
+      }
     },
   },
 }

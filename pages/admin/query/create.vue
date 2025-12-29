@@ -64,7 +64,6 @@
                 v-model="metricsJson"
                 type="textarea"
                 :rows="10"
-                placeholder='[{"field":"id","op":"count","as":"total"}]'
                 class="font-mono"
               />
             </el-form-item>
@@ -76,7 +75,6 @@
                 v-model="groupByJson"
                 type="textarea"
                 :rows="10"
-                placeholder='["province"]'
                 class="font-mono"
               />
             </el-form-item>
@@ -88,7 +86,6 @@
                 v-model="filtersJson"
                 type="textarea"
                 :rows="10"
-                placeholder='[{"field":"isActive","op":"eq","value":true}]'
                 class="font-mono"
               />
             </el-form-item>
@@ -100,7 +97,6 @@
                 v-model="joinsJson"
                 type="textarea"
                 :rows="10"
-                placeholder='[{"table":"Segments","type":"left","localField":"segmentId","foreignField":"id"}]'
                 class="font-mono"
               />
             </el-form-item>
@@ -112,7 +108,6 @@
                 v-model="sortJson"
                 type="textarea"
                 :rows="10"
-                placeholder='[{"field":"createdAt","dir":"desc"}]'
                 class="font-mono"
               />
             </el-form-item>
@@ -120,7 +115,7 @@
             <!-- Limit -->
             <el-form-item>
               <label slot="label" class="title-form">Limit</label>
-              <el-input-number v-model="data.limit" :min="1" :max="5000" />
+              <el-input-number v-model="data.limit" :min="1" :max="1000" />
             </el-form-item>
           </el-form>
 
@@ -137,6 +132,7 @@
           <el-button type="primary" plain class="w-32" @click="$router.back()">
             Discard
           </el-button>
+
           <el-button
             icon="el-icon-check"
             type="primary"
@@ -191,10 +187,18 @@ export default {
             message: 'Query name is required',
             trigger: 'blur',
           },
-          { max: 150, message: 'Max 150 characters', trigger: 'blur' },
+          {
+            max: 150,
+            message: 'Max 150 characters',
+            trigger: 'blur',
+          },
         ],
         source: [
-          { required: true, message: 'Source is required', trigger: 'change' },
+          {
+            required: true,
+            message: 'Source is required',
+            trigger: 'change',
+          },
         ],
         metricsJson: [{ required: true }],
       },
