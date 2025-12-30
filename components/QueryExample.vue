@@ -340,11 +340,11 @@
   "uuid",
   "name",
   "description",
+  "userId",
   "orgId",
   "createdAt",
   "updatedAt",
-  "deletedAt",
-  "createdBy"
+  "deletedAt"
 ]
   </pre
         >
