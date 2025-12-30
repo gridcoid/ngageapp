@@ -157,14 +157,14 @@ export default {
       for (const w of this.widgets) {
         if (!w.queryId) continue
 
-        const queryUuid = this.dataQuery.find((q) => q.id === w.queryId)?.uuid
+        const uuid = this.dataQuery.find((q) => q.id === w.queryId)?.uuid
 
         // Skip if null/undefined
-        if (!queryUuid) continue
+        if (!uuid) continue
 
         const payload = {
           ...w,
-          queryUuid,
+          uuid,
         }
 
         this.isLoading = true

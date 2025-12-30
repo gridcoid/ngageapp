@@ -366,7 +366,7 @@ export default {
       // Form model sesuai tabel
       data: {
         id: null,
-        orgId: null,
+        uuid: null,
         name: '',
         dateOfBirth: null,
         yearOfBirth: 1950,
@@ -576,7 +576,7 @@ export default {
     async dataDetail(val) {
       if (val) {
         this.data.id = val.id
-        this.data.orgId = val.orgId
+        this.data.uuid = val.uuid
         this.data.name = val.name
         this.data.dateOfBirth = val.dateOfBirth
         this.data.yearOfBirth = val.yearOfBirth

@@ -220,7 +220,7 @@ export default {
 
       this.$store
         .dispatch('query/detail', {
-          queryUuid: this.$route.params.index,
+          uuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
     },

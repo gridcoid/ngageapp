@@ -34,7 +34,8 @@ export default ($axios) => ({
 
   // audience:update
   update(payload) {
-    const { id, orgId, contacts = [], ...rest } = payload
+    const { id, contacts = [], ...rest } = payload
+    const orgId = window.$nuxt.$store.state.user.orgId
 
     // clean contacts
     const cleanedContacts = contacts.map((c) => ({

@@ -91,7 +91,7 @@ export default {
       messageError: '',
       data: {
         id: null,
-        orgId: null,
+        uuid: null,
         name: '',
         description: '',
       },
@@ -169,7 +169,6 @@ export default {
       if (val) {
         this.data.id = val.id
         this.data.uuid = val.uuid
-        this.data.orgId = val.orgId
         this.data.name = val.name
         this.data.description = val.description
       }

@@ -34,7 +34,7 @@
                 v-model="data.description"
                 type="textarea"
                 :rows="3"
-                maxlength="255"
+                maxlength="200"
               />
             </el-form-item>
 
@@ -52,10 +52,8 @@
               >
                 <el-option label="Audiences" value="Audiences" />
                 <el-option label="AudienceContacts" value="AudienceContacts" />
-                <el-option label="Segments" value="Segments" />
                 <el-option label="AudienceSegments" value="AudienceSegments" />
-                <el-option label="Locations" value="Locations" />
-                <el-option label="Demographics" value="Demographics" />
+                <el-option label="Segments" value="Segments" />
               </el-select>
             </el-form-item>
 
@@ -63,7 +61,7 @@
             <el-form-item prop="metricsJson">
               <label slot="label" class="title-form">Metrics</label>
               <el-input
-                v-model="metricsJson"
+                v-model="data.metricsJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -74,7 +72,7 @@
             <el-form-item prop="joinsJson">
               <label slot="label" class="title-form">Joins</label>
               <el-input
-                v-model="joinsJson"
+                v-model="data.joinsJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -85,7 +83,7 @@
             <el-form-item prop="filtersJson">
               <label slot="label" class="title-form">Filters</label>
               <el-input
-                v-model="filtersJson"
+                v-model="data.filtersJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -96,7 +94,7 @@
             <el-form-item prop="groupByJson">
               <label slot="label" class="title-form">Group By</label>
               <el-input
-                v-model="groupByJson"
+                v-model="data.groupByJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -107,7 +105,7 @@
             <el-form-item prop="sortJson">
               <label slot="label" class="title-form">Sort</label>
               <el-input
-                v-model="sortJson"
+                v-model="data.sortJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -178,12 +176,6 @@ export default {
       showMessage: false,
       messageError: '',
 
-      metricsJson: '[]',
-      groupByJson: '[]',
-      filtersJson: '{}',
-      joinsJson: '[]',
-      sortJson: '[]',
-
       rules: {
         name: [
           {
@@ -207,11 +199,18 @@ export default {
       },
 
       data: {
+        id: null,
         uuid: null,
         name: '',
         description: '',
         source: '',
         limit: 100,
+
+        metricsJson: '[]',
+        joinsJson: '[]',
+        filtersJson: '{}',
+        groupByJson: '[]',
+        sortJson: '[]',
       },
     }
   },
@@ -226,7 +225,7 @@ export default {
 
       this.$store
         .dispatch('query/detail', {
-          queryUuid: this.$route.params.index,
+          uuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
     },
@@ -235,11 +234,11 @@ export default {
       try {
         definition = {
           source: this.data.source,
-          metrics: JSON.parse(this.metricsJson || '[]'),
-          groupBy: JSON.parse(this.groupByJson || '[]'),
-          filters: JSON.parse(this.filtersJson || '{}'),
-          joins: JSON.parse(this.joinsJson || '[]'),
-          sort: JSON.parse(this.sortJson || '[]'),
+          metrics: JSON.parse(this.data.metricsJson || '[]'),
+          groupBy: JSON.parse(this.data.groupByJson || '[]'),
+          filters: JSON.parse(this.data.filtersJson || '{}'),
+          joins: JSON.parse(this.data.joinsJson || '[]'),
+          sort: JSON.parse(this.data.sortJson || '[]'),
           limit: this.data.limit,
         }
       } catch (e) {
@@ -255,7 +254,7 @@ export default {
 
       this.$store
         .dispatch('query/update', {
-          queryUuid: this.data.uuid,
+          uuid: this.data.uuid,
           name: this.data.name,
           description: this.data.description,
           definition,
@@ -282,6 +281,7 @@ export default {
   watch: {
     dataDetail(val) {
       if (val) {
+        this.data.id = val.id
         this.data.uuid = val.uuid
         this.data.name = val.name
         this.data.description = val.description
@@ -289,23 +289,27 @@ export default {
         this.data.limit = val.definition?.limit || 100
 
         // Fill editor JSON fields
-        this.metricsJson = JSON.stringify(
+        this.data.metricsJson = JSON.stringify(
           val.definition?.metrics || [],
           null,
           2
         )
-        this.groupByJson = JSON.stringify(
+        this.data.groupByJson = JSON.stringify(
           val.definition?.groupBy || [],
           null,
           2
         )
-        this.filtersJson = JSON.stringify(
+        this.data.filtersJson = JSON.stringify(
           val.definition?.filters || {},
           null,
           2
         )
-        this.joinsJson = JSON.stringify(val.definition?.joins || [], null, 2)
-        this.sortJson = JSON.stringify(val.definition?.sort || [], null, 2)
+        this.data.joinsJson = JSON.stringify(
+          val.definition?.joins || [],
+          null,
+          2
+        )
+        this.data.sortJson = JSON.stringify(val.definition?.sort || [], null, 2)
       }
     },
   },

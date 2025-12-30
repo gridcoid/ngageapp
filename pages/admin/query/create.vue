@@ -34,7 +34,7 @@
                 v-model="data.description"
                 type="textarea"
                 :rows="3"
-                maxlength="255"
+                maxlength="200"
               />
             </el-form-item>
 
@@ -61,7 +61,7 @@
             <el-form-item prop="metricsJson">
               <label slot="label" class="title-form">Metrics</label>
               <el-input
-                v-model="metricsJson"
+                v-model="data.metricsJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -72,7 +72,7 @@
             <el-form-item prop="joinsJson">
               <label slot="label" class="title-form">Joins</label>
               <el-input
-                v-model="joinsJson"
+                v-model="data.joinsJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -83,7 +83,7 @@
             <el-form-item prop="filtersJson">
               <label slot="label" class="title-form">Filters</label>
               <el-input
-                v-model="filtersJson"
+                v-model="data.filtersJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -94,7 +94,7 @@
             <el-form-item prop="groupByJson">
               <label slot="label" class="title-form">Group By</label>
               <el-input
-                v-model="groupByJson"
+                v-model="data.groupByJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -105,7 +105,7 @@
             <el-form-item prop="sortJson">
               <label slot="label" class="title-form">Sort</label>
               <el-input
-                v-model="sortJson"
+                v-model="data.sortJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -174,12 +174,6 @@ export default {
       showMessage: false,
       messageError: '',
 
-      metricsJson: '[]',
-      groupByJson: '[]',
-      filtersJson: '{}',
-      joinsJson: '[]',
-      sortJson: '[]',
-
       rules: {
         name: [
           {
@@ -187,20 +181,14 @@ export default {
             message: 'Query name is required',
             trigger: 'blur',
           },
-          {
-            max: 150,
-            message: 'Max 150 characters',
-            trigger: 'blur',
-          },
+          { max: 50, message: 'Max 50 characters', trigger: 'blur' },
         ],
         source: [
-          {
-            required: true,
-            message: 'Source is required',
-            trigger: 'change',
-          },
+          { required: true, message: 'Source is required', trigger: 'change' },
         ],
-        metricsJson: [{ required: true }],
+        metricsJson: [
+          { required: true, message: 'Metrics is required', trigger: 'blur' },
+        ],
       },
 
       data: {
@@ -208,10 +196,15 @@ export default {
         description: '',
         source: '',
         limit: 100,
+
+        metricsJson: '[]',
+        joinsJson: '[]',
+        filtersJson: '{}',
+        groupByJson: '[]',
+        sortJson: '[]',
       },
     }
   },
-
   methods: {
     save() {
       let definition
@@ -219,11 +212,15 @@ export default {
       try {
         definition = {
           source: this.data.source,
-          metrics: JSON.parse(this.metricsJson),
-          groupBy: this.groupByJson ? JSON.parse(this.groupByJson) : [],
-          filters: this.filtersJson ? JSON.parse(this.filtersJson) : {},
-          joins: this.joinsJson ? JSON.parse(this.joinsJson) : [],
-          sort: this.sortJson ? JSON.parse(this.sortJson) : [],
+          metrics: JSON.parse(this.data.metricsJson),
+          groupBy: this.data.groupByJson
+            ? JSON.parse(this.data.groupByJson)
+            : [],
+          filters: this.data.filtersJson
+            ? JSON.parse(this.data.filtersJson)
+            : {},
+          joins: this.data.joinsJson ? JSON.parse(this.data.joinsJson) : [],
+          sort: this.data.sortJson ? JSON.parse(this.data.sortJson) : [],
           limit: this.data.limit,
         }
       } catch (e) {

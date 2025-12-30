@@ -103,7 +103,6 @@ export default {
       data: {
         id: null,
         uuid: null,
-        orgId: null,
         name: '',
         expiresAt: null,
         scopes: [],
@@ -222,7 +221,6 @@ export default {
         this.data = {
           id: val.id,
           uuid: val.uuid,
-          orgId: val.orgId,
           name: val.name,
           expiresAt: val.expiresAt,
           scopes: val.scopes,
