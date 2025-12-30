@@ -101,9 +101,13 @@ export default {
       ],
 
       data: {
+        id: null,
+        uuid: null,
+        orgId: null,
         name: '',
         expiresAt: null,
         scopes: [],
+        revoked: false,
       },
     }
   },
@@ -114,7 +118,7 @@ export default {
 
       this.$store
         .dispatch('apiKey/detail', {
-          apiKeyUuid: this.$route.params.index,
+          uuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
     },

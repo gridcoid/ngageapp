@@ -347,13 +347,13 @@ export default {
 
       this.$store
         .dispatch('apiKey/detail', {
-          apiKeyUuid: this.$route.params.index,
+          uuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
     },
 
     toEdit() {
-      this.$router.push({ path: '/admin/api-key/edit/' + this.data.id })
+      this.$router.push({ path: '/admin/api-key/edit/' + this.data.uuid })
     },
   },
   watch: {
@@ -361,6 +361,7 @@ export default {
       if (val) {
         this.data = {
           id: val.id,
+          uuid: val.uuid,
           orgId: val.orgId,
           name: val.name,
           apiKey: val.hash,

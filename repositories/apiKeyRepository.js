@@ -18,7 +18,7 @@ export default ($axios) => ({
   // apiKey:detail
   detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`${resource}/${payload.apiKeyUuid}?orgId=${orgId}`)
+    return $axios.get(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
   // apiKey:update
@@ -32,6 +32,6 @@ export default ($axios) => ({
   // apiKey:delete
   delete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.delete(`${resource}/${payload.id}?orgId=${orgId}`)
+    return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 })
