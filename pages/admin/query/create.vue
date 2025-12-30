@@ -5,7 +5,7 @@
     </div>
 
     <div class="flex gap-6">
-      <div class="card-content">
+      <div class="card-content bg-white">
         <div class="header-card flex items-center">
           <div class="title">
             <i class="ti ti-code text-gray-400 mr-2"></i> Create Query
@@ -143,7 +143,7 @@
           </el-button>
         </div>
       </div>
-      <div class="card-content">
+      <div class="card-content bg-gray-50">
         <div class="header-card flex items-center">
           <div class="title">
             <i class="ti ti-help text-gray-400 mr-2"></i> Query Example
@@ -274,7 +274,6 @@ export default {
   .card-content {
     width: 720px;
     height: 100%;
-    background: #ffffff;
     border: 1px solid #e2e2e2;
     border-radius: 10px;
     padding: 15px 0px 0px 0px;

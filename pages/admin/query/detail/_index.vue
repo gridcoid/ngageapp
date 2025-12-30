@@ -226,7 +226,7 @@ export default {
     },
 
     toEdit() {
-      this.$router.push('/admin/query/edit/' + this.data.id)
+      this.$router.push('/admin/query/edit/' + this.data.uuid)
     },
 
     pretty(obj) {
@@ -243,6 +243,7 @@ export default {
       if (val) {
         this.data = {
           id: val.id,
+          uuid: val.uuid,
           orgId: val.orgId,
           name: val.name,
           description: val.description,

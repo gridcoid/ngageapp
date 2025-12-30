@@ -1,13 +1,13 @@
 <template>
   <div>
     <!-- Metrics -->
-    <div class="bg-white p-6 rounded shadow space-y-2">
+    <div class="bg-white p-6 rounded shadow space-y-2 mb-6">
       <h2 class="text-xl font-semibold">Metrics</h2>
       <p class="text-gray-700">
         Metrics define the calculation you want to perform on a field, e.g.,
         count, sum, avg. Example:
       </p>
-      <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+      <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   {
     "field": "*",
@@ -24,13 +24,13 @@
     </div>
 
     <!-- Joins -->
-    <div class="bg-white p-6 rounded shadow space-y-2">
+    <div class="bg-white p-6 rounded shadow space-y-2 mb-6">
       <h2 class="text-xl font-semibold">Joins</h2>
       <p class="text-gray-700">
         Join other tables to enrich your query. Specify join type, local field,
         and foreign field. Example:
       </p>
-      <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+      <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   {
     "table": "Segments",
@@ -43,7 +43,7 @@
     </div>
 
     <!-- Filters -->
-    <div class="bg-white p-6 rounded shadow space-y-2">
+    <div class="bg-white p-6 rounded shadow space-y-2 mb-6">
       <h2 class="text-xl font-semibold">Filters</h2>
       <p class="text-gray-700">
         Filters narrow down the rows to include in the result. You can combine
@@ -51,7 +51,7 @@
       </p>
 
       <p class="font-medium">Object with and/or:</p>
-      <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+      <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 {
   "and": [
     { "field": "isActive", "op": "eq", "value": true },
@@ -67,7 +67,7 @@
       >
 
       <p class="font-medium">Array of simple filters:</p>
-      <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+      <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   {
     "field": "isActive",
@@ -85,13 +85,13 @@
     </div>
 
     <!-- Group By -->
-    <div class="bg-white p-6 rounded shadow space-y-2">
+    <div class="bg-white p-6 rounded shadow space-y-2 mb-6">
       <h2 class="text-xl font-semibold">Group By</h2>
       <p class="text-gray-700">
         Group your results by one or more fields to get aggregated data per
         group. Example:
       </p>
-      <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+      <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "province",
   "gender"
@@ -100,12 +100,12 @@
     </div>
 
     <!-- Sort -->
-    <div class="bg-white p-6 rounded shadow space-y-2">
+    <div class="bg-white p-6 rounded shadow space-y-2 mb-6">
       <h2 class="text-xl font-semibold">Sort</h2>
       <p class="text-gray-700">
         Sort the results by one or more fields. Example:
       </p>
-      <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+      <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   {
     "field": "createdAt",
@@ -120,18 +120,18 @@
     </div>
 
     <!-- Limit -->
-    <div class="bg-white p-6 rounded shadow space-y-2">
+    <div class="bg-white p-6 rounded shadow space-y-2 mb-6">
       <h2 class="text-xl font-semibold">Limit</h2>
       <p class="text-gray-700">
         Limit the number of results returned. Maximum allowed is 5000. Example:
       </p>
-      <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+      <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 100
       </pre>
     </div>
 
     <!-- Database -->
-    <div class="bg-white p-6 rounded shadow space-y-4">
+    <div class="bg-white p-6 rounded shadow space-y-2 mb-6">
       <h2 class="text-xl font-semibold">Database</h2>
 
       <p class="text-gray-700">
@@ -144,7 +144,7 @@
         <h3 class="text-md font-semibold">AudienceContacts</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "audienceId",
@@ -164,7 +164,7 @@
         <h3 class="text-md font-semibold">AudienceSegments</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "audienceId",
@@ -179,7 +179,7 @@
         <h3 class="text-md font-semibold">Audiences</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "name",
@@ -207,7 +207,7 @@
         <h3 class="text-md font-semibold">ContactTypes</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "name"
@@ -216,7 +216,7 @@
         >
 
         <p class="text-gray-700 font-medium">default values:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   { "id": 1, "name": "email" },
   { "id": 2, "name": "phone" }
@@ -230,7 +230,7 @@
         <h3 class="text-md font-semibold">Districts</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "code",
@@ -248,7 +248,7 @@
         <h3 class="text-md font-semibold">Genders</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "name"
@@ -257,7 +257,7 @@
         >
 
         <p class="text-gray-700 font-medium">default values:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   { "id": 1, "name": "Laki-laki" },
   { "id": 2, "name": "Perempuan" }
@@ -271,7 +271,7 @@
         <h3 class="text-md font-semibold">Provinces</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "code",
@@ -288,7 +288,7 @@
         <h3 class="text-md font-semibold">Regencies</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "code",
@@ -306,7 +306,7 @@
         <h3 class="text-md font-semibold">Religions</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "name"
@@ -315,7 +315,7 @@
         >
 
         <p class="text-gray-700 font-medium">default values:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   { "id": 1, "name": "Islam" },
   { "id": 3, "name": "Kristen Katolik" },
@@ -334,7 +334,7 @@
         <h3 class="text-md font-semibold">Segments</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "uuid",
@@ -355,7 +355,7 @@
         <h3 class="text-md font-semibold">Villages</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
-        <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
   "code",
@@ -371,7 +371,7 @@
     </div>
 
     <!-- Glossary -->
-    <div class="bg-white p-6 rounded shadow space-y-2">
+    <div class="bg-white p-6 rounded shadow space-y-2 mb-6">
       <h2 class="text-xl font-semibold">Glossary</h2>
       <p class="text-gray-700">
         Definitions of key terms used in metrics, filters, and query
@@ -413,11 +413,9 @@
     </div>
 
     <!-- Summary -->
-    <div class="bg-blue-50 p-6 rounded shadow space-y-2">
+    <div class="bg-white p-6 rounded shadow space-y-2 mb-6">
       <h2 class="text-xl font-semibold">Example Full Query Definition</h2>
-      <pre
-        class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
-      >
+      <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 {
   "source": "AudienceContacts",
   "metrics": [
