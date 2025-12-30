@@ -23,17 +23,21 @@
       </pre>
     </div>
 
-    <!-- Group By -->
+    <!-- Joins -->
     <div class="bg-white p-6 rounded shadow space-y-2">
-      <h2 class="text-xl font-semibold">Group By</h2>
+      <h2 class="text-xl font-semibold">Joins</h2>
       <p class="text-gray-700">
-        Group your results by one or more fields to get aggregated data per
-        group. Example:
+        Join other tables to enrich your query. Specify join type, local field,
+        and foreign field. Example:
       </p>
       <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
 [
-  "province",
-  "gender"
+  {
+    "table": "Segments",
+    "type": "left",
+    "localField": "segmentId",
+    "foreignField": "id"
+  }
 ]
       </pre>
     </div>
@@ -80,21 +84,17 @@
       >
     </div>
 
-    <!-- Joins -->
+    <!-- Group By -->
     <div class="bg-white p-6 rounded shadow space-y-2">
-      <h2 class="text-xl font-semibold">Joins</h2>
+      <h2 class="text-xl font-semibold">Group By</h2>
       <p class="text-gray-700">
-        Join other tables to enrich your query. Specify join type, local field,
-        and foreign field. Example:
+        Group your results by one or more fields to get aggregated data per
+        group. Example:
       </p>
       <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
 [
-  {
-    "table": "Segments",
-    "type": "left",
-    "localField": "segmentId",
-    "foreignField": "id"
-  }
+  "province",
+  "gender"
 ]
       </pre>
     </div>
@@ -210,8 +210,7 @@
         <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
 [
   "id",
-  "name",
-  "aliases"
+  "name"
 ]
   </pre
         >
@@ -252,8 +251,7 @@
         <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
 [
   "id",
-  "name",
-  "aliases"
+  "name"
 ]
   </pre
         >
@@ -311,8 +309,7 @@
         <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto">
 [
   "id",
-  "name",
-  "aliases"
+  "name"
 ]
   </pre
         >
