@@ -58,7 +58,7 @@
             </el-form-item>
 
             <!-- Metrics -->
-            <el-form-item prop="metrics">
+            <el-form-item prop="metricsJson">
               <label slot="label" class="title-form">Metrics</label>
               <el-input
                 v-model="metricsJson"
@@ -69,7 +69,7 @@
             </el-form-item>
 
             <!-- Joins -->
-            <el-form-item>
+            <el-form-item prop="joinsJson">
               <label slot="label" class="title-form">Joins</label>
               <el-input
                 v-model="joinsJson"
@@ -80,7 +80,7 @@
             </el-form-item>
 
             <!-- Filters -->
-            <el-form-item>
+            <el-form-item prop="filtersJson">
               <label slot="label" class="title-form">Filters</label>
               <el-input
                 v-model="filtersJson"
@@ -91,7 +91,7 @@
             </el-form-item>
 
             <!-- Group By -->
-            <el-form-item>
+            <el-form-item prop="groupByJson">
               <label slot="label" class="title-form">Group By</label>
               <el-input
                 v-model="groupByJson"
@@ -102,7 +102,7 @@
             </el-form-item>
 
             <!-- Sort -->
-            <el-form-item>
+            <el-form-item prop="sortJson">
               <label slot="label" class="title-form">Sort</label>
               <el-input
                 v-model="sortJson"
@@ -113,9 +113,9 @@
             </el-form-item>
 
             <!-- Limit -->
-            <el-form-item>
+            <el-form-item prop="limit">
               <label slot="label" class="title-form">Limit</label>
-              <el-input-number v-model="data.limit" :min="1" :max="1000" />
+              <el-input-number v-model="data.limit" :min="1" :max="5000" />
             </el-form-item>
           </el-form>
 
@@ -176,7 +176,7 @@ export default {
 
       metricsJson: '[]',
       groupByJson: '[]',
-      filtersJson: '[]',
+      filtersJson: '{}',
       joinsJson: '[]',
       sortJson: '[]',
 
@@ -221,7 +221,7 @@ export default {
           source: this.data.source,
           metrics: JSON.parse(this.metricsJson),
           groupBy: this.groupByJson ? JSON.parse(this.groupByJson) : [],
-          filters: this.filtersJson ? JSON.parse(this.filtersJson) : [],
+          filters: this.filtersJson ? JSON.parse(this.filtersJson) : {},
           joins: this.joinsJson ? JSON.parse(this.joinsJson) : [],
           sort: this.sortJson ? JSON.parse(this.sortJson) : [],
           limit: this.data.limit,
