@@ -369,7 +369,7 @@ export default {
         orgId: null,
         name: '',
         dateOfBirth: null,
-        yearOfBirth: 1950,
+        yearOfBirth: null,
         genderId: null,
         religionId: null,
         provinceCode: null,
@@ -508,9 +508,9 @@ export default {
               clearInterval(sto)
             } else {
               this.showMessage = true
-              const keys = Object.keys(res.data.data.errors[0])
+              const keys = Object.keys(res?.data.data.errors[0])
               const arr = []
-              keys.forEach((key) => arr.push(res.data.data.errors[0][key]))
+              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
               this.messageError = arr.join(', ')
 
               this.$notifier.showMessage({

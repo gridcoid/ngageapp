@@ -171,7 +171,7 @@ export default {
         this.$store
           .dispatch('query/run', payload)
           .then((res) => {
-            this.$set(w, 'data', res.data.data)
+            this.$set(w, 'data', res?.data.data)
           })
           .catch(() => {
             this.$set(w, 'data', { error: true })

@@ -47,6 +47,7 @@
                 placeholder="Select source"
                 class="w-full"
                 filterable
+                clearable
                 allow-create
                 default-first-option
               >

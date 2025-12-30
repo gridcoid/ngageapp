@@ -622,10 +622,10 @@ export default {
                   clearInterval(sto)
                 } else {
                   this.showMessage = true
-                  const keys = Object.keys(res.data.data.errors[0])
+                  const keys = Object.keys(res?.data.data.errors[0])
                   const arr = []
                   keys.forEach((key, index) => {
-                    arr.push(res.data.data.errors[0][key])
+                    arr.push(res?.data.data.errors[0][key])
                   })
                   this.$notifier.showMessage({
                     content: 'Generate creative failed ! ' + arr.join(', '),
@@ -653,10 +653,10 @@ export default {
                   })
                   clearInterval(sto)
                 } else {
-                  const keys = Object.keys(res.data.data.errors[0])
+                  const keys = Object.keys(res?.data.data.errors[0])
                   const arr = []
                   keys.forEach((key, index) => {
-                    arr.push(res.data.data.errors[0][key])
+                    arr.push(res?.data.data.errors[0][key])
                   })
                   this.$notifier.showMessage({
                     content: 'Generate creative failed ! ' + arr.join(', '),
@@ -728,7 +728,7 @@ export default {
         //   .dispatch('creative/downloadCreative', data)
         //   .then((res) => {
         //     if (res.status === 200) {
-        //       const url = window.URL.createObjectURL(new Blob([res.data]))
+        //       const url = window.URL.createObjectURL(new Blob([res?.data]))
         //       const link = document.createElement('a')
         //       link.href = url
         //       link.setAttribute('download', name + '.html')
@@ -783,7 +783,7 @@ export default {
               id: data.id,
             })
             .then((res) => {
-              if (res.data.status.code === 200) {
+              if (res?.data.status.code === 200) {
                 this.getAll()
 
                 this.$notifier.showMessage({
@@ -794,7 +794,7 @@ export default {
                 this.$notifier.showMessage({
                   content:
                     'Delete creative status failed. Error : ' +
-                    res.data.data.message,
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }
@@ -841,7 +841,7 @@ export default {
         .dispatch('creative/getCreativeById', { creativeId: data })
         .then((res) => {
           if (res.status === 200) {
-            if (res.data.data.videoUrl !== null) {
+            if (res?.data.data.videoUrl !== null) {
               this.getData()
               if (this.intervalId) {
                 clearInterval(this.intervalId)

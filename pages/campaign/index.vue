@@ -879,7 +879,7 @@ export default {
               id: data.id,
             })
             .then((res) => {
-              if (res.data.status.code === 200) {
+              if (res?.data.status.code === 200) {
                 this.getAll()
 
                 this.$notifier.showMessage({
@@ -890,7 +890,7 @@ export default {
                 this.$notifier.showMessage({
                   content:
                     'Delete campaign status failed. Error : ' +
-                    res.data.data.message,
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }
@@ -1030,9 +1030,9 @@ export default {
             .dispatch('campaign/changeStatus', data)
             .then((res) => {
               if (
-                res.data.status.code === 200 ||
-                res.data.status.code === 201 ||
-                res.data.status.code === 202
+                res?.data.status.code === 200 ||
+                res?.data.status.code === 201 ||
+                res?.data.status.code === 202
               ) {
                 this.getAll()
                 this.$notifier.showMessage({
@@ -1044,14 +1044,14 @@ export default {
                 this.$notifier.showMessage({
                   content:
                     'Change campaign status failed. Error : ' +
-                    res.data.data.message,
+                    res?.data.data.message,
                   type: 'failed',
                 })
                 this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
+                const keys = Object.keys(res?.data.data.errors[0])
                 const arr = []
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
+                  arr.push(res?.data.data.errors[0][key])
                 })
                 this.messageError = arr.join(', ')
                 clearInterval(sto)
@@ -1088,9 +1088,9 @@ export default {
             .dispatch('campaign/duplicate', data)
             .then((res) => {
               if (
-                res.data.status.code === 200 ||
-                res.data.status.code === 201 ||
-                res.data.status.code === 202
+                res?.data.status.code === 200 ||
+                res?.data.status.code === 201 ||
+                res?.data.status.code === 202
               ) {
                 this.getAll()
                 this.$notifier.showMessage({
@@ -1109,14 +1109,14 @@ export default {
                 this.$notifier.showMessage({
                   content:
                     'Duplicate campaign status failed. Error : ' +
-                    res.data.data.message,
+                    res?.data.data.message,
                   type: 'failed',
                 })
                 this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
+                const keys = Object.keys(res?.data.data.errors[0])
                 const arr = []
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
+                  arr.push(res?.data.data.errors[0][key])
                 })
                 this.messageError = arr.join(', ')
                 this.$store.commit('user/SET_DROPDOWN', null)

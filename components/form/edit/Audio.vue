@@ -93,7 +93,7 @@ export default {
       await this.$axios
         .get('audio?mood=' + this.mood)
         .then((res) => {
-          this.dataAudio = res.data.data
+          this.dataAudio = res?.data.data
           this.dataAudio.forEach((item, index) => {
             this.$set(item, 'status', false)
           })

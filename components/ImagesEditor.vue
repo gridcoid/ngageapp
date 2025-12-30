@@ -222,7 +222,7 @@ export default {
         })
         .then((res) => {
           const fileKey =
-            this.$config.baseURL + 'obs?fileKey=' + res.data.data.fileKeys[0]
+            this.$config.baseURL + 'obs?fileKey=' + res?.data.data.fileKeys[0]
           const dataFile = {
             status: 'ready',
             name: 'result_crop_' + Date.now() + this.tempIndex++,

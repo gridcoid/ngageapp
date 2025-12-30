@@ -488,7 +488,7 @@ export default {
           type: type,
         })
         .then((res) => {
-          this.duration = res.data.data.duration + ' seconds'
+          this.duration = res?.data.data.duration + ' seconds'
         })
         .finally(() => {
           this.isLoadingDuration = false
@@ -590,7 +590,7 @@ export default {
               },
             })
             .then((res) => {
-              const keys = res.data.data.fileKeys
+              const keys = res?.data.data.fileKeys
               for (let i = 0; i < keys.length; i++) {
                 this.fileKey[i].fileKey = keys[i]
               }
@@ -856,7 +856,7 @@ export default {
               },
             })
             .then((res) => {
-              const keys = res.data.data.fileKeys
+              const keys = res?.data.data.fileKeys
               for (let i = 0; i < keys.length; i++) {
                 this.fileKey[i].fileKey = keys[i]
               }
@@ -1058,7 +1058,7 @@ export default {
                         type: 'success',
                       })
                       this.$router.push({
-                        path: `/creative/edit/${res.data.data.id}`,
+                        path: `/creative/edit/${res?.data.data.id}`,
                       })
                     }
                   })
@@ -1353,23 +1353,23 @@ export default {
           id: this.$route.params.edit,
         })
         .then((res) => {
-          this.type = res.data.data.template.format
-          this.name = res.data.data.name
-          // this.dataResolution = res.data.data.configSchema.resolutions
-          this.resolutionId = res.data.data.resolution.resolutionId
-          this.url = res.data.data.config.clickUrl
-          this.staticSrc = res.data.data.template.staticSrc
-          const thumbnail = res.data.data.template.thumbnail
+          this.type = res?.data.data.template.format
+          this.name = res?.data.data.name
+          // this.dataResolution = res?.data.data.configSchema.resolutions
+          this.resolutionId = res?.data.data.resolution.resolutionId
+          this.url = res?.data.data.config.clickUrl
+          this.staticSrc = res?.data.data.template.staticSrc
+          const thumbnail = res?.data.data.template.thumbnail
           if (this.isValidUrl(thumbnail)) {
             this.thumbnail = thumbnail
           } else {
             this.thumbnail = this.$config.baseURL + 'obs?fileKey=' + thumbnail
           }
-          this.resolution.height = res.data.data.resolution.height
-          this.resolution.width = res.data.data.resolution.width
-          this.templateName = res.data.data.template.name
-          this.templateId = res.data.data.template.templateId
-          const configSchema = res.data.data.configSchema
+          this.resolution.height = res?.data.data.resolution.height
+          this.resolution.width = res?.data.data.resolution.width
+          this.templateName = res?.data.data.template.name
+          this.templateId = res?.data.data.template.templateId
+          const configSchema = res?.data.data.configSchema
           if (configSchema !== null) {
             if (configSchema.youtubeId !== undefined) {
               this.youtubeId = configSchema.youtubeId.currentValue
@@ -1379,13 +1379,13 @@ export default {
           this.getResolutionTemplate()
 
           if (
-            res.data.data.config.properties.dataCuaca &&
-            Object.keys(res.data.data.config.properties.dataCuaca).length > 0
+            res?.data.data.config.properties.dataCuaca &&
+            Object.keys(res?.data.data.config.properties.dataCuaca).length > 0
           ) {
-            this.getDuration(res.data.data.config.properties.dataCuaca, 'json')
+            this.getDuration(res?.data.data.config.properties.dataCuaca, 'json')
           } else {
             this.getDuration(
-              res.data.data.config.properties.bodyTxt.split('\n').join('\\n'),
+              res?.data.data.config.properties.bodyTxt.split('\n').join('\\n'),
               'text'
             )
           }
@@ -1418,21 +1418,21 @@ export default {
       await this.$axios
         .get(endpoint)
         .then((res) => {
-          this.templateName = res.data.data.name
-          this.type = res.data.data.format
+          this.templateName = res?.data.data.name
+          this.type = res?.data.data.format
           if (this.type === 'display') {
             this.staticSrc =
               this.$config.baseURL +
               'obs?fileKey=' +
-              res.data.data.configExample.properties.image
+              res?.data.data.configExample.properties.image
           }
           if (this.type === 'rmb') {
-            this.staticSrc = res.data.data.staticSrc
+            this.staticSrc = res?.data.data.staticSrc
           }
           if (this.type === 'video') {
-            this.staticSrc = res.data.data.staticSrc
+            this.staticSrc = res?.data.data.staticSrc
           }
-          const configSchema = res.data.data.configSchema
+          const configSchema = res?.data.data.configSchema
           if (configSchema !== null) {
             this.resolutionId = configSchema.resolutions[0].id
             this.resolution.height = configSchema.resolutions[0].height
@@ -1443,7 +1443,7 @@ export default {
         })
         .catch((e) => {
           this.$notifier.showMessage({
-            content: 'Error status code: ' + e.response.status,
+            content: 'Error status code: ' + e.response?.status,
             type: 'failed',
           })
         })
@@ -1455,7 +1455,7 @@ export default {
         })
         .then((res) => {
           if (res.status === 201 || res.status === 200) {
-            const data = res.data.data
+            const data = res?.data.data
             if (data.length > 0) {
               const id = this.resolutionId
               this.selectedResolution = data.find(
@@ -1526,10 +1526,10 @@ export default {
                       path: '/creative/',
                     })
                   } else {
-                    const keys = Object.keys(res.data.data.errors[0])
+                    const keys = Object.keys(res?.data.data.errors[0])
                     const arr = []
                     keys.forEach((key, index) => {
-                      arr.push(res.data.data.errors[0][key])
+                      arr.push(res?.data.data.errors[0][key])
                     })
 
                     this.$notifier.showMessage({

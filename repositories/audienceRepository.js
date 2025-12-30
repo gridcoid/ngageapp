@@ -29,12 +29,12 @@ export default ($axios) => ({
   // audience:detail
   detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`${resource}/${payload.audienceId}?orgId=${orgId}`)
+    return $axios.get(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
   // audience:update
   update(payload) {
-    const { id, contacts = [], ...rest } = payload
+    const { id, uuid, contacts = [], ...rest } = payload
     const orgId = window.$nuxt.$store.state.user.orgId
 
     // clean contacts
@@ -44,7 +44,7 @@ export default ($axios) => ({
       label: c.label ?? null,
     }))
 
-    return $axios.patch(`${resource}/${id}?orgId=${orgId}`, {
+    return $axios.patch(`${resource}/${uuid}?orgId=${orgId}`, {
       ...rest,
       contacts: cleanedContacts,
     })
@@ -53,14 +53,14 @@ export default ($axios) => ({
   // audience:delete
   delete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.delete(`${resource}/${payload.id}?orgId=${orgId}`)
+    return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
   // audience:removeFromSegment
   removeFromSegment(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(
-      `${resource}/removeFromSegment/${payload.id}?segmentId=${payload.segmentId}&orgId=${orgId}`
+      `${resource}/removeFromSegment/${payload.uuid}?segmentId=${payload.segmentId}&orgId=${orgId}`
     )
   },
 })

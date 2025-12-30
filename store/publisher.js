@@ -33,7 +33,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_PUBLISHER', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response

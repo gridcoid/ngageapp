@@ -540,7 +540,7 @@ export default {
       await this.$axios
         .get('json/campaigns/' + this.selectedCampaign + '/details')
         .then((res) => {
-          const data = res.data.data
+          const data = res?.data.data
           if (data !== null) {
             this.detail.name = data.name
             this.detail.date = data.period
@@ -567,7 +567,7 @@ export default {
         .then((res) => {
           const data1 = []
 
-          const data = res.data.data
+          const data = res?.data.data
           this.dataCreative = data.length
           for (let i = 0; i < data.length; i++) {
             data1.push(data[i].version)
@@ -645,7 +645,7 @@ export default {
             '/campaign_audience_category'
         )
         .then((res) => {
-          this.dataSegment = res.data.data.slice(0, 20)
+          this.dataSegment = res?.data.data.slice(0, 20)
           this.dataSegment.forEach((item, index) => {
             const data = []
             let total = ''
@@ -682,7 +682,7 @@ export default {
             }
           })
 
-          this.totalSegement = res.data.data.length
+          this.totalSegement = res?.data.data.length
         })
         .catch((e) => {})
     },
@@ -690,11 +690,11 @@ export default {
       await this.$axios
         .get('campaign/oval/reports?campaignId=' + this.selectedCampaign)
         .then((res) => {
-          this.dataOval = res.data.data
+          this.dataOval = res?.data.data
           this.dataOval.city = this.dataOval.city.slice(0, 5)
-          this.dataOccupation = res.data.data.occupation.slice(0, 5)
-          this.dataOval.hotelStar = res.data.data.hotelStar.slice(0, 5)
-          this.dataBook = res.data.data.productDepartment.slice(0, 10)
+          this.dataOccupation = res?.data.data.occupation.slice(0, 5)
+          this.dataOval.hotelStar = res?.data.data.hotelStar.slice(0, 5)
+          this.dataBook = res?.data.data.productDepartment.slice(0, 10)
           let total2 = 0
           let total3 = 0
           let total4 = 0
@@ -741,7 +741,7 @@ export default {
       await this.$axios
         .get('campaign/campaigns?orgId=' + this.orgId)
         .then((res) => {
-          this.dataCampaign = res.data.data
+          this.dataCampaign = res?.data.data
           if (this.dataCampaign.length > 0) {
             this.selectedCampaign = this.dataCampaign[0].id
           }
@@ -760,7 +760,7 @@ export default {
         .then((res) => {
           const data1 = []
 
-          const data = res.data.data
+          const data = res?.data.data
           this.dataCreative = data.length
 
           for (let i = 0; i < data.length; i++) {

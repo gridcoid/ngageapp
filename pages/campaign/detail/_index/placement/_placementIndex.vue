@@ -574,11 +574,11 @@ export default {
             .dispatch('placement/changeStatus', data)
             .then((res) => {
               if (
-                res.data.status.code === 200 ||
-                res.data.status.code === 201 ||
-                res.data.status.code === 202
+                res?.data.status.code === 200 ||
+                res?.data.status.code === 201 ||
+                res?.data.status.code === 202
               ) {
-                if (!res.data.data.isActive) {
+                if (!res?.data.data.isActive) {
                   this.$notifier.showMessage({
                     content: 'Placement status Enabled.',
                     type: 'success',
@@ -594,14 +594,14 @@ export default {
                 this.$notifier.showMessage({
                   content:
                     'Change placement status failed. Error : ' +
-                    res.data.data.message,
+                    res?.data.data.message,
                   type: 'failed',
                 })
                 this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
+                const keys = Object.keys(res?.data.data.errors[0])
                 const arr = []
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
+                  arr.push(res?.data.data.errors[0][key])
                 })
                 this.messageError = arr.join(', ')
                 clearInterval(sto)
@@ -649,7 +649,7 @@ export default {
           this.data2 = []
           this.data3 = []
           this.data4 = []
-          const data = res.data.data
+          const data = res?.data.data
           this.dataChart = data.length
 
           if (this.value === 'last12h') {
@@ -734,7 +734,7 @@ export default {
           id: this.$route.params.placementIndex,
         })
         .then((res) => {
-          const data = res.data.data
+          const data = res?.data.data
           this.data.cpm = data.delivery.cpm
           this.data.isActive = data.delivery.isDynamicBidding
           this.data.resolusi =

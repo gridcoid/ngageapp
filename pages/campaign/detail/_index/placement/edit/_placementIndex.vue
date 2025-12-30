@@ -1146,8 +1146,8 @@ export default {
           all: true,
         })
         .then((res) => {
-          // this.data.resolusi = res.data.data[0].id
-          // const data = res.data.data.find(item => item.id === this.data.resolusi)
+          // this.data.resolusi = res?.data.data[0].id
+          // const data = res?.data.data.find(item => item.id === this.data.resolusi)
           // this.selectedDataResolution = data.width + 'x' + data.height
           this.getDetailPlacement()
         })
@@ -1265,7 +1265,7 @@ export default {
           id: this.$route.params.placementIndex,
         })
         .then((res) => {
-          const data = res.data.data
+          const data = res?.data.data
           this.data.placementName = data.name
           this.data.cpm = data.delivery.cpm
           this.data.isActive = data.delivery.isDynamicBidding
@@ -1376,10 +1376,10 @@ export default {
                 clearInterval(sto)
               } else {
                 this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
+                const keys = Object.keys(res?.data.data.errors[0])
                 const arr = []
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
+                  arr.push(res?.data.data.errors[0][key])
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({

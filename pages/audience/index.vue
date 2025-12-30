@@ -191,7 +191,7 @@
               <template slot="body">
                 <NuxtLink
                   class="item-menu flex items-center no-select"
-                  :to="`/audience/edit/${scope.row.id}`"
+                  :to="`/audience/edit/${scope.row.uuid}`"
                 >
                   <i class="ti ti-edit text-yellow-500"></i>
                   <span class="ml-3">Edit</span>
@@ -346,10 +346,10 @@ export default {
 
           this.$store
             .dispatch('audience/delete', {
-              id: data.id,
+              uuid: data.uuid,
             })
             .then((res) => {
-              if (res.data.status.code === 200) {
+              if (res?.data.status.code === 200) {
                 this.getData()
 
                 this.$notifier.showMessage({
@@ -360,7 +360,7 @@ export default {
                 this.$notifier.showMessage({
                   content:
                     'Delete audience status failed. Error : ' +
-                    res.data.data.message,
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }
@@ -386,7 +386,7 @@ export default {
     },
 
     viewDetail(item) {
-      this.$router.push({ path: '/audience/detail/' + item.id })
+      this.$router.push({ path: '/audience/detail/' + item.uuid })
     },
 
     resetFilter() {

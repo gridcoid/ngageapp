@@ -349,7 +349,7 @@ export default {
               uuid: data.uuid,
             })
             .then((res) => {
-              if (res.data.status.code === 200) {
+              if (res?.data.status.code === 200) {
                 this.getData()
 
                 this.$notifier.showMessage({
@@ -360,7 +360,7 @@ export default {
                 this.$notifier.showMessage({
                   content:
                     'Delete api key status failed. Error : ' +
-                    res.data.data.message,
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }

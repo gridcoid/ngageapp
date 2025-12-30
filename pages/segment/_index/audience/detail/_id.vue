@@ -320,7 +320,7 @@ export default {
         orgId: null,
         name: '',
         dateOfBirth: null,
-        yearOfBirth: 1950,
+        yearOfBirth: null,
         genderId: null,
         religionId: null,
         provinceCode: null,

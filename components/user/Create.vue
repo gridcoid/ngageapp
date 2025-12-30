@@ -388,7 +388,7 @@ export default {
       this.$store
         .dispatch('user/getOrgUser', { all: true })
         .then((res) => {
-          const data = res.data.data
+          const data = res?.data.data
           if (this.isEdit) {
             this.selectedOrg = ''
             this.selectedOrg = data.find(
@@ -480,7 +480,7 @@ export default {
                 if (res.status === 201 || res.status === 200) {
                   const dataOrg = {
                     orgId: this.selectedOrg,
-                    userId: res.data.data.id,
+                    userId: res?.data.data.id,
                     roleId: this.selectedRoles,
                   }
                   this.$store
@@ -502,13 +502,13 @@ export default {
                         clearInterval(sto)
                       } else {
                         this.showMessage = true
-                        this.messageError = res.data.data.message
+                        this.messageError = res?.data.data.message
                         clearInterval(sto)
                       }
                     })
                 } else {
                   this.showMessage = true
-                  this.messageError = res.data.data.message
+                  this.messageError = res?.data.data.message
                   clearInterval(sto)
                 }
               })
@@ -574,13 +574,13 @@ export default {
                       clearInterval(sto)
                     } else {
                       this.showMessage = true
-                      this.messageError = res.data.data.message
+                      this.messageError = res?.data.data.message
                       clearInterval(sto)
                     }
                   })
               } else {
                 this.showMessage = true
-                this.messageError = res.data.data.message
+                this.messageError = res?.data.data.message
                 clearInterval(sto)
               }
             })

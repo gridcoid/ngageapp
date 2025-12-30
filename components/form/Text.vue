@@ -633,7 +633,7 @@ export default {
           'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAdGPY4_bsWi8c9fHhfdDmwF881W8HLOvk'
         )
         .then((res) => {
-          this.dataFont = res.data.items
+          this.dataFont = res?.data.items
         })
         .catch((error) => {
           this.$notifier.showMessage({

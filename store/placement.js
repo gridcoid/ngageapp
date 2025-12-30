@@ -154,7 +154,7 @@ export const actions = {
       return response
     } catch (e) {
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -168,7 +168,7 @@ export const actions = {
       return response
     } catch (e) {
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -184,7 +184,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_PLACEMENT', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       commit('SET_LOADING', false)
@@ -201,7 +201,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_INTEREST', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -215,7 +215,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_PRIORITIES', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -229,7 +229,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_DAILY', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -245,7 +245,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_INVENTORIES', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -261,7 +261,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_TYPE', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -277,7 +277,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_PERFORMANCE', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -291,7 +291,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_DETAIL', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -305,7 +305,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_STATUS', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -317,7 +317,7 @@ export const actions = {
       return response
     } catch (e) {
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -329,7 +329,7 @@ export const actions = {
       return response
     } catch (e) {
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -343,7 +343,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_SCRIPT', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response

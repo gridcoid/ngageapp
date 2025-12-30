@@ -67,7 +67,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_LIST', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -83,7 +83,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_ALL', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -99,7 +99,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_CREATE', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -115,7 +115,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_DETAIL', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -129,7 +129,7 @@ export const actions = {
       return response
     } catch (e) {
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -143,7 +143,7 @@ export const actions = {
       return response
     } catch (e) {
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -157,7 +157,7 @@ export const actions = {
       return response
     } catch (e) {
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response

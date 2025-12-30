@@ -184,12 +184,12 @@ export default {
         return item.id === orgId
       })
 
-      // const profileId = dataProfile.name ? dataProfile.name : ''
+      // const profileId = dataProfile?.name ? dataProfile?.name : ''
       // this.data.profile = profileId
-      // this.data.profileId = dataProfile.profileId ? dataProfile.profileId : ''
+      // this.data.profileId = dataProfile?.profileId ? dataProfile?.profileId : ''
       if (orgId === 17) {
         this.dataProfileList = [
-          { id: dataProfile.profileId, name: dataProfile.name },
+          { id: dataProfile?.profileId, name: dataProfile?.name },
           { id: '44f9151124985936c71172', name: 'DA Kompascom' },
         ]
       } else if (orgId === 19) {
@@ -200,7 +200,7 @@ export default {
         this.dataProfileList = [{ id: 'fbd04419cbd4', name: 'Bolasport' }]
       } else {
         this.dataProfileList = [
-          { id: dataProfile.profileId, name: dataProfile.name },
+          { id: dataProfile?.profileId, name: dataProfile?.name },
         ]
       }
     },
@@ -216,7 +216,7 @@ export default {
       await this.$axios
         .get('category')
         .then((res) => {
-          this.dataCategory = res.data.data
+          this.dataCategory = res?.data.data
         })
         .finally(() => {
           this.isLoading = false
@@ -257,7 +257,7 @@ export default {
                   clearInterval(sto)
                 } else {
                   this.showMessage = true
-                  this.messageError = res.data.data.message
+                  this.messageError = res?.data.data.message
                   clearInterval(sto)
                 }
               })

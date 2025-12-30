@@ -309,7 +309,7 @@ export default {
         })
         .then((res) => {
           const fileKey =
-            this.$config.baseURL + 'obs?fileKey=' + res.data.data.fileKeys[0]
+            this.$config.baseURL + 'obs?fileKey=' + res?.data.data.fileKeys[0]
           const indexForm = this.dataForm.findIndex(
             (x) => x.title === this.titleImage
           )
@@ -347,7 +347,7 @@ export default {
           // // send image raw data fo dataimageraw variable
           // const dataJSON = {
           //   index: this.indexImage,
-          //   default: res.data.data.fileKeys[0]
+          //   default: res?.data.data.fileKeys[0]
           // }
           // this.$store.commit('template/SET_CHANGE_IMAGE', dataJSON)
           // const dataFile = {

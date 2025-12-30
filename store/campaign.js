@@ -173,9 +173,11 @@ export const mutations = {
         newArray.push(
           element.deliveries.map((res) => formatDate(res.createdAt))
         )
-        impression.push(element.deliveries.map((res) => res.data[0].impression))
-        // click.push(element.deliveries.map(res => res.data[0].click))
-        // complete.push(element.deliveries.map(res => res.data[0].complete))
+        impression.push(
+          element.deliveries.map((res) => res?.data[0].impression)
+        )
+        // click.push(element.deliveries.map(res => res?.data[0].click))
+        // complete.push(element.deliveries.map(res => res?.data[0].complete))
       })
       for (let i = 0; i < data.length; i++) {
         data[i].chartData.labels = newArray[i]
@@ -206,7 +208,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_ADVERTISER', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -220,7 +222,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_CAMPAIGN_TYPE', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -234,7 +236,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_CREATE_CAMPAIGN', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -248,7 +250,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_CAMPAIGN', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -264,7 +266,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_CAMPAIGN_COMPLETE', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -278,7 +280,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_DETAIL_CAMPAIGN', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -292,7 +294,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_PERFORMANCE', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -304,7 +306,7 @@ export const actions = {
       return response
     } catch (e) {
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -318,7 +320,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_SUMMARY', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -332,7 +334,7 @@ export const actions = {
     } catch (e) {
       commit('SET_DATA_STATUS', null)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -344,7 +346,7 @@ export const actions = {
       return response
     } catch (e) {
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response
@@ -356,7 +358,7 @@ export const actions = {
       return response
     } catch (e) {
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response.status,
+        content: 'Error status code: ' + e.response?.status,
         type: 'failed',
       })
       return e.response

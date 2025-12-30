@@ -242,11 +242,11 @@ export default {
               } else {
                 this.showMessage = true
 
-                const keys = Object.keys(res.data.data.errors[0])
+                const keys = Object.keys(res?.data.data.errors[0])
                 const arr = []
 
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
+                  arr.push(res?.data.data.errors[0][key])
                 })
 
                 this.messageError = arr.join(', ')
@@ -292,7 +292,7 @@ export default {
           }.bind(this),
         })
         .then((res) => {
-          this.sheetUploaded = res.data.data
+          this.sheetUploaded = res?.data.data
 
           this.selector = []
           this.selector = this.sheetUploaded.selector.map((s) => {
@@ -302,20 +302,20 @@ export default {
             }
           })
 
-          res.data.data.columns.forEach((c) => {
+          res?.data.data.columns.forEach((c) => {
             this.$set(this.value, c, {
               target: '',
               deleted: false,
             })
           })
 
-          Object.keys(res.data.data.mapping).forEach((key) => {
-            if (res.data.data.mapping[key].confidence === 'auto') {
+          Object.keys(res?.data.data.mapping).forEach((key) => {
+            if (res?.data.data.mapping[key].confidence === 'auto') {
               this.$set(this.value, key, {
                 target:
-                  res.data.data.mapping[key].target +
+                  res?.data.data.mapping[key].target +
                   '.' +
-                  res.data.data.mapping[key].field,
+                  res?.data.data.mapping[key].field,
                 deleted: false,
               })
             } else {

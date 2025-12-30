@@ -269,12 +269,12 @@ export default {
                 )
                 clearInterval(sto)
               } else {
-                if (res.data.data.message === 'Incorrect Password') {
+                if (res?.data.data.message === 'Incorrect Password') {
                   this.validationPassword = true
                   this.messageError = 'Incorrect Password'
                 } else {
                   this.showMessage = true
-                  this.messageError = res.data.data.message
+                  this.messageError = res?.data.data.message
                 }
                 clearInterval(sto)
               }

@@ -320,7 +320,7 @@ export default {
         orgId: null,
         name: '',
         dateOfBirth: null,
-        yearOfBirth: 1950,
+        yearOfBirth: null,
         genderId: null,
         religionId: null,
         provinceCode: null,
@@ -362,7 +362,7 @@ export default {
 
       this.$store
         .dispatch('audience/detail', {
-          audienceId: this.$route.params.index,
+          uuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
     },
@@ -466,7 +466,7 @@ export default {
     },
 
     toEdit() {
-      this.$router.push({ path: '/audience/edit/' + this.data.id })
+      this.$router.push({ path: '/audience/edit/' + this.data.uuid })
     },
   },
   watch: {

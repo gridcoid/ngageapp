@@ -357,10 +357,10 @@ export default {
                 clearInterval(sto)
               } else {
                 this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
+                const keys = Object.keys(res?.data.data.errors[0])
                 const arr = []
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
+                  arr.push(res?.data.data.errors[0][key])
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
@@ -383,7 +383,7 @@ export default {
       await this.$axios
         .get('creative/resolutions?orgId=' + this.orgId + '&all=true')
         .then((res) => {
-          this.dataResolution = res.data.data
+          this.dataResolution = res?.data.data
         })
         .finally(() => {
           this.isLoading = false
@@ -394,7 +394,7 @@ export default {
       await this.$axios
         .get('org')
         .then((res) => {
-          this.dataOrg = res.data.data
+          this.dataOrg = res?.data.data
         })
         .finally(() => {
           this.isLoading = false
@@ -405,7 +405,7 @@ export default {
       await this.$axios
         .get('template/group?orgId=' + this.data.org)
         .then((res) => {
-          this.dataGroup = res.data.data
+          this.dataGroup = res?.data.data
         })
         .finally(() => {
           this.isLoading = false
@@ -434,9 +434,9 @@ export default {
           }.bind(this),
         })
         .then((res) => {
-          this.dataUpload = res.data.data
-          this.data.previewUrl = res.data.previewUrl
-          this.data.backupImg = res.data.backupImg
+          this.dataUpload = res?.data.data
+          this.data.previewUrl = res?.data.previewUrl
+          this.data.backupImg = res?.data.backupImg
         })
         .catch((error) => {
           this.$notifier.showMessage({

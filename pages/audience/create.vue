@@ -50,6 +50,8 @@
               v-model="data.yearOfBirth"
               :min="1900"
               :max="2100"
+              :value-on-clear="null"
+              @change="(v) => (data.yearOfBirth = v == '' ? null : v)"
             />
           </el-form-item>
 
@@ -60,6 +62,8 @@
               v-model="data.genderId"
               placeholder="Select gender"
               class="w-full"
+              filterable
+              clearable
             >
               <el-option
                 v-for="item in dataGenders"
@@ -77,6 +81,8 @@
               v-model="data.religionId"
               placeholder="Select religion"
               class="w-full"
+              filterable
+              clearable
             >
               <el-option
                 v-for="item in dataReligions"
@@ -107,6 +113,8 @@
               v-model="data.provinceCode"
               placeholder="Select province"
               class="w-full"
+              filterable
+              clearable
             >
               <el-option
                 v-for="p in dataProvinces"
@@ -124,6 +132,8 @@
               placeholder="Select regency"
               class="w-full"
               :disabled="!data.provinceCode"
+              filterable
+              clearable
             >
               <el-option
                 v-for="r in dataRegencies"
@@ -141,6 +151,8 @@
               placeholder="Select district"
               class="w-full"
               :disabled="!data.regencyCode"
+              filterable
+              clearable
             >
               <el-option
                 v-for="d in dataDistricts"
@@ -158,6 +170,8 @@
               placeholder="Select village"
               class="w-full"
               :disabled="!data.districtCode"
+              filterable
+              clearable
             >
               <el-option
                 v-for="v in dataVillages"
@@ -367,7 +381,7 @@ export default {
       data: {
         name: '',
         dateOfBirth: null,
-        yearOfBirth: 1950,
+        yearOfBirth: null,
         genderId: null,
         religionId: null,
         provinceCode: null,
@@ -479,9 +493,9 @@ export default {
               clearInterval(sto)
             } else {
               this.showMessage = true
-              const keys = Object.keys(res.data.data.errors[0])
+              const keys = Object.keys(res?.data.data.errors[0])
               const arr = []
-              keys.forEach((key) => arr.push(res.data.data.errors[0][key]))
+              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
               this.messageError = arr.join(', ')
 
               this.$notifier.showMessage({

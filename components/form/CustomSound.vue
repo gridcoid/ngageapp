@@ -166,9 +166,9 @@ export default {
           },
         })
         .then((res) => {
-          const fileKey = res.data.data.fileKey
+          const fileKey = res?.data.data.fileKey
           this.audioUrl = fileKey
-          this.audioTitle = res.data.data.fileName
+          this.audioTitle = res?.data.data.fileName
           const indexForm = this.dataForm.findIndex(
             (x) => x.title === this.titleAudio
           )

@@ -340,21 +340,21 @@ export default {
     await axios
       .get(`https://api.unimind.id/v1/creative/${params.detail}`)
       .then((res) => {
-        titlePage = res.data.data.name
-        if (res.data.data.config.backupImg !== undefined) {
-          if (isValidHttpUrl(res.data.data.config.backupImg)) {
-            backupImage = res.data.data.config.backupImg
+        titlePage = res?.data.data.name
+        if (res?.data.data.config.backupImg !== undefined) {
+          if (isValidHttpUrl(res?.data.data.config.backupImg)) {
+            backupImage = res?.data.data.config.backupImg
           } else {
             backupImage =
               'https://api.unimind.id/v1/obs?fileKey=' +
-              res.data.data.config.backupImg
+              res?.data.data.config.backupImg
           }
-        } else if (isValidHttpUrl(res.data.data.template.thumbnail)) {
-          backupImage = res.data.data.template.thumbnail
+        } else if (isValidHttpUrl(res?.data.data.template.thumbnail)) {
+          backupImage = res?.data.data.template.thumbnail
         } else {
           backupImage =
             'https://api.unimind.id/v1/obs?fileKey=' +
-            res.data.data.template.thumbnail
+            res?.data.data.template.thumbnail
         }
       })
       .catch(() => {})
@@ -520,12 +520,12 @@ export default {
           id: this.$route.params.detail,
         })
         .then((res) => {
-          titlePage = res.data.data.name
+          titlePage = res?.data.data.name
 
-          this.format = res.data.data.template.format
+          this.format = res?.data.data.template.format
           if (this.format === 'display') {
             this.staticSrc =
-              res.data.data.configSchema.properties.image.currentValue
+              res?.data.data.configSchema.properties.image.currentValue
           }
           if (this.format === 'rmb') {
             this.staticSrc =
@@ -535,33 +535,33 @@ export default {
               '/html'
           }
           if (this.format === 'custom_upload') {
-            this.staticSrc = res.data.data.previewUrl
+            this.staticSrc = res?.data.data.previewUrl
           }
           if (this.format === 'video') {
-            this.staticSrc = res.data.data.previewUrl
-            const thumbnail = res.data.data.template.thumbnail
+            this.staticSrc = res?.data.data.previewUrl
+            const thumbnail = res?.data.data.template.thumbnail
             if (this.isValidUrl(thumbnail)) {
               this.thumbnail = thumbnail
             } else {
               this.thumbnail = this.$config.baseURL + 'obs?fileKey=' + thumbnail
             }
           }
-          this.url = res.data.data.configSchema.clickUrl
-          this.height = res.data.data.resolution.height
-          this.width = res.data.data.resolution.width
+          this.url = res?.data.data.configSchema.clickUrl
+          this.height = res?.data.data.resolution.height
+          this.width = res?.data.data.resolution.width
           if (this.height > 1000 || this.width > 1000) {
             this.showZoom = true
           } else {
             this.showZoom = false
           }
-          this.creativeName = res.data.data.name
-          this.templateName = res.data.data.template.name
-          this.type = res.data.data.template.format
-          this.templateId = res.data.data.template.templateId
-          if (res.data.data.campaigns.length === 0) {
+          this.creativeName = res?.data.data.name
+          this.templateName = res?.data.data.template.name
+          this.type = res?.data.data.template.format
+          this.templateId = res?.data.data.template.templateId
+          if (res?.data.data.campaigns.length === 0) {
             this.campaignName = '-'
           }
-          this.contentHTML = res.data.data.htmlContent
+          this.contentHTML = res?.data.data.htmlContent
           // this.sendToIframe()
           this.getPreviewDevices()
         })
@@ -577,8 +577,8 @@ export default {
         })
         .then((res) => {
           if (res.status === 201 || res.status === 200) {
-            if (res.data.data.length > 0) {
-              this.previewDevice = res.data.data
+            if (res?.data.data.length > 0) {
+              this.previewDevice = res?.data.data
               this.checkParam()
               // this.getPreviewWebsites(2)
             }

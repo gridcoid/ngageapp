@@ -268,9 +268,9 @@ export default {
             .then((res) => {
               this.isLoading = false
               if (
-                res.data.status.code === 200 ||
-                res.data.status.code === 201 ||
-                res.data.status.code === 202
+                res?.data.status.code === 200 ||
+                res?.data.status.code === 201 ||
+                res?.data.status.code === 202
               ) {
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
@@ -283,10 +283,10 @@ export default {
                 clearInterval(sto)
               } else {
                 this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
+                const keys = Object.keys(res?.data.data.errors[0])
                 const arr = []
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
+                  arr.push(res?.data.data.errors[0][key])
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({

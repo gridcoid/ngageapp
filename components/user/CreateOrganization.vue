@@ -97,7 +97,7 @@ export default {
                   clearInterval(sto)
                 } else {
                   this.showMessage = true
-                  this.messageError = res.data.data.message
+                  this.messageError = res?.data.data.message
                   clearInterval(sto)
                 }
               })

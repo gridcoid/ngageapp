@@ -113,12 +113,12 @@ export default {
           resolution: this.$router.currentRoute.query.resolution,
         })
         .then((res) => {
-          this.type = res.data.data.format
+          this.type = res?.data.data.format
           if (this.type === 'display') {
             this.staticSrc =
               this.$config.baseURL +
               'obs?fileKey=' +
-              res.data.data.configExample.properties.image
+              res?.data.data.configExample.properties.image
           }
           if (this.type === 'rmb') {
             this.staticSrc =
@@ -128,12 +128,12 @@ export default {
               '/html'
           }
           if (this.type === 'video') {
-            this.staticSrc = res.data.data.staticSrc
+            this.staticSrc = res?.data.data.staticSrc
           }
-          this.isActive = res.data.data.isActive
-          this.height = res.data.data.configSchema.resolutions[0].height
-          this.width = res.data.data.configSchema.resolutions[0].width
-          this.resolutionId = res.data.data.resolutionId
+          this.isActive = res?.data.data.isActive
+          this.height = res?.data.data.configSchema.resolutions[0].height
+          this.width = res?.data.data.configSchema.resolutions[0].width
+          this.resolutionId = res?.data.data.resolutionId
           if (this.height > 1000 || this.width > 1000) {
             this.showZoom = true
           } else {

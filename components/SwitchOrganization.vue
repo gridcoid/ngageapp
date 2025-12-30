@@ -83,7 +83,7 @@ export default {
       this.$store
         .dispatch('user/getOrganization', { all: false })
         .then((res) => {
-          const data = res.data.data.find((x) => x.id === this.orgId)
+          const data = res?.data.data.find((x) => x.id === this.orgId)
           this.$store.dispatch('user/setOrganization', data)
         })
         .finally(() => {

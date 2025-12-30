@@ -20,7 +20,7 @@ export const actions = {
       this.$notifier.showMessage({
         content:
           'Error status code: ' +
-          e.response.status +
+          e.response?.status +
           ' ! ' +
           e.response.data.data.message,
         type: 'failed',

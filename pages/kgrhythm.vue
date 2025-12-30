@@ -750,9 +750,9 @@ export default {
           password: 'Password',
         })
         .then((res) => {
-          if (res.data.status.code == 200) {
-            this.$store.commit('user/SET_ORG', res.data.data.defaultOrgId)
-            this.$store.commit('user/SET_USER', res.data.data)
+          if (res?.data.status.code == 200) {
+            this.$store.commit('user/SET_ORG', res?.data.data.defaultOrgId)
+            this.$store.commit('user/SET_USER', res?.data.data)
             this.getTemplateDetailNew()
           }
         })
@@ -794,7 +794,7 @@ export default {
         this.$store
           .dispatch('template/getScrapeText', payload)
           .then((res) => {
-            this.dataScrapeText = res.data.data
+            this.dataScrapeText = res?.data.data
             this.name = this.dataScrapeText.titleTxt
             this.dataMood = this.dataScrapeText.mood
             const keys = Object.keys(this.dataScrapeText)
@@ -914,7 +914,7 @@ export default {
           }
           this.$store.commit('template/SET_CHANGE_IMAGE', dataJSON)
           const fileKey =
-            this.$config.baseURL + 'obs?fileKey=' + res.data.data.fileKey[0]
+            this.$config.baseURL + 'obs?fileKey=' + res?.data.data.fileKey[0]
           const indexForm = this.dataForm.findIndex(
             (x) => x.title === titleData
           )
@@ -974,7 +974,7 @@ export default {
             dataJSONArray.push(dataJSON)
 
             const fileKey =
-              this.$config.baseURL + 'obs?fileKey=' + res.data.data.fileKey[i]
+              this.$config.baseURL + 'obs?fileKey=' + res?.data.data.fileKey[i]
 
             const dataJSON2 = {
               indexImage: i,
@@ -1051,7 +1051,7 @@ export default {
       }
       const endpoint = `template/${payload.id}/resolution?orgId=${this.orgId}`
       this.$axios.get(endpoint).then((res) => {
-        const data = res.data.data
+        const data = res?.data.data
         if (data.length > 0) {
           const id = this.$router.currentRoute.query.resolution
           // this.selectedResolution = data[0].id
@@ -1078,7 +1078,7 @@ export default {
         })
         .then((res) => {
           if (res.status === 201 || res.status === 200) {
-            const data = res.data.data
+            const data = res?.data.data
             if (data.length > 0) {
               const id = this.$router.currentRoute.query.resolution
               // this.selectedResolution = data[0].id
@@ -1112,7 +1112,7 @@ export default {
           templateId: this.$router.currentRoute.query.id,
         })
         .then((res) => {
-          this.duration = res.data.data.duration + ' seconds'
+          this.duration = res?.data.data.duration + ' seconds'
           this.isLoadingDuration = false
         })
         .catch(() => {
@@ -1134,22 +1134,22 @@ export default {
       const endpoint = `template/${payload.id}?orgId=${this.orgId}&resolutionId=${payload.resolution}`
 
       this.$axios.get(endpoint).then((res) => {
-        this.$store.commit('template/SET_DATA_DETAIL_TEMPLATE', res.data.data)
-        this.nameTemplate = res.data.data.name
-        this.type = res.data.data.format
-        const configSchema = res.data.data.configSchema
+        this.$store.commit('template/SET_DATA_DETAIL_TEMPLATE', res?.data.data)
+        this.nameTemplate = res?.data.data.name
+        this.type = res?.data.data.format
+        const configSchema = res?.data.data.configSchema
         if (this.type === 'display') {
           this.staticSrc =
             this.$config.baseURL +
             'obs?fileKey=' +
-            res.data.data.configExample.properties.image
+            res?.data.data.configExample.properties.image
         }
         if (this.type === 'rmb') {
-          this.staticSrc = res.data.data.staticSrc
+          this.staticSrc = res?.data.data.staticSrc
         }
         if (this.type === 'video') {
-          this.staticSrc = res.data.data.staticSrc
-          const thumbnail = res.data.data.thumbnail
+          this.staticSrc = res?.data.data.staticSrc
+          const thumbnail = res?.data.data.thumbnail
           if (this.isValidUrl(thumbnail)) {
             this.thumbnail = thumbnail
           } else {
@@ -1191,21 +1191,21 @@ export default {
             resolution: this.idQuery,
           })
           .then((res) => {
-            this.nameTemplate = res.data.data.name
-            this.type = res.data.data.format
-            const configSchema = res.data.data.configSchema
+            this.nameTemplate = res?.data.data.name
+            this.type = res?.data.data.format
+            const configSchema = res?.data.data.configSchema
             if (this.type === 'display') {
               this.staticSrc =
                 this.$config.baseURL +
                 'obs?fileKey=' +
-                res.data.data.configExample.properties.image
+                res?.data.data.configExample.properties.image
             }
             if (this.type === 'rmb') {
-              this.staticSrc = res.data.data.staticSrc
+              this.staticSrc = res?.data.data.staticSrc
             }
             if (this.type === 'video') {
-              this.staticSrc = res.data.data.staticSrc
-              const thumbnail = res.data.data.thumbnail
+              this.staticSrc = res?.data.data.staticSrc
+              const thumbnail = res?.data.data.thumbnail
               if (this.isValidUrl(thumbnail)) {
                 this.thumbnail = thumbnail
               } else {
@@ -1250,21 +1250,21 @@ export default {
       await this.$axios
         .get(endpoint)
         .then((res) => {
-          this.nameTemplate = res.data.data.name
-          this.type = res.data.data.format
+          this.nameTemplate = res?.data.data.name
+          this.type = res?.data.data.format
           if (this.type === 'display') {
             this.staticSrc =
               this.$config.baseURL +
               'obs?fileKey=' +
-              res.data.data.configExample.properties.image
+              res?.data.data.configExample.properties.image
           }
           if (this.type === 'rmb') {
-            this.staticSrc = res.data.data.staticSrc
+            this.staticSrc = res?.data.data.staticSrc
           }
           if (this.type === 'video') {
-            this.staticSrc = res.data.data.staticSrc
+            this.staticSrc = res?.data.data.staticSrc
           }
-          const configSchema = res.data.data.configSchema
+          const configSchema = res?.data.data.configSchema
           if (configSchema !== null) {
             this.resolutionId = configSchema.resolutions[0].id
             this.resolution.height = configSchema.resolutions[0].height
@@ -1275,7 +1275,7 @@ export default {
         })
         .catch((e) => {
           this.$notifier.showMessage({
-            content: 'Error status code: ' + e.response.status,
+            content: 'Error status code: ' + e.response?.status,
             type: 'failed',
           })
         })
@@ -1370,7 +1370,7 @@ export default {
               },
             })
             .then((res) => {
-              const keys = res.data.data.fileKeys
+              const keys = res?.data.data.fileKeys
               for (let i = 0; i < keys.length; i++) {
                 this.fileKey[i].fileKey = keys[i]
               }
@@ -1580,7 +1580,7 @@ export default {
                 },
               })
               .then((res) => {
-                payload.customStaticHtml = res.data.fileKey
+                payload.customStaticHtml = res?.data.fileKey
                 this.$store
                   .dispatch('creative/createCreative', payload)
                   .then((res) => {
@@ -1681,7 +1681,7 @@ export default {
               },
             })
             .then((res) => {
-              const keys = res.data.data.fileKeys
+              const keys = res?.data.data.fileKeys
               for (let i = 0; i < keys.length; i++) {
                 this.fileKey[i].fileKey = keys[i]
               }
@@ -1871,7 +1871,7 @@ export default {
               ) {
                 this.$store
                   .dispatch('creative/duplicateCreative', {
-                    id: res.data.data.id,
+                    id: res?.data.data.id,
                   })
                   .then((res) => {
                     if (res.status === 201) {
@@ -1880,7 +1880,7 @@ export default {
                         type: 'success',
                       })
                       this.$router.push({
-                        path: `/creative/edit/${res.data.data.id}`,
+                        path: `/creative/edit/${res?.data.data.id}`,
                       })
                     }
                   })
@@ -2200,7 +2200,7 @@ export default {
         this.$store
           .dispatch('template/getScrapeWeather', payload)
           .then((res) => {
-            this.dataScrapeText = res.data.data
+            this.dataScrapeText = res?.data.data
             this.name =
               'Weather ' + dateNew + ' -( ' + this.selectedRegion + ' )'
             this.dataMood = 'Weather'

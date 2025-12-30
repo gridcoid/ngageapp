@@ -258,10 +258,10 @@ export default {
                 clearInterval(sto)
               } else {
                 this.showMessage = true
-                const keys = Object.keys(res.data.data.errors[0])
+                const keys = Object.keys(res?.data.data.errors[0])
                 const arr = []
                 keys.forEach((key, index) => {
-                  arr.push(res.data.data.errors[0][key])
+                  arr.push(res?.data.data.errors[0][key])
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
@@ -284,7 +284,7 @@ export default {
       await this.$axios
         .get('creative/resolutions?orgId=' + this.orgId + '&all=true')
         .then((res) => {
-          this.dataResolution = res.data.data
+          this.dataResolution = res?.data.data
         })
         .finally(() => {
           this.isLoading = false
@@ -319,8 +319,8 @@ export default {
           }.bind(this),
         })
         .then((res) => {
-          this.data.previewUrl = res.data.previewUrl
-          this.data.backupImg = res.data.backupImg
+          this.data.previewUrl = res?.data.previewUrl
+          this.data.backupImg = res?.data.backupImg
         })
         .catch((error) => {
           this.$notifier.showMessage({

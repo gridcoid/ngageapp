@@ -188,21 +188,21 @@ export default {
     await axios
       .get(`https://dev-api.unimind.id/v1/creative/${params.detail}`)
       .then((res) => {
-        titlePage = res.data.data.name
-        if (res.data.data.config.backupImg !== undefined) {
-          if (isValidHttpUrl(res.data.data.config.backupImg)) {
-            backupImage = res.data.data.config.backupImg
+        titlePage = res?.data.data.name
+        if (res?.data.data.config.backupImg !== undefined) {
+          if (isValidHttpUrl(res?.data.data.config.backupImg)) {
+            backupImage = res?.data.data.config.backupImg
           } else {
             backupImage =
               'https://dev-api.unimind.id/v1/obs?fileKey=' +
-              res.data.data.config.backupImg
+              res?.data.data.config.backupImg
           }
-        } else if (isValidHttpUrl(res.data.data.template.thumbnail)) {
-          backupImage = res.data.data.template.thumbnail
+        } else if (isValidHttpUrl(res?.data.data.template.thumbnail)) {
+          backupImage = res?.data.data.template.thumbnail
         } else {
           backupImage =
             'https://dev-api.unimind.id/v1/obs?fileKey=' +
-            res.data.data.template.thumbnail
+            res?.data.data.template.thumbnail
         }
       })
       .catch(() => {})

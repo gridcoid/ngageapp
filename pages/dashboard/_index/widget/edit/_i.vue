@@ -123,7 +123,7 @@ export default {
           sort: 'createdAt_desc',
         })
         .then((res) => {
-          this.queries = res.data?.data?.rows || []
+          this.queries = res?.data?.data?.rows || []
         })
     },
 
@@ -167,7 +167,7 @@ export default {
           } else {
             this.showMessage = true
             this.messageError =
-              res.data?.data?.errors
+              res?.data?.data?.errors
                 ?.map((e) => Object.values(e)[0])
                 .join(', ') || 'Failed to update widget'
 
