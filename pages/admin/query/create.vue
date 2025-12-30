@@ -68,11 +68,11 @@
               />
             </el-form-item>
 
-            <!-- Group By -->
+            <!-- Joins -->
             <el-form-item>
-              <label slot="label" class="title-form">Group By</label>
+              <label slot="label" class="title-form">Joins</label>
               <el-input
-                v-model="groupByJson"
+                v-model="joinsJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"
@@ -90,11 +90,11 @@
               />
             </el-form-item>
 
-            <!-- Joins -->
+            <!-- Group By -->
             <el-form-item>
-              <label slot="label" class="title-form">Joins</label>
+              <label slot="label" class="title-form">Group By</label>
               <el-input
-                v-model="joinsJson"
+                v-model="groupByJson"
                 type="textarea"
                 :rows="10"
                 class="font-mono"

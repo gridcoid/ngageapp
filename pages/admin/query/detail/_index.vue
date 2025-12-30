@@ -98,6 +98,36 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
+                <i class="ti ti-filter mr-2 text-red-500"></i>
+                Join
+              </h2>
+
+              <div class="bg-gray-50 rounded-lg p-5">
+                <pre class="text-sm font-mono text-gray-800 whitespace-pre-wrap"
+                  >{{ pretty(data.definition?.join) }}
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="ti ti-filter mr-2 text-red-500"></i>
+                Filters
+              </h2>
+
+              <div class="bg-gray-50 rounded-lg p-5">
+                <pre class="text-sm font-mono text-gray-800 whitespace-pre-wrap"
+                  >{{ pretty(data.definition?.filters) }}
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
                 <i class="ti ti-border-all mr-2 text-purple-500"></i>
                 Group By
               </h2>
@@ -114,12 +144,12 @@
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
                 <i class="ti ti-filter mr-2 text-red-500"></i>
-                Filters
+                Sort
               </h2>
 
               <div class="bg-gray-50 rounded-lg p-5">
                 <pre class="text-sm font-mono text-gray-800 whitespace-pre-wrap"
-                  >{{ pretty(data.definition?.filters) }}
+                  >{{ pretty(data.definition?.sort) }}
                 </pre>
               </div>
             </div>
@@ -212,11 +242,11 @@ export default {
     dataDetail(val) {
       if (val) {
         this.data = {
-          id: val.data.id,
-          orgId: val.data.orgId,
-          name: val.data.name,
-          description: val.data.description,
-          definition: { ...val.data.definition },
+          id: val.id,
+          orgId: val.orgId,
+          name: val.name,
+          description: val.description,
+          definition: { ...val.definition },
         }
       }
     },
