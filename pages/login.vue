@@ -72,15 +72,7 @@
                 :text="messageError"
               />
             </Transition>
-            <k-button
-              v-if="!$config.isDev"
-              text="Login"
-              class="mt-6"
-              size="large"
-              @click.native="login()"
-            />
             <button
-              v-else
               class="bg-red-500 hover:bg-red-700 text-white py-2 mt-6 rounded w-full"
               @click="login()"
             >
@@ -120,16 +112,7 @@
       </div>
     </div>
     <div class="flex-auto hidden sm:hidden md:hidden lg:flex xl:flex 2xl:flex">
-      <img
-        v-if="!$config.isDev"
-        src="~/assets/images/login/bg_login.jpg"
-        class="right-side"
-      />
-      <img
-        v-else
-        src="~/assets/images/login/bg_login_dev.jpg"
-        class="right-side"
-      />
+      <img src="~/assets/images/login/bg_login.jpg" class="right-side" />
     </div>
   </div>
 </template>
