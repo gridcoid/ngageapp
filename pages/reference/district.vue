@@ -2,7 +2,7 @@
   <div class="kg-containers p-6 w-full max-w-4xl">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-map text-gray-400 mr-2"></i> Districts
+        <i class="ti ti-building-community text-gray-400 mr-2"></i> Districts
       </div>
     </div>
 
