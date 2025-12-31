@@ -14,7 +14,7 @@ export default {
           'Centralized platform to manage audiences, segments, campaigns, surveys and PR—target, engage, and measure results with data-driven tools.',
       },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/icon.svg' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   publicRuntimeConfig: {
     appName: process.env.APP_NAME,
