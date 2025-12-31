@@ -8,9 +8,9 @@ export default ($axios) => ({
   },
 
   // dashboard:add (widget)
-  addWidget(dashboardUuid, widget) {
+  addWidget(uuid, widget) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}/${dashboardUuid}/widget?orgId=${orgId}`, {
+    return $axios.post(`${resource}/${uuid}/widget?orgId=${orgId}`, {
       widget,
     })
   },
@@ -18,19 +18,16 @@ export default ($axios) => ({
   // dashboard:update (widgets)
   updateWidgets(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.patch(
-      `${resource}/${payload.dashboardUuid}/widgets?orgId=${orgId}`,
-      {
-        config: payload.config,
-      }
-    )
+    return $axios.patch(`${resource}/${payload.uuid}/widgets?orgId=${orgId}`, {
+      config: payload.config,
+    })
   },
 
   // dashboard:update (widget)
   updateWidget(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.patch(
-      `${resource}/${payload.dashboardUuid}/widget/${payload.widgetUuid}?orgId=${orgId}`,
+      `${resource}/${payload.uuid}/widget/${payload.widgetUuid}?orgId=${orgId}`,
       {
         widget: payload.widget,
       }

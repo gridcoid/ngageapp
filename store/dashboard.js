@@ -67,10 +67,10 @@ export const actions = {
   },
 
   // dashboard:add (widget)
-  async addWidget({ commit }, { dashboardUuid, widget }) {
+  async addWidget({ commit }, { uuid, widget }) {
     try {
       const response = await this.$repositories.dashboard.addWidget(
-        dashboardUuid,
+        uuid,
         widget
       )
       return response
@@ -89,7 +89,7 @@ export const actions = {
 
     try {
       const response = await this.$repositories.dashboard.updateWidgets({
-        dashboardUuid: state.dataList.uuid,
+        uuid: state.dataList.uuid,
         config: state.dataList.config,
       })
       return response
@@ -109,7 +109,7 @@ export const actions = {
 
     try {
       const response = await this.$repositories.dashboard.updateWidget({
-        dashboardUuid: payload.dashboardUuid,
+        uuid: payload.uuid,
         widgetUuid: payload.widgetUuid,
         widget: payload.widget,
       })

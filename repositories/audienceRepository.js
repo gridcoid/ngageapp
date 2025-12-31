@@ -20,10 +20,7 @@ export default ($axios) => ({
   // audience:create
   create(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}?orgId=${orgId}`, {
-      ...payload,
-      orgId,
-    })
+    return $axios.post(`${resource}?orgId=${orgId}`, payload)
   },
 
   // audience:detail

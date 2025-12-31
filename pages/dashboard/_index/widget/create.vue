@@ -110,7 +110,7 @@ export default {
 
       this.$store
         .dispatch('dashboard/addWidget', {
-          dashboardUuid: this.$route.params.index,
+          uuid: this.$route.params.index,
           widget: {
             ...this.data,
             x: 0, // full width default
