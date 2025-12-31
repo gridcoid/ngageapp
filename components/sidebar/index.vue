@@ -110,8 +110,9 @@ export default {
 }
 .k-sidebar {
   width: 310px;
-  // border: 1px solid #f1f1f1;
-  border-right: 1px solid #c3ced9;
+  box-shadow: 2px 0 5px 0 rgba(0, 0, 0, 0.05);
+  z-index: 3;
+  border-right: 1px solid #ddd;
   position: sticky;
   top: 0;
   -webkit-transition: width 0.3s ease-out;

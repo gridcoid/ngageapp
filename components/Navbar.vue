@@ -179,10 +179,10 @@ export default {
 }
 .nav-menu {
   height: 56px;
-  // position: absolute;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
   top: 0;
   background: #ffffff;
-  border-bottom: 1px solid #c3ced9 !important;
+  border-bottom: 1px solid #ddd !important;
   padding-left: 20px;
   padding-right: 20px;
   .btn-icon {
