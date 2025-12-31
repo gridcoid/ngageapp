@@ -375,7 +375,7 @@ export default {
 
       this.$store
         .dispatch('audience/detail', {
-          audienceId: this.$route.params.id,
+          uuid: this.$route.params.uuid,
         })
         .finally(() => (this.isLoading = false))
     },
@@ -484,7 +484,7 @@ export default {
           '/segment/' +
           this.$route.params.index +
           '/audience/edit/' +
-          this.data.id,
+          this.data.uuid,
       })
     },
   },

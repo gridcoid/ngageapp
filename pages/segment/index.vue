@@ -364,7 +364,7 @@ export default {
 
           this.$store
             .dispatch('segment/delete', {
-              id: data.id,
+              uuid: data.uuid,
             })
             .then((res) => {
               if (res?.data.status.code === 200) {

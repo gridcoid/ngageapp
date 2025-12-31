@@ -366,6 +366,7 @@ export default {
       // Form model sesuai tabel
       data: {
         id: null,
+        uuid: null,
         orgId: null,
         name: '',
         dateOfBirth: null,
@@ -451,7 +452,7 @@ export default {
 
       this.$store
         .dispatch('audience/detail', {
-          audienceId: this.$route.params.id,
+          uuid: this.$route.params.uuid,
         })
         .finally(() => (this.isLoading = false))
     },
@@ -587,6 +588,7 @@ export default {
     async dataDetail(val) {
       if (val) {
         this.data.id = val.id
+        this.data.uuid = val.uuid
         this.data.orgId = val.orgId
         this.data.name = val.name
         this.data.dateOfBirth = val.dateOfBirth

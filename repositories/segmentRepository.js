@@ -39,7 +39,7 @@ export default ($axios) => ({
   // segment:delete
   delete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.delete(`${resource}/${payload.id}?orgId=${orgId}`)
+    return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
   // segment:duplicate
