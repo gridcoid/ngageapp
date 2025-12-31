@@ -33,9 +33,25 @@ export const actions = {
   },
 
   // province:list
-  async list({ commit }) {
+  async list({ commit }, payload) {
     try {
-      const response = await this.$repositories.province.list()
+      const response = await this.$repositories.province.list(payload)
+      commit('SET_DATA_LIST', response.data.data)
+      return response
+    } catch (e) {
+      commit('SET_DATA_LIST', null)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + e.response?.status,
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // province:all
+  async all({ commit }) {
+    try {
+      const response = await this.$repositories.province.all()
       commit('SET_DATA_LIST', response.data.data)
       return response
     } catch (e) {

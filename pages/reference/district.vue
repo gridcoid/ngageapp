@@ -1,0 +1,181 @@
+<template>
+  <div class="kg-containers p-6 w-full max-w-4xl">
+    <div class="flex items-center header-content">
+      <div class="title-header">
+        <i class="ti ti-map text-gray-400 mr-2"></i> Districts
+      </div>
+    </div>
+
+    <div class="flex items-center filter-content justify-between">
+      <div class="desc-page">
+        View the list of districts available in the system.
+      </div>
+    </div>
+
+    <div v-if="dataDistricts.length > 0" class="body-content flex flex-col">
+      <el-table
+        v-if="tableVisible"
+        v-loading="isLoading"
+        element-loading-text="Loading..."
+        element-loading-spinner="el-icon-loading"
+        fit
+        lazy
+        stripe
+        :data="dataDistricts"
+        class="w-full k-table"
+      >
+        <!-- padding -->
+        <el-table-column label="" width="10" />
+
+        <!-- ID -->
+        <el-table-column label="ID" width="80">
+          <template slot-scope="scope">
+            <div class="font-cabin text-sm text-gray-600">
+              {{ scope.row.id }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- Code (clickable) -->
+        <el-table-column label="Ref" width="130">
+          <template slot-scope="scope">
+            <span
+              class="text-gray-600 font-cabin font-mono font-semibold text-sm"
+            >
+              {{ scope.row.code }}
+            </span>
+          </template>
+        </el-table-column>
+
+        <!-- Name -->
+        <el-table-column label="Name">
+          <template slot-scope="scope">
+            <div class="font-cabin font-semibold text-sm text-gray-700">
+              <el-tag>{{ scope.row.name }}</el-tag>
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- Latitude -->
+        <el-table-column label="Lat" width="180">
+          <template slot-scope="scope">
+            <div class="font-cabin text-xs text-gray-600 font-mono">
+              {{ scope.row.lat }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- Longitude -->
+        <el-table-column label="Lng" width="180">
+          <template slot-scope="scope">
+            <div class="font-cabin text-xs text-gray-600 font-mono">
+              {{ scope.row.lng }}
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <Pagination
+        class="k-pagination"
+        :value="currentPage"
+        :total-page="totalPages"
+        :total="totalList"
+        @input="
+          (page) => {
+            $store.commit('user/SET_DROPDOWN', null)
+            changePage(page)
+          }
+        "
+        @rowPage="
+          (size) => {
+            $store.commit('user/SET_DROPDOWN', null)
+            changeRowPage(size)
+          }
+        "
+      />
+    </div>
+
+    <div v-else class="flex flex-col items-center mt-24 no-data">
+      <img src="~/assets/images/empty_table.png" width="150" />
+      <div class="title-1 mt-2">No records found.</div>
+      <div class="subtitle-1">
+        Seems like there is no district data available yet.
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'DistrictPage',
+  layout: 'default',
+  head() {
+    return {
+      title: 'Districts - ' + this.$config.appName,
+    }
+  },
+  data() {
+    return {
+      tableVisible: true,
+      radio: 'name_asc',
+      dataSearch: '',
+      showSearch: false,
+      currentPage: 1,
+      isLoading: false,
+      rowPage: 10,
+    }
+  },
+  computed: {
+    ...mapState({
+      sidebar: (state) => state.user.sidebar,
+      dataDistricts: (state) => state.district.dataList,
+      totalList: (state) => state.district.totalList,
+      totalPages: (state) => state.district.totalPages,
+    }),
+  },
+  mounted() {
+    this.getData()
+  },
+  methods: {
+    getData() {
+      this.isLoading = true
+
+      const data = {
+        page: this.currentPage,
+        size: this.rowPage,
+        name: this.dataSearch,
+        sort: this.radio,
+      }
+
+      this.$store.dispatch('district/list', data).finally(() => {
+        this.isLoading = false
+      })
+    },
+
+    changePage(ev) {
+      if (ev > 0) {
+        this.currentPage = ev
+        this.getData()
+      }
+    },
+
+    changeRowPage(ev) {
+      this.rowPage = ev
+      this.getData()
+    },
+  },
+
+  watch: {
+    sidebar() {
+      this.tableVisible = false
+      this.$nextTick(() => {
+        this.tableVisible = true
+      })
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped src="./shared.scss" />

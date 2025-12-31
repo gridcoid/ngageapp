@@ -604,7 +604,6 @@ export default {
         }
         .table-content {
           margin-right: 20px;
-
           .k-table {
             border: 1px solid #c3ced9 !important;
             border-radius: 10px !important;

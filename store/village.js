@@ -47,4 +47,20 @@ export const actions = {
       return e.response
     }
   },
+
+  // village:all
+  async all({ commit }, payload) {
+    try {
+      const response = await this.$repositories.village.all(payload)
+      commit('SET_DATA_LIST', response.data.data)
+      return response
+    } catch (e) {
+      commit('SET_DATA_LIST', null)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + e.response?.status,
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
 }

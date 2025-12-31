@@ -209,6 +209,49 @@ export default {
               },
             ],
           },
+          {
+            path: '',
+            name: 'References',
+            type: 'multiple',
+            icon: 'ti ti-book',
+            child: [
+              {
+                path: '/reference/contact-type',
+                name: 'Contact Types',
+                icon: 'ti ti-address-book',
+              },
+              {
+                path: '/reference/gender',
+                name: 'Genders',
+                icon: 'ti ti-gender-bigender',
+              },
+              {
+                path: '/reference/religion',
+                name: 'Religions',
+                icon: 'ti ti-building-mosque',
+              },
+              {
+                path: '/reference/province',
+                name: 'Provinces',
+                icon: 'ti ti-building',
+              },
+              {
+                path: '/reference/regency',
+                name: 'Regencies',
+                icon: 'ti ti-building-skyscraper',
+              },
+              {
+                path: '/reference/district',
+                name: 'Districts',
+                icon: 'ti ti-building-community',
+              },
+              {
+                path: '/reference/village',
+                name: 'Villages',
+                icon: 'ti ti-building-estate',
+              },
+            ],
+          },
         ]
       }
       if (this.roleId === 3) {

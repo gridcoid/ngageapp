@@ -395,14 +395,14 @@ export default {
       this.isLoading = true
 
       this.$store
-        .dispatch('province/list')
+        .dispatch('province/all')
         .finally(() => (this.isLoading = false))
     },
 
     getRegency(provinceCode) {
       this.isLoading = true
 
-      this.$store.dispatch('regency/list', { provinceCode }).finally(() => {
+      this.$store.dispatch('regency/all', { provinceCode }).finally(() => {
         this.isLoading = false
       })
     },
@@ -410,7 +410,7 @@ export default {
     getDistrict(regencyCode) {
       this.isLoading = true
 
-      this.$store.dispatch('district/list', { regencyCode }).finally(() => {
+      this.$store.dispatch('district/all', { regencyCode }).finally(() => {
         this.isLoading = false
       })
     },
@@ -418,7 +418,7 @@ export default {
     getVillage(districtCode) {
       this.isLoading = true
 
-      this.$store.dispatch('village/list', { districtCode }).finally(() => {
+      this.$store.dispatch('village/all', { districtCode }).finally(() => {
         this.isLoading = false
       })
     },
