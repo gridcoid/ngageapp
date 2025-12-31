@@ -573,11 +573,7 @@ export default {
           this.$store
             .dispatch('placement/changeStatus', data)
             .then((res) => {
-              if (
-                res?.data.status.code === 200 ||
-                res?.data.status.code === 201 ||
-                res?.data.status.code === 202
-              ) {
+              if (res?.data.status.code === 200) {
                 if (!res?.data.data.isActive) {
                   this.$notifier.showMessage({
                     content: 'Placement status Enabled.',

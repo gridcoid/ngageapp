@@ -579,7 +579,7 @@ export default {
           id: this.templateId,
         })
         .then((res) => {
-          if (res.status === 201 || res.status === 200) {
+          if (res.status === 200) {
             if (res?.data.data.length > 0) {
               this.previewDevice = res?.data.data
               this.checkParam()

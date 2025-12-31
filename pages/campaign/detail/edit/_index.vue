@@ -267,11 +267,7 @@ export default {
             .dispatch('campaign/update', this.data)
             .then((res) => {
               this.isLoading = false
-              if (
-                res?.data.status.code === 200 ||
-                res?.data.status.code === 201 ||
-                res?.data.status.code === 202
-              ) {
+              if (res?.data.status.code === 200) {
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
                   content: 'Campaign edited.',

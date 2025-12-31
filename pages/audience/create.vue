@@ -483,7 +483,7 @@ export default {
         this.$store
           .dispatch('audience/create', this.data)
           .then((res) => {
-            if (res.status === 201 || res.status === 200) {
+            if (res.status === 200) {
               this.$router.push({ path: '/audience' })
 
               this.$notifier.showMessage({

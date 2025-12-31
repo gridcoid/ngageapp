@@ -249,7 +249,7 @@ export default {
           this.$store
             .dispatch('creative/createCreativeCustom', data)
             .then((res) => {
-              if (res.status === 201 || res.status === 200) {
+              if (res.status === 200) {
                 this.$router.push({ path: '/creative' })
                 this.$notifier.showMessage({
                   content: 'Creative created.',

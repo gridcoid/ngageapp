@@ -208,7 +208,7 @@ export default {
           this.$store
             .dispatch('apiKey/create', this.data)
             .then((res) => {
-              if (res.status === 201 || res.status === 200) {
+              if (res.status === 200) {
                 this.$router.push({ path: '/admin/api-key' })
 
                 this.$notifier.showMessage({

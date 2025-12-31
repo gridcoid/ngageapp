@@ -1034,7 +1034,7 @@ export default {
           id: this.$route.params.index,
         })
         .then((res) => {
-          if (res.status === 201 || res.status === 200) {
+          if (res.status === 200) {
             const data = res?.data.data
             if (data.length > 0) {
               const id = this.$router.currentRoute.query.resolution
@@ -1480,11 +1480,7 @@ export default {
                 this.$store
                   .dispatch('creative/createCreative', payload)
                   .then((res) => {
-                    if (
-                      res.status === 201 ||
-                      res.status === 200 ||
-                      res.status === 202
-                    ) {
+                    if (res.status === 200) {
                       this.$notifier.showMessage({
                         content: 'Creative created',
                         type: 'success',
@@ -1507,11 +1503,7 @@ export default {
             this.$store
               .dispatch('creative/createCreative', payload)
               .then((res) => {
-                if (
-                  res.status === 201 ||
-                  res.status === 200 ||
-                  res.status === 202
-                ) {
+                if (res.status === 200) {
                   this.$notifier.showMessage({
                     content: 'Creative created',
                     type: 'success',
@@ -1760,18 +1752,14 @@ export default {
           this.$store
             .dispatch('creative/createCreative', payload)
             .then((res) => {
-              if (
-                res.status === 201 ||
-                res.status === 200 ||
-                res.status === 202
-              ) {
+              if (res.status === 200) {
                 const data = {
                   id: res?.data.data.id,
                 }
                 this.$store
                   .dispatch('creative/duplicateCreative', data)
                   .then((res) => {
-                    if (res.status === 201) {
+                    if (res.status === 200) {
                       this.$notifier.showMessage({
                         content: 'Creative save and duplicate success',
                         type: 'success',

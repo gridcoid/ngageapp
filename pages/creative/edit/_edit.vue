@@ -790,11 +790,7 @@ export default {
               id: this.$route.params.edit,
             })
             .then((res) => {
-              if (
-                res.status === 201 ||
-                res.status === 200 ||
-                res.status === 202
-              ) {
+              if (res.status === 200) {
                 // this.$store.commit('creative/SET_CLEAR')
                 this.$notifier.showMessage({
                   content: 'Creative edited',
@@ -1046,17 +1042,13 @@ export default {
               id: this.$route.params.edit,
             })
             .then((res) => {
-              if (
-                res.status === 201 ||
-                res.status === 200 ||
-                res.status === 202
-              ) {
+              if (res.status === 200) {
                 this.$store
                   .dispatch('creative/duplicateCreative', {
                     id: this.$route.params.edit,
                   })
                   .then((res) => {
-                    if (res.status === 201) {
+                    if (res.status === 200) {
                       this.$notifier.showMessage({
                         content: 'Creative update and duplicate success',
                         type: 'success',
@@ -1458,7 +1450,7 @@ export default {
           id: this.templateId,
         })
         .then((res) => {
-          if (res.status === 201 || res.status === 200) {
+          if (res.status === 200) {
             const data = res?.data.data
             if (data.length > 0) {
               const id = this.resolutionId
@@ -1516,11 +1508,7 @@ export default {
                     this.resolution.width + 'x' + this.resolution.height,
                 })
                 .then((res) => {
-                  if (
-                    res.status === 200 ||
-                    res.status === 201 ||
-                    res.status === 202
-                  ) {
+                  if (res.status === 200) {
                     this.$notifier.showMessage({
                       content: 'Creative edited.',
                       type: 'success',

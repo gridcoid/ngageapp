@@ -2,7 +2,7 @@
   <div class="flex" style="height: 100%; width: 100%">
     <client-only>
       <Sidebar />
-      <div class="flex flex-col w-full h-full">
+      <div class="flex flex-col w-full h-full min-h-screen bg-gray-50">
         <Navbar class="k-navbar" />
         <div class="main-menu">
           <Nuxt />
@@ -42,9 +42,7 @@ html {
   background: $colorGrey;
 }
 .main-menu {
-  background: $colorGrey;
   height: 100%;
-  // margin-top: 56px;
 }
 :root {
   --vs-line-height: 1.75;

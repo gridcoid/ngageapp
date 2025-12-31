@@ -1029,11 +1029,7 @@ export default {
           this.$store
             .dispatch('campaign/changeStatus', data)
             .then((res) => {
-              if (
-                res?.data.status.code === 200 ||
-                res?.data.status.code === 201 ||
-                res?.data.status.code === 202
-              ) {
+              if (res?.data.status.code === 200) {
                 this.getAll()
                 this.$notifier.showMessage({
                   content: 'Change campaign status success.',
@@ -1087,11 +1083,7 @@ export default {
           this.$store
             .dispatch('campaign/duplicate', data)
             .then((res) => {
-              if (
-                res?.data.status.code === 200 ||
-                res?.data.status.code === 201 ||
-                res?.data.status.code === 202
-              ) {
+              if (res?.data.status.code === 200) {
                 this.getAll()
                 this.$notifier.showMessage({
                   content: 'Duplicate campaign status success.',

@@ -3532,7 +3532,7 @@
                                 return new Promise(function (resolve, reject) {
                                     const xmlhttp = new XMLHttpRequest();
                                     xmlhttp.onreadystatechange = function () {
-                                        if (this.readyState == 4 && this.status == 201) {
+                                        if (this.readyState == 4 && this.status == 200) {
                                             resolve(JSON.parse(this.responseText));
                                         } else if (this.readyState == 4 && this.status == 400) {
                                             reject(JSON.parse(this.responseText));

@@ -611,7 +611,7 @@ export default {
             this.$store
               .dispatch('creative/generateCreativeVideo', data2)
               .then((res) => {
-                if (res.status === 201 || res.status === 200) {
+                if (res.status === 200) {
                   this.getAll()
                   this.$notifier.showMessage({
                     content:
@@ -645,7 +645,7 @@ export default {
             this.$store
               .dispatch('creative/generateCreativeVideoStatic', data2)
               .then((res) => {
-                if (res.status === 201 || res.status === 200) {
+                if (res.status === 200) {
                   this.getAll()
                   this.$notifier.showMessage({
                     content: 'Generate creative in progress',
@@ -759,7 +759,7 @@ export default {
           id: idCreative,
         })
         .then((res) => {
-          if (res.status === 201) {
+          if (res.status === 200) {
             this.$store.commit('user/SET_DROPDOWN', null)
             this.getAll()
           }

@@ -477,7 +477,7 @@ export default {
             this.$store
               .dispatch('user/createUser', data)
               .then((res) => {
-                if (res.status === 201 || res.status === 200) {
+                if (res.status === 200) {
                   const dataOrg = {
                     orgId: this.selectedOrg,
                     userId: res?.data.data.id,
@@ -486,7 +486,7 @@ export default {
                   this.$store
                     .dispatch('user/assignOrg', dataOrg)
                     .then((res) => {
-                      if (res.status === 201 || res.status === 200) {
+                      if (res.status === 200) {
                         this.$notifier.showMessage({
                           content: 'User Save!.',
                           type: 'success',
@@ -550,7 +550,7 @@ export default {
           this.$store
             .dispatch('user/updateUser', data)
             .then((res) => {
-              if (res.status === 201 || res.status === 200) {
+              if (res.status === 200) {
                 const dataRoles = {
                   orgId: this.selectedOrg,
                   roleId: this.selectedRoles,
@@ -559,7 +559,7 @@ export default {
                 this.$store
                   .dispatch('user/updateRoles', dataRoles)
                   .then((res) => {
-                    if (res.status === 201 || res.status === 200) {
+                    if (res.status === 200) {
                       this.$notifier.showMessage({
                         content: 'User Update!.',
                         type: 'success',

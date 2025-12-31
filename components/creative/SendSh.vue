@@ -241,7 +241,7 @@ export default {
             this.$store
               .dispatch('creative/sendToStudioHub', data)
               .then((res) => {
-                if (res.status === 201 || res.status === 200) {
+                if (res.status === 200) {
                   this.$notifier.showMessage({
                     content: 'Video Send!',
                     type: 'success',

@@ -261,7 +261,7 @@ export default {
           definition,
         })
         .then((res) => {
-          if (res.status === 200 || res.status === 202) {
+          if (res.status === 200) {
             this.$router.push({ path: '/admin/query' })
             this.$notifier.showMessage({
               content: 'Query updated',

@@ -1296,7 +1296,7 @@ export default {
             })
             .then((res) => {
               this.isLoading = false
-              if (res.status === 201 || res.status === 200) {
+              if (res.status === 200) {
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
                   content: 'Placement created.',

@@ -347,7 +347,7 @@ export default {
           this.$store
             .dispatch('template/createTemplateCustom', data)
             .then((res) => {
-              if (res.status === 201 || res.status === 200) {
+              if (res.status === 200) {
                 this.step1 = true
                 this.step2 = false
                 this.$notifier.showMessage({
