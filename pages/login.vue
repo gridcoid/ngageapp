@@ -2,8 +2,24 @@
   <div class="flex flex-nowrap login-page">
     <div class="flex h-screen left-side items-center justify-center">
       <div class="flex flex-col">
-        <img src="~/assets/images/logo_baru.svg" class="logo-img" />
-        <img src="~/assets/images/logo_baru.svg" class="logo-img-small" />
+        <img
+          :src="
+            $config.isDev
+              ? '~/assets/images/logo_ngage_dev.svg'
+              : '~/assets/images/logo_ngage.svg'
+          "
+          alt="n-gage"
+          class="logo-img"
+        />
+        <img
+          :src="
+            $config.isDev
+              ? '~/assets/images/logo_ngage_dev.svg'
+              : '~/assets/images/logo_ngage.svg'
+          "
+          alt="n-gage"
+          class="logo-img-small"
+        />
         <div class="card-login">
           <span v-if="!isLoading">
             <div class="header-4">Getting Started</div>

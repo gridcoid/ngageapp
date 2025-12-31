@@ -8,7 +8,12 @@
         <div class="grid grid-cols-2 place-items-center">
           <div class="justify-self-start">
             <img
-              src="~/assets/images/logo_baru.svg"
+              :src="
+                $config.isDev
+                  ? '~/assets/images/logo_ngage_dev.svg'
+                  : '~/assets/images/logo_ngage.svg'
+              "
+              alt="n-gage"
               class="logo-unimind"
               @click="toHome()"
             />
@@ -34,7 +39,12 @@
         <div class="grid grid-flow-row auto-rows-max place-items-center">
           <div class="justify-self-center" style="margin-bottom: 20px">
             <img
-              src="~/assets/images/logo_small.png"
+              :src="
+                $config.isDev
+                  ? '~/assets/images/logo_n_dev.svg'
+                  : '~/assets/images/logo_n.svg'
+              "
+              alt="n-gage"
               style="cursor: pointer"
               @click="toHome()"
             />

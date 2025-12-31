@@ -7,7 +7,12 @@
       <div class="header-content flex items-center justify-between">
         <div class="flex items-center made-in">
           Made with
-          <img src="~/assets/images/logo_baru.svg" class="logo-unimind" />
+          <img  :src="
+                $config.isDev
+                  ? '~/assets/images/logo_ngage_dev.svg'
+                  : '~/assets/images/logo_ngage.svg'
+              "
+              alt="n-gage" class="logo-unimind" />
         </div>
         <div class="flex items-center">
           <div class="kompas-select flex">
