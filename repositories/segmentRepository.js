@@ -18,13 +18,13 @@ export default ($axios) => ({
   // segment:create
   create(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}?orgId=${orgId}`, { ...payload, orgId })
+    return $axios.post(`${resource}?orgId=${orgId}`, payload)
   },
 
   // segment:detail
   detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`${resource}/${payload.segmentUuid}?orgId=${orgId}`)
+    return $axios.get(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
   // segment:update

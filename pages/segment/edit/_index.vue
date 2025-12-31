@@ -110,7 +110,7 @@ export default {
       this.isLoading = true
       this.$store
         .dispatch('segment/detail', {
-          segmentUuid: this.$route.params.index,
+          uuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
     },

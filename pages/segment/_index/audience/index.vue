@@ -325,7 +325,7 @@ export default {
       this.isLoading = true
       this.$store
         .dispatch('segment/detail', {
-          segmentUuid: this.$route.params.index,
+          uuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
     },
@@ -334,7 +334,7 @@ export default {
       this.isLoading = true
 
       const params = {
-        segmentUuid: this.$route.params.index,
+        uuid: this.$route.params.index,
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,

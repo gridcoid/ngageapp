@@ -13,7 +13,7 @@ export default ($axios) => ({
   listBySegment(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
-      `${resource}/listBySegment?orgId=${orgId}&segmentUuid=${payload.segmentUuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+      `${resource}/listBySegment?orgId=${orgId}&uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
     )
   },
 
@@ -26,7 +26,11 @@ export default ($axios) => ({
   // audience:detail
   detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`${resource}/${payload.uuid}?orgId=${orgId}`)
+    return $axios.get(
+      `${resource}/${payload.uuid}?orgId=${orgId}&segmentUuid=${
+        payload.segmentUuid || ''
+      }`
+    )
   },
 
   // audience:update

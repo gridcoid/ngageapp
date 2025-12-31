@@ -365,7 +365,7 @@ export default {
 
       this.$store
         .dispatch('segment/detail', {
-          segmentUuid: this.$route.params.index,
+          uuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
     },
@@ -375,6 +375,7 @@ export default {
 
       this.$store
         .dispatch('audience/detail', {
+          segmentUuid: this.$route.params.index,
           uuid: this.$route.params.uuid,
         })
         .finally(() => (this.isLoading = false))

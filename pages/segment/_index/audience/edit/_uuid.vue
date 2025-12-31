@@ -367,7 +367,6 @@ export default {
       data: {
         id: null,
         uuid: null,
-        orgId: null,
         name: '',
         dateOfBirth: null,
         yearOfBirth: null,
@@ -420,7 +419,7 @@ export default {
 
       this.$store
         .dispatch('segment/detail', {
-          segmentUuid: this.$route.params.index,
+          uuid: this.$route.params.index,
         })
         .finally(() => (this.isLoading = false))
     },
@@ -452,6 +451,7 @@ export default {
 
       this.$store
         .dispatch('audience/detail', {
+          segmentUuid: this.$route.params.index,
           uuid: this.$route.params.uuid,
         })
         .finally(() => (this.isLoading = false))
@@ -589,7 +589,6 @@ export default {
       if (val) {
         this.data.id = val.id
         this.data.uuid = val.uuid
-        this.data.orgId = val.orgId
         this.data.name = val.name
         this.data.dateOfBirth = val.dateOfBirth
         this.data.yearOfBirth = val.yearOfBirth
