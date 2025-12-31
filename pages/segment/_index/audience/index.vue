@@ -211,7 +211,7 @@
               <template slot="body">
                 <NuxtLink
                   class="item-menu flex items-center no-select"
-                  :to="`/segment/${$route.params.index}/audience/edit/${scope.row.id}`"
+                  :to="`/segment/${$route.params.index}/audience/edit/${scope.row.uuid}`"
                 >
                   <i class="ti ti-edit text-yellow-500"></i>
                   <span class="ml-3">Edit</span>
@@ -426,7 +426,7 @@ export default {
           '/segment/' +
           this.$route.params.index +
           '/audience/detail/' +
-          item.id,
+          item.uuid,
       })
     },
 
