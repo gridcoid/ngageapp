@@ -112,9 +112,9 @@ export default {
   width: 300px;
   background: #ffffff;
   z-index: 9999;
-  border-radius: 10px;
+  border-radius: 5px;
   .list-org {
-    height: 51px;
+    height: 40px;
     width: 100%;
     padding-left: 15px;
     padding-right: 15px;
@@ -124,7 +124,7 @@ export default {
       font-family: 'Cabin';
       font-style: normal;
       font-weight: 500;
-      font-size: 16px;
+      font-size: 14px;
       color: #5c6b7a;
       margin-left: 10px;
     }
@@ -158,7 +158,7 @@ export default {
       font-family: 'Cabin';
       font-style: normal;
       font-weight: 400;
-      font-size: 16px;
+      font-size: 14px;
       color: #5c6b7a;
     }
     .btn-arrow {

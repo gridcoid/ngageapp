@@ -115,7 +115,7 @@ export default {
 .k-sidebar {
   width: 310px;
   box-shadow: 2px 0 5px 0 rgba(0, 0, 0, 0.05);
-  z-index: 3;
+  z-index: 2;
   border-right: 1px solid #ddd;
   position: sticky;
   top: 0;
