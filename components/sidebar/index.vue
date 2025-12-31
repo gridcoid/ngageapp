@@ -66,9 +66,13 @@ import logoNProd from '~/assets/images/logo_n.png'
 export default {
   components: {},
   data() {
+    const isLocalhost =
+      process.client &&
+      ['localhost', '127.0.0.1'].includes(window.location.hostname)
+
     return {
-      logo: this.$config.isDev ? logoDev : logoProd,
-      logoN: this.$config.isDev ? logoNDev : logoNProd,
+      logo: isLocalhost ? logoDev : logoProd,
+      logoN: isLocalhost ? logoNDev : logoNProd,
       tinggi: 0,
     }
   },

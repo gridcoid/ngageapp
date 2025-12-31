@@ -212,8 +212,12 @@ export default {
       .catch(() => {})
   },
   data() {
+    const isLocalhost =
+      process.client &&
+      ['localhost', '127.0.0.1'].includes(window.location.hostname)
+
     return {
-      logo: this.$config.isDev ? logoDev : logoProd,
+      logo: isLocalhost ? logoDev : logoProd,
       type: '',
       url: '',
       isLoading: true,
