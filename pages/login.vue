@@ -2,24 +2,8 @@
   <div class="flex flex-nowrap login-page">
     <div class="flex h-screen left-side items-center justify-center">
       <div class="flex flex-col">
-        <img
-          :src="
-            $config.isDev
-              ? '~/assets/images/logo_ngage_dev.svg'
-              : '~/assets/images/logo_ngage.svg'
-          "
-          alt="n-gage"
-          class="logo-img"
-        />
-        <img
-          :src="
-            $config.isDev
-              ? '~/assets/images/logo_ngage_dev.svg'
-              : '~/assets/images/logo_ngage.svg'
-          "
-          alt="n-gage"
-          class="logo-img-small"
-        />
+        <img :src="logo" alt="n-gage" class="logo-img" />
+        <img :src="logoN" alt="n-gage" class="logo-img-small" />
         <div class="card-login">
           <span v-if="!isLoading">
             <div class="header-4">Getting Started</div>
@@ -134,6 +118,11 @@
 </template>
 
 <script>
+import logoDev from '~/assets/images/logo_ngage_dev.svg'
+import logoProd from '~/assets/images/logo_ngage.svg'
+import logoNDev from '~/assets/images/logo_n_dev.png'
+import logoNProd from '~/assets/images/logo_n.png'
+
 export default {
   name: 'LoginPage',
   layout: 'login',
@@ -144,6 +133,8 @@ export default {
   },
   data() {
     return {
+      logo: this.$config.isDev ? logoDev : logoProd,
+      logoN: this.$config.isDev ? logoNDev : logoNProd,
       email: '',
       password: '',
       width: 0,

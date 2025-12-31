@@ -7,12 +7,7 @@
       <div class="header-content flex items-center justify-between">
         <div class="flex items-center made-in">
           Made with
-          <img  :src="
-                $config.isDev
-                  ? '~/assets/images/logo_ngage_dev.svg'
-                  : '~/assets/images/logo_ngage.svg'
-              "
-              alt="n-gage" class="logo-unimind" />
+          <img :src="logo" alt="n-gage" class="logo-unimind" />
         </div>
         <div class="flex items-center">
           <div class="kompas-select flex">
@@ -167,9 +162,13 @@
     </div>
   </div>
 </template>
+
 <script>
 import axios from 'axios'
 import { mapState } from 'vuex'
+
+import logoDev from '~/assets/images/logo_ngage_dev.svg'
+import logoProd from '~/assets/images/logo_ngage.svg'
 
 let titlePage = ''
 let backupImage = ''
@@ -214,6 +213,7 @@ export default {
   },
   data() {
     return {
+      logo: this.$config.isDev ? logoDev : logoProd,
       type: '',
       url: '',
       isLoading: true,

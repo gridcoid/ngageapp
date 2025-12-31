@@ -8,11 +8,7 @@
         <div class="grid grid-cols-2 place-items-center">
           <div class="justify-self-start">
             <img
-              :src="
-                $config.isDev
-                  ? '~/assets/images/logo_ngage_dev.svg'
-                  : '~/assets/images/logo_ngage.svg'
-              "
+              :src="logo"
               alt="n-gage"
               class="logo-unimind"
               @click="toHome()"
@@ -39,11 +35,7 @@
         <div class="grid grid-flow-row auto-rows-max place-items-center">
           <div class="justify-self-center" style="margin-bottom: 20px">
             <img
-              :src="
-                $config.isDev
-                  ? '~/assets/images/logo_n_dev.svg'
-                  : '~/assets/images/logo_n.svg'
-              "
+              :src="logoN"
               alt="n-gage"
               style="cursor: pointer"
               @click="toHome()"
@@ -55,10 +47,6 @@
             </div>
           </div>
         </div>
-
-        <div v-show="handleRole" class="btn-plus grid place-items-center">
-          <IconPlus class="icon-arrow" bg-color="#1B63D4" />
-        </div>
       </div>
       <div class="flex flex-col justify-between" style="margin-top: 30px">
         <SidebarItemList />
@@ -69,11 +57,18 @@
 
 <script>
 import { mapState } from 'vuex'
+
+import logoDev from '~/assets/images/logo_ngage_dev.svg'
+import logoProd from '~/assets/images/logo_ngage.svg'
+import logoNDev from '~/assets/images/logo_n_dev.png'
+import logoNProd from '~/assets/images/logo_n.png'
+
 export default {
   components: {},
   data() {
     return {
-      handleRole: true,
+      logo: this.$config.isDev ? logoDev : logoProd,
+      logoN: this.$config.isDev ? logoNDev : logoNProd,
       tinggi: 0,
     }
   },
@@ -87,10 +82,6 @@ export default {
       },
     }),
   },
-  mounted() {
-    this.checkRole()
-  },
-
   methods: {
     open() {},
     onSidebar() {
@@ -98,13 +89,6 @@ export default {
     },
     toHome() {
       this.$router.push({ path: '/' })
-    },
-    checkRole() {
-      if (this.roleId === 4) {
-        this.handleRole = false
-      } else {
-        this.handleRole = true
-      }
     },
   },
 }

@@ -12,7 +12,10 @@
           :index="index.toString()"
           @click="activeIcon(item)"
         >
-          <div class="flex items-center h-full">
+          <div
+            class="flex items-center h-full"
+            :class="showSidebar ? 'justify-center' : 'justify-start'"
+          >
             <i :class="item.icon" />
             <div
               v-show="!showSidebar"
@@ -30,7 +33,10 @@
           @mouseleave.native="hover = false"
         >
           <template slot="title">
-            <div class="flex items-center h-full">
+            <div
+              class="flex items-center h-full"
+              :class="showSidebar ? 'justify-center' : 'justify-start'"
+            >
               <i :class="item.icon" />
               <div
                 v-show="showSidebar"

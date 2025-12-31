@@ -8,15 +8,7 @@
     >
       <div class="flex items-center made-in">
         Made with
-        <img
-          :src="
-            $config.isDev
-              ? '~/assets/images/logo_ngage_dev.svg'
-              : '~/assets/images/logo_ngage.svg'
-          "
-          alt="n-gage"
-          class="logo-unimind"
-        />
+        <img :src="logo" alt="n-gage" class="logo-unimind" />
       </div>
       <div class="flex items-center">
         <div
@@ -349,6 +341,9 @@ import CardForm from '~/components/card/Form.vue'
 import FormEditAudio from '~/components/form/edit/Audio.vue'
 import FormEditCustomSound from '~/components/form/edit/CustomSound.vue'
 
+import logoDev from '~/assets/images/logo_ngage_dev.svg'
+import logoProd from '~/assets/images/logo_ngage.svg'
+
 export default {
   name: 'CreateCreativePage',
   layout: 'login',
@@ -383,6 +378,7 @@ export default {
 
   data() {
     return {
+      logo: this.$config.isDev ? logoDev : logoProd,
       isLoadingDuration: false,
       duration: '0',
       dataMood: '',
