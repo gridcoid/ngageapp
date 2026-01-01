@@ -22,11 +22,11 @@
           @mouseover="iconSurvey = true"
           @mouseleave="iconSurvey = false"
         >
-          <i class="ti ti-progress-help text-2xl text-purple-500" />
+          <i class="ti ti-progress-help text-2xl text-purple-300" />
         </div>
         <i
           v-show="handleRole"
-          class="btn-icon ti ti-bell text-2xl text-purple-500"
+          class="btn-icon ti ti-bell text-2xl text-purple-300"
         />
         <el-popover
           placement="bottom"

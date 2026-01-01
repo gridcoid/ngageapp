@@ -80,9 +80,12 @@
         <el-table-column label="Audiences" width="100">
           <template slot-scope="scope">
             <div class="font-cabin text-xs text-gray-600 font-mono">
-              <el-tag class="num" type="success">{{
-                scope.row.audiencesCount
-              }}</el-tag>
+              <el-tag
+                class="num"
+                :type="scope.row.audiencesCount > 0 ? 'success' : 'danger'"
+              >
+                {{ scope.row.audiencesCount }}
+              </el-tag>
             </div>
           </template>
         </el-table-column>
