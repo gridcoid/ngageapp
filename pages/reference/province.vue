@@ -39,11 +39,12 @@
         <!-- Code (clickable) -->
         <el-table-column label="Ref" width="130">
           <template slot-scope="scope">
-            <span
-              class="text-gray-600 font-cabin font-mono font-semibold text-sm"
+            <NuxtLink
+              :to="`/reference/regency/${scope.row.code}`"
+              class="text-purple-600 font-cabin font-mono font-semibold text-sm"
             >
               {{ scope.row.code }}
-            </span>
+            </NuxtLink>
           </template>
         </el-table-column>
 

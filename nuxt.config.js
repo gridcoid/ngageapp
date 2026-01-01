@@ -79,6 +79,18 @@ export default {
   },
   router: {
     middleware: ['auth'],
+    extendRoutes(routes, resolve) {
+      let r
+
+      r = routes.find((r) => r.path === '/reference/regency/:index')
+      r.path = '/reference/regency/:index?'
+
+      r = routes.find((r) => r.path === '/reference/district/:index')
+      r.path = '/reference/district/:index?'
+
+      r = routes.find((r) => r.path === '/reference/village/:index')
+      r.path = '/reference/village/:index?'
+    },
   },
   auth: {
     redirect: {

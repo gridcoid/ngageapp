@@ -5,12 +5,12 @@ export default ($axios) => ({
   list(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
-      `${resource}?orgId=${orgId}&regencyCode=${payload.regencyCode}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+      `${resource}?orgId=${orgId}&regencyCode=${payload.regencyCode}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`
     )
   },
 
   // district:all
-  all(payload) {
+  all() {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
       `${resource}/all?orgId=${orgId}&regencyCode=${payload.regencyCode}`

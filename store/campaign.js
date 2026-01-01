@@ -207,6 +207,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_ADVERTISER', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -221,6 +222,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_CAMPAIGN_TYPE', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -235,6 +237,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_CREATE_CAMPAIGN', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -249,6 +252,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_CAMPAIGN', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -265,6 +269,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_CAMPAIGN_COMPLETE', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -279,6 +284,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_DETAIL_CAMPAIGN', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -293,6 +299,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_PERFORMANCE', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -305,6 +312,7 @@ export const actions = {
       const response = await this.$repositories.campaign.update(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -319,6 +327,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_SUMMARY', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -333,6 +342,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_STATUS', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -345,6 +355,7 @@ export const actions = {
       const response = await this.$repositories.campaign.duplicate(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -357,6 +368,7 @@ export const actions = {
       const response = await this.$repositories.campaign.delete(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',

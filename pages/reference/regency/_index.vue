@@ -39,11 +39,12 @@
         <!-- Code (clickable) -->
         <el-table-column label="Ref" width="130">
           <template slot-scope="scope">
-            <span
-              class="text-gray-600 font-cabin font-mono font-semibold text-sm"
+            <NuxtLink
+              :to="`/reference/district/${scope.row.code}`"
+              class="text-purple-600 font-cabin font-mono font-semibold text-sm"
             >
               {{ scope.row.code }}
-            </span>
+            </NuxtLink>
           </template>
         </el-table-column>
 
@@ -143,6 +144,7 @@ export default {
       this.isLoading = true
 
       const data = {
+        provinceCode: this.$route.params.index || '',
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,
@@ -178,4 +180,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped src="./shared.scss" />
+<style lang="scss" scoped src="../shared.scss" />

@@ -5,6 +5,7 @@
       class="el-menu-vertical-demo"
       :collapse="showSidebar"
       :collapse-transition="false"
+      :unique-opened="true"
     >
       <div v-for="(item, index) in data" :key="index">
         <el-menu-item

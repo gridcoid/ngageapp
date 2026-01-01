@@ -2,17 +2,17 @@
   <div class="kg-containers p-6 w-full max-w-4xl">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-building-community text-gray-400 mr-2"></i> Districts
+        <i class="ti ti-building-estate text-gray-400 mr-2"></i> Villages
       </div>
     </div>
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        View the list of districts available in the system.
+        View the list of villages available in the system.
       </div>
     </div>
 
-    <div v-if="dataDistricts.length > 0" class="body-content flex flex-col">
+    <div v-if="dataVillages.length > 0" class="body-content flex flex-col">
       <el-table
         v-if="tableVisible"
         v-loading="isLoading"
@@ -21,7 +21,7 @@
         fit
         lazy
         stripe
-        :data="dataDistricts"
+        :data="dataVillages"
         class="w-full k-table"
       >
         <!-- padding -->
@@ -99,7 +99,7 @@
       <img src="~/assets/images/empty_table.png" width="150" />
       <div class="title-1 mt-2">No records found.</div>
       <div class="subtitle-1">
-        Seems like there is no district data available yet.
+        Seems like there is no village data available yet.
       </div>
     </div>
   </div>
@@ -109,11 +109,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'DistrictPage',
+  name: 'VillagePage',
   layout: 'default',
   head() {
     return {
-      title: 'Districts - ' + this.$config.appName,
+      title: 'Villages - ' + this.$config.appName,
     }
   },
   data() {
@@ -130,9 +130,9 @@ export default {
   computed: {
     ...mapState({
       sidebar: (state) => state.user.sidebar,
-      dataDistricts: (state) => state.district.dataList,
-      totalList: (state) => state.district.totalList,
-      totalPages: (state) => state.district.totalPages,
+      dataVillages: (state) => state.village.dataList,
+      totalList: (state) => state.village.totalList,
+      totalPages: (state) => state.village.totalPages,
     }),
   },
   mounted() {
@@ -143,13 +143,14 @@ export default {
       this.isLoading = true
 
       const data = {
+        districtCode: this.$route.params.index || '',
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,
         sort: this.radio,
       }
 
-      this.$store.dispatch('district/list', data).finally(() => {
+      this.$store.dispatch('village/list', data).finally(() => {
         this.isLoading = false
       })
     },
@@ -178,4 +179,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped src="./shared.scss" />
+<style lang="scss" scoped src="../shared.scss" />

@@ -345,6 +345,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_CREATIVE', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -359,6 +360,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_DURATION', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -371,6 +373,7 @@ export const actions = {
       const response = await this.$repositories.creative.delete(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -385,6 +388,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_DETAIL_CREATIVE', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -399,6 +403,7 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_RESOLUTION', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -411,6 +416,7 @@ export const actions = {
       const response = await this.$repositories.creative.create(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -441,6 +447,7 @@ export const actions = {
       const response = await this.$repositories.creative.update(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -453,6 +460,7 @@ export const actions = {
       const response = await this.$repositories.creative.uploadImage(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',

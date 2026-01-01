@@ -250,6 +250,7 @@ export const actions = {
       return response
     } catch (e) {
       // commit('SET_DATA_CREATIVE', null)
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -272,6 +273,7 @@ export const actions = {
       } else {
         commit('SET_DATA_DETAIL_POPUP', null)
       }
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -318,6 +320,7 @@ export const actions = {
       const response = await this.$repositories.user.delete(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -330,6 +333,7 @@ export const actions = {
       const response = await this.$repositories.user.createOrganization(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -342,6 +346,7 @@ export const actions = {
       const response = await this.$repositories.user.createUsers(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -354,6 +359,7 @@ export const actions = {
       const response = await this.$repositories.user.assignOrg(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -366,6 +372,7 @@ export const actions = {
       const response = await this.$repositories.user.update(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -378,6 +385,7 @@ export const actions = {
       const response = await this.$repositories.user.updateRoles(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
@@ -390,6 +398,7 @@ export const actions = {
       const response = await this.$repositories.user.changePassword(payload)
       return response
     } catch (e) {
+      console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + e.response?.status,
         type: 'failed',
