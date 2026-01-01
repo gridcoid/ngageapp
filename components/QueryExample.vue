@@ -26,10 +26,16 @@
     <!-- Joins -->
     <div class="bg-white p-6 rounded shadow space-y-2 mb-6">
       <h2 class="text-xl font-semibold">Joins</h2>
+
       <p class="text-gray-700">
-        Join other tables to enrich your query. Specify join type, local field,
-        and foreign field. Example:
+        Join other tables to enrich your query. You can either use
+        <strong>local / foreign fields</strong> (simplest), or provide an
+        explicit <code>on.from</code> / <code>on.to</code> clause for advanced
+        joins.
       </p>
+
+      <p class="text-gray-700 font-medium mt-2">Simple join (recommended):</p>
+
       <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   {
@@ -39,7 +45,30 @@
     "foreignField": "id"
   }
 ]
-      </pre>
+  </pre
+      >
+
+      <p class="text-gray-700 font-medium mt-2">
+        Advanced join (fully qualified):
+      </p>
+
+      <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
+[
+  {
+    "table": "Segments",
+    "type": "left",
+    "on": {
+      "from": "AudienceSegments.segmentId",
+      "to": "Segments.id"
+    }
+  }
+]
+  </pre
+      >
+
+      <p class="text-gray-700">
+        Use the advanced form when you need custom expressions or table aliases.
+      </p>
     </div>
 
     <!-- Filters -->

@@ -72,7 +72,7 @@
 
           <MetricWidget
             v-if="widgetByUuidFunc(item.i).type === 'metric'"
-            :data="dataResult[widgetByUuidFunc(item.i).queryId]"
+            :data="dataResult[widgetByUuidFunc(item.i).queryId]?.data || []"
             :metrics="
               dataQuery.find((q) => q.id === widgetByUuidFunc(item.i).queryId)
                 ?.definition?.metrics
@@ -81,7 +81,7 @@
 
           <TableWidget
             v-else-if="widgetByUuidFunc(item.i).type === 'table'"
-            :rows="dataResult[widgetByUuidFunc(item.i).queryId]"
+            :rows="dataResult[widgetByUuidFunc(item.i).queryId]?.data || []"
             :metrics="
               dataQuery.find((q) => q.id === widgetByUuidFunc(item.i).queryId)
                 ?.metrics
