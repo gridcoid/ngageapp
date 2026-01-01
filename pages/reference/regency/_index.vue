@@ -1,5 +1,5 @@
 <template>
-  <div class="kg-containers p-6 w-full max-w-4xl">
+  <div class="kg-containers p-6 w-full max-w-5xl">
     <div class="flex items-center header-content">
       <div class="title-header">
         <i class="ti ti-building-skyscraper text-gray-400 mr-2"></i> Regencies
@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div v-if="dataRegencies.length > 0" class="body-content flex flex-col">
+    <div class="body-content flex flex-col">
       <el-table
         v-if="tableVisible"
         v-loading="isLoading"
@@ -81,7 +81,9 @@
         <el-table-column label="Audiences" width="100">
           <template slot-scope="scope">
             <div class="font-cabin text-xs text-gray-600 font-mono">
-              {{ scope.row.audiencesCount }}
+              <el-tag class="num" type="success">{{
+                scope.row.audiencesCount
+              }}</el-tag>
             </div>
           </template>
         </el-table-column>
@@ -105,14 +107,6 @@
           }
         "
       />
-    </div>
-
-    <div v-else class="flex flex-col items-center mt-24 no-data">
-      <img src="~/assets/images/empty_table.png" width="150" />
-      <div class="title-1 mt-2">No records found.</div>
-      <div class="subtitle-1">
-        Seems like there is no regency data available yet.
-      </div>
     </div>
   </div>
 </template>
