@@ -94,6 +94,92 @@
           </template>
         </el-table-column>
 
+        <!-- source -->
+        <el-table-column label="Source" width="200">
+          <template slot-scope="scope">
+            <div
+              class="font-cabin font-mono text-sm text-gray-700 cursor-pointer"
+            >
+              {{ scope.row.definition?.source }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- metrics -->
+        <el-table-column label="Metrics" width="80">
+          <template slot-scope="scope">
+            <div
+              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+            >
+              <i
+                class="ti ti-check text-green-500"
+                v-if="scope.row.definition?.metrics?.length > 0"
+              />
+              <i class="ti ti-line-dashed text-red-500" v-else />
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- join -->
+        <el-table-column label="Joins" width="80">
+          <template slot-scope="scope">
+            <div
+              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+            >
+              <i
+                class="ti ti-check text-green-500"
+                v-if="scope.row.definition?.joins?.length > 0"
+              />
+              <i class="ti ti-line-dashed text-red-500" v-else />
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- filters -->
+        <el-table-column label="Filters" width="80">
+          <template slot-scope="scope">
+            <div
+              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+            >
+              <i
+                class="ti ti-check text-green-500"
+                v-if="scope.row.definition?.filters?.length > 0"
+              />
+              <i class="ti ti-line-dashed text-red-500" v-else />
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- groupBy -->
+        <el-table-column label="Group By" width="80">
+          <template slot-scope="scope">
+            <div
+              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+            >
+              <i
+                class="ti ti-check text-green-500"
+                v-if="scope.row.definition?.groupBy?.length > 0"
+              />
+              <i class="ti ti-line-dashed text-red-500" v-else />
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- sort -->
+        <el-table-column label="Sort" width="80">
+          <template slot-scope="scope">
+            <div
+              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+            >
+              <i
+                class="ti ti-check text-green-500"
+                v-if="scope.row.definition?.sort?.length > 0"
+              />
+              <i class="ti ti-line-dashed text-red-500" v-else />
+            </div>
+          </template>
+        </el-table-column>
+
         <!-- ACTIONS -->
         <el-table-column width="180">
           <template slot-scope="scope">
@@ -332,6 +418,9 @@ export default {
       this.$nextTick(() => {
         this.tableVisible = true
       })
+    },
+    dataQueries(val) {
+      console.log(val)
     },
   },
 }

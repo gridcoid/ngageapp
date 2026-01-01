@@ -1281,7 +1281,7 @@ export default {
         })
         .catch((e) => {
           this.$notifier.showMessage({
-            content: 'Error status code: ' + e.response?.status,
+            content: 'Error status code: ' + (e.response?.status || 'Unknown'),
             type: 'failed',
           })
         })

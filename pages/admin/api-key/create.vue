@@ -21,7 +21,7 @@
         >
           <!-- Name -->
           <el-form-item class="title-form" prop="name">
-            <label slot="label" class="title-form">Name</label>
+            <label slot="label" class="title-form">Name<Req /></label>
             <el-input v-model="data.name" />
           </el-form-item>
 
@@ -44,7 +44,7 @@
 
           <!-- Scopes -->
           <el-form-item class="title-form" prop="scopes">
-            <label slot="label" class="title-form">Scopes</label>
+            <label slot="label" class="title-form">Scopes<Req /></label>
 
             <div
               v-for="(row, index) in scopeRows"

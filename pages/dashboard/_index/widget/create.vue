@@ -19,7 +19,7 @@
           hide-required-asterisk
         >
           <el-form-item class="title-form" prop="type">
-            <label slot="label" class="title-form">Widget Type</label>
+            <label slot="label" class="title-form">Type<Req /></label>
             <el-select
               v-model="data.type"
               placeholder="Select Widget Type"
@@ -33,7 +33,7 @@
           </el-form-item>
 
           <el-form-item class="title-form" prop="queryId">
-            <label slot="label" class="title-form">Query</label>
+            <label slot="label" class="title-form">Query<Req /></label>
             <el-select
               v-model="data.queryId"
               placeholder="Select Query"
@@ -50,7 +50,7 @@
           </el-form-item>
 
           <el-form-item class="title-form" prop="title">
-            <label slot="label" class="title-form">Title</label>
+            <label slot="label" class="title-form">Title<Req /></label>
             <el-input v-model="data.title" placeholder="Widget title" />
           </el-form-item>
         </el-form>

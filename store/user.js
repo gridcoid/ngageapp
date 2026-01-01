@@ -252,7 +252,7 @@ export const actions = {
       // commit('SET_DATA_CREATIVE', null)
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -275,7 +275,7 @@ export const actions = {
       }
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -322,7 +322,7 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -335,7 +335,7 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -348,7 +348,7 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -361,7 +361,7 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -374,7 +374,7 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -387,7 +387,7 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -400,7 +400,7 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + e.response?.status,
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response

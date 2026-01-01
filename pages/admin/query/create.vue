@@ -23,7 +23,7 @@
           >
             <!-- Name -->
             <el-form-item prop="name">
-              <label slot="label" class="title-form">Name</label>
+              <label slot="label" class="title-form">Name<Req /></label>
               <el-input v-model="data.name" />
             </el-form-item>
 
@@ -41,7 +41,7 @@
 
             <!-- Source -->
             <el-form-item prop="source">
-              <label slot="label" class="title-form">Source</label>
+              <label slot="label" class="title-form">Source<Req /></label>
 
               <el-select
                 v-model="data.source"
@@ -61,7 +61,7 @@
 
             <!-- Metrics -->
             <el-form-item prop="metricsJson">
-              <label slot="label" class="title-form">Metrics</label>
+              <label slot="label" class="title-form">Metrics<Req /></label>
               <el-input
                 v-model="data.metricsJson"
                 type="textarea"
