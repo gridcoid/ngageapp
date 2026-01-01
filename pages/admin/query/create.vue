@@ -206,7 +206,7 @@ export default {
 
         metricsJson: '[]',
         joinsJson: '[]',
-        filtersJson: '{}',
+        filtersJson: '[]',
         groupByJson: '[]',
         sortJson: '[]',
       },

@@ -14,7 +14,8 @@ export default {
   props: { rows: Array },
   computed: {
     columns() {
-      return rows?.[0] ? Object.keys(rows[0]) : []
+      console.log(this.rows)
+      return this.rows?.[0] ? Object.keys(this.rows[0]) : []
     },
   },
 }

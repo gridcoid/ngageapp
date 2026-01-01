@@ -215,7 +215,7 @@ export default {
 
         metricsJson: '[]',
         joinsJson: '[]',
-        filtersJson: '{}',
+        filtersJson: '[]',
         groupByJson: '[]',
         sortJson: '[]',
       },
@@ -243,7 +243,7 @@ export default {
           source: this.data.source,
           metrics: JSON.parse(this.data.metricsJson || '[]'),
           groupBy: JSON.parse(this.data.groupByJson || '[]'),
-          filters: JSON.parse(this.data.filtersJson || '{}'),
+          filters: JSON.parse(this.data.filtersJson || '[]'),
           joins: JSON.parse(this.data.joinsJson || '[]'),
           sort: JSON.parse(this.data.sortJson || '[]'),
           limit: this.data.limit,

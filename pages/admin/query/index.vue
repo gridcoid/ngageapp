@@ -143,7 +143,10 @@
             >
               <i
                 class="ti ti-check text-green-500"
-                v-if="scope.row.definition?.filters?.length > 0"
+                v-if="
+                  scope.row.definition?.filters?.length > 0 ||
+                  'and' in scope.row.definition?.filters
+                "
               />
               <i class="ti ti-line-dashed text-red-500" v-else />
             </div>
