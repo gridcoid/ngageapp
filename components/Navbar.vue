@@ -22,13 +22,12 @@
           @mouseover="iconSurvey = true"
           @mouseleave="iconSurvey = false"
         >
-          <IconMenuSurvey
-            :bg-color="iconSurvey ? '#1B63D4' : '#757575'"
-            height="24"
-            width="24"
-          />
+          <i class="ti ti-progress-help text-2xl text-purple-500" />
         </div>
-        <IconNotification v-show="handleRole" class="btn-icon" />
+        <i
+          v-show="handleRole"
+          class="btn-icon ti ti-bell text-2xl text-purple-500"
+        />
         <el-popover
           placement="bottom"
           width="250"
@@ -66,16 +65,21 @@
             </div>
 
             <div class="btn-popover flex items-center mb-2" @click="logout()">
-              <i class="ti ti-logout ml-1" />
-              <div class="title-1">Logout</div>
+              <i class="ti ti-logout ml-1 text-red-500" />
+              <div class="title-1">
+                <span class="text-red-500">Logout</span>
+              </div>
             </div>
           </div>
 
           <div
             slot="reference"
-            class="circle-photo flex items-center justify-center cursor-pointer no-select"
+            class="flex items-center justify-center cursor-pointer no-select"
           >
-            {{ dataUser }}
+            <i
+              v-show="handleRole"
+              class="ti ti-user text-2xl text-purple-500"
+            />
           </div>
         </el-popover>
       </div>
@@ -186,7 +190,7 @@ export default {
   padding-left: 20px;
   padding-right: 20px;
   .btn-icon {
-    margin-right: 18px;
+    margin-right: 10px;
     cursor: pointer;
   }
   .avatar-profile {

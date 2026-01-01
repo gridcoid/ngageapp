@@ -34,7 +34,6 @@ export default {
   cursor: pointer;
   .name-btn {
     font-family: 'Cabin';
-    font-weight: 700;
     font-size: 14px;
     padding-bottom: 1px;
     color: #1b63d4;

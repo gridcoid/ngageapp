@@ -321,7 +321,6 @@ export default {
   line-height: normal;
 }
 .item-active {
-  font-weight: 600;
   color: #1b63d4;
   font-family: 'Cabin';
   font-size: 16px;

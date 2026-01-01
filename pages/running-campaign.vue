@@ -969,28 +969,6 @@ export default {
 .k-pagination {
   margin-top: 20px;
   margin-bottom: 20px;
-  .k-btn {
-    width: 165px;
-    background: #f1f1f1;
-    border: 1px solid #f1f1f1;
-    border-radius: 5px;
-    height: 40px;
-    padding-left: 15px;
-    padding-right: 15px;
-    cursor: pointer;
-    .name-btn {
-      font-family: 'Cabin';
-      font-weight: 700;
-      font-size: 14px;
-      padding-bottom: 1px;
-      color: #9a9a9a;
-      padding-left: 10px;
-    }
-  }
-  .k-btn:hover {
-    background-color: rgb(243 244 246);
-    border: 0px;
-  }
 }
 .el-table thead {
   color: #5c6b7a !important;
@@ -1085,18 +1063,13 @@ export default {
       margin-right: 10px;
     }
     .k-btn {
-      font-family: 'Cabin';
       background: #ffffff;
       border: 1px solid #e2e2e2;
       border-radius: 5px;
       color: #1b63d4;
       font-size: 14px;
-      font-weight: 700;
       height: 36px;
       width: 138px;
-      align-items: center;
-      padding-top: 9px;
-      padding-left: 14px;
     }
     .k-btn:hover {
       background-color: rgb(243 244 246);
@@ -1254,28 +1227,6 @@ export default {
     .k-pagination {
       margin-top: 20px;
       margin-bottom: 20px;
-      .k-btn {
-        width: 165px;
-        background: #f1f1f1;
-        border: 1px solid #f1f1f1;
-        border-radius: 5px;
-        height: 40px;
-        padding-left: 15px;
-        padding-right: 15px;
-        cursor: pointer;
-        .name-btn {
-          font-family: 'Cabin';
-          font-weight: 700;
-          font-size: 14px;
-          padding-bottom: 1px;
-          color: #9a9a9a;
-          padding-left: 10px;
-        }
-      }
-      .k-btn:hover {
-        background-color: rgb(243 244 246);
-        border: 0px;
-      }
     }
     .summary-card {
       padding: 10px 20px 0px 20px;
