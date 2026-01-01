@@ -3,10 +3,7 @@
     <div class="modal">
       <div class="flex justify-between header-modal">
         <div class="flex items-center">
-          <img
-            src="~/assets/images/campaign/icon_filter_color.svg"
-            class="icon-header"
-          />
+          <i class="ti ti-filter-2 text-2xl mr-2 text-gray-400" />
           <div class="name-header">Sort Data</div>
         </div>
         <img
@@ -31,20 +28,17 @@
           <slot name="sort" />
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-4 footer-card">
-        <button
-          class="flex items-center justify-center save-btn no-select"
+      <div class="grid grid-cols-2 gap-1 footer-card">
+        <el-button
+          icon="el-icon-check"
+          type="primary"
           @click="$emit('save-filter')"
         >
-          <img src="~/assets/images/icon_apply.svg" />
-          <span class="name-btn">Apply</span>
-        </button>
-        <k-button
-          text="Reset All"
-          class="btn-discard"
-          type="secondary"
-          @click.native="$emit('reset-filter')"
-        />
+          Apply
+        </el-button>
+        <el-button type="primary" @click="$emit('reset-filter')" plain>
+          Reset All
+        </el-button>
       </div>
     </div>
   </div>
@@ -175,9 +169,8 @@ export default {
       padding: 15px 20px 15px 20px;
       border-bottom: 1px solid #e2e2e2;
       .name-header {
-        font-weight: 600;
         font-family: 'Cabin';
-        font-size: 18px;
+        font-size: 16px;
         line-height: 140%;
         color: #454545;
       }
@@ -203,7 +196,7 @@ export default {
           color: #454545;
           font-weight: 400;
           font-family: 'Cabin';
-          font-size: 16px;
+          font-size: 14px;
           margin-left: 10px;
           line-height: 40px;
         }
@@ -225,11 +218,10 @@ export default {
 
     .footer-card {
       border-top: 1px solid #e2e2e2;
-      // padding: 20px;
       position: absolute;
-      bottom: 20px;
       width: 100%;
-      padding: 20px 10px 0px 10px;
+      bottom: 0;
+      padding: 12px;
       .btn-discard {
         color: #1b63d4;
         width: 100%;
