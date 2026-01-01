@@ -182,11 +182,13 @@
         <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">
 [
   "id",
+  "uuid",
   "name",
   "dateOfBirth",
   "yearOfBirth",
   "genderId",
   "religionId",
+  "userId",
   "orgId",
   "provinceCode",
   "regencyCode",
