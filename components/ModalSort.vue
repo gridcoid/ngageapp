@@ -1,9 +1,9 @@
 <template>
   <div class="modal-overlay">
     <div class="modal">
-      <div class="flex justify-between header-modal">
+      <div class="flex justify-between header-modal bg-gray-50">
         <div class="flex items-center">
-          <i class="ti ti-filter-2 text-2xl mr-2 text-gray-400" />
+          <i class="ti ti-filter text-2xl mr-2 text-gray-400" />
           <div class="name-header">Sort Data</div>
         </div>
         <img
