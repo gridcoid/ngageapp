@@ -207,7 +207,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-mist mr-2 text-purple-500"></i> Additional
+                <i class="ti ti-mist mr-2 text-yellow-500"></i> Additional
                 Information
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
@@ -248,7 +248,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-folder mr-2 text-yellow-500"></i> Segments
+                <i class="ti ti-folder mr-2 text-purple-500"></i> Segments
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div
@@ -269,7 +269,7 @@
                       <div class="flex items-center justify-between w-full">
                         <NuxtLink
                           :to="`/segment/${segment.uuid}/audience`"
-                          class="text-blue-500 hover:text-blue-700 font-medium break-all block"
+                          class="text-purple-500 hover:text-purple-700 font-medium break-all block"
                         >
                           {{ segment.name }}
                         </NuxtLink>

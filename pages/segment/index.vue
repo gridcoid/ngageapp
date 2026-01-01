@@ -68,20 +68,17 @@
         :key="index"
         class="card-list flex flex-row items-center justify-between"
       >
-        <div class="flex items-center justify-start flex-row">
-          <NuxtLink :to="`/segment/${item.uuid}/audience`">
-            <img
-              src="~/assets/images/target.png"
-              class="thumbnail opacity-90 hover:opacity-100"
-            />
-          </NuxtLink>
+        <div
+          class="flex items-center justify-start flex-row cursor-pointer"
+          @click="viewDetail(item)"
+        >
+          <img
+            src="~/assets/images/target.png"
+            class="thumbnail opacity-90 hover:opacity-100"
+          />
           <div class="name-data flex flex-col">
-            <NuxtLink :to="`/segment/${item.uuid}/audience`">
-              {{ item.name }}
-            </NuxtLink>
-            <span>
-              {{ item.description }}
-            </span>
+            <span>{{ item.name }}</span>
+            <span>{{ item.description }}</span>
           </div>
         </div>
         <div class="flex flex-row items-center">
@@ -566,9 +563,7 @@ export default {
       .name-data > span:nth-child(1) {
         color: #5c6b7a;
         font-family: 'Cabin';
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 600;
+        font-size: 16px;
       }
       .name-data > span:nth-child(2) {
         color: #999;

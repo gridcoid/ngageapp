@@ -3,7 +3,6 @@
     <div class="flex items-center header-content">
       <div class="title-header">
         <i class="ti ti ti-building-mosque text-gray-400 mr-2"></i> Religions
-        Management
       </div>
     </div>
 
@@ -29,7 +28,7 @@
         <el-table-column label="" width="10" />
 
         <!-- id -->
-        <el-table-column label="ID" width="80">
+        <el-table-column label="ID" width="80" sortable>
           <template slot-scope="scope">
             <div
               class="font-cabin font-semibold text-sm text-gray-400 font-mono"
@@ -40,7 +39,7 @@
         </el-table-column>
 
         <!-- name -->
-        <el-table-column label="Name" width="200">
+        <el-table-column label="Name" width="200" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-semibold text-sm text-gray-700">
               <el-tag>{{ scope.row.name }}</el-tag>

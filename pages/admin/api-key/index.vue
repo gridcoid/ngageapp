@@ -79,16 +79,19 @@
         <el-table-column label="" width="10" />
 
         <!-- name -->
-        <el-table-column label="Name">
+        <el-table-column label="Name" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-semibold text-sm text-gray-700">
+            <div
+              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+              @click="viewDetail(scope.row)"
+            >
               {{ scope.row.name }}
             </div>
           </template>
         </el-table-column>
 
         <!-- scopes -->
-        <el-table-column label="Scopes" width="180">
+        <el-table-column label="Scopes" width="180" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-normal text-sm text-gray-500">
               {{
@@ -101,7 +104,7 @@
         </el-table-column>
 
         <!-- status -->
-        <el-table-column label="Status" width="140">
+        <el-table-column label="Status" width="140" sortable>
           <template slot-scope="scope">
             <div
               class="font-cabin font-medium text-sm"
@@ -113,7 +116,7 @@
         </el-table-column>
 
         <!-- expires -->
-        <el-table-column label="Expires" width="140">
+        <el-table-column label="Expires" width="140" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-normal text-sm text-gray-500">
               {{

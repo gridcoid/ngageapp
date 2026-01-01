@@ -28,16 +28,18 @@
         <el-table-column label="" width="10" />
 
         <!-- ID -->
-        <el-table-column label="ID" width="80">
+        <el-table-column label="ID" width="80" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin text-sm text-gray-600">
+            <div
+              class="font-cabin font-semibold text-sm text-gray-400 font-mono"
+            >
               {{ scope.row.id }}
             </div>
           </template>
         </el-table-column>
 
         <!-- Code (clickable) -->
-        <el-table-column label="Ref" width="130">
+        <el-table-column label="Ref" width="130" sortable>
           <template slot-scope="scope">
             <span
               class="text-gray-600 font-cabin font-mono font-semibold text-sm"
@@ -48,7 +50,7 @@
         </el-table-column>
 
         <!-- Name -->
-        <el-table-column label="Name">
+        <el-table-column label="Name" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-semibold text-sm text-gray-700">
               <el-tag>{{ scope.row.name }}</el-tag>

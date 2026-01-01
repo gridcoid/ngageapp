@@ -83,28 +83,13 @@
         <el-table-column label="" width="10" />
 
         <!-- name -->
-        <el-table-column label="Name">
+        <el-table-column label="Name" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-semibold text-sm text-gray-700">
+            <div
+              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+              @click="viewDetail(scope.row)"
+            >
               {{ scope.row.name }}
-            </div>
-          </template>
-        </el-table-column>
-
-        <!-- type -->
-        <el-table-column label="Type" width="140">
-          <template slot-scope="scope">
-            <span class="badge-secondary">
-              {{ scope.row.type || 'SQL' }}
-            </span>
-          </template>
-        </el-table-column>
-
-        <!-- created -->
-        <el-table-column label="Created At" width="200">
-          <template slot-scope="scope">
-            <div class="text-sm text-gray-500">
-              {{ $moment(scope.row.createdAt).format('DD MMM YYYY') }}
             </div>
           </template>
         </el-table-column>

@@ -334,7 +334,7 @@
                 scope.row.status === 'draft' && scope.row.studioHub === null
               "
               class="status-card flex items-center justify-center no-select cursor-pointer"
-              style="background-color: #fff3dd; color: #fbab18"
+              style="background-color: #ffe6e6; color: #ff5c5c"
             >
               Unavailable
             </div>
