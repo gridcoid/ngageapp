@@ -83,7 +83,7 @@
         </div>
 
         <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-0" :text="messageError" />
+          <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
         </Transition>
         <div
           class="footer-card-password grid grid-cols-2 gap-4 place-content-stretch"

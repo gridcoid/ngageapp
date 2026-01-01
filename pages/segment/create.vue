@@ -32,7 +32,7 @@
           </el-form-item>
         </el-form>
         <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-0" :text="messageError" />
+          <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
         </Transition>
       </div>
       <div class="footer-card flex justify-end gap-3">

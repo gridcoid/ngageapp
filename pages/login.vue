@@ -70,7 +70,7 @@
             <Transition>
               <Alert
                 v-show="showMessage"
-                class="mt-6 mb-0"
+                class="mt-6 mb-6"
                 :text="messageError"
               />
             </Transition>
