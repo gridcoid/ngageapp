@@ -10,7 +10,7 @@ export default ($axios) => ({
   },
 
   // village:all
-  all() {
+  all(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
       `${resource}/all?orgId=${orgId}&districtCode=${payload.districtCode}`
