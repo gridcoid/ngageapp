@@ -33,8 +33,9 @@
               <el-input
                 v-model="data.description"
                 type="textarea"
-                :rows="3"
+                :rows="2"
                 maxlength="200"
+                spellcheck="false"
               />
             </el-form-item>
 
@@ -66,6 +67,7 @@
                 type="textarea"
                 :rows="10"
                 class="font-mono"
+                spellcheck="false"
               />
             </el-form-item>
 
@@ -77,6 +79,7 @@
                 type="textarea"
                 :rows="10"
                 class="font-mono"
+                spellcheck="false"
               />
             </el-form-item>
 
@@ -88,6 +91,7 @@
                 type="textarea"
                 :rows="10"
                 class="font-mono"
+                spellcheck="false"
               />
             </el-form-item>
 
@@ -99,6 +103,7 @@
                 type="textarea"
                 :rows="10"
                 class="font-mono"
+                spellcheck="false"
               />
             </el-form-item>
 
@@ -110,6 +115,7 @@
                 type="textarea"
                 :rows="10"
                 class="font-mono"
+                spellcheck="false"
               />
             </el-form-item>
 
