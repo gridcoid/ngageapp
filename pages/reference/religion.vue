@@ -57,6 +57,15 @@
             </div>
           </template>
         </el-table-column>
+
+        <!-- Num of audiences -->
+        <el-table-column label="Audiences" width="100">
+          <template slot-scope="scope">
+            <div class="font-cabin text-xs text-gray-600 font-mono">
+              {{ scope.row.audiencesCount }}
+            </div>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
 

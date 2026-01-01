@@ -59,7 +59,7 @@
         </el-table-column>
 
         <!-- Latitude -->
-        <el-table-column label="Lat" width="180">
+        <el-table-column label="Lat" width="170">
           <template slot-scope="scope">
             <div class="font-cabin text-xs text-gray-600 font-mono">
               {{ scope.row.lat }}
@@ -68,10 +68,19 @@
         </el-table-column>
 
         <!-- Longitude -->
-        <el-table-column label="Lng" width="180">
+        <el-table-column label="Lng" width="170">
           <template slot-scope="scope">
             <div class="font-cabin text-xs text-gray-600 font-mono">
               {{ scope.row.lng }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- Num of audiences -->
+        <el-table-column label="Audiences" width="100">
+          <template slot-scope="scope">
+            <div class="font-cabin text-xs text-gray-600 font-mono">
+              {{ scope.row.audiencesCount }}
             </div>
           </template>
         </el-table-column>
