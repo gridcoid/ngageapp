@@ -30,13 +30,6 @@ export const mutations = {
       state.totalPages = 0
     }
   },
-  SET_DATA_ALL(state, item) {
-    if (item !== null) {
-      state.dataList = item
-    } else {
-      state.dataList = []
-    }
-  },
   SET_DATA_CREATE(state, item) {
     if (item !== null) {
       state.dataCreate = item
@@ -128,21 +121,6 @@ export const actions = {
   async delete({ commit }, payload) {
     try {
       const response = await this.$repositories.setting.delete(payload)
-      return response
-    } catch (e) {
-      console.error(e)
-      this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
-        type: 'failed',
-      })
-      return e.response
-    }
-  },
-
-  // setting:duplicate
-  async duplicate({ commit }, payload) {
-    try {
-      const response = await this.$repositories.setting.duplicate(payload)
       return response
     } catch (e) {
       console.error(e)

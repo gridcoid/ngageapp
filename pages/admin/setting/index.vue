@@ -77,8 +77,8 @@
         <!-- padding -->
         <el-table-column label="" width="10" />
 
-        <!-- name -->
-        <el-table-column label="Key" sortable>
+        <!-- key -->
+        <el-table-column label="Key" sortable width="200">
           <template slot-scope="scope">
             <div
               class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
@@ -89,7 +89,17 @@
           </template>
         </el-table-column>
 
-        <!-- Todo -->
+        <!-- value -->
+        <el-table-column label="Value">
+          <template slot-scope="scope">
+            <div
+              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+              @click="viewDetail(scope.row)"
+            >
+              {{ scope.row.value }}
+            </div>
+          </template>
+        </el-table-column>
 
         <!-- ACTIONS -->
         <el-table-column width="200">
