@@ -6,27 +6,37 @@
     <div class="card-content">
       <div class="header-card flex items-center">
         <div class="title">
-          <i class="ti ti-folder text-gray-400 mr-2" /> Update Segment
+          <i class="ti ti-folder text-gray-400 mr-2" /> Create New Setting
         </div>
       </div>
       <div class="body-card">
         <el-form
           ref="ruleForm"
+          :rules="rules"
           :model="data"
           label-width="226px"
           label-position="left"
           hide-required-asterisk
         >
-          <el-form-item class="title-form" prop="name">
-            <label slot="label" class="title-form">Name<Req /></label>
-            <el-input v-model="data.name" />
+          <el-form-item class="title-form" prop="key">
+            <label slot="label" class="title-form">Key<Req /></label>
+            <el-input v-model="data.key" />
+          </el-form-item>
+          <el-form-item class="title-form" prop="value">
+            <label slot="label" class="title-form">Value<Req /></label>
+            <el-input
+              v-model="data.value"
+              type="textarea"
+              :rows="2"
+              maxlength="200"
+            />
           </el-form-item>
           <el-form-item class="title-form" prop="description">
             <label slot="label" class="title-form">Description</label>
             <el-input
               v-model="data.description"
               type="textarea"
-              :rows="3"
+              :rows="2"
               maxlength="200"
             />
           </el-form-item>
@@ -35,7 +45,6 @@
           <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
         </Transition>
       </div>
-
       <div class="footer-card flex justify-end gap-3">
         <el-button type="primary" @click="$router.back()" plain class="w-32">
           Discard
@@ -54,28 +63,40 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
-  name: 'UpdateSegmentPage',
+  name: 'CreateSettingPage',
   layout: 'default',
   head() {
     return {
-      title: 'Update - Segment - ' + this.$config.appName,
+      title: 'Create - Setting - ' + this.$config.appName,
     }
   },
   data() {
     return {
       rules: {
-        name: [
+        key: [
           {
             required: true,
-            message: 'Segment Name is required',
+            message: 'Setting Key is required',
             trigger: 'blur',
           },
           {
             min: 0,
             max: 50,
             message: 'Max 50 character',
+            trigger: 'blur',
+          },
+        ],
+        value: [
+          {
+            required: true,
+            message: 'Setting Value is required',
+            trigger: 'blur',
+          },
+          {
+            min: 0,
+            max: 200,
+            message: 'Max 200 character',
             trigger: 'blur',
           },
         ],
@@ -90,33 +111,16 @@ export default {
       showMessage: false,
       messageError: '',
       data: {
-        id: null,
-        uuid: null,
-        name: '',
+        key: '',
+        value: '',
         description: '',
       },
     }
   },
-  mounted() {
-    this.getDetail()
-  },
-  computed: {
-    ...mapState({
-      dataDetail: (state) => state.segment.dataDetail,
-    }),
-  },
   methods: {
-    getDetail() {
-      this.isLoading = true
-      this.$store
-        .dispatch('segment/detail', {
-          uuid: this.$route.params.index,
-        })
-        .finally(() => (this.isLoading = false))
-    },
     save() {
       this.$notifier.showMessage({
-        content: 'Updating segment...',
+        content: 'Creating setting...',
         type: 'loading',
       })
 
@@ -125,13 +129,13 @@ export default {
       const sto = setTimeout(
         () =>
           this.$store
-            .dispatch('segment/update', this.data)
+            .dispatch('setting/create', this.data)
             .then((res) => {
               if (res.status === 200) {
-                this.$router.push({ path: '/segment' })
+                this.$router.push({ path: '/admin/setting' })
 
                 this.$notifier.showMessage({
-                  content: 'Segment updated.',
+                  content: 'Setting created.',
                   type: 'success',
                 })
 
@@ -149,7 +153,7 @@ export default {
                 this.messageError = arr.join(', ')
 
                 this.$notifier.showMessage({
-                  content: 'Segment failed. Please try again!',
+                  content: 'Setting failed. Please try again!',
                   type: 'failed',
                 })
 
@@ -162,16 +166,6 @@ export default {
             }),
         1000
       )
-    },
-  },
-  watch: {
-    dataDetail(val) {
-      if (val) {
-        this.data.id = val.id
-        this.data.uuid = val.uuid
-        this.data.name = val.name
-        this.data.description = val.description
-      }
     },
   },
 }

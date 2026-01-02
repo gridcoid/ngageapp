@@ -126,8 +126,8 @@ export default {
           },
           {
             min: 0,
-            max: 150,
-            message: 'Max 150 character',
+            max: 50,
+            message: 'Max 50 character',
             trigger: 'blur',
           },
         ],

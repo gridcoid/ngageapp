@@ -354,7 +354,12 @@ export default {
             message: 'Audience Name is required',
             trigger: 'blur',
           },
-          { min: 0, max: 150, message: 'Max 150 characters', trigger: 'blur' },
+          {
+            min: 0,
+            max: 50,
+            message: 'Max 50 characters',
+            trigger: 'blur',
+          },
         ],
       },
 

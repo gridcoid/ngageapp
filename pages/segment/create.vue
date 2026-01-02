@@ -27,7 +27,7 @@
               v-model="data.description"
               type="textarea"
               :rows="3"
-              maxlength="255"
+              maxlength="200"
             />
           </el-form-item>
         </el-form>
@@ -72,8 +72,8 @@ export default {
           },
           {
             min: 0,
-            max: 150,
-            message: 'Max 150 character',
+            max: 50,
+            message: 'Max 50 character',
             trigger: 'blur',
           },
         ],

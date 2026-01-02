@@ -208,6 +208,11 @@ export default {
                 name: 'Template Uploader',
                 icon: 'ti ti-upload',
               },
+              {
+                path: '/admin/setting',
+                name: 'Settings',
+                icon: 'ti ti-settings',
+              },
             ],
           },
           {

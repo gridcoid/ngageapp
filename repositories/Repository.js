@@ -17,6 +17,7 @@ import ApiKeyRepository from '~/repositories/apiKeyRepository'
 import SheetRepository from '~/repositories/sheetRepository'
 import QueryRepository from '~/repositories/queryRepository'
 import DashboardRepository from '~/repositories/dashboardRepository'
+import SettingRepository from '~/repositories/settingRepository'
 
 export default ($axios) => ({
   user: UserRepository($axios),
@@ -38,4 +39,5 @@ export default ($axios) => ({
   sheet: SheetRepository($axios),
   query: QueryRepository($axios),
   dashboard: DashboardRepository($axios),
+  setting: SettingRepository($axios),
 })

@@ -2,7 +2,7 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-folder text-gray-400 mr-2" /> Audience Segments
+        <i class="ti ti-key text-gray-400 mr-2"></i> Settings
       </div>
       <div class="flex">
         <ButtonDefault
@@ -16,8 +16,7 @@
     </div>
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Discover and manage different audience groups to tailor your campaigns
-        effectively.
+        Customize your organization settings and app preferences.
       </div>
       <div class="flex items-center">
         <button
@@ -46,99 +45,89 @@
               <form
                 autocomplete="off"
                 style="width: 100%"
-                @submit.prevent="searchSegment()"
+                @submit.prevent="searchSetting()"
               >
                 <input
                   v-model="dataSearch"
                   type="text"
                   class="title-1"
                   placeholder="Find something.."
-                  @change="searchSegment()"
+                  @change="searchSetting()"
                 />
               </form>
-              <IconSearch @click.native="searchSegment()" />
+              <IconSearch @click.native="searchSetting()" />
             </div>
           </transition>
         </div>
       </div>
     </div>
-    <div v-if="dataSegments.length > 0" class="body-content flex flex-col">
-      <div
-        v-for="(item, index) in dataSegments"
-        :key="index"
-        class="card-list flex flex-row items-center justify-between"
+
+    <div v-if="dataSettings.length > 0" class="body-content flex flex-col">
+      <el-table
+        v-if="tableVisible"
+        v-loading="isLoading"
+        element-loading-text="Loading..."
+        element-loading-spinner="el-icon-loading"
+        fit
+        lazy
+        stripe
+        :data="dataSettings"
+        class="w-full k-table"
       >
-        <div
-          class="flex items-center justify-start flex-row cursor-pointer"
-          @click="viewDetail(item)"
-        >
-          <img
-            src="~/assets/images/target.png"
-            class="thumbnail opacity-90 hover:opacity-100"
-          />
-          <div class="name-data flex flex-col">
-            <span>{{ item.name }}</span>
-            <span>{{ item.description }}</span>
-          </div>
-        </div>
-        <div class="flex flex-row items-center">
-          <div class="flex user-data items-center justify-start">
-            <IconUser class="mr-1" bg-color="#7A8A99" style="height: 14px" />
-            {{ Number(item.audienceCount).toLocaleString() }} audiences
-          </div>
-          <Dropdown
-            :index-list="index"
-            name-btn="Detail"
-            icons="preview"
-            color-text="#1B63D4"
-            class="mr-6"
-            @preview="viewDetail(item)"
-          >
-            <template slot="body">
-              <div
-                class="item-menu flex items-center no-select text-gray-500 text-sm"
-                @click="duplicateSegment(item)"
-              >
-                <i class="ti ti-copy text-purple-500"></i>
-                <span class="ml-3">Duplicate</span>
-              </div>
-              <NuxtLink
-                class="item-menu flex items-center no-select text-gray-500 text-sm"
-                :to="`/segment/import-sheet/${item.uuid}`"
-              >
-                <i class="ti ti-table text-green-500"></i>
-                <span class="ml-3">Import XLS</span>
-              </NuxtLink>
-              <NuxtLink
-                class="item-menu flex items-center no-select text-gray-500 text-sm"
-                :to="`/segment/import-json/${item.uuid}`"
-              >
-                <i class="ti ti-brackets-contain text-blue-500"></i>
-                <span class="ml-3">Import JSON</span>
-              </NuxtLink>
-              <NuxtLink
-                class="item-menu flex items-center no-select text-gray-500 text-sm"
-                :to="`/segment/edit/${item.uuid}`"
-              >
-                <i class="ti ti-edit text-yellow-500"></i>
-                <span class="ml-3">Edit</span>
-              </NuxtLink>
-              <div
-                class="item-menu flex items-center no-select text-gray-500 text-sm"
-                style="
-                  border-bottom: 1px solid #e2e2e2;
-                  border-end-end-radius: 5px;
-                  border-end-start-radius: 5px;
-                "
-                @click="deleteSegment(item)"
-              >
-                <i class="ti ti-trash text-red-500"></i>
-                <span class="ml-3">Delete</span>
-              </div>
-            </template>
-          </Dropdown>
-        </div>
-      </div>
+        <!-- padding -->
+        <el-table-column label="" width="10" />
+
+        <!-- name -->
+        <el-table-column label="Key" sortable>
+          <template slot-scope="scope">
+            <div
+              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+              @click="viewDetail(scope.row)"
+            >
+              {{ scope.row.key }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- Todo -->
+
+        <!-- ACTIONS -->
+        <el-table-column width="200">
+          <template slot-scope="scope">
+            <Dropdown
+              :index-list="scope.$index"
+              name-btn="Detail"
+              icons="preview"
+              color-text="#1B63D4"
+              class="mr-6"
+              @preview="viewDetail(scope.row)"
+            >
+              <template slot="body">
+                <NuxtLink
+                  class="item-menu flex items-center no-select"
+                  :to="`/admin/setting/edit/${scope.row.uuid}`"
+                >
+                  <i class="ti ti-edit text-yellow-500"></i>
+                  <span class="ml-3">Edit</span>
+                </NuxtLink>
+
+                <div
+                  class="item-menu flex items-center no-select border-b border-gray-300 rounded-b-md"
+                  @click="deleteSetting(scope.row)"
+                  style="
+                    border-bottom: 1px solid #e2e2e2;
+                    border-end-end-radius: 5px;
+                    border-end-start-radius: 5px;
+                  "
+                >
+                  <i class="ti ti-trash text-red-500"></i>
+                  <span class="ml-3">Delete</span>
+                </div>
+              </template>
+            </Dropdown>
+          </template>
+        </el-table-column>
+      </el-table>
 
       <Pagination
         class="k-pagination"
@@ -159,11 +148,12 @@
         "
       />
     </div>
+
     <div v-else class="flex flex-col items-center mt-24 no-data">
       <img src="~/assets/images/empty_table.png" width="150" />
       <div class="title-1 mt-2">No records found.</div>
       <div class="subtitle-1">
-        Seems like you haven’t created any segment yet. Create one now?
+        Seems like you haven’t created any setting yet. Create one now?
       </div>
       <div class="flex items-center justify-center mt-4">
         <button
@@ -171,7 +161,7 @@
           @click="toCreate()"
         >
           <IconPlus bg-color="#1B63D4" />
-          <div class="name-btn">Create New Segment</div>
+          <div class="name-btn">Create New Setting</div>
         </button>
         <button
           class="flex items-center justify-center save-btn no-select"
@@ -232,15 +222,16 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'SegmentPage',
+  name: 'SettingPage',
   layout: 'default',
   head() {
     return {
-      title: 'Audience Segments - ' + this.$config.appName,
+      title: 'Settings - ' + this.$config.appName,
     }
   },
   data() {
     return {
+      tableVisible: true,
       radio: 'createdAt_desc',
       createdAt: '',
       dataSearch: '',
@@ -267,14 +258,14 @@ export default {
       popup: (state) => {
         return state.user.popup
       },
-      dataSegments: (state) => {
-        return state.segment.dataList
+      dataSettings: (state) => {
+        return state.setting.dataList
       },
       totalList: (state) => {
-        return state.segment.totalList
+        return state.setting.totalList
       },
       totalPages: (state) => {
-        return state.segment.totalPages
+        return state.setting.totalPages
       },
     }),
   },
@@ -288,18 +279,18 @@ export default {
       const data = {
         page: this.currentPage,
         size: this.rowPage,
-        name: this.dataSearch,
+        key: this.dataSearch,
         sort: this.radio,
       }
 
-      this.$store.dispatch('segment/list', data).finally(() => {
+      this.$store.dispatch('setting/list', data).finally(() => {
         this.isLoading = false
       })
     },
     toCreate() {
-      this.$router.push({ path: '/segment/create' })
+      this.$router.push({ path: '/admin/setting/create' })
     },
-    searchSegment() {
+    searchSetting() {
       this.currentPage = 1
       this.showSearch = false
       this.getData()
@@ -307,20 +298,20 @@ export default {
     showDialog() {
       this.dialog = !this.dialog
     },
-    duplicateSegment(data) {
-      this.$confirm(`Duplicate segment "${data.name}"?`, 'Confirmation', {
+    deleteSetting(data) {
+      this.$confirm(`Delete Setting "${data.key}"?`, 'Confirmation', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Duplicate segment...',
+            content: 'Delete setting...',
             type: 'loading',
           })
 
           this.$store
-            .dispatch('segment/duplicate', {
+            .dispatch('setting/delete', {
               uuid: data.uuid,
             })
             .then((res) => {
@@ -328,53 +319,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Duplicate segment status success.',
+                  content: 'Delete setting status success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Duplicate segment status failed. Error : ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
-              }
-
-              this.$store.commit('user/SET_DROPDOWN', null)
-            })
-        })
-        .catch(() => {
-          this.$store.commit('user/SET_DROPDOWN', null)
-        })
-    },
-    deleteSegment(data) {
-      this.$confirm(`Delete segment "${data.name}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'warning',
-      })
-        .then(() => {
-          this.$notifier.showMessage({
-            content: 'Delete segment...',
-            type: 'loading',
-          })
-
-          this.$store
-            .dispatch('segment/delete', {
-              uuid: data.uuid,
-            })
-            .then((res) => {
-              if (res?.data.status.code === 200) {
-                this.getData()
-
-                this.$notifier.showMessage({
-                  content: 'Delete segment status success.',
-                  type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Delete segment status failed. Error : ' +
+                    'Delete setting status failed. Error : ' +
                     res?.data.data.message,
                   type: 'failed',
                 })
@@ -398,7 +349,15 @@ export default {
       this.getData()
     },
     viewDetail(item) {
-      this.$router.push({ path: '/segment/' + item.uuid + '/audience' })
+      this.$router.push({ path: '/admin/setting/detail/' + item.uuid })
+    },
+  },
+  watch: {
+    sidebar() {
+      this.tableVisible = false
+      this.$nextTick(() => {
+        this.tableVisible = true
+      })
     },
   },
 }
@@ -544,51 +503,107 @@ export default {
     color: #757575;
   }
   .body-content {
-    margin-top: 30px;
-    gap: 15px;
-    .card-list {
-      border-radius: 5px;
-      border: 1px solid #c3ced9;
-      background: #fff;
-      height: 100%;
-      width: 100%;
-      .thumbnail {
-        width: 96px;
-        height: 96px;
-        object-fit: cover;
-        border-top-left-radius: 5px;
-        border-end-start-radius: 5px;
-        margin-right: 20px;
+    margin-top: 20px;
+    .k-table {
+      border: 1px solid #c3ced9 !important;
+      border-radius: 10px !important;
+      .k-circle {
+        width: 11px;
+        height: 11px;
+        border: 2px solid #7bbc49;
+        border-radius: 50%;
+        margin-right: 13px;
       }
-      .name-data > span:nth-child(1) {
-        color: #5c6b7a;
+      .k-title {
         font-family: 'Cabin';
+        font-weight: 500;
         font-size: 16px;
+        color: #454545;
       }
-      .name-data > span:nth-child(2) {
-        color: #999;
-        font-size: 14px;
-      }
-      .user-data {
-        color: #7a8a99;
+      .k-subtitle {
         font-family: 'Cabin';
-        font-size: 12px;
-        font-style: normal;
         font-weight: 400;
-        width: 180px;
-        text-align: left;
+        font-size: 14px;
+        color: #757575;
       }
-      .k-btn {
+      .title-tabel {
+        font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 16px;
+        color: #454545;
+      }
+
+      .status-card {
+        font-family: 'Cabin';
+        color: #7bbc49;
+        font-weight: 400;
+        font-size: 14px;
+        background: #ecf5e5;
+        border-radius: 5px;
+        height: 34px;
+        margin-top: 10px;
+        width: 80px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 100px;
+      }
+
+      .btn-icon {
+        height: 100%;
+        padding: 10px;
+        width: 40px;
         background: #ffffff;
         border: 1px solid #e2e2e2;
         border-radius: 5px;
-        color: #1b63d4;
-        font-size: 14px;
-        height: 36px;
-        width: 138px;
+        // margin-left: 10px;
+        cursor: pointer;
+        margin-right: 10px;
       }
-      .k-btn:hover {
+      .btn-icon:hover {
         background-color: rgb(243 244 246);
+      }
+      .no-data {
+        .title-1 {
+          font-family: 'Cabin';
+          font-weight: 600;
+          font-size: 20px;
+          color: #454545;
+          line-height: 24px;
+        }
+        .subtitle-1 {
+          font-family: 'Cabin';
+          font-weight: 400;
+          font-size: 16px;
+          color: #757575;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          line-height: 24px;
+        }
+        .save-btn {
+          width: 220px;
+          background: #ffffff;
+          border: 1px solid #1b63d4;
+          color: #1b63d4;
+          border-radius: 5px;
+          height: 40px;
+          padding-left: 15px;
+          padding-right: 15px;
+          margin-left: 10px;
+          margin-bottom: 100px;
+          line-height: normal !important;
+          cursor: pointer;
+          .name-btn {
+            font-family: 'Cabin';
+            font-weight: 700;
+            font-size: 14px;
+            padding-bottom: 1px;
+            color: #1b63d4;
+            padding-left: 10px;
+          }
+        }
+        .save-btn:hover {
+          background-color: rgb(243 244 246);
+        }
       }
     }
     .k-pagination {
