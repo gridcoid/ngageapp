@@ -1,6 +1,6 @@
 # n·gage App
 
-Ini adalah aplikasi frontend n·gage dengan Nuxt 2.
+Audience and segmentation management app for targeted campaigns.
 
 ## Node Version
 

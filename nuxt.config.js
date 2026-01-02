@@ -11,7 +11,7 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'Centralized platform to manage audiences, segments, campaigns, surveys and PR—target, engage, and measure results with data-driven tools.',
+          'Audience and segmentation management app for targeted campaigns.',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
