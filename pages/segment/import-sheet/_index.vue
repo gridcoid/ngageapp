@@ -220,7 +220,7 @@ export default {
         () =>
           this.$store
             .dispatch('sheet/import', {
-              segmentId: this.$route.params.index,
+              segmentUuid: this.$route.params.index,
               file: this.sheetUploaded.file,
               mapping: this.value,
             })
