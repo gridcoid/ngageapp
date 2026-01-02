@@ -353,9 +353,10 @@ export default {
             required: true,
             message: 'Audience Name is required',
             trigger: 'blur',
+            transform: (v) => (v ? v.trim() : v),
           },
           {
-            min: 0,
+            min: 1,
             max: 50,
             message: 'Max 50 characters',
             trigger: 'blur',

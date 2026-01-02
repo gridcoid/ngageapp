@@ -69,9 +69,10 @@ export default {
             required: true,
             message: 'Segment Name is required',
             trigger: 'blur',
+            transform: (v) => (v ? v.trim() : v),
           },
           {
-            min: 0,
+            min: 1,
             max: 50,
             message: 'Max 50 character',
             trigger: 'blur',

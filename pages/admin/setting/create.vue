@@ -79,9 +79,10 @@ export default {
             required: true,
             message: 'Setting Key is required',
             trigger: 'blur',
+            transform: (v) => (v ? v.trim() : v),
           },
           {
-            min: 0,
+            min: 1,
             max: 50,
             message: 'Max 50 character',
             trigger: 'blur',
@@ -92,9 +93,10 @@ export default {
             required: true,
             message: 'Setting Value is required',
             trigger: 'blur',
+            transform: (v) => (v ? v.trim() : v),
           },
           {
-            min: 0,
+            min: 1,
             max: 200,
             message: 'Max 200 character',
             trigger: 'blur',
