@@ -22,6 +22,7 @@
             <label slot="label" class="title-form">Key<Req /></label>
             <el-input v-model="data.key" />
           </el-form-item>
+
           <el-form-item class="title-form" prop="value">
             <label slot="label" class="title-form">Value<Req /></label>
             <el-input
@@ -29,8 +30,10 @@
               type="textarea"
               :rows="2"
               maxlength="200"
+              spellcheck="false"
             />
           </el-form-item>
+
           <el-form-item class="title-form" prop="description">
             <label slot="label" class="title-form">Description</label>
             <el-input
@@ -38,6 +41,7 @@
               type="textarea"
               :rows="2"
               maxlength="200"
+              spellcheck="false"
             />
           </el-form-item>
         </el-form>

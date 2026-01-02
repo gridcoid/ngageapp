@@ -21,17 +21,18 @@
           hide-required-asterisk
         >
           <el-form-item class="title-form" prop="key">
-            <label slot="label" class="title-form">Key<Req /></label>
+            <label slot="label" class="title-form">Key</label>
             <el-input v-model="data.key" disabled />
           </el-form-item>
 
           <el-form-item class="title-form" prop="value">
-            <label slot="label" class="title-form">Value<Req /></label>
+            <label slot="label" class="title-form">Value</label>
             <el-input
               v-model="data.value"
               type="textarea"
               :rows="2"
               maxlength="200"
+              spellcheck="false"
             />
           </el-form-item>
 
@@ -42,6 +43,7 @@
               type="textarea"
               :rows="2"
               maxlength="200"
+              spellcheck="false"
             />
           </el-form-item>
         </el-form>

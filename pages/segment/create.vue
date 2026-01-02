@@ -12,6 +12,7 @@
       <div class="body-card">
         <el-form
           ref="ruleForm"
+          :rules="rules"
           :model="data"
           label-width="226px"
           label-position="left"

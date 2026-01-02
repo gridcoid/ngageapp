@@ -81,7 +81,7 @@
         <el-table-column label="Key" sortable width="200">
           <template slot-scope="scope">
             <div
-              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+              class="font-cabin font-mono text-sm text-gray-700 cursor-pointer"
               @click="viewDetail(scope.row)"
             >
               {{ scope.row.key }}
@@ -93,7 +93,7 @@
         <el-table-column label="Value">
           <template slot-scope="scope">
             <div
-              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
+              class="font-cabin font-mono text-sm text-gray-700 cursor-pointer"
               @click="viewDetail(scope.row)"
             >
               {{ scope.row.value }}

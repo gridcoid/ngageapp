@@ -38,7 +38,9 @@
                   >
                     Key
                   </label>
-                  <div class="text-gray-900 font-medium">
+                  <div
+                    class="text-gray-900 break-all font-mono text-sm bg-white p-2 rounded"
+                  >
                     {{ data.key }}
                   </div>
                 </div>

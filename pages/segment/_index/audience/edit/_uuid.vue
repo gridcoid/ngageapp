@@ -204,7 +204,7 @@
               />
               <el-input
                 v-model="contact.label"
-                placeholder="Label info"
+                placeholder="Label info (optional)"
                 style="flex: 1"
               />
               <el-button
