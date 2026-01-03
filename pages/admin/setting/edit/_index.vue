@@ -63,6 +63,8 @@
           type="primary"
           @click="save()"
           class="w-32"
+          :loading="isLoading"
+          :disable="isLoading"
         >
           Save
         </el-button>
@@ -119,7 +121,6 @@ export default {
       },
 
       isLoading: false,
-      isLoadingToast: false,
       showMessage: false,
       messageError: '',
 
@@ -159,7 +160,7 @@ export default {
         type: 'loading',
       })
 
-      this.isLoadingToast = true
+      this.isLoading = true
 
       const { key, ...rest } = this.data
 

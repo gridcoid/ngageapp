@@ -58,6 +58,7 @@
           type="primary"
           @click="save()"
           class="w-32"
+          :loading="isLoading"
           :disable="isLoading"
         >
           Save
@@ -120,7 +121,6 @@ export default {
       },
 
       isLoading: false,
-      isLoadingToast: false,
       showMessage: false,
       messageError: '',
 
@@ -144,7 +144,7 @@ export default {
           type: 'loading',
         })
 
-        this.isLoadingToast = true
+        this.isLoading = true
 
         this.$store
           .dispatch('setting/create', this.data)
@@ -172,7 +172,7 @@ export default {
             }
           })
           .finally(() => {
-            this.isLoadingToast = false
+            this.isLoading = false
           })
       })
     },

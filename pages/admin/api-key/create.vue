@@ -107,6 +107,7 @@
           type="primary"
           @click="save()"
           class="w-32"
+          :loading="isLoading"
           :disable="isLoading"
         >
           Save
@@ -158,7 +159,7 @@ export default {
         ],
       },
 
-      isLoading: false,
+      isLoading: true,
       showMessage: false,
       messageError: '',
 
@@ -182,7 +183,7 @@ export default {
       this.isLoading = true
 
       this.$store.dispatch('segment/all').finally(() => {
-        this.isLoading = false
+        // this.isLoading = false
       })
     },
 

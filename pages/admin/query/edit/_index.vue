@@ -145,6 +145,8 @@
             type="primary"
             class="w-32"
             @click="save()"
+            :loading="isLoading"
+            :disable="isLoading"
           >
             Save
           </el-button>

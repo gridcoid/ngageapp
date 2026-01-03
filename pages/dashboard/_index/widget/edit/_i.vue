@@ -71,6 +71,8 @@
           type="primary"
           @click="save()"
           class="w-32"
+          :loading="isLoading"
+          :disable="isLoading"
         >
           Save
         </el-button>
