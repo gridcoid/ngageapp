@@ -72,8 +72,9 @@ export default {
         name: [
           {
             required: true,
-            message: 'Segment Name is required',
+            message: 'Name is required',
             trigger: 'blur',
+            transform: (v) => (v ? v.trim() : v),
           },
           {
             min: 0,
@@ -86,14 +87,22 @@ export default {
           {
             required: false,
           },
+          {
+            max: 200,
+            message: 'Max 200 character',
+            trigger: 'blur',
+          },
         ],
       },
+
       isLoading: false,
       showMessage: false,
       messageError: '',
+
       data: {
         id: null,
         uuid: null,
+
         name: '',
         description: '',
       },
@@ -117,53 +126,52 @@ export default {
         .finally(() => (this.isLoading = false))
     },
     save() {
-      this.$notifier.showMessage({
-        content: 'Updating segment...',
-        type: 'loading',
+      this.showMessage = false
+      this.messageError = ''
+
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
+
+        this.$notifier.showMessage({
+          content: 'Updating segment...',
+          type: 'loading',
+        })
+
+        this.isLoading = true
+
+        this.$store
+          .dispatch('segment/update', this.data)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({ path: '/segment' })
+
+              this.$notifier.showMessage({
+                content: 'Segment updated.',
+                type: 'success',
+              })
+            } else {
+              this.showMessage = true
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to update widget'
+
+              this.$notifier.showMessage({
+                content: 'Segment update failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .catch((e) => {
+            console.error(e)
+            this.showMessage = true
+            this.messageError = 'Error: ' + e.message
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
       })
-
-      this.isLoading = true
-
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('segment/update', this.data)
-            .then((res) => {
-              if (res.status === 200) {
-                this.$router.push({ path: '/segment' })
-
-                this.$notifier.showMessage({
-                  content: 'Segment updated.',
-                  type: 'success',
-                })
-
-                clearInterval(sto)
-              } else {
-                this.showMessage = true
-
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-
-                this.messageError = arr.join(', ')
-
-                this.$notifier.showMessage({
-                  content: 'Segment failed!',
-                  type: 'failed',
-                })
-
-                clearInterval(sto)
-              }
-            })
-            .catch(() => {
-              this.isLoading = false
-              clearInterval(sto)
-            }),
-        1000
-      )
     },
   },
   watch: {
@@ -171,6 +179,7 @@ export default {
       if (val) {
         this.data.id = val.id
         this.data.uuid = val.uuid
+
         this.data.name = val.name
         this.data.description = val.description
       }

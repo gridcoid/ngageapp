@@ -182,14 +182,11 @@ export default {
 
   data() {
     return {
-      showMessage: false,
-      messageError: '',
-
       rules: {
         name: [
           {
             required: true,
-            message: 'Query name is required',
+            message: 'Name is required',
             trigger: 'blur',
           },
           {
@@ -207,11 +204,17 @@ export default {
         ],
       },
 
+      isLoading: false,
+      showMessage: false,
+      messageError: '',
+
       data: {
         id: null,
         uuid: null,
+
         name: '',
         description: '',
+
         source: '',
         limit: 100,
 
@@ -239,15 +242,23 @@ export default {
         .finally(() => (this.isLoading = false))
     },
     save() {
+      this.showMessage = false
+      this.messageError = ''
+
       let definition
+
       try {
         definition = {
           source: this.data.source,
-          metrics: JSON.parse(this.data.metricsJson || '[]'),
-          groupBy: JSON.parse(this.data.groupByJson || '[]'),
-          filters: JSON.parse(this.data.filtersJson || '[]'),
-          joins: JSON.parse(this.data.joinsJson || '[]'),
-          sort: JSON.parse(this.data.sortJson || '[]'),
+          metrics: JSON.parse(this.data.metricsJson),
+          groupBy: this.data.groupByJson
+            ? JSON.parse(this.data.groupByJson)
+            : [],
+          filters: this.data.filtersJson
+            ? JSON.parse(this.data.filtersJson)
+            : {},
+          joins: this.data.joinsJson ? JSON.parse(this.data.joinsJson) : [],
+          sort: this.data.sortJson ? JSON.parse(this.data.sortJson) : [],
           limit: this.data.limit,
         }
       } catch (e) {
@@ -256,30 +267,53 @@ export default {
         return
       }
 
-      this.$notifier.showMessage({
-        content: 'Updating query...',
-        type: 'loading',
-      })
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
 
-      this.$store
-        .dispatch('query/update', {
-          uuid: this.data.uuid,
-          name: this.data.name,
-          description: this.data.description,
-          definition,
+        this.$notifier.showMessage({
+          content: 'Updating query...',
+          type: 'loading',
         })
-        .then((res) => {
-          if (res.status === 200) {
-            this.$router.push({ path: '/admin/query' })
-            this.$notifier.showMessage({
-              content: 'Query updated',
-              type: 'success',
-            })
-          } else {
+
+        this.$store
+          .dispatch('query/update', {
+            id: this.data.id,
+            uuid: this.data.uuid,
+            name: this.data.name,
+            description: this.data.description,
+            definition,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({ path: '/admin/query' })
+
+              this.$notifier.showMessage({
+                content: 'Query updated',
+                type: 'success',
+              })
+            } else {
+              this.showMessage = true
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to update query'
+
+              this.$notifier.showMessage({
+                content: 'Query update failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .catch((e) => {
+            console.error(e)
             this.showMessage = true
-            this.messageError = 'Failed to update query'
-          }
-        })
+            this.messageError = 'Error: ' + e.message
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
+      })
     },
   },
   computed: {
@@ -292,6 +326,7 @@ export default {
       if (val) {
         this.data.id = val.id
         this.data.uuid = val.uuid
+
         this.data.name = val.name
         this.data.description = val.description
         this.data.source = val.definition?.source || ''

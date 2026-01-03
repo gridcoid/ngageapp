@@ -26,7 +26,7 @@
           </el-form-item>
 
           <el-form-item class="title-form" prop="value">
-            <label slot="label" class="title-form">Value</label>
+            <label slot="label" class="title-form">Value<Req /></label>
             <el-input
               v-model="data.value"
               type="textarea"
@@ -92,7 +92,7 @@ export default {
         key: [
           {
             required: true,
-            message: 'Setting Key is required',
+            message: 'Key is required',
             trigger: 'blur',
             transform: (v) => (v ? v.trim() : v),
           },
@@ -106,7 +106,7 @@ export default {
         value: [
           {
             required: true,
-            message: 'Setting Value is required',
+            message: 'Value is required',
             trigger: 'blur',
             transform: (v) => (v ? v.trim() : v),
           },
@@ -117,7 +117,16 @@ export default {
             trigger: 'blur',
           },
         ],
-        description: [{ required: false }],
+        description: [
+          {
+            required: false,
+          },
+          {
+            max: 200,
+            message: 'Max 200 character',
+            trigger: 'blur',
+          },
+        ],
       },
 
       isLoading: false,
@@ -127,6 +136,7 @@ export default {
       data: {
         id: null,
         uuid: null,
+
         key: '',
         value: '',
         description: '',
@@ -155,52 +165,52 @@ export default {
     },
 
     save() {
-      this.$notifier.showMessage({
-        content: 'Updating setting...',
-        type: 'loading',
+      this.showMessage = false
+      this.messageError = ''
+
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
+
+        this.$notifier.showMessage({
+          content: 'Updating setting...',
+          type: 'loading',
+        })
+
+        this.isLoading = true
+
+        this.$store
+          .dispatch('setting/update', this.data)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({ path: '/admin/setting' })
+
+              this.$notifier.showMessage({
+                content: 'Setting updated.',
+                type: 'success',
+              })
+            } else {
+              this.showMessage = true
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to update query'
+
+              this.$notifier.showMessage({
+                content: 'Setting update failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .catch((e) => {
+            console.error(e)
+            this.showMessage = true
+            this.messageError = 'Error: ' + e.message
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
       })
-
-      this.isLoading = true
-
-      const { key, ...rest } = this.data
-
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('setting/update', rest)
-            .then((res) => {
-              if (res.status === 200) {
-                this.$router.push({ path: '/admin/setting' })
-
-                this.$notifier.showMessage({
-                  content: 'Setting updated.',
-                  type: 'success',
-                })
-
-                clearInterval(sto)
-              } else {
-                this.showMessage = true
-
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((k) => arr.push(res?.data.data.errors[0][k]))
-
-                this.messageError = arr.join(', ')
-
-                this.$notifier.showMessage({
-                  content: 'Setting failed!',
-                  type: 'failed',
-                })
-
-                clearInterval(sto)
-              }
-            })
-            .catch(() => {
-              this.isLoading = false
-              clearInterval(sto)
-            }),
-        1000
-      )
     },
   },
 
@@ -209,6 +219,7 @@ export default {
       if (val) {
         this.data.id = val.id
         this.data.uuid = val.uuid
+
         this.data.key = val.key
         this.data.value = val.value
         this.data.description = val.description

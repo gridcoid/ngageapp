@@ -120,9 +120,11 @@ export default {
           },
         ],
       },
+
       isLoading: false,
       showMessage: false,
       messageError: '',
+
       data: {
         type: '', // metric / chart / table
         queryId: '', // linked query id
@@ -180,6 +182,7 @@ export default {
             }
           })
           .catch((e) => {
+            console.error(e)
             this.showMessage = true
             this.messageError = 'Error: ' + e.message
           })

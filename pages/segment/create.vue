@@ -70,7 +70,7 @@ export default {
         name: [
           {
             required: true,
-            message: 'Segment Name is required',
+            message: 'Name is required',
             trigger: 'blur',
             transform: (v) => (v ? v.trim() : v),
           },
@@ -85,11 +85,18 @@ export default {
           {
             required: false,
           },
+          {
+            max: 200,
+            message: 'Max 200 character',
+            trigger: 'blur',
+          },
         ],
       },
+
       isLoading: false,
       showMessage: false,
       messageError: '',
+
       data: {
         name: '',
         description: '',
@@ -124,17 +131,21 @@ export default {
             } else {
               this.showMessage = true
 
-              const keys = Object.keys(res?.data.data.errors[0])
-              const arr = []
-
-              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
-              this.messageError = arr.join(', ')
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to create widget'
 
               this.$notifier.showMessage({
-                content: 'Segment failed!',
+                content: 'Segment creation failed!',
                 type: 'failed',
               })
             }
+          })
+          .catch((e) => {
+            console.error(e)
+            this.showMessage = true
+            this.messageError = 'Error: ' + e.message
           })
           .finally(() => {
             this.isLoading = false

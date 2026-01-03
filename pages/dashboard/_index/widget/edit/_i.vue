@@ -13,7 +13,8 @@
 
       <div class="body-card">
         <el-form
-          ref="widgetForm"
+          ref="ruleForm"
+          :rules="rules"
           :model="data"
           label-width="200px"
           label-position="left"
@@ -92,9 +93,40 @@ export default {
   },
   data() {
     return {
+      rules: {
+        type: [
+          {
+            required: true,
+            message: 'Widget type is required',
+            trigger: 'change',
+          },
+        ],
+        queryId: [
+          {
+            required: true,
+            message: 'Query is required',
+            trigger: 'change',
+          },
+        ],
+        title: [
+          {
+            required: true,
+            message: 'Widget title is required',
+            trigger: 'blur',
+          },
+          {
+            min: 1,
+            max: 50,
+            message: 'Max 50 characters',
+            trigger: 'blur',
+          },
+        ],
+      },
+
       isLoading: false,
       showMessage: false,
       messageError: '',
+
       data: {
         type: '',
         queryId: '',
@@ -141,51 +173,60 @@ export default {
     },
 
     save() {
-      this.$notifier.showMessage({
-        content: 'Updating widget...',
-        type: 'loading',
-      })
+      this.showMessage = false
+      this.messageError = ''
 
-      this.isLoading = true
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
 
-      this.$store
-        .dispatch('dashboard/updateWidget', {
-          uuid: this.$route.params.index,
-          widgetUuid: this.data.i,
-          widget: {
-            type: this.data.type,
-            queryId: this.data.queryId,
-            title: this.data.title,
-          },
+        this.$notifier.showMessage({
+          content: 'Updating widget...',
+          type: 'loading',
         })
-        .then((res) => {
-          if (res.status === 200) {
-            this.$router.push({ path: '/' }) // dashboard
 
-            this.$notifier.showMessage({
-              content: 'Widget updated.',
-              type: 'success',
-            })
-          } else {
+        this.isLoading = true
+
+        this.$store
+          .dispatch('dashboard/updateWidget', {
+            uuid: this.$route.params.index,
+            widgetUuid: this.data.i,
+            widget: {
+              type: this.data.type,
+              queryId: this.data.queryId,
+              title: this.data.title,
+            },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({ path: '/' }) // dashboard
+
+              this.$notifier.showMessage({
+                content: 'Widget updated.',
+                type: 'success',
+              })
+            } else {
+              this.showMessage = true
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to update widget'
+
+              this.$notifier.showMessage({
+                content: 'Failed to update widget!',
+                type: 'failed',
+              })
+            }
+          })
+          .catch((e) => {
+            console.error(e)
             this.showMessage = true
-            this.messageError =
-              res?.data?.data?.errors
-                ?.map((e) => Object.values(e)[0])
-                .join(', ') || 'Failed to update widget'
-
-            this.$notifier.showMessage({
-              content: 'Failed to update widget!',
-              type: 'failed',
-            })
-          }
-        })
-        .catch((e) => {
-          this.showMessage = true
-          this.messageError = 'Error: ' + e.message
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
+            this.messageError = 'Error: ' + e.message
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
+      })
     },
   },
 }

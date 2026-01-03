@@ -159,17 +159,21 @@ export default {
             } else {
               this.showMessage = true
 
-              const keys = Object.keys(res?.data.data.errors[0])
-              const arr = []
-
-              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
-              this.messageError = arr.join(', ')
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to update query'
 
               this.$notifier.showMessage({
                 content: 'Setting creation failed!',
                 type: 'failed',
               })
             }
+          })
+          .catch((e) => {
+            console.error(e)
+            this.showMessage = true
+            this.messageError = 'Error: ' + e.message
           })
           .finally(() => {
             this.isLoading = false

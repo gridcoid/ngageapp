@@ -362,8 +362,120 @@ export default {
     }
   },
   data() {
+    const currentYear = new Date().getFullYear()
+
+    const positiveIntegerValidator = (rule, value, callback) => {
+      if (value == null || value === '') return callback() // optional
+      if (!Number.isInteger(value) || value <= 0) {
+        return callback(new Error('Must be a positive number'))
+      }
+      callback()
+    }
+
+    const yearValidator = (rule, value, callback) => {
+      if (value == null || value === '') return callback() // optional
+      if (!Number.isInteger(value) || value < 1900 || value > currentYear) {
+        return callback(
+          new Error(`Year must be between 1900 and ${currentYear}`)
+        )
+      }
+      callback()
+    }
+
+    const dateValidator = (rule, value, callback) => {
+      if (!value) return callback() // optional
+      // value is "yyyy-MM-dd" (string), so try parse
+      const d = new Date(value)
+      if (isNaN(d.getTime())) return callback(new Error('Invalid date'))
+      callback()
+    }
+
+    const maxStringValidator = (max) => (rule, value, callback) => {
+      if (!value) return callback()
+      if (String(value).length > max) {
+        return callback(new Error(`Max ${max} characters`))
+      }
+      callback()
+    }
+
+    const contactsValidator = (rule, value, callback) => {
+      if (!value || value.length === 0) return callback() // optional
+
+      if (!Array.isArray(value)) {
+        return callback(new Error('Contacts must be a list'))
+      }
+
+      for (let i = 0; i < value.length; i++) {
+        const c = value[i]
+
+        if (typeof c?.typeId !== 'number' || c.typeId <= 0) {
+          return callback(new Error(`Contact #${i + 1}: type is required`))
+        }
+
+        if (!c.value || c.value.trim().length === 0) {
+          return callback(new Error(`Contact #${i + 1}: value is required`))
+        }
+
+        if (c.value.length > 50) {
+          return callback(
+            new Error(`Contact #${i + 1}: value max 50 characters`)
+          )
+        }
+
+        if (c.label && c.label.length > 50) {
+          return callback(
+            new Error(`Contact #${i + 1}: label max 50 characters`)
+          )
+        }
+      }
+
+      callback()
+    }
+
+    const segmentsValidator = (rule, value, callback) => {
+      if (!value || value.length === 0) return callback() // optional
+
+      if (!Array.isArray(value)) {
+        return callback(new Error('Segments must be a list'))
+      }
+
+      for (let i = 0; i < value.length; i++) {
+        const s = value[i]
+        if (!Number.isInteger(s) || s <= 0) {
+          return callback(
+            new Error(`Segment #${i + 1} must be a positive number`)
+          )
+        }
+      }
+
+      callback()
+    }
+
+    const additionalInfoValidator = (rule, value, callback) => {
+      if (value == null) return callback() // optional
+
+      if (typeof value !== 'object' || Array.isArray(value)) {
+        return callback(new Error('Additional Info must be an object'))
+      }
+
+      // validate each key/value
+      for (const [k, v] of Object.entries(value)) {
+        if (typeof v !== 'string') {
+          return callback(new Error(`Value of "${k}" must be a string`))
+        }
+        if (v.length > 200) {
+          return callback(
+            new Error(`Value of "${k}" may not exceed 200 characters`)
+          )
+        }
+      }
+
+      callback()
+    }
+
     return {
       rules: {
+        // NAME — required
         name: [
           {
             required: true,
@@ -378,6 +490,78 @@ export default {
             trigger: 'blur',
           },
         ],
+
+        // DATE OF BIRTH — date (optional)
+        dateOfBirth: [
+          {
+            validator: dateValidator,
+            trigger: 'change',
+          },
+        ],
+
+        // YEAR OF BIRTH — 1900..now (optional)
+        yearOfBirth: [
+          {
+            validator: yearValidator,
+            trigger: 'change',
+          },
+        ],
+
+        // GENDER — positive integer (optional)
+        genderId: [
+          {
+            validator: positiveIntegerValidator,
+            trigger: 'change',
+          },
+        ],
+
+        // RELIGION — positive integer (optional)
+        religionId: [
+          {
+            validator: positiveIntegerValidator,
+            trigger: 'change',
+          },
+        ],
+
+        // ADDRESS — max 200
+        address: [
+          {
+            validator: maxStringValidator(200),
+            trigger: 'blur',
+          },
+        ],
+
+        // LOCATION CODES — max 13
+        provinceCode: [
+          { validator: maxStringValidator(13), trigger: 'change' },
+        ],
+        regencyCode: [{ validator: maxStringValidator(13), trigger: 'change' }],
+        districtCode: [
+          { validator: maxStringValidator(13), trigger: 'change' },
+        ],
+        villageCode: [{ validator: maxStringValidator(13), trigger: 'change' }],
+
+        // ARRAYS
+        contactsList: [
+          {
+            validator: contactsValidator,
+            trigger: 'change',
+          },
+        ],
+
+        additionalInfoList: [
+          {
+            validator: additionalInfoValidator,
+            trigger: 'change',
+          },
+        ],
+
+        segmentsList: [
+          {
+            validator: segmentsValidator,
+            trigger: 'change',
+          },
+        ],
       },
 
       isLoading: false,
@@ -388,6 +572,7 @@ export default {
       data: {
         id: null,
         uuid: null,
+
         name: '',
         dateOfBirth: null,
         yearOfBirth: null,
@@ -402,6 +587,7 @@ export default {
         additionalInfo: null,
         segmentIds: [],
       },
+
       contactsList: [],
       additionalInfoList: [],
       segmentsList: [],
@@ -482,29 +668,34 @@ export default {
     },
 
     save() {
-      // Process Additional Info
+      this.showMessage = false
+      this.messageError = ''
+
       const info = {}
+
       this.additionalInfoList.forEach((item) => {
         if (item.key && item.key.trim() !== '') {
           info[item.key] = item.value
         }
       })
-      this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
 
+      this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
       this.data.segmentIds = this.segmentsList.filter((s) => s !== null)
 
       this.data.contacts = this.contactsList.filter(
         (c) => c.typeId !== null && c.value !== ''
       )
 
-      this.$notifier.showMessage({
-        content: 'Updating audience...',
-        type: 'loading',
-      })
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
 
-      this.isLoading = true
+        this.$notifier.showMessage({
+          content: 'Updating audience...',
+          type: 'loading',
+        })
 
-      const sto = setTimeout(() => {
+        this.isLoading = true
+
         this.$store
           .dispatch('audience/update', this.data)
           .then((res) => {
@@ -515,26 +706,29 @@ export default {
                 content: 'Audience updated.',
                 type: 'success',
               })
-              clearInterval(sto)
             } else {
               this.showMessage = true
-              const keys = Object.keys(res?.data.data.errors[0])
-              const arr = []
-              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
-              this.messageError = arr.join(', ')
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to update audience'
 
               this.$notifier.showMessage({
-                content: 'Audience failed!',
+                content: 'Audience update failed!',
                 type: 'failed',
               })
-              clearInterval(sto)
             }
           })
-          .catch(() => {
-            this.isLoading = false
-            clearInterval(sto)
+          .catch((e) => {
+            console.error(e)
+            this.showMessage = true
+            this.messageError = 'Error: ' + e.message
           })
-      }, 1000)
+          .finally(() => {
+            this.isLoading = false
+          })
+      })
     },
 
     getGender() {
@@ -598,6 +792,7 @@ export default {
       if (val) {
         this.data.id = val.id
         this.data.uuid = val.uuid
+
         this.data.name = val.name
         this.data.dateOfBirth = val.dateOfBirth
         this.data.yearOfBirth = val.yearOfBirth

@@ -134,7 +134,7 @@ export default {
         name: [
           {
             required: true,
-            message: 'API key name is required',
+            message: 'Name is required',
             trigger: 'blur',
             transform: (v) => (v ? v.trim() : v),
           },
@@ -247,6 +247,7 @@ export default {
             }
           })
           .catch((e) => {
+            console.error(e)
             this.showMessage = true
             this.messageError = 'Error: ' + e.message
           })

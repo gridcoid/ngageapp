@@ -76,7 +76,7 @@ export default {
         name: [
           {
             required: true,
-            message: 'API key name is required',
+            message: 'Name is required',
             trigger: 'blur',
             transform: (v) => (v ? v.trim() : v),
           },
@@ -87,15 +87,9 @@ export default {
             trigger: 'blur',
           },
         ],
-        expiresAt: [
+        revoked: [
           {
-            required: false,
-          },
-        ],
-        scopes: [
-          {
-            required: true,
-            message: 'Scopes is required',
+            type: 'boolean',
             trigger: 'change',
           },
         ],
@@ -104,14 +98,6 @@ export default {
       isLoading: false,
       showMessage: false,
       messageError: '',
-
-      scopeRows: [
-        {
-          segmentId: null,
-          read: false,
-          write: false,
-        },
-      ],
 
       data: {
         id: null,
@@ -144,30 +130,9 @@ export default {
       })
     },
 
-    addScopeRow() {
-      this.scopeRows.push({
-        segmentId: null,
-        read: false,
-        write: false,
-      })
-    },
-
-    removeScopeRow(index) {
-      this.scopeRows.splice(index, 1)
-    },
-
     save() {
       this.showMessage = false
       this.messageError = ''
-
-      // Process scopeRows into data.scopes
-      this.data.scopes = this.scopeRows
-        .filter((row) => row.segmentId)
-        .map((row) => ({
-          segmentId: row.segmentId,
-          read: row.read,
-          write: row.write,
-        }))
 
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
@@ -204,6 +169,11 @@ export default {
               })
             }
           })
+          .catch((e) => {
+            console.error(e)
+            this.showMessage = true
+            this.messageError = 'Error: ' + e.message
+          })
           .finally(() => {
             this.isLoading = false
           })
@@ -232,17 +202,12 @@ export default {
         this.data = {
           id: val.id,
           uuid: val.uuid,
+
           name: val.name,
           expiresAt: val.expiresAt,
           scopes: val.scopes,
           revoked: val.revoked,
         }
-
-        this.scopeRows = val.scopes.map((scope) => ({
-          segmentId: scope.segmentId,
-          read: scope.read,
-          write: scope.write,
-        }))
       }
     },
   },

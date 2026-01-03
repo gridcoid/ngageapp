@@ -674,6 +674,8 @@ export default {
           type: 'loading',
         })
 
+        this.isLoading = true
+
         this.$store
           .dispatch('audience/create', this.data)
           .then((res) => {
@@ -699,6 +701,7 @@ export default {
             }
           })
           .catch((e) => {
+            console.error(e)
             this.showMessage = true
             this.messageError = 'Error: ' + e.message
           })

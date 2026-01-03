@@ -184,7 +184,7 @@ export default {
         name: [
           {
             required: true,
-            message: 'Query name is required',
+            message: 'Name is required',
             trigger: 'blur',
           },
           {
@@ -316,7 +316,7 @@ export default {
               this.messageError =
                 res?.data?.data?.errors
                   ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to create widget'
+                  .join(', ') || 'Failed to create query'
 
               this.$notifier.showMessage({
                 content: 'Query creation failed!',
@@ -325,6 +325,7 @@ export default {
             }
           })
           .catch((e) => {
+            console.error(e)
             this.showMessage = true
             this.messageError = 'Error: ' + e.message
           })
