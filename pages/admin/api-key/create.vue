@@ -159,7 +159,7 @@ export default {
         ],
       },
 
-      isLoading: true,
+      isLoading: false,
       showMessage: false,
       messageError: '',
 
@@ -183,7 +183,7 @@ export default {
       this.isLoading = true
 
       this.$store.dispatch('segment/all').finally(() => {
-        // this.isLoading = false
+        this.isLoading = false
       })
     },
 

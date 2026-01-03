@@ -162,7 +162,6 @@ export default {
     },
 
     getDetail() {
-      this.isLoading = true
       if (this.$store.state.dashboard.widget) {
         this.data = { ...this.$store.state.dashboard.widget }
       } else {
