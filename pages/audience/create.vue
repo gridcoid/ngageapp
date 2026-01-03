@@ -361,8 +361,51 @@ export default {
     }
   },
   data() {
+    const currentYear = new Date().getFullYear()
+
+    const positiveIntegerValidator = (rule, value, callback) => {
+      if (value == null || value === '') return callback() // optional
+      if (!Number.isInteger(value) || value <= 0) {
+        return callback(new Error('Must be a positive number'))
+      }
+      callback()
+    }
+
+    const yearValidator = (rule, value, callback) => {
+      if (value == null || value === '') return callback() // optional
+      if (!Number.isInteger(value) || value < 1900 || value > currentYear) {
+        return callback(
+          new Error(`Year must be between 1900 and ${currentYear}`)
+        )
+      }
+      callback()
+    }
+
+    const dateValidator = (rule, value, callback) => {
+      if (!value) return callback() // optional
+      // value is "yyyy-MM-dd" (string), so try parse
+      const d = new Date(value)
+      if (isNaN(d.getTime())) return callback(new Error('Invalid date'))
+      callback()
+    }
+
+    const maxStringValidator = (max) => (rule, value, callback) => {
+      if (!value) return callback()
+      if (String(value).length > max) {
+        return callback(new Error(`Max ${max} characters`))
+      }
+      callback()
+    }
+
+    const arrayValidator = (rule, value, callback) => {
+      if (!Array.isArray(value)) return callback()
+      // optional — but ensure objects are valid shape if you want later
+      callback()
+    }
+
     return {
       rules: {
+        // NAME — required
         name: [
           {
             required: true,
@@ -375,6 +418,78 @@ export default {
             max: 50,
             message: 'Max 50 characters',
             trigger: 'blur',
+          },
+        ],
+
+        // DATE OF BIRTH — date (optional)
+        dateOfBirth: [
+          {
+            validator: dateValidator,
+            trigger: 'change',
+          },
+        ],
+
+        // YEAR OF BIRTH — 1900..now (optional)
+        yearOfBirth: [
+          {
+            validator: yearValidator,
+            trigger: 'change',
+          },
+        ],
+
+        // GENDER — positive integer (optional)
+        genderId: [
+          {
+            validator: positiveIntegerValidator,
+            trigger: 'change',
+          },
+        ],
+
+        // RELIGION — positive integer (optional)
+        religionId: [
+          {
+            validator: positiveIntegerValidator,
+            trigger: 'change',
+          },
+        ],
+
+        // ADDRESS — max 200
+        address: [
+          {
+            validator: maxStringValidator(200),
+            trigger: 'blur',
+          },
+        ],
+
+        // LOCATION CODES — max 13
+        provinceCode: [
+          { validator: maxStringValidator(13), trigger: 'change' },
+        ],
+        regencyCode: [{ validator: maxStringValidator(13), trigger: 'change' }],
+        districtCode: [
+          { validator: maxStringValidator(13), trigger: 'change' },
+        ],
+        villageCode: [{ validator: maxStringValidator(13), trigger: 'change' }],
+
+        // ARRAYS
+        contactsList: [
+          {
+            validator: arrayValidator,
+            trigger: 'change',
+          },
+        ],
+
+        additionalInfoList: [
+          {
+            validator: arrayValidator,
+            trigger: 'change',
+          },
+        ],
+
+        segmentsList: [
+          {
+            validator: arrayValidator,
+            trigger: 'change',
           },
         ],
       },
