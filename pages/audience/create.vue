@@ -397,9 +397,78 @@ export default {
       callback()
     }
 
-    const arrayValidator = (rule, value, callback) => {
-      if (!Array.isArray(value)) return callback()
-      // optional — but ensure objects are valid shape if you want later
+    const contactsValidator = (rule, value, callback) => {
+      if (!value || value.length === 0) return callback() // optional
+
+      if (!Array.isArray(value)) {
+        return callback(new Error('Contacts must be a list'))
+      }
+
+      for (let i = 0; i < value.length; i++) {
+        const c = value[i]
+
+        if (typeof c?.typeId !== 'number' || c.typeId <= 0) {
+          return callback(new Error(`Contact #${i + 1}: type is required`))
+        }
+
+        if (!c.value || c.value.trim().length === 0) {
+          return callback(new Error(`Contact #${i + 1}: value is required`))
+        }
+
+        if (c.value.length > 50) {
+          return callback(
+            new Error(`Contact #${i + 1}: value max 50 characters`)
+          )
+        }
+
+        if (c.label && c.label.length > 50) {
+          return callback(
+            new Error(`Contact #${i + 1}: label max 50 characters`)
+          )
+        }
+      }
+
+      callback()
+    }
+
+    const segmentsValidator = (rule, value, callback) => {
+      if (!value || value.length === 0) return callback() // optional
+
+      if (!Array.isArray(value)) {
+        return callback(new Error('Segments must be a list'))
+      }
+
+      for (let i = 0; i < value.length; i++) {
+        const s = value[i]
+        if (!Number.isInteger(s) || s <= 0) {
+          return callback(
+            new Error(`Segment #${i + 1} must be a positive number`)
+          )
+        }
+      }
+
+      callback()
+    }
+
+    const additionalInfoValidator = (rule, value, callback) => {
+      if (value == null) return callback() // optional
+
+      if (typeof value !== 'object' || Array.isArray(value)) {
+        return callback(new Error('Additional Info must be an object'))
+      }
+
+      // validate each key/value
+      for (const [k, v] of Object.entries(value)) {
+        if (typeof v !== 'string') {
+          return callback(new Error(`Value of "${k}" must be a string`))
+        }
+        if (v.length > 200) {
+          return callback(
+            new Error(`Value of "${k}" may not exceed 200 characters`)
+          )
+        }
+      }
+
       callback()
     }
 
@@ -474,21 +543,21 @@ export default {
         // ARRAYS
         contactsList: [
           {
-            validator: arrayValidator,
+            validator: contactsValidator,
             trigger: 'change',
           },
         ],
 
         additionalInfoList: [
           {
-            validator: arrayValidator,
+            validator: additionalInfoValidator,
             trigger: 'change',
           },
         ],
 
         segmentsList: [
           {
-            validator: arrayValidator,
+            validator: segmentsValidator,
             trigger: 'change',
           },
         ],
