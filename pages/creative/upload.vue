@@ -265,8 +265,7 @@ export default {
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
-                  content:
-                    'Creative failed. Please try again! ' + this.messageError,
+                  content: 'Creative failed! ' + this.messageError,
                   type: 'failed',
                 })
                 clearInterval(sto)

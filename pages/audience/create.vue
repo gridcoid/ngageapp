@@ -340,6 +340,7 @@
           type="primary"
           @click="save()"
           class="w-32"
+          :loading="isLoading"
         >
           Save
         </el-button>
@@ -356,7 +357,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Create - Audience - ' + this.$config.appName,
+      title: 'Create Audience - ' + this.$config.appName,
     }
   },
   data() {
@@ -379,7 +380,6 @@ export default {
       },
 
       isLoading: false,
-      isLoadingToast: false,
       showMessage: false,
       messageError: '',
 
@@ -463,29 +463,32 @@ export default {
     },
 
     save() {
-      // Process Additional Info
+      this.showMessage = false
+      this.messageError = ''
+
       const info = {}
+
       this.additionalInfoList.forEach((item) => {
         if (item.key && item.key.trim() !== '') {
           info[item.key] = item.value
         }
       })
-      this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
 
+      this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
       this.data.segmentIds = this.segmentsList.filter((s) => s !== null)
 
       this.data.contacts = this.contactsList.filter(
         (c) => c.typeId !== null && c.value !== ''
       )
 
-      this.$notifier.showMessage({
-        content: 'Creating audience...',
-        type: 'loading',
-      })
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
 
-      this.isLoadingToast = true
+        this.$notifier.showMessage({
+          content: 'Creating audience...',
+          type: 'loading',
+        })
 
-      const sto = setTimeout(() => {
         this.$store
           .dispatch('audience/create', this.data)
           .then((res) => {
@@ -496,26 +499,28 @@ export default {
                 content: 'Audience created.',
                 type: 'success',
               })
-              clearInterval(sto)
             } else {
               this.showMessage = true
-              const keys = Object.keys(res?.data.data.errors[0])
-              const arr = []
-              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
-              this.messageError = arr.join(', ')
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to create audience'
 
               this.$notifier.showMessage({
-                content: 'Audience failed. Please try again!',
+                content: 'Audience creation failed!',
                 type: 'failed',
               })
-              clearInterval(sto)
             }
           })
-          .catch(() => {
-            this.isLoading = false
-            clearInterval(sto)
+          .catch((e) => {
+            this.showMessage = true
+            this.messageError = 'Error: ' + e.message
           })
-      }, 1000)
+          .finally(() => {
+            this.isLoading = false
+          })
+      })
     },
 
     getGender() {

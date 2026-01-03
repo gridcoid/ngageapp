@@ -85,7 +85,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Update - Widget - ' + this.$config.appName,
+      title: 'Update Widget - ' + this.$config.appName,
     }
   },
   data() {

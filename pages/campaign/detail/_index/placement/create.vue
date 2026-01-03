@@ -878,7 +878,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Create - Placement - Campaign - ' + this.$config.appName,
+      title: 'Create Placement - Campaign - ' + this.$config.appName,
     }
   },
   data() {
@@ -1313,9 +1313,7 @@ export default {
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
-                  content:
-                    'Create placement failed. Please try again! ' +
-                    this.messageError,
+                  content: 'Create placement failed! ' + this.messageError,
                   type: 'failed',
                 })
                 clearInterval(sto)

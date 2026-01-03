@@ -165,7 +165,7 @@ export default {
 
   head() {
     return {
-      title: 'Create - JSON Import - ' + this.$config.appName,
+      title: 'Create JSON Import - ' + this.$config.appName,
     }
   },
 

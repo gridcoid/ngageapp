@@ -12,7 +12,8 @@
       </div>
       <div class="body-card">
         <el-form
-          ref="widgetForm"
+          ref="ruleForm"
+          :rules="rules"
           :model="data"
           label-width="200px"
           label-position="left"
@@ -69,6 +70,7 @@
           type="primary"
           @click="save()"
           class="w-32"
+          :disable="isLoading"
         >
           Save
         </el-button>
@@ -83,11 +85,40 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Create - Widget - ' + this.$config.appName,
+      title: 'Create Widget - ' + this.$config.appName,
     }
   },
   data() {
     return {
+      rules: {
+        type: [
+          {
+            required: true,
+            message: 'Widget type is required',
+            trigger: 'change',
+          },
+        ],
+        queryId: [
+          {
+            required: true,
+            message: 'Query is required',
+            trigger: 'change',
+          },
+        ],
+        title: [
+          {
+            required: true,
+            message: 'Widget title is required',
+            trigger: 'blur',
+          },
+          {
+            min: 1,
+            max: 50,
+            message: 'Max 50 characters',
+            trigger: 'blur',
+          },
+        ],
+      },
       isLoading: false,
       showMessage: false,
       messageError: '',
@@ -101,52 +132,60 @@ export default {
   },
   methods: {
     save() {
-      this.$notifier.showMessage({
-        content: 'Creating widget...',
-        type: 'loading',
-      })
+      this.showMessage = false
+      this.messageError = ''
 
-      this.isLoading = true
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
 
-      this.$store
-        .dispatch('dashboard/addWidget', {
-          uuid: this.$route.params.index,
-          widget: {
-            ...this.data,
-            x: 0, // full width default
-            y: 0,
-            w: 4, // grid width full
-            h: 1, // default height
-          },
+        this.$notifier.showMessage({
+          content: 'Creating widget...',
+          type: 'loading',
         })
-        .then((res) => {
-          if (res.status === 200) {
-            this.$router.push({ path: '/' }) // dashboard
 
-            this.$notifier.showMessage({
-              content: 'Widget created.',
-              type: 'success',
-            })
-          } else {
+        this.isLoading = true
+
+        this.$store
+          .dispatch('dashboard/addWidget', {
+            uuid: this.$route.params.index,
+            widget: {
+              ...this.data,
+              x: 0, // full width default
+              y: 0,
+              w: 4, // grid width full
+              h: 1, // default height
+            },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({ path: '/' }) // dashboard
+
+              this.$notifier.showMessage({
+                content: 'Widget created.',
+                type: 'success',
+              })
+            } else {
+              this.showMessage = true
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to create widget'
+
+              this.$notifier.showMessage({
+                content: 'Failed to create widget!',
+                type: 'failed',
+              })
+            }
+          })
+          .catch((e) => {
             this.showMessage = true
-            this.messageError =
-              res?.data?.data?.errors
-                ?.map((e) => Object.values(e)[0])
-                .join(', ') || 'Failed to create widget'
-
-            this.$notifier.showMessage({
-              content: 'Failed to create widget!',
-              type: 'failed',
-            })
-          }
-        })
-        .catch((e) => {
-          this.showMessage = true
-          this.messageError = 'Error: ' + e.message
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
+            this.messageError = 'Error: ' + e.message
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
+      })
     },
     getQueries() {
       this.$store

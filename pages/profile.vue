@@ -396,8 +396,7 @@ export default {
             })
             .catch((error) => {
               this.$notifier.showMessage({
-                content:
-                  'Update Status User failed. Please try again! ' + error,
+                content: 'Update Status User failed! ' + error,
                 type: 'failed',
               })
               this.closeDropdown = false

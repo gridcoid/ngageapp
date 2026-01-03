@@ -251,9 +251,7 @@ export default {
 
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
-                  content:
-                    'Spreadsheet import failed. Please try again! ' +
-                    this.messageError,
+                  content: 'Spreadsheet import failed! ' + this.messageError,
                   type: 'failed',
                 })
 

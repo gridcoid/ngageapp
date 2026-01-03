@@ -580,7 +580,7 @@ export default {
   layout: 'login',
   head() {
     return {
-      title: 'Create - Creative - ' + this.$config.appName,
+      title: 'Create Creative - ' + this.$config.appName,
     }
   },
   components: {

@@ -61,7 +61,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Update - Segment - ' + this.$config.appName,
+      title: 'Update Segment - ' + this.$config.appName,
     }
   },
   data() {
@@ -150,7 +150,7 @@ export default {
                 this.messageError = arr.join(', ')
 
                 this.$notifier.showMessage({
-                  content: 'Segment failed. Please try again!',
+                  content: 'Segment failed!',
                   type: 'failed',
                 })
 

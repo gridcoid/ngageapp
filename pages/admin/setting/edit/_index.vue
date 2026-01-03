@@ -80,7 +80,7 @@ export default {
 
   head() {
     return {
-      title: 'Update - Setting - ' + this.$config.appName,
+      title: 'Update Setting - ' + this.$config.appName,
     }
   },
 
@@ -187,7 +187,7 @@ export default {
                 this.messageError = arr.join(', ')
 
                 this.$notifier.showMessage({
-                  content: 'Setting failed. Please try again!',
+                  content: 'Setting failed!',
                   type: 'failed',
                 })
 

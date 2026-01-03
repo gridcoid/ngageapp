@@ -23,11 +23,8 @@ export default ($axios) => ({
 
   // setting:update
   update(payload) {
-    const { id, uuid, ...rest } = payload
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.patch(`${resource}/${uuid}?orgId=${orgId}`, {
-      ...rest,
-    })
+    return $axios.patch(`${resource}/${payload.uuid}?orgId=${orgId}`, payload)
   },
 
   // setting:delete

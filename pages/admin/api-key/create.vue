@@ -14,6 +14,7 @@
       <div class="body-card">
         <el-form
           ref="ruleForm"
+          :rules="rules"
           :model="data"
           label-width="226px"
           label-position="left"
@@ -106,6 +107,7 @@
           type="primary"
           @click="save()"
           class="w-32"
+          :disable="isLoading"
         >
           Save
         </el-button>
@@ -122,7 +124,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Create - API Key - ' + this.$config.appName,
+      title: 'Create API Key - ' + this.$config.appName,
     }
   },
   data() {
@@ -142,12 +144,21 @@ export default {
             trigger: 'blur',
           },
         ],
-        expiresAt: [{ required: false }],
-        scopes: [{ required: false }],
+        expiresAt: [
+          {
+            required: false,
+          },
+        ],
+        scopes: [
+          {
+            required: true,
+            message: 'Scopes is required',
+            trigger: 'change',
+          },
+        ],
       },
 
       isLoading: false,
-      isLoadingToast: false,
       showMessage: false,
       messageError: '',
 
@@ -188,6 +199,9 @@ export default {
     },
 
     save() {
+      this.showMessage = false
+      this.messageError = ''
+
       // Process scopeRows into data.scopes
       this.data.scopes = this.scopeRows
         .filter((row) => row.segmentId)
@@ -197,51 +211,48 @@ export default {
           write: row.write,
         }))
 
-      this.$notifier.showMessage({
-        content: 'Creating API key...',
-        type: 'loading',
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
+
+        this.$notifier.showMessage({
+          content: 'Creating API key...',
+          type: 'loading',
+        })
+
+        this.isLoading = true
+
+        this.$store
+          .dispatch('apiKey/create', this.data)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({ path: '/admin/api-key' })
+
+              this.$notifier.showMessage({
+                content: 'API Key created.',
+                type: 'success',
+              })
+            } else {
+              this.showMessage = true
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to create widget'
+
+              this.$notifier.showMessage({
+                content: 'API Key creation failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .catch((e) => {
+            this.showMessage = true
+            this.messageError = 'Error: ' + e.message
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
       })
-
-      this.isLoadingToast = true
-
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('apiKey/create', this.data)
-            .then((res) => {
-              if (res.status === 200) {
-                this.$router.push({ path: '/admin/api-key' })
-
-                this.$notifier.showMessage({
-                  content: 'API Key created.',
-                  type: 'success',
-                })
-
-                clearInterval(sto)
-              } else {
-                this.showMessage = true
-
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-
-                keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
-
-                this.messageError = arr.join(', ')
-
-                this.$notifier.showMessage({
-                  content: 'API Key creation failed. Please try again!',
-                  type: 'failed',
-                })
-
-                clearInterval(sto)
-              }
-            })
-            .catch(() => {
-              this.isLoading = false
-              clearInterval(sto)
-            }),
-        1000
-      )
     },
   },
   computed: {

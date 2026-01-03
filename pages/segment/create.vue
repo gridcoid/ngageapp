@@ -45,6 +45,7 @@
           type="primary"
           @click="save()"
           class="w-32"
+          :disable="isLoading"
         >
           Save
         </el-button>
@@ -59,7 +60,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Create - Segment - ' + this.$config.appName,
+      title: 'Create Segment - ' + this.$config.appName,
     }
   },
   data() {
@@ -86,7 +87,6 @@ export default {
         ],
       },
       isLoading: false,
-      isLoadingToast: false,
       showMessage: false,
       messageError: '',
       data: {
@@ -97,53 +97,48 @@ export default {
   },
   methods: {
     save() {
-      this.$notifier.showMessage({
-        content: 'Creating segment...',
-        type: 'loading',
+      this.showMessage = false
+      this.messageError = ''
+
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
+
+        this.$notifier.showMessage({
+          content: 'Creating segment...',
+          type: 'loading',
+        })
+
+        this.isLoading = true
+
+        this.$store
+          .dispatch('segment/create', this.data)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({ path: '/segment' })
+
+              this.$notifier.showMessage({
+                content: 'Segment created.',
+                type: 'success',
+              })
+            } else {
+              this.showMessage = true
+
+              const keys = Object.keys(res?.data.data.errors[0])
+              const arr = []
+
+              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
+              this.messageError = arr.join(', ')
+
+              this.$notifier.showMessage({
+                content: 'Segment failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
       })
-
-      this.isLoadingToast = true
-
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('segment/create', this.data)
-            .then((res) => {
-              if (res.status === 200) {
-                this.$router.push({ path: '/segment' })
-
-                this.$notifier.showMessage({
-                  content: 'Segment created.',
-                  type: 'success',
-                })
-
-                clearInterval(sto)
-              } else {
-                this.showMessage = true
-
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-
-                this.messageError = arr.join(', ')
-
-                this.$notifier.showMessage({
-                  content: 'Segment failed. Please try again!',
-                  type: 'failed',
-                })
-
-                clearInterval(sto)
-              }
-            })
-            .catch(() => {
-              this.isLoading = false
-              clearInterval(sto)
-            }),
-        1000
-      )
     },
   },
 }

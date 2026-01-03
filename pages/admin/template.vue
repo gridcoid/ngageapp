@@ -364,8 +364,7 @@ export default {
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
-                  content:
-                    'Template failed. Please try again! ' + this.messageError,
+                  content: 'Template failed! ' + this.messageError,
                   type: 'failed',
                 })
                 clearInterval(sto)

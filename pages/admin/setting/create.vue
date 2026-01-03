@@ -58,6 +58,7 @@
           type="primary"
           @click="save()"
           class="w-32"
+          :disable="isLoading"
         >
           Save
         </el-button>
@@ -72,7 +73,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Create - Setting - ' + this.$config.appName,
+      title: 'Create Setting - ' + this.$config.appName,
     }
   },
   data() {
@@ -81,7 +82,7 @@ export default {
         key: [
           {
             required: true,
-            message: 'Setting Key is required',
+            message: 'Key is required',
             trigger: 'blur',
             transform: (v) => (v ? v.trim() : v),
           },
@@ -95,7 +96,7 @@ export default {
         value: [
           {
             required: true,
-            message: 'Setting Value is required',
+            message: 'Value is required',
             trigger: 'blur',
             transform: (v) => (v ? v.trim() : v),
           },
@@ -110,12 +111,19 @@ export default {
           {
             required: false,
           },
+          {
+            max: 200,
+            message: 'Max 200 character',
+            trigger: 'blur',
+          },
         ],
       },
+
       isLoading: false,
       isLoadingToast: false,
       showMessage: false,
       messageError: '',
+
       data: {
         key: '',
         value: '',
@@ -125,53 +133,48 @@ export default {
   },
   methods: {
     save() {
-      this.$notifier.showMessage({
-        content: 'Creating setting...',
-        type: 'loading',
+      this.showMessage = false
+      this.messageError = ''
+
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
+
+        this.$notifier.showMessage({
+          content: 'Creating setting...',
+          type: 'loading',
+        })
+
+        this.isLoadingToast = true
+
+        this.$store
+          .dispatch('setting/create', this.data)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({ path: '/admin/setting' })
+
+              this.$notifier.showMessage({
+                content: 'Setting created.',
+                type: 'success',
+              })
+            } else {
+              this.showMessage = true
+
+              const keys = Object.keys(res?.data.data.errors[0])
+              const arr = []
+
+              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
+              this.messageError = arr.join(', ')
+
+              this.$notifier.showMessage({
+                content: 'Setting creation failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .finally(() => {
+            this.isLoadingToast = false
+          })
       })
-
-      this.isLoadingToast = true
-
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('setting/create', this.data)
-            .then((res) => {
-              if (res.status === 200) {
-                this.$router.push({ path: '/admin/setting' })
-
-                this.$notifier.showMessage({
-                  content: 'Setting created.',
-                  type: 'success',
-                })
-
-                clearInterval(sto)
-              } else {
-                this.showMessage = true
-
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-
-                this.messageError = arr.join(', ')
-
-                this.$notifier.showMessage({
-                  content: 'Setting failed. Please try again!',
-                  type: 'failed',
-                })
-
-                clearInterval(sto)
-              }
-            })
-            .catch(() => {
-              this.isLoading = false
-              clearInterval(sto)
-            }),
-        1000
-      )
     },
   },
 }

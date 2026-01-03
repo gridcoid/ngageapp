@@ -112,7 +112,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Create - Campaign - ' + this.$config.appName,
+      title: 'Create Campaign - ' + this.$config.appName,
     }
   },
   data() {
@@ -304,7 +304,7 @@ export default {
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
-                  content: 'Campaign failed. Please try again!',
+                  content: 'Campaign failed!',
                   type: 'failed',
                 })
                 clearInterval(sto)

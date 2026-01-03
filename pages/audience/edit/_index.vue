@@ -356,7 +356,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Update - Audience - ' + this.$config.appName,
+      title: 'Update Audience - ' + this.$config.appName,
     }
   },
   data() {
@@ -523,7 +523,7 @@ export default {
               this.messageError = arr.join(', ')
 
               this.$notifier.showMessage({
-                content: 'Audience failed. Please try again!',
+                content: 'Audience failed!',
                 type: 'failed',
               })
               clearInterval(sto)

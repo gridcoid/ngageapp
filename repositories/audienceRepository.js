@@ -35,7 +35,7 @@ export default ($axios) => ({
 
   // audience:update
   update(payload) {
-    const { id, uuid, contacts = [], ...rest } = payload
+    const { contacts = [], ...rest } = payload
     const orgId = window.$nuxt.$store.state.user.orgId
 
     // clean contacts
@@ -45,7 +45,7 @@ export default ($axios) => ({
       label: c.label ?? null,
     }))
 
-    return $axios.patch(`${resource}/${uuid}?orgId=${orgId}`, {
+    return $axios.patch(`${resource}/${payload.uuid}?orgId=${orgId}`, {
       ...rest,
       contacts: cleanedContacts,
     })

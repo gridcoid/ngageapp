@@ -286,9 +286,7 @@ export default {
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
-                  content:
-                    'Campaign edit failed. Please try again!, ' +
-                    this.messageError,
+                  content: 'Campaign edit failed!, ' + this.messageError,
                   type: 'failed',
                 })
                 clearInterval(sto)

@@ -1383,9 +1383,7 @@ export default {
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
-                  content:
-                    'Placement edit failed. Please try again! ' +
-                    this.messageError,
+                  content: 'Placement edit failed! ' + this.messageError,
                   type: 'failed',
                 })
                 clearInterval(sto)

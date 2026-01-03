@@ -422,9 +422,6 @@ export default {
         this.tableVisible = true
       })
     },
-    dataQueries(val) {
-      console.log(val)
-    },
   },
 }
 </script>

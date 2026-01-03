@@ -145,6 +145,7 @@
             type="primary"
             class="w-32"
             @click="save()"
+            :disable="isLoading"
           >
             Save
           </el-button>
@@ -178,9 +179,6 @@ export default {
 
   data() {
     return {
-      showMessage: false,
-      messageError: '',
-
       rules: {
         name: [
           {
@@ -188,19 +186,67 @@ export default {
             message: 'Query name is required',
             trigger: 'blur',
           },
-          { max: 50, message: 'Max 50 characters', trigger: 'blur' },
+          {
+            min: 1,
+            max: 50,
+            message: 'Max 50 characters',
+            trigger: 'blur',
+          },
+        ],
+        description: [
+          {
+            required: false,
+          },
+          {
+            max: 200,
+            message: 'Max 200 character',
+            trigger: 'blur',
+          },
         ],
         source: [
-          { required: true, message: 'Source is required', trigger: 'change' },
+          {
+            required: true,
+            message: 'Source is required',
+            trigger: 'change',
+          },
         ],
         metricsJson: [
-          { required: true, message: 'Metrics is required', trigger: 'blur' },
+          {
+            required: true,
+            message: 'Metrics is required',
+            trigger: 'blur',
+          },
+        ],
+        joinsJson: [
+          {
+            required: false,
+          },
+        ],
+        filtersJson: [
+          {
+            required: false,
+          },
+        ],
+        groupByJson: [
+          {
+            required: false,
+          },
+        ],
+        sortJson: [
+          {
+            required: false,
+          },
         ],
       },
+
+      isLoading: false,
+      showMessage: false,
+      messageError: '',
 
       data: {
         name: '',
         description: '',
+
         source: '',
         limit: 100,
 
@@ -214,6 +260,9 @@ export default {
   },
   methods: {
     save() {
+      this.showMessage = false
+      this.messageError = ''
+
       let definition
 
       try {
@@ -236,29 +285,52 @@ export default {
         return
       }
 
-      this.$notifier.showMessage({
-        content: 'Creating query...',
-        type: 'loading',
-      })
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
 
-      this.$store
-        .dispatch('query/create', {
-          name: this.data.name,
-          description: this.data.description,
-          definition,
+        this.$notifier.showMessage({
+          content: 'Creating query...',
+          type: 'loading',
         })
-        .then((res) => {
-          if (res.status === 200) {
-            this.$router.push({ path: '/admin/query' })
-            this.$notifier.showMessage({
-              content: 'Query created',
-              type: 'success',
-            })
-          } else {
+
+        this.isLoading = true
+
+        this.$store
+          .dispatch('query/create', {
+            name: this.data.name,
+            description: this.data.description,
+            definition,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({ path: '/admin/query' })
+
+              this.$notifier.showMessage({
+                content: 'Query created',
+                type: 'success',
+              })
+            } else {
+              this.showMessage = true
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to create widget'
+
+              this.$notifier.showMessage({
+                content: 'Query creation failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .catch((e) => {
             this.showMessage = true
-            this.messageError = 'Failed to create query'
-          }
-        })
+            this.messageError = 'Error: ' + e.message
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
+      })
     },
   },
 }

@@ -14,6 +14,7 @@
       <div class="body-card">
         <el-form
           ref="ruleForm"
+          :rules="rules"
           :model="data"
           label-width="226px"
           label-position="left"
@@ -63,7 +64,7 @@ export default {
 
   head() {
     return {
-      title: 'Update - API Key - ' + this.$config.appName,
+      title: 'Update API Key - ' + this.$config.appName,
     }
   },
 
@@ -84,8 +85,18 @@ export default {
             trigger: 'blur',
           },
         ],
-        expiresAt: [{ required: false }],
-        scopes: [{ required: false }],
+        expiresAt: [
+          {
+            required: false,
+          },
+        ],
+        scopes: [
+          {
+            required: true,
+            message: 'Scopes is required',
+            trigger: 'change',
+          },
+        ],
       },
 
       isLoading: false,
@@ -104,6 +115,7 @@ export default {
       data: {
         id: null,
         uuid: null,
+
         name: '',
         expiresAt: null,
         scopes: [],
@@ -144,6 +156,9 @@ export default {
     },
 
     save() {
+      this.showMessage = false
+      this.messageError = ''
+
       // Process scopeRows into data.scopes
       this.data.scopes = this.scopeRows
         .filter((row) => row.segmentId)
@@ -153,51 +168,45 @@ export default {
           write: row.write,
         }))
 
-      this.$notifier.showMessage({
-        content: 'Updating API key...',
-        type: 'loading',
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return
+
+        this.$notifier.showMessage({
+          content: 'Updating API key...',
+          type: 'loading',
+        })
+
+        this.isLoadingToast = true
+
+        this.$store
+          .dispatch('apiKey/update', this.data)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({ path: '/admin/api-key' })
+
+              this.$notifier.showMessage({
+                content: 'API Key updated.',
+                type: 'success',
+              })
+            } else {
+              this.showMessage = true
+
+              const keys = Object.keys(res?.data.data.errors[0])
+              const arr = []
+
+              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
+              this.messageError = arr.join(', ')
+
+              this.$notifier.showMessage({
+                content: 'API Key update failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .finally(() => {
+            this.isLoadingToast = false
+          })
       })
-
-      this.isLoadingToast = true
-
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('apiKey/update', this.data)
-            .then((res) => {
-              if (res.status === 200) {
-                this.$router.push({ path: '/admin/api-key' })
-
-                this.$notifier.showMessage({
-                  content: 'API Key updated.',
-                  type: 'success',
-                })
-
-                clearInterval(sto)
-              } else {
-                this.showMessage = true
-
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-
-                keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
-
-                this.messageError = arr.join(', ')
-
-                this.$notifier.showMessage({
-                  content: 'API Key update failed. Please try again!',
-                  type: 'failed',
-                })
-
-                clearInterval(sto)
-              }
-            })
-            .catch(() => {
-              this.isLoading = false
-              clearInterval(sto)
-            }),
-        1000
-      )
     },
   },
 

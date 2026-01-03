@@ -29,11 +29,8 @@ export default ($axios) => ({
 
   // segment:update
   update(payload) {
-    const { id, uuid, ...rest } = payload
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.patch(`${resource}/${uuid}?orgId=${orgId}`, {
-      ...rest,
-    })
+    return $axios.patch(`${resource}/${payload.uuid}?orgId=${orgId}`, payload)
   },
 
   // segment:delete
@@ -45,9 +42,6 @@ export default ($axios) => ({
   // segment:duplicate
   duplicate(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}/duplicate?orgId=${orgId}`, {
-      ...payload,
-      orgId,
-    })
+    return $axios.post(`${resource}/duplicate?orgId=${orgId}`, payload)
   },
 })
