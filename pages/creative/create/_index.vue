@@ -611,8 +611,11 @@ export default {
       process.client &&
       ['localhost', '127.0.0.1'].includes(window.location.hostname)
 
+    const day = new Date().getDay()
+    const isWeekday = day !== 0 && day !== 6
+
     return {
-      logo: isLocalhost ? logoDev : logoProd,
+      logo: isLocalhost && isWeekday ? logoDev : logoProd,
       isLoadingDuration: false,
       duration: '0',
       dataCode: null,

@@ -138,9 +138,12 @@ export default {
       process.client &&
       ['localhost', '127.0.0.1'].includes(window.location.hostname)
 
+    const day = new Date().getDay()
+    const isWeekday = day !== 0 && day !== 6
+
     return {
-      logo: isLocalhost ? logoDev : logoProd,
-      logoN: isLocalhost ? logoNDev : logoNProd,
+      logo: isLocalhost && isWeekday ? logoDev : logoProd,
+      logoN: isLocalhost && isWeekday ? logoNDev : logoNProd,
       email: '',
       password: '',
       width: 0,
