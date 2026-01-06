@@ -156,6 +156,12 @@ export default {
                 type: 'single',
                 icon: 'ti ti-chart-bar',
               },
+              {
+                path: '/placement/template',
+                name: 'Template Uploader',
+                type: 'single',
+                icon: 'ti ti-upload',
+              },
             ],
           },
           {
@@ -176,12 +182,6 @@ export default {
                 name: 'API Key Management',
                 type: 'single',
                 icon: 'ti ti-key',
-              },
-              {
-                path: '/admin/template',
-                name: 'Template Uploader',
-                type: 'single',
-                icon: 'ti ti-upload',
               },
               {
                 path: '/admin/setting',
