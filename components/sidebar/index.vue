@@ -70,12 +70,20 @@ export default {
       process.client &&
       ['localhost', '127.0.0.1'].includes(window.location.hostname)
 
-    const day = new Date().getDay()
+    // Current time in Jakarta (UTC+7)
+    const jakartaNow = new Date(
+      new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })
+    )
+
+    const day = jakartaNow.getDay()
     const isWeekday = day !== 0 && day !== 6
 
+    const hour = jakartaNow.getHours()
+    const isOfficeHours = hour >= 8 && hour < 19 // 08:00–18:59 Jakarta time
+
     return {
-      logo: isLocalhost && isWeekday ? logoDev : logoProd,
-      logoN: isLocalhost && isWeekday ? logoNDev : logoNProd,
+      logo: isLocalhost && isWeekday && isOfficeHours ? logoDev : logoProd,
+      logoN: isLocalhost && isWeekday && isOfficeHours ? logoNDev : logoNProd,
       tinggi: 0,
     }
   },

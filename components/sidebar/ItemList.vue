@@ -83,6 +83,7 @@ export default {
             name: 'Direct Channels',
             type: 'multiple',
             icon: 'ti ti-direction-sign',
+
             children: [
               {
                 path: '',
@@ -129,6 +130,7 @@ export default {
             name: 'Placement',
             type: 'multiple',
             icon: 'ti ti-vector',
+
             children: [
               {
                 path: '/placement/running',
@@ -161,6 +163,7 @@ export default {
             name: 'Administration',
             type: 'multiple',
             icon: 'ti ti-adjustments',
+
             children: [
               {
                 path: '/admin/query',
@@ -193,6 +196,7 @@ export default {
             name: 'Reference',
             type: 'multiple',
             icon: 'ti ti-book',
+
             children: [
               {
                 path: '/reference/contact-type',

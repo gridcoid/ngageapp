@@ -12,7 +12,9 @@
       <template #title>
         <div class="flex items-center h-full">
           <i :class="item.icon" class="mr-2" />
-          <div class="name-menu">{{ item.name }}</div>
+          <div v-if="!hideSidebar || level > 0" class="name-menu">
+            {{ item.name }}
+          </div>
         </div>
       </template>
 
@@ -21,6 +23,7 @@
         :key="i"
         :item="child"
         :uid="`${uid}-${i}`"
+        :level="level + 1"
         @active="$emit('active', $event)"
       />
     </el-submenu>
@@ -29,18 +32,29 @@
     <el-menu-item v-else :index="uid" @click="$emit('active', item)">
       <div class="flex items-center h-full">
         <i :class="item.icon" class="mr-2" />
-        <div class="name-menu">{{ item.name }}</div>
+        <div v-if="!hideSidebar || level > 0" class="name-menu">
+          {{ item.name }}
+        </div>
       </div>
     </el-menu-item>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'MenuItem',
   props: {
     item: Object,
     uid: String,
+    level: { type: Number, default: 0 },
+  },
+  computed: {
+    ...mapState({
+      hideSidebar: (state) => {
+        return state.user.sidebar
+      },
+    }),
   },
 }
 </script>
