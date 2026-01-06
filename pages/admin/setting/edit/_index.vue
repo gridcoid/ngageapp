@@ -215,7 +215,7 @@ export default {
               this.messageError =
                 res?.data?.data?.errors
                   ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to update query'
+                  .join(', ') || 'Failed to update setting'
 
               this.$notifier.showMessage({
                 content: 'Setting update failed!',
