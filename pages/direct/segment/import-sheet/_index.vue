@@ -1,17 +1,22 @@
 <template>
   <div class="upload-container p-6 w-full">
+    <div class="header-content mb-6">
+      <Back />
+    </div>
     <div v-if="step1" class="body-upload">
       <div class="card-upload">
-        <div class="card-header">Template Uploader</div>
+        <div class="card-header">
+          <i class="ti ti-table text-gray-400 mr-2" /> Spreadsheet Importer
+        </div>
         <div class="card-body">
           <el-upload
             class="upload-demo"
             drag
             action=""
+            accept=".xls,.xlsx"
             :on-change="handleChange"
             :auto-upload="false"
             :show-file-list="false"
-            :before-upload="beforeAvatarUpload"
           >
             <div class="flex flex-col upload-card pt-4 pb-4 pr-2">
               <div class="flex items-center justify-center">
@@ -23,10 +28,7 @@
                   <div class="empty-space">
                     Drop File Here or use button below
                   </div>
-                  <div class="upload-name">
-                    Supported format: .gif, .jpg/.jpeg, .png, .js, <br />
-                    .txt, .html, .html, .zip. Maximum of 50 files
-                  </div>
+                  <div class="upload-name">Supported format: .xls, .xlsx</div>
                 </div>
               </div>
               <button
@@ -38,7 +40,7 @@
             </div>
           </el-upload>
           <div
-            v-if="imageData"
+            v-if="sheetData"
             class="grid grid-cols-2 gap-4"
             style="margin-top: 10px"
           >
@@ -50,12 +52,12 @@
                   style="margin-right: 13px"
                 />
                 <div class="name-list">
-                  {{ imageData.name }}
+                  {{ sheetData.name }}
                 </div>
               </div>
               <div
                 class="delete-btn flex items-center justify-center cursor-pointer"
-                @click="imageData = ''"
+                @click="sheetData = ''"
               >
                 <IconDelete />
               </div>
@@ -81,137 +83,80 @@
             text="Continue"
             class="grow"
             style="width: 130px"
-            :type="imageData ? 'primary' : 'disabled'"
+            :type="sheetData ? 'primary' : 'disabled'"
             @click.native="continueTab()"
           />
         </div>
       </div>
     </div>
+
     <div v-if="step2">
       <div class="uploaded-creative">
         <div class="grid grid-cols-2 card-uploads">
           <div class="left-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">Uploaded Template</div>
+              <div class="title-uploads">Uploaded Spreadsheet</div>
             </div>
             <div class="body-uploads">
-              <div class="flex items-center justify-between">
-                <div class="tick-title">
-                  Tick a creative to edit it’s properties
-                </div>
-              </div>
               <div class="list-card">
                 <div class="card-list flex items-center justify-between">
                   <div class="flex items-center left-card">
                     <div class="name-list">
-                      {{ imageData.name }}
+                      {{ sheetUploaded?.file?.originalname }}
                     </div>
                   </div>
                   <div
-                    class="delete-btn flex items-center justify-center cursor-pointer"
-                    @click="backStep1()"
+                    class="flex items-center justify-center text-gray-400 italic text-sm"
                   >
-                    <IconDelete />
+                    {{ sheetUploaded?.rowNum - 1 }} rows
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="circle-next flex no-select items-center justify-center">
-              <IconArrowRight />
             </div>
           </div>
           <div class="right-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">Template Properties</div>
+              <div class="title-uploads">Column Mapping</div>
             </div>
-            <div class="form-panel flex flex-col justify-center">
-              <div class="flex flex-col box-form">
-                <div class="title-form">
-                  Name<span style="color: rgba(237, 84, 58, 1)">*</span>
-                </div>
-                <el-input v-model="data.name" style="width: 100%" />
-              </div>
-              <div class="flex flex-col box-form mt-4">
-                <div class="title-form">Description</div>
-                <el-input v-model="data.desc" style="width: 100%" />
-              </div>
-              <div class="flex flex-col box-form mt-4">
-                <div class="title-form">
-                  Dimension<span style="color: red">*</span>
-                </div>
-                <el-select
-                  v-model="data.dimension"
-                  filterable
-                  style="width: 100%"
-                  placeholder="Choose dimension"
-                  autocomplete="new-password"
+            <div class="body-uploads">
+              <div class="list-card">
+                <div
+                  v-for="(item, i) in sheetUploaded?.columns"
+                  :key="i"
+                  class="card-list flex items-center justify-between"
                 >
-                  <el-option
-                    v-for="item in dataResolution"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                  />
-                </el-select>
-              </div>
-              <div class="flex flex-col box-form mt-4">
-                <div class="title-form">
-                  Organization<span style="color: red">*</span>
+                  <div class="flex items-center left-card">
+                    <div class="name-list">
+                      <span
+                        :class="{
+                          'text-gray-400 line-through italic':
+                            value[item].deleted,
+                        }"
+                      >
+                        {{ item }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-center cursor-pointer">
+                    <el-select
+                      v-model="value[item].target"
+                      placeholder="Select"
+                      :disabled="value[item].deleted"
+                    >
+                      <el-option
+                        v-for="opt in selector"
+                        :key="opt.value"
+                        :label="opt.label"
+                        :value="opt.value"
+                      >
+                      </el-option>
+                    </el-select>
+
+                    <el-checkbox v-model="value[item].deleted" class="ml-3">
+                      Ignore
+                    </el-checkbox>
+                  </div>
                 </div>
-                <el-select
-                  v-model="data.org"
-                  filterable
-                  style="width: 100%"
-                  placeholder="Choose Organization"
-                  @change="getGroup()"
-                  autocomplete="new-password"
-                >
-                  <el-option
-                    v-for="item in dataOrg"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                  />
-                </el-select>
-              </div>
-              <div class="flex flex-col box-form mt-4">
-                <div class="title-form">
-                  Group<span style="color: red">*</span>
-                </div>
-                <el-select
-                  v-model="data.group"
-                  filterable
-                  :disabled="data.org === '' ? true : false"
-                  style="width: 100%"
-                  placeholder="Choose group"
-                  autocomplete="new-password"
-                >
-                  <el-option
-                    v-for="item in dataGroup"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                  />
-                </el-select>
-              </div>
-              <div class="flex flex-col box-form mt-4">
-                <div class="title-form">
-                  Format<span style="color: red">*</span>
-                </div>
-                <el-select
-                  v-model="data.format"
-                  filterable
-                  style="width: 100%"
-                  placeholder="Choose type"
-                  autocomplete="new-password"
-                >
-                  <el-option
-                    v-for="item in dataFormat"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                  />
-                </el-select>
               </div>
             </div>
           </div>
@@ -227,11 +172,10 @@
         />
         <button
           style="margin-right: 20px"
-          class="flex items-center justify-center no-select"
-          :class="disabledSave ? 'save-btn' : 'disabled-btn'"
+          class="flex items-center justify-center no-select save-btn"
           @click="save()"
         >
-          <IconSave :bg-color="disabledSave ? 'white' : '#9a9a9a'" />
+          <IconSave bg-color="#fff" />
           <span class="name-btn">Save</span>
         </button>
       </div>
@@ -240,133 +184,77 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
-  name: 'TemplateUploader',
+  name: 'ImportSheetPage',
   layout: 'default',
   head() {
     return {
-      title: 'Template - Admin - ' + this.$config.appName,
+      title: 'Import Spreadsheet - Segment - ' + this.$config.appName,
     }
   },
   data() {
     return {
-      imageLoaded: false,
-      imageData: '',
-      imageUrl: '',
       step1: true,
       step2: false,
-      checkAll: false,
-      data: {
-        name: '',
-        desc: '',
-        dimension: '',
-        group: '',
-        format: '',
-        org: '',
-      },
-      dataFormat: [
-        {
-          id: 'display',
-          name: 'Display',
-        },
-        {
-          id: 'rmb',
-          name: 'RMB',
-        },
-        {
-          id: 'custom_script',
-          name: 'Custom Script',
-        },
-        {
-          id: 'video',
-          name: 'Video',
-        },
-        {
-          id: 'custom_upload',
-          name: 'Custom Upload',
-        },
-      ],
-      dataOrg: [],
+      uploadIndicator: false,
+      sheetData: null,
       dataGroup: [],
       uploadPercentage: 0,
       isLoading: false,
       messageError: '',
       showMessage: false,
-      dataResolution: [],
-      dataUpload: {},
+      sheetUploaded: {},
+
+      selector: [],
+      value: {},
     }
-  },
-  computed: {
-    ...mapState({
-      orgId: (state) => {
-        return state.user.orgId
-      },
-      // dataResolution: (state) => {
-      //   return state.creative.dataResolution
-      // }
-    }),
-    disabledSave() {
-      if (
-        this.data.name === '' ||
-        this.data.dimension === '' ||
-        this.data.group === '' ||
-        this.data.format === '' ||
-        this.data.org === ''
-      ) {
-        return false
-      } else {
-        return true
-      }
-    },
-  },
-  mounted() {
-    this.getResolution()
-    this.getOrg()
   },
   methods: {
     save() {
       this.$notifier.showMessage({
-        content: 'Creating template...',
+        content: 'Importing spreadsheet...',
         type: 'loading',
       })
-      const data = {
-        name: this.data.name,
-        description: this.data.desc,
-        staticSrc: this.dataUpload.staticSrc,
-        thumbnail: this.dataUpload.thumbnail,
-        format: this.data.format,
-        groupId: this.data.group,
-        resolutionId: this.data.dimension,
-        configSchema: this.dataUpload.configSchema,
-        configExample: this.dataUpload.configExample,
-        orgId: this.data.org,
-      }
+
       const sto = setTimeout(
         () =>
           this.$store
-            .dispatch('template/createTemplateCustom', data)
+            .dispatch('sheet/import', {
+              segmentUuid: this.$route.params.index,
+              file: this.sheetUploaded.file,
+              mapping: this.value,
+            })
             .then((res) => {
               if (res.status === 200) {
                 this.step1 = true
                 this.step2 = false
+
                 this.$notifier.showMessage({
-                  content: 'Template created.',
+                  content: 'Spreadsheet imported.',
                   type: 'success',
                 })
+
                 clearInterval(sto)
+
+                this.$router.push(
+                  `/direct/segment/${this.$route.params.index}/audience`
+                )
               } else {
                 this.showMessage = true
+
                 const keys = Object.keys(res?.data.data.errors[0])
                 const arr = []
+
                 keys.forEach((key, index) => {
                   arr.push(res?.data.data.errors[0][key])
                 })
+
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
-                  content: 'Template failed! ' + this.messageError,
+                  content: 'Spreadsheet import failed! ' + this.messageError,
                   type: 'failed',
                 })
+
                 clearInterval(sto)
               }
             })
@@ -377,39 +265,6 @@ export default {
         1000
       )
     },
-    async getResolution() {
-      this.isLoading = true
-      await this.$axios
-        .get('creative/resolutions?orgId=' + this.orgId + '&all=true')
-        .then((res) => {
-          this.dataResolution = res?.data.data
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
-    },
-    async getOrg() {
-      this.isLoading = true
-      await this.$axios
-        .get('org')
-        .then((res) => {
-          this.dataOrg = res?.data.data
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
-    },
-    async getGroup() {
-      this.isLoading = true
-      await this.$axios
-        .get('template/group?orgId=' + this.data.org)
-        .then((res) => {
-          this.dataGroup = res?.data.data
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
-    },
     removeExtension(filename) {
       return filename.substring(0, filename.lastIndexOf('.')) || filename
     },
@@ -417,12 +272,14 @@ export default {
       this.step1 = false
       this.step2 = true
     },
-    async uploadTemplate() {
-      this.imageLoaded = true
+    async uploadSheet() {
+      this.uploadIndicator = true
+
       const data = new FormData()
-      data.append('file', this.imageData.raw)
+      data.append('file', this.sheetData.raw)
+
       await this.$axios
-        .post('zip/template', data, {
+        .post('sheet/upload', data, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -433,64 +290,91 @@ export default {
           }.bind(this),
         })
         .then((res) => {
-          this.dataUpload = res?.data.data
-          this.data.previewUrl = res?.data.previewUrl
-          this.data.backupImg = res?.data.backupImg
+          this.sheetUploaded = res?.data.data
+
+          this.selector = []
+          this.selector = this.sheetUploaded.selector.map((s) => {
+            return {
+              value: s,
+              label: s,
+            }
+          })
+
+          res?.data.data.columns.forEach((c) => {
+            this.$set(this.value, c, {
+              target: '',
+              deleted: false,
+            })
+          })
+
+          Object.keys(res?.data.data.mapping).forEach((key) => {
+            if (res?.data.data.mapping[key].confidence === 'auto') {
+              this.$set(this.value, key, {
+                target:
+                  res?.data.data.mapping[key].target +
+                  '.' +
+                  res?.data.data.mapping[key].field,
+                deleted: false,
+              })
+            } else {
+              this.$set(this.value, key, {
+                target: 'Audience.additionalInfo',
+                deleted: false,
+              })
+            }
+          })
         })
         .catch((error) => {
           this.$notifier.showMessage({
-            content: 'Upload failed. Please try again ! ' + error,
+            content: 'Upload failed. Please try again. ' + error,
             type: 'failed',
           })
-          this.imageLoaded = false
+
+          this.uploadIndicator = false
         })
     },
     back() {
       this.$router.push({
-        path: '/placement/creative',
+        path: '/direct/segment',
       })
     },
     backStep1() {
-      this.imageData = ''
+      this.sheetData = null
       this.step1 = true
       this.step2 = false
     },
-    beforeAvatarUpload(file) {},
     handleChange(file) {
-      const formatData = file.raw.type
+      const mime = file.raw.type
+      const name = file.name.toLowerCase()
 
-      const origins = [
-        'image/gif',
-        'image/jpg',
-        'image/jpeg',
-        'image/png',
-        'application/x-zip-compressed',
-        'application/x-zip',
-        'application/zip-compressed',
-        'application/zip',
+      const allowedMimes = [
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       ]
-      if (!origins.includes(formatData)) {
+
+      const isExcel = allowedMimes.includes(mime) || /\.(xls|xlsx)$/i.test(name)
+
+      if (!isExcel) {
         this.$notifier.showMessage({
-          content:
-            '.gif, .jpg/.jpeg, .png, .js, .txt, .html, .html, .zip. Maximum of 50 files',
+          content: 'Spreadsheet file only (.xls, .xlsx)',
           type: 'failed',
         })
-      } else if (file.size / 1000 > 4000) {
+        return
+      } else if (file.size / 1000 > 10000) {
         this.$notifier.showMessage({
-          content: 'File size can not exceed 4 MB !',
+          content: 'File size can not exceed 10Mb',
           type: 'failed',
         })
       } else {
-        this.imageData = file
-        this.imageLoaded = false
-        this.imageUrl = URL.createObjectURL(file.raw)
-        this.data.name = this.removeExtension(this.imageData.name)
-        this.uploadTemplate()
+        this.sheetData = file
+        this.uploadIndicator = false
+        this.uploadSheet()
       }
     },
   },
 }
 </script>
+
 <style lang="scss" scoped>
 .upload-container {
   min-height: calc(100vh - 60px);
@@ -547,7 +431,6 @@ export default {
           .el-upload {
             width: 100%;
           }
-
           .upload-card {
             height: 100%;
             border: 1px dashed #1b63d4;
@@ -606,23 +489,11 @@ export default {
     border-radius: 10px;
     .card-uploads {
       min-height: 550px;
-      .left-side {
+      .left-side,
+      .right-side {
         position: relative;
         height: 100%;
-        background: #fafafa;
-        border-radius: 10px 0px 0px 10px;
-        border-right: 1px solid #c3ced9;
-        .circle-next {
-          cursor: pointer;
-          position: absolute;
-          top: 200px;
-          right: -18px;
-          width: 36px;
-          height: 36px;
-          background: #ffffff;
-          border: 1px solid #c3ced9;
-          border-radius: 1000px;
-        }
+
         .header-uploads {
           height: 54px;
           border-bottom: 1px solid #c3ced9;
@@ -688,34 +559,19 @@ export default {
           }
         }
       }
+      .left-side {
+        border-right: 1px solid #c3ced9;
+        border-radius: 10px 0px 0px 10px;
+        background: #fafafa;
+      }
       .right-side {
         border-radius: 0px 10px 10px 0px;
-        background: white;
-
-        .header-uploads {
-          height: 54px;
-          border-bottom: 1px solid #c3ced9;
-          background: white;
-          .title-uploads {
-            font-family: 'Cabin';
-            font-style: normal;
-            font-weight: 600;
-            font-size: 18px;
-            color: #2b3947;
-            padding-left: 20px;
-          }
-        }
-        .form-panel {
-          height: 540px;
-          padding-left: 40px;
-          padding-right: 40px;
-          .title-form {
-            margin-bottom: 5px;
-            font-family: 'Cabin';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            color: #5c6b7a;
+        background: #fff;
+        .body-uploads {
+          .list-card {
+            .card-list {
+              background-color: #fafafa;
+            }
           }
         }
       }

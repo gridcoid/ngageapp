@@ -257,7 +257,6 @@ export default {
             .dispatch('user/userChangePassword', data)
             .then((res) => {
               if (res.status === 200) {
-                // this.$router.push({ path: '/campaign' })
                 this.$notifier.showMessage({
                   content: 'Password changed!.',
                   type: 'success',

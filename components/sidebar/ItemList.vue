@@ -1,80 +1,18 @@
 <template>
   <div>
     <el-menu
-      default-active="0"
       class="el-menu-vertical-demo"
       :collapse="showSidebar"
       :collapse-transition="false"
       :unique-opened="true"
     >
-      <div v-for="(item, index) in data" :key="index">
-        <el-menu-item
-          v-if="item.type === 'single'"
-          :index="index.toString()"
-          @click="activeIcon(item)"
-        >
-          <div
-            class="flex items-center h-full"
-            :class="showSidebar ? 'justify-center' : 'justify-start'"
-          >
-            <i :class="item.icon" />
-            <div
-              v-show="!showSidebar"
-              class="name-menu"
-              :class="item.name === activeItem ? 'item-active' : ''"
-            >
-              {{ item.name }}
-            </div>
-          </div>
-        </el-menu-item>
-        <el-submenu
-          v-if="item.type === 'multiple'"
-          :index="index.toString()"
-          @mouseover.native="hover = true"
-          @mouseleave.native="hover = false"
-        >
-          <template slot="title">
-            <div
-              class="flex items-center h-full"
-              :class="showSidebar ? 'justify-center' : 'justify-start'"
-            >
-              <i :class="item.icon" />
-              <div
-                v-show="showSidebar"
-                class="close-icon"
-                :style="hover ? 'background-color: #ecf5ff' : ''"
-              />
-              <div
-                v-show="!showSidebar"
-                class="name-menu"
-                :class="item.name === activeItem ? 'item-active' : ''"
-              >
-                {{ item.name }}
-              </div>
-            </div>
-          </template>
-          <el-menu-item
-            v-for="(item2, index2) in item.child"
-            :key="index2"
-            :index="(total + index2).toString()"
-            @click="activeIcon(item2)"
-          >
-            <div class="flex items-center h-full">
-              <i
-                :class="item2.icon + ' icon-menu'"
-                style="margin-left: 1.6px"
-                :bg-color="item2.name === activeItem ? '#1B63D4' : '#454545'"
-              />
-              <div
-                class="name-menu"
-                :class="item2.name === activeItem ? 'item-active' : ''"
-              >
-                {{ item2.name }}
-              </div>
-            </div>
-          </el-menu-item>
-        </el-submenu>
-      </div>
+      <menu-item
+        v-for="(item, index) in data"
+        :key="index"
+        :item="item"
+        :uid="index.toString()"
+        @active="activeIcon"
+      />
     </el-menu>
   </div>
 </template>
@@ -135,130 +73,173 @@ export default {
             icon: 'ti ti-dashboard',
           },
           {
-            path: '/running-campaign',
-            name: 'Running Campaigns',
+            path: '/analytic',
+            name: 'Analytics',
             type: 'single',
-            icon: 'ti ti-speakerphone',
-          },
-          {
-            path: '/campaign',
-            name: 'Campaigns',
-            type: 'single',
-            icon: 'ti ti-flag',
-          },
-          {
-            path: '/survey',
-            name: 'Surveys',
-            type: 'single',
-            icon: 'ti ti-list-check',
-          },
-          {
-            path: '/segment',
-            name: 'Segments',
-            type: 'single',
-            icon: 'ti ti-folder',
-          },
-          {
-            path: '/audience',
-            name: 'Audiences',
-            type: 'single',
-            icon: 'ti ti-users',
-          },
-          {
-            path: '/creative',
-            name: 'Creatives',
-            type: 'single',
-            icon: 'ti ti-palette',
-          },
-          {
-            path: '/report',
-            name: 'Reports',
-            type: 'single',
-            icon: 'ti ti-chart-bar',
-          },
-          {
-            path: '/tools',
-            name: 'Tools',
-            type: 'single',
-            icon: 'ti ti-tools',
+            icon: 'ti ti-chart-bubble',
           },
           {
             path: '',
-            name: 'Admins',
+            name: 'Direct Channels',
+            type: 'multiple',
+            icon: 'ti ti-direction-sign',
+            children: [
+              {
+                path: '',
+                name: 'Campaigns',
+                type: 'multiple',
+                icon: 'ti ti-speakerphone',
+                children: [
+                  {
+                    path: '/direct/campaign/email',
+                    name: 'E-mail Campaigns',
+                    type: 'single',
+                    icon: 'ti ti-mail',
+                  },
+                  {
+                    path: '/direct/campaign/sms',
+                    name: 'SMS Campaigns',
+                    type: 'single',
+                    icon: 'ti ti-message-2',
+                  },
+                  {
+                    path: '/direct/campaign/whatsapp',
+                    name: 'WhatsApp Campaigns',
+                    type: 'single',
+                    icon: 'ti ti-brand-whatsapp',
+                  },
+                ],
+              },
+              {
+                path: '/direct/segment',
+                name: 'Segments',
+                type: 'single',
+                icon: 'ti ti-folder',
+              },
+              {
+                path: '/direct/audience',
+                name: 'Audiences',
+                type: 'single',
+                icon: 'ti ti-users',
+              },
+            ],
+          },
+          {
+            path: '',
+            name: 'Placement',
+            type: 'multiple',
+            icon: 'ti ti-vector',
+            children: [
+              {
+                path: '/placement/running',
+                name: 'Running Campaigns',
+                type: 'single',
+                icon: 'ti ti-alarm',
+              },
+              {
+                path: '/placement/campaign',
+                name: 'Campaigns',
+                type: 'single',
+                icon: 'ti ti-speakerphone',
+              },
+              {
+                path: '/placement/creative',
+                name: 'Creatives',
+                type: 'single',
+                icon: 'ti ti-palette',
+              },
+              {
+                path: '/placement/report',
+                name: 'Reports',
+                type: 'single',
+                icon: 'ti ti-chart-bar',
+              },
+            ],
+          },
+          {
+            path: '',
+            name: 'Administration',
             type: 'multiple',
             icon: 'ti ti-adjustments',
-            child: [
+            children: [
               {
                 path: '/admin/query',
                 name: 'Query Management',
+                type: 'single',
                 icon: 'ti ti-code',
               },
               {
                 path: '/admin/api-key',
                 name: 'API Key Management',
+                type: 'single',
                 icon: 'ti ti-key',
-              },
-              {
-                path: '/admin/user',
-                name: 'User Management',
-                icon: 'ti ti-users',
               },
               {
                 path: '/admin/template',
                 name: 'Template Uploader',
+                type: 'single',
                 icon: 'ti ti-upload',
               },
               {
                 path: '/admin/setting',
                 name: 'Settings',
+                type: 'single',
                 icon: 'ti ti-settings',
               },
             ],
           },
           {
             path: '',
-            name: 'References',
+            name: 'Reference',
             type: 'multiple',
             icon: 'ti ti-book',
-            child: [
+            children: [
               {
                 path: '/reference/contact-type',
                 name: 'Contact Types',
+                type: 'single',
                 icon: 'ti ti-address-book',
               },
               {
                 path: '/reference/gender',
                 name: 'Genders',
+                type: 'single',
                 icon: 'ti ti-gender-bigender',
               },
               {
                 path: '/reference/education',
-                name: 'Educations',
+                name: 'Education Levels',
+                type: 'single',
                 icon: 'ti ti-school',
               },
               {
                 path: '/reference/religion',
                 name: 'Religions',
+                type: 'single',
                 icon: 'ti ti-building-mosque',
               },
               {
                 path: '/reference/province',
                 name: 'Provinces',
+                type: 'single',
                 icon: 'ti ti-building',
               },
               {
                 path: '/reference/regency',
                 name: 'Regencies',
+                type: 'single',
                 icon: 'ti ti-building-skyscraper',
               },
               {
                 path: '/reference/district',
                 name: 'Districts',
+                type: 'single',
                 icon: 'ti ti-building-community',
               },
               {
                 path: '/reference/village',
                 name: 'Villages',
+                type: 'single',
                 icon: 'ti ti-building-estate',
               },
             ],
@@ -273,22 +254,22 @@ export default {
             type: 'single',
           },
           {
-            path: '/running-campaign',
+            path: '/placement/running',
             name: 'Running Campaigns',
             type: 'single',
           },
           {
-            path: '/campaign',
+            path: '/placement/campaign',
             name: 'Campaigns',
             type: 'single',
           },
           {
-            path: '/creative',
+            path: '/placement/creative',
             name: 'Creatives',
             type: 'single',
           },
           {
-            path: '/report',
+            path: '/placement/report',
             name: 'Reports',
             type: 'single',
           },
@@ -297,15 +278,10 @@ export default {
       if (this.roleId === 4) {
         this.data = [
           {
-            path: '/creative',
+            path: '/placement/creative',
             name: 'Creatives',
             type: 'single',
           },
-          // {
-          //   path: '/report',
-          //   name: 'Report',
-          //   type: 'single'
-          // }
         ]
       }
       this.total = this.data.length
@@ -313,57 +289,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.close-icon {
-  height: 20px;
-  width: 10px;
-  background: white;
-  position: absolute;
-  right: 20px;
-  z-index: 2;
-}
-.name-menu {
-  font-family: 'Cabin';
-  font-size: 16px;
-  font-weight: 400;
-  margin-left: 8px;
-  color: #5c6b7a;
-  line-height: normal;
-}
-.item-active {
-  color: #1b63d4;
-  font-family: 'Cabin';
-  font-size: 16px;
-  margin-left: 8px;
-  line-height: normal;
-}
-.icon-menu {
-  margin-left: 4px;
-}
-.title-navmenu {
-  padding-top: 2px;
-  margin-left: 10px;
-}
-.navigations {
-  background: white;
-  cursor: pointer;
-  font-family: 'Cabin';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  height: 36px;
-  color: #383838;
-}
-.navigations:hover {
-  background-color: rgb(243 244 246);
-  border-left-color: #1b63d4;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-</style>

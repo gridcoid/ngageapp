@@ -1,8 +1,12 @@
 <template>
   <div class="upload-container p-6 w-full">
+    <div class="header-upload">
+      <Back />
+    </div>
+
     <div v-if="step1" class="body-upload">
       <div class="card-upload">
-        <div class="card-header">Template Uploader</div>
+        <div class="card-header">Bulk Upload Creatives</div>
         <div class="card-body">
           <el-upload
             class="upload-demo"
@@ -75,7 +79,7 @@
             class="grow"
             type="secondary"
             style="width: 130px; margin-right: 10px"
-            @click.native="back()"
+            @click.native="$router.back()"
           />
           <k-button
             text="Continue"
@@ -92,7 +96,7 @@
         <div class="grid grid-cols-2 card-uploads">
           <div class="left-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">Uploaded Template</div>
+              <div class="title-uploads">Uploaded Creatives</div>
             </div>
             <div class="body-uploads">
               <div class="flex items-center justify-between">
@@ -122,30 +126,18 @@
           </div>
           <div class="right-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">Template Properties</div>
+              <div class="title-uploads">Creatives Properties</div>
             </div>
             <div class="form-panel flex flex-col justify-center">
               <div class="flex flex-col box-form">
-                <div class="title-form">
-                  Name<span style="color: rgba(237, 84, 58, 1)">*</span>
-                </div>
+                <div class="title-form">Creative Name</div>
                 <el-input v-model="data.name" style="width: 100%" />
               </div>
               <div class="flex flex-col box-form mt-4">
-                <div class="title-form">Description</div>
-                <el-input v-model="data.desc" style="width: 100%" />
-              </div>
-              <div class="flex flex-col box-form mt-4">
                 <div class="title-form">
-                  Dimension<span style="color: red">*</span>
+                  Creative Dimension<span style="color: red">*</span>
                 </div>
-                <el-select
-                  v-model="data.dimension"
-                  filterable
-                  style="width: 100%"
-                  placeholder="Choose dimension"
-                  autocomplete="new-password"
-                >
+                <el-select v-model="data.dimension" style="width: 100%">
                   <el-option
                     v-for="item in dataResolution"
                     :key="item.id"
@@ -155,63 +147,8 @@
                 </el-select>
               </div>
               <div class="flex flex-col box-form mt-4">
-                <div class="title-form">
-                  Organization<span style="color: red">*</span>
-                </div>
-                <el-select
-                  v-model="data.org"
-                  filterable
-                  style="width: 100%"
-                  placeholder="Choose Organization"
-                  @change="getGroup()"
-                  autocomplete="new-password"
-                >
-                  <el-option
-                    v-for="item in dataOrg"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                  />
-                </el-select>
-              </div>
-              <div class="flex flex-col box-form mt-4">
-                <div class="title-form">
-                  Group<span style="color: red">*</span>
-                </div>
-                <el-select
-                  v-model="data.group"
-                  filterable
-                  :disabled="data.org === '' ? true : false"
-                  style="width: 100%"
-                  placeholder="Choose group"
-                  autocomplete="new-password"
-                >
-                  <el-option
-                    v-for="item in dataGroup"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                  />
-                </el-select>
-              </div>
-              <div class="flex flex-col box-form mt-4">
-                <div class="title-form">
-                  Format<span style="color: red">*</span>
-                </div>
-                <el-select
-                  v-model="data.format"
-                  filterable
-                  style="width: 100%"
-                  placeholder="Choose type"
-                  autocomplete="new-password"
-                >
-                  <el-option
-                    v-for="item in dataFormat"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                  />
-                </el-select>
+                <div class="title-form">URL</div>
+                <el-input v-model="data.url" style="width: 100%" />
               </div>
             </div>
           </div>
@@ -242,11 +179,11 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'TemplateUploader',
+  name: 'UploadCreative',
   layout: 'default',
   head() {
     return {
-      title: 'Template - Admin - ' + this.$config.appName,
+      title: 'Upload - Creative - ' + this.$config.appName,
     }
   },
   data() {
@@ -259,42 +196,15 @@ export default {
       checkAll: false,
       data: {
         name: '',
-        desc: '',
         dimension: '',
-        group: '',
-        format: '',
-        org: '',
+        url: 'https://',
+        previewUrl: '',
+        backupImg: '',
       },
-      dataFormat: [
-        {
-          id: 'display',
-          name: 'Display',
-        },
-        {
-          id: 'rmb',
-          name: 'RMB',
-        },
-        {
-          id: 'custom_script',
-          name: 'Custom Script',
-        },
-        {
-          id: 'video',
-          name: 'Video',
-        },
-        {
-          id: 'custom_upload',
-          name: 'Custom Upload',
-        },
-      ],
-      dataOrg: [],
-      dataGroup: [],
       uploadPercentage: 0,
       isLoading: false,
       messageError: '',
       showMessage: false,
-      dataResolution: [],
-      dataUpload: {},
     }
   },
   computed: {
@@ -310,9 +220,7 @@ export default {
       if (
         this.data.name === '' ||
         this.data.dimension === '' ||
-        this.data.group === '' ||
-        this.data.format === '' ||
-        this.data.org === ''
+        this.data.url === ''
       ) {
         return false
       } else {
@@ -322,36 +230,29 @@ export default {
   },
   mounted() {
     this.getResolution()
-    this.getOrg()
   },
   methods: {
     save() {
       this.$notifier.showMessage({
-        content: 'Creating template...',
+        content: 'Creating creative...',
         type: 'loading',
       })
       const data = {
         name: this.data.name,
-        description: this.data.desc,
-        staticSrc: this.dataUpload.staticSrc,
-        thumbnail: this.dataUpload.thumbnail,
-        format: this.data.format,
-        groupId: this.data.group,
         resolutionId: this.data.dimension,
-        configSchema: this.dataUpload.configSchema,
-        configExample: this.dataUpload.configExample,
-        orgId: this.data.org,
+        clickUrl: this.data.url,
+        previewUrl: this.data.previewUrl,
+        backupImg: this.data.backupImg,
       }
       const sto = setTimeout(
         () =>
           this.$store
-            .dispatch('template/createTemplateCustom', data)
+            .dispatch('creative/createCreativeCustom', data)
             .then((res) => {
               if (res.status === 200) {
-                this.step1 = true
-                this.step2 = false
+                this.$router.push({ path: '/placement/creative' })
                 this.$notifier.showMessage({
-                  content: 'Template created.',
+                  content: 'Creative created.',
                   type: 'success',
                 })
                 clearInterval(sto)
@@ -364,7 +265,7 @@ export default {
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
-                  content: 'Template failed! ' + this.messageError,
+                  content: 'Creative failed! ' + this.messageError,
                   type: 'failed',
                 })
                 clearInterval(sto)
@@ -387,28 +288,12 @@ export default {
         .finally(() => {
           this.isLoading = false
         })
-    },
-    async getOrg() {
-      this.isLoading = true
-      await this.$axios
-        .get('org')
-        .then((res) => {
-          this.dataOrg = res?.data.data
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
-    },
-    async getGroup() {
-      this.isLoading = true
-      await this.$axios
-        .get('template/group?orgId=' + this.data.org)
-        .then((res) => {
-          this.dataGroup = res?.data.data
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
+
+      // this.$store
+      //   .dispatch('creative/getResolution')
+      // .finally(() => {
+      //   this.isLoading = false
+      // })
     },
     removeExtension(filename) {
       return filename.substring(0, filename.lastIndexOf('.')) || filename
@@ -417,12 +302,12 @@ export default {
       this.step1 = false
       this.step2 = true
     },
-    async uploadTemplate() {
+    async uploadZIP() {
       this.imageLoaded = true
       const data = new FormData()
       data.append('file', this.imageData.raw)
       await this.$axios
-        .post('zip/template', data, {
+        .post('zip', data, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -433,7 +318,6 @@ export default {
           }.bind(this),
         })
         .then((res) => {
-          this.dataUpload = res?.data.data
           this.data.previewUrl = res?.data.previewUrl
           this.data.backupImg = res?.data.backupImg
         })
@@ -445,11 +329,6 @@ export default {
           this.imageLoaded = false
         })
     },
-    back() {
-      this.$router.push({
-        path: '/placement/creative',
-      })
-    },
     backStep1() {
       this.imageData = ''
       this.step1 = true
@@ -458,16 +337,17 @@ export default {
     beforeAvatarUpload(file) {},
     handleChange(file) {
       const formatData = file.raw.type
-
       const origins = [
         'image/gif',
         'image/jpg',
         'image/jpeg',
         'image/png',
-        'application/x-zip-compressed',
         'application/x-zip',
-        'application/zip-compressed',
+        'application/x-zip-compressed',
         'application/zip',
+        'application/zip-compressed',
+        'application/octet-stream',
+        'multipart/x-zip',
       ]
       if (!origins.includes(formatData)) {
         this.$notifier.showMessage({
@@ -475,9 +355,9 @@ export default {
             '.gif, .jpg/.jpeg, .png, .js, .txt, .html, .html, .zip. Maximum of 50 files',
           type: 'failed',
         })
-      } else if (file.size / 1000 > 4000) {
+      } else if (file.size / 1000 > 1000) {
         this.$notifier.showMessage({
-          content: 'File size can not exceed 4 MB !',
+          content: 'File size can not exceed 1000 KB!',
           type: 'failed',
         })
       } else {
@@ -485,7 +365,7 @@ export default {
         this.imageLoaded = false
         this.imageUrl = URL.createObjectURL(file.raw)
         this.data.name = this.removeExtension(this.imageData.name)
-        this.uploadTemplate()
+        this.uploadZIP()
       }
     },
   },
@@ -493,8 +373,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .upload-container {
-  min-height: calc(100vh - 60px);
+  min-height: 100vh;
   .body-upload {
+    margin-top: 20px;
     .card-upload {
       height: 100%;
       background: #ffffff;
@@ -605,7 +486,7 @@ export default {
     border: 1px solid #c3ced9;
     border-radius: 10px;
     .card-uploads {
-      min-height: 550px;
+      height: 400px;
       .left-side {
         position: relative;
         height: 100%;
@@ -706,7 +587,7 @@ export default {
           }
         }
         .form-panel {
-          height: 540px;
+          height: 346px;
           padding-left: 40px;
           padding-right: 40px;
           .title-form {

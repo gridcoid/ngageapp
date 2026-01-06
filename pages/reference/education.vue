@@ -3,13 +3,13 @@
     <div class="flex items-center header-content">
       <div class="title-header">
         <i class="ti ti-education-bieducation text-gray-400 mr-2"></i>
-        Educations
+        Education Levels
       </div>
     </div>
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        View the list of educations available in the system.
+        View the list of education levels available in the system.
       </div>
     </div>
 
