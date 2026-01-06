@@ -155,7 +155,7 @@ export default {
               this.messageError =
                 res?.data?.data?.errors
                   ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to update widget'
+                  .join(', ') || 'Failed to update segment'
 
               this.$notifier.showMessage({
                 content: 'Segment update failed!',
