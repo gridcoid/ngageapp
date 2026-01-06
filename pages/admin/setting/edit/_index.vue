@@ -27,7 +27,13 @@
 
           <el-form-item class="title-form" prop="value">
             <label slot="label" class="title-form">Value<Req /></label>
+
+            <!-- Boolean → switch -->
+            <el-switch v-if="isBoolean" v-model="valueBoolean" />
+
+            <!-- Otherwise → textarea -->
             <el-input
+              v-else
               v-model="data.value"
               type="textarea"
               :rows="2"
@@ -132,6 +138,7 @@ export default {
       isLoading: false,
       showMessage: false,
       messageError: '',
+      valueBoolean: false,
 
       data: {
         id: null,
@@ -152,6 +159,15 @@ export default {
     ...mapState({
       dataDetail: (state) => state.setting.dataDetail,
     }),
+    // decide when to show switch
+    isBoolean() {
+      return (
+        this.data.value === true ||
+        this.data.value === false ||
+        this.data.value === 'true' ||
+        this.data.value === 'false'
+      )
+    },
   },
 
   methods: {
@@ -167,6 +183,11 @@ export default {
     save() {
       this.showMessage = false
       this.messageError = ''
+
+      // if boolean UI is active, sync to string value first
+      if (this.isBoolean) {
+        this.data.value = this.valueBoolean ? 'true' : 'false'
+      }
 
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
@@ -224,6 +245,14 @@ export default {
         this.data.value = val.value
         this.data.description = val.description
       }
+    },
+    // when editing existing data, sync into valueBoolean
+    'data.value': {
+      immediate: true,
+      handler(v) {
+        if (v === true || v === 'true') this.valueBoolean = true
+        if (v === false || v === 'false') this.valueBoolean = false
+      },
     },
   },
 }
