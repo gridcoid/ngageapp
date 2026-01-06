@@ -642,6 +642,7 @@ export default {
   async mounted() {
     this.getSegments()
     await this.getProvince()
+    this.getEducation()
     this.getGender()
     this.getReligion()
     this.getContactType()

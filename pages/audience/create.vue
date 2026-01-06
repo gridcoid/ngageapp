@@ -636,6 +636,7 @@ export default {
   mounted() {
     this.getSegments()
     this.getProvince()
+    this.getEducation()
     this.getGender()
     this.getReligion()
     this.getContactType()
