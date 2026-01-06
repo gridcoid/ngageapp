@@ -68,10 +68,10 @@
                   <div>
                     <label
                       class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                      >Gender</label
+                      >Education</label
                     >
                     <div class="text-gray-900">
-                      {{ getGenderName(data.genderId) }}
+                      {{ getEducationName(data.educationId) }}
                     </div>
                   </div>
                   <div>
@@ -82,6 +82,21 @@
                     <div class="text-gray-900">
                       {{ getReligionName(data.religionId) }}
                     </div>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                      >Gender</label
+                    >
+                    <div class="text-gray-900">
+                      {{ getGenderName(data.genderId) }}
+                    </div>
+                  </div>
+                  <div>
+                    <!--  -->
                   </div>
                 </div>
               </div>
@@ -321,6 +336,7 @@ export default {
         name: '',
         dateOfBirth: null,
         yearOfBirth: null,
+        educationId: null,
         genderId: null,
         religionId: null,
         provinceCode: null,
@@ -343,6 +359,7 @@ export default {
       dataDistricts: (state) => state.district.dataList,
       dataVillages: (state) => state.village.dataList,
 
+      dataEducations: (state) => state.education.dataList,
       dataGenders: (state) => state.gender.dataList,
       dataReligions: (state) => state.religion.dataList,
 
@@ -351,6 +368,7 @@ export default {
   },
   async mounted() {
     await this.getProvince()
+    this.getEducation()
     this.getGender()
     this.getReligion()
     this.getContactType()
@@ -364,6 +382,14 @@ export default {
         .dispatch('audience/detail', {
           uuid: this.$route.params.index,
         })
+        .finally(() => (this.isLoading = false))
+    },
+
+    getEducation() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('education/list')
         .finally(() => (this.isLoading = false))
     },
 
@@ -423,6 +449,12 @@ export default {
       })
     },
 
+    getEducationName(id) {
+      if (!id) return '-'
+      const item = this.dataEducations.find((x) => x.id === id)
+      return item ? item.name : '-'
+    },
+
     getGenderName(id) {
       if (!id) return '-'
       const item = this.dataGenders.find((x) => x.id === id)
@@ -479,6 +511,7 @@ export default {
         this.data.dateOfBirth = val.dateOfBirth
         this.data.yearOfBirth = val.yearOfBirth
 
+        this.data.educationId = val.educationId
         this.data.genderId = val.genderId
         this.data.religionId = val.religionId
 

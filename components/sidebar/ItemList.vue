@@ -232,6 +232,11 @@ export default {
                 icon: 'ti ti-gender-bigender',
               },
               {
+                path: '/reference/education',
+                name: 'Educations',
+                icon: 'ti ti-school',
+              },
+              {
                 path: '/reference/religion',
                 name: 'Religions',
                 icon: 'ti ti-building-mosque',

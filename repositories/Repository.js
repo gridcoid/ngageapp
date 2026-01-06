@@ -11,6 +11,7 @@ import RegencyRepository from '~/repositories/regencyRepository'
 import DistrictRepository from '~/repositories/districtRepository'
 import VillageRepository from '~/repositories/villageRepository'
 import GenderRepository from '~/repositories/genderRepository'
+import EducationRepository from '~/repositories/educationRepository'
 import ReligionRepository from '~/repositories/religionRepository'
 import ContactTypeRepository from '~/repositories/contactTypeRepository'
 import ApiKeyRepository from '~/repositories/apiKeyRepository'
@@ -33,6 +34,7 @@ export default ($axios) => ({
   district: DistrictRepository($axios),
   village: VillageRepository($axios),
   gender: GenderRepository($axios),
+  education: EducationRepository($axios),
   religion: ReligionRepository($axios),
   contactType: ContactTypeRepository($axios),
   apiKey: ApiKeyRepository($axios),

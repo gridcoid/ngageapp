@@ -16,8 +16,8 @@
     </div>
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Discover and manage different audience groups to tailor your campaigns
-        effectively.
+        Discover and manage different audience groups or contact lists to tailor
+        your campaigns effectively.
       </div>
       <div class="flex items-center">
         <button

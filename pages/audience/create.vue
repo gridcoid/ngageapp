@@ -55,6 +55,25 @@
             />
           </el-form-item>
 
+          <!-- Education -->
+          <el-form-item class="title-form" prop="educationId">
+            <label slot="label" class="title-form">Education</label>
+            <el-select
+              v-model="data.educationId"
+              placeholder="Select education"
+              class="w-full"
+              filterable
+              clearable
+            >
+              <el-option
+                v-for="item in dataEducations"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              />
+            </el-select>
+          </el-form-item>
+
           <!-- Gender -->
           <el-form-item class="title-form" prop="genderId">
             <label slot="label" class="title-form">Gender</label>
@@ -186,7 +205,7 @@
 
           <!-- Contact Info -->
           <div class="mb-4">
-            <label class="title-form block mb-2">Contact Info</label>
+            <label class="title-form block mb-2">Contact Info<Req /></label>
             <div
               v-for="(contact, index) in contactsList"
               :key="'contact-' + index"
@@ -507,6 +526,14 @@ export default {
           },
         ],
 
+        // EDUCATION — positive integer (optional)
+        educationId: [
+          {
+            validator: positiveIntegerValidator,
+            trigger: 'change',
+          },
+        ],
+
         // GENDER — positive integer (optional)
         genderId: [
           {
@@ -573,6 +600,7 @@ export default {
         name: '',
         dateOfBirth: null,
         yearOfBirth: null,
+        educationId: null,
         genderId: null,
         religionId: null,
         provinceCode: null,
@@ -598,6 +626,7 @@ export default {
       dataDistricts: (state) => state.district.dataList,
       dataVillages: (state) => state.village.dataList,
 
+      dataEducations: (state) => state.education.dataList,
       dataGenders: (state) => state.gender.dataList,
       dataReligions: (state) => state.religion.dataList,
 
@@ -635,7 +664,27 @@ export default {
     },
 
     addContact() {
-      this.contactsList.push({ typeId: null, value: '', label: '' })
+      const has1 = this.contactsList.some((c) => c.typeId === 1)
+      const has2 = this.contactsList.some((c) => c.typeId === 2)
+
+      let nextTypeId
+
+      if (this.contactsList.length === 0) {
+        nextTypeId = 1
+      } else if (has1 && !has2) {
+        nextTypeId = 2
+      } else if (!has1 && has2) {
+        nextTypeId = 1
+      } else {
+        // both 1 and 2 already exist — fallback (keeps form usable)
+        nextTypeId = 1
+      }
+
+      this.contactsList.push({
+        typeId: nextTypeId,
+        value: '',
+        label: '',
+      })
     },
     removeContact(index) {
       this.contactsList.splice(index, 1)
@@ -655,17 +704,60 @@ export default {
 
       this.additionalInfoList.forEach((item) => {
         if (item.key && item.key.trim() !== '') {
-          info[item.key] = item.value
+          info[item.key.trim()] = item.value
         }
       })
 
-      this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
-      this.data.segmentIds = this.segmentsList.filter((s) => s !== null)
+      // ---- ensure unique segmentIds ----
+      const filteredSegments = this.segmentsList.filter((s) => s !== null)
+      const uniqueSegments = [...new Set(filteredSegments)]
 
-      this.data.contacts = this.contactsList.filter(
+      if (filteredSegments.length !== uniqueSegments.length) {
+        this.showMessage = true
+        this.messageError = 'Segment must be unique'
+        return
+      }
+
+      this.data.segmentIds = uniqueSegments
+
+      // ---- ensure additionalInfo keys are unique ----
+      const keys = this.additionalInfoList
+        .filter((item) => item.key && item.key.trim() !== '')
+        .map((item) => item.key.trim().toLowerCase())
+
+      if (new Set(keys).size !== keys.length) {
+        this.showMessage = true
+        this.messageError = 'Additional info key must be unique'
+        return
+      }
+
+      this.data.additionalInfo = Object.keys(info).length > 0 ? info : null
+
+      // ---- ensure unique contact typeId ----
+      const contacts = this.contactsList.filter(
         (c) => c.typeId !== null && c.value !== ''
       )
 
+      const typeIds = contacts.map((c) => c.typeId)
+      if (new Set(typeIds).size !== typeIds.length) {
+        this.showMessage = true
+        this.messageError = 'Contact type must be unique'
+        return
+      }
+
+      // ---- ensure email (typeId = 1) exists and is valid ----
+      const emailContact = contacts.find((c) => c.typeId === 1)
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+      if (!emailContact || !emailRegex.test(emailContact.value.trim())) {
+        this.showMessage = true
+        this.messageError = 'A valid email is required'
+        return
+      }
+
+      this.data.contacts = contacts
+
+      // ---- continue as usual ----
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
 
@@ -709,6 +801,14 @@ export default {
             this.isLoading = false
           })
       })
+    },
+
+    getEducation() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('education/list')
+        .finally(() => (this.isLoading = false))
     },
 
     getGender() {
