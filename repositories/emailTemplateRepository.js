@@ -9,6 +9,14 @@ export default ($axios) => ({
     )
   },
 
+  // email-template:mailjetList
+  mailjetList(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(
+      `${resource}/mailjet-list?orgId=${orgId}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`
+    )
+  },
+
   // email-template:create
   create(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId

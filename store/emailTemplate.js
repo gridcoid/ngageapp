@@ -75,6 +75,25 @@ export const actions = {
     }
   },
 
+  // emailTemplate:mailjetList
+  async mailjetList({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailTemplate.mailjetList(
+        payload
+      )
+      commit('SET_DATA_LIST', response.data.data)
+      return response
+    } catch (e) {
+      commit('SET_DATA_LIST', null)
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
   // emailTemplate:create
   async create({ commit }, payload) {
     try {
