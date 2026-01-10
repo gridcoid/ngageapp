@@ -209,7 +209,7 @@ export default {
         this.isLoading = true
 
         this.$store
-          .dispatch('mailjetCampaign/create', this.data)
+          .dispatch('emailCampaign/create', this.data)
           .then((res) => {
             if (res.status === 200) {
               this.$router.push({ path: '/direct/campaign/email' })

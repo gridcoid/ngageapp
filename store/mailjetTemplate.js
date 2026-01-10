@@ -8,6 +8,8 @@ export const state = initialState
 
 export const getters = {
   dataList: (state) => state.dataList,
+  dataCreate: (state) => state.dataCreate,
+  dataDetail: (state) => state.dataDetail,
 }
 
 export const mutations = {
@@ -15,17 +17,6 @@ export const mutations = {
     Object.assign(state, initialState())
   },
   SET_DATA_LIST(state, item) {
-    if (Array.isArray(item) && item.length > 0) {
-      state.dataList = item
-      state.totalList = item.length
-      state.totalPages = 1
-    } else {
-      state.dataList = []
-      state.totalList = 0
-      state.totalPages = 0
-    }
-  },
-  SET_DATA_MAILJET_LIST(state, item) {
     if (item !== null) {
       state.dataList = item.rows
       state.totalList = item.totalRows
@@ -36,6 +27,27 @@ export const mutations = {
       state.totalPages = 0
     }
   },
+  SET_DATA_ALL(state, item) {
+    if (item !== null) {
+      state.dataList = item
+    } else {
+      state.dataList = []
+    }
+  },
+  SET_DATA_CREATE(state, item) {
+    if (item !== null) {
+      state.dataCreate = item
+    } else {
+      state.dataCreate = []
+    }
+  },
+  SET_DATA_DETAIL(state, item) {
+    if (item !== null) {
+      state.dataDetail = item
+    } else {
+      state.dataDetail = {}
+    }
+  },
 }
 
 export const actions = {
@@ -43,10 +55,10 @@ export const actions = {
     commit('RESET')
   },
 
-  // mailjet-sender:all
-  async all({ commit }) {
+  // mailjetTemplate:list
+  async list({ commit }, payload) {
     try {
-      const response = await this.$repositories.mailjetCampaign.all()
+      const response = await this.$repositories.mailjetTemplate.list(payload)
       commit('SET_DATA_LIST', response.data.data)
       return response
     } catch (e) {
@@ -60,14 +72,12 @@ export const actions = {
     }
   },
 
-  // mailjet-campaign:list
-  async list({ commit }, payload) {
+  // mailjetTemplate:delete
+  async delete({ commit }, payload) {
     try {
-      const response = await this.$repositories.mailjetCampaign.list(payload)
-      commit('SET_DATA_MAILJET_LIST', response.data.data)
+      const response = await this.$repositories.mailjetTemplate.delete(payload)
       return response
     } catch (e) {
-      commit('SET_DATA_MAILJET_LIST', null)
       console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + (e.response?.status || 'Unknown'),

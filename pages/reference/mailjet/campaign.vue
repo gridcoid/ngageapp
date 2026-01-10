@@ -2,8 +2,7 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-template text-gray-400 mr-2"></i> Mailjet Email
-        Templates
+        <i class="ti ti-template text-gray-400 mr-2"></i> Mailjet Campaigns
       </div>
     </div>
 
@@ -25,7 +24,7 @@
         fit
         lazy
         stripe
-        :data="dataEmailTemplates"
+        :data="dataMailjetCampaigns"
         class="w-full k-table"
       >
         <!-- padding -->
@@ -45,24 +44,6 @@
           <template slot-scope="scope">
             <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.Name }}
-            </div>
-          </template>
-        </el-table-column>
-
-        <!-- author -->
-        <el-table-column label="Author" width="120" sortable>
-          <template slot-scope="scope">
-            <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.Author }}
-            </div>
-          </template>
-        </el-table-column>
-
-        <!-- description -->
-        <el-table-column label="Description">
-          <template slot-scope="scope">
-            <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.Description }}
             </div>
           </template>
         </el-table-column>
@@ -110,11 +91,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'MailjetTemplatePage',
+  name: 'MailjetCampaignPage',
   layout: 'default',
   head() {
     return {
-      title: 'Mailjet Template - ' + this.$config.appName,
+      title: 'Mailjet Campaign - ' + this.$config.appName,
     }
   },
   data() {
@@ -131,9 +112,9 @@ export default {
   computed: {
     ...mapState({
       sidebar: (state) => state.user.sidebar,
-      dataEmailTemplates: (state) => state.emailTemplate.dataList,
-      totalList: (state) => state.emailTemplate.totalList,
-      totalPages: (state) => state.emailTemplate.totalPages,
+      dataMailjetCampaigns: (state) => state.mailjetCampaign.dataList,
+      totalList: (state) => state.mailjetCampaign.totalList,
+      totalPages: (state) => state.mailjetCampaign.totalPages,
     }),
   },
   mounted() {
@@ -151,7 +132,7 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('mailjetTemplate/list', data).finally(() => {
+      this.$store.dispatch('mailjetCampaign/list', data).finally(() => {
         this.isLoading = false
       })
     },
@@ -181,7 +162,7 @@ export default {
           })
 
           this.$store
-            .dispatch('mailjetTemplate/delete', {
+            .dispatch('mailjetCampaign/delete', {
               ID: data.ID,
             })
             .then((res) => {
@@ -215,8 +196,8 @@ export default {
         this.tableVisible = true
       })
     },
-    dataEmailTemplates(val) {
-      // console.log(val)
+    dataMailjetCampaigns(val) {
+      console.log(val)
       // sample data:
       /*
       [

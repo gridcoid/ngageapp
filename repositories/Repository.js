@@ -19,11 +19,14 @@ import SheetRepository from '~/repositories/sheetRepository'
 import QueryRepository from '~/repositories/queryRepository'
 import DashboardRepository from '~/repositories/dashboardRepository'
 import SettingRepository from '~/repositories/settingRepository'
+
 import EmailTemplateRepository from '~/repositories/emailTemplateRepository'
+import EmailCampaignRepository from '~/repositories/emailCampaignRepository'
 
 import MailjetContactListRepository from '~/repositories/mailjetContactListRepository'
 import MailjetContactRepository from '~/repositories/mailjetContactRepository'
 import MailjetCampaignRepository from '~/repositories/mailjetCampaignRepository'
+import MailjetTemplateRepository from '~/repositories/mailjetTemplateRepository'
 import MailjetSenderRepository from '~/repositories/mailjetSenderRepository'
 
 export default ($axios) => ({
@@ -48,10 +51,13 @@ export default ($axios) => ({
   query: QueryRepository($axios),
   dashboard: DashboardRepository($axios),
   setting: SettingRepository($axios),
+
   emailTemplate: EmailTemplateRepository($axios),
+  emailCampaign: EmailCampaignRepository($axios),
 
   mailjetContactList: MailjetContactListRepository($axios),
   mailjetContact: MailjetContactRepository($axios),
   mailjetCampaign: MailjetCampaignRepository($axios),
+  mailjetTemplate: MailjetTemplateRepository($axios),
   mailjetSender: MailjetSenderRepository($axios),
 })

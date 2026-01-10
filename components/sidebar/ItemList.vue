@@ -216,6 +216,12 @@ export default {
 
                 children: [
                   {
+                    path: '/reference/mailjet/campaign',
+                    name: 'Campaigns',
+                    type: 'single',
+                    icon: 'ti ti-template',
+                  },
+                  {
                     path: '/reference/mailjet/contact-list',
                     name: 'Contact Lists',
                     type: 'single',
