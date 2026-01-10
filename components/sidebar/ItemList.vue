@@ -212,7 +212,7 @@ export default {
                     path: '/admin/mailjet/sender',
                     name: 'Senders',
                     type: 'single',
-                    icon: 'ti ti-users',
+                    icon: 'ti ti-mailbox',
                   },
                 ],
               },

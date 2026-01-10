@@ -2,7 +2,8 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-send text-gray-400 mr-2"></i> Mailjet Email Templates
+        <i class="ti ti-template text-gray-400 mr-2"></i> Mailjet Email
+        Templates
       </div>
     </div>
 
@@ -30,7 +31,7 @@
         <el-table-column label="" width="10" />
 
         <!-- id -->
-        <el-table-column label="ID" width="120" sortable>
+        <el-table-column label="ID" width="150" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-base text-sm text-gray-400 font-mono">
               {{ scope.row.ID }}
