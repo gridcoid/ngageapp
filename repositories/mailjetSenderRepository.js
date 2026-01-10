@@ -6,4 +6,12 @@ export default ($axios) => ({
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(`${resource}?orgId=${orgId}`)
   },
+
+  // mailjet-sender:paginatedList
+  paginatedList(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(
+      `${resource}/paginated-list?orgId=${orgId}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`
+    )
+  },
 })

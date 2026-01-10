@@ -20,6 +20,17 @@ export const mutations = {
     Object.assign(state, initialState())
   },
   SET_DATA_LIST(state, item) {
+    if (Array.isArray(item) && item.length > 0) {
+      state.dataList = item
+      state.totalList = item.length
+      state.totalPages = 1
+    } else {
+      state.dataList = []
+      state.totalList = 0
+      state.totalPages = 0
+    }
+  },
+  SET_DATA_MAILJET_LIST(state, item) {
     if (item !== null) {
       state.dataList = item.rows
       state.totalList = item.totalRows
@@ -81,10 +92,10 @@ export const actions = {
       const response = await this.$repositories.emailTemplate.mailjetList(
         payload
       )
-      commit('SET_DATA_LIST', response.data.data)
+      commit('SET_DATA_MAILJET_LIST', response.data.data)
       return response
     } catch (e) {
-      commit('SET_DATA_LIST', null)
+      commit('SET_DATA_MAILJET_LIST', null)
       console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + (e.response?.status || 'Unknown'),

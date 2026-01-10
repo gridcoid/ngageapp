@@ -196,11 +196,27 @@ export default {
                 icon: 'ti ti-key',
               },
               {
-                path: '/admin/mailjet-template',
-                name: 'Mailjet Templates',
-                type: 'single',
+                path: '',
+                name: 'Mailjet',
+                type: 'multiple',
                 icon: 'ti ti-send',
+
+                children: [
+                  {
+                    path: '/admin/mailjet/template',
+                    name: 'Templates',
+                    type: 'single',
+                    icon: 'ti ti-template',
+                  },
+                  {
+                    path: '/admin/mailjet/sender',
+                    name: 'Senders',
+                    type: 'single',
+                    icon: 'ti ti-users',
+                  },
+                ],
               },
+
               {
                 path: '/admin/setting',
                 name: 'Settings',

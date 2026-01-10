@@ -25,6 +25,17 @@ export const mutations = {
       state.totalPages = 0
     }
   },
+  SET_DATA_MAILJET_LIST(state, item) {
+    if (item !== null) {
+      state.dataList = item.rows
+      state.totalList = item.totalRows
+      state.totalPages = item.totalPages
+    } else {
+      state.dataList = []
+      state.totalList = 0
+      state.totalPages = 0
+    }
+  },
 }
 
 export const actions = {
@@ -40,6 +51,25 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_LIST', null)
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // mailjet-sender:paginatedList
+  async paginatedList({ commit }, payload) {
+    try {
+      const response = await this.$repositories.mailjetSender.paginatedList(
+        payload
+      )
+      commit('SET_DATA_MAILJET_LIST', response.data.data)
+      return response
+    } catch (e) {
+      commit('SET_DATA_MAILJET_LIST', null)
       console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + (e.response?.status || 'Unknown'),

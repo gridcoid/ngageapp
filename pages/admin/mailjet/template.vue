@@ -30,7 +30,7 @@
         <el-table-column label="" width="10" />
 
         <!-- id -->
-        <el-table-column label="ID" width="100" sortable>
+        <el-table-column label="ID" width="120" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-base text-sm text-gray-400 font-mono">
               {{ scope.row.ID }}
@@ -256,4 +256,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped src="../reference/shared.scss" />
+<style lang="scss" scoped src="../../reference/shared.scss" />
