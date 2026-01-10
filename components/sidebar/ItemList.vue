@@ -235,7 +235,7 @@ export default {
                   },
                   {
                     path: '/reference/mailjet/sender',
-                    name: 'Senders',
+                    name: 'Email Senders',
                     type: 'single',
                     icon: 'ti ti-mailbox',
                   },

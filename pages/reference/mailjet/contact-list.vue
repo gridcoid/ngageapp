@@ -2,16 +2,16 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-id-badge-2 text-gray-400 mr-2"></i> Mailjet Contact
-        Lists
+        <i class="ti ti-folder text-gray-400 mr-2"></i> Mailjet Contact Lists
       </div>
     </div>
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
         List of mailjet contact lists.
-        <i class="ti ti-alert-triangle text-red-500"></i> Do not delete unless
-        you know what you’re doing.
+        <i class="ti ti-alert-triangle text-red-500"></i>
+        <span class="text-red-500">Do not delete</span> unless you know what
+        you’re doing.
       </div>
     </div>
 
