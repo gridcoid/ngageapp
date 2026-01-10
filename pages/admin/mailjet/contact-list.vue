@@ -51,8 +51,9 @@
         <!-- address -->
         <el-table-column label="Address" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-mono text-sm text-gray-700">
-              {{ scope.row.Address }}
+            <div class="font-cabin text-sm text-gray-700">
+              <span class="font-mono">{{ scope.row.Address }}</span>
+              <span class="text-gray-400">@lists.mailjet.com</span>
             </div>
           </template>
         </el-table-column>
@@ -60,7 +61,7 @@
         <!-- subscriber count -->
         <el-table-column label="Subscriber Count" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin text-sm text-gray-700">
+            <div class="font-cabin text-sm text-gray-700 text-sm">
               {{ scope.row.SubscriberCount }}
             </div>
           </template>
