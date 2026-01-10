@@ -142,7 +142,7 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('mailjetSender/paginatedList', data).finally(() => {
+      this.$store.dispatch('mailjetSender/list', data).finally(() => {
         this.isLoading = false
       })
     },

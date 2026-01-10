@@ -60,12 +60,10 @@ export const actions = {
     }
   },
 
-  // mailjet-sender:paginatedList
-  async paginatedList({ commit }, payload) {
+  // mailjet-sender:list
+  async list({ commit }, payload) {
     try {
-      const response = await this.$repositories.mailjetSender.paginatedList(
-        payload
-      )
+      const response = await this.$repositories.mailjetSender.list(payload)
       commit('SET_DATA_MAILJET_LIST', response.data.data)
       return response
     } catch (e) {
