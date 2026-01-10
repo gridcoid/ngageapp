@@ -216,7 +216,7 @@ export default {
                   },
                   {
                     path: '/admin/mailjet/template',
-                    name: 'Templates',
+                    name: 'Email Templates',
                     type: 'single',
                     icon: 'ti ti-template',
                   },
