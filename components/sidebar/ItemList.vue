@@ -196,6 +196,12 @@ export default {
                 icon: 'ti ti-key',
               },
               {
+                path: '/admin/mailjet-template',
+                name: 'Mailjet Templates',
+                type: 'single',
+                icon: 'ti ti-send',
+              },
+              {
                 path: '/admin/setting',
                 name: 'Settings',
                 type: 'single',

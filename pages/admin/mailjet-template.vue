@@ -2,14 +2,15 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-send text-gray-400 mr-2"></i> Mailjet Email Template
+        <i class="ti ti-send text-gray-400 mr-2"></i> Mailjet Email Templates
       </div>
     </div>
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        List of mailjet email templates. ⚠️ Do not delete unless you know what
-        you’re doing.
+        List of mailjet email templates.
+        <i class="ti ti-alert-triangle text-red-500"></i> Do not delete unless
+        you know what you’re doing.
       </div>
     </div>
 
@@ -74,7 +75,7 @@
               @click="deleteTemplate(scope.row)"
             >
               <!-- icon trash -->
-              <i class="ti ti-trash"></i>
+              <i class="ti ti-alert-triangle"></i>
               Delete
             </el-button>
           </template>
@@ -255,4 +256,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped src="../../../reference/shared.scss" />
+<style lang="scss" scoped src="../reference/shared.scss" />
