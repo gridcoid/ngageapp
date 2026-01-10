@@ -43,7 +43,16 @@
         <el-table-column label="Name" sortable>
           <template slot-scope="scope">
             <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.Name }}
+              {{ getListName(scope.row.Name) }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- code -->
+        <el-table-column label="Code">
+          <template slot-scope="scope">
+            <div class="font-cabin text-sm text-gray-700">
+              {{ getListCode(scope.row.Name) }}
             </div>
           </template>
         </el-table-column>
@@ -207,6 +216,20 @@ export default {
         .catch(() => {
           this.$store.commit('user/SET_DROPDOWN', null)
         })
+    },
+
+    getListName(text) {
+      const match = text.match(
+        /^(.+?)\s+(\{[a-z]+\.[a-z]+\.org\.[1-9][0-9]*\})$/
+      )
+      return match && match[1] ? match[1] : text
+    },
+
+    getListCode(text) {
+      const match = text.match(
+        /^(.+?)\s+(\{[a-z]+\.[a-z]+\.org\.[1-9][0-9]*\})$/
+      )
+      return match && match[2] ? match[2].replace(/[{}]/g, '') : ''
     },
   },
   watch: {
