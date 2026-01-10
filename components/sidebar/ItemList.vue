@@ -181,7 +181,6 @@ export default {
             name: 'Administration',
             type: 'multiple',
             icon: 'ti ti-adjustments',
-
             children: [
               {
                 path: '/admin/query',
@@ -196,40 +195,6 @@ export default {
                 icon: 'ti ti-key',
               },
               {
-                path: '',
-                name: 'Mailjet',
-                type: 'multiple',
-                icon: 'ti ti-send',
-
-                children: [
-                  {
-                    path: '/admin/mailjet/contact-list',
-                    name: 'Contact Lists',
-                    type: 'single',
-                    icon: 'ti ti-folder',
-                  },
-                  {
-                    path: '/admin/mailjet/contact',
-                    name: 'Contacts',
-                    type: 'single',
-                    icon: 'ti ti-id-badge-2',
-                  },
-                  {
-                    path: '/admin/mailjet/template',
-                    name: 'Email Templates',
-                    type: 'single',
-                    icon: 'ti ti-template',
-                  },
-                  {
-                    path: '/admin/mailjet/sender',
-                    name: 'Senders',
-                    type: 'single',
-                    icon: 'ti ti-mailbox',
-                  },
-                ],
-              },
-
-              {
                 path: '/admin/setting',
                 name: 'Settings',
                 type: 'single',
@@ -242,8 +207,40 @@ export default {
             name: 'Reference',
             type: 'multiple',
             icon: 'ti ti-book',
-
             children: [
+              {
+                path: '',
+                name: 'Mailjet',
+                type: 'multiple',
+                icon: 'ti ti-send',
+
+                children: [
+                  {
+                    path: '/reference/mailjet/contact-list',
+                    name: 'Contact Lists',
+                    type: 'single',
+                    icon: 'ti ti-folder',
+                  },
+                  {
+                    path: '/reference/mailjet/contact',
+                    name: 'Contacts',
+                    type: 'single',
+                    icon: 'ti ti-id-badge-2',
+                  },
+                  {
+                    path: '/reference/mailjet/template',
+                    name: 'Email Templates',
+                    type: 'single',
+                    icon: 'ti ti-template',
+                  },
+                  {
+                    path: '/reference/mailjet/sender',
+                    name: 'Senders',
+                    type: 'single',
+                    icon: 'ti ti-mailbox',
+                  },
+                ],
+              },
               {
                 path: '/reference/contact-type',
                 name: 'Contact Types',
