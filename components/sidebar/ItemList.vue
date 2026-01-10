@@ -83,7 +83,6 @@ export default {
             name: 'Direct Channels',
             type: 'multiple',
             icon: 'ti ti-direction-sign',
-
             children: [
               {
                 path: '',
@@ -112,10 +111,18 @@ export default {
                 ],
               },
               {
-                path: '/direct/campaign/email/create',
-                name: 'Email Templates',
-                type: 'single',
+                path: '',
+                name: 'Templates',
+                type: 'multiple',
                 icon: 'ti ti-geometry',
+                children: [
+                  {
+                    path: '/direct/template/email/create',
+                    name: 'E-mail',
+                    type: 'single',
+                    icon: 'ti ti-template',
+                  },
+                ],
               },
               {
                 path: '/direct/segment',
@@ -136,7 +143,6 @@ export default {
             name: 'Placement',
             type: 'multiple',
             icon: 'ti ti-vector',
-
             children: [
               {
                 path: '/placement/running',
