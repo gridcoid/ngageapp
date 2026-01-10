@@ -6,7 +6,7 @@
         <img :src="logoN" alt="n-gage" class="logo-img-small" />
         <div class="card-login">
           <span v-if="!isLoading">
-            <div class="header-4 text-blue-600">Getting Started</div>
+            <div class="header-4" style="color: #0f73b8">Getting Started</div>
             <div class="subtitle-1 text-gray-400">
               Login with your credentials
             </div>
