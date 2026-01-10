@@ -181,8 +181,8 @@ export default {
       },
 
       placeholders: {
-        subject: 'Your invoice {{var:invoice_number}}',
-        html: '<p>Hello {{var:first_name}}</p>',
+        subject: 'Email Subject',
+        html: '<p>Hello {{var:Name}}</p>',
       },
     }
   },
