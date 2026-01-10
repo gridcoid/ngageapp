@@ -8,7 +8,7 @@
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        List of mailjet contacts.
+        Data shared across all organizations.
         <i class="ti ti-alert-triangle text-red-500"></i>
         <span class="text-red-500">Do not delete</span> unless you know what
         you’re doing.
