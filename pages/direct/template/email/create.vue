@@ -126,12 +126,12 @@
 
 <script>
 export default {
-  name: 'CreateMailjetTemplatePage',
+  name: 'CreateEmailTemplatePage',
   layout: 'default',
 
   head() {
     return {
-      title: 'Create Mailjet Template - ' + this.$config.appName,
+      title: 'Create Email Template - ' + this.$config.appName,
     }
   },
 
@@ -212,10 +212,10 @@ export default {
         this.isLoading = true
 
         this.$store
-          .dispatch('mailjetTemplate/create', payload)
+          .dispatch('emailTemplate/create', payload)
           .then((res) => {
             if (res.status === 200) {
-              this.$router.push({ path: '/direct/mailjet-template' })
+              this.$router.push({ path: '/direct/template/email' })
 
               this.$notifier.showMessage({
                 content: 'Template created.',

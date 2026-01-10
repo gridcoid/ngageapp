@@ -58,10 +58,10 @@ export const actions = {
     commit('RESET')
   },
 
-  // mailjetTemplate:list
+  // emailTemplate:list
   async list({ commit }) {
     try {
-      const response = await this.$repositories.mailjetTemplate.list()
+      const response = await this.$repositories.emailTemplate.list()
       commit('SET_DATA_LIST', response.data.data)
       return response
     } catch (e) {
@@ -75,10 +75,10 @@ export const actions = {
     }
   },
 
-  // mailjetTemplate:create
+  // emailTemplate:create
   async create({ commit }, payload) {
     try {
-      const response = await this.$repositories.mailjetTemplate.create(payload)
+      const response = await this.$repositories.emailTemplate.create(payload)
       commit('SET_DATA_CREATE', response.data.data)
       return response
     } catch (e) {
@@ -92,10 +92,10 @@ export const actions = {
     }
   },
 
-  // mailjetTemplate:detail
+  // emailTemplate:detail
   async detail({ commit }, payload) {
     try {
-      const response = await this.$repositories.mailjetTemplate.detail(payload)
+      const response = await this.$repositories.emailTemplate.detail(payload)
       commit('SET_DATA_DETAIL', response.data.data)
       return response
     } catch (e) {
@@ -109,10 +109,10 @@ export const actions = {
     }
   },
 
-  // mailjetTemplate:update
+  // emailTemplate:update
   async update({ commit }, payload) {
     try {
-      const response = await this.$repositories.mailjetTemplate.update(payload)
+      const response = await this.$repositories.emailTemplate.update(payload)
       return response
     } catch (e) {
       console.error(e)
@@ -124,10 +124,10 @@ export const actions = {
     }
   },
 
-  // mailjetTemplate:delete
+  // emailTemplate:delete
   async delete({ commit }, payload) {
     try {
-      const response = await this.$repositories.mailjetTemplate.delete(payload)
+      const response = await this.$repositories.emailTemplate.delete(payload)
       return response
     } catch (e) {
       console.error(e)
@@ -139,12 +139,10 @@ export const actions = {
     }
   },
 
-  // mailjetTemplate:duplicate
+  // emailTemplate:duplicate
   async duplicate({ commit }, payload) {
     try {
-      const response = await this.$repositories.mailjetTemplate.duplicate(
-        payload
-      )
+      const response = await this.$repositories.emailTemplate.duplicate(payload)
       return response
     } catch (e) {
       console.error(e)

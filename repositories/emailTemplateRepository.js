@@ -1,7 +1,7 @@
-const resource = 'mailjet-template'
+const resource = 'email-template'
 
 export default ($axios) => ({
-  // mailjet-template:list
+  // email-template:list
   list(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
@@ -9,31 +9,31 @@ export default ($axios) => ({
     )
   },
 
-  // mailjet-template:create
+  // email-template:create
   create(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}?orgId=${orgId}`, payload)
   },
 
-  // mailjet-template:detail
+  // email-template:detail
   detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
-  // mailjet-template:update
+  // email-template:update
   update(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.patch(`${resource}/${payload.uuid}?orgId=${orgId}`, payload)
   },
 
-  // mailjet-template:delete
+  // email-template:delete
   delete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
-  // mailjet-template:duplicate
+  // email-template:duplicate
   duplicate(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}/duplicate?orgId=${orgId}`, payload)
