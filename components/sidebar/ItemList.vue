@@ -112,6 +112,12 @@ export default {
                 ],
               },
               {
+                path: '/direct/campaign/email/create',
+                name: 'Email Templates',
+                type: 'single',
+                icon: 'ti ti-geometry',
+              },
+              {
                 path: '/direct/segment',
                 name: 'Segments',
                 type: 'single',

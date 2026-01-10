@@ -42,7 +42,7 @@
               class="w-full"
             >
               <el-option
-                v-for="sender in senders"
+                v-for="sender in dataSenders"
                 :key="sender.ID"
                 :label="`${sender.Name} <${sender.Email}>`"
                 :value="sender.ID"
@@ -60,7 +60,7 @@
               class="w-full"
             >
               <el-option
-                v-for="segment in segments"
+                v-for="segment in dataSegments"
                 :key="segment.id"
                 :label="segment.name"
                 :value="segment.id"
@@ -95,6 +95,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'CreateCampaignPage',
   layout: 'default',
@@ -154,9 +156,6 @@ export default {
       showMessage: false,
       messageError: '',
 
-      senders: [],
-      segments: [],
-
       data: {
         title: '',
         subject: '',
@@ -166,32 +165,33 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      dataSegments: (state) => state.segment.dataList,
+      dataSenders: (state) => state.mailjetSender.dataList,
+    }),
+  },
+
   mounted() {
-    this.fetchSenders()
-    this.fetchSegments()
+    this.getSenders()
+    this.getSegments()
   },
 
   methods: {
-    fetchSenders() {
-      this.$store
-        .dispatch('mailjetSender/all')
-        .then((res) => {
-          this.senders = res?.data?.Data || []
-        })
-        .catch((e) => {
-          console.error(e)
-        })
-    },
+    getSegments() {
+      this.isLoading = true
 
-    fetchSegments() {
       this.$store
         .dispatch('segment/all')
-        .then((res) => {
-          this.segments = res?.data?.data || []
-        })
-        .catch((e) => {
-          console.error(e)
-        })
+        .finally(() => (this.isLoading = false))
+    },
+
+    getSenders() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('mailjetSender/all')
+        .finally(() => (this.isLoading = false))
     },
 
     save() {

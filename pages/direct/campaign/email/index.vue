@@ -275,7 +275,7 @@ export default {
       })
     },
     toCreate() {
-      this.$router.push({ path: '/placement/creative/templates' })
+      this.$router.push({ path: '/direct/campaign/email/create' })
     },
   },
   watch: {
