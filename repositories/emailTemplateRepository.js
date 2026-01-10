@@ -9,14 +9,6 @@ export default ($axios) => ({
     )
   },
 
-  // email-template:mailjetList
-  mailjetList(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(
-      `${resource}/mailjet-list?orgId=${orgId}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`
-    )
-  },
-
   // email-template:create
   create(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
@@ -47,11 +39,17 @@ export default ($axios) => ({
   //   return $axios.post(`${resource}/duplicate?orgId=${orgId}`, payload)
   // },
 
+  // email-template:mailjetList
+  mailjetList(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(
+      `${resource}/mailjet?orgId=${orgId}&page=${payload.page}&size=${payload.size}&sort=${payload.sort}`
+    )
+  },
+
   // email-template:mailjetDelete
   mailjetDelete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.delete(
-      `${resource}/mailjet-delete/${payload.ID}?orgId=${orgId}`
-    )
+    return $axios.delete(`${resource}/mailjet/${payload.ID}?orgId=${orgId}`)
   },
 })

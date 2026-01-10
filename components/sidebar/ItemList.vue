@@ -203,6 +203,12 @@ export default {
 
                 children: [
                   {
+                    path: '/admin/mailjet/contact',
+                    name: 'Contacts',
+                    type: 'single',
+                    icon: 'ti ti-id-badge-2',
+                  },
+                  {
                     path: '/admin/mailjet/template',
                     name: 'Templates',
                     type: 'single',

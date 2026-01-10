@@ -2,14 +2,13 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-template text-gray-400 mr-2"></i> Mailjet Email
-        Templates
+        <i class="ti ti-id-badge-2 text-gray-400 mr-2"></i> Mailjet Contacts
       </div>
     </div>
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        List of mailjet email templates.
+        List of mailjet contacts.
         <i class="ti ti-alert-triangle text-red-500"></i> Do not delete unless
         you know what you’re doing.
       </div>
@@ -24,7 +23,7 @@
         fit
         lazy
         stripe
-        :data="dataEmailTemplates"
+        :data="dataContacts"
         class="w-full k-table"
       >
         <!-- padding -->
@@ -40,7 +39,7 @@
         </el-table-column>
 
         <!-- name -->
-        <el-table-column label="Name" width="300" sortable>
+        <el-table-column label="Name" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-base text-sm text-gray-700">
               {{ scope.row.Name }}
@@ -48,20 +47,38 @@
           </template>
         </el-table-column>
 
-        <!-- author -->
-        <el-table-column label="Author" width="120" sortable>
+        <!-- email -->
+        <el-table-column label="Email" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-base text-sm text-gray-700">
-              {{ scope.row.Author }}
+              {{ scope.row.Email }}
             </div>
           </template>
         </el-table-column>
 
-        <!-- description -->
-        <el-table-column label="Description">
+        <!-- DeliveredCount -->
+        <el-table-column label="Delivered" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-base text-sm text-gray-700">
-              {{ scope.row.Description }}
+              {{ scope.row.DeliveredCount }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- IsExcludedFromCampaigns -->
+        <el-table-column label="Excluded" sortable>
+          <template slot-scope="scope">
+            <div class="font-cabin font-base text-sm text-gray-700">
+              {{ scope.row.IsExcludedFromCampaigns }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- IsSpamComplaining -->
+        <el-table-column label="Spam Complaining" sortable>
+          <template slot-scope="scope">
+            <div class="font-cabin font-base text-sm text-gray-700">
+              {{ scope.row.IsSpamComplaining }}
             </div>
           </template>
         </el-table-column>
@@ -73,7 +90,7 @@
             <el-button
               type="danger"
               size="small"
-              @click="deleteTemplate(scope.row)"
+              @click="deleteContact(scope.row)"
             >
               <!-- icon trash -->
               <i class="ti ti-alert-triangle"></i>
@@ -130,9 +147,9 @@ export default {
   computed: {
     ...mapState({
       sidebar: (state) => state.user.sidebar,
-      dataEmailTemplates: (state) => state.emailTemplate.dataList,
-      totalList: (state) => state.emailTemplate.totalList,
-      totalPages: (state) => state.emailTemplate.totalPages,
+      dataContacts: (state) => state.mailjetContact.dataList,
+      totalList: (state) => state.mailjetContact.totalList,
+      totalPages: (state) => state.mailjetContact.totalPages,
     }),
   },
   mounted() {
@@ -150,7 +167,7 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('emailTemplate/mailjetList', data).finally(() => {
+      this.$store.dispatch('mailjetContact/list', data).finally(() => {
         this.isLoading = false
       })
     },
@@ -167,20 +184,20 @@ export default {
       this.getData()
     },
 
-    deleteTemplate(data) {
-      this.$confirm(`Delete template "${data.Name}"?`, 'Confirmation', {
+    deleteContact(data) {
+      this.$confirm(`Delete email "${data.Email}"?`, 'Confirmation', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete template...',
+            content: 'Delete email...',
             type: 'loading',
           })
 
           this.$store
-            .dispatch('emailTemplate/mailjetDelete', {
+            .dispatch('mailjetContact/delete', {
               ID: data.ID,
             })
             .then((res) => {
@@ -188,13 +205,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete template status success.',
+                  content: 'Delete email status success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete template status failed. Error : ' +
+                    'Delete email status failed. Error : ' +
                     res?.data.data.message,
                   type: 'failed',
                 })
@@ -215,38 +232,25 @@ export default {
         this.tableVisible = true
       })
     },
-    dataEmailTemplates(val) {
+    dataContacts(val) {
       // console.log(val)
       // sample data:
       /*
       [
         {
-          "ID": 2031946,
-          "OwnerId": 1459354,
-          "EditMode": 1,
-          "Name": "Rakun",
-          "Locale": "en_US",
-          "Author": "Grid Story",
-          "Presets": "{\"h1\":{\"fontFamily\":\"Arial\"},\"h2\":{\"fontFamily\":\"Arial\"},\"h3\":{\"fontFamily\":\"Arial\"},\"p\":{\"fontFamily\":\"Arial\"},\"a\":{\"fontFamily\":\"Arial\"}}",
-          "Previews": [
-            170581038
-          ],
-          "OwnerType": "user",
-          "Copyright": "Mailjet",
-          "Description": "",
-          "Purposes": [
-            "marketing"
-          ],
-          "Categories": [
-            "e-commerce"
-          ],
-          "IsStarred": false,
-          "IsTextPartGenerationEnabled": true,
-          "CreatedAt": "2020-12-03T05:21:11Z",
-          "LastUpdatedAt": "2020-12-15T15:12:02Z",
-          "LocaleList": [
-            "en_US"
-          ]
+          "CreatedAt": "2026-01-07T09:32:32Z",
+          "DeliveredCount": 0,
+          "Email": "febe@example.com",
+          "ExclusionFromCampaignsUpdatedAt": "",
+          "ID": 12338756133,
+          "IsExcludedFromCampaigns": false,
+          "IsOptInPending": false,
+          "IsSpamComplaining": false,
+          "LastActivityAt": "",
+          "LastUpdateAt": "",
+          "Name": "Geraldin Febe",
+          "UnsubscribedAt": "",
+          "UnsubscribedBy": ""
         }
       ]
       */

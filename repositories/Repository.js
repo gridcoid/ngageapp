@@ -20,6 +20,8 @@ import QueryRepository from '~/repositories/queryRepository'
 import DashboardRepository from '~/repositories/dashboardRepository'
 import SettingRepository from '~/repositories/settingRepository'
 import EmailTemplateRepository from '~/repositories/emailTemplateRepository'
+
+import MailjetContactRepository from '~/repositories/mailjetContactRepository'
 import MailjetCampaignRepository from '~/repositories/mailjetCampaignRepository'
 import MailjetSenderRepository from '~/repositories/mailjetSenderRepository'
 
@@ -46,6 +48,8 @@ export default ($axios) => ({
   dashboard: DashboardRepository($axios),
   setting: SettingRepository($axios),
   emailTemplate: EmailTemplateRepository($axios),
+
+  mailjetContact: MailjetContactRepository($axios),
   mailjetCampaign: MailjetCampaignRepository($axios),
   mailjetSender: MailjetSenderRepository($axios),
 })
