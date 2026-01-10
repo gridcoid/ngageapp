@@ -395,14 +395,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete query status success.',
+                  content: 'Delete query success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete query status failed. Error : ' +
-                    res?.data.data.message,
+                    'Delete query failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }

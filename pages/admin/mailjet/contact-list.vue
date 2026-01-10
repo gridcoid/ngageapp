@@ -2,13 +2,14 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-id-badge-2 text-gray-400 mr-2"></i> Mailjet Contacts
+        <i class="ti ti-id-badge-2 text-gray-400 mr-2"></i> Mailjet Contact
+        Lists
       </div>
     </div>
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        List of mailjet contacts.
+        List of mailjet contact lists.
         <i class="ti ti-alert-triangle text-red-500"></i> Do not delete unless
         you know what you’re doing.
       </div>
@@ -23,7 +24,7 @@
         fit
         lazy
         stripe
-        :data="dataContacts"
+        :data="dataContactLists"
         class="w-full k-table"
       >
         <!-- padding -->
@@ -47,38 +48,20 @@
           </template>
         </el-table-column>
 
-        <!-- email -->
-        <el-table-column label="Email" sortable>
+        <!-- address -->
+        <el-table-column label="Address" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.Email }}
+            <div class="font-cabin font-mono text-sm text-gray-700">
+              {{ scope.row.Address }}
             </div>
           </template>
         </el-table-column>
 
-        <!-- DeliveredCount -->
-        <el-table-column label="Delivered" sortable>
+        <!-- subscriber count -->
+        <el-table-column label="Subscriber Count" sortable>
           <template slot-scope="scope">
             <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.DeliveredCount }}
-            </div>
-          </template>
-        </el-table-column>
-
-        <!-- IsExcludedFromCampaigns -->
-        <el-table-column label="Excluded" sortable>
-          <template slot-scope="scope">
-            <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.IsExcludedFromCampaigns }}
-            </div>
-          </template>
-        </el-table-column>
-
-        <!-- IsSpamComplaining -->
-        <el-table-column label="Spam Complaining" sortable>
-          <template slot-scope="scope">
-            <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.IsSpamComplaining }}
+              {{ scope.row.SubscriberCount }}
             </div>
           </template>
         </el-table-column>
@@ -90,7 +73,7 @@
             <el-button
               type="danger"
               size="small"
-              @click="deleteContact(scope.row)"
+              @click="deleteContactList(scope.row)"
             >
               <!-- icon trash -->
               <i class="ti ti-alert-triangle"></i>
@@ -126,11 +109,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'MailjetContactPage',
+  name: 'MailjetContactListPage',
   layout: 'default',
   head() {
     return {
-      title: 'Mailjet Contact - ' + this.$config.appName,
+      title: 'Mailjet Contact List - ' + this.$config.appName,
     }
   },
   data() {
@@ -147,9 +130,9 @@ export default {
   computed: {
     ...mapState({
       sidebar: (state) => state.user.sidebar,
-      dataContacts: (state) => state.mailjetContact.dataList,
-      totalList: (state) => state.mailjetContact.totalList,
-      totalPages: (state) => state.mailjetContact.totalPages,
+      dataContactLists: (state) => state.mailjetContactList.dataList,
+      totalList: (state) => state.mailjetContactList.totalList,
+      totalPages: (state) => state.mailjetContactList.totalPages,
     }),
   },
   mounted() {
@@ -167,7 +150,7 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('mailjetContact/list', data).finally(() => {
+      this.$store.dispatch('mailjetContactList/list', data).finally(() => {
         this.isLoading = false
       })
     },
@@ -184,20 +167,20 @@ export default {
       this.getData()
     },
 
-    deleteContact(data) {
-      this.$confirm(`Delete email "${data.Email}"?`, 'Confirmation', {
+    deleteContactList(data) {
+      this.$confirm(`Delete contact list "${data.Name}"?`, 'Confirmation', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete email...',
+            content: 'Delete contact list...',
             type: 'loading',
           })
 
           this.$store
-            .dispatch('mailjetContact/delete', {
+            .dispatch('mailjetContactList/delete', {
               ID: data.ID,
             })
             .then((res) => {
@@ -205,13 +188,14 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete email success.',
+                  content: 'Delete contact list success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete email failed. Error : ' + res?.data.data.message,
+                    'Delete contact list failed. Error : ' +
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }
@@ -231,25 +215,18 @@ export default {
         this.tableVisible = true
       })
     },
-    dataContacts(val) {
+    dataContactLists(val) {
       // console.log(val)
       // sample data:
       /*
       [
         {
-          "CreatedAt": "2026-01-07T09:32:32Z",
-          "DeliveredCount": 0,
-          "Email": "febe@example.com",
-          "ExclusionFromCampaignsUpdatedAt": "",
-          "ID": 12338756133,
-          "IsExcludedFromCampaigns": false,
-          "IsOptInPending": false,
-          "IsSpamComplaining": false,
-          "LastActivityAt": "",
-          "LastUpdateAt": "",
-          "Name": "Geraldin Febe",
-          "UnsubscribedAt": "",
-          "UnsubscribedBy": ""
+          "Address": "lgbnd47y6",
+          "CreatedAt": "2026-01-07T08:33:26Z",
+          "ID": 10566000,
+          "IsDeleted": false,
+          "Name": "Media Entertainment (Local)",
+          "SubscriberCount": 1
         }
       ]
       */

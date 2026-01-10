@@ -975,7 +975,7 @@ export default {
                 this.getAll()
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
-                  content: 'Duplicate placement status success.',
+                  content: 'Duplicate placement success.',
                   type: 'success',
                 })
                 this.dataCampaign = {
@@ -994,7 +994,7 @@ export default {
                 this.countDuplicate = 1
                 this.$notifier.showMessage({
                   content:
-                    'Duplicate placement status failed. Error : ' +
+                    'Duplicate placement failed. Error : ' +
                     res?.data.data.message,
                   type: 'failed',
                 })
@@ -1032,7 +1032,7 @@ export default {
                 this.getAll()
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
-                  content: 'Delete placement status success.',
+                  content: 'Delete placement success.',
                   type: 'success',
                 })
                 clearInterval(sto)
@@ -1047,8 +1047,7 @@ export default {
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
                   content:
-                    'Delete campaign status failed. Error : ' +
-                    res?.data.data.message,
+                    'Delete campaign failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
                 clearInterval(sto)
@@ -1108,8 +1107,7 @@ export default {
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Change campaign status failed. Error : ' +
-                    res?.data.data.message,
+                    'Change campaign failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
                 this.showMessage = true

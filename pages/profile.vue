@@ -426,14 +426,13 @@ export default {
                 this.getDataAll()
 
                 this.$notifier.showMessage({
-                  content: 'Remove user status success.',
+                  content: 'Remove user success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Remove user status failed. Error : ' +
-                    res?.data.data.message,
+                    'Remove user failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }

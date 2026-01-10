@@ -388,14 +388,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Remove audience status success.',
+                  content: 'Remove audience success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Remove audience status failed. Error : ' +
-                    res?.data.data.message,
+                    'Remove audience failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }

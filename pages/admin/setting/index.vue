@@ -337,14 +337,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete setting status success.',
+                  content: 'Delete setting success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete setting status failed. Error : ' +
-                    res?.data.data.message,
+                    'Delete setting failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }

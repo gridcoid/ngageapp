@@ -591,7 +591,7 @@ export default {
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Change placement status failed. Error : ' +
+                    'Change placement failed. Error : ' +
                     res?.data.data.message,
                   type: 'failed',
                 })

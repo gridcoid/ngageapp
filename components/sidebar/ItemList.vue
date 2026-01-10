@@ -203,6 +203,12 @@ export default {
 
                 children: [
                   {
+                    path: '/admin/mailjet/contact-list',
+                    name: 'Contact Lists',
+                    type: 'single',
+                    icon: 'ti ti-folder',
+                  },
+                  {
                     path: '/admin/mailjet/contact',
                     name: 'Contacts',
                     type: 'single',

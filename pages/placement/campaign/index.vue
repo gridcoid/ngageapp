@@ -883,14 +883,13 @@ export default {
                 this.getAll()
 
                 this.$notifier.showMessage({
-                  content: 'Delete campaign status success.',
+                  content: 'Delete campaign success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete campaign status failed. Error : ' +
-                    res?.data.data.message,
+                    'Delete campaign failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }
@@ -1034,15 +1033,14 @@ export default {
               if (res?.data.status.code === 200) {
                 this.getAll()
                 this.$notifier.showMessage({
-                  content: 'Change campaign status success.',
+                  content: 'Change campaign success.',
                   type: 'success',
                 })
                 clearInterval(sto)
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Change campaign status failed. Error : ' +
-                    res?.data.data.message,
+                    'Change campaign failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
                 this.showMessage = true
@@ -1088,7 +1086,7 @@ export default {
               if (res?.data.status.code === 200) {
                 this.getAll()
                 this.$notifier.showMessage({
-                  content: 'Duplicate campaign status success.',
+                  content: 'Duplicate campaign success.',
                   type: 'success',
                 })
                 this.detailCampaign = null
@@ -1102,7 +1100,7 @@ export default {
                 this.countDuplicate = 1
                 this.$notifier.showMessage({
                   content:
-                    'Duplicate campaign status failed. Error : ' +
+                    'Duplicate campaign failed. Error : ' +
                     res?.data.data.message,
                   type: 'failed',
                 })

@@ -356,14 +356,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete api key status success.',
+                  content: 'Delete api key success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete api key status failed. Error : ' +
-                    res?.data.data.message,
+                    'Delete api key failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }

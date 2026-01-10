@@ -328,13 +328,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Duplicate segment status success.',
+                  content: 'Duplicate segment success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Duplicate segment status failed. Error : ' +
+                    'Duplicate segment failed. Error : ' +
                     res?.data.data.message,
                   type: 'failed',
                 })
@@ -368,14 +368,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete segment status success.',
+                  content: 'Delete segment success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete segment status failed. Error : ' +
-                    res?.data.data.message,
+                    'Delete segment failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }

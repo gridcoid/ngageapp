@@ -33,7 +33,7 @@
         <!-- id -->
         <el-table-column label="ID" width="150" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-base text-sm text-gray-400 font-mono">
+            <div class="font-cabin text-sm text-gray-400 font-mono">
               {{ scope.row.ID }}
             </div>
           </template>
@@ -42,7 +42,7 @@
         <!-- name -->
         <el-table-column label="Name" width="300" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-base text-sm text-gray-700">
+            <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.Name }}
             </div>
           </template>
@@ -51,7 +51,7 @@
         <!-- author -->
         <el-table-column label="Author" width="120" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-base text-sm text-gray-700">
+            <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.Author }}
             </div>
           </template>
@@ -60,7 +60,7 @@
         <!-- description -->
         <el-table-column label="Description">
           <template slot-scope="scope">
-            <div class="font-cabin font-base text-sm text-gray-700">
+            <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.Description }}
             </div>
           </template>
@@ -109,11 +109,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'EmailTemplatePage',
+  name: 'MailjetTemplatePage',
   layout: 'default',
   head() {
     return {
-      title: 'Email Template - ' + this.$config.appName,
+      title: 'Mailjet Template - ' + this.$config.appName,
     }
   },
   data() {
@@ -188,14 +188,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete template status success.',
+                  content: 'Delete template success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete template status failed. Error : ' +
-                    res?.data.data.message,
+                    'Delete template failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }

@@ -353,14 +353,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete audience status success.',
+                  content: 'Delete audience success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete audience status failed. Error : ' +
-                    res?.data.data.message,
+                    'Delete audience failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }

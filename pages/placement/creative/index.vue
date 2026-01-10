@@ -787,14 +787,13 @@ export default {
                 this.getAll()
 
                 this.$notifier.showMessage({
-                  content: 'Delete creative status success.',
+                  content: 'Delete creative success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete creative status failed. Error : ' +
-                    res?.data.data.message,
+                    'Delete creative failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }

@@ -30,7 +30,7 @@
         <!-- id -->
         <el-table-column label="ID" width="150" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-base text-sm text-gray-400 font-mono">
+            <div class="font-cabin text-sm text-gray-400 font-mono">
               {{ scope.row.ID }}
             </div>
           </template>
@@ -39,7 +39,7 @@
         <!-- email -->
         <el-table-column label="Email" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-base text-sm text-gray-700">
+            <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.Email }}
             </div>
           </template>
@@ -48,7 +48,7 @@
         <!-- IsDefaultSender -->
         <el-table-column label="Default Sender" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-base text-sm text-gray-700">
+            <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.IsDefaultSender }}
             </div>
           </template>
@@ -57,7 +57,7 @@
         <!-- name -->
         <el-table-column label="Name" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-base text-sm text-gray-700">
+            <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.Name }}
             </div>
           </template>
@@ -66,7 +66,7 @@
         <!-- status -->
         <el-table-column label="Status" sortable>
           <template slot-scope="scope">
-            <div class="font-cabin font-base text-sm text-gray-700">
+            <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.Status }}
             </div>
           </template>
@@ -101,11 +101,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'EmailTemplatePage',
+  name: 'MailjetSenderPage',
   layout: 'default',
   head() {
     return {
-      title: 'Email Template - ' + this.$config.appName,
+      title: 'Mailjet Sender - ' + this.$config.appName,
     }
   },
   data() {
