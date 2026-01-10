@@ -2,13 +2,14 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-mail text-gray-400 mr-2"></i> Email Template
+        <i class="ti ti-send text-gray-400 mr-2"></i> Mailjet Email Template
       </div>
     </div>
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        View the list of email templates available in the system.
+        List of mailjet email templates. ⚠️ Do not delete unless you know what
+        you’re doing.
       </div>
     </div>
 
@@ -60,6 +61,22 @@
             <div class="font-cabin font-base text-sm text-gray-700">
               {{ scope.row.Description }}
             </div>
+          </template>
+        </el-table-column>
+
+        <!-- ACTIONS -->
+        <el-table-column width="120">
+          <template slot-scope="scope">
+            <!-- delete button -->
+            <el-button
+              type="danger"
+              size="small"
+              @click="deleteTemplate(scope.row)"
+            >
+              <!-- icon trash -->
+              <i class="ti ti-trash"></i>
+              Delete
+            </el-button>
           </template>
         </el-table-column>
 
@@ -148,6 +165,47 @@ export default {
     changeRowPage(ev) {
       this.rowPage = ev
       this.getData()
+    },
+
+    deleteTemplate(data) {
+      this.$confirm(`Delete template "${data.Name}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Delete template...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('emailTemplate/mailjetDelete', {
+              ID: data.ID,
+            })
+            .then((res) => {
+              if (res?.data.status.code === 200) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Delete template status success.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Delete template status failed. Error : ' +
+                    res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
   },
   watch: {

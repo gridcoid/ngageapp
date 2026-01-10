@@ -24,26 +24,34 @@ export default ($axios) => ({
   },
 
   // email-template:detail
-  detail(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`${resource}/${payload.uuid}?orgId=${orgId}`)
-  },
+  // detail(payload) {
+  //   const orgId = window.$nuxt.$store.state.user.orgId
+  //   return $axios.get(`${resource}/${payload.uuid}?orgId=${orgId}`)
+  // },
 
   // email-template:update
-  update(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.patch(`${resource}/${payload.uuid}?orgId=${orgId}`, payload)
-  },
+  // update(payload) {
+  //   const orgId = window.$nuxt.$store.state.user.orgId
+  //   return $axios.patch(`${resource}/${payload.uuid}?orgId=${orgId}`, payload)
+  // },
 
   // email-template:delete
-  delete(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
-  },
+  // delete(payload) {
+  //   const orgId = window.$nuxt.$store.state.user.orgId
+  //   return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
+  // },
 
   // email-template:duplicate
-  duplicate(payload) {
+  // duplicate(payload) {
+  //   const orgId = window.$nuxt.$store.state.user.orgId
+  //   return $axios.post(`${resource}/duplicate?orgId=${orgId}`, payload)
+  // },
+
+  // email-template:mailjetDelete
+  mailjetDelete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}/duplicate?orgId=${orgId}`, payload)
+    return $axios.delete(
+      `${resource}/mailjet-delete/${payload.ID}?orgId=${orgId}`
+    )
   },
 })

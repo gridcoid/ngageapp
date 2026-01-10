@@ -112,56 +112,73 @@ export const actions = {
   },
 
   // emailTemplate:detail
-  async detail({ commit }, payload) {
-    try {
-      const response = await this.$repositories.emailTemplate.detail(payload)
-      commit('SET_DATA_DETAIL', response.data.data)
-      return response
-    } catch (e) {
-      commit('SET_DATA_DETAIL', null)
-      console.error(e)
-      this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
-        type: 'failed',
-      })
-      return e.response
-    }
-  },
+  // async detail({ commit }, payload) {
+  //   try {
+  //     const response = await this.$repositories.emailTemplate.detail(payload)
+  //     commit('SET_DATA_DETAIL', response.data.data)
+  //     return response
+  //   } catch (e) {
+  //     commit('SET_DATA_DETAIL', null)
+  //     console.error(e)
+  //     this.$notifier.showMessage({
+  //       content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+  //       type: 'failed',
+  //     })
+  //     return e.response
+  //   }
+  // },
 
   // emailTemplate:update
-  async update({ commit }, payload) {
-    try {
-      const response = await this.$repositories.emailTemplate.update(payload)
-      return response
-    } catch (e) {
-      console.error(e)
-      this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
-        type: 'failed',
-      })
-      return e.response
-    }
-  },
+  // async update({ commit }, payload) {
+  //   try {
+  //     const response = await this.$repositories.emailTemplate.update(payload)
+  //     return response
+  //   } catch (e) {
+  //     console.error(e)
+  //     this.$notifier.showMessage({
+  //       content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+  //       type: 'failed',
+  //     })
+  //     return e.response
+  //   }
+  // },
 
   // emailTemplate:delete
-  async delete({ commit }, payload) {
-    try {
-      const response = await this.$repositories.emailTemplate.delete(payload)
-      return response
-    } catch (e) {
-      console.error(e)
-      this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
-        type: 'failed',
-      })
-      return e.response
-    }
-  },
+  // async delete({ commit }, payload) {
+  //   try {
+  //     const response = await this.$repositories.emailTemplate.delete(payload)
+  //     return response
+  //   } catch (e) {
+  //     console.error(e)
+  //     this.$notifier.showMessage({
+  //       content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+  //       type: 'failed',
+  //     })
+  //     return e.response
+  //   }
+  // },
 
   // emailTemplate:duplicate
-  async duplicate({ commit }, payload) {
+  // async duplicate({ commit }, payload) {
+  //   try {
+  //     const response = await this.$repositories.emailTemplate.duplicate(payload)
+  //     return response
+  //   } catch (e) {
+  //     console.error(e)
+  //     this.$notifier.showMessage({
+  //       content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+  //       type: 'failed',
+  //     })
+  //     return e.response
+  //   }
+  // },
+
+  // emailTemplate:mailjetDelete
+  async mailjetDelete({ commit }, payload) {
     try {
-      const response = await this.$repositories.emailTemplate.duplicate(payload)
+      const response = await this.$repositories.emailTemplate.mailjetDelete(
+        payload
+      )
       return response
     } catch (e) {
       console.error(e)
