@@ -9,7 +9,8 @@
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        View the list of education levels available in the system.
+        View the list of education levels available in the system. Data shared
+        across all organizations.
       </div>
     </div>
 
