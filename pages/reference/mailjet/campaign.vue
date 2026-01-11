@@ -40,7 +40,7 @@
         </el-table-column>
 
         <!-- name -->
-        <el-table-column label="Name" width="300" sortable>
+        <el-table-column label="Name" sortable>
           <template slot-scope="scope">
             <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.Name }}
