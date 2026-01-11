@@ -48,11 +48,11 @@
           </template>
         </el-table-column>
 
-        <!-- code -->
-        <el-table-column label="Code">
+        <!-- Author -->
+        <el-table-column label="Author">
           <template slot-scope="scope">
             <div class="font-cabin text-sm text-gray-700">
-              {{ getListCode(scope.row.Name) }}
+              {{ getListAuthor(scope.row.Name) }}
             </div>
           </template>
         </el-table-column>
@@ -225,7 +225,7 @@ export default {
       return match && match[1] ? match[1] : text
     },
 
-    getListCode(text) {
+    getListAuthor(text) {
       const match = text.match(
         /^(.+?)\s+(\{[a-z]+\.[a-z]+\.org\.[1-9][0-9]*\})$/
       )
