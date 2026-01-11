@@ -8,7 +8,8 @@
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        View the list of mailjet email senders available in the system.
+        Data shared across all organizations. Please login Mailjet for more
+        details.
       </div>
     </div>
 
