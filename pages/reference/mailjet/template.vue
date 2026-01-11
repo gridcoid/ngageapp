@@ -67,6 +67,15 @@
           </template>
         </el-table-column>
 
+        <!-- created at -->
+        <el-table-column label="Created" width="150" sortable>
+          <template slot-scope="scope">
+            <div class="font-cabin text-sm text-gray-700">
+              {{ scope.row.CreatedAt?.split('T')[0] }}
+            </div>
+          </template>
+        </el-table-column>
+
         <!-- ACTIONS -->
         <el-table-column width="120">
           <template slot-scope="scope">
