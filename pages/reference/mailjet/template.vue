@@ -50,7 +50,7 @@
         </el-table-column>
 
         <!-- author -->
-        <el-table-column label="Author" width="120" sortable>
+        <el-table-column label="Author" width="200" sortable>
           <template slot-scope="scope">
             <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.Author }}
