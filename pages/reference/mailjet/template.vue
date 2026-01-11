@@ -25,7 +25,7 @@
         fit
         lazy
         stripe
-        :data="dataEmailTemplates"
+        :data="dataMailjetTemplates"
         class="w-full k-table"
       >
         <!-- padding -->
@@ -131,9 +131,9 @@ export default {
   computed: {
     ...mapState({
       sidebar: (state) => state.user.sidebar,
-      dataEmailTemplates: (state) => state.emailTemplate.dataList,
-      totalList: (state) => state.emailTemplate.totalList,
-      totalPages: (state) => state.emailTemplate.totalPages,
+      dataMailjetTemplates: (state) => state.mailjetTemplate.dataList,
+      totalList: (state) => state.mailjetTemplate.totalList,
+      totalPages: (state) => state.mailjetTemplate.totalPages,
     }),
   },
   mounted() {
@@ -215,7 +215,7 @@ export default {
         this.tableVisible = true
       })
     },
-    dataEmailTemplates(val) {
+    dataMailjetTemplates(val) {
       // console.log(val)
       // sample data:
       /*
