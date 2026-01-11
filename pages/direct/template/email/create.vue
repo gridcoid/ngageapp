@@ -35,6 +35,7 @@
               type="textarea"
               :rows="2"
               maxlength="200"
+              spellcheck="false"
             />
           </el-form-item>
 
@@ -73,6 +74,7 @@
               type="textarea"
               :rows="10"
               :placeholder="placeholders.html"
+              spellcheck="false"
             />
           </el-form-item>
 
@@ -84,6 +86,7 @@
               type="textarea"
               :rows="10"
               placeholder="<mjml>...</mjml>"
+              spellcheck="false"
             />
           </el-form-item>
 
@@ -95,6 +98,7 @@
               type="textarea"
               :rows="2"
               placeholder="Plain text version of the email"
+              spellcheck="false"
             />
           </el-form-item>
         </el-form>
