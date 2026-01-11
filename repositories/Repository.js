@@ -57,7 +57,7 @@ export default ($axios) => ({
 
   mailjetContactList: MailjetContactListRepository($axios),
   mailjetContact: MailjetContactRepository($axios),
-  mailjetCampaign: MailjetCampaignRepository($axios),
   mailjetTemplate: MailjetTemplateRepository($axios),
   mailjetSender: MailjetSenderRepository($axios),
+  mailjetCampaign: MailjetCampaignRepository($axios),
 })
