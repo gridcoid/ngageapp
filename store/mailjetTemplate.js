@@ -2,6 +2,9 @@ const initialState = () => ({
   dataList: [],
   totalList: 0,
   totalPages: 0,
+
+  dataCreate: {},
+  dataDetail: {},
 })
 
 export const state = initialState
@@ -63,6 +66,23 @@ export const actions = {
       return response
     } catch (e) {
       commit('SET_DATA_LIST', null)
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // mailjetTemplate:detail
+  async detail({ commit }, payload) {
+    try {
+      const response = await this.$repositories.mailjetTemplate.detail(payload)
+      commit('SET_DATA_DETAIL', response.data.data)
+      return response
+    } catch (e) {
+      commit('SET_DATA_DETAIL', null)
       console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + (e.response?.status || 'Unknown'),

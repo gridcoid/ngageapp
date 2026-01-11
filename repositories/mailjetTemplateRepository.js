@@ -9,6 +9,12 @@ export default ($axios) => ({
     )
   },
 
+  // mailjet-template:detail
+  detail(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(`${resource}/${payload.templateId}?orgId=${orgId}`)
+  },
+
   // mailjet-template:delete
   delete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
