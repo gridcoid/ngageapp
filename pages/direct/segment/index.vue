@@ -2,7 +2,8 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-folder text-gray-400 mr-2" /> Audience Segments
+        <i class="ti ti-folder text-gray-400 mr-2" /> Audience Segments (Contact
+        Lists)
       </div>
       <div class="flex">
         <ButtonDefault

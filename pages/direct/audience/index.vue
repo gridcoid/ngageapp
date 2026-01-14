@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-users text-gray-400 mr-2" /> All Audiences
+        <i class="ti ti-users text-gray-400 mr-2" /> All Audiences (Contacts)
       </div>
       <div class="flex">
         <ButtonDefault
