@@ -43,7 +43,12 @@
         <el-table-column label="Name" sortable>
           <template slot-scope="scope">
             <div class="font-cabin text-sm text-gray-700">
-              {{ getListName(scope.row.Name) }}
+              <NuxtLink
+                :to="`/reference/mailjet/contact-list/detail/${scope.row.ID}`"
+                class="text-blue-500 hover:text-blue-600"
+              >
+                {{ getListName(scope.row.Name) }}
+              </NuxtLink>
             </div>
           </template>
         </el-table-column>
@@ -162,7 +167,6 @@ export default {
       this.isLoading = true
 
       const data = {
-        districtCode: this.$route.params.index || '',
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,
@@ -268,4 +272,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped src="../../reference/shared.scss" />
+<style lang="scss" scoped src="../../../reference/shared.scss" />

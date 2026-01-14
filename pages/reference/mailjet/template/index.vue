@@ -158,7 +158,6 @@ export default {
       this.isLoading = true
 
       const data = {
-        districtCode: this.$route.params.index || '',
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,

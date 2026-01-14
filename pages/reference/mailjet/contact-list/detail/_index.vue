@@ -1,15 +1,22 @@
 <template>
   <div class="kg-containers p-6 w-full">
+    <div class="mb-6">
+      <Back />
+    </div>
+
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-mailbox text-gray-400 mr-2"></i> Mailjet Email Senders
+        <i class="ti ti-id-badge-2 text-gray-400 mr-2"></i> Mailjet Contacts -
+        List ID {{ $route.params.index }}
       </div>
     </div>
 
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Data shared across all organizations. Please login Mailjet for more
-        details.
+        Data shared across all organizations.
+        <i class="ti ti-alert-triangle text-red-500"></i>
+        <span class="text-red-500">Do not delete</span> unless you know what
+        you’re doing.
       </div>
     </div>
 
@@ -22,7 +29,7 @@
         fit
         lazy
         stripe
-        :data="dataEmailSenders"
+        :data="dataContacts"
         class="w-full k-table"
       >
         <!-- padding -->
@@ -37,24 +44,6 @@
           </template>
         </el-table-column>
 
-        <!-- email -->
-        <el-table-column label="Email" sortable>
-          <template slot-scope="scope">
-            <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.Email }}
-            </div>
-          </template>
-        </el-table-column>
-
-        <!-- IsDefaultSender -->
-        <el-table-column label="Default Sender" sortable>
-          <template slot-scope="scope">
-            <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.IsDefaultSender }}
-            </div>
-          </template>
-        </el-table-column>
-
         <!-- name -->
         <el-table-column label="Name" sortable>
           <template slot-scope="scope">
@@ -64,11 +53,38 @@
           </template>
         </el-table-column>
 
-        <!-- status -->
-        <el-table-column label="Status" sortable>
+        <!-- email -->
+        <el-table-column label="Email" sortable>
           <template slot-scope="scope">
             <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.Status }}
+              {{ scope.row.Email }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- DeliveredCount -->
+        <el-table-column label="Delivered" sortable>
+          <template slot-scope="scope">
+            <div class="font-cabin text-sm text-gray-700">
+              {{ scope.row.DeliveredCount }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- IsExcludedFromCampaigns -->
+        <el-table-column label="Excluded" sortable>
+          <template slot-scope="scope">
+            <div class="font-cabin text-sm text-gray-700">
+              {{ scope.row.IsExcludedFromCampaigns }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- IsSpamComplaining -->
+        <el-table-column label="Spam Complaining" sortable>
+          <template slot-scope="scope">
+            <div class="font-cabin text-sm text-gray-700">
+              {{ scope.row.IsSpamComplaining }}
             </div>
           </template>
         </el-table-column>
@@ -82,7 +98,21 @@
           </template>
         </el-table-column>
 
-        <!--  -->
+        <!-- ACTIONS -->
+        <el-table-column width="120">
+          <template slot-scope="scope">
+            <!-- delete button -->
+            <el-button
+              type="danger"
+              size="small"
+              @click="deleteContact(scope.row)"
+            >
+              <!-- icon trash -->
+              <i class="ti ti-alert-triangle"></i>
+              Delete
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
 
       <Pagination
@@ -111,11 +141,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'MailjetSenderPage',
+  name: 'MailjetContactPage',
   layout: 'default',
   head() {
     return {
-      title: 'Mailjet Sender - ' + this.$config.appName,
+      title: 'Mailjet Contact - ' + this.$config.appName,
     }
   },
   data() {
@@ -132,9 +162,9 @@ export default {
   computed: {
     ...mapState({
       sidebar: (state) => state.user.sidebar,
-      dataEmailSenders: (state) => state.mailjetSender.dataList,
-      totalList: (state) => state.mailjetSender.totalList,
-      totalPages: (state) => state.mailjetSender.totalPages,
+      dataContacts: (state) => state.mailjetContact.dataList,
+      totalList: (state) => state.mailjetContact.totalList,
+      totalPages: (state) => state.mailjetContact.totalPages,
     }),
   },
   mounted() {
@@ -145,13 +175,14 @@ export default {
       this.isLoading = true
 
       const data = {
+        listID: this.$route.params.index || '',
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,
         sort: this.radio,
       }
 
-      this.$store.dispatch('mailjetSender/list', data).finally(() => {
+      this.$store.dispatch('mailjetContact/list', data).finally(() => {
         this.isLoading = false
       })
     },
@@ -167,6 +198,46 @@ export default {
       this.rowPage = ev
       this.getData()
     },
+
+    deleteContact(data) {
+      this.$confirm(`Delete email "${data.Email}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Delete email...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('mailjetContact/delete', {
+              ID: data.ID,
+            })
+            .then((res) => {
+              if (res?.data.status.code === 200) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Delete email success.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Delete email failed. Error : ' + res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
+    },
   },
   watch: {
     sidebar() {
@@ -175,21 +246,25 @@ export default {
         this.tableVisible = true
       })
     },
-    dataEmailSenders(val) {
+    dataContacts(val) {
       // console.log(val)
       // sample data:
       /*
       [
         {
-          "CreatedAt": "2025-09-20T05:24:48Z",
-          "DNSID": -1,
-          "Email": "noreply@rockaroma.id",
-          "EmailType": "unknown",
-          "Filename": "",
-          "ID": 6453945156,
-          "IsDefaultSender": false,
-          "Name": "",
-          "Status": "Inactive"
+          "CreatedAt": "2026-01-07T09:32:32Z",
+          "DeliveredCount": 0,
+          "Email": "febe@example.com",
+          "ExclusionFromCampaignsUpdatedAt": "",
+          "ID": 12338756133,
+          "IsExcludedFromCampaigns": false,
+          "IsOptInPending": false,
+          "IsSpamComplaining": false,
+          "LastActivityAt": "",
+          "LastUpdateAt": "",
+          "Name": "Geraldin Febe",
+          "UnsubscribedAt": "",
+          "UnsubscribedBy": ""
         }
       ]
       */
@@ -198,4 +273,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped src="../../reference/shared.scss" />
+<style lang="scss" scoped src="../../../../reference/shared.scss" />
