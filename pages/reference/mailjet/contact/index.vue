@@ -43,7 +43,12 @@
         <el-table-column label="Name" sortable>
           <template slot-scope="scope">
             <div class="font-cabin text-sm text-gray-700">
-              {{ scope.row.Name }}
+              <NuxtLink
+                :to="`/reference/mailjet/contact/detail/${scope.row.ID}`"
+                class="text-blue-500 hover:text-blue-600"
+              >
+                {{ scope.row.Name }}
+              </NuxtLink>
             </div>
           </template>
         </el-table-column>
@@ -267,4 +272,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped src="../../reference/shared.scss" />
+<style lang="scss" scoped src="../../../reference/shared.scss" />
