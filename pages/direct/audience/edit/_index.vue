@@ -206,16 +206,19 @@
           <!-- Contact Info -->
           <div class="mb-4">
             <label class="title-form block mb-2">Contact Info<Req /></label>
+
             <div
               v-for="(contact, index) in contactsList"
               :key="'contact-' + index"
               class="flex items-start mb-2"
               style="gap: 10px"
             >
+              <!-- Contact type (still editable, remove disabled here if needed) -->
               <el-select
                 v-model="contact.typeId"
                 placeholder="Contact type"
                 style="width: 150px"
+                :disabled="contact.typeId === 1"
               >
                 <el-option
                   v-for="item in dataContactTypes"
@@ -224,8 +227,11 @@
                   :value="item.id"
                 />
               </el-select>
+
+              <!-- Contact value -->
               <el-input
                 v-model="contact.value"
+                :disabled="contact.typeId === 1"
                 :placeholder="
                   contact.typeId === 1
                     ? 'Email address'
@@ -235,12 +241,17 @@
                 "
                 style="flex: 1"
               />
+
+              <!-- Label -->
               <el-input
                 v-model="contact.label"
                 placeholder="Label info (optional)"
                 style="flex: 1"
               />
+
+              <!-- Delete button -->
               <el-button
+                v-if="contact.typeId !== 1"
                 type="danger"
                 icon="el-icon-delete"
                 circle
@@ -248,6 +259,7 @@
                 @click="removeContact(index)"
               />
             </div>
+
             <el-button
               type="success"
               icon="el-icon-plus"
