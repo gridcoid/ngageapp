@@ -81,7 +81,7 @@
         </el-table-column>
 
         <!-- IsSpamComplaining -->
-        <el-table-column label="Spam Complaining" sortable>
+        <el-table-column label="Spam Complain" sortable>
           <template slot-scope="scope">
             <div class="font-cabin text-sm text-gray-700">
               {{ scope.row.IsSpamComplaining }}
