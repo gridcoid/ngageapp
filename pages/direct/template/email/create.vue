@@ -48,15 +48,6 @@
             />
           </el-form-item>
 
-          <!-- Preheader -->
-          <el-form-item prop="preheader">
-            <label slot="label">Preheader</label>
-            <el-input
-              v-model="data.preheader"
-              placeholder="Short preview text shown in inbox"
-            />
-          </el-form-item>
-
           <!-- Content Type -->
           <el-form-item prop="contentType">
             <label slot="label">Content Type<Req /></label>
@@ -177,7 +168,6 @@ export default {
         name: '',
         description: '',
         subject: '',
-        preheader: '',
         contentType: 'html',
         htmlContent: '',
         mjmlContent: '',
