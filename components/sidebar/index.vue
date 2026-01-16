@@ -81,9 +81,21 @@ export default {
     const hour = jakartaNow.getHours()
     const isOfficeHours = hour >= 8 && hour < 19 // 08:00–18:59 Jakarta time
 
+    const force = true
+
     return {
-      logo: isLocalhost && isWeekday && isOfficeHours ? logoDev : logoProd,
-      logoN: isLocalhost && isWeekday && isOfficeHours ? logoNDev : logoNProd,
+      logo:
+        isLocalhost && isWeekday && isOfficeHours
+          ? !force
+            ? logoDev
+            : logoProd
+          : logoProd,
+      logoN:
+        isLocalhost && isWeekday && isOfficeHours
+          ? !force
+            ? logoDev
+            : logoProd
+          : logoNProd,
       tinggi: 0,
     }
   },

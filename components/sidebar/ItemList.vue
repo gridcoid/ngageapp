@@ -103,19 +103,19 @@ export default {
                 icon: 'ti ti-geometry',
                 children: [
                   {
-                    path: '/direct/template/email/create',
+                    path: '/direct/template/email',
                     name: 'Email',
                     type: 'single',
                     icon: 'ti ti-mail',
                   },
                   {
-                    path: '/direct/template/sms/create',
+                    path: '/direct/template/sms',
                     name: 'SMS',
                     type: 'single',
                     icon: 'ti ti-message-2',
                   },
                   {
-                    path: '/direct/template/whatsapp/create',
+                    path: '/direct/template/whatsapp',
                     name: 'WhatsApp',
                     type: 'single',
                     icon: 'ti ti-brand-whatsapp',

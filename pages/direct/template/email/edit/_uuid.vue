@@ -8,7 +8,7 @@
       <div class="header-card flex items-center">
         <div class="title">
           <i class="ti ti-mail text-gray-400 mr-2" />
-          Create Email (Mailjet) Template
+          Update Email Template
         </div>
       </div>
 
@@ -44,6 +44,8 @@
             <label slot="label">Purpose<Req /></label>
             <el-select v-model="data.purpose" class="w-full">
               <el-option label="Marketing" value="marketing" />
+              <el-option label="Transactional" value="transactional" />
+              <el-option label="Automation" value="automation" />
             </el-select>
           </el-form-item>
 
@@ -62,25 +64,19 @@
           <!-- From -->
           <el-form-item prop="from" class="lg:w-1/2">
             <label slot="label">From<Req /></label>
-            <el-input v-model="data.from" :placeholder="placeholders.email" />
+            <el-input v-model="data.from" />
           </el-form-item>
 
           <!-- Reply-To -->
           <el-form-item prop="replyTo" class="lg:w-1/2">
             <label slot="label">Reply-To</label>
-            <el-input
-              v-model="data.replyTo"
-              placeholder="support@company.com"
-            />
+            <el-input v-model="data.replyTo" />
           </el-form-item>
 
           <!-- Subject -->
           <el-form-item prop="subject" class="lg:w-1/2">
             <label slot="label">Subject<Req /></label>
-            <el-input
-              v-model="data.subject"
-              :placeholder="placeholders.subject"
-            />
+            <el-input v-model="data.subject" />
           </el-form-item>
 
           <!-- HTML Content -->
@@ -91,7 +87,6 @@
               type="textarea"
               :rows="10"
               spellcheck="false"
-              class="font-mono"
             />
           </el-form-item>
 
@@ -103,7 +98,6 @@
               type="textarea"
               :rows="6"
               spellcheck="false"
-              class="font-mono"
             />
           </el-form-item>
 
@@ -143,7 +137,7 @@
         <el-button
           icon="el-icon-check"
           type="primary"
-          @click="save"
+          @click="save()"
           class="w-32"
           :loading="isLoading"
           :disabled="isLoading"
@@ -156,13 +150,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'CreateEmailTemplatePage',
+  name: 'UpdateEmailTemplatePage',
   layout: 'default',
 
   head() {
     return {
-      title: 'Create Email Template - ' + this.$config.appName,
+      title: 'Update Email Template - ' + this.$config.appName,
     }
   },
 
@@ -173,32 +169,16 @@ export default {
           { required: true, message: 'Name is required', trigger: 'blur' },
           { max: 50, message: 'Max 50 characters', trigger: 'blur' },
         ],
-        description: [
-          { max: 200, message: 'Max 200 characters', trigger: 'blur' },
-        ],
+        description: [{ max: 200, message: 'Max 200 characters' }],
         locale: [{ required: true, message: 'Locale is required' }],
         purpose: [{ required: true, message: 'Purpose is required' }],
-        from: [
-          { required: true, message: 'From is required', trigger: 'blur' },
-        ],
+        from: [{ required: true, message: 'From is required' }],
         subject: [
-          { required: true, message: 'Subject is required', trigger: 'blur' },
-          { max: 100, message: 'Max 100 characters', trigger: 'blur' },
+          { required: true, message: 'Subject is required' },
+          { max: 100, message: 'Max 100 characters' },
         ],
-        htmlContent: [
-          {
-            required: true,
-            message: 'HTML content is required',
-            trigger: 'blur',
-          },
-        ],
-        textContent: [
-          {
-            required: true,
-            message: 'Text content is required',
-            trigger: 'blur',
-          },
-        ],
+        htmlContent: [{ required: true, message: 'HTML content is required' }],
+        textContent: [{ required: true, message: 'Text content is required' }],
       },
 
       isLoading: false,
@@ -206,27 +186,19 @@ export default {
       messageError: '',
 
       data: {
+        id: null,
+        uuid: null,
+
         name: '',
         description: '',
-        locale: 'en_US',
-        purpose: 'marketing',
+        locale: '',
+        purpose: '',
         copyright: '',
         from: '',
         replyTo: '',
         subject: '',
-        htmlContent: `<html>
-  <body>
-    <p>
-      Hello world!
-    </p>
-    <p>
-      This e-mail has been sent to [[EMAIL_TO]], <a href="[[UNSUB_LINK_EN_US]]" target="_blank">click here to unsubscribe</a>.
-    </p>
-  </body>
-</html>`,
-        textContent: `Hello world!
-
-This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LINK_EN_US]].`,
+        htmlContent: '',
+        textContent: '',
       },
 
       placeholders: {
@@ -246,7 +218,26 @@ This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LIN
     }
   },
 
+  computed: {
+    ...mapState({
+      dataDetail: (state) => state.emailTemplate.dataDetail,
+    }),
+  },
+
+  mounted() {
+    this.getDetail()
+  },
+
   methods: {
+    getDetail() {
+      this.isLoading = true
+      this.$store
+        .dispatch('emailTemplate/detail', {
+          uuid: this.$route.params.uuid,
+        })
+        .finally(() => (this.isLoading = false))
+    },
+
     save() {
       this.showMessage = false
       this.messageError = ''
@@ -255,20 +246,20 @@ This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LIN
         if (!valid) return
 
         this.$notifier.showMessage({
-          content: 'Creating template...',
+          content: 'Updating email template...',
           type: 'loading',
         })
 
         this.isLoading = true
 
         this.$store
-          .dispatch('emailTemplate/create', { ...this.data })
+          .dispatch('emailTemplate/update', this.data)
           .then((res) => {
             if (res.status === 200) {
               this.$router.push({ path: '/direct/template/email' })
 
               this.$notifier.showMessage({
-                content: 'Template created.',
+                content: 'Email template updated.',
                 type: 'success',
               })
             } else {
@@ -276,7 +267,12 @@ This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LIN
               this.messageError =
                 res?.data?.data?.errors
                   ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to create template'
+                  .join(', ') || 'Failed to update email template'
+
+              this.$notifier.showMessage({
+                content: 'Email template update failed!',
+                type: 'failed',
+              })
             }
           })
           .catch((e) => {
@@ -288,6 +284,27 @@ This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LIN
             this.isLoading = false
           })
       })
+    },
+  },
+
+  watch: {
+    dataDetail(val) {
+      if (!val) return
+
+      this.data = {
+        id: val.id,
+        uuid: val.uuid,
+        name: val.name,
+        description: val.description,
+        locale: val.locale,
+        purpose: val.purpose,
+        from: val.from,
+        replyTo: val.replyTo,
+        subject: val.subject,
+        htmlContent: val.htmlContent,
+        textContent: val.textContent,
+        copyright: val.copyright,
+      }
     },
   },
 }
