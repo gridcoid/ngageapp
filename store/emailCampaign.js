@@ -84,4 +84,51 @@ export const actions = {
       return e.response
     }
   },
+
+  // emailCampaign:detail
+  async detail({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailCampaign.detail(payload)
+      commit('SET_DATA_DETAIL', response.data.data)
+      return response
+    } catch (e) {
+      commit('SET_DATA_DETAIL', null)
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // emailCampaign:update
+  async update({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailCampaign.update(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // emailCampaign:delete
+  async delete({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailCampaign.delete(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
-      <div class="title-header">All Creations</div>
+      <div class="title-header">All Campaigns</div>
       <div class="flex">
         <ButtonDefault
           icon="plus"
@@ -13,56 +13,33 @@
     </div>
 
     <div class="desc-page">
-      All creative you’ve created and uploaded has been stored here.
+      View and manage all your campaigns in one place.
     </div>
 
     <div class="flex items-center filter-content justify-between">
       <div class="status-filter flex items-center">
-        <div
-          class="flex items-center justify-center card-filter pl-2 pr-2"
-          @click="statusActive('all')"
-        >
-          <IconList
-            :bg-color="activeStatus === 'all' ? '#1B63D4' : '#454545'"
-          />
+        <template v-for="(filter, i) in filters">
           <div
-            class="name-status"
-            :style="
-              activeStatus === 'all' ? 'font-weight: 500;color: #0056DE;' : ''
-            "
+            class="flex items-center justify-center card-filter pl-2 pr-2"
+            @click="statusActive(filter.value)"
           >
-            All
+            <IconList
+              v-if="i === 0"
+              :bg-color="activeStatus === filter.value ? '#1B63D4' : '#454545'"
+            />
+            <div
+              class="name-status"
+              :style="
+                activeStatus === filter.value
+                  ? 'font-weight: 500;color: #0056DE;'
+                  : ''
+              "
+            >
+              {{ filter.name }}
+            </div>
           </div>
-        </div>
-        <div class="hr-vertical" />
-        <div
-          class="flex items-center justify-center card-filter pl-2 pr-2"
-          @click="statusActive('display')"
-        >
-          <div
-            class="name-status"
-            :style="
-              activeStatus === 'display'
-                ? 'font-weight: 500;color: #0056DE;'
-                : ''
-            "
-          >
-            Display
-          </div>
-        </div>
-        <div
-          class="flex items-center justify-center card-filter pl-2 pr-2"
-          @click="statusActive('video')"
-        >
-          <div
-            class="name-status"
-            :style="
-              activeStatus === 'video' ? 'font-weight: 500;color: #0056DE;' : ''
-            "
-          >
-            Video
-          </div>
-        </div>
+          <div v-if="i === 0" class="hr-vertical" />
+        </template>
       </div>
       <div class="flex items-center">
         <div class="search-card">
@@ -107,7 +84,7 @@
         fit
         lazy
         stripe
-        :data="dataCreative"
+        :data="dataCampaigns"
         class="k-table"
       >
         <template slot="empty">
@@ -122,7 +99,7 @@
               @click="toCreate()"
             >
               <IconSave bg-color="#1B63D4" />
-              <div class="name-btn">Create New Creative</div>
+              <div class="name-btn">Create New Campaign</div>
             </button>
           </div>
         </template>
@@ -141,7 +118,7 @@
               "
               @click="
                 scope.row.template.format !== 'custom_upload'
-                  ? editCreative(scope.row.id)
+                  ? editCampaign(scope.row.id)
                   : ''
               "
             >
@@ -176,7 +153,7 @@
         class="k-pagination"
         :value="currentPage"
         :total-page="totalPages"
-        :total="totalCreative"
+        :total="totalList"
         @input="
           (page) => {
             $store.commit('user/SET_DROPDOWN', null)
@@ -197,11 +174,11 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'CampaignPage',
+  name: 'EmailCampaignPage',
   layout: 'default',
   head() {
     return {
-      title: 'Creative - ' + this.$config.appName,
+      title: 'Email Campaign - ' + this.$config.appName,
     }
   },
   data() {
@@ -213,6 +190,33 @@ export default {
       showSearch: false,
       activeStatus: 'all',
       rowPage: 8,
+
+      filters: [
+        {
+          name: 'All',
+          value: 'all',
+        },
+        {
+          name: 'Starred',
+          value: 'starred',
+        },
+        {
+          name: 'Draft',
+          value: 'draft',
+        },
+        {
+          name: 'Sent',
+          value: 'sent',
+        },
+        {
+          name: 'Scheduled',
+          value: 'scheduled',
+        },
+        {
+          name: 'Archived',
+          value: 'archived',
+        },
+      ],
     }
   },
   computed: {
@@ -220,11 +224,11 @@ export default {
       sidebar: (state) => {
         return state.user.sidebar
       },
-      dataCreative: (state) => {
-        return state.creative.dataCreative
+      dataCampaigns: (state) => {
+        return state.campaign.dataList
       },
-      totalCreative: (state) => {
-        return state.creative.totalCreative
+      totalList: (state) => {
+        return state.creative.totalList
       },
       totalPages: (state) => {
         return state.creative.totalPages
@@ -255,7 +259,7 @@ export default {
         name: this.dataSearch,
         format: this.activeStatus,
       }
-      this.$store.dispatch('creative/getCreative', data).finally(() => {
+      this.$store.dispatch('emailCampaign/list', data).finally(() => {
         this.isLoading = false
       })
     },
@@ -269,9 +273,9 @@ export default {
       this.showSearch = false
       this.getData()
     },
-    editCreative(x) {
+    editCampaign(x) {
       this.$router.push({
-        path: `/placement/creative/edit/${x}`,
+        path: `/direct/campaign/email/edit/${x}`,
       })
     },
     toCreate() {
