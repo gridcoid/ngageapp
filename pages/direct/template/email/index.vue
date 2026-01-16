@@ -72,9 +72,12 @@
       <div
         v-for="(item, index) in dataTemplates"
         :key="item.uuid"
-        class="card-list flex items-center justify-between"
+        class="card-list flex items-center gap-4"
       >
-        <div class="flex items-center cursor-pointer" @click="viewDetail(item)">
+        <div
+          class="flex-1 flex items-center cursor-pointer"
+          @click="viewDetail(item)"
+        >
           <img
             src="~/assets/images/template.png"
             class="thumbnail opacity-90 hover:opacity-100"
@@ -85,7 +88,7 @@
           </div>
         </div>
 
-        <div class="name-data flex flex-col">
+        <div class="flex-1 name-data flex flex-col">
           <span>{{ item.subject }}</span>
           <span class="mb-1">{{ item.from }}</span>
           <span v-if="!!item.replyTo" class="text-sm text-gray-300"
@@ -93,12 +96,7 @@
           >
         </div>
 
-        <div class="name-data flex flex-col">
-          <span>{{ item.purpose }}</span>
-          <span>{{ item.locale }}</span>
-        </div>
-
-        <div class="flex items-center">
+        <div class="w-[120px] flex items-center">
           <Dropdown
             :index-list="index"
             name-btn="Detail"
