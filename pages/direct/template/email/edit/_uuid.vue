@@ -98,7 +98,7 @@
             <el-input
               v-model="data.textContent"
               type="textarea"
-              :rows="6"
+              :rows="5"
               spellcheck="false"
               class="font-sans font-xs"
             />
