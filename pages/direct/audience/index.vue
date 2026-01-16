@@ -143,7 +143,8 @@
             <div v-if="scope.row.contacts && scope.row.contacts.length > 0">
               <div v-for="(c, i) in scope.row.contacts.slice(0, 2)" :key="i">
                 <span class="k-subtitle">
-                  {{ c.contactType.name }}: {{ c.value }}
+                  <!-- {{ c.contactType.name }}: -->
+                  {{ c.value }}
                 </span>
               </div>
             </div>
