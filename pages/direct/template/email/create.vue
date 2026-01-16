@@ -48,10 +48,10 @@
           </el-form-item>
 
           <!-- Copyright -->
-          <el-form-item prop="copyright" class="lg:w-1/2">
+          <!-- <el-form-item prop="copyright" class="lg:w-1/2">
             <label slot="label">Copyright</label>
             <el-input v-model="data.copyright" />
-          </el-form-item>
+          </el-form-item> -->
 
           <div class="lg:w-1/2">
             <el-divider>
