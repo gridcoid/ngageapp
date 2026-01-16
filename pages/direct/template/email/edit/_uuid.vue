@@ -24,7 +24,7 @@
           <!-- Name -->
           <el-form-item prop="name" class="lg:w-1/2">
             <label slot="label">Name<Req /></label>
-            <el-input v-model="data.name" />
+            <el-input v-model="data.name" disabled />
           </el-form-item>
 
           <!-- Description -->
@@ -36,13 +36,14 @@
               :rows="2"
               maxlength="200"
               spellcheck="false"
+              disabled
             />
           </el-form-item>
 
           <!-- Purpose -->
           <el-form-item prop="purpose" class="lg:w-1/2">
             <label slot="label">Purpose<Req /></label>
-            <el-select v-model="data.purpose" class="w-full">
+            <el-select v-model="data.purpose" class="w-full" disabled>
               <el-option label="Marketing" value="marketing" />
               <el-option label="Transactional" value="transactional" />
               <el-option label="Automation" value="automation" />
@@ -52,7 +53,7 @@
           <!-- Copyright -->
           <el-form-item prop="copyright" class="lg:w-1/2">
             <label slot="label">Copyright</label>
-            <el-input v-model="data.copyright" />
+            <el-input v-model="data.copyright" disabled />
           </el-form-item>
 
           <div class="lg:w-1/2">
@@ -87,6 +88,7 @@
               type="textarea"
               :rows="10"
               spellcheck="false"
+              class="font-mono font-xs"
             />
           </el-form-item>
 
@@ -98,13 +100,14 @@
               type="textarea"
               :rows="6"
               spellcheck="false"
+              class="font-sans font-xs"
             />
           </el-form-item>
 
           <!-- Locale -->
           <el-form-item prop="locale" class="lg:w-1/2">
             <label slot="label">Locale<Req /></label>
-            <el-radio-group v-model="data.locale">
+            <el-radio-group v-model="data.locale" disabled>
               <el-radio label="en_US">English (US)</el-radio>
               <el-radio label="id_ID">Bahasa Indonesia</el-radio>
             </el-radio-group>

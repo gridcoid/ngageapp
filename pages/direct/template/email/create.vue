@@ -91,7 +91,7 @@
               type="textarea"
               :rows="10"
               spellcheck="false"
-              class="font-mono"
+              class="font-mono font-xs"
             />
           </el-form-item>
 
@@ -103,7 +103,7 @@
               type="textarea"
               :rows="6"
               spellcheck="false"
-              class="font-mono"
+              class="font-sans font-xs"
             />
           </el-form-item>
 
