@@ -127,6 +127,14 @@
               class="font-mono mr-2"
               >{{ tag }}</el-tag
             >
+            <br />
+            <span class="text-red-300">
+              The
+              <span class="text-red-700 font-mono text-xs">
+                [[UNSUB_LINK_EN]]
+              </span>
+              tag is mandatory in the email content
+            </span>
           </el-form-item>
         </el-form>
 
@@ -220,13 +228,13 @@ export default {
       Hello world!
     </p>
     <p>
-      This e-mail has been sent to [[EMAIL_TO]], <a href="[[UNSUB_LINK_EN_US]]" target="_blank">click here to unsubscribe</a>.
+      This e-mail has been sent to [[EMAIL_TO]], <a href="[[UNSUB_LINK_EN]]" target="_blank">click here to unsubscribe</a>.
     </p>
   </body>
 </html>`,
         textContent: `Hello world!
 
-This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LINK_EN_US]].`,
+This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LINK_EN]].`,
       },
 
       placeholders: {

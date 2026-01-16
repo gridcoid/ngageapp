@@ -110,7 +110,7 @@
             <template slot="body">
               <div
                 class="item-menu flex items-center text-gray-500 text-sm"
-                @click="duplicateTemplate(item)"
+                @click="toDuplicate(item)"
               >
                 <i class="ti ti-copy text-purple-500"></i>
                 <span class="ml-3">Duplicate</span>
@@ -282,25 +282,8 @@ export default {
       this.$router.push(`/direct/template/email/detail/${item.uuid}`)
     },
 
-    duplicateTemplate(item) {
-      this.$confirm(`Duplicate template "${item.name}"?`, 'Confirmation', {
-        type: 'warning',
-      }).then(() => {
-        this.$notifier.showMessage({
-          content: 'Duplicating template...',
-          type: 'loading',
-        })
-
-        this.$store
-          .dispatch('emailTemplate/duplicate', { uuid: item.uuid })
-          .then(() => {
-            this.getData()
-            this.$notifier.showMessage({
-              content: 'Template duplicated.',
-              type: 'success',
-            })
-          })
-      })
+    toDuplicate(item) {
+      this.$router.push(`/direct/template/email/duplicate/${item.uuid}`)
     },
 
     deleteTemplate(item) {

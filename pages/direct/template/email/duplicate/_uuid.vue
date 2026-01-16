@@ -8,7 +8,7 @@
       <div class="header-card flex items-center">
         <div class="title">
           <i class="ti ti-mail text-gray-400 mr-2" />
-          Update Email Template
+          Duplicate (Create) Email (Mailjet) Template
         </div>
       </div>
 
@@ -24,7 +24,7 @@
           <!-- Name -->
           <el-form-item prop="name" class="lg:w-1/2">
             <label slot="label">Name<Req /></label>
-            <el-input v-model="data.name" disabled />
+            <el-input v-model="data.name" />
           </el-form-item>
 
           <!-- Description -->
@@ -36,24 +36,21 @@
               :rows="2"
               maxlength="200"
               spellcheck="false"
-              disabled
             />
           </el-form-item>
 
           <!-- Purpose -->
           <el-form-item prop="purpose" class="lg:w-1/2">
             <label slot="label">Purpose<Req /></label>
-            <el-select v-model="data.purpose" class="w-full" disabled>
+            <el-select v-model="data.purpose" class="w-full">
               <el-option label="Marketing" value="marketing" />
-              <el-option label="Transactional" value="transactional" />
-              <el-option label="Automation" value="automation" />
             </el-select>
           </el-form-item>
 
           <!-- Copyright -->
           <el-form-item prop="copyright" class="lg:w-1/2">
             <label slot="label">Copyright</label>
-            <el-input v-model="data.copyright" disabled />
+            <el-input v-model="data.copyright" />
           </el-form-item>
 
           <div class="lg:w-1/2">
@@ -65,19 +62,25 @@
           <!-- From -->
           <el-form-item prop="from" class="lg:w-1/2">
             <label slot="label">From<Req /></label>
-            <el-input v-model="data.from" />
+            <el-input v-model="data.from" :placeholder="placeholders.email" />
           </el-form-item>
 
           <!-- Reply-To -->
           <el-form-item prop="replyTo" class="lg:w-1/2">
             <label slot="label">Reply-To</label>
-            <el-input v-model="data.replyTo" />
+            <el-input
+              v-model="data.replyTo"
+              placeholder="support@company.com"
+            />
           </el-form-item>
 
           <!-- Subject -->
           <el-form-item prop="subject" class="lg:w-1/2">
             <label slot="label">Subject<Req /></label>
-            <el-input v-model="data.subject" />
+            <el-input
+              v-model="data.subject"
+              :placeholder="placeholders.subject"
+            />
           </el-form-item>
 
           <!-- HTML Content -->
@@ -107,7 +110,7 @@
           <!-- Locale -->
           <el-form-item prop="locale" class="lg:w-1/2">
             <label slot="label">Locale<Req /></label>
-            <el-radio-group v-model="data.locale" disabled>
+            <el-radio-group v-model="data.locale">
               <el-radio label="en_US">English (US)</el-radio>
               <el-radio label="id_ID">Bahasa Indonesia</el-radio>
             </el-radio-group>
@@ -148,7 +151,7 @@
         <el-button
           icon="el-icon-check"
           type="primary"
-          @click="save()"
+          @click="save"
           class="w-32"
           :loading="isLoading"
           :disabled="isLoading"
@@ -164,12 +167,12 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'UpdateEmailTemplatePage',
+  name: 'CreateEmailTemplatePage',
   layout: 'default',
 
   head() {
     return {
-      title: 'Update Email Template - ' + this.$config.appName,
+      title: 'Create Email Template - ' + this.$config.appName,
     }
   },
 
@@ -180,16 +183,32 @@ export default {
           { required: true, message: 'Name is required', trigger: 'blur' },
           { max: 50, message: 'Max 50 characters', trigger: 'blur' },
         ],
-        description: [{ max: 200, message: 'Max 200 characters' }],
+        description: [
+          { max: 200, message: 'Max 200 characters', trigger: 'blur' },
+        ],
         locale: [{ required: true, message: 'Locale is required' }],
         purpose: [{ required: true, message: 'Purpose is required' }],
-        from: [{ required: true, message: 'From is required' }],
-        subject: [
-          { required: true, message: 'Subject is required' },
-          { max: 100, message: 'Max 100 characters' },
+        from: [
+          { required: true, message: 'From is required', trigger: 'blur' },
         ],
-        htmlContent: [{ required: true, message: 'HTML content is required' }],
-        textContent: [{ required: true, message: 'Text content is required' }],
+        subject: [
+          { required: true, message: 'Subject is required', trigger: 'blur' },
+          { max: 100, message: 'Max 100 characters', trigger: 'blur' },
+        ],
+        htmlContent: [
+          {
+            required: true,
+            message: 'HTML content is required',
+            trigger: 'blur',
+          },
+        ],
+        textContent: [
+          {
+            required: true,
+            message: 'Text content is required',
+            trigger: 'blur',
+          },
+        ],
       },
 
       isLoading: false,
@@ -197,19 +216,27 @@ export default {
       messageError: '',
 
       data: {
-        id: null,
-        uuid: null,
-
         name: '',
         description: '',
-        locale: '',
-        purpose: '',
+        locale: 'en_US',
+        purpose: 'marketing',
         copyright: '',
         from: '',
         replyTo: '',
         subject: '',
-        htmlContent: '',
-        textContent: '',
+        htmlContent: `<html>
+  <body>
+    <p>
+      Hello world!
+    </p>
+    <p>
+      This e-mail has been sent to [[EMAIL_TO]], <a href="[[UNSUB_LINK_EN]]" target="_blank">click here to unsubscribe</a>.
+    </p>
+  </body>
+</html>`,
+        textContent: `Hello world!
+
+This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LINK_EN]].`,
       },
 
       placeholders: {
@@ -257,20 +284,20 @@ export default {
         if (!valid) return
 
         this.$notifier.showMessage({
-          content: 'Updating email template...',
+          content: 'Creating template...',
           type: 'loading',
         })
 
         this.isLoading = true
 
         this.$store
-          .dispatch('emailTemplate/update', this.data)
+          .dispatch('emailTemplate/create', { ...this.data })
           .then((res) => {
             if (res.status === 200) {
               this.$router.push({ path: '/direct/template/email' })
 
               this.$notifier.showMessage({
-                content: 'Email template updated.',
+                content: 'Template created.',
                 type: 'success',
               })
             } else {
@@ -278,12 +305,7 @@ export default {
               this.messageError =
                 res?.data?.data?.errors
                   ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to update email template'
-
-              this.$notifier.showMessage({
-                content: 'Email template update failed!',
-                type: 'failed',
-              })
+                  .join(', ') || 'Failed to create template'
             }
           })
           .catch((e) => {
