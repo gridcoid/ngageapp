@@ -43,7 +43,8 @@
           <!-- Purpose -->
           <el-form-item prop="purpose" class="lg:w-1/2">
             <label slot="label">Purpose<Req /></label>
-            <el-select v-model="data.purpose" class="w-full" disabled>
+            <el-select v-model="data.purpose" class="w-full" filterable
+                clearable disabled>
               <el-option label="Marketing" value="marketing" />
               <el-option label="Transactional" value="transactional" />
               <el-option label="Automation" value="automation" />

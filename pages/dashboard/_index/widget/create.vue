@@ -25,6 +25,8 @@
               v-model="data.type"
               placeholder="Select Widget Type"
               class="w-full"
+              filterable
+              clearable
             >
               <el-option label="Metric" value="metric" />
               <el-option label="Chart" value="chart" />
@@ -39,6 +41,7 @@
               v-model="data.queryId"
               placeholder="Select Query"
               filterable
+              clearable
               class="w-full"
             >
               <el-option

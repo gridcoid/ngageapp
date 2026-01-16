@@ -142,6 +142,8 @@
                       v-model="value[item].target"
                       placeholder="Select"
                       :disabled="value[item].deleted"
+                      filterable
+                      clearable
                     >
                       <el-option
                         v-for="opt in selector"

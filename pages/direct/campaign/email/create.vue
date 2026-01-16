@@ -26,6 +26,44 @@
             <el-input v-model="data.title" />
           </el-form-item>
 
+          <!-- Contacts List -->
+          <el-form-item class="title-form" prop="segmentId">
+            <label slot="label" class="title-form">Segment<Req /></label>
+            <el-select
+              v-model="data.segmentId"
+              placeholder="Select segment"
+              class="w-full"
+              filterable
+              clearable
+            >
+              <el-option
+                v-for="list in dataSegments"
+                :key="list.id"
+                :label="list.name"
+                :value="list.id"
+              />
+            </el-select>
+          </el-form-item>
+
+          <!-- Template -->
+          <el-form-item class="title-form" prop="templateId">
+            <label slot="label" class="title-form">Template<Req /></label>
+            <el-select
+              v-model="data.templateId"
+              placeholder="Select template"
+              class="w-full"
+              filterable
+              clearable
+            >
+              <el-option
+                v-for="tpl in dataTemplates"
+                :key="tpl.id"
+                :label="tpl.name"
+                :value="tpl.id"
+              />
+            </el-select>
+          </el-form-item>
+
           <!-- Subject -->
           <el-form-item class="title-form" prop="subject">
             <label slot="label" class="title-form">Subject<Req /></label>
@@ -33,13 +71,14 @@
           </el-form-item>
 
           <!-- Sender -->
-          <el-form-item class="title-form" prop="senderId">
+          <el-form-item class="title-form" prop="sender">
             <label slot="label" class="title-form">Sender<Req /></label>
             <el-select
-              v-model="data.senderId"
+              v-model="data.sender"
               placeholder="Select sender"
-              filterable
               class="w-full"
+              filterable
+              clearable
             >
               <el-option
                 v-for="sender in dataSenders"
@@ -50,22 +89,31 @@
             </el-select>
           </el-form-item>
 
-          <!-- Segment -->
-          <el-form-item class="title-form" prop="segmentId">
-            <label slot="label" class="title-form">Segment<Req /></label>
-            <el-select
-              v-model="data.segmentId"
-              placeholder="Select segment"
-              filterable
-              class="w-full"
-            >
-              <el-option
-                v-for="segment in dataSegments"
-                :key="segment.id"
-                :label="segment.name"
-                :value="segment.id"
-              />
-            </el-select>
+          <!-- Sender Name -->
+          <el-form-item class="title-form" prop="senderName">
+            <label slot="label" class="title-form">Sender Name<Req /></label>
+            <el-input v-model="data.senderName" />
+          </el-form-item>
+
+          <!-- Sender Email -->
+          <el-form-item class="title-form" prop="senderEmail">
+            <label slot="label" class="title-form">Sender Email<Req /></label>
+            <el-input v-model="data.senderEmail" />
+          </el-form-item>
+
+          <!-- Reply To -->
+          <el-form-item class="title-form" prop="replyTo">
+            <label slot="label" class="title-form">Reply To</label>
+            <el-input v-model="data.replyTo" />
+          </el-form-item>
+
+          <!-- Locale -->
+          <el-form-item class="title-form" prop="locale">
+            <label slot="label" class="title-form">Locale<Req /></label>
+            <el-radio-group v-model="data.locale">
+              <el-radio label="en_US">English (US)</el-radio>
+              <el-radio label="id_ID">Bahasa Indonesia</el-radio>
+            </el-radio-group>
           </el-form-item>
         </el-form>
 
@@ -115,38 +163,74 @@ export default {
             required: true,
             message: 'Title is required',
             trigger: 'blur',
-            transform: (v) => (v ? v.trim() : v),
-          },
-          {
-            max: 100,
-            message: 'Max 100 character',
-            trigger: 'blur',
           },
         ],
+
+        segmentId: [
+          {
+            required: true,
+            message: 'Segment is required',
+            trigger: 'change',
+          },
+        ],
+
+        templateId: [
+          {
+            required: true,
+            message: 'Template is required',
+            trigger: 'change',
+          },
+        ],
+
         subject: [
           {
             required: true,
             message: 'Subject is required',
             trigger: 'blur',
-            transform: (v) => (v ? v.trim() : v),
-          },
-          {
-            max: 150,
-            message: 'Max 150 character',
-            trigger: 'blur',
           },
         ],
-        senderId: [
+
+        sender: [
           {
             required: true,
             message: 'Sender is required',
             trigger: 'change',
           },
         ],
-        segmentId: [
+
+        senderName: [
           {
             required: true,
-            message: 'Segment is required',
+            message: 'Sender name is required',
+            trigger: 'blur',
+          },
+        ],
+
+        senderEmail: [
+          {
+            required: true,
+            message: 'Sender email is required',
+            trigger: 'blur',
+          },
+          {
+            type: 'email',
+            message: 'Invalid email format',
+            trigger: 'blur',
+          },
+        ],
+
+        replyTo: [
+          {
+            type: 'email',
+            message: 'Invalid email format',
+            trigger: 'blur',
+          },
+        ],
+
+        locale: [
+          {
+            required: true,
+            message: 'Locale is required',
             trigger: 'change',
           },
         ],
@@ -158,9 +242,14 @@ export default {
 
       data: {
         title: '',
-        subject: '',
-        senderId: null,
         segmentId: null,
+        templateId: null,
+        subject: '',
+        sender: null,
+        senderName: '',
+        senderEmail: '',
+        replyTo: null,
+        locale: 'en_US', // default
       },
     }
   },
@@ -168,6 +257,7 @@ export default {
   computed: {
     ...mapState({
       dataSegments: (state) => state.segment.dataList,
+      dataTemplates: (state) => state.emailTemplate.dataList,
       dataSenders: (state) => state.mailjetSender.dataList,
     }),
   },
@@ -175,6 +265,7 @@ export default {
   mounted() {
     this.getSenders()
     this.getSegments()
+    this.getTemplates()
   },
 
   methods: {
@@ -183,6 +274,14 @@ export default {
 
       this.$store
         .dispatch('segment/all')
+        .finally(() => (this.isLoading = false))
+    },
+
+    getTemplates() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('emailTemplate/all')
         .finally(() => (this.isLoading = false))
     },
 
@@ -240,6 +339,29 @@ export default {
             this.isLoading = false
           })
       })
+    },
+  },
+
+  watch: {
+    // watch data.segmentId
+    'data.segmentId': {
+      handler(val) {
+        const selectedSegment = this.dataSegments.find(
+          (segment) => segment.id === val
+        )
+        // console.log(selectedSegment)
+      },
+    },
+
+    // watch data.templateId
+    'data.templateId': {
+      handler(val) {
+        const selectedTemplate = this.dataTemplates.find(
+          (template) => template.id === val
+        )
+        this.data.subject = selectedTemplate.subject
+        this.data.replyTo = selectedTemplate.replyTo
+      },
     },
   },
 }

@@ -39,6 +39,8 @@
               v-model="data.authType"
               placeholder="Select auth type"
               class="w-full"
+              filterable
+              clearable
             >
               <el-option label="None" value="none" />
               <el-option label="Bearer Token" value="bearer" />
@@ -82,6 +84,8 @@
               v-model="data.paginationType"
               placeholder="Select pagination"
               class="w-full"
+              filterable
+              clearable
             >
               <el-option label="None" value="none" />
               <el-option label="Query Parameter (page=1)" value="query" />

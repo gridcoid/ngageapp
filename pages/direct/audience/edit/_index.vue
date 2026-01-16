@@ -219,6 +219,8 @@
                 placeholder="Contact type"
                 style="width: 150px"
                 :disabled="contact.typeId === 1"
+                filterable
+                clearable
               >
                 <el-option
                   v-for="item in dataContactTypes"
@@ -320,6 +322,8 @@
                 v-model="segmentsList[index]"
                 placeholder="Select segment"
                 style="flex: 1"
+                filterable
+                clearable
               >
                 <el-option
                   v-for="item in dataSegments"

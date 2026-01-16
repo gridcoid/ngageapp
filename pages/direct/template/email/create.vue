@@ -42,7 +42,12 @@
           <!-- Purpose -->
           <el-form-item prop="purpose" class="lg:w-1/2">
             <label slot="label">Purpose<Req /></label>
-            <el-select v-model="data.purpose" class="w-full">
+            <el-select
+              v-model="data.purpose"
+              class="w-full"
+              filterable
+              clearable
+            >
               <el-option label="Marketing" value="marketing" />
             </el-select>
           </el-form-item>

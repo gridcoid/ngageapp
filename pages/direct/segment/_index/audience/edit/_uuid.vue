@@ -60,6 +60,8 @@
               v-model="data.genderId"
               placeholder="Select gender"
               class="w-full"
+              filterable
+              clearable
             >
               <el-option
                 v-for="item in dataGenders"
@@ -77,6 +79,8 @@
               v-model="data.religionId"
               placeholder="Select religion"
               class="w-full"
+              filterable
+              clearable
             >
               <el-option
                 v-for="item in dataReligions"
@@ -107,6 +111,8 @@
               v-model="data.provinceCode"
               placeholder="Select province"
               class="w-full"
+              filterable
+              clearable
             >
               <el-option
                 v-for="p in dataProvinces"
@@ -124,6 +130,8 @@
               placeholder="Select regency"
               class="w-full"
               :disabled="!data.provinceCode"
+              filterable
+              clearable
             >
               <el-option
                 v-for="r in dataRegencies"
@@ -141,6 +149,8 @@
               placeholder="Select district"
               class="w-full"
               :disabled="!data.regencyCode"
+              filterable
+              clearable
             >
               <el-option
                 v-for="d in dataDistricts"
@@ -158,6 +168,8 @@
               placeholder="Select village"
               class="w-full"
               :disabled="!data.districtCode"
+              filterable
+              clearable
             >
               <el-option
                 v-for="v in dataVillages"
@@ -183,6 +195,8 @@
                 v-model="contact.typeId"
                 placeholder="Contact type"
                 style="width: 150px"
+                filterable
+                clearable
               >
                 <el-option
                   v-for="item in dataContactTypes"
@@ -275,6 +289,8 @@
                 v-model="segmentsList[index]"
                 placeholder="Select segment"
                 style="flex: 1"
+                filterable
+                clearable
               >
                 <el-option
                   v-for="item in dataSegments"

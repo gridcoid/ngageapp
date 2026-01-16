@@ -57,6 +57,8 @@
                 placeholder="Select Segment"
                 class="mr-3"
                 style="width: 250px"
+                filterable
+                clearable
               >
                 <el-option
                   v-for="item in dataSegments"

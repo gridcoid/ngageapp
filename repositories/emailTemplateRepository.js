@@ -9,6 +9,12 @@ export default ($axios) => ({
     )
   },
 
+  // email-template:all
+  all() {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(`${resource}/all?orgId=${orgId}`)
+  },
+
   // email-template:create
   create(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
