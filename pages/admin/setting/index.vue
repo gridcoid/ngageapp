@@ -101,6 +101,18 @@
           </template>
         </el-table-column>
 
+        <!-- value -->
+        <el-table-column label="Description">
+          <template slot-scope="scope">
+            <div
+              class="font-cabin font-mono text-sm text-gray-700 cursor-pointer"
+              @click="viewDetail(scope.row)"
+            >
+              {{ scope.row.description }}
+            </div>
+          </template>
+        </el-table-column>
+
         <!-- ACTIONS -->
         <el-table-column width="200">
           <template slot-scope="scope">
