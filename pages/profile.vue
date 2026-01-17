@@ -339,13 +339,14 @@ export default {
       }
       this.$store.dispatch('user/getDetail', data)
     },
-    changeRowPage(ev) {
-      this.rowPage = ev
-      this.getDataAll()
+    changeRowPage(p) {
+      this.rowPage = p
+      this.currentPage = 1
+      this.getData()
     },
-    changePage(ev) {
-      if (ev > 0) {
-        this.currentPage = ev
+    changePage(s) {
+      if (s > 0) {
+        this.currentPage = s
         this.getDataAll()
       }
     },

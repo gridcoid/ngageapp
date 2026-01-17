@@ -88,15 +88,12 @@
           </div>
         </div>
 
-        <div class="flex-1 name-data flex flex-col">
-          <span>{{ item.subject }}</span>
-          <span class="mb-1">{{ item.from }}</span>
-          <span v-if="!!item.replyTo" class="text-sm text-gray-300"
-            >Reply to: {{ item.replyTo }}</span
-          >
+        <div class="name-data flex flex-col mr-8">
+          <span>{{ item.purpose }}</span>
+          <span>{{ item.locale }}</span>
         </div>
 
-        <div class="w-[120px] flex items-center">
+        <div class="flex items-center">
           <Dropdown
             :index-list="index"
             name-btn="Detail"
@@ -264,15 +261,16 @@ export default {
       this.getData()
     },
 
-    changePage(page) {
-      if (page > 0) {
-        this.currentPage = page
+    changePage(s) {
+      if (s > 0) {
+        this.currentPage = s
         this.getData()
       }
     },
 
-    changeRowPage(size) {
-      this.rowPage = size
+    changeRowPage(p) {
+      this.rowPage = p
+      this.currentPage = 1
       this.getData()
     },
 

@@ -1227,14 +1227,15 @@ export default {
         this.isLoading = false
       })
     },
-    changePage(ev) {
-      if (ev > 0) {
-        this.currentPage = ev
+    changePage(s) {
+      if (s > 0) {
+        this.currentPage = s
         this.getDataCreative()
       }
     },
-    changeRowPage(ev) {
-      this.rowPage = ev
+    changeRowPage(p) {
+      this.rowPage = p
+      this.currentPage = 1
       this.getDataCreative()
     },
     getDataCreative() {

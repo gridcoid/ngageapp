@@ -922,15 +922,16 @@ export default {
     getCampaignTypes() {
       this.$store.dispatch('campaign/getCampaignTypes')
     },
-    changePage(ev) {
-      if (ev > 0) {
-        this.currentPage = ev
+    changePage(s) {
+      if (s > 0) {
+        this.currentPage = s
         this.getCampaign()
       }
     },
-    changeRowPage(ev) {
-      this.rowPage = ev
-      this.getCampaign()
+    changeRowPage(p) {
+      this.rowPage = p
+      this.currentPage = 1
+      this.getData()
     },
     getCampaign() {
       this.isLoading = true

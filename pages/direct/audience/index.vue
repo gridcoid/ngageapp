@@ -373,15 +373,16 @@ export default {
         })
     },
 
-    changePage(e) {
-      if (e > 0) {
-        this.currentPage = e
+    changePage(s) {
+      if (s > 0) {
+        this.currentPage = s
         this.getData()
       }
     },
 
-    changeRowPage(e) {
-      this.rowPage = e
+    changeRowPage(p) {
+      this.rowPage = p
+      this.currentPage = 1
       this.getData()
     },
 

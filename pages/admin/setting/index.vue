@@ -367,14 +367,15 @@ export default {
           this.$store.commit('user/SET_DROPDOWN', null)
         })
     },
-    changePage(ev) {
-      if (ev > 0) {
-        this.currentPage = ev
+    changePage(s) {
+      if (s > 0) {
+        this.currentPage = s
         this.getData()
       }
     },
-    changeRowPage(ev) {
-      this.rowPage = ev
+    changeRowPage(p) {
+      this.rowPage = p
+      this.currentPage = 1
       this.getData()
     },
     viewDetail(item) {

@@ -891,15 +891,16 @@ export default {
       this.width = window.innerWidth - 100
       this.isLoading = false
     },
-    changePage(ev) {
-      if (ev > 0) {
-        this.currentPage = ev
+    changePage(s) {
+      if (s > 0) {
+        this.currentPage = s
         this.getPlacement()
       }
     },
-    changeRowPage(ev) {
-      this.rowPage = ev
-      this.getPlacement()
+    changeRowPage(p) {
+      this.rowPage = p
+      this.currentPage = 1
+      this.getData()
     },
     openDeletePlacement(data) {
       this.dataCampaign = data

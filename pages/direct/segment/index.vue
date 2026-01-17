@@ -1,5 +1,6 @@
 <template>
   <div class="kg-containers p-6 w-full">
+    <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">
         <i class="ti ti-folder text-gray-400 mr-2" /> Audience Segments (Contact
@@ -15,6 +16,8 @@
         />
       </div>
     </div>
+
+    <!-- Filter -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
         Discover and manage different audience groups or contact lists to tailor
@@ -63,6 +66,8 @@
         </div>
       </div>
     </div>
+
+    <!-- Body -->
     <div v-if="dataSegments.length > 0" class="body-content flex flex-col">
       <div
         v-for="(item, index) in dataSegments"
@@ -160,6 +165,8 @@
         "
       />
     </div>
+
+    <!-- No Data -->
     <div v-else class="flex flex-col items-center mt-24 no-data">
       <img src="~/assets/images/empty_table.png" width="150" />
       <div class="title-1 mt-2">No records found.</div>
@@ -387,14 +394,15 @@ export default {
           this.$store.commit('user/SET_DROPDOWN', null)
         })
     },
-    changePage(ev) {
-      if (ev > 0) {
-        this.currentPage = ev
+    changePage(s) {
+      if (s > 0) {
+        this.currentPage = s
         this.getData()
       }
     },
-    changeRowPage(ev) {
-      this.rowPage = ev
+    changeRowPage(p) {
+      this.rowPage = p
+      this.currentPage = 1
       this.getData()
     },
     viewDetail(item) {
