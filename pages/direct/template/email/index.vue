@@ -157,7 +157,7 @@
       <div class="flex mt-4">
         <button
           class="flex items-center justify-center save-btn no-select"
-          @click="toCreate()"
+          @click="toCreate"
         >
           <IconPlus bg-color="#1B63D4" />
           <div class="name-btn">Create New Template</div>

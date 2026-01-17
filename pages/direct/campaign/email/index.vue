@@ -84,13 +84,23 @@
         :data="dataCampaigns"
         class="k-table w-full"
       >
+        <!-- Empty State -->
         <template slot="empty">
           <div class="flex flex-col items-center mt-6 no-data">
-            <div class="title-1">No campaigns found</div>
-            <div class="subtitle-1 mb-3">Create your first email campaign.</div>
-            <el-button type="primary" @click="toCreate">
-              Create Campaign
-            </el-button>
+            <img src="~/assets/images/empty_table.png" width="150" />
+            <div class="title-1">No records found.</div>
+            <div class="subtitle-1">
+              Seems like you haven’t created any email campaign yet. Create one
+              now?
+            </div>
+
+            <button
+              class="flex items-center justify-center save-btn no-select"
+              @click="toCreate"
+            >
+              <IconPlus bg-color="#1B63D4" />
+              <div class="name-btn">Create New Campaign</div>
+            </button>
           </div>
         </template>
 
