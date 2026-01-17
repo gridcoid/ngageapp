@@ -692,7 +692,7 @@ export default {
 
       this.$store
         .dispatch('audience/detail', {
-          uuid: this.$route.params.index,
+          uuid: this.$route.params.uuid,
         })
         .finally(() => (this.isLoading = false))
     },

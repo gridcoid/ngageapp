@@ -3,14 +3,12 @@
     <div class="header-content">
       <Back />
     </div>
-
     <div class="card-content">
       <div class="header-card flex items-center">
         <div class="title">
-          <i class="ti ti-key text-gray-400 mr-2"></i> Update API Key
+          <i class="ti ti-folder text-gray-400 mr-2" /> Update Segment
         </div>
       </div>
-
       <div class="body-card">
         <el-form
           ref="ruleForm"
@@ -20,19 +18,20 @@
           label-position="left"
           hide-required-asterisk
         >
-          <!-- Name -->
           <el-form-item class="title-form" prop="name">
             <label slot="label" class="title-form">Name<Req /></label>
             <el-input v-model="data.name" />
           </el-form-item>
-
-          <!-- Revoked -->
-          <el-form-item class="title-form" prop="revoked">
-            <label slot="label" class="title-form">Revoked</label>
-            <el-switch v-model="data.revoked" />
+          <el-form-item class="title-form" prop="description">
+            <label slot="label" class="title-form">Description</label>
+            <el-input
+              v-model="data.description"
+              type="textarea"
+              :rows="3"
+              maxlength="200"
+            />
           </el-form-item>
         </el-form>
-
         <Transition>
           <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
         </Transition>
@@ -48,7 +47,7 @@
           @click="save()"
           class="w-32"
           :loading="isLoading"
-          :disabled="isLoading"
+          :disable="isLoading"
         >
           Save
         </el-button>
@@ -59,17 +58,14 @@
 
 <script>
 import { mapState } from 'vuex'
-
 export default {
-  name: 'UpdateApiKeyPage',
+  name: 'UpdateSegmentPage',
   layout: 'default',
-
   head() {
     return {
-      title: 'Update API Key - ' + this.$config.appName,
+      title: 'Update Segment - ' + this.$config.appName,
     }
   },
-
   data() {
     return {
       rules: {
@@ -81,16 +77,20 @@ export default {
             transform: (v) => (v ? v.trim() : v),
           },
           {
-            min: 1,
+            min: 0,
             max: 50,
-            message: 'Max 50 characters',
+            message: 'Max 50 character',
             trigger: 'blur',
           },
         ],
-        revoked: [
+        description: [
           {
-            type: 'boolean',
-            trigger: 'change',
+            required: false,
+          },
+          {
+            max: 200,
+            message: 'Max 200 character',
+            trigger: 'blur',
           },
         ],
       },
@@ -104,32 +104,27 @@ export default {
         uuid: null,
 
         name: '',
-        expiresAt: null,
-        scopes: [],
-        revoked: false,
+        description: '',
       },
     }
   },
-
+  mounted() {
+    this.getDetail()
+  },
+  computed: {
+    ...mapState({
+      dataDetail: (state) => state.segment.dataDetail,
+    }),
+  },
   methods: {
     getDetail() {
       this.isLoading = true
-
       this.$store
-        .dispatch('apiKey/detail', {
-          uuid: this.$route.params.index,
+        .dispatch('segment/detail', {
+          uuid: this.$route.params.uuid,
         })
         .finally(() => (this.isLoading = false))
     },
-
-    getSegments() {
-      this.isLoading = true
-
-      this.$store.dispatch('segment/all').finally(() => {
-        this.isLoading = false
-      })
-    },
-
     save() {
       this.showMessage = false
       this.messageError = ''
@@ -138,33 +133,32 @@ export default {
         if (!valid) return
 
         this.$notifier.showMessage({
-          content: 'Updating API key...',
+          content: 'Updating segment...',
           type: 'loading',
         })
 
         this.isLoading = true
 
         this.$store
-          .dispatch('apiKey/update', this.data)
+          .dispatch('segment/update', this.data)
           .then((res) => {
             if (res.status === 200) {
-              this.$router.push({ path: '/admin/api-key' })
+              this.$router.push({ path: '/direct/segment' })
 
               this.$notifier.showMessage({
-                content: 'API Key updated.',
+                content: 'Segment updated.',
                 type: 'success',
               })
             } else {
               this.showMessage = true
 
-              const keys = Object.keys(res?.data.data.errors[0])
-              const arr = []
-
-              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
-              this.messageError = arr.join(', ')
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to update segment'
 
               this.$notifier.showMessage({
-                content: 'API Key update failed!',
+                content: 'Segment update failed!',
                 type: 'failed',
               })
             }
@@ -180,34 +174,14 @@ export default {
       })
     },
   },
-
-  computed: {
-    ...mapState({
-      dataDetail: (state) => state.apiKey.dataDetail,
-
-      dataSegments: (state) => {
-        return state.segment.dataList
-      },
-    }),
-  },
-
-  mounted() {
-    this.getSegments()
-    this.getDetail()
-  },
-
   watch: {
-    async dataDetail(val) {
+    dataDetail(val) {
       if (val) {
-        this.data = {
-          id: val.id,
-          uuid: val.uuid,
+        this.data.id = val.id
+        this.data.uuid = val.uuid
 
-          name: val.name,
-          expiresAt: val.expiresAt,
-          scopes: val.scopes,
-          revoked: val.revoked,
-        }
+        this.data.name = val.name
+        this.data.description = val.description
       }
     },
   },

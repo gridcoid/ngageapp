@@ -7,7 +7,7 @@
     <div class="card-content">
       <div class="header-card flex items-center">
         <div class="title">
-          <i class="ti ti-folder text-gray-400 mr-2" /> Update Setting
+          <i class="ti ti-key text-gray-400 mr-2"></i> Update API Key
         </div>
       </div>
 
@@ -20,37 +20,16 @@
           label-position="left"
           hide-required-asterisk
         >
-          <el-form-item class="title-form" prop="key">
-            <label slot="label" class="title-form">Key</label>
-            <el-input v-model="data.key" disabled />
+          <!-- Name -->
+          <el-form-item class="title-form" prop="name">
+            <label slot="label" class="title-form">Name<Req /></label>
+            <el-input v-model="data.name" />
           </el-form-item>
 
-          <el-form-item class="title-form" prop="value">
-            <label slot="label" class="title-form">Value<Req /></label>
-
-            <!-- Boolean → switch -->
-            <el-switch v-if="isBoolean" v-model="valueBoolean" />
-
-            <!-- Otherwise → textarea -->
-            <el-input
-              v-else
-              v-model="data.value"
-              type="textarea"
-              :rows="2"
-              maxlength="200"
-              spellcheck="false"
-            />
-          </el-form-item>
-
-          <el-form-item class="title-form" prop="description">
-            <label slot="label" class="title-form">Description</label>
-            <el-input
-              v-model="data.description"
-              type="textarea"
-              :rows="2"
-              maxlength="200"
-              spellcheck="false"
-            />
+          <!-- Revoked -->
+          <el-form-item class="title-form" prop="revoked">
+            <label slot="label" class="title-form">Revoked</label>
+            <el-switch v-model="data.revoked" />
           </el-form-item>
         </el-form>
 
@@ -63,14 +42,13 @@
         <el-button type="primary" @click="$router.back()" plain class="w-32">
           Discard
         </el-button>
-
         <el-button
           icon="el-icon-check"
           type="primary"
           @click="save()"
           class="w-32"
           :loading="isLoading"
-          :disable="isLoading"
+          :disabled="isLoading"
         >
           Save
         </el-button>
@@ -83,54 +61,36 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'UpdateSettingPage',
+  name: 'UpdateApiKeyPage',
   layout: 'default',
 
   head() {
     return {
-      title: 'Update Setting - ' + this.$config.appName,
+      title: 'Update API Key - ' + this.$config.appName,
     }
   },
 
   data() {
     return {
       rules: {
-        key: [
+        name: [
           {
             required: true,
-            message: 'Key is required',
+            message: 'Name is required',
             trigger: 'blur',
             transform: (v) => (v ? v.trim() : v),
           },
           {
             min: 1,
             max: 50,
-            message: 'Max 50 character',
+            message: 'Max 50 characters',
             trigger: 'blur',
           },
         ],
-        value: [
+        revoked: [
           {
-            required: true,
-            message: 'Value is required',
-            trigger: 'blur',
-            transform: (v) => (v ? v.trim() : v),
-          },
-          {
-            min: 1,
-            max: 200,
-            message: 'Max 200 character',
-            trigger: 'blur',
-          },
-        ],
-        description: [
-          {
-            required: false,
-          },
-          {
-            max: 200,
-            message: 'Max 200 character',
-            trigger: 'blur',
+            type: 'boolean',
+            trigger: 'change',
           },
         ],
       },
@@ -138,87 +98,73 @@ export default {
       isLoading: false,
       showMessage: false,
       messageError: '',
-      valueBoolean: false,
 
       data: {
         id: null,
         uuid: null,
 
-        key: '',
-        value: '',
-        description: '',
+        name: '',
+        expiresAt: null,
+        scopes: [],
+        revoked: false,
       },
     }
-  },
-
-  mounted() {
-    this.getDetail()
-  },
-
-  computed: {
-    ...mapState({
-      dataDetail: (state) => state.setting.dataDetail,
-    }),
-    // decide when to show switch
-    isBoolean() {
-      return (
-        this.data.value === true ||
-        this.data.value === false ||
-        this.data.value === 'true' ||
-        this.data.value === 'false'
-      )
-    },
   },
 
   methods: {
     getDetail() {
       this.isLoading = true
+
       this.$store
-        .dispatch('setting/detail', {
-          uuid: this.$route.params.index,
+        .dispatch('apiKey/detail', {
+          uuid: this.$route.params.uuid,
         })
         .finally(() => (this.isLoading = false))
+    },
+
+    getSegments() {
+      this.isLoading = true
+
+      this.$store.dispatch('segment/all').finally(() => {
+        this.isLoading = false
+      })
     },
 
     save() {
       this.showMessage = false
       this.messageError = ''
 
-      // if boolean UI is active, sync to string value first
-      if (this.isBoolean) {
-        this.data.value = this.valueBoolean ? 'true' : 'false'
-      }
-
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
 
         this.$notifier.showMessage({
-          content: 'Updating setting...',
+          content: 'Updating API key...',
           type: 'loading',
         })
 
         this.isLoading = true
 
         this.$store
-          .dispatch('setting/update', this.data)
+          .dispatch('apiKey/update', this.data)
           .then((res) => {
             if (res.status === 200) {
-              this.$router.push({ path: '/admin/setting' })
+              this.$router.push({ path: '/admin/api-key' })
 
               this.$notifier.showMessage({
-                content: 'Setting updated.',
+                content: 'API Key updated.',
                 type: 'success',
               })
             } else {
               this.showMessage = true
 
-              this.messageError =
-                res?.data?.data?.errors
-                  ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to update setting'
+              const keys = Object.keys(res?.data.data.errors[0])
+              const arr = []
+
+              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
+              this.messageError = arr.join(', ')
 
               this.$notifier.showMessage({
-                content: 'Setting update failed!',
+                content: 'API Key update failed!',
                 type: 'failed',
               })
             }
@@ -235,24 +181,34 @@ export default {
     },
   },
 
-  watch: {
-    dataDetail(val) {
-      if (val) {
-        this.data.id = val.id
-        this.data.uuid = val.uuid
+  computed: {
+    ...mapState({
+      dataDetail: (state) => state.apiKey.dataDetail,
 
-        this.data.key = val.key
-        this.data.value = val.value
-        this.data.description = val.description
-      }
-    },
-    // when editing existing data, sync into valueBoolean
-    'data.value': {
-      immediate: true,
-      handler(v) {
-        if (v === true || v === 'true') this.valueBoolean = true
-        if (v === false || v === 'false') this.valueBoolean = false
+      dataSegments: (state) => {
+        return state.segment.dataList
       },
+    }),
+  },
+
+  mounted() {
+    this.getSegments()
+    this.getDetail()
+  },
+
+  watch: {
+    async dataDetail(val) {
+      if (val) {
+        this.data = {
+          id: val.id,
+          uuid: val.uuid,
+
+          name: val.name,
+          expiresAt: val.expiresAt,
+          scopes: val.scopes,
+          revoked: val.revoked,
+        }
+      }
     },
   },
 }

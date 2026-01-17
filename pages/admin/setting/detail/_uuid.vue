@@ -121,7 +121,7 @@ export default {
 
       this.$store
         .dispatch('setting/detail', {
-          uuid: this.$route.params.index,
+          uuid: this.$route.params.uuid,
         })
         .finally(() => (this.isLoading = false))
     },

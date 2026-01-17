@@ -3,12 +3,14 @@
     <div class="header-content">
       <Back />
     </div>
+
     <div class="card-content">
       <div class="header-card flex items-center">
         <div class="title">
-          <i class="ti ti-folder text-gray-400 mr-2" /> Update Segment
+          <i class="ti ti-folder text-gray-400 mr-2" /> Update Setting
         </div>
       </div>
+
       <div class="body-card">
         <el-form
           ref="ruleForm"
@@ -18,20 +20,40 @@
           label-position="left"
           hide-required-asterisk
         >
-          <el-form-item class="title-form" prop="name">
-            <label slot="label" class="title-form">Name<Req /></label>
-            <el-input v-model="data.name" />
+          <el-form-item class="title-form" prop="key">
+            <label slot="label" class="title-form">Key</label>
+            <el-input v-model="data.key" disabled />
           </el-form-item>
+
+          <el-form-item class="title-form" prop="value">
+            <label slot="label" class="title-form">Value<Req /></label>
+
+            <!-- Boolean → switch -->
+            <el-switch v-if="isBoolean" v-model="valueBoolean" />
+
+            <!-- Otherwise → textarea -->
+            <el-input
+              v-else
+              v-model="data.value"
+              type="textarea"
+              :rows="2"
+              maxlength="200"
+              spellcheck="false"
+            />
+          </el-form-item>
+
           <el-form-item class="title-form" prop="description">
             <label slot="label" class="title-form">Description</label>
             <el-input
               v-model="data.description"
               type="textarea"
-              :rows="3"
+              :rows="2"
               maxlength="200"
+              spellcheck="false"
             />
           </el-form-item>
         </el-form>
+
         <Transition>
           <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
         </Transition>
@@ -41,6 +63,7 @@
         <el-button type="primary" @click="$router.back()" plain class="w-32">
           Discard
         </el-button>
+
         <el-button
           icon="el-icon-check"
           type="primary"
@@ -58,28 +81,45 @@
 
 <script>
 import { mapState } from 'vuex'
+
 export default {
-  name: 'UpdateSegmentPage',
+  name: 'UpdateSettingPage',
   layout: 'default',
+
   head() {
     return {
-      title: 'Update Segment - ' + this.$config.appName,
+      title: 'Update Setting - ' + this.$config.appName,
     }
   },
+
   data() {
     return {
       rules: {
-        name: [
+        key: [
           {
             required: true,
-            message: 'Name is required',
+            message: 'Key is required',
             trigger: 'blur',
             transform: (v) => (v ? v.trim() : v),
           },
           {
-            min: 0,
+            min: 1,
             max: 50,
             message: 'Max 50 character',
+            trigger: 'blur',
+          },
+        ],
+        value: [
+          {
+            required: true,
+            message: 'Value is required',
+            trigger: 'blur',
+            transform: (v) => (v ? v.trim() : v),
+          },
+          {
+            min: 1,
+            max: 200,
+            message: 'Max 200 character',
             trigger: 'blur',
           },
         ],
@@ -98,55 +138,75 @@ export default {
       isLoading: false,
       showMessage: false,
       messageError: '',
+      valueBoolean: false,
 
       data: {
         id: null,
         uuid: null,
 
-        name: '',
+        key: '',
+        value: '',
         description: '',
       },
     }
   },
+
   mounted() {
     this.getDetail()
   },
+
   computed: {
     ...mapState({
-      dataDetail: (state) => state.segment.dataDetail,
+      dataDetail: (state) => state.setting.dataDetail,
     }),
+    // decide when to show switch
+    isBoolean() {
+      return (
+        this.data.value === true ||
+        this.data.value === false ||
+        this.data.value === 'true' ||
+        this.data.value === 'false'
+      )
+    },
   },
+
   methods: {
     getDetail() {
       this.isLoading = true
       this.$store
-        .dispatch('segment/detail', {
-          uuid: this.$route.params.index,
+        .dispatch('setting/detail', {
+          uuid: this.$route.params.uuid,
         })
         .finally(() => (this.isLoading = false))
     },
+
     save() {
       this.showMessage = false
       this.messageError = ''
+
+      // if boolean UI is active, sync to string value first
+      if (this.isBoolean) {
+        this.data.value = this.valueBoolean ? 'true' : 'false'
+      }
 
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
 
         this.$notifier.showMessage({
-          content: 'Updating segment...',
+          content: 'Updating setting...',
           type: 'loading',
         })
 
         this.isLoading = true
 
         this.$store
-          .dispatch('segment/update', this.data)
+          .dispatch('setting/update', this.data)
           .then((res) => {
             if (res.status === 200) {
-              this.$router.push({ path: '/direct/segment' })
+              this.$router.push({ path: '/admin/setting' })
 
               this.$notifier.showMessage({
-                content: 'Segment updated.',
+                content: 'Setting updated.',
                 type: 'success',
               })
             } else {
@@ -155,10 +215,10 @@ export default {
               this.messageError =
                 res?.data?.data?.errors
                   ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to update segment'
+                  .join(', ') || 'Failed to update setting'
 
               this.$notifier.showMessage({
-                content: 'Segment update failed!',
+                content: 'Setting update failed!',
                 type: 'failed',
               })
             }
@@ -174,15 +234,25 @@ export default {
       })
     },
   },
+
   watch: {
     dataDetail(val) {
       if (val) {
         this.data.id = val.id
         this.data.uuid = val.uuid
 
-        this.data.name = val.name
+        this.data.key = val.key
+        this.data.value = val.value
         this.data.description = val.description
       }
+    },
+    // when editing existing data, sync into valueBoolean
+    'data.value': {
+      immediate: true,
+      handler(v) {
+        if (v === true || v === 'true') this.valueBoolean = true
+        if (v === false || v === 'false') this.valueBoolean = false
+      },
     },
   },
 }
