@@ -111,10 +111,12 @@
         <el-table-column label="Title/Subject" prop="title" sortable>
           <template slot-scope="scope">
             <div class="cursor-pointer k-title" @click="viewDetail(scope.row)">
-              {{ scope.row.title }}
-            </div>
-            <div class="k-subtitle">
-              {{ scope.row.subject }}
+              <div>
+                {{ scope.row.title }}
+              </div>
+              <div class="k-subtitle">
+                {{ scope.row.subject }}
+              </div>
             </div>
           </template>
         </el-table-column>
