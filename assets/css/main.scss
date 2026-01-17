@@ -256,6 +256,9 @@ $colorBlue:#1b63d4;
     border: 1px solid #E2E2E2 !important;
   }
 
+.el-table__body-wrapper {
+  padding-bottom: 55px;
+}
 .el-table thead {
   color: #5C6B7A !important;
   font-family: 'Cabin' !important;

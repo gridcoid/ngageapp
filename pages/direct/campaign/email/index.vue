@@ -294,7 +294,7 @@ export default {
     },
 
     deleteCampaign(data) {
-      this.$confirm(`Delete campaign "${data.name}"?`, 'Confirmation', {
+      this.$confirm(`Delete campaign "${data.title}"?`, 'Confirmation', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',
@@ -367,9 +367,6 @@ export default {
       this.$nextTick(() => {
         this.tableVisible = true
       })
-    },
-    dataCampaigns(val) {
-      console.log(val)
     },
   },
 }
