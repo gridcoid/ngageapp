@@ -343,24 +343,15 @@ export default {
   },
 
   watch: {
-    // watch data.segmentId
-    'data.segmentId': {
+    // watch data.sender
+    'data.sender': {
       handler(val) {
-        const selectedSegment = this.dataSegments.find(
-          (segment) => segment.id === val
+        const selectedSender = this.dataSenders.find(
+          (sender) => sender.ID === val
         )
-        // console.log(selectedSegment)
-      },
-    },
 
-    // watch data.templateId
-    'data.templateId': {
-      handler(val) {
-        const selectedTemplate = this.dataTemplates.find(
-          (template) => template.id === val
-        )
-        this.data.subject = selectedTemplate.subject
-        this.data.replyTo = selectedTemplate.replyTo
+        this.data.senderName = selectedSender.Name
+        this.data.senderEmail = selectedSender.Email
       },
     },
   },

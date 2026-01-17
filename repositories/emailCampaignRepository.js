@@ -2,45 +2,35 @@ const resource = 'email-campaign'
 
 export default ($axios) => ({
   // email-campaign:list
-  list(params = {}) {
+  list(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(resource, {
-      params: {
-        orgId,
-        ...params,
-      },
-    })
+    return $axios.get(
+      `${resource}?orgId=${orgId}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+    )
   },
 
   // email-campaign:create
   create(payload) {
+    console.log(payload)
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(resource, payload, {
-      params: { orgId },
-    })
+    return $axios.post(`${resource}?orgId=${orgId}`, payload)
   },
 
   // email-campaign:detail
-  detail(uuid) {
+  detail(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(`${resource}/${uuid}`, {
-      params: { orgId },
-    })
+    return $axios.get(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
   // email-campaign:update
-  update(uuid, payload) {
+  update(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.put(`${resource}/${uuid}`, payload, {
-      params: { orgId },
-    })
+    return $axios.patch(`${resource}/${payload.uuid}?orgId=${orgId}`, payload)
   },
 
   // email-campaign:delete
-  delete(uuid) {
+  delete(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.delete(`${resource}/${uuid}`, {
-      params: { orgId },
-    })
+    return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 })
