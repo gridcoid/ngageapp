@@ -349,7 +349,7 @@ export default {
 
     toImport(type) {
       this.$router.push({
-        path: '/direct/segment/import-' + type + '/' + this.$route.params.index,
+        path: '/direct/segment/import-' + type + '/' + this.$route.params.uuid,
       })
     },
 
@@ -425,7 +425,7 @@ export default {
       this.$router.push({
         path:
           '/direct/segment/' +
-          this.$route.params.index +
+          this.$route.params.uuid +
           '/audience/detail/' +
           item.uuid,
       })

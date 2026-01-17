@@ -190,7 +190,7 @@ export default {
 
         this.$store
           .dispatch('dashboard/updateWidget', {
-            uuid: this.$route.params.index,
+            uuid: this.$route.params.uuid,
             widgetUuid: this.data.i,
             widget: {
               type: this.data.type,

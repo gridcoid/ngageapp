@@ -628,7 +628,7 @@ export default {
 
       this.$store
         .dispatch('segment/detail', {
-          uuid: this.$route.params.index,
+          uuid: this.$route.params.uuid,
         })
         .finally(() => (this.isLoading = false))
     },
@@ -713,7 +713,7 @@ export default {
           .then((res) => {
             if (res.status === 200) {
               this.$router.push({
-                path: `/direct/segment/${this.$route.params.index}/audience`,
+                path: `/direct/segment/${this.$route.params.uuid}/audience`,
               })
 
               this.$notifier.showMessage({

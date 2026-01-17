@@ -239,7 +239,7 @@ export default {
                 clearInterval(sto)
 
                 this.$router.push(
-                  `/direct/segment/${this.$route.params.index}/audience`
+                  `/direct/segment/${this.$route.params.uuid}/audience`
                 )
               } else {
                 this.showMessage = true
