@@ -32,7 +32,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-flag mr-2 text-blue-500"></i>
+                <i class="ti ti-flag mr-2 text-red-500"></i>
                 Campaign Information
               </h2>
 
@@ -136,7 +136,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-users mr-2 text-blue-500"></i>
+                <i class="ti ti-users mr-2 text-green-500"></i>
                 Targeting
               </h2>
 
@@ -159,7 +159,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-layout mr-2 text-blue-500"></i>
+                <i class="ti ti-layout mr-2 text-purple-500"></i>
                 Email Template
               </h2>
 
