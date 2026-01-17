@@ -104,11 +104,11 @@
           </div>
         </template>
 
-        <!-- padding -->
+        <!-- PADDING -->
         <el-table-column label="" width="10" />
 
-        <!-- Title -->
-        <el-table-column label="Title" prop="title" min-width="240">
+        <!-- TITLE -->
+        <el-table-column label="Title/Subject" prop="title" sortable>
           <template slot-scope="scope">
             <div class="cursor-pointer k-title" @click="viewDetail(scope.row)">
               {{ scope.row.title }}
@@ -119,38 +119,69 @@
           </template>
         </el-table-column>
 
-        <!-- Sender -->
-        <el-table-column label="Sender" min-width="200">
+        <!-- SENDER -->
+        <el-table-column label="Sender" sortable>
           <template slot-scope="scope">
             <div>{{ scope.row.senderName }}</div>
             <div class="k-subtitle">{{ scope.row.senderEmail }}</div>
           </template>
         </el-table-column>
 
-        <!-- Locale -->
-        <el-table-column label="Locale" width="100">
+        <!-- SEGMENT -->
+        <el-table-column label="Segment/Template" sortable>
           <template slot-scope="scope">
-            {{ scope.row.locale }}
+            <div>
+              {{ scope.row.segment.name }}
+            </div>
+            <div class="k-subtitle">
+              {{ scope.row.template.name }}
+            </div>
           </template>
         </el-table-column>
 
-        <!-- Created -->
-        <el-table-column label="Created" width="160">
+        <!-- CREATED -->
+        <el-table-column label="Created/Locale" sortable>
           <template slot-scope="scope">
-            {{ formatDate(scope.row.createdAt) }}
+            <div>{{ formatDate(scope.row.createdAt) }}</div>
+            <div class="k-subtitle">{{ scope.row.locale }}</div>
           </template>
         </el-table-column>
 
-        <!-- Actions -->
-        <el-table-column label="" width="80">
+        <!-- ACTIONS -->
+        <el-table-column width="200">
           <template slot-scope="scope">
-            <el-button
-              type="text"
-              size="small"
-              @click="editCampaign(scope.row.id)"
+            <Dropdown
+              :index-list="scope.$index"
+              name-btn="Detail"
+              icons="preview"
+              color-text="#1B63D4"
+              class="mr-6"
+              @preview="viewDetail(scope.row)"
             >
-              Edit
-            </el-button>
+              <template slot="body">
+                <NuxtLink
+                  class="item-menu flex items-center no-select"
+                  :to="`/direct/campaign/email/edit/${scope.row.uuid}`"
+                >
+                  <i class="ti ti-edit text-yellow-500"></i>
+                  <span class="ml-3">Edit</span>
+                </NuxtLink>
+
+                <!-- replaced border inline css with tailwind -->
+                <div
+                  class="item-menu flex items-center no-select border-b border-gray-300 rounded-b-md"
+                  style="
+                    border-bottom: 1px solid #e2e2e2;
+                    border-end-end-radius: 5px;
+                    border-end-start-radius: 5px;
+                  "
+                  @click="deleteCampaign(scope.row)"
+                >
+                  <i class="ti ti-trash text-red-500"></i>
+                  <span class="ml-3">Delete</span>
+                </div>
+              </template>
+            </Dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -337,6 +368,9 @@ export default {
         this.tableVisible = true
       })
     },
+    dataCampaigns(val) {
+      console.log(val)
+    },
   },
 }
 </script>
@@ -511,7 +545,7 @@ export default {
       .k-subtitle {
         font-family: 'Cabin';
         font-weight: 400;
-        font-size: 14px;
+        font-size: 13px;
         color: #757575;
       }
       .title-tabel {

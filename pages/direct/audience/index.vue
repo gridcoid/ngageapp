@@ -103,7 +103,7 @@
           </div>
         </template>
 
-        <!-- padding -->
+        <!-- PADDING -->
         <el-table-column label="" width="10" />
 
         <!-- NAME -->
