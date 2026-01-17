@@ -43,8 +43,13 @@
           <!-- Purpose -->
           <el-form-item prop="purpose" class="lg:w-1/2">
             <label slot="label">Purpose<Req /></label>
-            <el-select v-model="data.purpose" class="w-full" filterable
-                clearable disabled>
+            <el-select
+              v-model="data.purpose"
+              class="w-full"
+              filterable
+              clearable
+              disabled
+            >
               <el-option label="Marketing" value="marketing" />
               <el-option label="Transactional" value="transactional" />
               <el-option label="Automation" value="automation" />
@@ -56,30 +61,6 @@
             <label slot="label">Copyright</label>
             <el-input v-model="data.copyright" />
           </el-form-item> -->
-
-          <div class="lg:w-1/2">
-            <el-divider>
-              <span class="text-gray-400 italic">E-mail</span>
-            </el-divider>
-          </div>
-
-          <!-- From -->
-          <el-form-item prop="from" class="lg:w-1/2">
-            <label slot="label">From<Req /></label>
-            <el-input v-model="data.from" />
-          </el-form-item>
-
-          <!-- Reply-To -->
-          <el-form-item prop="replyTo" class="lg:w-1/2">
-            <label slot="label">Reply-To</label>
-            <el-input v-model="data.replyTo" />
-          </el-form-item>
-
-          <!-- Subject -->
-          <el-form-item prop="subject" class="lg:w-1/2">
-            <label slot="label">Subject<Req /></label>
-            <el-input v-model="data.subject" />
-          </el-form-item>
 
           <!-- HTML Content -->
           <el-form-item prop="htmlContent">
@@ -184,11 +165,6 @@ export default {
         description: [{ max: 200, message: 'Max 200 characters' }],
         locale: [{ required: true, message: 'Locale is required' }],
         purpose: [{ required: true, message: 'Purpose is required' }],
-        from: [{ required: true, message: 'From is required' }],
-        subject: [
-          { required: true, message: 'Subject is required' },
-          { max: 100, message: 'Max 100 characters' },
-        ],
         htmlContent: [{ required: true, message: 'HTML content is required' }],
         textContent: [{ required: true, message: 'Text content is required' }],
       },
@@ -206,16 +182,8 @@ export default {
         locale: '',
         purpose: '',
         copyright: '',
-        from: '',
-        replyTo: '',
-        subject: '',
         htmlContent: '',
         textContent: '',
-      },
-
-      placeholders: {
-        subject: 'Email Subject',
-        email: '"John Doe" <john@example.com>',
       },
 
       predefinedTags: [
@@ -310,9 +278,6 @@ export default {
         description: val.description,
         locale: val.locale,
         purpose: val.purpose,
-        from: val.from,
-        replyTo: val.replyTo,
-        subject: val.subject,
         htmlContent: val.htmlContent,
         textContent: val.textContent,
         copyright: val.copyright,

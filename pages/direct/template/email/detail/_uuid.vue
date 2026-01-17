@@ -64,48 +64,6 @@
                     </div>
                   </div>
                 </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <label class="detail-label">Copyright</label>
-                    <div class="detail-value">
-                      {{ data.copyright || '-' }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Email headers -->
-            <div>
-              <h2
-                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
-              >
-                <i class="ti ti-mail mr-2 text-green-500"></i>
-                Email Headers
-              </h2>
-
-              <div class="bg-gray-50 rounded-lg p-5 space-y-4">
-                <div>
-                  <label class="detail-label">From</label>
-                  <div class="detail-value break-all">
-                    {{ data.from || '-' }}
-                  </div>
-                </div>
-
-                <div>
-                  <label class="detail-label">Reply-To</label>
-                  <div class="detail-value break-all">
-                    {{ data.replyTo || '-' }}
-                  </div>
-                </div>
-
-                <div>
-                  <label class="detail-label">Subject</label>
-                  <div class="detail-value">
-                    {{ data.subject || '-' }}
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -168,7 +126,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-text-size mr-2 text-purple-500"></i>
+                <i class="ti ti-text-size mr-2 text-green-500"></i>
                 Text Content
               </h2>
 
@@ -209,12 +167,8 @@ export default {
         description: '',
         locale: '',
         purpose: '',
-        from: '',
-        replyTo: '',
-        subject: '',
         htmlContent: '',
         textContent: '',
-        copyright: '',
         mailjetData: null,
         createdAt: null,
         updatedAt: null,
@@ -319,12 +273,8 @@ export default {
         description: val.description,
         locale: val.locale,
         purpose: val.purpose,
-        from: val.from,
-        replyTo: val.replyTo,
-        subject: val.subject,
         htmlContent: val.htmlContent,
         textContent: val.textContent,
-        copyright: val.copyright,
         mailjetData: val.mailjetData,
         createdAt: val.createdAt,
         updatedAt: val.updatedAt,

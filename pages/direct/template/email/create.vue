@@ -58,36 +58,6 @@
             <el-input v-model="data.copyright" />
           </el-form-item> -->
 
-          <div class="lg:w-1/2">
-            <el-divider>
-              <span class="text-gray-400 italic">E-mail</span>
-            </el-divider>
-          </div>
-
-          <!-- From -->
-          <el-form-item prop="from" class="lg:w-1/2">
-            <label slot="label">From<Req /></label>
-            <el-input v-model="data.from" :placeholder="placeholders.email" />
-          </el-form-item>
-
-          <!-- Reply-To -->
-          <el-form-item prop="replyTo" class="lg:w-1/2">
-            <label slot="label">Reply-To</label>
-            <el-input
-              v-model="data.replyTo"
-              placeholder="support@company.com"
-            />
-          </el-form-item>
-
-          <!-- Subject -->
-          <el-form-item prop="subject" class="lg:w-1/2">
-            <label slot="label">Subject<Req /></label>
-            <el-input
-              v-model="data.subject"
-              :placeholder="placeholders.subject"
-            />
-          </el-form-item>
-
           <!-- HTML Content -->
           <el-form-item prop="htmlContent">
             <label slot="label">HTML Content<Req /></label>
@@ -191,13 +161,6 @@ export default {
         ],
         locale: [{ required: true, message: 'Locale is required' }],
         purpose: [{ required: true, message: 'Purpose is required' }],
-        from: [
-          { required: true, message: 'From is required', trigger: 'blur' },
-        ],
-        subject: [
-          { required: true, message: 'Subject is required', trigger: 'blur' },
-          { max: 100, message: 'Max 100 characters', trigger: 'blur' },
-        ],
         htmlContent: [
           {
             required: true,
@@ -224,9 +187,6 @@ export default {
         locale: 'en_US',
         purpose: 'marketing',
         copyright: '',
-        from: '',
-        replyTo: '',
-        subject: '',
         htmlContent: `<html>
   <body>
     <p>
@@ -240,11 +200,6 @@ export default {
         textContent: `Hello world!
 
 This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LINK_EN]].`,
-      },
-
-      placeholders: {
-        subject: 'Email Subject',
-        email: '"John Doe" <john@example.com>',
       },
 
       predefinedTags: [
