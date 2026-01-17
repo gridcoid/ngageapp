@@ -25,6 +25,7 @@ import EmailCampaignRepository from '~/repositories/emailCampaignRepository'
 
 import MailjetContactListRepository from '~/repositories/mailjetContactListRepository'
 import MailjetContactRepository from '~/repositories/mailjetContactRepository'
+import MailjetCampaignDraftRepository from '~/repositories/mailjetCampaignDraftRepository'
 import MailjetCampaignRepository from '~/repositories/mailjetCampaignRepository'
 import MailjetTemplateRepository from '~/repositories/mailjetTemplateRepository'
 import MailjetSenderRepository from '~/repositories/mailjetSenderRepository'
@@ -59,5 +60,6 @@ export default ($axios) => ({
   mailjetContact: MailjetContactRepository($axios),
   mailjetTemplate: MailjetTemplateRepository($axios),
   mailjetSender: MailjetSenderRepository($axios),
+  mailjetCampaignDraft: MailjetCampaignDraftRepository($axios),
   mailjetCampaign: MailjetCampaignRepository($axios),
 })

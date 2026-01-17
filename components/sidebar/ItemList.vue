@@ -252,10 +252,16 @@ export default {
                     icon: 'ti ti-mailbox',
                   },
                   {
+                    path: '/reference/mailjet/campaigndraft',
+                    name: 'Campaign Drafts',
+                    type: 'single',
+                    icon: 'ti ti-notes',
+                  },
+                  {
                     path: '/reference/mailjet/campaign',
                     name: 'Campaigns',
                     type: 'single',
-                    icon: 'ti ti-template',
+                    icon: 'ti ti-speakerphone',
                   },
                 ],
               },

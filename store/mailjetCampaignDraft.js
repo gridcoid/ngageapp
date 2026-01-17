@@ -35,7 +35,9 @@ export const actions = {
   // mailjet-campaign:list
   async list({ commit }, payload) {
     try {
-      const response = await this.$repositories.mailjetCampaign.list(payload)
+      const response = await this.$repositories.mailjetCampaignDraft.list(
+        payload
+      )
       commit('SET_DATA_MAILJET_LIST', response.data.data)
       return response
     } catch (e) {

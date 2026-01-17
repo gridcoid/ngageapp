@@ -121,9 +121,9 @@ export default {
   computed: {
     ...mapState({
       sidebar: (state) => state.user.sidebar,
-      dataMailjetCampaigns: (state) => state.mailjetCampaign.dataList,
-      totalList: (state) => state.mailjetCampaign.totalList,
-      totalPages: (state) => state.mailjetCampaign.totalPages,
+      dataMailjetCampaigns: (state) => state.mailjetCampaignDraft.dataList,
+      totalList: (state) => state.mailjetCampaignDraft.totalList,
+      totalPages: (state) => state.mailjetCampaignDraft.totalPages,
     }),
   },
   mounted() {
@@ -140,7 +140,7 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('mailjetCampaign/list', data).finally(() => {
+      this.$store.dispatch('mailjetCampaignDraft/list', data).finally(() => {
         this.isLoading = false
       })
     },
@@ -171,7 +171,7 @@ export default {
           })
 
           this.$store
-            .dispatch('mailjetCampaign/delete', {
+            .dispatch('mailjetCampaignDraft/delete', {
               ID: data.ID,
             })
             .then((res) => {
