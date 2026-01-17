@@ -206,7 +206,7 @@ export default {
       })
     },
     dataMailjetCampaigns(val) {
-      console.log(val)
+      // console.log(val)
       // sample data:
       /*
       [

@@ -11,7 +11,6 @@ export default ($axios) => ({
 
   // email-campaign:create
   create(payload) {
-    console.log(payload)
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}?orgId=${orgId}`, payload)
   },
