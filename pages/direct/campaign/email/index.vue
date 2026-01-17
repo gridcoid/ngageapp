@@ -18,9 +18,20 @@
 
     <!-- Filters -->
     <div class="flex items-center filter-content justify-between">
-      <div class="desc-page">
-        Track campaign status, review details, and organize your campaigns
-        efficiently.
+      <div class="status-filter flex items-center">
+        <div
+          class="flex items-center justify-center card-filter"
+          @click=""
+          v-for="tab in tabs"
+          :key="tab.value"
+        >
+          <div
+            class="name-status"
+            :class="activeStatus === tab.value ? 'text-blue-500 font-bold' : ''"
+          >
+            {{ tab.name }}
+          </div>
+        </div>
       </div>
 
       <div class="flex items-center">
@@ -249,6 +260,26 @@ export default {
       isLoading: false,
       rowPage: 7,
       dialog: false,
+
+      activeStatus: 'draft',
+      tabs: [
+        {
+          name: 'Draft',
+          value: 'draft',
+        },
+        {
+          name: 'Scheduled',
+          value: 'scheduled',
+        },
+        {
+          name: 'Sent',
+          value: 'sent',
+        },
+        {
+          name: 'Archived',
+          value: 'archived',
+        },
+      ],
     }
   },
 
@@ -424,19 +455,19 @@ export default {
         width: 100%;
         margin-right: 10px;
         margin-left: 10px;
+        border-left: 1px solid #eee;
+        padding-left: 10px;
         cursor: pointer;
+        &:first-child {
+          border-left: none;
+          padding-left: 0px;
+        }
         .name-status {
           font-family: 'Cabin';
-          color: #454545;
-          font-weight: 400;
           font-size: 16px;
           margin-left: 10px;
           line-height: 40px;
         }
-      }
-      .hr-vertical {
-        height: 24px;
-        border-right: 0px solid #e2e2e2;
       }
     }
     .date-filter {
