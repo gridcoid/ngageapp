@@ -87,6 +87,7 @@
             <label slot="label">Locale<Req /></label>
             <el-radio-group v-model="data.locale">
               <el-radio label="en_US">English (US)</el-radio>
+              <el-radio label="id_ID">Bahasa Indonesia</el-radio>
             </el-radio-group>
           </el-form-item>
 

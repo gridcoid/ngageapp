@@ -106,14 +106,6 @@
             <label slot="label" class="title-form">Reply To</label>
             <el-input v-model="data.replyTo" />
           </el-form-item>
-
-          <!-- Locale -->
-          <el-form-item class="title-form" prop="locale">
-            <label slot="label" class="title-form">Locale<Req /></label>
-            <el-radio-group v-model="data.locale">
-              <el-radio label="en_US">English (US)</el-radio>
-            </el-radio-group>
-          </el-form-item>
         </el-form>
 
         <Transition>
@@ -223,14 +215,6 @@ export default {
             type: 'email',
             message: 'Invalid email format',
             trigger: 'blur',
-          },
-        ],
-
-        locale: [
-          {
-            required: true,
-            message: 'Locale is required',
-            trigger: 'change',
           },
         ],
       },
