@@ -17,7 +17,7 @@
         </div>
 
         <!-- Generic Tabler icon -->
-        <i class="ti ti-chart-bar text-2xl text-purple-300"></i>
+        <i class="ti ti-chart-bar text-2xl text-blue-300"></i>
       </div>
     </div>
   </el-card>

@@ -43,7 +43,7 @@
         <el-table-column label="Name" width="200" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-semibold text-sm text-gray-700">
-              <el-tag>{{ scope.row.name }}</el-tag>
+              <el-tag type="info">{{ scope.row.name }}</el-tag>
             </div>
           </template>
         </el-table-column>

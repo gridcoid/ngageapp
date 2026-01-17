@@ -284,7 +284,7 @@
                       <div class="flex items-center justify-between w-full">
                         <NuxtLink
                           :to="`/direct/segment/${segment.uuid}/audience`"
-                          class="text-blue-500 hover:text-purple-700 font-medium break-all block"
+                          class="text-blue-500 hover:text-blue-700 font-medium break-all block"
                         >
                           {{ segment.name }}
                         </NuxtLink>

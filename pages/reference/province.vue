@@ -44,7 +44,7 @@
           <template slot-scope="scope">
             <NuxtLink
               :to="`/reference/regency/${scope.row.code}`"
-              class="text-purple-600 font-cabin font-mono font-semibold text-sm"
+              class="text-blue-600 font-cabin font-mono font-semibold text-sm"
             >
               {{ scope.row.code }} <i class="ti ti-caret-right" />
             </NuxtLink>
@@ -55,7 +55,7 @@
         <el-table-column label="Name" sortable>
           <template slot-scope="scope">
             <div class="font-cabin font-semibold text-sm text-gray-700">
-              <el-tag>{{ scope.row.name }}</el-tag>
+              <el-tag type="info">{{ scope.row.name }}</el-tag>
             </div>
           </template>
         </el-table-column>
