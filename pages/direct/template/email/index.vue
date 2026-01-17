@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-mail text-gray-400 mr-2" />
+        <i class="ti ti-mail text-gray-500 mr-2" />
         Email Templates
       </div>
       <div class="flex">
@@ -107,7 +107,7 @@
                 class="item-menu flex items-center text-gray-500 text-sm"
                 @click="toDuplicate(item)"
               >
-                <i class="ti ti-copy text-purple-500"></i>
+                <i class="ti ti-copy text-gray-500"></i>
                 <span class="ml-3">Duplicate</span>
               </div>
 
@@ -115,7 +115,7 @@
                 class="item-menu flex items-center text-gray-500 text-sm"
                 :to="`/direct/template/email/edit/${item.uuid}`"
               >
-                <i class="ti ti-edit text-yellow-500"></i>
+                <i class="ti ti-edit text-gray-500"></i>
                 <span class="ml-3">Edit</span>
               </NuxtLink>
 
@@ -128,7 +128,7 @@
                 "
                 @click="deleteTemplate(item)"
               >
-                <i class="ti ti-trash text-red-500"></i>
+                <i class="ti ti-trash text-gray-500"></i>
                 <span class="ml-3">Delete</span>
               </div>
             </template>

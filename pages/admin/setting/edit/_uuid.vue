@@ -7,7 +7,7 @@
     <div class="card-content">
       <div class="header-card flex items-center">
         <div class="title">
-          <i class="ti ti-folder text-gray-400 mr-2" /> Update Setting
+          <i class="ti ti-folder text-gray-500 mr-2" /> Update Setting
         </div>
       </div>
 

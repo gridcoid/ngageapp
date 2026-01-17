@@ -406,7 +406,7 @@
                     class="item-menu flex items-center no-select"
                     @click="openDuplicateDialog(scope.row)"
                   >
-                    <i class="ti ti-copy text-purple-500"></i>
+                    <i class="ti ti-copy text-gray-500"></i>
                     <span class="ml-3">Duplicate</span>
                   </div>
                   <div
@@ -418,7 +418,7 @@
                     "
                     @click="deleteCampaign(scope.row)"
                   >
-                    <i class="ti ti-trash text-red-500"></i>
+                    <i class="ti ti-trash text-gray-500"></i>
                     <span class="ml-3">Delete</span>
                   </div>
                 </template>

@@ -27,7 +27,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-info-circle mr-2 text-blue-500"></i>
+                <i class="ti ti-info-circle mr-2 text-gray-500"></i>
                 Setting Information
               </h2>
 

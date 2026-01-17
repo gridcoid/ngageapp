@@ -28,7 +28,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-key mr-2 text-blue-500"></i> API Key Information
+                <i class="ti ti-key mr-2 text-gray-500"></i> API Key Information
               </h2>
               <div class="bg-gray-50 rounded-lg p-5 space-y-4">
                 <div>
@@ -76,7 +76,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-building mr-2 text-green-500"></i> Scopes
+                <i class="ti ti-building mr-2 text-gray-500"></i> Scopes
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div v-if="data.scopes && data.scopes.length" class="space-y-3">
@@ -92,14 +92,14 @@
                       <div class="text-xs font-semibold uppercase flex gap-2">
                         <span class="normal-case font-normal text-gray-500">
                           Read:
-                          <span v-if="scope.read" class="text-green-500">
+                          <span v-if="scope.read" class="text-blue-500">
                             Yes
                           </span>
                           <span v-else class="text-red-500">No</span>
                         </span>
                         <span class="normal-case font-normal text-gray-500">
                           Write:
-                          <span v-if="scope.write" class="text-green-500">
+                          <span v-if="scope.write" class="text-blue-500">
                             Yes
                           </span>
                           <span v-else class="text-red-500">No</span>
@@ -135,7 +135,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-code mr-2 text-green-500"></i> How to Use
+                <i class="ti ti-code mr-2 text-gray-500"></i> How to Use
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div class="space-y-3">

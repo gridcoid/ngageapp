@@ -7,7 +7,7 @@
     <div class="card-content">
       <div class="header-card flex items-center">
         <div class="title">
-          <i class="ti ti-user text-gray-400 mr-2" /> Update Audience
+          <i class="ti ti-user text-gray-500 mr-2" /> Update Audience
         </div>
       </div>
 

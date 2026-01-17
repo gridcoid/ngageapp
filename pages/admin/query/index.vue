@@ -112,7 +112,7 @@
               class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
             >
               <i
-                class="ti ti-check text-green-500"
+                class="ti ti-check text-blue-500"
                 v-if="scope.row.definition?.metrics?.length > 0"
               />
               <i class="ti ti-line-dashed text-red-500" v-else />
@@ -127,7 +127,7 @@
               class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
             >
               <i
-                class="ti ti-check text-green-500"
+                class="ti ti-check text-blue-500"
                 v-if="scope.row.definition?.joins?.length > 0"
               />
               <i class="ti ti-line-dashed text-red-500" v-else />
@@ -142,7 +142,7 @@
               class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
             >
               <i
-                class="ti ti-check text-green-500"
+                class="ti ti-check text-blue-500"
                 v-if="
                   scope.row.definition?.filters?.length > 0 ||
                   'and' in scope.row.definition?.filters
@@ -160,7 +160,7 @@
               class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
             >
               <i
-                class="ti ti-check text-green-500"
+                class="ti ti-check text-blue-500"
                 v-if="scope.row.definition?.groupBy?.length > 0"
               />
               <i class="ti ti-line-dashed text-red-500" v-else />
@@ -175,7 +175,7 @@
               class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
             >
               <i
-                class="ti ti-check text-green-500"
+                class="ti ti-check text-blue-500"
                 v-if="scope.row.definition?.sort?.length > 0"
               />
               <i class="ti ti-line-dashed text-red-500" v-else />
@@ -199,7 +199,7 @@
                   class="item-menu flex items-center no-select"
                   :to="`/admin/query/edit/${scope.row.uuid}`"
                 >
-                  <i class="ti ti-edit text-yellow-500"></i>
+                  <i class="ti ti-edit text-gray-500"></i>
                   <span class="ml-3">Edit</span>
                 </NuxtLink>
 
@@ -212,7 +212,7 @@
                     border-end-start-radius: 5px;
                   "
                 >
-                  <i class="ti ti-trash text-red-500"></i>
+                  <i class="ti ti-trash text-gray-500"></i>
                   <span class="ml-3">Delete</span>
                 </div>
               </template>

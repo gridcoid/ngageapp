@@ -10,7 +10,7 @@
         class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex items-center"
       >
         <h1 class="text-xl font-bold text-gray-800">
-          <i class="ti ti-mail text-gray-400 mr-2" /> Email Campaign Details
+          <i class="ti ti-mail text-gray-500 mr-2" /> Email Campaign Details
         </h1>
 
         <ButtonDefault
@@ -32,7 +32,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-flag mr-2 text-red-500"></i>
+                <i class="ti ti-flag mr-2 text-gray-500"></i>
                 Campaign Information
               </h2>
 
@@ -77,7 +77,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-send mr-2 text-blue-500"></i>
+                <i class="ti ti-send mr-2 text-gray-500"></i>
                 Sender Information
               </h2>
 
@@ -136,7 +136,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-users mr-2 text-green-500"></i>
+                <i class="ti ti-users mr-2 text-gray-500"></i>
                 Targeting
               </h2>
 
@@ -159,7 +159,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-layout mr-2 text-purple-500"></i>
+                <i class="ti ti-layout mr-2 text-gray-500"></i>
                 Email Template
               </h2>
 
@@ -182,7 +182,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-cloud mr-2 text-blue-500"></i>
+                <i class="ti ti-cloud mr-2 text-gray-500"></i>
                 Mailjet Status
               </h2>
 

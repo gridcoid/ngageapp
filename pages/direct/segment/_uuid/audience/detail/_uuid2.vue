@@ -8,7 +8,7 @@
       <!-- Header -->
       <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex">
         <h1 class="text-xl font-bold text-gray-800">
-          <i class="ti ti-user text-gray-400 mr-2" /> Audience Details
+          <i class="ti ti-user text-gray-500 mr-2" /> Audience Details
         </h1>
         <ButtonDefault
           icon="edit"
@@ -29,7 +29,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-user mr-2 text-blue-500"></i> Personal
+                <i class="ti ti-user mr-2 text-gray-500"></i> Personal
                 Information
               </h2>
               <div class="bg-gray-50 rounded-lg p-5 space-y-4">
@@ -92,7 +92,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-map mr-2 text-red-500"></i> Location
+                <i class="ti ti-map mr-2 text-gray-500"></i> Location
               </h2>
               <div class="bg-gray-50 rounded-lg p-5 space-y-4">
                 <div>
@@ -154,7 +154,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-address-book mr-2 text-green-500"></i> Contact
+                <i class="ti ti-address-book mr-2 text-gray-500"></i> Contact
                 Information
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
@@ -207,7 +207,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-mist mr-2 text-yellow-500"></i> Additional
+                <i class="ti ti-mist mr-2 text-gray-500"></i> Additional
                 Information
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
@@ -248,7 +248,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-folder mr-2 text-purple-500"></i> Segments
+                <i class="ti ti-folder mr-2 text-gray-500"></i> Segments
               </h2>
               <div class="bg-gray-50 rounded-lg p-5">
                 <div
@@ -269,7 +269,7 @@
                       <div class="flex items-center justify-between w-full">
                         <NuxtLink
                           :to="`/direct/segment/${segment.uuid}/audience`"
-                          class="text-purple-500 hover:text-purple-700 font-medium break-all block"
+                          class="text-blue-500 hover:text-purple-700 font-medium break-all block"
                         >
                           {{ segment.name }}
                         </NuxtLink>

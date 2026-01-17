@@ -108,7 +108,7 @@
           <template slot-scope="scope">
             <div
               class="font-cabin font-medium text-sm"
-              :class="scope.row.revoked ? 'text-red-500' : 'text-green-500'"
+              :class="scope.row.revoked ? 'text-red-500' : 'text-blue-500'"
             >
               {{ scope.row.revoked ? 'Revoked' : 'Active' }}
             </div>
@@ -144,7 +144,7 @@
                   class="item-menu flex items-center no-select"
                   :to="`/admin/api-key/edit/${scope.row.uuid}`"
                 >
-                  <i class="ti ti-edit text-yellow-500"></i>
+                  <i class="ti ti-edit text-gray-500"></i>
                   <span class="ml-3">Edit</span>
                 </NuxtLink>
 
@@ -157,7 +157,7 @@
                     border-end-start-radius: 5px;
                   "
                 >
-                  <i class="ti ti-trash text-red-500"></i>
+                  <i class="ti ti-trash text-gray-500"></i>
                   <span class="ml-3">Delete</span>
                 </div>
               </template>

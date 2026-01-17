@@ -78,7 +78,7 @@
           >
             <i
               v-show="handleRole"
-              class="ti ti-user-cog text-2xl text-purple-500"
+              class="ti ti-user-cog text-2xl text-blue-500"
             />
           </div>
         </el-popover>

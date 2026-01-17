@@ -7,7 +7,7 @@
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-users text-gray-400 mr-2" /> Audiences for
+        <i class="ti ti-users text-gray-500 mr-2" /> Audiences for
         {{ data?.name }}
       </div>
       <div class="flex">
@@ -214,7 +214,7 @@
                   class="item-menu flex items-center no-select"
                   :to="`/direct/segment/${$route.params.index}/audience/edit/${scope.row.uuid}`"
                 >
-                  <i class="ti ti-edit text-yellow-500"></i>
+                  <i class="ti ti-edit text-gray-500"></i>
                   <span class="ml-3">Edit</span>
                 </NuxtLink>
 
@@ -223,7 +223,7 @@
                   class="item-menu flex items-center no-select border-b border-gray-300 rounded-b-md"
                   @click="deleteAudience(scope.row)"
                 >
-                  <i class="ti ti-trash text-red-500"></i>
+                  <i class="ti ti-trash text-gray-500"></i>
                   <span class="ml-3">Remove</span>
                 </div>
               </template>

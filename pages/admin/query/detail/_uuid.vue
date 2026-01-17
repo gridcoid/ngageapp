@@ -28,7 +28,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-database mr-2 text-blue-500"></i>
+                <i class="ti ti-database mr-2 text-gray-500"></i>
                 Query Information
               </h2>
 
@@ -83,7 +83,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-adjustments mr-2 text-green-500"></i>
+                <i class="ti ti-adjustments mr-2 text-gray-500"></i>
                 Metrics
               </h2>
 
@@ -98,7 +98,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-filter mr-2 text-red-500"></i>
+                <i class="ti ti-filter mr-2 text-gray-500"></i>
                 Join
               </h2>
 
@@ -113,7 +113,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-filter mr-2 text-red-500"></i>
+                <i class="ti ti-filter mr-2 text-gray-500"></i>
                 Filters
               </h2>
 
@@ -128,7 +128,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-border-all mr-2 text-purple-500"></i>
+                <i class="ti ti-border-all mr-2 text-gray-500"></i>
                 Group By
               </h2>
 
@@ -143,7 +143,7 @@
               <h2
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
-                <i class="ti ti-filter mr-2 text-red-500"></i>
+                <i class="ti ti-filter mr-2 text-gray-500"></i>
                 Sort
               </h2>
 
@@ -160,7 +160,7 @@
             <h2
               class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
             >
-              <i class="ti ti-help mr-2 text-yellow-500"></i>
+              <i class="ti ti-help mr-2 text-gray-500"></i>
               Example
             </h2>
             <QueryExample />

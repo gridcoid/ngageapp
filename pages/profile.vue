@@ -184,7 +184,7 @@
                           class="dropdown-action flex items-center no-select"
                           @click="btnChangePassword(scope.row.id)"
                         >
-                          <i class="ti ti-key text-green-500"></i>
+                          <i class="ti ti-key text-gray-500"></i>
                           <span class="ml-3">Change Password</span>
                         </div>
                       </el-dropdown-item>
@@ -195,7 +195,7 @@
                             toVerification(scope.row.id, scope.row.isVerified)
                           "
                         >
-                          <i class="ti ti-lock text-purple-500"></i>
+                          <i class="ti ti-lock text-gray-500"></i>
                           <span class="ml-3">{{
                             scope.row.isVerified ? 'Disable' : 'Enable'
                           }}</span>
@@ -206,7 +206,7 @@
                           class="dropdown-action flex items-center no-select"
                           @click="deleteUser(scope.row)"
                         >
-                          <i class="ti ti-trash text-red-500"></i>
+                          <i class="ti ti-trash text-gray-500"></i>
                           <span class="ml-3">Delete</span>
                         </div>
                       </el-dropdown-item>
