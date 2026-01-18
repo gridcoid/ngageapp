@@ -105,28 +105,28 @@
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
                 @click="duplicateSegment(item)"
               >
-                <i class="ti ti-copy text-gray-500"></i>
+                <i class="ti ti-copy text-green-500"></i>
                 <span class="ml-3">Duplicate</span>
               </div>
               <NuxtLink
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
                 :to="`/direct/segment/import-sheet/${item.uuid}`"
               >
-                <i class="ti ti-table text-gray-500"></i>
+                <i class="ti ti-table text-purple-500"></i>
                 <span class="ml-3">Import XLS</span>
               </NuxtLink>
               <NuxtLink
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
                 :to="`/direct/segment/import-json/${item.uuid}`"
               >
-                <i class="ti ti-brackets-contain text-gray-500"></i>
+                <i class="ti ti-brackets-contain text-pink-500"></i>
                 <span class="ml-3">Import JSON</span>
               </NuxtLink>
               <NuxtLink
                 class="item-menu flex items-center no-select text-gray-500 text-sm"
                 :to="`/direct/segment/edit/${item.uuid}`"
               >
-                <i class="ti ti-edit text-gray-500"></i>
+                <i class="ti ti-edit text-yellow-500"></i>
                 <span class="ml-3">Edit</span>
               </NuxtLink>
               <div
@@ -138,7 +138,7 @@
                 "
                 @click="deleteSegment(item)"
               >
-                <i class="ti ti-trash text-gray-500"></i>
+                <i class="ti ti-trash text-red-500"></i>
                 <span class="ml-3">Delete</span>
               </div>
             </template>

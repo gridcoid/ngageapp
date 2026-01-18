@@ -206,7 +206,7 @@
                           class="dropdown-action flex items-center no-select"
                           @click="deleteUser(scope.row)"
                         >
-                          <i class="ti ti-trash text-gray-500"></i>
+                          <i class="ti ti-trash text-red-500"></i>
                           <span class="ml-3">Delete</span>
                         </div>
                       </el-dropdown-item>
