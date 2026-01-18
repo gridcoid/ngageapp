@@ -5,6 +5,11 @@ const initialState = () => ({
 
   dataCreate: {},
   dataDetail: {},
+
+  userTest: {
+    name: '',
+    email: '',
+  },
 })
 
 export const state = initialState
@@ -13,6 +18,8 @@ export const getters = {
   dataList: (state) => state.dataList,
   dataCreate: (state) => state.dataCreate,
   dataDetail: (state) => state.dataDetail,
+
+  userTest: (state) => state.userTest,
 }
 
 export const mutations = {
@@ -43,6 +50,17 @@ export const mutations = {
     } else {
       state.dataDetail = {}
     }
+  },
+  SET_USER_TEST(state, payload) {
+    state.userTest = payload
+      ? {
+          name: payload.name,
+          email: payload.email,
+        }
+      : {
+          name: '',
+          email: '',
+        }
   },
 }
 
@@ -121,6 +139,31 @@ export const actions = {
   async delete({ commit }, payload) {
     try {
       const response = await this.$repositories.emailCampaign.delete(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // emailCampaign:saveUserTest
+  saveUserTest({ commit }, payload) {
+    commit('SET_USER_TEST', payload)
+  },
+
+  // emailCampaign:clearUserTest
+  clearUserTest({ commit }) {
+    commit('SET_USER_TEST', null)
+  },
+
+  // emailCampaign:test
+  async test({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailCampaign.test(payload)
       return response
     } catch (e) {
       console.error(e)

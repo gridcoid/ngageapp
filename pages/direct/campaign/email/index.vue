@@ -194,7 +194,7 @@
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="testCampaign(scope.row)"
                   >
-                    <i class="ti ti-copy text-green-500"></i>
+                    <i class="ti ti-test-pipe text-green-500"></i>
                     <span class="ml-3">Test</span>
                   </div>
                 </el-dropdown-item>
@@ -259,6 +259,41 @@
         </template>
       </ModalSort>
     </transition>
+
+    <el-dialog
+      title="Test Campaign"
+      :visible.sync="testDialogVisible"
+      width="300px"
+    >
+      <el-form
+        ref="testForm"
+        :model="testForm"
+        :rules="testRules"
+        label-position="top"
+      >
+        <el-form-item label="Name" prop="name">
+          <el-input v-model="testForm.name" placeholder="Enter name" />
+        </el-form-item>
+
+        <el-form-item label="Email" prop="email">
+          <el-input v-model="testForm.email" placeholder="Enter email" />
+        </el-form-item>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer flex justify-end gap-2">
+        <el-button @click="testDialogVisible = false" :disabled="isLoading">
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          @click="submitTestCampaign"
+          :loading="isLoading"
+          :disabled="isLoading"
+        >
+          Send Test
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -305,6 +340,26 @@ export default {
           value: 'archived',
         },
       ],
+
+      testDialogVisible: false,
+      testForm: {
+        uuid: '',
+        name: '',
+        email: '',
+      },
+      testRules: {
+        name: [
+          { required: true, message: 'Name is required', trigger: 'blur' },
+        ],
+        email: [
+          { required: true, message: 'Email is required', trigger: 'blur' },
+          {
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: 'Invalid email format',
+            trigger: 'blur',
+          },
+        ],
+      },
     }
   },
 
@@ -405,7 +460,49 @@ export default {
     },
 
     testCampaign(item) {
-      //
+      const { name, email } = this.$store.getters['emailCampaign/userTest']
+
+      this.testForm.uuid = item.uuid
+      this.testForm.name = name
+      this.testForm.email = email
+
+      this.testDialogVisible = true
+    },
+
+    submitTestCampaign() {
+      this.$refs.testForm.validate((valid) => {
+        if (!valid) return
+
+        this.$store.dispatch('emailCampaign/saveUserTest', {
+          uuid: this.testForm.uuid,
+          name: this.testForm.name,
+          email: this.testForm.email,
+        })
+
+        this.isLoading = true
+        this.$store
+          .dispatch('emailCampaign/test', this.testForm)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$notifier.showMessage({
+                content: 'Send test email success.',
+                type: 'success',
+              })
+            } else {
+              this.$notifier.showMessage({
+                content: 'Send test email failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .catch((e) => {
+            console.error(e)
+          })
+          .finally(() => {
+            this.isLoading = false
+            this.testDialogVisible = false
+          })
+      })
     },
 
     viewDetail(item) {

@@ -32,4 +32,13 @@ export default ($axios) => ({
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
+
+  // email-campaign:test
+  test(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(
+      `${resource}/${payload.uuid}/test?orgId=${orgId}`,
+      payload
+    )
+  },
 })
