@@ -94,45 +94,61 @@
         </div>
 
         <div class="flex items-center">
-          <Dropdown
-            :index-list="index"
-            name-btn="Detail"
-            icons="preview"
-            color-text="#1B63D4"
-            class="mr-6"
-            @preview="viewDetail(item)"
+          <el-dropdown
+            trigger="click"
+            placement="bottom-start"
+            :append-to-body="true"
           >
-            <template slot="body">
+            <!-- BUTTON -->
+            <div
+              class="dropdown-btn noselect flex items-center justify-between cursor-pointer mr-6"
+            >
               <div
-                class="item-menu flex items-center text-gray-500 text-sm"
-                @click="toDuplicate(item)"
+                class="flex card-dropdown items-center"
+                @click.stop="viewDetail(item)"
               >
-                <i class="ti ti-copy text-green-500"></i>
-                <span class="ml-3">Duplicate</span>
+                <i class="ti ti-eye mr-3" style="color: #1b63d4" />
+                <div class="title-dropdown" style="color: #1b63d4">Detail</div>
               </div>
 
-              <NuxtLink
-                class="item-menu flex items-center text-gray-500 text-sm"
-                :to="`/direct/template/email/edit/${item.uuid}`"
-              >
-                <i class="ti ti-edit text-yellow-500"></i>
-                <span class="ml-3">Edit</span>
-              </NuxtLink>
-
-              <div
-                class="item-menu flex items-center text-gray-500 text-sm"
-                style="
-                  border-bottom: 1px solid #e2e2e2;
-                  border-end-end-radius: 5px;
-                  border-end-start-radius: 5px;
-                "
-                @click="deleteTemplate(item)"
-              >
-                <i class="ti ti-trash text-red-500"></i>
-                <span class="ml-3">Delete</span>
+              <div class="btn-show flex items-center justify-center">
+                <img src="~/assets/images/icon/arrow_down.svg" />
               </div>
-            </template>
-          </Dropdown>
+            </div>
+
+            <!-- DROPDOWN -->
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <div
+                  class="item-menu flex items-center text-gray-500 text-sm"
+                  @click="toDuplicate(item)"
+                >
+                  <i class="ti ti-copy text-green-500"></i>
+                  <span class="ml-3">Duplicate</span>
+                </div>
+              </el-dropdown-item>
+
+              <el-dropdown-item>
+                <NuxtLink
+                  class="item-menu flex items-center text-gray-500 text-sm"
+                  :to="`/direct/template/email/edit/${item.uuid}`"
+                >
+                  <i class="ti ti-edit text-yellow-500"></i>
+                  <span class="ml-3">Edit</span>
+                </NuxtLink>
+              </el-dropdown-item>
+
+              <el-dropdown-item class="border-t border-gray-300">
+                <div
+                  class="item-menu flex items-center"
+                  @click="deleteTemplate(item)"
+                >
+                  <i class="ti ti-trash text-red-500"></i>
+                  <span class="ml-3">Delete</span>
+                </div>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </div>
 

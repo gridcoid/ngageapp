@@ -256,9 +256,6 @@ $colorBlue:#1b63d4;
     border: 1px solid #E2E2E2 !important;
   }
 
-.el-table__body-wrapper {
-  padding-bottom: 55px;
-}
 .el-table thead {
   color: #5C6B7A !important;
   font-family: 'Cabin' !important;
@@ -395,4 +392,39 @@ button:active {
 }
 .dropdown-container .dropdown-list .item-menu {
   height: 36px !important;
+}
+
+.el-dropdown-menu {
+  width: 160px;
+}
+
+.dropdown-btn {
+  width: 161px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+}
+
+.card-dropdown {
+  width: 120px;
+  height: 100%;
+  padding-left: 20px;
+}
+
+.btn-show {
+  width: 40px;
+  height: 100%;
+  border-left: 1px solid #e2e2e2;
+}
+
+.item-menu {
+  height: 40px;
+  padding-left: 20px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.item-menu:hover {
+  background-color: rgb(243 244 246);
 }
