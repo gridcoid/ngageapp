@@ -200,6 +200,16 @@
                 </el-dropdown-item>
 
                 <el-dropdown-item>
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="scheduleCampaign(scope.row)"
+                  >
+                    <i class="ti ti-clock-2 text-purple-500"></i>
+                    <span class="ml-3">Schedule</span>
+                  </div>
+                </el-dropdown-item>
+
+                <el-dropdown-item>
                   <NuxtLink
                     class="item-menu flex items-center no-select"
                     :to="`/direct/campaign/email/edit/${scope.row.uuid}`"
@@ -263,7 +273,7 @@
     <el-dialog
       title="Test Campaign"
       :visible.sync="testDialogVisible"
-      width="300px"
+      width="260px"
     >
       <el-form
         ref="testForm"
@@ -292,6 +302,38 @@
         >
           Send Test
         </el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog
+      title="Schedule Campaign"
+      :visible.sync="scheduleDialogVisible"
+      custom-class="tw-schedule-dialog"
+      width="260px"
+    >
+      <el-form
+        ref="scheduleForm"
+        :model="scheduleForm"
+        :rules="scheduleRules"
+        label-position="top"
+      >
+        <el-form-item label="Schedule At" prop="scheduleAt">
+          <el-date-picker
+            v-model="scheduleForm.scheduleAt"
+            type="datetime"
+            placeholder="Select date & time"
+            format="yyyy-MM-dd HH:mm"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            class="w-full"
+            placement="bottom-start"
+            :picker-options="schedulePickerOptions"
+          />
+        </el-form-item>
+      </el-form>
+
+      <span slot="footer" class="flex justify-end gap-2">
+        <el-button @click="scheduleDialogVisible = false"> Cancel </el-button>
+        <el-button type="primary" @click="submitSchedule"> Schedule </el-button>
       </span>
     </el-dialog>
   </div>
@@ -359,6 +401,57 @@ export default {
             trigger: 'blur',
           },
         ],
+      },
+
+      scheduleDialogVisible: false,
+      scheduleForm: {
+        uuid: '',
+        scheduleAt: '',
+      },
+      scheduleRules: {
+        scheduleAt: [
+          {
+            required: true,
+            message: 'Schedule time is required',
+            trigger: 'change',
+          },
+        ],
+      },
+      schedulePickerOptions: {
+        disabledDate(time) {
+          // disable dates before today
+          return time.getTime() < Date.now() - 24 * 60 * 60 * 1000
+        },
+
+        disabledTime(date) {
+          if (!date) return {}
+
+          const now = new Date()
+          const isToday =
+            date.getFullYear() === now.getFullYear() &&
+            date.getMonth() === now.getMonth() &&
+            date.getDate() === now.getDate()
+
+          if (!isToday) return {}
+
+          const currentHour = now.getHours()
+          const currentMinute = now.getMinutes()
+          const currentSecond = now.getSeconds()
+
+          return {
+            disabledHours() {
+              return Array.from({ length: currentHour }, (_, i) => i)
+            },
+            disabledMinutes(hour) {
+              if (hour !== currentHour) return []
+              return Array.from({ length: currentMinute }, (_, i) => i)
+            },
+            disabledSeconds(hour, minute) {
+              if (hour !== currentHour || minute !== currentMinute) return []
+              return Array.from({ length: currentSecond }, (_, i) => i)
+            },
+          }
+        },
       },
     }
   },
@@ -501,6 +594,47 @@ export default {
           .finally(() => {
             this.isLoading = false
             this.testDialogVisible = false
+          })
+      })
+    },
+
+    scheduleCampaign(item) {
+      this.scheduleForm.scheduleAt = ''
+
+      this.$nextTick(() => {
+        this.$refs.scheduleForm?.clearValidate()
+      })
+
+      this.scheduleDialogVisible = true
+      this.scheduleForm.uuid = item.uuid
+    },
+
+    submitSchedule() {
+      this.$refs.scheduleForm.validate((valid) => {
+        if (!valid) return
+
+        this.isLoading = true
+        this.$store
+          .dispatch('emailCampaign/schedule', this.scheduleForm)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$notifier.showMessage({
+                content: 'Schedule campaign success.',
+                type: 'success',
+              })
+            } else {
+              this.$notifier.showMessage({
+                content: 'Schedule campaign failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .catch((e) => {
+            console.error(e)
+          })
+          .finally(() => {
+            this.isLoading = false
+            this.scheduleDialogVisible = false
           })
       })
     },

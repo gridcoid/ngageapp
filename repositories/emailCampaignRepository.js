@@ -41,4 +41,13 @@ export default ($axios) => ({
       payload
     )
   },
+
+  // email-campaign:schedule
+  schedule(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(
+      `${resource}/${payload.uuid}/schedule?orgId=${orgId}`,
+      payload
+    )
+  },
 })

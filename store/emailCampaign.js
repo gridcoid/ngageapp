@@ -174,4 +174,19 @@ export const actions = {
       return e.response
     }
   },
+
+  // emailCampaign:schedule
+  async schedule({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailCampaign.schedule(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
 }
