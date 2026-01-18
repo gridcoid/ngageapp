@@ -50,4 +50,21 @@ export const actions = {
       return e.response
     }
   },
+
+  // mailjet-campaign:delete
+  async delete({ commit }, payload) {
+    try {
+      const response = await this.$repositories.mailjetCampaignDraft.delete(
+        payload
+      )
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
 }

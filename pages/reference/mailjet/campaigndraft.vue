@@ -2,7 +2,7 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-template text-gray-400 mr-2"></i> Mailjet Campaigns
+        <i class="ti ti-text text-gray-400 mr-2"></i> Mailjet Campaign Drafts
       </div>
     </div>
 
@@ -64,7 +64,7 @@
             <el-button
               type="danger"
               size="small"
-              @click="deleteTemplate(scope.row)"
+              @click="deleteCampaign(scope.row)"
             >
               <!-- icon trash -->
               <i class="ti ti-alert-triangle"></i>
@@ -158,15 +158,15 @@ export default {
       this.getData()
     },
 
-    deleteTemplate(data) {
-      this.$confirm(`Delete template "${data.Name}"?`, 'Confirmation', {
+    deleteCampaign(data) {
+      this.$confirm(`Delete campaign "${data.Title}"?`, 'Confirmation', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete template...',
+            content: 'Delete campaign...',
             type: 'loading',
           })
 
@@ -179,13 +179,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete template success.',
+                  content: 'Delete campaign success.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete template failed. Error : ' + res?.data.data.message,
+                    'Delete campaign failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }
