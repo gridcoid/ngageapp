@@ -56,4 +56,10 @@ export default ($axios) => ({
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(`${resource}/${payload.uuid}/schedule?orgId=${orgId}`)
   },
+
+  // email-campaign:send
+  send(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(`${resource}/${payload.uuid}/send?orgId=${orgId}`)
+  },
 })

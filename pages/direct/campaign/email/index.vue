@@ -190,7 +190,7 @@
 
               <!-- DROPDOWN -->
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>
+                <el-dropdown-item v-if="activeStatus === 'draft'">
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="testCampaign(scope.row)"
@@ -207,6 +207,16 @@
                   >
                     <i class="ti ti-clock-2 text-purple-500"></i>
                     <span class="ml-3">Schedule</span>
+                  </div>
+                </el-dropdown-item>
+
+                <el-dropdown-item v-if="activeStatus === 'draft'">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="sendNowCampaign(scope.row)"
+                  >
+                    <i class="ti ti-send text-purple-500"></i>
+                    <span class="ml-3">Send Now</span>
                   </div>
                 </el-dropdown-item>
 
@@ -397,6 +407,10 @@ export default {
         {
           name: 'Scheduled',
           value: 'scheduled',
+        },
+        {
+          name: 'Sending',
+          value: 'sending',
         },
         {
           name: 'Sent',
@@ -650,6 +664,54 @@ export default {
       this.scheduleForm.isReschedule = true
     },
 
+    sendNowCampaign(item) {
+      this.showMessage = false
+      this.messageError = ''
+
+      this.$notifier.showMessage({
+        content: 'Sending campaign...',
+        type: 'loading',
+      })
+
+      this.isLoading = true
+
+      this.$store
+        .dispatch('emailCampaign/sendNow', {
+          uuid: item.uuid,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            this.$router.push({ path: '/direct/campaign/email' })
+
+            this.$notifier.showMessage({
+              content: 'Campaign sent successfully.',
+              type: 'success',
+            })
+          } else {
+            this.showMessage = true
+            this.messageError =
+              res?.data?.data?.errors
+                ?.map((e) => Object.values(e)[0])
+                .join(', ') || 'Failed to send campaign'
+
+            this.$notifier.showMessage({
+              content: 'Campaign send failed!',
+              type: 'failed',
+            })
+          }
+        })
+        .catch((e) => {
+          console.error(e)
+          this.showMessage = true
+          this.messageError = 'Error: ' + e.message
+        })
+        .finally(() => {
+          this.isLoading = false
+          this.activeStatus = 'sending'
+          this.getData()
+        })
+    },
+
     cancelSchedule(item) {
       this.showMessage = false
       this.messageError = ''
@@ -793,6 +855,8 @@ export default {
         return 'draft'
       } else if (status == 0 && scheduledAt != null) {
         return 'scheduled'
+      } else if (status == 3) {
+        return 'sending'
       } else if (status == 1) {
         return 'sent'
       } else if (status == -1) {

@@ -206,4 +206,18 @@ export const actions = {
       return e.response
     }
   },
+
+  async send({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailCampaign.send(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
 }
