@@ -27,6 +27,7 @@
               type="textarea"
               :rows="3"
               maxlength="255"
+              spellcheck="false"
             />
           </el-form-item>
           <el-form-item class="title-form">

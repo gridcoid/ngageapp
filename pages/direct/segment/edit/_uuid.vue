@@ -29,6 +29,7 @@
               type="textarea"
               :rows="3"
               maxlength="200"
+              spellcheck="false"
             />
           </el-form-item>
         </el-form>

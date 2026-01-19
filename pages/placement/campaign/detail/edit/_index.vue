@@ -39,6 +39,7 @@
               :rows="3"
               maxlength="255"
               class="title-form"
+              spellcheck="false"
             />
           </div>
         </div>
