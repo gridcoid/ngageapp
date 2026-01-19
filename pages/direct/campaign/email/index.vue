@@ -22,9 +22,10 @@
         <div
           class="flex items-center justify-center card-filter"
           @click="setActiveStatus(tab.value)"
-          v-for="tab in tabs"
-          :key="tab.value"
+          v-for="(tab, i) in tabs"
+          :key="i"
         >
+          <i v-if="i === 0" class="ti ti-menu-2 text-base"></i>
           <div
             class="name-status"
             :class="activeStatus === tab.value ? 'text-blue-500 font-bold' : ''"
@@ -148,10 +149,15 @@
           </template>
         </el-table-column>
 
-        <!-- CREATED -->
-        <el-table-column label="Created" sortable>
+        <!-- CREATED/SCHEDULED -->
+        <el-table-column :label="dateColumnLabel()" sortable>
           <template slot-scope="scope">
-            {{ formatDate(scope.row.createdAt) }}
+            <span v-if="checkStatus(scope.row) === 'draft'">
+              {{ formatDate(scope.row.createdAt) }}
+            </span>
+            <span v-else-if="checkStatus(scope.row) === 'scheduled'">
+              {{ formatDate(scope.row.scheduledAt) }}
+            </span>
           </template>
         </el-table-column>
 
@@ -380,6 +386,10 @@ export default {
 
       activeStatus: 'draft',
       tabs: [
+        {
+          name: 'All',
+          value: 'all',
+        },
         {
           name: 'Draft',
           value: 'draft',
@@ -773,6 +783,28 @@ export default {
     formatDate(date) {
       if (!date) return '-'
       return new Date(date).toLocaleDateString()
+    },
+
+    checkStatus(item) {
+      const status = item.status
+      const scheduledAt = item.scheduledAt
+
+      if (status == 0 && scheduledAt == null) {
+        return 'draft'
+      } else if (status == 0 && scheduledAt != null) {
+        return 'scheduled'
+      } else if (status == 1) {
+        return 'sent'
+      } else if (status == -1) {
+        return 'archived'
+      }
+    },
+
+    dateColumnLabel() {
+      // example: global filter / current view
+      if (this.activeStatus === 'draft') return 'Created'
+      if (this.activeStatus === 'scheduled') return 'Scheduled'
+      return 'Date'
     },
   },
 
