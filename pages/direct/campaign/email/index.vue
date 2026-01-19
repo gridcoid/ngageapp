@@ -322,9 +322,9 @@
         :rules="scheduleRules"
         label-position="top"
       >
-        <el-form-item label="Schedule At" prop="scheduleAt">
+        <el-form-item label="Schedule At" prop="scheduledAt">
           <el-date-picker
-            v-model="scheduleForm.scheduleAt"
+            v-model="scheduleForm.scheduledAt"
             type="datetime"
             placeholder="Select date & time"
             format="yyyy-MM-dd HH:mm"
@@ -411,10 +411,10 @@ export default {
       scheduleDialogVisible: false,
       scheduleForm: {
         uuid: '',
-        scheduleAt: '',
+        scheduledAt: '',
       },
       scheduleRules: {
-        scheduleAt: [
+        scheduledAt: [
           {
             required: true,
             message: 'Schedule time is required',
@@ -605,7 +605,7 @@ export default {
     },
 
     scheduleCampaign(item) {
-      this.scheduleForm.scheduleAt = ''
+      this.scheduleForm.scheduledAt = ''
 
       this.$nextTick(() => {
         this.$refs.scheduleForm?.clearValidate()
@@ -683,7 +683,7 @@ export default {
         const payload = {
           ...this.scheduleForm,
           scheduledAt: this.toUtcISOStringFromPicker(
-            this.scheduleForm.scheduleAt
+            this.scheduleForm.scheduledAt
           ),
         }
 
@@ -709,6 +709,8 @@ export default {
           .finally(() => {
             this.isLoading = false
             this.scheduleDialogVisible = false
+            this.activeStatus = 'scheduled'
+            this.getData()
           })
       })
     },
