@@ -207,6 +207,16 @@
                 <el-dropdown-item v-if="activeStatus === 'scheduled'">
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="rescheduleCampaign(scope.row)"
+                  >
+                    <i class="ti ti-clock-2 text-purple-500"></i>
+                    <span class="ml-3">Reschedule</span>
+                  </div>
+                </el-dropdown-item>
+
+                <el-dropdown-item v-if="activeStatus === 'scheduled'">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="cancelSchedule(scope.row)"
                   >
                     <i class="ti ti-clock-2 text-red-500"></i>
@@ -412,6 +422,7 @@ export default {
       scheduleForm: {
         uuid: '',
         scheduledAt: '',
+        isReschedule: false,
       },
       scheduleRules: {
         scheduledAt: [
@@ -615,6 +626,20 @@ export default {
       this.scheduleForm.uuid = item.uuid
     },
 
+    rescheduleCampaign(item) {
+      this.scheduleForm.scheduledAt = this.fromUtcISOStringToPicker(
+        item.scheduledAt
+      )
+
+      this.$nextTick(() => {
+        this.$refs.scheduleForm?.clearValidate()
+      })
+
+      this.scheduleDialogVisible = true
+      this.scheduleForm.uuid = item.uuid
+      this.scheduleForm.isReschedule = true
+    },
+
     cancelSchedule(item) {
       this.showMessage = false
       this.messageError = ''
@@ -674,6 +699,22 @@ export default {
 
       // Convert to UTC ISO
       return localDate.toISOString()
+    },
+
+    fromUtcISOStringToPicker(value) {
+      // value: "2026-01-30T17:00:00.000Z" (UTC)
+      const date = new Date(value) // parsed as UTC, displayed as LOCAL
+
+      const pad = (n) => String(n).padStart(2, '0')
+
+      const y = date.getFullYear()
+      const m = pad(date.getMonth() + 1)
+      const d = pad(date.getDate())
+      const hh = pad(date.getHours())
+      const mm = pad(date.getMinutes())
+      const ss = pad(date.getSeconds())
+
+      return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
     },
 
     submitSchedule() {
