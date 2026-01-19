@@ -609,13 +609,33 @@ export default {
       this.scheduleForm.uuid = item.uuid
     },
 
+    toUtcISOStringFromPicker(value) {
+      // value: "yyyy-MM-dd HH:mm:ss" (local time)
+      const [date, time] = value.split(' ')
+      const [y, m, d] = date.split('-').map(Number)
+      const [hh, mm, ss] = time.split(':').map(Number)
+
+      // JS Date assumes LOCAL timezone here
+      const localDate = new Date(y, m - 1, d, hh, mm, ss)
+
+      // Convert to UTC ISO
+      return localDate.toISOString()
+    },
+
     submitSchedule() {
       this.$refs.scheduleForm.validate((valid) => {
         if (!valid) return
 
+        const payload = {
+          ...this.scheduleForm,
+          scheduledAt: this.toUtcISOStringFromPicker(
+            this.scheduleForm.scheduleAt
+          ),
+        }
+
         this.isLoading = true
         this.$store
-          .dispatch('emailCampaign/schedule', this.scheduleForm)
+          .dispatch('emailCampaign/schedule', payload)
           .then((res) => {
             if (res.status === 200) {
               this.$notifier.showMessage({
