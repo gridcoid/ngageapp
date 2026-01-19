@@ -189,4 +189,21 @@ export const actions = {
       return e.response
     }
   },
+
+  // emailCampaign:cancelSchedule
+  async cancelSchedule({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailCampaign.cancelSchedule(
+        payload
+      )
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
 }

@@ -21,7 +21,7 @@
       <div class="status-filter flex items-center">
         <div
           class="flex items-center justify-center card-filter"
-          @click=""
+          @click="setActiveStatus(tab.value)"
           v-for="tab in tabs"
           :key="tab.value"
         >
@@ -119,15 +119,10 @@
         <el-table-column label="" width="10" />
 
         <!-- TITLE -->
-        <el-table-column label="Title/Subject" prop="title" sortable>
+        <el-table-column label="Title" prop="title" sortable>
           <template slot-scope="scope">
             <div class="cursor-pointer k-title" @click="viewDetail(scope.row)">
-              <div>
-                {{ scope.row.title }}
-              </div>
-              <div class="k-subtitle">
-                {{ scope.row.subject }}
-              </div>
+              {{ scope.row.title }}
             </div>
           </template>
         </el-table-column>
@@ -135,28 +130,28 @@
         <!-- SENDER -->
         <el-table-column label="Sender" sortable>
           <template slot-scope="scope">
-            <div>{{ scope.row.senderName }}</div>
-            <div class="k-subtitle">{{ scope.row.senderEmail }}</div>
+            {{ scope.row.senderEmail }}
           </template>
         </el-table-column>
 
         <!-- SEGMENT -->
-        <el-table-column label="Segment/Template" sortable>
+        <el-table-column label="Segment" sortable>
           <template slot-scope="scope">
-            <div>
-              {{ scope.row.segment.name }}
-            </div>
-            <div class="k-subtitle">
-              {{ scope.row.template.name }}
-            </div>
+            {{ scope.row.segment.name }}
+          </template>
+        </el-table-column>
+
+        <!-- TEMPLATE -->
+        <el-table-column label="Template" sortable>
+          <template slot-scope="scope">
+            {{ scope.row.template.name }}
           </template>
         </el-table-column>
 
         <!-- CREATED -->
-        <el-table-column label="Created/Locale" sortable>
+        <el-table-column label="Created" sortable>
           <template slot-scope="scope">
-            <div>{{ formatDate(scope.row.createdAt) }}</div>
-            <div class="k-subtitle">{{ scope.row.locale }}</div>
+            {{ formatDate(scope.row.createdAt) }}
           </template>
         </el-table-column>
 
@@ -199,13 +194,23 @@
                   </div>
                 </el-dropdown-item>
 
-                <el-dropdown-item>
+                <el-dropdown-item v-if="activeStatus === 'draft'">
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="scheduleCampaign(scope.row)"
                   >
                     <i class="ti ti-clock-2 text-purple-500"></i>
                     <span class="ml-3">Schedule</span>
+                  </div>
+                </el-dropdown-item>
+
+                <el-dropdown-item v-if="activeStatus === 'scheduled'">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="cancelSchedule(scope.row)"
+                  >
+                    <i class="ti ti-clock-2 text-red-500"></i>
+                    <span class="ml-3">Cancel</span>
                   </div>
                 </el-dropdown-item>
 
@@ -474,6 +479,7 @@ export default {
       this.isLoading = true
 
       const params = {
+        status: this.activeStatus,
         page: this.currentPage,
         size: this.rowPage,
         name: this.dataSearch,
@@ -609,6 +615,54 @@ export default {
       this.scheduleForm.uuid = item.uuid
     },
 
+    cancelSchedule(item) {
+      this.showMessage = false
+      this.messageError = ''
+
+      this.$notifier.showMessage({
+        content: 'Canceling schedule campaign...',
+        type: 'loading',
+      })
+
+      this.isLoading = true
+
+      this.$store
+        .dispatch('emailCampaign/cancelSchedule', {
+          uuid: item.uuid,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            this.$router.push({ path: '/direct/campaign/email' })
+
+            this.$notifier.showMessage({
+              content: 'Campaign schedule canceled.',
+              type: 'success',
+            })
+          } else {
+            this.showMessage = true
+            this.messageError =
+              res?.data?.data?.errors
+                ?.map((e) => Object.values(e)[0])
+                .join(', ') || 'Failed to cancel schedule campaign'
+
+            this.$notifier.showMessage({
+              content: 'Campaign schedule cancel failed!',
+              type: 'failed',
+            })
+          }
+        })
+        .catch((e) => {
+          console.error(e)
+          this.showMessage = true
+          this.messageError = 'Error: ' + e.message
+        })
+        .finally(() => {
+          this.isLoading = false
+          this.activeStatus = 'draft'
+          this.getData()
+        })
+    },
+
     toUtcISOStringFromPicker(value) {
       // value: "yyyy-MM-dd HH:mm:ss" (local time)
       const [date, time] = value.split(' ')
@@ -665,6 +719,11 @@ export default {
 
     resetFilter() {
       this.radio = 'createdAt_desc'
+      this.getData()
+    },
+
+    setActiveStatus(value) {
+      this.activeStatus = value
       this.getData()
     },
 

@@ -5,7 +5,7 @@ export default ($axios) => ({
   list(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
-      `${resource}?orgId=${orgId}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+      `${resource}?orgId=${orgId}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}&status=${payload.status}`
     )
   },
 
@@ -49,5 +49,11 @@ export default ($axios) => ({
       `${resource}/${payload.uuid}/schedule?orgId=${orgId}`,
       payload
     )
+  },
+
+  // email-campaign:cancelSchedule
+  cancelSchedule(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.delete(`${resource}/${payload.uuid}/schedule?orgId=${orgId}`)
   },
 })
