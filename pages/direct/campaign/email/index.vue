@@ -130,7 +130,11 @@
         </el-table-column>
 
         <!-- SEGMENT -->
-        <el-table-column label="Segment" sortable>
+        <el-table-column
+          label="Segment"
+          sortable
+          v-if="activeStatus !== 'sent'"
+        >
           <template slot-scope="scope">
             <NuxtLink
               :to="`/direct/segment/${scope.row.segment?.uuid}/audience`"
@@ -142,7 +146,11 @@
         </el-table-column>
 
         <!-- TEMPLATE -->
-        <el-table-column label="Template" sortable>
+        <el-table-column
+          label="Template"
+          sortable
+          v-if="activeStatus !== 'sent'"
+        >
           <template slot-scope="scope">
             <NuxtLink
               :to="`/direct/template/email/detail/${scope.row.template?.uuid}`"
@@ -154,14 +162,19 @@
         </el-table-column>
 
         <!-- SENDER -->
-        <el-table-column label="Sender" sortable>
+        <el-table-column label="Sender" sortable v-if="activeStatus !== 'sent'">
           <template slot-scope="scope">
             {{ scope.row.senderEmail }}
           </template>
         </el-table-column>
 
         <!-- CREATED/SCHEDULED -->
-        <el-table-column :label="dateColumnLabel()" width="120" sortable>
+        <el-table-column
+          :label="dateColumnLabel()"
+          width="120"
+          sortable
+          v-if="activeStatus !== 'sent'"
+        >
           <template slot-scope="scope">
             <span v-if="checkStatus(scope.row) === 'scheduled'">
               {{ formatDate(scope.row.scheduledAt) }}
@@ -186,8 +199,82 @@
           </template>
         </el-table-column>
 
+        <!-- CLICKED -->
+        <el-table-column
+          width="120"
+          label="Click"
+          v-if="activeStatus === 'sent'"
+          sortable
+        >
+          <template slot-scope="scope">
+            <span>
+              {{ scope.row.overview?.ClickedCount }}
+            </span>
+          </template>
+        </el-table-column>
+
+        <!-- DELIVERED -->
+        <el-table-column
+          width="120"
+          label="Delivered"
+          v-if="activeStatus === 'sent'"
+          sortable
+        >
+          <template slot-scope="scope">
+            <span>
+              {{ scope.row.overview?.DeliveredCount }}
+            </span>
+          </template>
+        </el-table-column>
+
+        <!-- OPENED -->
+        <el-table-column
+          width="120"
+          label="Opened"
+          v-if="activeStatus === 'sent'"
+          sortable
+        >
+          <template slot-scope="scope">
+            <span>
+              {{ scope.row.overview?.OpenedCount }}
+            </span>
+          </template>
+        </el-table-column>
+
+        <!-- PROCESSED -->
+        <el-table-column
+          width="120"
+          label="Processed"
+          v-if="activeStatus === 'sent'"
+          sortable
+        >
+          <template slot-scope="scope">
+            <span>
+              {{ scope.row.overview?.ProcessedCount }}
+            </span>
+          </template>
+        </el-table-column>
+
+        <!-- SENDTIMESTART -->
+        <el-table-column
+          width="120"
+          label="Send Time"
+          v-if="activeStatus === 'sent'"
+          sortable
+        >
+          <template slot-scope="scope">
+            <span>
+              {{ formatEpoch(scope.row.overview?.SendTimeStart) }}
+            </span>
+          </template>
+        </el-table-column>
+
         <!-- ACTIONS -->
-        <el-table-column width="190" v-if="activeStatus !== 'all'">
+        <el-table-column
+          label="Actions"
+          width="190"
+          v-if="activeStatus !== 'all'"
+        >
           <template slot-scope="scope">
             <el-dropdown
               trigger="click"
@@ -1150,6 +1237,18 @@ export default {
     formatDate(date) {
       if (!date) return '-'
       return new Date(date).toLocaleDateString()
+    },
+
+    formatEpoch(epochMs) {
+      console.log(epochMs)
+      if (!epochMs || isNaN(epochMs)) return '-'
+      const d = new Date(epochMs * 1000)
+
+      const day = String(d.getDate()).padStart(2, '0')
+      const month = String(d.getMonth() + 1).padStart(2, '0') // 0-based
+      const year = d.getFullYear()
+
+      return `${day}/${month}/${year}`
     },
 
     checkStatus(item) {
