@@ -412,7 +412,7 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete query success.',
+                  content: 'Query deleted successfully.',
                   type: 'success',
                 })
               } else {

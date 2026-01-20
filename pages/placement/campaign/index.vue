@@ -883,7 +883,7 @@ export default {
                 this.getAll()
 
                 this.$notifier.showMessage({
-                  content: 'Delete campaign success.',
+                  content: 'Campaign deleted successfully.',
                   type: 'success',
                 })
               } else {

@@ -372,7 +372,7 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete api key success.',
+                  content: 'Api key deleted successfully.',
                   type: 'success',
                 })
               } else {

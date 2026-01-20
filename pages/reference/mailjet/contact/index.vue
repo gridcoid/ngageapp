@@ -220,7 +220,7 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete email success.',
+                  content: 'Email deleted successfully.',
                   type: 'success',
                 })
               } else {

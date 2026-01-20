@@ -212,7 +212,7 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete contact list success.',
+                  content: 'Contact list deleted successfully.',
                   type: 'success',
                 })
               } else {

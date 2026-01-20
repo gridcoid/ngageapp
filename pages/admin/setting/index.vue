@@ -365,7 +365,7 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete setting success.',
+                  content: 'Setting deleted successfully.',
                   type: 'success',
                 })
               } else {

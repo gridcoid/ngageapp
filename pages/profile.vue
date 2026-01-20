@@ -427,7 +427,7 @@ export default {
                 this.getDataAll()
 
                 this.$notifier.showMessage({
-                  content: 'Remove user success.',
+                  content: 'User removed successfully.',
                   type: 'success',
                 })
               } else {

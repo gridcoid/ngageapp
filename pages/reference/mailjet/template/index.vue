@@ -203,7 +203,7 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Delete template success.',
+                  content: 'Template deleted successfully.',
                   type: 'success',
                 })
               } else {

@@ -389,7 +389,7 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Remove audience success.',
+                  content: 'Audience removed successfully.',
                   type: 'success',
                 })
               } else {

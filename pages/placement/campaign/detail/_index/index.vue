@@ -1033,7 +1033,7 @@ export default {
                 this.getAll()
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
-                  content: 'Delete placement success.',
+                  content: 'Placement deleted successfully.',
                   type: 'success',
                 })
                 clearInterval(sto)

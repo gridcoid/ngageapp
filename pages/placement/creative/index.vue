@@ -788,7 +788,7 @@ export default {
                 this.getAll()
 
                 this.$notifier.showMessage({
-                  content: 'Delete creative success.',
+                  content: 'Creative deleted successfully.',
                   type: 'success',
                 })
               } else {
