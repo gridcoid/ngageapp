@@ -241,7 +241,7 @@ export default {
           "Name": "Rakun",
           "Locale": "en_US",
           "Author": "Grid Story",
-          "Presets": "{\"h1\":{\"fontFamily\":\"Arial\"},\"h2\":{\"fontFamily\":\"Arial\"},\"h3\":{\"fontFamily\":\"Arial\"},\"p\":{\"fontFamily\":\"Arial\"},\"a\":{\"fontFamily\":\"Arial\"}}",
+          "Presets": "",
           "Previews": [
             170581038
           ],

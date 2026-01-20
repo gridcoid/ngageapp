@@ -138,14 +138,14 @@
         <!-- SEGMENT -->
         <el-table-column label="Segment" sortable>
           <template slot-scope="scope">
-            {{ scope.row.segment.name }}
+            {{ scope.row.segment?.name || '-' }}
           </template>
         </el-table-column>
 
         <!-- TEMPLATE -->
         <el-table-column label="Template" sortable>
           <template slot-scope="scope">
-            {{ scope.row.template.name }}
+            {{ scope.row.template?.name || '-' }}
           </template>
         </el-table-column>
 
@@ -213,9 +213,9 @@
                 <el-dropdown-item v-if="activeStatus === 'draft'">
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
-                    @click="sendNowCampaign(scope.row)"
+                    @click="sendCampaign(scope.row)"
                   >
-                    <i class="ti ti-send text-purple-500"></i>
+                    <i class="ti ti-send text-blue-500"></i>
                     <span class="ml-3">Send Now</span>
                   </div>
                 </el-dropdown-item>
@@ -664,7 +664,7 @@ export default {
       this.scheduleForm.isReschedule = true
     },
 
-    sendNowCampaign(item) {
+    sendCampaign(item) {
       this.showMessage = false
       this.messageError = ''
 
@@ -676,7 +676,7 @@ export default {
       this.isLoading = true
 
       this.$store
-        .dispatch('emailCampaign/sendNow', {
+        .dispatch('emailCampaign/send', {
           uuid: item.uuid,
         })
         .then((res) => {

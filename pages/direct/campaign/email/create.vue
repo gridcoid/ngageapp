@@ -8,6 +8,7 @@
       <div class="header-card flex items-center">
         <div class="title">
           <i class="ti ti-mail text-gray-500 mr-2" /> Create New Campaign
+          (Draft)
         </div>
       </div>
 
