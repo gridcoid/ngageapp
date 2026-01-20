@@ -595,6 +595,9 @@ export default {
       this.$refs.testForm.validate((valid) => {
         if (!valid) return
 
+        this.showMessage = false
+        this.messageError = ''
+
         this.$store.dispatch('emailCampaign/saveUserTest', {
           uuid: this.testForm.uuid,
           name: this.testForm.name,
@@ -602,6 +605,7 @@ export default {
         })
 
         this.isLoading = true
+
         this.$store
           .dispatch('emailCampaign/test', this.testForm)
           .then((res) => {
@@ -619,6 +623,8 @@ export default {
           })
           .catch((e) => {
             console.error(e)
+            this.showMessage = true
+            this.messageError = 'Error: ' + e.message
           })
           .finally(() => {
             this.isLoading = false
@@ -657,6 +663,9 @@ export default {
       this.$refs.scheduleForm.validate((valid) => {
         if (!valid) return
 
+        this.showMessage = false
+        this.messageError = ''
+
         const payload = {
           ...this.scheduleForm,
           scheduledAt: this.toUtcISOStringFromPicker(
@@ -665,6 +674,7 @@ export default {
         }
 
         this.isLoading = true
+
         this.$store
           .dispatch('emailCampaign/schedule', payload)
           .then((res) => {
@@ -682,6 +692,8 @@ export default {
           })
           .catch((e) => {
             console.error(e)
+            this.showMessage = true
+            this.messageError = 'Error: ' + e.message
           })
           .finally(() => {
             this.isLoading = false
@@ -703,10 +715,15 @@ export default {
         }
       )
         .then(() => {
+          this.showMessage = false
+          this.messageError = ''
+
           this.$notifier.showMessage({
             content: 'Canceling schedule campaign...',
             type: 'loading',
           })
+
+          this.isLoading = true
 
           this.$store
             .dispatch('emailCampaign/cancelSchedule', {
@@ -756,7 +773,6 @@ export default {
         type: 'warning',
       })
         .then(() => {
-          this.isLoading = true
           this.showMessage = false
           this.messageError = ''
 
@@ -764,6 +780,8 @@ export default {
             content: 'Sending campaign...',
             type: 'loading',
           })
+
+          this.isLoading = true
 
           this.$store
             .dispatch('emailCampaign/send', {
@@ -813,10 +831,15 @@ export default {
         type: 'warning',
       })
         .then(() => {
+          this.showMessage = false
+          this.messageError = ''
+
           this.$notifier.showMessage({
             content: 'Archiving campaign...',
             type: 'loading',
           })
+
+          this.isLoading = true
 
           this.$store
             .dispatch('emailCampaign/archive', {
@@ -864,10 +887,15 @@ export default {
         type: 'warning',
       })
         .then(() => {
+          this.showMessage = false
+          this.messageError = ''
+
           this.$notifier.showMessage({
             content: 'Restoring campaign...',
             type: 'loading',
           })
+
+          this.isLoading = true
 
           this.$store
             .dispatch('emailCampaign/restore', {
@@ -915,10 +943,15 @@ export default {
         type: 'warning',
       })
         .then(() => {
+          this.showMessage = false
+          this.messageError = ''
+
           this.$notifier.showMessage({
             content: 'Deleting campaign...',
             type: 'loading',
           })
+
+          this.isLoading = true
 
           this.$store
             .dispatch('emailCampaign/delete', {

@@ -213,59 +213,64 @@ export default {
   },
   methods: {
     save() {
+      this.showMessage = false
+      this.messageError = ''
+
       this.$notifier.showMessage({
         content: 'Importing spreadsheet...',
         type: 'loading',
       })
 
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('sheet/import', {
-              segmentUuid: this.$route.params.uuid,
-              file: this.sheetUploaded.file,
-              mapping: this.value,
+      this.isLoading = true
+
+      this.$store
+        .dispatch('sheet/import', {
+          segmentUuid: this.$route.params.uuid,
+          file: this.sheetUploaded.file,
+          mapping: this.value,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            this.step1 = true
+            this.step2 = false
+
+            this.$notifier.showMessage({
+              content: 'Spreadsheet imported successfully.',
+              type: 'success',
             })
-            .then((res) => {
-              if (res.status === 200) {
-                this.step1 = true
-                this.step2 = false
 
-                this.$notifier.showMessage({
-                  content: 'Spreadsheet imported successfully.',
-                  type: 'success',
-                })
+            clearInterval(sto)
 
-                clearInterval(sto)
+            this.$router.push(
+              `/direct/segment/${this.$route.params.uuid}/audience`
+            )
+          } else {
+            this.showMessage = true
 
-                this.$router.push(
-                  `/direct/segment/${this.$route.params.uuid}/audience`
-                )
-              } else {
-                this.showMessage = true
+            const keys = Object.keys(res?.data.data.errors[0])
+            const arr = []
 
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-
-                this.messageError = arr.join(', ')
-                this.$notifier.showMessage({
-                  content: 'Spreadsheet import failed! ' + this.messageError,
-                  type: 'failed',
-                })
-
-                clearInterval(sto)
-              }
+            keys.forEach((key, index) => {
+              arr.push(res?.data.data.errors[0][key])
             })
-            .catch(() => {
-              this.isLoading = false
-              clearInterval(sto)
-            }),
-        1000
-      )
+
+            this.messageError = arr.join(', ')
+            this.$notifier.showMessage({
+              content: 'Spreadsheet import failed! ' + this.messageError,
+              type: 'failed',
+            })
+
+            clearInterval(sto)
+          }
+        })
+        .catch((e) => {
+          console.error(e)
+          this.showMessage = true
+          this.messageError = 'Error: ' + e.message
+        })
+        .finally(() => {
+          this.isLoading = false
+        })
     },
     removeExtension(filename) {
       return filename.substring(0, filename.lastIndexOf('.')) || filename
@@ -332,6 +337,9 @@ export default {
             type: 'failed',
           })
 
+          this.uploadIndicator = false
+        })
+        .finally(() => {
           this.uploadIndicator = false
         })
     },
