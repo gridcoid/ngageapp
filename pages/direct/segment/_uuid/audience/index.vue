@@ -134,16 +134,11 @@
               @click="viewDetail(scope.row)"
             >
               <div class="flex flex-col">
-                <el-tooltip :open-delay="1000" placement="top-end">
-                  <div slot="content">{{ scope.row.name }}</div>
-
-                  <!-- replaced ellipsis inline css with tailwind -->
-                  <div
-                    class="k-title whitespace-nowrap overflow-hidden overflow-ellipsis w-60"
-                  >
-                    {{ scope.row.name }}
-                  </div>
-                </el-tooltip>
+                <div
+                  class="k-title whitespace-nowrap overflow-hidden overflow-ellipsis w-60 text-blue-500"
+                >
+                  {{ scope.row.name }}
+                </div>
 
                 <div class="k-subtitle">
                   {{
@@ -199,35 +194,53 @@
         </el-table-column>
 
         <!-- ACTIONS -->
-        <el-table-column width="200">
+        <el-table-column width="190">
           <template slot-scope="scope">
-            <Dropdown
-              :index-list="scope.$index"
-              name-btn="View"
-              icons="preview"
-              color-text="#1B63D4"
-              class="mr-6"
-              @preview="viewDetail(scope.row)"
+            <el-dropdown
+              trigger="click"
+              placement="bottom-start"
+              :append-to-body="true"
             >
-              <template slot="body">
-                <NuxtLink
-                  class="item-menu flex items-center no-select"
-                  :to="`/direct/segment/${$route.params.index}/audience/edit/${scope.row.uuid}`"
-                >
-                  <i class="ti ti-edit text-yellow-500"></i>
-                  <span class="ml-3">Edit</span>
-                </NuxtLink>
-
-                <!-- replaced border inline css with tailwind -->
+              <!-- BUTTON -->
+              <div
+                class="dropdown-btn noselect flex items-center justify-between cursor-pointer mr-6"
+              >
                 <div
-                  class="item-menu flex items-center no-select border-b border-gray-300 rounded-b-md"
-                  @click="deleteAudience(scope.row)"
+                  class="flex card-dropdown items-center"
+                  @click.stop="viewDetail(scope.row)"
                 >
-                  <i class="ti ti-trash text-red-500"></i>
-                  <span class="ml-3">Remove</span>
+                  <i class="ti ti-eye mr-3 text-blue-500" />
+                  <div class="title-dropdown text-blue-500">Detail</div>
                 </div>
-              </template>
-            </Dropdown>
+
+                <div class="btn-show flex items-center justify-center">
+                  <img src="~/assets/images/icon/arrow_down.svg" />
+                </div>
+              </div>
+
+              <!-- DROPDOWN MENU -->
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <NuxtLink
+                    class="item-menu flex items-center"
+                    :to="`/direct/audience/edit/${scope.row.uuid}`"
+                  >
+                    <i class="ti ti-edit text-yellow-500"></i>
+                    <span class="ml-3">Edit</span>
+                  </NuxtLink>
+                </el-dropdown-item>
+
+                <el-dropdown-item class="border-t border-gray-300">
+                  <div
+                    class="item-menu flex items-center"
+                    @click="deleteAudience(scope.row)"
+                  >
+                    <i class="ti ti-trash text-red-500"></i>
+                    <span class="ml-3">Delete</span>
+                  </div>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -634,7 +647,6 @@ export default {
         font-family: 'Cabin';
         font-weight: 500;
         font-size: 16px;
-        color: #454545;
       }
       .k-subtitle {
         font-family: 'Cabin';

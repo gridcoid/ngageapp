@@ -129,7 +129,7 @@
         </el-table-column>
 
         <!-- ACTIONS -->
-        <el-table-column width="200">
+        <el-table-column width="190">
           <template slot-scope="scope">
             <el-dropdown
               trigger="click"

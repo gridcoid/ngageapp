@@ -33,6 +33,12 @@ export default ($axios) => ({
     return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
+  // email-campaign:duplicate
+  duplicate(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(`${resource}/${payload.uuid}/duplicate?orgId=${orgId}`)
+  },
+
   // email-campaign:test
   test(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId

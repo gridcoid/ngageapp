@@ -28,11 +28,15 @@
           <i
             v-if="i === 0"
             class="ti ti-menu-2 text-base"
-            :class="activeStatus === 'all' ? 'text-blue-500' : ''"
+            :class="activeStatus === 'all' ? 'text-purple-500' : ''"
           ></i>
           <div
             class="name-status"
-            :class="activeStatus === tab.value ? 'text-blue-500 font-bold' : ''"
+            :class="{
+              'text-purple-500': activeStatus === tab.value,
+              'text-gray-500': activeStatus !== tab.value,
+              'cursor-default': activeStatus === tab.value,
+            }"
           >
             {{ tab.name }}
           </div>
@@ -104,19 +108,9 @@
         <template slot="empty">
           <div class="flex flex-col items-center mt-6 no-data">
             <img src="~/assets/images/empty_table.png" width="150" />
-            <div class="title-1">No records found.</div>
-            <div class="subtitle-1">
-              Seems like you haven’t created any email campaign yet. Create one
-              now?
+            <div class="mb-8">
+              No records found in {{ activeStatus }} group.
             </div>
-
-            <button
-              class="flex items-center justify-center save-btn no-select"
-              @click="toCreate"
-            >
-              <IconPlus bg-color="#1B63D4" />
-              <div class="name-btn">Create New Campaign</div>
-            </button>
           </div>
         </template>
 
@@ -126,9 +120,36 @@
         <!-- TITLE -->
         <el-table-column label="Title" prop="title" sortable>
           <template slot-scope="scope">
-            <div class="cursor-pointer k-title" @click="viewDetail(scope.row)">
+            <div
+              class="cursor-pointer k-title text-blue-500"
+              @click="viewDetail(scope.row)"
+            >
               {{ scope.row.title }}
             </div>
+          </template>
+        </el-table-column>
+
+        <!-- SEGMENT -->
+        <el-table-column label="Segment" sortable>
+          <template slot-scope="scope">
+            <NuxtLink
+              :to="`/direct/segment/${scope.row.segment?.uuid}/audience`"
+              class="text-blue-500"
+            >
+              {{ scope.row.segment?.name || '-' }}
+            </NuxtLink>
+          </template>
+        </el-table-column>
+
+        <!-- TEMPLATE -->
+        <el-table-column label="Template" sortable>
+          <template slot-scope="scope">
+            <NuxtLink
+              :to="`/direct/template/email/detail/${scope.row.template?.uuid}`"
+              class="text-blue-500"
+            >
+              {{ scope.row.template?.name || '-' }}
+            </NuxtLink>
           </template>
         </el-table-column>
 
@@ -139,43 +160,34 @@
           </template>
         </el-table-column>
 
-        <!-- SEGMENT -->
-        <el-table-column label="Segment" sortable>
-          <template slot-scope="scope">
-            {{ scope.row.segment?.name || '-' }}
-          </template>
-        </el-table-column>
-
-        <!-- TEMPLATE -->
-        <el-table-column label="Template" sortable>
-          <template slot-scope="scope">
-            {{ scope.row.template?.name || '-' }}
-          </template>
-        </el-table-column>
-
         <!-- CREATED/SCHEDULED -->
-        <el-table-column :label="dateColumnLabel()" sortable>
+        <el-table-column :label="dateColumnLabel()" width="120" sortable>
           <template slot-scope="scope">
-            <span v-if="checkStatus(scope.row) === 'draft'">
-              {{ formatDate(scope.row.createdAt) }}
-            </span>
-            <span v-else-if="checkStatus(scope.row) === 'scheduled'">
+            <span v-if="checkStatus(scope.row) === 'scheduled'">
               {{ formatDate(scope.row.scheduledAt) }}
+            </span>
+            <span v-else>
+              {{ formatDate(scope.row.createdAt) }}
             </span>
           </template>
         </el-table-column>
 
         <!-- STATUS -->
-        <el-table-column label="Status" v-if="activeStatus === 'all'" sortable>
+        <el-table-column
+          width="190"
+          label="Status"
+          v-if="activeStatus === 'all'"
+          sortable
+        >
           <template slot-scope="scope">
-            <small class="uppercase font-bold">
+            <el-tag :type="tagColor(scope.row)">
               {{ checkStatus(scope.row) }}
-            </small>
+            </el-tag>
           </template>
         </el-table-column>
 
         <!-- ACTIONS -->
-        <el-table-column width="200" v-if="activeStatus !== 'all'">
+        <el-table-column width="190" v-if="activeStatus !== 'all'">
           <template slot-scope="scope">
             <el-dropdown
               trigger="click"
@@ -203,6 +215,17 @@
 
               <!-- DROPDOWN -->
               <el-dropdown-menu slot="dropdown">
+                <!-- DUPLICATE: draft, scheduled, sent, archived -->
+                <el-dropdown-item v-if="iam.duplicate.includes(activeStatus)">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="duplicateCampaign(scope.row)"
+                  >
+                    <i class="ti ti-copy text-purple-500"></i>
+                    <span class="ml-3">Duplicate</span>
+                  </div>
+                </el-dropdown-item>
+
                 <!-- TEST: draft, scheduled -->
                 <el-dropdown-item v-if="iam.test.includes(activeStatus)">
                   <div
@@ -253,7 +276,7 @@
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="sendCampaign(scope.row)"
                   >
-                    <i class="ti ti-send text-blue-500"></i>
+                    <i class="ti ti-send text-green-500"></i>
                     <span class="ml-3">Send Now</span>
                   </div>
                 </el-dropdown-item>
@@ -275,7 +298,7 @@
                     class="item-menu flex items-center no-select"
                     @click="archiveCampaign(scope.row)"
                   >
-                    <i class="ti ti-edit text-gray-500"></i>
+                    <i class="ti ti-archive text-blue-500"></i>
                     <span class="ml-3">Archive</span>
                   </div>
                 </el-dropdown-item>
@@ -540,6 +563,7 @@ export default {
       },
 
       iam: {
+        duplicate: ['draft', 'scheduled', 'sent', 'archived'],
         test: ['draft', 'scheduled'],
         schedule: ['draft'],
         reschedule: ['scheduled'],
@@ -548,7 +572,7 @@ export default {
         edit: ['draft', 'scheduled'],
         archive: ['draft', 'sent'],
         restore: ['archived'],
-        delete: ['draft', 'archived'], // note: archived can not be deleted
+        delete: ['draft', 'archived'], // note: only previously-draft-archived can be deleted
       },
     }
   },
@@ -608,6 +632,64 @@ export default {
       this.rowPage = p
       this.currentPage = 1
       this.getData()
+    },
+
+    duplicateCampaign(item) {
+      this.$confirm(`Duplicate campaign "${item.title}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      })
+        .then(() => {
+          this.showMessage = false
+          this.messageError = ''
+
+          this.$notifier.showMessage({
+            content: 'Duplicating campaign...',
+            type: 'loading',
+          })
+
+          this.isLoading = true
+
+          this.$store
+            .dispatch('emailCampaign/duplicate', {
+              uuid: item.uuid,
+            })
+            .then((res) => {
+              if (res.status === 200) {
+                this.$router.push({ path: '/direct/campaign/email' })
+
+                this.$notifier.showMessage({
+                  content: 'Campaign duplicated successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.showMessage = true
+                this.messageError =
+                  res?.data?.data?.errors
+                    ?.map((e) => Object.values(e)[0])
+                    .join(', ') || 'Failed to duplicate campaign'
+
+                this.$notifier.showMessage({
+                  content: 'Failed to duplicate campaign.',
+                  type: 'failed',
+                })
+              }
+            })
+            .catch((e) => {
+              console.error(e)
+              this.showMessage = true
+              this.messageError = 'Error: ' + e.message
+            })
+            .finally(() => {
+              this.isLoading = false
+              this.activeStatus = 'draft'
+              this.getData()
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
 
     testCampaign(item) {
@@ -1085,11 +1167,27 @@ export default {
       }
     },
 
+    tagColor(item) {
+      const status = item.status
+      const scheduledAt = item.scheduledAt
+
+      if (status == 0 && scheduledAt == null) {
+        return 'info'
+      } else if (status == 0 && scheduledAt != null) {
+        return ''
+      } else if (status == 3) {
+        return 'warning'
+      } else if (status == 1) {
+        return 'success'
+      } else if (status == -1) {
+        return 'danger'
+      }
+    },
+
     dateColumnLabel() {
       // example: global filter / current view
-      if (this.activeStatus === 'draft') return 'Created'
       if (this.activeStatus === 'scheduled') return 'Scheduled'
-      return 'Date'
+      return 'Created'
     },
   },
 
@@ -1269,7 +1367,6 @@ export default {
         font-family: 'Cabin';
         font-weight: 500;
         font-size: 16px;
-        color: #454545;
       }
       .k-subtitle {
         font-family: 'Cabin';

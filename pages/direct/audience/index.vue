@@ -114,16 +114,11 @@
               @click="viewDetail(scope.row)"
             >
               <div class="flex flex-col">
-                <el-tooltip :open-delay="1000" placement="top-end">
-                  <div slot="content">{{ scope.row.name }}</div>
-
-                  <!-- replaced ellipsis inline css with tailwind -->
-                  <div
-                    class="k-title whitespace-nowrap overflow-hidden overflow-ellipsis w-60"
-                  >
-                    {{ scope.row.name }}
-                  </div>
-                </el-tooltip>
+                <div
+                  class="k-title whitespace-nowrap overflow-hidden overflow-ellipsis w-60 text-blue-500"
+                >
+                  {{ scope.row.name }}
+                </div>
 
                 <div class="k-subtitle">
                   {{
@@ -179,7 +174,7 @@
         </el-table-column>
 
         <!-- ACTIONS -->
-        <el-table-column width="200">
+        <el-table-column width="190">
           <template slot-scope="scope">
             <el-dropdown
               trigger="click"
@@ -194,8 +189,8 @@
                   class="flex card-dropdown items-center"
                   @click.stop="viewDetail(scope.row)"
                 >
-                  <i class="ti ti-eye mr-3 text-blue-600" />
-                  <div class="title-dropdown text-[#1B63D4]">Detail</div>
+                  <i class="ti ti-eye mr-3 text-blue-500" />
+                  <div class="title-dropdown text-blue-500">Detail</div>
                 </div>
 
                 <div class="btn-show flex items-center justify-center">
@@ -598,7 +593,6 @@ export default {
         font-family: 'Cabin';
         font-weight: 500;
         font-size: 16px;
-        color: #454545;
       }
       .k-subtitle {
         font-family: 'Cabin';

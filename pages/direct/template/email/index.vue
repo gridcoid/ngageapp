@@ -83,7 +83,7 @@
             class="thumbnail opacity-90 hover:opacity-100"
           />
           <div class="name-data flex flex-col">
-            <span>{{ item.name }}</span>
+            <span class="text-blue-500">{{ item.name }}</span>
             <span v-if="!!item.description">{{ item.description }}</span>
           </div>
         </div>
@@ -479,7 +479,6 @@ export default {
         margin-right: 20px;
       }
       .name-data > span:nth-child(1) {
-        color: #5c6b7a;
         font-family: 'Cabin';
         font-size: 16px;
       }

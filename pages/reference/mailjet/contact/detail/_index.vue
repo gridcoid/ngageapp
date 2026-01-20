@@ -51,7 +51,7 @@
             <div class="font-cabin text-sm text-gray-700">
               <NuxtLink
                 :to="`/reference/mailjet/contact-list/detail/${scope.row.ID}`"
-                class="text-blue-500 hover:text-blue-600"
+                class="text-blue-500 hover:text-blue-500"
               >
                 {{ getListName(scope.row.Name) }}
               </NuxtLink>

@@ -160,6 +160,21 @@ export const actions = {
     commit('SET_USER_TEST', null)
   },
 
+  // emailCampaign:duplicate
+  async duplicate({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailCampaign.duplicate(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
   // emailCampaign:test
   async test({ commit }, payload) {
     try {

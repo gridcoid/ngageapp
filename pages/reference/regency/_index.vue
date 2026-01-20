@@ -44,7 +44,7 @@
           <template slot-scope="scope">
             <NuxtLink
               :to="`/reference/district/${scope.row.code}`"
-              class="text-blue-600 font-cabin font-mono font-semibold text-sm"
+              class="text-blue-500 font-cabin font-mono font-semibold text-sm"
             >
               {{ scope.row.code }} <i class="ti ti-caret-right" />
             </NuxtLink>
