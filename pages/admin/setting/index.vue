@@ -352,7 +352,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete setting...',
+            content: 'Deleting setting...',
             type: 'loading',
           })
 

@@ -1020,7 +1020,7 @@ export default {
         id,
       }
       this.$notifier.showMessage({
-        content: 'Delete placement...',
+        content: 'Deleting placement...',
         type: 'loading',
       })
       const sto = setTimeout(
@@ -1084,7 +1084,7 @@ export default {
       }
 
       this.$notifier.showMessage({
-        content: 'Change status campaign...',
+        content: 'Changing status campaign...',
         type: 'loading',
       })
       const sto = setTimeout(

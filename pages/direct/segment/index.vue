@@ -387,7 +387,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete segment...',
+            content: 'Deleting segment...',
             type: 'loading',
           })
 

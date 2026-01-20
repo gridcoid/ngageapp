@@ -567,7 +567,7 @@ export default {
       }
 
       this.$notifier.showMessage({
-        content: 'Change status placement...',
+        content: 'Changing status placement...',
         type: 'loading',
       })
       const sto = setTimeout(

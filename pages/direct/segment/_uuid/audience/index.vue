@@ -375,7 +375,7 @@ export default {
       )
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Remove audience...',
+            content: 'Removing audience...',
             type: 'loading',
           })
 

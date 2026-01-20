@@ -1260,7 +1260,7 @@ export default {
     },
     createPlacement() {
       this.$notifier.showMessage({
-        content: 'Create placement...',
+        content: 'Creating placement...',
         type: 'loading',
       })
       // if (this.data.placementPeriod !== null) {

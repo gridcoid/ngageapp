@@ -199,7 +199,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete contact list...',
+            content: 'Deleting contact list...',
             type: 'loading',
           })
 

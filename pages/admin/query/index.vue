@@ -399,7 +399,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete query...',
+            content: 'Deleting query...',
             type: 'loading',
           })
 

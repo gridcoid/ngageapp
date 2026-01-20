@@ -166,7 +166,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete template...',
+            content: 'Deleting template...',
             type: 'loading',
           })
 

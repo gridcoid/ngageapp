@@ -207,7 +207,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete email...',
+            content: 'Deleting email...',
             type: 'loading',
           })
 

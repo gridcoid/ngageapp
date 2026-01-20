@@ -870,7 +870,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete campaign...',
+            content: 'Deleting campaign...',
             type: 'loading',
           })
 
@@ -1023,7 +1023,7 @@ export default {
       }
 
       this.$notifier.showMessage({
-        content: 'Change status campaign...',
+        content: 'Changing status campaign...',
         type: 'loading',
       })
       const sto = setTimeout(

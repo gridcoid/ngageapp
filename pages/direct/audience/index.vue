@@ -354,7 +354,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete audience...',
+            content: 'Deleting audience...',
             type: 'loading',
           })
 

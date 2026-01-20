@@ -166,7 +166,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete campaign...',
+            content: 'Deleting campaign...',
             type: 'loading',
           })
 

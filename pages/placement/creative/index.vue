@@ -598,7 +598,7 @@ export default {
   methods: {
     generateCreative(data) {
       this.$notifier.showMessage({
-        content: 'Generate creative...',
+        content: 'Generating creative...',
         type: 'loading',
       })
       const format = data.template.format
@@ -775,7 +775,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete creative...',
+            content: 'Deleting creative...',
             type: 'loading',
           })
 

@@ -359,7 +359,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Delete api key...',
+            content: 'Deleting api key...',
             type: 'loading',
           })
 

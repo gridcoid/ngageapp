@@ -414,7 +414,7 @@ export default {
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Remove user...',
+            content: 'Removing user...',
             type: 'loading',
           })
 

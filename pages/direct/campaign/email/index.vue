@@ -540,46 +540,6 @@ export default {
       this.dialog = !this.dialog
     },
 
-    deleteCampaign(data) {
-      this.$confirm(`Delete campaign "${data.title}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'warning',
-      })
-        .then(() => {
-          this.$notifier.showMessage({
-            content: 'Delete campaign...',
-            type: 'loading',
-          })
-
-          this.$store
-            .dispatch('emailCampaign/delete', {
-              uuid: data.uuid,
-            })
-            .then((res) => {
-              if (res?.data.status.code === 200) {
-                this.getData()
-
-                this.$notifier.showMessage({
-                  content: 'Delete campaign success.',
-                  type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Delete campaign failed. Error : ' + res?.data.data.message,
-                  type: 'failed',
-                })
-              }
-
-              this.$store.commit('user/SET_DROPDOWN', null)
-            })
-        })
-        .catch(() => {
-          this.$store.commit('user/SET_DROPDOWN', null)
-        })
-    },
-
     changePage(s) {
       if (s > 0) {
         this.currentPage = s
@@ -664,52 +624,43 @@ export default {
       this.scheduleForm.isReschedule = true
     },
 
-    sendCampaign(item) {
-      this.showMessage = false
-      this.messageError = ''
+    submitSchedule() {
+      this.$refs.scheduleForm.validate((valid) => {
+        if (!valid) return
 
-      this.$notifier.showMessage({
-        content: 'Sending campaign...',
-        type: 'loading',
+        const payload = {
+          ...this.scheduleForm,
+          scheduledAt: this.toUtcISOStringFromPicker(
+            this.scheduleForm.scheduledAt
+          ),
+        }
+
+        this.isLoading = true
+        this.$store
+          .dispatch('emailCampaign/schedule', payload)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$notifier.showMessage({
+                content: 'Schedule campaign success.',
+                type: 'success',
+              })
+            } else {
+              this.$notifier.showMessage({
+                content: 'Schedule campaign failed!',
+                type: 'failed',
+              })
+            }
+          })
+          .catch((e) => {
+            console.error(e)
+          })
+          .finally(() => {
+            this.isLoading = false
+            this.scheduleDialogVisible = false
+            this.activeStatus = 'scheduled'
+            this.getData()
+          })
       })
-
-      this.isLoading = true
-
-      this.$store
-        .dispatch('emailCampaign/send', {
-          uuid: item.uuid,
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            this.$router.push({ path: '/direct/campaign/email' })
-
-            this.$notifier.showMessage({
-              content: 'Campaign sent successfully.',
-              type: 'success',
-            })
-          } else {
-            this.showMessage = true
-            this.messageError =
-              res?.data?.data?.errors
-                ?.map((e) => Object.values(e)[0])
-                .join(', ') || 'Failed to send campaign'
-
-            this.$notifier.showMessage({
-              content: 'Campaign send failed!',
-              type: 'failed',
-            })
-          }
-        })
-        .catch((e) => {
-          console.error(e)
-          this.showMessage = true
-          this.messageError = 'Error: ' + e.message
-        })
-        .finally(() => {
-          this.isLoading = false
-          this.activeStatus = 'sending'
-          this.getData()
-        })
     },
 
     cancelSchedule(item) {
@@ -760,6 +711,136 @@ export default {
         })
     },
 
+    sendCampaign(item) {
+      this.showMessage = false
+      this.messageError = ''
+
+      this.$notifier.showMessage({
+        content: 'Sending campaign...',
+        type: 'loading',
+      })
+
+      this.isLoading = true
+
+      this.$store
+        .dispatch('emailCampaign/send', {
+          uuid: item.uuid,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            this.$router.push({ path: '/direct/campaign/email' })
+
+            this.$notifier.showMessage({
+              content: 'Campaign sent successfully.',
+              type: 'success',
+            })
+          } else {
+            this.showMessage = true
+            this.messageError =
+              res?.data?.data?.errors
+                ?.map((e) => Object.values(e)[0])
+                .join(', ') || 'Failed to send campaign'
+
+            this.$notifier.showMessage({
+              content: 'Campaign send failed!',
+              type: 'failed',
+            })
+          }
+        })
+        .catch((e) => {
+          console.error(e)
+          this.showMessage = true
+          this.messageError = 'Error: ' + e.message
+        })
+        .finally(() => {
+          this.isLoading = false
+          this.activeStatus = 'sending'
+          this.getData()
+        })
+    },
+
+    archiveCampaign(item) {
+      this.$confirm(`Archive campaign "${item.title}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Archiving campaign...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('emailCampaign/archive', {
+              uuid: item.uuid,
+            })
+            .then((res) => {
+              if (res?.data.status.code === 200) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Campaign archived successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Archiving campaign failed. Error : ' +
+                    res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
+    },
+
+    deleteCampaign(item) {
+      this.$confirm(`Delete campaign "${item.title}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Deleting campaign...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('emailCampaign/delete', {
+              uuid: item.uuid,
+            })
+            .then((res) => {
+              if (res?.data.status.code === 200) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Campaign deleted successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Deleting campaign failed. Error : ' +
+                    res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
+    },
+
     toUtcISOStringFromPicker(value) {
       // value: "yyyy-MM-dd HH:mm:ss" (local time)
       const [date, time] = value.split(' ')
@@ -787,45 +868,6 @@ export default {
       const ss = pad(date.getSeconds())
 
       return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
-    },
-
-    submitSchedule() {
-      this.$refs.scheduleForm.validate((valid) => {
-        if (!valid) return
-
-        const payload = {
-          ...this.scheduleForm,
-          scheduledAt: this.toUtcISOStringFromPicker(
-            this.scheduleForm.scheduledAt
-          ),
-        }
-
-        this.isLoading = true
-        this.$store
-          .dispatch('emailCampaign/schedule', payload)
-          .then((res) => {
-            if (res.status === 200) {
-              this.$notifier.showMessage({
-                content: 'Schedule campaign success.',
-                type: 'success',
-              })
-            } else {
-              this.$notifier.showMessage({
-                content: 'Schedule campaign failed!',
-                type: 'failed',
-              })
-            }
-          })
-          .catch((e) => {
-            console.error(e)
-          })
-          .finally(() => {
-            this.isLoading = false
-            this.scheduleDialogVisible = false
-            this.activeStatus = 'scheduled'
-            this.getData()
-          })
-      })
     },
 
     viewDetail(item) {
