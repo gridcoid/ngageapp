@@ -821,7 +821,7 @@ export default {
                   .join(', ') || 'Failed to update audience'
 
               this.$notifier.showMessage({
-                content: 'Audience update failed!',
+                content: 'Audience update failed.',
                 type: 'failed',
               })
             }

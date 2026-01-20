@@ -218,7 +218,7 @@ export default {
                   .join(', ') || 'Failed to update setting'
 
               this.$notifier.showMessage({
-                content: 'Setting update failed!',
+                content: 'Setting update failed.',
                 type: 'failed',
               })
             }

@@ -250,7 +250,7 @@ export default {
                   .join(', ') || 'Failed to update email template'
 
               this.$notifier.showMessage({
-                content: 'Email template update failed!',
+                content: 'Email template update failed.',
                 type: 'failed',
               })
             }

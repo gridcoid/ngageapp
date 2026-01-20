@@ -165,7 +165,7 @@ export default {
                   .join(', ') || 'Failed to create setting'
 
               this.$notifier.showMessage({
-                content: 'Setting creation failed!',
+                content: 'Setting creation failed.',
                 type: 'failed',
               })
             }

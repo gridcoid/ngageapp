@@ -477,7 +477,7 @@ export default {
         })
       } else if (file.size / 1000 > 4000) {
         this.$notifier.showMessage({
-          content: 'File size can not exceed 4 MB !',
+          content: 'File size can not exceed 4 MB .',
           type: 'failed',
         })
       } else {

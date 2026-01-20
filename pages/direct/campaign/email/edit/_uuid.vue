@@ -323,7 +323,7 @@ export default {
                   .join(', ') || 'Failed to update campaign'
 
               this.$notifier.showMessage({
-                content: 'Campaign update failed!',
+                content: 'Campaign update failed.',
                 type: 'failed',
               })
             }

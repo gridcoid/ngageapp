@@ -179,7 +179,7 @@ export default {
                   .join(', ') || 'Failed to create widget'
 
               this.$notifier.showMessage({
-                content: 'Failed to create widget!',
+                content: 'Failed to create widget.',
                 type: 'failed',
               })
             }

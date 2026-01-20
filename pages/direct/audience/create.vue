@@ -792,7 +792,7 @@ export default {
                   .join(', ') || 'Failed to create audience'
 
               this.$notifier.showMessage({
-                content: 'Audience creation failed!',
+                content: 'Audience creation failed.',
                 type: 'failed',
               })
             }

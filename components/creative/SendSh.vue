@@ -243,7 +243,7 @@ export default {
               .then((res) => {
                 if (res.status === 200) {
                   this.$notifier.showMessage({
-                    content: 'Video Send!',
+                    content: 'Video Send.',
                     type: 'success',
                   })
                   this.$parent.getData()

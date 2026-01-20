@@ -138,7 +138,7 @@ export default {
                   .join(', ') || 'Failed to create segment'
 
               this.$notifier.showMessage({
-                content: 'Segment creation failed!',
+                content: 'Segment creation failed.',
                 type: 'failed',
               })
             }

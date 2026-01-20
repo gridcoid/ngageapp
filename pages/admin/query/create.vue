@@ -319,7 +319,7 @@ export default {
                   .join(', ') || 'Failed to create query'
 
               this.$notifier.showMessage({
-                content: 'Query creation failed!',
+                content: 'Query creation failed.',
                 type: 'failed',
               })
             }

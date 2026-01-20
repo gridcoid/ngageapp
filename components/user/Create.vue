@@ -488,7 +488,7 @@ export default {
                     .then((res) => {
                       if (res.status === 200) {
                         this.$notifier.showMessage({
-                          content: 'User Save!.',
+                          content: 'User saved.',
                           type: 'success',
                         })
 
@@ -561,7 +561,7 @@ export default {
                   .then((res) => {
                     if (res.status === 200) {
                       this.$notifier.showMessage({
-                        content: 'User Update!.',
+                        content: 'User Update.',
                         type: 'success',
                       })
 

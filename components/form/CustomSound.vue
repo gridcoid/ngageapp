@@ -124,13 +124,13 @@ export default {
 
       if (!isAudio) {
         this.$notifier.showMessage({
-          content: 'Audio must be mp3 or wav format!',
+          content: 'Audio must be mp3 or wav format.',
           type: 'failed',
         })
       }
       if (!isLt10M) {
         this.$notifier.showMessage({
-          content: 'Audio size can not exceed 10MB!',
+          content: 'Audio size can not exceed 10MB.',
           type: 'failed',
         })
       }
@@ -141,7 +141,7 @@ export default {
       if (formatData === 'audio/mpeg') {
         if (file.size / 1024 / 1024 > 10) {
           this.$notifier.showMessage({
-            content: 'File size cannot exceed 10MB!',
+            content: 'File size cannot exceed 10MB.',
             type: 'failed',
           })
         } else {

@@ -584,7 +584,7 @@ export default {
               })
             } else {
               this.$notifier.showMessage({
-                content: 'Send test email failed!',
+                content: 'Send test email failed.',
                 type: 'failed',
               })
             }
@@ -646,7 +646,7 @@ export default {
               })
             } else {
               this.$notifier.showMessage({
-                content: 'Schedule campaign failed!',
+                content: 'Schedule campaign failed.',
                 type: 'failed',
               })
             }
@@ -694,7 +694,7 @@ export default {
                 .join(', ') || 'Failed to cancel schedule campaign'
 
             this.$notifier.showMessage({
-              content: 'Campaign schedule cancel failed!',
+              content: 'Campaign schedule cancel failed.',
               type: 'failed',
             })
           }
@@ -742,7 +742,7 @@ export default {
                 .join(', ') || 'Failed to send campaign'
 
             this.$notifier.showMessage({
-              content: 'Campaign send failed!',
+              content: 'Campaign send failed.',
               type: 'failed',
             })
           }

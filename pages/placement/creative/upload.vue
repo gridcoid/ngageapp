@@ -357,7 +357,7 @@ export default {
         })
       } else if (file.size / 1000 > 1000) {
         this.$notifier.showMessage({
-          content: 'File size can not exceed 1000 KB!',
+          content: 'File size can not exceed 1000 KB.',
           type: 'failed',
         })
       } else {

@@ -309,7 +309,7 @@ export default {
                   .join(', ') || 'Failed to create campaign'
 
               this.$notifier.showMessage({
-                content: 'Campaign creation failed!',
+                content: 'Campaign creation failed.',
                 type: 'failed',
               })
             }

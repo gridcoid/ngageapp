@@ -215,7 +215,7 @@ export default {
                   .join(', ') || 'Failed to update widget'
 
               this.$notifier.showMessage({
-                content: 'Failed to update widget!',
+                content: 'Failed to update widget.',
                 type: 'failed',
               })
             }

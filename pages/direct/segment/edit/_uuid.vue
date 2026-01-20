@@ -159,7 +159,7 @@ export default {
                   .join(', ') || 'Failed to update segment'
 
               this.$notifier.showMessage({
-                content: 'Segment update failed!',
+                content: 'Segment update failed.',
                 type: 'failed',
               })
             }

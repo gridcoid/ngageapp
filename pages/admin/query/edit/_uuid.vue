@@ -300,7 +300,7 @@ export default {
                   .join(', ') || 'Failed to update query'
 
               this.$notifier.showMessage({
-                content: 'Query update failed!',
+                content: 'Query update failed.',
                 type: 'failed',
               })
             }

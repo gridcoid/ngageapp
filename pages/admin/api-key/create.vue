@@ -243,7 +243,7 @@ export default {
                   .join(', ') || 'Failed to create API key'
 
               this.$notifier.showMessage({
-                content: 'API Key creation failed!',
+                content: 'API Key creation failed.',
                 type: 'failed',
               })
             }

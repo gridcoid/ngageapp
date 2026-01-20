@@ -258,7 +258,7 @@ export default {
             .then((res) => {
               if (res.status === 200) {
                 this.$notifier.showMessage({
-                  content: 'Password changed!.',
+                  content: 'Password changed.',
                   type: 'success',
                 })
                 document.querySelector('body').style.overflow = ''

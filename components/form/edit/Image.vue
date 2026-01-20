@@ -205,13 +205,13 @@ export default {
 
       if (!isJPG) {
         this.$notifier.showMessage({
-          content: 'Avatar picture must be JPG format!',
+          content: 'Avatar picture must be JPG format.',
           type: 'failed',
         })
       }
       if (!isLt2M) {
         this.$notifier.showMessage({
-          content: 'Avatar picture size can not exceed 2MB!',
+          content: 'Avatar picture size can not exceed 2MB.',
           type: 'failed',
         })
       }
@@ -244,7 +244,7 @@ export default {
       ) {
         if (file.size / 1023.4 > 500) {
           this.$notifier.showMessage({
-            content: 'Image size can not exceed 500KB!',
+            content: 'Image size can not exceed 500KB.',
             type: 'failed',
           })
         } else {

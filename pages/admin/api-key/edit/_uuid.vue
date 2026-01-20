@@ -164,7 +164,7 @@ export default {
               this.messageError = arr.join(', ')
 
               this.$notifier.showMessage({
-                content: 'API Key update failed!',
+                content: 'API Key update failed.',
                 type: 'failed',
               })
             }
