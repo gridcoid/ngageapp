@@ -488,7 +488,7 @@ export default {
                     .then((res) => {
                       if (res.status === 200) {
                         this.$notifier.showMessage({
-                          content: 'User saved.',
+                          content: 'User saved successfully.',
                           type: 'success',
                         })
 

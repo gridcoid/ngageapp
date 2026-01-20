@@ -1034,7 +1034,7 @@ export default {
               if (res?.data.status.code === 200) {
                 this.getAll()
                 this.$notifier.showMessage({
-                  content: 'Change campaign success.',
+                  content: 'Campaign status changed successfully.',
                   type: 'success',
                 })
                 clearInterval(sto)
@@ -1076,7 +1076,7 @@ export default {
         count: this.countDuplicate,
       }
       this.$notifier.showMessage({
-        content: 'Duplicate campaign...',
+        content: 'Duplicating campaign...',
         type: 'loading',
       })
       const sto = setTimeout(
@@ -1087,7 +1087,7 @@ export default {
               if (res?.data.status.code === 200) {
                 this.getAll()
                 this.$notifier.showMessage({
-                  content: 'Duplicate campaign success.',
+                  content: 'Campaign duplicated successfully.',
                   type: 'success',
                 })
                 this.detailCampaign = null

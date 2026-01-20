@@ -1498,7 +1498,7 @@ export default {
       if (this.imageData === '' && this.imageUrl !== '') {
         if (this.validateUrl(this.url)) {
           this.$notifier.showMessage({
-            content: 'Edit creative...',
+            content: 'Updating creative...',
             type: 'loading',
           })
           const sto = setTimeout(
@@ -1517,7 +1517,7 @@ export default {
                 .then((res) => {
                   if (res.status === 200) {
                     this.$notifier.showMessage({
-                      content: 'Creative edited.',
+                      content: 'Creative updated successfully.',
                       type: 'success',
                     })
                     clearInterval(sto)

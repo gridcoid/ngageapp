@@ -232,7 +232,7 @@ export default {
                 this.step2 = false
 
                 this.$notifier.showMessage({
-                  content: 'Spreadsheet imported.',
+                  content: 'Spreadsheet imported successfully.',
                   type: 'success',
                 })
 

@@ -231,7 +231,7 @@ export default {
               this.$router.push({ path: '/admin/api-key' })
 
               this.$notifier.showMessage({
-                content: 'API Key created.',
+                content: 'API Key created successfully.',
                 type: 'success',
               })
             } else {
@@ -243,7 +243,7 @@ export default {
                   .join(', ') || 'Failed to create API key'
 
               this.$notifier.showMessage({
-                content: 'API Key creation failed.',
+                content: 'Failed to create API key.',
                 type: 'failed',
               })
             }

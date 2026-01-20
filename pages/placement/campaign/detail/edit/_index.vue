@@ -271,7 +271,7 @@ export default {
               if (res?.data.status.code === 200) {
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
-                  content: 'Campaign edited.',
+                  content: 'Campaign updated successfully.',
                   type: 'success',
                 })
                 this.$router.push({

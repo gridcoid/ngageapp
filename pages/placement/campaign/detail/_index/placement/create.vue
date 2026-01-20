@@ -1302,7 +1302,7 @@ export default {
               if (res.status === 200) {
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
-                  content: 'Placement created.',
+                  content: 'Placement created successfully.',
                   type: 'success',
                 })
                 this.$router.go(-1)

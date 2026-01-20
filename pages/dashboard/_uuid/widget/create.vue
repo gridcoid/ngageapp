@@ -167,7 +167,7 @@ export default {
               this.$router.push({ path: '/' }) // dashboard
 
               this.$notifier.showMessage({
-                content: 'Widget created.',
+                content: 'Widget created successfully.',
                 type: 'success',
               })
             } else {

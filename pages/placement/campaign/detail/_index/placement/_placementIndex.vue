@@ -578,7 +578,7 @@ export default {
               if (res?.data.status.code === 200) {
                 if (!res?.data.data.isActive) {
                   this.$notifier.showMessage({
-                    content: 'Placement status Enabled.',
+                    content: 'Placement status enabled.',
                     type: 'success',
                   })
                 } else {

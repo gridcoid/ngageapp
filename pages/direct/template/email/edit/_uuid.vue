@@ -239,7 +239,7 @@ export default {
               this.$router.push({ path: '/direct/template/email' })
 
               this.$notifier.showMessage({
-                content: 'Email template updated.',
+                content: 'Email template updated successfully.',
                 type: 'success',
               })
             } else {
@@ -250,7 +250,7 @@ export default {
                   .join(', ') || 'Failed to update email template'
 
               this.$notifier.showMessage({
-                content: 'Email template update failed.',
+                content: 'Failed to update email template.',
                 type: 'failed',
               })
             }

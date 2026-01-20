@@ -206,7 +206,7 @@ export default {
               this.$router.push({ path: '/admin/setting' })
 
               this.$notifier.showMessage({
-                content: 'Setting updated.',
+                content: 'Setting updated successfully.',
                 type: 'success',
               })
             } else {
@@ -218,7 +218,7 @@ export default {
                   .join(', ') || 'Failed to update setting'
 
               this.$notifier.showMessage({
-                content: 'Setting update failed.',
+                content: 'Failed to update setting.',
                 type: 'failed',
               })
             }

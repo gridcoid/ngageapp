@@ -126,7 +126,7 @@ export default {
               this.$router.push({ path: '/direct/segment' })
 
               this.$notifier.showMessage({
-                content: 'Segment created.',
+                content: 'Segment created successfully.',
                 type: 'success',
               })
             } else {
@@ -138,7 +138,7 @@ export default {
                   .join(', ') || 'Failed to create segment'
 
               this.$notifier.showMessage({
-                content: 'Segment creation failed.',
+                content: 'Failed to create segment.',
                 type: 'failed',
               })
             }

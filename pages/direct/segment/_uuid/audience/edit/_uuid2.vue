@@ -717,7 +717,7 @@ export default {
               })
 
               this.$notifier.showMessage({
-                content: 'Audience updated.',
+                content: 'Audience updated successfully.',
                 type: 'success',
               })
             } else {
@@ -729,7 +729,7 @@ export default {
                   .join(', ') || 'Failed to update audience'
 
               this.$notifier.showMessage({
-                content: 'Audience update failed.',
+                content: 'Failed to update audience.',
                 type: 'failed',
               })
             }

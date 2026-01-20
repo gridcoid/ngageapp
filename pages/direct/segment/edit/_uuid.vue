@@ -147,7 +147,7 @@ export default {
               this.$router.push({ path: '/direct/segment' })
 
               this.$notifier.showMessage({
-                content: 'Segment updated.',
+                content: 'Segment updated successfully.',
                 type: 'success',
               })
             } else {
@@ -159,7 +159,7 @@ export default {
                   .join(', ') || 'Failed to update segment'
 
               this.$notifier.showMessage({
-                content: 'Segment update failed.',
+                content: 'Failed to update segment.',
                 type: 'failed',
               })
             }

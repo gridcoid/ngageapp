@@ -153,7 +153,7 @@ export default {
               this.$router.push({ path: '/admin/setting' })
 
               this.$notifier.showMessage({
-                content: 'Setting created.',
+                content: 'Setting created successfully.',
                 type: 'success',
               })
             } else {
@@ -165,7 +165,7 @@ export default {
                   .join(', ') || 'Failed to create setting'
 
               this.$notifier.showMessage({
-                content: 'Setting creation failed.',
+                content: 'Failed to create setting.',
                 type: 'failed',
               })
             }

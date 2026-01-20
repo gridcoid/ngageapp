@@ -252,7 +252,7 @@ export default {
               if (res.status === 200) {
                 this.$router.push({ path: '/placement/creative' })
                 this.$notifier.showMessage({
-                  content: 'Creative created.',
+                  content: 'Creative created successfully.',
                   type: 'success',
                 })
                 clearInterval(sto)

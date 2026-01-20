@@ -151,7 +151,7 @@ export default {
               this.$router.push({ path: '/admin/api-key' })
 
               this.$notifier.showMessage({
-                content: 'API Key updated.',
+                content: 'API Key updated successfully.',
                 type: 'success',
               })
             } else {
@@ -164,7 +164,7 @@ export default {
               this.messageError = arr.join(', ')
 
               this.$notifier.showMessage({
-                content: 'API Key update failed.',
+                content: 'Failed to update API key.',
                 type: 'failed',
               })
             }

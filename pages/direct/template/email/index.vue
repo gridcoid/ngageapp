@@ -312,7 +312,7 @@ export default {
           .then(() => {
             this.getData()
             this.$notifier.showMessage({
-              content: 'Template deleted.',
+              content: 'Template deleted successfully.',
               type: 'success',
             })
           })

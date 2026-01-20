@@ -579,12 +579,12 @@ export default {
           .then((res) => {
             if (res.status === 200) {
               this.$notifier.showMessage({
-                content: 'Send test email success.',
+                content: 'Test email sent successfully.',
                 type: 'success',
               })
             } else {
               this.$notifier.showMessage({
-                content: 'Send test email failed.',
+                content: 'Failed to send test email.',
                 type: 'failed',
               })
             }
@@ -641,12 +641,12 @@ export default {
           .then((res) => {
             if (res.status === 200) {
               this.$notifier.showMessage({
-                content: 'Schedule campaign success.',
+                content: 'Campaign scheduled successfully.',
                 type: 'success',
               })
             } else {
               this.$notifier.showMessage({
-                content: 'Schedule campaign failed.',
+                content: 'Failed to schedule campaign.',
                 type: 'failed',
               })
             }
@@ -694,7 +694,7 @@ export default {
                 .join(', ') || 'Failed to cancel schedule campaign'
 
             this.$notifier.showMessage({
-              content: 'Campaign schedule cancel failed.',
+              content: 'Failed to cancel schedule campaign.',
               type: 'failed',
             })
           }
@@ -742,7 +742,7 @@ export default {
                 .join(', ') || 'Failed to send campaign'
 
             this.$notifier.showMessage({
-              content: 'Campaign send failed.',
+              content: 'Failed to send campaign.',
               type: 'failed',
             })
           }

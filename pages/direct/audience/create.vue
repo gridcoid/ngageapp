@@ -780,7 +780,7 @@ export default {
               this.$router.push({ path: '/direct/audience' })
 
               this.$notifier.showMessage({
-                content: 'Audience created.',
+                content: 'Audience created successfully.',
                 type: 'success',
               })
             } else {
@@ -792,7 +792,7 @@ export default {
                   .join(', ') || 'Failed to create audience'
 
               this.$notifier.showMessage({
-                content: 'Audience creation failed.',
+                content: 'Failed to create audience.',
                 type: 'failed',
               })
             }

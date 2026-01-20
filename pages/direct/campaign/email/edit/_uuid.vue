@@ -312,7 +312,7 @@ export default {
               this.$router.push({ path: '/direct/campaign/email' })
 
               this.$notifier.showMessage({
-                content: 'Campaign updated.',
+                content: 'Campaign updated successfully.',
                 type: 'success',
               })
             } else {
@@ -323,7 +323,7 @@ export default {
                   .join(', ') || 'Failed to update campaign'
 
               this.$notifier.showMessage({
-                content: 'Campaign update failed.',
+                content: 'Failed to update campaign.',
                 type: 'failed',
               })
             }

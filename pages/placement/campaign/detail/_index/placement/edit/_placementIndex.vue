@@ -1337,7 +1337,7 @@ export default {
     },
     updatePlacement() {
       this.$notifier.showMessage({
-        content: 'Edit placement...',
+        content: 'Updating placement...',
         type: 'loading',
       })
       this.isLoading = true
@@ -1373,7 +1373,7 @@ export default {
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$router.go(-1)
                 this.$notifier.showMessage({
-                  content: 'Placement edited...',
+                  content: 'Placement updated successfully.',
                   type: 'success',
                 })
                 clearInterval(sto)

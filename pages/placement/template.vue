@@ -351,7 +351,7 @@ export default {
                 this.step1 = true
                 this.step2 = false
                 this.$notifier.showMessage({
-                  content: 'Template created.',
+                  content: 'Template created successfully.',
                   type: 'success',
                 })
                 clearInterval(sto)

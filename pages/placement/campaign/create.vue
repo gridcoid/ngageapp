@@ -292,7 +292,7 @@ export default {
               if (res.status === 200) {
                 this.$router.push({ path: '/placement/campaign' })
                 this.$notifier.showMessage({
-                  content: 'Campaign created.',
+                  content: 'Campaign created successfully.',
                   type: 'success',
                 })
                 clearInterval(sto)
@@ -305,7 +305,7 @@ export default {
                 })
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
-                  content: 'Campaign failed.',
+                  content: 'Failed to create campaign.',
                   type: 'failed',
                 })
                 clearInterval(sto)

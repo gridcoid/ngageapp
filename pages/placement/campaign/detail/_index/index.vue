@@ -964,7 +964,7 @@ export default {
         count: this.countDuplicate,
       }
       this.$notifier.showMessage({
-        content: 'Duplicate placement...',
+        content: 'Duplicating placement...',
         type: 'loading',
       })
       const sto = setTimeout(
@@ -976,7 +976,7 @@ export default {
                 this.getAll()
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
-                  content: 'Duplicate placement success.',
+                  content: 'Placement duplicated successfully.',
                   type: 'success',
                 })
                 this.dataCampaign = {
@@ -1095,7 +1095,7 @@ export default {
               if (res?.data.status.code === 200) {
                 if (!res?.data.data.isActive) {
                   this.$notifier.showMessage({
-                    content: 'Campaign status Enabled.',
+                    content: 'Campaign status enabled.',
                     type: 'success',
                   })
                 } else {

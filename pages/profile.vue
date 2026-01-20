@@ -379,7 +379,7 @@ export default {
         isVerified,
       }
       this.$notifier.showMessage({
-        content: 'Update Status...',
+        content: 'Updating status...',
         type: 'loading',
       })
       const sto = setTimeout(

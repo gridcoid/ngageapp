@@ -87,7 +87,7 @@ export default {
               .then((res) => {
                 if (res.status === 200) {
                   this.$notifier.showMessage({
-                    content: 'Organization saved.',
+                    content: 'Organization saved successfully.',
                     type: 'success',
                   })
                   this.name = ''

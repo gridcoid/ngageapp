@@ -360,7 +360,7 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Duplicate segment success.',
+                  content: 'Segment duplicated successfully.',
                   type: 'success',
                 })
               } else {

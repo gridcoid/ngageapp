@@ -236,7 +236,7 @@ This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LIN
               this.$router.push({ path: '/direct/template/email' })
 
               this.$notifier.showMessage({
-                content: 'Template created.',
+                content: 'Template created successfully.',
                 type: 'success',
               })
             } else {

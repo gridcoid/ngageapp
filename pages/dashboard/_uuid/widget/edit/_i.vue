@@ -203,7 +203,7 @@ export default {
               this.$router.push({ path: '/' }) // dashboard
 
               this.$notifier.showMessage({
-                content: 'Widget updated.',
+                content: 'Widget updated successfully.',
                 type: 'success',
               })
             } else {

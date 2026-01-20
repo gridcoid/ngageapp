@@ -298,7 +298,7 @@ export default {
               this.$router.push({ path: '/direct/campaign/email' })
 
               this.$notifier.showMessage({
-                content: 'Campaign created.',
+                content: 'Campaign created successfully.',
                 type: 'success',
               })
             } else {
@@ -309,7 +309,7 @@ export default {
                   .join(', ') || 'Failed to create campaign'
 
               this.$notifier.showMessage({
-                content: 'Campaign creation failed.',
+                content: 'Failed to create campaign.',
                 type: 'failed',
               })
             }

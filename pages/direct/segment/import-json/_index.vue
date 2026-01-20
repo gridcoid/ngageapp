@@ -224,7 +224,7 @@ export default {
     clear() {
       localStorage.removeItem('jsonImportConfig')
       this.$notifier.showMessage({
-        content: 'Config cleared.',
+        content: 'Config cleared successfully.',
         type: 'success',
       })
     },
