@@ -207,9 +207,40 @@ export const actions = {
     }
   },
 
+  // emailCampaign:send
   async send({ commit }, payload) {
     try {
       const response = await this.$repositories.emailCampaign.send(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // emailCampaign:archive
+  async archive({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailCampaign.archive(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // emailCampaign:restore
+  async restore({ commit }, payload) {
+    try {
+      const response = await this.$repositories.emailCampaign.restore(payload)
       return response
     } catch (e) {
       console.error(e)

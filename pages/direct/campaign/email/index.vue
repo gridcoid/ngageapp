@@ -200,6 +200,7 @@
                   </div>
                 </el-dropdown-item>
 
+                <!-- SCHEDULE -->
                 <el-dropdown-item v-if="activeStatus === 'draft'">
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
@@ -210,16 +211,7 @@
                   </div>
                 </el-dropdown-item>
 
-                <el-dropdown-item v-if="activeStatus === 'draft'">
-                  <div
-                    class="item-menu flex items-center no-select text-gray-500 text-sm"
-                    @click="sendCampaign(scope.row)"
-                  >
-                    <i class="ti ti-send text-blue-500"></i>
-                    <span class="ml-3">Send Now</span>
-                  </div>
-                </el-dropdown-item>
-
+                <!-- RESCHEDULE -->
                 <el-dropdown-item v-if="activeStatus === 'scheduled'">
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
@@ -230,6 +222,7 @@
                   </div>
                 </el-dropdown-item>
 
+                <!-- CANCEL SCHEDULE -->
                 <el-dropdown-item v-if="activeStatus === 'scheduled'">
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
@@ -240,6 +233,18 @@
                   </div>
                 </el-dropdown-item>
 
+                <!-- SEND NOW -->
+                <el-dropdown-item v-if="activeStatus === 'draft'">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="sendCampaign(scope.row)"
+                  >
+                    <i class="ti ti-send text-blue-500"></i>
+                    <span class="ml-3">Send Now</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- EDIT -->
                 <el-dropdown-item>
                   <NuxtLink
                     class="item-menu flex items-center no-select"
@@ -250,6 +255,29 @@
                   </NuxtLink>
                 </el-dropdown-item>
 
+                <!-- ARCHIVE -->
+                <el-dropdown-item>
+                  <div
+                    class="item-menu flex items-center no-select"
+                    @click="archiveCampaign(scope.row)"
+                  >
+                    <i class="ti ti-edit text-gray-500"></i>
+                    <span class="ml-3">Archive</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- RESTORE -->
+                <el-dropdown-item>
+                  <div
+                    class="item-menu flex items-center no-select"
+                    @click="restoreCampaign(scope.row)"
+                  >
+                    <i class="ti ti-rotate-2 text-gray-500"></i>
+                    <span class="ml-3">Restore</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- DELETE -->
                 <el-dropdown-item class="border-t border-gray-300">
                   <div
                     class="item-menu flex items-center"
@@ -624,6 +652,7 @@ export default {
       this.scheduleForm.isReschedule = true
     },
 
+    // submit schedule or reschedule
     submitSchedule() {
       this.$refs.scheduleForm.validate((valid) => {
         if (!valid) return
@@ -664,98 +693,116 @@ export default {
     },
 
     cancelSchedule(item) {
-      this.showMessage = false
-      this.messageError = ''
+      this.$confirm(
+        `Cancel scheduled campaign "${item.title}"?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+        }
+      )
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Canceling schedule campaign...',
+            type: 'loading',
+          })
 
-      this.$notifier.showMessage({
-        content: 'Canceling schedule campaign...',
-        type: 'loading',
-      })
-
-      this.isLoading = true
-
-      this.$store
-        .dispatch('emailCampaign/cancelSchedule', {
-          uuid: item.uuid,
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            this.$router.push({ path: '/direct/campaign/email' })
-
-            this.$notifier.showMessage({
-              content: 'Campaign schedule canceled.',
-              type: 'success',
+          this.$store
+            .dispatch('emailCampaign/cancelSchedule', {
+              uuid: item.uuid,
             })
-          } else {
-            this.showMessage = true
-            this.messageError =
-              res?.data?.data?.errors
-                ?.map((e) => Object.values(e)[0])
-                .join(', ') || 'Failed to cancel schedule campaign'
+            .then((res) => {
+              if (res.status === 200) {
+                this.$router.push({ path: '/direct/campaign/email' })
 
-            this.$notifier.showMessage({
-              content: 'Failed to cancel schedule campaign.',
-              type: 'failed',
+                this.$notifier.showMessage({
+                  content: 'Campaign schedule canceled.',
+                  type: 'success',
+                })
+              } else {
+                this.showMessage = true
+                this.messageError =
+                  res?.data?.data?.errors
+                    ?.map((e) => Object.values(e)[0])
+                    .join(', ') || 'Failed to cancel schedule campaign'
+
+                this.$notifier.showMessage({
+                  content: 'Failed to cancel schedule campaign.',
+                  type: 'failed',
+                })
+              }
             })
-          }
+            .catch((e) => {
+              console.error(e)
+              this.showMessage = true
+              this.messageError = 'Error: ' + e.message
+            })
+            .finally(() => {
+              this.isLoading = false
+              this.activeStatus = 'draft'
+              this.getData()
+            })
         })
-        .catch((e) => {
-          console.error(e)
-          this.showMessage = true
-          this.messageError = 'Error: ' + e.message
-        })
-        .finally(() => {
-          this.isLoading = false
-          this.activeStatus = 'draft'
-          this.getData()
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
         })
     },
 
     sendCampaign(item) {
-      this.showMessage = false
-      this.messageError = ''
-
-      this.$notifier.showMessage({
-        content: 'Sending campaign...',
-        type: 'loading',
+      this.$confirm(`Send campaign "${item.title}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
       })
+        .then(() => {
+          this.isLoading = true
+          this.showMessage = false
+          this.messageError = ''
 
-      this.isLoading = true
+          this.$notifier.showMessage({
+            content: 'Sending campaign...',
+            type: 'loading',
+          })
 
-      this.$store
-        .dispatch('emailCampaign/send', {
-          uuid: item.uuid,
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            this.$router.push({ path: '/direct/campaign/email' })
-
-            this.$notifier.showMessage({
-              content: 'Campaign sent successfully.',
-              type: 'success',
+          this.$store
+            .dispatch('emailCampaign/send', {
+              uuid: item.uuid,
             })
-          } else {
-            this.showMessage = true
-            this.messageError =
-              res?.data?.data?.errors
-                ?.map((e) => Object.values(e)[0])
-                .join(', ') || 'Failed to send campaign'
+            .then((res) => {
+              if (res.status === 200) {
+                this.$router.push({ path: '/direct/campaign/email' })
 
-            this.$notifier.showMessage({
-              content: 'Failed to send campaign.',
-              type: 'failed',
+                this.$notifier.showMessage({
+                  content: 'Campaign sent successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.showMessage = true
+                this.messageError =
+                  res?.data?.data?.errors
+                    ?.map((e) => Object.values(e)[0])
+                    .join(', ') || 'Failed to send campaign'
+
+                this.$notifier.showMessage({
+                  content: 'Failed to send campaign.',
+                  type: 'failed',
+                })
+              }
             })
-          }
+            .catch((e) => {
+              console.error(e)
+              this.showMessage = true
+              this.messageError = 'Error: ' + e.message
+            })
+            .finally(() => {
+              this.isLoading = false
+              this.activeStatus = 'sending'
+              this.getData()
+            })
         })
-        .catch((e) => {
-          console.error(e)
-          this.showMessage = true
-          this.messageError = 'Error: ' + e.message
-        })
-        .finally(() => {
-          this.isLoading = false
-          this.activeStatus = 'sending'
-          this.getData()
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
         })
     },
 
@@ -793,6 +840,67 @@ export default {
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
+            })
+            .catch((e) => {
+              console.error(e)
+              this.showMessage = true
+              this.messageError = 'Error: ' + e.message
+            })
+            .finally(() => {
+              this.isLoading = false
+              this.activeStatus = 'archived'
+              this.getData()
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
+    },
+
+    restoreCampaign(item) {
+      this.$confirm(`Restore campaign "${item.title}"?`, 'Confirmation', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Restoring campaign...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('emailCampaign/restore', {
+              uuid: item.uuid,
+            })
+            .then((res) => {
+              if (res?.data.status.code === 200) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Campaign restored successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Restoring campaign failed. Error : ' +
+                    res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+            .catch((e) => {
+              console.error(e)
+              this.showMessage = true
+              this.messageError = 'Error: ' + e.message
+            })
+            .finally(() => {
+              this.isLoading = false
+              this.activeStatus = 'draft' // draft or sent
+              this.getData()
             })
         })
         .catch(() => {
@@ -834,6 +942,15 @@ export default {
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
+            })
+            .catch((e) => {
+              console.error(e)
+              this.showMessage = true
+              this.messageError = 'Error: ' + e.message
+            })
+            .finally(() => {
+              this.isLoading = false
+              this.getData()
             })
         })
         .catch(() => {

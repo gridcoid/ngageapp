@@ -62,4 +62,16 @@ export default ($axios) => ({
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}/${payload.uuid}/send?orgId=${orgId}`)
   },
+
+  // email-campaign:archive
+  archive(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(`${resource}/${payload.uuid}/archive?orgId=${orgId}`)
+  },
+
+  // email-campaign:restore
+  restore(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(`${resource}/${payload.uuid}/restore?orgId=${orgId}`)
+  },
 })
