@@ -563,7 +563,7 @@ export default {
       },
 
       iam: {
-        duplicate: ['draft', 'scheduled', 'sent', 'archived'],
+        duplicate: ['draft', 'scheduled', 'sending', 'sent', 'archived'],
         test: ['draft', 'scheduled'],
         schedule: ['draft'],
         reschedule: ['scheduled'],
@@ -657,7 +657,8 @@ export default {
             })
             .then((res) => {
               if (res.status === 200) {
-                this.$router.push({ path: '/direct/campaign/email' })
+                this.activeStatus = 'draft'
+                this.getData()
 
                 this.$notifier.showMessage({
                   content: 'Campaign duplicated successfully.',
@@ -683,8 +684,6 @@ export default {
             })
             .finally(() => {
               this.isLoading = false
-              this.activeStatus = 'draft'
-              this.getData()
             })
         })
         .catch(() => {
@@ -790,6 +789,9 @@ export default {
           .dispatch('emailCampaign/schedule', payload)
           .then((res) => {
             if (res.status === 200) {
+              this.activeStatus = 'scheduled'
+              this.getData()
+
               this.$notifier.showMessage({
                 content: 'Campaign scheduled successfully.',
                 type: 'success',
@@ -809,8 +811,6 @@ export default {
           .finally(() => {
             this.isLoading = false
             this.scheduleDialogVisible = false
-            this.activeStatus = 'scheduled'
-            this.getData()
           })
       })
     },
@@ -842,7 +842,8 @@ export default {
             })
             .then((res) => {
               if (res.status === 200) {
-                this.$router.push({ path: '/direct/campaign/email' })
+                this.activeStatus = 'draft'
+                this.getData()
 
                 this.$notifier.showMessage({
                   content: 'Campaign schedule canceled.',
@@ -868,8 +869,6 @@ export default {
             })
             .finally(() => {
               this.isLoading = false
-              this.activeStatus = 'draft'
-              this.getData()
             })
         })
         .catch(() => {
@@ -900,7 +899,8 @@ export default {
             })
             .then((res) => {
               if (res.status === 200) {
-                this.$router.push({ path: '/direct/campaign/email' })
+                this.activeStatus = 'sending'
+                this.getData()
 
                 this.$notifier.showMessage({
                   content: 'Campaign sent successfully.',
@@ -926,8 +926,6 @@ export default {
             })
             .finally(() => {
               this.isLoading = false
-              this.activeStatus = 'sending'
-              this.getData()
             })
         })
         .catch(() => {
@@ -958,6 +956,7 @@ export default {
             })
             .then((res) => {
               if (res?.data.status.code === 200) {
+                this.activeStatus = 'archived'
                 this.getData()
 
                 this.$notifier.showMessage({
@@ -982,8 +981,6 @@ export default {
             })
             .finally(() => {
               this.isLoading = false
-              this.activeStatus = 'archived'
-              this.getData()
             })
         })
         .catch(() => {
@@ -1014,6 +1011,14 @@ export default {
             })
             .then((res) => {
               if (res?.data.status.code === 200) {
+                const prevStatus = res?.data?.data?.prevStatus
+
+                if (prevStatus == 2) {
+                  this.activeStatus = 'sent'
+                } else {
+                  this.activeStatus = 'draft'
+                }
+
                 this.getData()
 
                 this.$notifier.showMessage({
@@ -1038,8 +1043,6 @@ export default {
             })
             .finally(() => {
               this.isLoading = false
-              this.activeStatus = 'draft' // draft or sent
-              this.getData()
             })
         })
         .catch(() => {
@@ -1094,7 +1097,6 @@ export default {
             })
             .finally(() => {
               this.isLoading = false
-              this.getData()
             })
         })
         .catch(() => {
@@ -1152,15 +1154,14 @@ export default {
 
     checkStatus(item) {
       const status = item.status
-      const scheduledAt = item.scheduledAt
 
-      if (status == 0 && scheduledAt == null) {
+      if (status == 0) {
         return 'draft'
-      } else if (status == 0 && scheduledAt != null) {
-        return 'scheduled'
-      } else if (status == 3) {
-        return 'sending'
       } else if (status == 1) {
+        return 'scheduled'
+      } else if (status == 6) {
+        return 'sending'
+      } else if (status == 2) {
         return 'sent'
       } else if (status == -1) {
         return 'archived'
@@ -1169,15 +1170,14 @@ export default {
 
     tagColor(item) {
       const status = item.status
-      const scheduledAt = item.scheduledAt
 
-      if (status == 0 && scheduledAt == null) {
+      if (status == 0) {
         return 'info'
-      } else if (status == 0 && scheduledAt != null) {
-        return ''
-      } else if (status == 3) {
-        return 'warning'
       } else if (status == 1) {
+        return ''
+      } else if (status == 6) {
+        return 'warning'
+      } else if (status == 2) {
         return 'success'
       } else if (status == -1) {
         return 'danger'

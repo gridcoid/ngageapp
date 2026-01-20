@@ -147,9 +147,12 @@
                   >
                     Segment
                   </label>
-                  <div class="text-gray-900">
+                  <NuxtLink
+                    :to="`/direct/segment/${data.segment?.uuid}/audience`"
+                    class="text-blue-500"
+                  >
                     {{ data.segment?.name || '-' }}
-                  </div>
+                  </NuxtLink>
                 </div>
               </div>
             </div>
@@ -170,9 +173,12 @@
                   >
                     Template Name
                   </label>
-                  <div class="text-gray-900">
+                  <NuxtLink
+                    :to="`/direct/template/email/detail/${data.template?.uuid}`"
+                    class="text-blue-500"
+                  >
                     {{ data.template?.name || '-' }}
-                  </div>
+                  </NuxtLink>
                 </div>
               </div>
             </div>
