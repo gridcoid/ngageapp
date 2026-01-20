@@ -95,6 +95,7 @@
       <!-- Table -->
       <el-table
         v-if="tableVisible"
+        v-show="activeStatus !== 'sent'"
         v-loading="isLoading"
         element-loading-text="Loading..."
         element-loading-spinner="el-icon-loading"
@@ -130,11 +131,7 @@
         </el-table-column>
 
         <!-- SEGMENT -->
-        <el-table-column
-          label="Segment"
-          sortable
-          v-if="activeStatus !== 'sent'"
-        >
+        <el-table-column label="Segment" sortable>
           <template slot-scope="scope">
             <NuxtLink
               :to="`/direct/segment/${scope.row.segment?.uuid}/audience`"
@@ -146,11 +143,7 @@
         </el-table-column>
 
         <!-- TEMPLATE -->
-        <el-table-column
-          label="Template"
-          sortable
-          v-if="activeStatus !== 'sent'"
-        >
+        <el-table-column label="Template" sortable>
           <template slot-scope="scope">
             <NuxtLink
               :to="`/direct/template/email/detail/${scope.row.template?.uuid}`"
@@ -162,19 +155,14 @@
         </el-table-column>
 
         <!-- SENDER -->
-        <el-table-column label="Sender" sortable v-if="activeStatus !== 'sent'">
+        <!-- <el-table-column label="Sender" sortable v-if="activeStatus !== 'sent'">
           <template slot-scope="scope">
             {{ scope.row.senderEmail }}
           </template>
-        </el-table-column>
+        </el-table-column> -->
 
         <!-- CREATED/SCHEDULED -->
-        <el-table-column
-          :label="dateColumnLabel()"
-          width="120"
-          sortable
-          v-if="activeStatus !== 'sent'"
-        >
+        <el-table-column :label="dateColumnLabel()" width="150" sortable>
           <template slot-scope="scope">
             <span v-if="checkStatus(scope.row) === 'scheduled'">
               {{ formatDate(scope.row.scheduledAt) }}
@@ -199,13 +187,197 @@
           </template>
         </el-table-column>
 
-        <!-- CLICKED -->
+        <!-- ACTIONS -->
         <el-table-column
-          width="120"
-          label="Click"
-          v-if="activeStatus === 'sent'"
-          sortable
+          label="Actions"
+          width="190"
+          v-if="activeStatus !== 'all'"
         >
+          <template slot-scope="scope">
+            <el-dropdown
+              trigger="click"
+              placement="bottom-start"
+              :append-to-body="true"
+            >
+              <!-- BUTTON -->
+              <div
+                class="dropdown-btn noselect flex items-center justify-between cursor-pointer mr-6"
+              >
+                <div
+                  class="flex card-dropdown items-center"
+                  @click.stop="viewDetail(scope.row)"
+                >
+                  <i class="ti ti-eye mr-3" style="color: #1b63d4" />
+                  <div class="title-dropdown" style="color: #1b63d4">
+                    Detail
+                  </div>
+                </div>
+
+                <div class="btn-show flex items-center justify-center">
+                  <img src="~/assets/images/icon/arrow_down.svg" />
+                </div>
+              </div>
+
+              <!-- DROPDOWN -->
+              <el-dropdown-menu slot="dropdown">
+                <!-- DUPLICATE: draft, scheduled, sent, archived -->
+                <el-dropdown-item v-if="iam.duplicate.includes(activeStatus)">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="duplicateCampaign(scope.row)"
+                  >
+                    <i class="ti ti-copy text-purple-500"></i>
+                    <span class="ml-3">Duplicate</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- TEST: draft, scheduled -->
+                <el-dropdown-item v-if="iam.test.includes(activeStatus)">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="testCampaign(scope.row)"
+                  >
+                    <i class="ti ti-test-pipe text-green-500"></i>
+                    <span class="ml-3">Test</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- SCHEDULE: draft -->
+                <el-dropdown-item v-if="iam.schedule.includes(activeStatus)">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="scheduleCampaign(scope.row)"
+                  >
+                    <i class="ti ti-clock-2 text-purple-500"></i>
+                    <span class="ml-3">Schedule</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- RESCHEDULE: scheduled -->
+                <el-dropdown-item v-if="iam.reschedule.includes(activeStatus)">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="rescheduleCampaign(scope.row)"
+                  >
+                    <i class="ti ti-clock-2 text-purple-500"></i>
+                    <span class="ml-3">Reschedule</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- CANCEL SCHEDULE: scheduled -->
+                <el-dropdown-item v-if="iam.cancel.includes(activeStatus)">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="cancelSchedule(scope.row)"
+                  >
+                    <i class="ti ti-clock-2 text-red-500"></i>
+                    <span class="ml-3">Cancel</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- SEND NOW: draft -->
+                <el-dropdown-item v-if="iam.send.includes(activeStatus)">
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="sendCampaign(scope.row)"
+                  >
+                    <i class="ti ti-send text-green-500"></i>
+                    <span class="ml-3">Send Now</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- EDIT: draft, scheduled -->
+                <el-dropdown-item v-if="iam.edit.includes(activeStatus)">
+                  <NuxtLink
+                    class="item-menu flex items-center no-select"
+                    :to="`/direct/campaign/email/edit/${scope.row.uuid}`"
+                  >
+                    <i class="ti ti-edit text-yellow-500"></i>
+                    <span class="ml-3">Edit</span>
+                  </NuxtLink>
+                </el-dropdown-item>
+
+                <!-- ARCHIVE: draft, sent -->
+                <el-dropdown-item v-if="iam.archive.includes(activeStatus)">
+                  <div
+                    class="item-menu flex items-center no-select"
+                    @click="archiveCampaign(scope.row)"
+                  >
+                    <i class="ti ti-archive text-blue-500"></i>
+                    <span class="ml-3">Archive</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- RESTORE: archived -->
+                <el-dropdown-item v-if="iam.restore.includes(activeStatus)">
+                  <div
+                    class="item-menu flex items-center no-select"
+                    @click="restoreCampaign(scope.row)"
+                  >
+                    <i class="ti ti-rotate-2 text-green-400"></i>
+                    <span class="ml-3">Restore</span>
+                  </div>
+                </el-dropdown-item>
+
+                <!-- DELETE: draft, archived -->
+                <el-dropdown-item
+                  class="border-t border-gray-300"
+                  v-if="iam.delete.includes(activeStatus)"
+                >
+                  <div
+                    class="item-menu flex items-center"
+                    @click="deleteCampaign(scope.row)"
+                  >
+                    <i class="ti ti-trash text-red-500"></i>
+                    <span class="ml-3">Delete</span>
+                  </div>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!-- Sent Table -->
+      <el-table
+        v-if="tableVisible"
+        v-show="activeStatus === 'sent'"
+        v-loading="isLoading"
+        element-loading-text="Loading..."
+        element-loading-spinner="el-icon-loading"
+        fit
+        lazy
+        stripe
+        :data="dataCampaigns"
+        class="k-table w-full"
+      >
+        <!-- Empty State -->
+        <template slot="empty">
+          <div class="flex flex-col items-center mt-6 no-data">
+            <img src="~/assets/images/empty_table.png" width="150" />
+            <div class="mb-8">
+              No records found in {{ activeStatus }} group.
+            </div>
+          </div>
+        </template>
+
+        <!-- PADDING -->
+        <el-table-column label="" width="10" />
+
+        <!-- TITLE -->
+        <el-table-column label="Title" prop="title" sortable>
+          <template slot-scope="scope">
+            <div
+              class="cursor-pointer k-title text-blue-500"
+              @click="viewDetail(scope.row)"
+            >
+              {{ scope.row.title }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- CLICKED -->
+        <el-table-column width="120" label="Click" sortable>
           <template slot-scope="scope">
             <span>
               {{ scope.row.overview?.ClickedCount }}
@@ -214,12 +386,7 @@
         </el-table-column>
 
         <!-- DELIVERED -->
-        <el-table-column
-          width="120"
-          label="Delivered"
-          v-if="activeStatus === 'sent'"
-          sortable
-        >
+        <el-table-column width="120" label="Delivered" sortable>
           <template slot-scope="scope">
             <span>
               {{ scope.row.overview?.DeliveredCount }}
@@ -228,12 +395,7 @@
         </el-table-column>
 
         <!-- OPENED -->
-        <el-table-column
-          width="120"
-          label="Opened"
-          v-if="activeStatus === 'sent'"
-          sortable
-        >
+        <el-table-column width="120" label="Opened" sortable>
           <template slot-scope="scope">
             <span>
               {{ scope.row.overview?.OpenedCount }}
@@ -242,12 +404,7 @@
         </el-table-column>
 
         <!-- PROCESSED -->
-        <el-table-column
-          width="120"
-          label="Processed"
-          v-if="activeStatus === 'sent'"
-          sortable
-        >
+        <el-table-column width="120" label="Processed" sortable>
           <template slot-scope="scope">
             <span>
               {{ scope.row.overview?.ProcessedCount }}
@@ -256,12 +413,7 @@
         </el-table-column>
 
         <!-- SENDTIMESTART -->
-        <el-table-column
-          width="120"
-          label="Send Time"
-          v-if="activeStatus === 'sent'"
-          sortable
-        >
+        <el-table-column width="150" label="Send Time" sortable>
           <template slot-scope="scope">
             <span>
               {{ formatEpoch(scope.row.overview?.SendTimeStart) }}
