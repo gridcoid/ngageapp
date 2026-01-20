@@ -454,6 +454,17 @@
 
               <!-- DROPDOWN -->
               <el-dropdown-menu slot="dropdown">
+                <!-- STATISTICS: sent -->
+                <el-dropdown-item v-if="activeStatus === 'sent'">
+                  <NuxtLink
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    :to="`/direct/campaign/email/detail/${scope.row.uuid}`"
+                  >
+                    <i class="ti ti-chart-bar text-green-500"></i>
+                    <span class="ml-3">Statistics</span>
+                  </NuxtLink>
+                </el-dropdown-item>
+
                 <!-- DUPLICATE: draft, scheduled, sent, archived -->
                 <el-dropdown-item v-if="iam.duplicate.includes(activeStatus)">
                   <div
@@ -802,6 +813,7 @@ export default {
       },
 
       iam: {
+        statistic: ['sent'],
         duplicate: ['draft', 'scheduled', 'sending', 'sent', 'archived'],
         test: ['draft', 'scheduled'],
         schedule: ['draft'],
