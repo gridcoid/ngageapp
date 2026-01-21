@@ -23,7 +23,10 @@
           <!-- Name -->
           <el-form-item class="title-form" prop="name">
             <label slot="label" class="title-form">Name<Req /></label>
-            <el-input v-model="data.name" />
+            <el-input
+              v-model="data.name"
+              @blur="data.name = data.name.trim()"
+            />
           </el-form-item>
 
           <!-- Expiration -->

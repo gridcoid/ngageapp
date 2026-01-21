@@ -20,12 +20,16 @@
         >
           <el-form-item class="title-form" prop="name">
             <label slot="label" class="title-form">Name<Req /></label>
-            <el-input v-model="data.name" />
+            <el-input
+              v-model="data.name"
+              @blur="data.name = data.name.trim()"
+            />
           </el-form-item>
           <el-form-item class="title-form" prop="description">
             <label slot="label" class="title-form">Description</label>
             <el-input
               v-model="data.description"
+              @blur="data.description = data.description.trim()"
               type="textarea"
               :rows="3"
               maxlength="200"

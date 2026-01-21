@@ -23,7 +23,10 @@
           <!-- Name -->
           <el-form-item class="title-form" prop="name">
             <label slot="label" class="title-form">Name<Req /></label>
-            <el-input v-model="data.name" />
+            <el-input
+              v-model="data.name"
+              @blur="data.name = data.name.trim()"
+            />
           </el-form-item>
 
           <!-- Date of Birth -->
@@ -98,6 +101,7 @@
             <label slot="label" class="title-form">Address</label>
             <el-input
               v-model="data.address"
+              @blur="data.address = data.address.trim()"
               type="textarea"
               autosize
               spellcheck="false"
@@ -207,6 +211,7 @@
               </el-select>
               <el-input
                 v-model="contact.value"
+                @blur="contact.value = contact.value.trim()"
                 :placeholder="
                   contact.typeId === 1
                     ? 'Email address'
@@ -218,6 +223,7 @@
               />
               <el-input
                 v-model="contact.label"
+                @blur="contact.label = contact.label.trim()"
                 placeholder="Label info (optional)"
                 style="flex: 1"
               />
@@ -249,9 +255,15 @@
               class="flex items-start mb-2"
               style="gap: 10px"
             >
-              <el-input v-model="info.key" placeholder="Key" style="flex: 1" />
+              <el-input
+                v-model="info.key"
+                @blur="info.key = info.key.trim()"
+                placeholder="Key"
+                style="flex: 1"
+              />
               <el-input
                 v-model="info.value"
+                @blur="info.value = info.value.trim()"
                 placeholder="Value"
                 style="flex: 1"
               />

@@ -24,7 +24,10 @@
           <!-- Title -->
           <el-form-item class="title-form" prop="title">
             <label slot="label" class="title-form">Title<Req /></label>
-            <el-input v-model="data.title" />
+            <el-input
+              v-model="data.title"
+              @blur="data.title = data.title.trim()"
+            />
           </el-form-item>
 
           <!-- Contacts List -->
@@ -68,7 +71,10 @@
           <!-- Subject -->
           <el-form-item class="title-form" prop="subject">
             <label slot="label" class="title-form">Subject<Req /></label>
-            <el-input v-model="data.subject" />
+            <el-input
+              v-model="data.subject"
+              @blur="data.subject = data.subject.trim()"
+            />
           </el-form-item>
 
           <!-- Sender -->
@@ -93,19 +99,28 @@
           <!-- Sender Name -->
           <el-form-item class="title-form" prop="senderName">
             <label slot="label" class="title-form">Sender Name<Req /></label>
-            <el-input v-model="data.senderName" />
+            <el-input
+              v-model="data.senderName"
+              @blur="data.senderName = data.senderName.trim()"
+            />
           </el-form-item>
 
           <!-- Sender Email -->
           <el-form-item class="title-form" prop="senderEmail">
             <label slot="label" class="title-form">Sender Email<Req /></label>
-            <el-input v-model="data.senderEmail" />
+            <el-input
+              v-model="data.senderEmail"
+              @blur="data.senderEmail = data.senderEmail.trim()"
+            />
           </el-form-item>
 
           <!-- Reply To -->
           <el-form-item class="title-form" prop="replyTo">
             <label slot="label" class="title-form">Reply To</label>
-            <el-input v-model="data.replyTo" />
+            <el-input
+              v-model="data.replyTo"
+              @blur="data.replyTo = data.replyTo.trim()"
+            />
           </el-form-item>
         </el-form>
 
@@ -303,10 +318,16 @@ export default {
               })
             } else {
               this.showMessage = true
-              this.messageError =
-                res?.data?.data?.errors
-                  ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to create campaign'
+
+              if (res.status === 409) {
+                this.messageError =
+                  'Campaign with this title and subject already exists'
+              } else {
+                this.messageError =
+                  res?.data?.data?.errors
+                    ?.map((e) => Object.values(e)[0])
+                    .join(', ') || 'Failed to create campaign'
+              }
 
               this.$notifier.showMessage({
                 content: 'Failed to create campaign.',

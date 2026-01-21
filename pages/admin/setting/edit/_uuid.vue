@@ -22,7 +22,11 @@
         >
           <el-form-item class="title-form" prop="key">
             <label slot="label" class="title-form">Key</label>
-            <el-input v-model="data.key" disabled />
+            <el-input
+              v-model="data.key"
+              @blur="data.key = data.key.trim()"
+              disabled
+            />
           </el-form-item>
 
           <el-form-item class="title-form" prop="value">
@@ -35,6 +39,7 @@
             <el-input
               v-else
               v-model="data.value"
+              @blur="data.value = data.value.trim()"
               type="textarea"
               :rows="2"
               maxlength="200"
@@ -46,6 +51,7 @@
             <label slot="label" class="title-form">Description</label>
             <el-input
               v-model="data.description"
+              @blur="data.description = data.description.trim()"
               type="textarea"
               :rows="2"
               maxlength="200"

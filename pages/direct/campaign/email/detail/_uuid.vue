@@ -189,7 +189,7 @@
                 class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
               >
                 <i class="ti ti-cloud mr-2 text-gray-500"></i>
-                Mailjet Status
+                Status
               </h2>
 
               <div class="bg-gray-50 rounded-lg p-5 space-y-4">
@@ -213,6 +213,124 @@
                   <div class="text-gray-900">
                     {{ data.mailjetData.ID || '-' }}
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mailjet Stats (Optional) -->
+            <div v-if="data.mailjetStat">
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="ti ti-chart-bar mr-2 text-gray-500"></i>
+                Statistics
+              </h2>
+
+              <div class="bg-gray-50 rounded-lg p-5">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <!-- Sent -->
+                  <div>
+                    <div
+                      class="text-xs font-semibold text-gray-500 uppercase mb-1"
+                    >
+                      Sent
+                    </div>
+                    <div class="text-xl font-semibold text-gray-900">
+                      {{ data.mailjetStat.MessageSentCount || 0 }}
+                    </div>
+                  </div>
+
+                  <!-- Opened -->
+                  <div>
+                    <div
+                      class="text-xs font-semibold text-gray-500 uppercase mb-1"
+                    >
+                      Opened
+                    </div>
+                    <div class="text-xl font-semibold text-gray-900">
+                      {{ data.mailjetStat.MessageOpenedCount || 0 }}
+                    </div>
+                  </div>
+
+                  <!-- Clicked -->
+                  <div>
+                    <div
+                      class="text-xs font-semibold text-gray-500 uppercase mb-1"
+                    >
+                      Clicked
+                    </div>
+                    <div class="text-xl font-semibold text-gray-900">
+                      {{ data.mailjetStat.MessageClickedCount || 0 }}
+                    </div>
+                  </div>
+
+                  <!-- Spam -->
+                  <div>
+                    <div
+                      class="text-xs font-semibold text-gray-500 uppercase mb-1"
+                    >
+                      Spam
+                    </div>
+                    <div class="text-xl font-semibold text-red-600">
+                      {{ data.mailjetStat.MessageSpamCount || 0 }}
+                    </div>
+                  </div>
+
+                  <!-- Hard Bounce -->
+                  <div>
+                    <div
+                      class="text-xs font-semibold text-gray-500 uppercase mb-1"
+                    >
+                      Hard Bounce
+                    </div>
+                    <div class="text-xl font-semibold text-gray-900">
+                      {{ data.mailjetStat.MessageHardBouncedCount || 0 }}
+                    </div>
+                  </div>
+
+                  <!-- Soft Bounce -->
+                  <div>
+                    <div
+                      class="text-xs font-semibold text-gray-500 uppercase mb-1"
+                    >
+                      Soft Bounce
+                    </div>
+                    <div class="text-xl font-semibold text-gray-900">
+                      {{ data.mailjetStat.MessageSoftBouncedCount || 0 }}
+                    </div>
+                  </div>
+
+                  <!-- Unsubscribed -->
+                  <div>
+                    <div
+                      class="text-xs font-semibold text-gray-500 uppercase mb-1"
+                    >
+                      Unsubscribed
+                    </div>
+                    <div class="text-xl font-semibold text-gray-900">
+                      {{ data.mailjetStat.MessageUnsubscribedCount || 0 }}
+                    </div>
+                  </div>
+
+                  <!-- Blocked -->
+                  <div>
+                    <div
+                      class="text-xs font-semibold text-gray-500 uppercase mb-1"
+                    >
+                      Blocked
+                    </div>
+                    <div class="text-xl font-semibold text-gray-900">
+                      {{ data.mailjetStat.MessageBlockedCount || 0 }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Optional meta info -->
+                <div
+                  class="mt-5 pt-4 border-t border-gray-200 text-xs text-gray-500"
+                >
+                  <div>Source ID: {{ data.mailjetStat.SourceID || '-' }}</div>
+                  <div>API Key ID: {{ data.mailjetStat.APIKeyID || '-' }}</div>
                 </div>
               </div>
             </div>
@@ -254,6 +372,8 @@ export default {
         senderEmail: '',
         replyTo: null,
         locale: 'en_US', // default
+        mailjetData: null,
+        mailjetStat: null,
       },
     }
   },
@@ -333,6 +453,8 @@ export default {
         this.data.senderEmail = this.dataSenders.find(
           (sender) => sender.ID === +val.sender
         )?.Email
+        this.data.mailjetData = val.mailjetData
+        this.data.mailjetStat = val.mailjetStat
       }
     },
   },

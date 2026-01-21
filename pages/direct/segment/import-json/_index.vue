@@ -27,6 +27,7 @@
             <label slot="label" class="title-form">API URL</label>
             <el-input
               v-model="data.url"
+              @blur="data.url = data.url.trim()"
               placeholder="https://api.example.com/users"
             />
           </el-form-item>
@@ -58,6 +59,7 @@
 
             <el-input
               v-model="data.tokenHeader"
+              @blur="data.tokenHeader = data.tokenHeader.trim()"
               placeholder="Authorization or x-api-key"
             />
           </el-form-item>
@@ -72,6 +74,7 @@
 
             <el-input
               v-model="data.tokenValue"
+              @blur="data.tokenValue = data.tokenValue.trim()"
               placeholder="Paste your token value"
             />
           </el-form-item>
@@ -99,6 +102,7 @@
               <label slot="label" class="title-form">Page Param Name</label>
               <el-input
                 v-model="data.pageParam"
+                @blur="data.pageParam = data.pageParam.trim()"
                 placeholder="page"
                 style="width: 250px"
               />
@@ -108,6 +112,7 @@
               <label slot="label" class="title-form">Page Size Param</label>
               <el-input
                 v-model="data.pageSizeParam"
+                @blur="data.pageSizeParam = data.pageSizeParam.trim()"
                 placeholder="perPage"
                 style="width: 250px"
               />
@@ -125,7 +130,11 @@
             class="title-form"
           >
             <label slot="label" class="title-form">Next Page Field</label>
-            <el-input v-model="data.nextPageField" placeholder="nextPage" />
+            <el-input
+              v-model="data.nextPageField"
+              @blur="data.nextPageField = data.nextPageField.trim()"
+              placeholder="nextPage"
+            />
           </el-form-item>
 
           <!-- Root JSON path -->
@@ -134,6 +143,7 @@
 
             <el-input
               v-model="data.rootField"
+              @blur="data.rootField = data.rootField.trim()"
               placeholder="e.g. data.items (leave empty if root is array)"
             />
           </el-form-item>

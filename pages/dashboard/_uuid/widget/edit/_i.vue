@@ -56,7 +56,11 @@
 
           <el-form-item class="title-form" prop="title">
             <label slot="label" class="title-form">Title<Req /></label>
-            <el-input v-model="data.title" placeholder="Widget title" />
+            <el-input
+              v-model="data.title"
+              @blur="data.title = data.title.trim()"
+              placeholder="Widget title"
+            />
           </el-form-item>
         </el-form>
 

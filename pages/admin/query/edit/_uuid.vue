@@ -24,7 +24,10 @@
             <!-- Name -->
             <el-form-item prop="name">
               <label slot="label" class="title-form">Name<Req /></label>
-              <el-input v-model="data.name" />
+              <el-input
+                v-model="data.name"
+                @blur="data.name = data.name.trim()"
+              />
             </el-form-item>
 
             <!-- Description -->
@@ -36,6 +39,7 @@
                 :rows="2"
                 maxlength="200"
                 spellcheck="false"
+                @blur="data.description = data.description.trim()"
               />
             </el-form-item>
 
@@ -68,6 +72,7 @@
                 :rows="10"
                 class="font-mono"
                 spellcheck="false"
+                @blur="data.metricsJson = data.metricsJson.trim()"
               />
             </el-form-item>
 
@@ -80,6 +85,7 @@
                 :rows="10"
                 class="font-mono"
                 spellcheck="false"
+                @blur="data.joinsJson = data.joinsJson.trim()"
               />
             </el-form-item>
 
@@ -92,6 +98,7 @@
                 :rows="10"
                 class="font-mono"
                 spellcheck="false"
+                @blur="data.filtersJson = data.filtersJson.trim()"
               />
             </el-form-item>
 
@@ -104,6 +111,7 @@
                 :rows="10"
                 class="font-mono"
                 spellcheck="false"
+                @blur="data.groupByJson = data.groupByJson.trim()"
               />
             </el-form-item>
 
@@ -116,6 +124,7 @@
                 :rows="10"
                 class="font-mono"
                 spellcheck="false"
+                @blur="data.sortJson = data.sortJson.trim()"
               />
             </el-form-item>
 
