@@ -141,10 +141,13 @@
           <template slot-scope="scope">
             <NuxtLink
               :to="`/direct/segment/${scope.row.segment?.uuid}/audience`"
-              class="text-blue-500"
+              class="k-title text-blue-500"
             >
               {{ scope.row.segment?.name || '-' }}
             </NuxtLink>
+            <div class="k-subtitle">
+              {{ scope.row.segment?.audienceCount || '0' }} audiences
+            </div>
           </template>
         </el-table-column>
 
@@ -157,6 +160,9 @@
             >
               {{ scope.row.template?.name || '-' }}
             </NuxtLink>
+            <div class="k-subtitle">
+              {{ scope.row.template?.purpose || '' }}
+            </div>
           </template>
         </el-table-column>
 
