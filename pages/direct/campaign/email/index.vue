@@ -204,11 +204,7 @@
         </el-table-column>
 
         <!-- ACTIONS -->
-        <el-table-column
-          label="Actions"
-          width="190"
-          v-if="activeStatus !== 'all'"
-        >
+        <el-table-column label="Actions" width="190">
           <template slot-scope="scope">
             <el-dropdown
               trigger="click"
@@ -237,7 +233,9 @@
               <!-- DROPDOWN -->
               <el-dropdown-menu slot="dropdown">
                 <!-- DUPLICATE: draft, scheduled, sent, archived -->
-                <el-dropdown-item v-if="iam.duplicate.includes(activeStatus)">
+                <el-dropdown-item
+                  v-if="iam.duplicate.includes(checkStatus(scope.row))"
+                >
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="duplicateCampaign(scope.row)"
@@ -248,7 +246,9 @@
                 </el-dropdown-item>
 
                 <!-- TEST: draft, scheduled -->
-                <el-dropdown-item v-if="iam.test.includes(activeStatus)">
+                <el-dropdown-item
+                  v-if="iam.test.includes(checkStatus(scope.row))"
+                >
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="testCampaign(scope.row)"
@@ -259,7 +259,9 @@
                 </el-dropdown-item>
 
                 <!-- SCHEDULE: draft -->
-                <el-dropdown-item v-if="iam.schedule.includes(activeStatus)">
+                <el-dropdown-item
+                  v-if="iam.schedule.includes(checkStatus(scope.row))"
+                >
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="scheduleCampaign(scope.row)"
@@ -270,7 +272,9 @@
                 </el-dropdown-item>
 
                 <!-- RESCHEDULE: scheduled -->
-                <el-dropdown-item v-if="iam.reschedule.includes(activeStatus)">
+                <el-dropdown-item
+                  v-if="iam.reschedule.includes(checkStatus(scope.row))"
+                >
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="rescheduleCampaign(scope.row)"
@@ -281,7 +285,9 @@
                 </el-dropdown-item>
 
                 <!-- CANCEL SCHEDULE: scheduled -->
-                <el-dropdown-item v-if="iam.cancel.includes(activeStatus)">
+                <el-dropdown-item
+                  v-if="iam.cancel.includes(checkStatus(scope.row))"
+                >
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="cancelSchedule(scope.row)"
@@ -292,7 +298,9 @@
                 </el-dropdown-item>
 
                 <!-- SEND NOW: draft -->
-                <el-dropdown-item v-if="iam.send.includes(activeStatus)">
+                <el-dropdown-item
+                  v-if="iam.send.includes(checkStatus(scope.row))"
+                >
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="sendCampaign(scope.row)"
@@ -303,7 +311,9 @@
                 </el-dropdown-item>
 
                 <!-- EDIT: draft, scheduled -->
-                <el-dropdown-item v-if="iam.edit.includes(activeStatus)">
+                <el-dropdown-item
+                  v-if="iam.edit.includes(checkStatus(scope.row))"
+                >
                   <NuxtLink
                     class="item-menu flex items-center no-select"
                     :to="`/direct/campaign/email/edit/${scope.row.uuid}`"
@@ -314,7 +324,9 @@
                 </el-dropdown-item>
 
                 <!-- ARCHIVE: draft, sent -->
-                <el-dropdown-item v-if="iam.archive.includes(activeStatus)">
+                <el-dropdown-item
+                  v-if="iam.archive.includes(checkStatus(scope.row))"
+                >
                   <div
                     class="item-menu flex items-center no-select"
                     @click="archiveCampaign(scope.row)"
@@ -325,7 +337,9 @@
                 </el-dropdown-item>
 
                 <!-- RESTORE: archived -->
-                <el-dropdown-item v-if="iam.restore.includes(activeStatus)">
+                <el-dropdown-item
+                  v-if="iam.restore.includes(checkStatus(scope.row))"
+                >
                   <div
                     class="item-menu flex items-center no-select"
                     @click="restoreCampaign(scope.row)"
@@ -338,7 +352,7 @@
                 <!-- DELETE: draft, archived -->
                 <el-dropdown-item
                   class="border-t border-gray-300"
-                  v-if="iam.delete.includes(activeStatus)"
+                  v-if="iam.delete.includes(checkStatus(scope.row))"
                 >
                   <div
                     class="item-menu flex items-center"
