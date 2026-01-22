@@ -136,6 +136,15 @@
           </template>
         </el-table-column>
 
+        <!-- STATUS -->
+        <el-table-column label="Status" v-if="activeStatus === 'all'" sortable>
+          <template slot-scope="scope">
+            <el-tag :type="tagColor(scope.row)">
+              {{ checkStatus(scope.row) }}
+            </el-tag>
+          </template>
+        </el-table-column>
+
         <!-- SEGMENT -->
         <el-table-column label="Segment" sortable>
           <template slot-scope="scope">
@@ -189,20 +198,6 @@
           </template>
         </el-table-column>
 
-        <!-- STATUS -->
-        <el-table-column
-          width="190"
-          label="Status"
-          v-if="activeStatus === 'all'"
-          sortable
-        >
-          <template slot-scope="scope">
-            <el-tag :type="tagColor(scope.row)">
-              {{ checkStatus(scope.row) }}
-            </el-tag>
-          </template>
-        </el-table-column>
-
         <!-- ACTIONS -->
         <el-table-column label="Actions" width="190">
           <template slot-scope="scope">
@@ -232,6 +227,19 @@
 
               <!-- DROPDOWN -->
               <el-dropdown-menu slot="dropdown">
+                <!-- STATISTICS: sent -->
+                <el-dropdown-item
+                  v-if="iam.statistic.includes(checkStatus(scope.row))"
+                >
+                  <NuxtLink
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    :to="`/direct/campaign/email/detail/${scope.row.uuid}`"
+                  >
+                    <i class="ti ti-chart-bar text-green-500"></i>
+                    <span class="ml-3">Statistics</span>
+                  </NuxtLink>
+                </el-dropdown-item>
+
                 <!-- DUPLICATE: draft, scheduled, sent, archived -->
                 <el-dropdown-item
                   v-if="iam.duplicate.includes(checkStatus(scope.row))"
@@ -494,7 +502,7 @@
               <!-- DROPDOWN -->
               <el-dropdown-menu slot="dropdown">
                 <!-- STATISTICS: sent -->
-                <el-dropdown-item v-if="iam.statistic.includes(activeStatus)">
+                <el-dropdown-item>
                   <NuxtLink
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     :to="`/direct/campaign/email/detail/${scope.row.uuid}`"
@@ -505,7 +513,7 @@
                 </el-dropdown-item>
 
                 <!-- DUPLICATE: draft, scheduled, sent, archived -->
-                <el-dropdown-item v-if="iam.duplicate.includes(activeStatus)">
+                <el-dropdown-item>
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
                     @click="duplicateCampaign(scope.row)"
@@ -516,7 +524,7 @@
                 </el-dropdown-item>
 
                 <!-- ARCHIVE: draft, sent -->
-                <el-dropdown-item v-if="iam.archive.includes(activeStatus)">
+                <el-dropdown-item>
                   <div
                     class="item-menu flex items-center no-select"
                     @click="archiveCampaign(scope.row)"
