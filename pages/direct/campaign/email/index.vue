@@ -146,7 +146,9 @@
               {{ scope.row.segment?.name || '-' }}
             </NuxtLink>
             <div class="k-subtitle">
-              {{ scope.row.segment?.audienceCount || '0' }} audiences
+              {{ scope.row.segment?.audienceCount || '0' }} audience{{
+                scope.row.segment?.audienceCount === 1 ? '' : 's'
+              }}
             </div>
           </template>
         </el-table-column>

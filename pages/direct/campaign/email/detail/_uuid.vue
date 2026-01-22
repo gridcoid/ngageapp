@@ -59,152 +59,7 @@
                   </div>
                 </div>
 
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                  >
-                    Locale
-                  </label>
-                  <div class="text-gray-900">
-                    {{ data.locale || '-' }}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Sender Info -->
-            <div>
-              <h2
-                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
-              >
-                <i class="ti ti-send mr-2 text-gray-500"></i>
-                Sender Information
-              </h2>
-
-              <div class="bg-gray-50 rounded-lg p-5 space-y-4">
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                  >
-                    Sender ID
-                  </label>
-                  <div class="text-gray-900">
-                    {{ data.sender || '-' }}
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                  >
-                    Sender Name
-                  </label>
-                  <div class="text-gray-900">
-                    {{ data.senderName || '-' }}
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                  >
-                    Sender Email
-                  </label>
-                  <div class="text-gray-900">
-                    {{ data.senderEmail || '-' }}
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                  >
-                    Reply To
-                  </label>
-                  <div class="text-gray-900">
-                    {{ data.replyTo || '-' }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Column -->
-          <div class="space-y-8">
-            <!-- Targeting -->
-            <div>
-              <h2
-                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
-              >
-                <i class="ti ti-users mr-2 text-gray-500"></i>
-                Targeting
-              </h2>
-
-              <div class="bg-gray-50 rounded-lg p-5 space-y-4">
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                  >
-                    Segment
-                  </label>
-                  <NuxtLink
-                    :to="`/direct/segment/${data.segment?.uuid}/audience`"
-                    class="text-blue-500"
-                  >
-                    {{ data.segment?.name || '-' }}
-                  </NuxtLink>
-                </div>
-              </div>
-            </div>
-
-            <!-- Template -->
-            <div>
-              <h2
-                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
-              >
-                <i class="ti ti-layout mr-2 text-gray-500"></i>
-                Email Template
-              </h2>
-
-              <div class="bg-gray-50 rounded-lg p-5 space-y-4">
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                  >
-                    Template Name
-                  </label>
-                  <NuxtLink
-                    :to="`/direct/template/email/detail/${data.template?.uuid}`"
-                    class="text-blue-500"
-                  >
-                    {{ data.template?.name || '-' }}
-                  </NuxtLink>
-                </div>
-              </div>
-            </div>
-
-            <!-- Mailjet Status (Optional) -->
-            <div v-if="data.mailjetData">
-              <h2
-                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
-              >
-                <i class="ti ti-cloud mr-2 text-gray-500"></i>
-                Status
-              </h2>
-
-              <div class="bg-gray-50 rounded-lg p-5 space-y-4">
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                  >
-                    Status
-                  </label>
-                  <div class="text-gray-900">
-                    {{ data.mailjetData.Status || 'Draft' }}
-                  </div>
-                </div>
-
-                <div>
+                <div v-if="data.mailjetData">
                   <label
                     class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
                   >
@@ -334,6 +189,133 @@
                 </div>
               </div>
             </div>
+
+            <!-- Sender Info -->
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="ti ti-send mr-2 text-gray-500"></i>
+                Sender Information
+              </h2>
+
+              <div class="bg-gray-50 rounded-lg p-5 space-y-4">
+                <div>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                  >
+                    Sender ID
+                  </label>
+                  <div class="text-gray-900">
+                    {{ data.sender || '-' }}
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                  >
+                    Sender Name
+                  </label>
+                  <div class="text-gray-900">
+                    {{ data.senderName || '-' }}
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                  >
+                    Sender Email
+                  </label>
+                  <div class="text-gray-900">
+                    {{ data.senderEmail || '-' }}
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                  >
+                    Reply To
+                  </label>
+                  <div class="text-gray-900">
+                    {{ data.replyTo || '-' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="space-y-8">
+            <!-- Segments -->
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="ti ti-folder mr-2 text-gray-500"></i> Segments
+              </h2>
+              <div class="bg-gray-50 rounded-lg p-5">
+                <div
+                  class="flex items-start p-3 bg-white rounded border border-gray-100 shadow-sm"
+                >
+                  <div class="flex-shrink-0 mt-1">
+                    <i class="ti ti-users text-gray-400"></i>
+                  </div>
+
+                  <div class="ml-3 w-full">
+                    <!-- 👇 justify-between -->
+                    <div class="flex items-center justify-between w-full">
+                      <NuxtLink
+                        :to="`/direct/segment/${data.segment?.uuid}/audience`"
+                        class="text-blue-500 hover:text-blue-700 font-medium break-all block"
+                      >
+                        {{ data.segment?.name || '-' }}
+                      </NuxtLink>
+
+                      <span
+                        class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full border whitespace-nowrap"
+                      >
+                        {{ data.audienceCount }} audience{{
+                          data.audienceCount === 1 ? '' : 's'
+                        }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Template -->
+            <div>
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-4 flex items-center"
+              >
+                <i class="ti ti-template mr-2 text-gray-500"></i> Template
+              </h2>
+              <div class="bg-gray-50 rounded-lg p-5">
+                <div
+                  class="flex items-start p-3 bg-white rounded border border-gray-100 shadow-sm"
+                >
+                  <div class="flex-shrink-0 mt-1">
+                    <i class="ti ti-code text-gray-400"></i>
+                  </div>
+
+                  <div class="ml-3 w-full">
+                    <!-- 👇 justify-between -->
+                    <div class="flex items-center justify-between w-full">
+                      <NuxtLink
+                        :to="`/direct/template/email/detail/${data.template?.uuid}`"
+                        class="text-blue-500 hover:text-blue-700 font-medium break-all block"
+                      >
+                        {{ data.template?.name || '-' }}
+                      </NuxtLink>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -374,6 +356,7 @@ export default {
         locale: 'en_US', // default
         mailjetData: null,
         mailjetStat: null,
+        audienceCount: 0,
       },
     }
   },
@@ -455,6 +438,7 @@ export default {
         )?.Email
         this.data.mailjetData = val.mailjetData
         this.data.mailjetStat = val.mailjetStat
+        this.data.audienceCount = val.audienceCount
       }
     },
   },

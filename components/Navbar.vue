@@ -1,7 +1,7 @@
 <template>
   <Transition name="nav">
     <nav class="flex nav-menu items-center justify-between" style="width: 100%">
-      <el-breadcrumb separator="/">
+      <el-breadcrumb separator="/" class="hidden xl:block">
         <!-- Home -->
         <el-breadcrumb-item :to="{ path: '/' }">
           <i class="ti ti-home text-gray-500" />
