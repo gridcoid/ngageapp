@@ -251,6 +251,8 @@ export default {
         replyTo: null,
         locale: 'en_US', // default
       },
+
+      senderCanChange: false,
     }
   },
 
@@ -369,7 +371,7 @@ export default {
           (sender) => sender.ID === val
         )
 
-        if (selectedSender) {
+        if (selectedSender && this.senderCanChange) {
           this.data.senderName = selectedSender.Name
           this.data.senderEmail = selectedSender.Email
         }
@@ -385,12 +387,24 @@ export default {
         this.data.subject = val.subject
         this.data.replyTo = val.replyTo
         this.data.sender = +val.sender
-        this.data.senderName = this.dataSenders.find(
-          (sender) => sender.ID === +val.sender
-        )?.Name
-        this.data.senderEmail = this.dataSenders.find(
-          (sender) => sender.ID === +val.sender
-        )?.Email
+
+        this.data.senderName = val.senderName
+        if (this.data.senderName.length === 0) {
+          this.data.senderName =
+            this.dataSenders.find((sender) => sender.ID === +val.sender)
+              ?.Name || ''
+        }
+
+        this.data.senderEmail = val.senderEmail
+        if (this.data.senderEmail.length === 0) {
+          this.data.senderEmail =
+            this.dataSenders.find((sender) => sender.ID === +val.sender)
+              ?.Email || ''
+        }
+
+        this.$nextTick(() => {
+          this.senderCanChange = true
+        })
       }
     },
   },
