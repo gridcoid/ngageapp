@@ -638,7 +638,9 @@
 
       <span slot="footer" class="flex justify-end gap-2">
         <el-button @click="scheduleDialogVisible = false"> Cancel </el-button>
-        <el-button type="primary" @click="submitSchedule"> Schedule </el-button>
+        <el-button type="primary" @click="submitSchedule">
+          {{ scheduleForm.isReschedule ? 'Reschedule' : 'Schedule' }}
+        </el-button>
       </span>
     </el-dialog>
   </div>
