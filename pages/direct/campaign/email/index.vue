@@ -435,9 +435,12 @@
         <!-- SENDTIMESTART -->
         <el-table-column width="150" label="Send Time" sortable>
           <template slot-scope="scope">
-            <span>
-              {{ formatEpoch(scope.row.overview?.SendTimeStart) }}
-            </span>
+            <div class="k-title">
+              {{ formatEpochToDate(scope.row.overview?.SendTimeStart) }}
+            </div>
+            <div class="k-subtitle">
+              {{ formatEpochToTime(scope.row.overview?.SendTimeStart) }}
+            </div>
           </template>
         </el-table-column>
 
@@ -1337,15 +1340,26 @@ export default {
       return new Date(date).toLocaleTimeString()
     },
 
-    formatEpoch(epochMs) {
-      if (!epochMs || isNaN(epochMs)) return '-'
-      const d = new Date(epochMs * 1000)
+    formatEpochToDate(s) {
+      if (!s || isNaN(s)) return '-'
+      const d = new Date(s * 1000)
 
       const day = String(d.getDate()).padStart(2, '0')
       const month = String(d.getMonth() + 1).padStart(2, '0') // 0-based
       const year = d.getFullYear()
 
       return `${day}/${month}/${year}`
+    },
+
+    formatEpochToTime(s) {
+      if (!s || isNaN(s)) return '-'
+      const d = new Date(s * 1000)
+
+      const hours = String(d.getHours()).padStart(2, '0')
+      const minutes = String(d.getMinutes()).padStart(2, '0')
+      const seconds = String(d.getSeconds()).padStart(2, '0')
+
+      return `${hours}:${minutes}:${seconds}`
     },
 
     checkStatus(item) {
