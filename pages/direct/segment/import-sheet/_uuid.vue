@@ -239,8 +239,6 @@ export default {
               type: 'success',
             })
 
-            clearInterval(sto)
-
             this.$router.push(
               `/direct/segment/${this.$route.params.uuid}/audience`
             )
@@ -259,8 +257,6 @@ export default {
               content: 'Spreadsheet import failed! ' + this.messageError,
               type: 'failed',
             })
-
-            clearInterval(sto)
           }
         })
         .catch((e) => {
