@@ -1,0 +1,41 @@
+const resource = 'definition'
+
+export default ($axios) => ({
+  // definition:list
+  list(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(
+      `${resource}?orgId=${orgId}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+    )
+  },
+
+  // definition:create
+  create(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(`${resource}?orgId=${orgId}`, payload)
+  },
+
+  // definition:detail
+  detail(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(`${resource}/${payload.uuid}?orgId=${orgId}`)
+  },
+
+  // definition:update
+  update(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.patch(`${resource}/${payload.uuid}?orgId=${orgId}`, payload)
+  },
+
+  // definition:delete
+  delete(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
+  },
+
+  // definition:run
+  run(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(`${resource}/${payload.uuid}/run?orgId=${orgId}`)
+  },
+})

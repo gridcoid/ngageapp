@@ -17,6 +17,7 @@ import ContactTypeRepository from '~/repositories/contactTypeRepository'
 import ApiKeyRepository from '~/repositories/apiKeyRepository'
 import SheetRepository from '~/repositories/sheetRepository'
 import QueryRepository from '~/repositories/queryRepository'
+import DefinitionRepository from '~/repositories/definitionRepository'
 import DashboardRepository from '~/repositories/dashboardRepository'
 import SettingRepository from '~/repositories/settingRepository'
 
@@ -50,6 +51,7 @@ export default ($axios) => ({
   apiKey: ApiKeyRepository($axios),
   sheet: SheetRepository($axios),
   query: QueryRepository($axios),
+  definition: DefinitionRepository($axios),
   dashboard: DashboardRepository($axios),
   setting: SettingRepository($axios),
 

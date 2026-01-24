@@ -195,7 +195,7 @@ export default {
             icon: 'ti ti-adjustments',
             children: [
               {
-                path: '/admin/query',
+                path: '/admin/definition',
                 name: 'Query Management',
                 type: 'single',
                 icon: 'ti ti-code',
