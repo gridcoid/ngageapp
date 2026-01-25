@@ -105,10 +105,7 @@
           </el-form-item>
 
           <!-- ================= SPECIFIC FIELD ================= -->
-          <el-form-item
-            v-if="metric.type === 'field' && !metric.grouped"
-            class="title-form"
-          >
+          <el-form-item v-if="metric.type === 'field'" class="title-form">
             <label slot="label" class="title-form">Field</label>
             <el-select v-model="metric.field">
               <el-option label="Province" value="province" />

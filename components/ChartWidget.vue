@@ -23,7 +23,7 @@
           :options="barOptions"
           :series="barSeries"
           width="100%"
-          height="100%"
+          height="94%"
         />
       </div>
     </div>
@@ -99,6 +99,11 @@ export default {
         xaxis: {
           categories: this.labels,
         },
+        yaxis: {
+          labels: {
+            formatter: (val) => Math.round(val),
+          },
+        },
         plotOptions: {
           bar: {
             borderRadius: 4,
@@ -107,6 +112,12 @@ export default {
         },
         dataLabels: {
           enabled: false,
+          formatter: (val) => Math.round(val),
+        },
+        tooltip: {
+          y: {
+            formatter: (val) => Math.round(val),
+          },
         },
       }
     },
