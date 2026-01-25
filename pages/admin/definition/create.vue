@@ -441,8 +441,6 @@ export default {
 
         this.isLoading = true
 
-        console.log(payload)
-
         this.$store
           .dispatch('definition/create', payload)
           .then(() => {
