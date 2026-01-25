@@ -84,12 +84,12 @@
           <el-form-item v-if="metric.type !== 'total'" class="title-form">
             <label slot="label" class="title-form">Grouped</label>
             <el-switch v-model="metric.grouped" />
-            <!--span v-if="!metric.grouped" class="text-gray-400 italic ml-2">
+            <span v-if="!metric.grouped" class="text-gray-400 italic ml-2">
               show number only
             </span>
             <span v-else class="text-gray-400 italic ml-2">
               show table or chart
-            </span-->
+            </span>
           </el-form-item>
 
           <!-- Display -->

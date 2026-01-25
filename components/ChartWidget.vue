@@ -52,15 +52,15 @@ export default {
     },
 
     isPie() {
-      return this.items.length === 2
+      return this.items?.length === 2
     },
 
     labels() {
-      return this.items.map((i) => i.name)
+      return this.items?.map((i) => i.name)
     },
 
     series() {
-      return this.items.map((i) => i.count)
+      return this.items?.map((i) => i.count)
     },
 
     barSeries() {
