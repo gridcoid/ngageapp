@@ -70,14 +70,25 @@
             </div>
           </div>
 
-          <NumberWidget
-            v-if="widgetByUuidFunc(item.i).type === 'number'"
-            :data="
-              dataResult[widgetByUuidFunc(item.i).definitionId]?.data || {}
-            "
-          />
+          <div class="flex flex-col h-full">
+            <div class="flex-1 overflow-y-auto">
+              <NumberWidget
+                v-if="widgetByUuidFunc(item.i).type === 'number'"
+                :data="
+                  dataResult[widgetByUuidFunc(item.i).definitionId]?.data || {}
+                "
+              />
 
-          <div v-else class="text-gray-400">Unsupported widget</div>
+              <TableWidget
+                v-else-if="widgetByUuidFunc(item.i).type === 'table'"
+                :data="
+                  dataResult[widgetByUuidFunc(item.i).definitionId]?.data || {}
+                "
+              />
+
+              <div v-else class="text-gray-400">Unsupported widget</div>
+            </div>
+          </div>
         </template>
       </GridItem>
     </GridLayout>

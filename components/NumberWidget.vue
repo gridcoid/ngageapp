@@ -2,7 +2,7 @@
   <el-card
     shadow="never"
     class="bg-transparent"
-    :body-style="{ padding: '0', border: '0' }"
+    :body-style="{ padding: '0', border: '0', height: '100%' }"
   >
     <div class="grid grid-cols-1 gap-2">
       <div class="flex items-center justify-between">
