@@ -70,37 +70,10 @@
             </div>
           </div>
 
-          <MetricWidget
-            v-if="widgetByUuidFunc(item.i).type === 'metric'"
+          <NumberWidget
+            v-if="widgetByUuidFunc(item.i).type === 'number'"
             :data="
-              dataResult[widgetByUuidFunc(item.i).definitionId]?.data || []
-            "
-            :metrics="
-              dataDefinition.find(
-                (q) => q.id === widgetByUuidFunc(item.i).definitionId
-              )?.definition?.metrics
-            "
-          />
-
-          <TableWidget
-            v-else-if="widgetByUuidFunc(item.i).type === 'table'"
-            :rows="
-              dataResult[widgetByUuidFunc(item.i).definitionId]?.data || []
-            "
-            :metrics="
-              dataDefinition.find(
-                (q) => q.id === widgetByUuidFunc(item.i).definitionId
-              )?.metrics
-            "
-          />
-
-          <ChartWidget
-            v-else-if="widgetByUuidFunc(item.i).type === 'chart'"
-            :data="dataResult[widgetByUuidFunc(item.i).definitionId]"
-            :metrics="
-              dataDefinition.find(
-                (q) => q.id === widgetByUuidFunc(item.i).definitionId
-              )?.metrics
+              dataResult[widgetByUuidFunc(item.i).definitionId]?.data || {}
             "
           />
 
@@ -180,7 +153,6 @@ export default {
         this.$store
           .dispatch('definition/run', payload)
           .then((res) => {
-            console.log(res?.data)
             this.$set(w, 'data', res?.data.data)
           })
           .catch(() => {
