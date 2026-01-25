@@ -70,7 +70,7 @@
             </div>
           </div>
 
-          <div class="flex flex-col h-full">
+          <div class="flex flex-col" style="height: calc(100% - 16px)">
             <div class="flex-1 overflow-y-auto">
               <NumberWidget
                 v-if="widgetByUuidFunc(item.i).type === 'number'"
@@ -81,6 +81,13 @@
 
               <TableWidget
                 v-else-if="widgetByUuidFunc(item.i).type === 'table'"
+                :data="
+                  dataResult[widgetByUuidFunc(item.i).definitionId]?.data || {}
+                "
+              />
+
+              <ChartWidget
+                v-else-if="widgetByUuidFunc(item.i).type === 'chart'"
                 :data="
                   dataResult[widgetByUuidFunc(item.i).definitionId]?.data || {}
                 "

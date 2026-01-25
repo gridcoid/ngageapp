@@ -4,7 +4,7 @@
     class="bg-transparent"
     :body-style="{ padding: '0', border: '0', height: '100%' }"
   >
-    <div class="grid grid-cols-1 gap-2">
+    <div class="flex flex-col h-full">
       <div class="flex items-center justify-between">
         <div
           class="text-4xl font-semibold text-blue-700 cursor-default"
