@@ -19,26 +19,19 @@
           label-position="left"
           hide-required-asterisk
         >
-          <el-form-item class="title-form" prop="type">
-            <label slot="label" class="title-form">Type<Req /></label>
-            <el-select
-              v-model="data.type"
-              placeholder="Select Widget Type"
-              class="w-full"
-              filterable
-              clearable
-            >
-              <el-option label="Metric" value="metric" />
-              <el-option label="Chart" value="chart" />
-              <el-option label="Table" value="table" />
-              <el-option label="Map" value="map" />
-            </el-select>
+          <el-form-item class="title-form" prop="title">
+            <label slot="label" class="title-form">Title<Req /></label>
+            <el-input
+              v-model="data.title"
+              @blur="data.title = data.title.trim()"
+              placeholder="Widget title"
+            />
           </el-form-item>
 
-          <el-form-item class="title-form" prop="queryId">
+          <el-form-item class="title-form" prop="definitionId">
             <label slot="label" class="title-form">Query<Req /></label>
             <el-select
-              v-model="data.queryId"
+              v-model="data.definitionId"
               placeholder="Select Query"
               filterable
               clearable
@@ -51,15 +44,6 @@
                 :value="q.id"
               />
             </el-select>
-          </el-form-item>
-
-          <el-form-item class="title-form" prop="title">
-            <label slot="label" class="title-form">Title<Req /></label>
-            <el-input
-              v-model="data.title"
-              @blur="data.title = data.title.trim()"
-              placeholder="Widget title"
-            />
           </el-form-item>
         </el-form>
 
@@ -99,20 +83,6 @@ export default {
   data() {
     return {
       rules: {
-        type: [
-          {
-            required: true,
-            message: 'Widget type is required',
-            trigger: 'change',
-          },
-        ],
-        queryId: [
-          {
-            required: true,
-            message: 'Query is required',
-            trigger: 'change',
-          },
-        ],
         title: [
           {
             required: true,
@@ -126,6 +96,13 @@ export default {
             trigger: 'blur',
           },
         ],
+        definitionId: [
+          {
+            required: true,
+            message: 'Query is required',
+            trigger: 'change',
+          },
+        ],
       },
 
       isLoading: false,
@@ -133,8 +110,7 @@ export default {
       messageError: '',
 
       data: {
-        type: '', // metric / chart / table
-        queryId: '', // linked query id
+        definitionId: '', // linked query id
         title: '', // widget title
       },
       queries: [],
@@ -200,7 +176,7 @@ export default {
     },
     getQueries() {
       this.$store
-        .dispatch('query/list', {
+        .dispatch('definition/list', {
           page: 1,
           size: 1000,
           name: '',

@@ -72,28 +72,35 @@
 
           <MetricWidget
             v-if="widgetByUuidFunc(item.i).type === 'metric'"
-            :data="dataResult[widgetByUuidFunc(item.i).queryId]?.data || []"
+            :data="
+              dataResult[widgetByUuidFunc(item.i).definitionId]?.data || []
+            "
             :metrics="
-              dataQuery.find((q) => q.id === widgetByUuidFunc(item.i).queryId)
-                ?.definition?.metrics
+              dataDefinition.find(
+                (q) => q.id === widgetByUuidFunc(item.i).definitionId
+              )?.definition?.metrics
             "
           />
 
           <TableWidget
             v-else-if="widgetByUuidFunc(item.i).type === 'table'"
-            :rows="dataResult[widgetByUuidFunc(item.i).queryId]?.data || []"
+            :rows="
+              dataResult[widgetByUuidFunc(item.i).definitionId]?.data || []
+            "
             :metrics="
-              dataQuery.find((q) => q.id === widgetByUuidFunc(item.i).queryId)
-                ?.metrics
+              dataDefinition.find(
+                (q) => q.id === widgetByUuidFunc(item.i).definitionId
+              )?.metrics
             "
           />
 
           <ChartWidget
             v-else-if="widgetByUuidFunc(item.i).type === 'chart'"
-            :data="dataResult[widgetByUuidFunc(item.i).queryId]"
+            :data="dataResult[widgetByUuidFunc(item.i).definitionId]"
             :metrics="
-              dataQuery.find((q) => q.id === widgetByUuidFunc(item.i).queryId)
-                ?.metrics
+              dataDefinition.find(
+                (q) => q.id === widgetByUuidFunc(item.i).definitionId
+              )?.metrics
             "
           />
 
@@ -126,9 +133,9 @@ export default {
 
   computed: {
     ...mapState({
-      dataQuery: (state) => state.query.dataList,
       dataDashboard: (state) => state.dashboard.dataList,
-      dataResult: (state) => state.query.dataResult,
+      dataDefinition: (state) => state.definition.dataList,
+      dataResult: (state) => state.definition.dataResult,
       orgId: (state) => state.user.orgId,
       sidebar: (state) => state.user.sidebar,
       popup: (state) => state.user.popup,
@@ -144,7 +151,7 @@ export default {
   },
 
   mounted() {
-    this.getQuery()
+    this.getDefinition()
     this.getData()
   },
 
@@ -155,9 +162,11 @@ export default {
 
     async loadWidgetData() {
       for (const w of this.widgets) {
-        if (!w.queryId) continue
+        if (!w.definitionId) continue
 
-        const uuid = this.dataQuery.find((q) => q.id === w.queryId)?.uuid
+        const uuid = this.dataDefinition.find(
+          (q) => q.id === w.definitionId
+        )?.uuid
 
         // Skip if null/undefined
         if (!uuid) continue
@@ -169,7 +178,7 @@ export default {
 
         this.isLoading = true
         this.$store
-          .dispatch('query/run', payload)
+          .dispatch('definition/run', payload)
           .then((res) => {
             this.$set(w, 'data', res?.data.data)
           })
@@ -182,10 +191,10 @@ export default {
       }
     },
 
-    getQuery() {
+    getDefinition() {
       this.isLoading = true
       this.$store
-        .dispatch('query/list', {
+        .dispatch('definition/list', {
           page: 1,
           size: 1000,
           name: '',
@@ -294,7 +303,7 @@ export default {
           h: w.h,
           i: w.i,
           type: w.type,
-          queryId: w.queryId,
+          definitionId: w.definitionId,
           title: w.title,
         }))
 

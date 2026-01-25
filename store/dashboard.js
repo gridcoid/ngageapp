@@ -32,11 +32,10 @@ export const mutations = {
     if (!state.dataList?.config) return
     state.dataList.config.widgets = state.dataList.config.widgets.map((w) => {
       if (w.i === widget.i) {
-        // update only type, queryId, title
+        // update only definitionId and title
         return {
           ...w,
-          type: widget.type,
-          queryId: widget.queryId,
+          definitionId: widget.definitionId,
           title: widget.title,
         }
       }

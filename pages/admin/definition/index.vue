@@ -218,7 +218,7 @@
       <div class="flex mt-4">
         <button class="save-btn" @click="toCreate">
           <IconPlus bg-color="#1B63D4" />
-          <div class="name-btn">Create New Definition</div>
+          <div class="name-btn">Create New Query</div>
         </button>
       </div>
     </div>
@@ -336,7 +336,7 @@ export default {
           .then(() => {
             this.getData()
             this.$notifier.showMessage({
-              content: 'Definition deleted successfully.',
+              content: 'Query deleted successfully.',
               type: 'success',
             })
           })

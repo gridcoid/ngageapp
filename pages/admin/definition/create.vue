@@ -448,7 +448,7 @@ export default {
           .then(() => {
             this.$router.push('/admin/definition')
             this.$notifier.showMessage({
-              content: 'Definition created successfully.',
+              content: 'Query created successfully.',
               type: 'success',
             })
           })

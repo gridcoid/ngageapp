@@ -14,6 +14,7 @@ export const actions = {
     commit('gender/RESET')
     commit('province/RESET')
     commit('query/RESET')
+    commit('definition/RESET')
     commit('regency/RESET')
     commit('religion/RESET')
     commit('segment/RESET')
