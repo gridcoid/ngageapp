@@ -45,6 +45,19 @@
               />
             </el-select>
           </el-form-item>
+
+          <!-- Display As (only for grouped definition) -->
+          <el-form-item
+            v-if="isGroupedDefinition"
+            class="title-form"
+            prop="type"
+          >
+            <label slot="label" class="title-form">Display As</label>
+            <el-radio-group v-model="data.type">
+              <el-radio label="table">Table</el-radio>
+              <el-radio label="chart">Chart</el-radio>
+            </el-radio-group>
+          </el-form-item>
         </el-form>
 
         <Transition>
@@ -110,9 +123,12 @@ export default {
       messageError: '',
 
       data: {
-        definitionId: '', // linked query id
         title: '', // widget title
+        definitionId: '', // linked query id
+        type: 'number', // number | table | chart
       },
+
+      definitionDetail: null,
       queries: [],
     }
   },
@@ -138,7 +154,7 @@ export default {
               ...this.data,
               x: 0, // full width default
               y: 0,
-              w: 4, // grid width full
+              w: 1, // grid width full
               h: 1, // default height
             },
           })
@@ -186,9 +202,41 @@ export default {
           this.queries = res?.data?.data?.rows || []
         })
     },
+    getDefinitionDetail(id) {
+      this.$store.dispatch('definition/detailById', { id }).then((res) => {
+        const def = res?.data?.data
+        this.definitionDetail = def
+
+        const metric = def?.definition?.metrics?.[0]
+
+        // default widget type
+        if (metric?.type === 'group') {
+          this.data.type = metric.display === 'chart' ? 'chart' : 'table'
+        } else {
+          this.data.type = 'number'
+        }
+      })
+    },
   },
   mounted() {
     this.getQueries()
+  },
+  computed: {
+    isGroupedDefinition() {
+      const metric = this.definitionDetail?.definition?.metrics?.[0]
+      return metric?.type === 'group'
+    },
+  },
+  watch: {
+    'data.definitionId'(val) {
+      if (!val) {
+        this.definitionDetail = null
+        this.data.type = 'number'
+        return
+      }
+
+      this.getDefinitionDetail(val)
+    },
   },
 }
 </script>

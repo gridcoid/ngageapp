@@ -57,7 +57,11 @@
 
           <el-form-item v-if="form.scope.type === 'segment'" class="title-form">
             <label slot="label" class="title-form">Segment</label>
-            <el-select v-model="form.scope.segmentId" filterable>
+            <el-select
+              v-model="form.scope.segmentId"
+              filterable
+              class="title-form"
+            >
               <el-option
                 v-for="s in dataSegments"
                 :key="s.id"
@@ -73,7 +77,7 @@
           <!-- Metric type -->
           <el-form-item class="title-form">
             <label slot="label" class="title-form">Metric</label>
-            <el-select v-model="metric.type">
+            <el-select v-model="metric.type" class="w-full">
               <el-option label="Total" value="total" />
               <el-option label="Specific Field" value="field" />
               <el-option label="Additional Field" value="custom" />
@@ -84,16 +88,16 @@
           <el-form-item v-if="metric.type !== 'total'" class="title-form">
             <label slot="label" class="title-form">Grouped</label>
             <el-switch v-model="metric.grouped" />
-            <span v-if="!metric.grouped" class="text-gray-400 italic ml-2">
+            <!--span v-if="!metric.grouped" class="text-gray-400 italic ml-2">
               show number only
             </span>
             <span v-else class="text-gray-400 italic ml-2">
               show table or chart
-            </span>
+            </span-->
           </el-form-item>
 
           <!-- Display -->
-          <el-form-item
+          <!--el-form-item
             v-if="metric.grouped && metric.type !== 'total'"
             class="title-form"
           >
@@ -102,12 +106,12 @@
               <el-radio label="table">Table</el-radio>
               <el-radio label="chart">Chart</el-radio>
             </el-radio-group>
-          </el-form-item>
+          </el-form-item-->
 
           <!-- ================= SPECIFIC FIELD ================= -->
           <el-form-item v-if="metric.type === 'field'" class="title-form">
             <label slot="label" class="title-form">Field</label>
-            <el-select v-model="metric.field">
+            <el-select v-model="metric.field" class="w-full">
               <el-option label="Province" value="province" />
               <el-option label="Regency" value="regency" />
               <el-option label="District" value="district" />
@@ -124,7 +128,7 @@
             class="title-form"
           >
             <label slot="label" class="title-form">Province</label>
-            <el-select v-model="metric.value" filterable>
+            <el-select v-model="metric.value" filterable class="w-full">
               <el-option
                 v-for="o in dataProvinces"
                 :key="o.code"
@@ -138,7 +142,11 @@
           <template v-if="metric.field === 'regency' && !metric.grouped">
             <el-form-item class="title-form">
               <label slot="label" class="title-form">Province</label>
-              <el-select v-model="metric.provinceCode" filterable>
+              <el-select
+                v-model="metric.provinceCode"
+                filterable
+                class="w-full"
+              >
                 <el-option
                   v-for="o in dataProvinces"
                   :key="o.code"
@@ -150,7 +158,7 @@
 
             <el-form-item class="title-form">
               <label slot="label" class="title-form">Regency</label>
-              <el-select v-model="metric.value" filterable>
+              <el-select v-model="metric.value" filterable class="w-full">
                 <el-option
                   v-for="o in dataRegencies"
                   :key="o.code"
@@ -170,7 +178,7 @@
             class="title-form"
           >
             <label slot="label" class="title-form">Value</label>
-            <el-select v-model="metric.value" filterable>
+            <el-select v-model="metric.value" filterable class="w-full">
               <el-option
                 v-for="o in fieldOptions"
                 :key="o.id"
@@ -435,7 +443,7 @@ export default {
             key: `${this.metric.field}Distribution`,
             type: 'group',
             groupBy: this.metric.field,
-            display: this.metric.display,
+            display: this.metric.display || 'table',
           }
         }
 
@@ -454,7 +462,7 @@ export default {
             key: `${this.metric.inputKey}Distribution`,
             type: 'group',
             groupBy: `userInput.${this.metric.inputKey}`,
-            display: this.metric.display,
+            display: this.metric.display || 'table',
           }
         }
 

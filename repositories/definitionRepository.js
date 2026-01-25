@@ -21,6 +21,12 @@ export default ($axios) => ({
     return $axios.get(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
+  // definition:detailById
+  detailById(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(`${resource}/id/${payload.id}?orgId=${orgId}`)
+  },
+
   // definition:update
   update(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId

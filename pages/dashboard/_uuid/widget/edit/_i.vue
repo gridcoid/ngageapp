@@ -46,6 +46,19 @@
               />
             </el-select>
           </el-form-item>
+
+          <!-- Display As (only for grouped definition) -->
+          <el-form-item
+            v-if="isGroupedDefinition"
+            class="title-form"
+            prop="type"
+          >
+            <label slot="label" class="title-form">Display As</label>
+            <el-radio-group v-model="data.type">
+              <el-radio label="table">Table</el-radio>
+              <el-radio label="chart">Chart</el-radio>
+            </el-radio-group>
+          </el-form-item>
         </el-form>
 
         <Transition>
@@ -112,8 +125,9 @@ export default {
       messageError: '',
 
       data: {
-        title: '',
-        definitionId: '',
+        title: '', // widget title
+        definitionId: '', // linked query id
+        type: 'number', // number | table | chart
         // grid metadata — preserved when updating
         i: '',
         x: 0,
@@ -121,6 +135,8 @@ export default {
         w: 4,
         h: 1,
       },
+
+      definitionDetail: null,
       queries: [],
     }
   },
@@ -173,8 +189,9 @@ export default {
             uuid: this.$route.params.uuid,
             widgetUuid: this.data.i,
             widget: {
-              definitionId: this.data.definitionId,
               title: this.data.title,
+              definitionId: this.data.definitionId,
+              type: this.data.type,
             },
           })
           .then((res) => {
@@ -208,6 +225,43 @@ export default {
             this.isLoading = false
           })
       })
+    },
+
+    getDefinitionDetail(id) {
+      this.$store.dispatch('definition/detailById', { id }).then((res) => {
+        const def = res?.data?.data
+        this.definitionDetail = def
+
+        const metric = def?.definition?.metrics?.[0]
+
+        // default widget type
+        /*
+        if (metric?.type === 'group') {
+          this.data.type = metric.display === 'chart' ? 'chart' : 'table'
+        } else {
+          this.data.type = 'number'
+        }
+        */
+      })
+    },
+  },
+
+  computed: {
+    isGroupedDefinition() {
+      const metric = this.definitionDetail?.definition?.metrics?.[0]
+      return metric?.type === 'group'
+    },
+  },
+
+  watch: {
+    'data.definitionId'(val) {
+      if (!val) {
+        this.definitionDetail = null
+        this.data.type = 'number'
+        return
+      }
+
+      this.getDefinitionDetail(val)
     },
   },
 }
