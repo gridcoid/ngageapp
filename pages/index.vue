@@ -180,6 +180,7 @@ export default {
         this.$store
           .dispatch('definition/run', payload)
           .then((res) => {
+            console.log(res?.data)
             this.$set(w, 'data', res?.data.data)
           })
           .catch(() => {
