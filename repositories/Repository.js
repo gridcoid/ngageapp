@@ -16,6 +16,7 @@ import ReligionRepository from '~/repositories/religionRepository'
 import ContactTypeRepository from '~/repositories/contactTypeRepository'
 import ApiKeyRepository from '~/repositories/apiKeyRepository'
 import SheetRepository from '~/repositories/sheetRepository'
+import JsonRepository from '~/repositories/jsonRepository'
 import QueryRepository from '~/repositories/queryRepository'
 import DefinitionRepository from '~/repositories/definitionRepository'
 import DashboardRepository from '~/repositories/dashboardRepository'
@@ -50,6 +51,7 @@ export default ($axios) => ({
   contactType: ContactTypeRepository($axios),
   apiKey: ApiKeyRepository($axios),
   sheet: SheetRepository($axios),
+  json: JsonRepository($axios),
   query: QueryRepository($axios),
   definition: DefinitionRepository($axios),
   dashboard: DashboardRepository($axios),
