@@ -114,55 +114,57 @@
             </div>
 
             <div class="body-uploads">
-              <div class="list-card space-y-2">
-                <div class="card-list flex justify-between items-center">
-                  <span class="text-gray-500">Source URL</span>
-                  <span class="font-mono text-sm truncate max-w-[240px]">
-                    {{ data.url }}
-                  </span>
-                </div>
+              <div class="list-card">
+                <div class="card-list2 space-y-2 py-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-500">Source URL</span>
+                    <span class="truncate max-w-[240px] text-gray-700">
+                      {{ data.url }}
+                    </span>
+                  </div>
 
-                <div class="card-list flex justify-between items-center">
-                  <span class="text-gray-500">Authorization</span>
-                  <span>
-                    {{
-                      data.authType === 'none'
-                        ? 'None'
-                        : data.authType === 'bearer'
-                        ? 'Bearer Token'
-                        : 'API Key'
-                    }}
-                  </span>
-                </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-500">Authorization</span>
+                    <span class="text-gray-700">
+                      {{
+                        data.authType === 'none'
+                          ? 'None'
+                          : data.authType === 'bearer'
+                          ? 'Bearer Token'
+                          : 'API Key'
+                      }}
+                    </span>
+                  </div>
 
-                <div class="card-list flex justify-between items-center">
-                  <span class="text-gray-500">Pagination</span>
-                  <span>
-                    {{
-                      data.paginationType === 'none'
-                        ? 'None'
-                        : data.paginationType === 'query'
-                        ? `Query (${data.pageParam} / ${data.pageSizeParam})`
-                        : `Next Page (${data.nextPageField})`
-                    }}
-                  </span>
-                </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-500">Pagination</span>
+                    <span class="text-gray-700">
+                      {{
+                        data.paginationType === 'none'
+                          ? 'None'
+                          : data.paginationType === 'query'
+                          ? `Query (${data.pageParam} / ${data.pageSizeParam})`
+                          : `Next Page (${data.nextPageField})`
+                      }}
+                    </span>
+                  </div>
 
-                <div
-                  v-if="data.rootField"
-                  class="card-list flex justify-between items-center"
-                >
-                  <span class="text-gray-500">Root Path</span>
-                  <span class="font-mono text-sm">
-                    {{ data.rootField }}
-                  </span>
-                </div>
+                  <div
+                    v-if="data.rootField"
+                    class="flex justify-between items-center"
+                  >
+                    <span class="text-gray-500">Root Path</span>
+                    <span class="text-gray-700">
+                      {{ data.rootField }}
+                    </span>
+                  </div>
 
-                <div class="card-list flex justify-between items-center">
-                  <span class="text-gray-500">Rows Fetched</span>
-                  <span class="italic text-gray-400">
-                    {{ jsonPreview?.rowNum }}
-                  </span>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-500">Rows Fetched</span>
+                    <span class="text-gray-700">
+                      {{ jsonPreview?.rowNum }}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -506,9 +508,9 @@ export default {
           }
           .list-card {
             margin-top: 10px;
-            .card-list {
+            .card-list,
+            .card-list2 {
               width: 100%;
-              height: 60px;
               background: #ffffff;
               border: 1px solid #c3ced9;
               border-radius: 8px;
@@ -534,6 +536,9 @@ export default {
               .delete-btn:hover {
                 background-color: rgb(243 244 246);
               }
+            }
+            .card-list {
+              height: 60px;
             }
           }
         }
