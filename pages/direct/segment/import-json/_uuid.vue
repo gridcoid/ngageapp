@@ -114,16 +114,55 @@
             </div>
 
             <div class="body-uploads">
-              <div class="list-card">
-                <div class="card-list flex items-center justify-between">
-                  <div class="flex items-center left-card">
-                    <div class="name-list">Detected Keys</div>
-                  </div>
-                  <div
-                    class="flex items-center justify-center text-gray-400 italic text-sm"
-                  >
-                    {{ jsonPreview?.rowNum }} rows
-                  </div>
+              <div class="list-card space-y-2">
+                <div class="card-list flex justify-between items-center">
+                  <span class="text-gray-500">Source URL</span>
+                  <span class="font-mono text-sm truncate max-w-[240px]">
+                    {{ data.url }}
+                  </span>
+                </div>
+
+                <div class="card-list flex justify-between items-center">
+                  <span class="text-gray-500">Authorization</span>
+                  <span>
+                    {{
+                      data.authType === 'none'
+                        ? 'None'
+                        : data.authType === 'bearer'
+                        ? 'Bearer Token'
+                        : 'API Key'
+                    }}
+                  </span>
+                </div>
+
+                <div class="card-list flex justify-between items-center">
+                  <span class="text-gray-500">Pagination</span>
+                  <span>
+                    {{
+                      data.paginationType === 'none'
+                        ? 'None'
+                        : data.paginationType === 'query'
+                        ? `Query (${data.pageParam} / ${data.pageSizeParam})`
+                        : `Next Page (${data.nextPageField})`
+                    }}
+                  </span>
+                </div>
+
+                <div
+                  v-if="data.rootField"
+                  class="card-list flex justify-between items-center"
+                >
+                  <span class="text-gray-500">Root Path</span>
+                  <span class="font-mono text-sm">
+                    {{ data.rootField }}
+                  </span>
+                </div>
+
+                <div class="card-list flex justify-between items-center">
+                  <span class="text-gray-500">Rows Fetched</span>
+                  <span class="italic text-gray-400">
+                    {{ jsonPreview?.rowNum }}
+                  </span>
                 </div>
               </div>
             </div>
