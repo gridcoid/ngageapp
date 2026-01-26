@@ -110,7 +110,7 @@
           <!-- LEFT -->
           <div class="left-side">
             <div class="header-uploads flex items-center justify-between">
-              <div class="title-uploads">JSON Preview</div>
+              <div class="title-uploads">JSON Summary</div>
             </div>
 
             <div class="body-uploads">
