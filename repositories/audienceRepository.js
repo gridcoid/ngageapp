@@ -61,7 +61,7 @@ export default ($axios) => ({
   removeFromSegment(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(
-      `${resource}/removeFromSegment/${payload.uuid}?segmentId=${payload.segmentId}&orgId=${orgId}`
+      `${resource}/remove/${payload.audienceUuid}/segment/${payload.segmentUuid}?orgId=${orgId}`
     )
   },
 })

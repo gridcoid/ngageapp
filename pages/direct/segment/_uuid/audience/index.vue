@@ -394,8 +394,8 @@ export default {
 
           this.$store
             .dispatch('audience/removeFromSegment', {
-              id: row.id, // user id
-              segmentId: this.data.id,
+              audienceUuid: row.uuid,
+              segmentUuid: this.$route.params.uuid,
             })
             .then((res) => {
               if (res?.data.status.code === 200) {

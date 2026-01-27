@@ -5,7 +5,7 @@
     </div>
 
     <!-- ================= STEP 1 : CONFIG ================= -->
-    <div v-if="step1" class="body-upload">
+    <div v-if="step1" class="body-upload card-content">
       <div class="header-card flex items-center justify-between">
         <div class="title">
           <i class="ti ti-brackets-contain text-gray-400 mr-2" />
@@ -38,12 +38,15 @@
             <el-select v-model="data.authType" class="w-full" clearable>
               <el-option label="None" value="none" />
               <el-option label="Bearer Token" value="bearer" />
-              <el-option label="API Key" value="apiKey" />
+              <el-option label="Query Param" value="query" />
             </el-select>
           </el-form-item>
 
           <el-form-item v-if="data.authType !== 'none'">
-            <label slot="label">Token Header</label>
+            <label slot="label">
+              Token
+              {{ data.authType === 'bearer' ? 'Header' : 'Param' }}
+            </label>
             <el-input v-model="data.tokenHeader" />
           </el-form-item>
 
@@ -131,7 +134,7 @@
                           ? 'None'
                           : data.authType === 'bearer'
                           ? 'Bearer Token'
-                          : 'API Key'
+                          : 'Query Param'
                       }}
                     </span>
                   </div>
@@ -160,7 +163,7 @@
                   </div>
 
                   <div class="flex justify-between items-center">
-                    <span class="text-gray-500">Rows Fetched</span>
+                    <span class="text-gray-500">Rows Fetched (First Page)</span>
                     <span class="text-gray-700">
                       {{ jsonPreview?.rowNum }}
                     </span>
@@ -289,6 +292,12 @@ export default {
 
         this.jsonPreview = res.data.data.data
 
+        if (!this.jsonPreview) {
+          this.showMessage = true
+          this.messageError = 'Failed to fetch JSON preview'
+          return
+        }
+
         this.selector = this.jsonPreview.selector.map((s) => ({
           label: s,
           value: s,
@@ -353,10 +362,74 @@ export default {
       localStorage.removeItem('jsonImportConfig')
     },
   },
+
+  watch: {
+    'data.authType': {
+      handler(val) {
+        if (val === 'bearer') {
+          if (this.data.tokenValue === '') {
+            this.data.tokenHeader = 'Authorization'
+            this.data.tokenValue = 'Bearer '
+          }
+        } else {
+          this.data.tokenHeader = ''
+          this.data.tokenValue = ''
+        }
+      },
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+.upload-container {
+  .header-content {
+    margin-bottom: 20px;
+  }
+  .card-content {
+    width: 720px;
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    padding: 15px 0px 0px 0px;
+    .header-card {
+      padding-left: 20px;
+      padding-right: 20px;
+      .title {
+        font-family: 'Cabin';
+        font-weight: 600;
+        font-size: 20px;
+        color: #333333;
+        margin-right: 10px;
+      }
+    }
+    .body-card {
+      padding-left: 20px;
+      padding-right: 20px;
+      margin-top: 30px;
+      .title-form {
+        font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 16px;
+        color: #454545;
+      }
+      .to-text {
+        font-family: 'Cabin';
+        font-weight: 400;
+        font-size: 16px;
+        color: #454545;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    }
+    .footer-card {
+      border-top: 1px solid #e2e2e2;
+      padding: 20px;
+    }
+  }
+}
+
 .upload-container {
   min-height: calc(100vh - 60px);
   .body-upload {
