@@ -26,7 +26,7 @@
             <label slot="label" class="title-form">Title<Req /></label>
             <el-input
               v-model="data.title"
-              @blur="data.title = data.title.trim()"
+              @blur="data.title = data.title?.trim()"
             />
           </el-form-item>
 
@@ -73,7 +73,7 @@
             <label slot="label" class="title-form">Subject<Req /></label>
             <el-input
               v-model="data.subject"
-              @blur="data.subject = data.subject.trim()"
+              @blur="data.subject = data.subject?.trim()"
             />
           </el-form-item>
 
@@ -101,7 +101,7 @@
             <label slot="label" class="title-form">Sender Name<Req /></label>
             <el-input
               v-model="data.senderName"
-              @blur="data.senderName = data.senderName.trim()"
+              @blur="data.senderName = data.senderName?.trim()"
             />
           </el-form-item>
 
@@ -110,7 +110,7 @@
             <label slot="label" class="title-form">Sender Email<Req /></label>
             <el-input
               v-model="data.senderEmail"
-              @blur="data.senderEmail = data.senderEmail.trim()"
+              @blur="data.senderEmail = data.senderEmail?.trim()"
             />
           </el-form-item>
 
@@ -119,7 +119,7 @@
             <label slot="label" class="title-form">Reply To</label>
             <el-input
               v-model="data.replyTo"
-              @blur="data.replyTo = data.replyTo.trim()"
+              @blur="data.replyTo = data.replyTo?.trim()"
             />
           </el-form-item>
         </el-form>

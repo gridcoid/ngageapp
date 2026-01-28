@@ -20,7 +20,7 @@
         >
           <el-form-item class="title-form" prop="key">
             <label slot="label" class="title-form">Key<Req /></label>
-            <el-input v-model="data.key" @blur="data.key = data.key.trim()" />
+            <el-input v-model="data.key" @blur="data.key = data.key?.trim()" />
           </el-form-item>
 
           <el-form-item class="title-form" prop="value">
@@ -31,7 +31,7 @@
               :rows="2"
               maxlength="200"
               spellcheck="false"
-              @blur="data.value = data.value.trim()"
+              @blur="data.value = data.value?.trim()"
             />
           </el-form-item>
 
@@ -43,7 +43,7 @@
               :rows="2"
               maxlength="200"
               spellcheck="false"
-              @blur="data.description = data.description.trim()"
+              @blur="data.description = data.description?.trim()"
             />
           </el-form-item>
         </el-form>

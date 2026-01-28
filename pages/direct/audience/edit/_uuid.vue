@@ -25,7 +25,7 @@
             <label slot="label" class="title-form">Name<Req /></label>
             <el-input
               v-model="data.name"
-              @blur="data.name = data.name.trim()"
+              @blur="data.name = data.name?.trim()"
             />
           </el-form-item>
 
@@ -122,7 +122,7 @@
             <label slot="label" class="title-form">Address</label>
             <el-input
               v-model="data.address"
-              @blur="data.address = data.address.trim()"
+              @blur="data.address = data.address?.trim()"
               type="textarea"
               autosize
               spellcheck="false"
@@ -237,7 +237,7 @@
               <!-- Contact value -->
               <el-input
                 v-model="contact.value"
-                @blur="contact.value = contact.value.trim()"
+                @blur="contact.value = contact.value?.trim()"
                 :disabled="contact.typeId === 1"
                 :placeholder="
                   contact.typeId === 1
@@ -252,7 +252,7 @@
               <!-- Label -->
               <el-input
                 v-model="contact.label"
-                @blur="contact.label = contact.label.trim()"
+                @blur="contact.label = contact.label?.trim()"
                 placeholder="Label info (optional)"
                 style="flex: 1"
               />
@@ -290,13 +290,13 @@
             >
               <el-input
                 v-model="info.key"
-                @blur="info.key = info.key.trim()"
+                @blur="info.key = info.key?.trim()"
                 placeholder="Key"
                 style="flex: 1"
               />
               <el-input
                 v-model="info.value"
-                @blur="info.value = info.value.trim()"
+                @blur="info.value = info.value?.trim()"
                 placeholder="Value"
                 style="flex: 1"
               />
@@ -795,7 +795,7 @@ export default {
       const emailContact = contacts.find((c) => c.typeId === 1)
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-      if (!emailContact || !emailRegex.test(emailContact.value.trim())) {
+      if (!emailContact || !emailRegex.test(emailContact.value?.trim())) {
         this.showMessage = true
         this.messageError = 'A valid email is required'
         return

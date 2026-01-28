@@ -24,7 +24,7 @@
             <label slot="label" class="title-form">Key</label>
             <el-input
               v-model="data.key"
-              @blur="data.key = data.key.trim()"
+              @blur="data.key = data.key?.trim()"
               disabled
             />
           </el-form-item>
@@ -39,7 +39,7 @@
             <el-input
               v-else
               v-model="data.value"
-              @blur="data.value = data.value.trim()"
+              @blur="data.value = data.value?.trim()"
               type="textarea"
               :rows="2"
               maxlength="200"
@@ -51,7 +51,7 @@
             <label slot="label" class="title-form">Description</label>
             <el-input
               v-model="data.description"
-              @blur="data.description = data.description.trim()"
+              @blur="data.description = data.description?.trim()"
               type="textarea"
               :rows="2"
               maxlength="200"

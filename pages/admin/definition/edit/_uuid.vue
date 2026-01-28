@@ -28,7 +28,7 @@
             <label slot="label" class="title-form">Name<Req /></label>
             <el-input
               v-model="form.name"
-              @blur="form.name = form.name.trim()"
+              @blur="form.name = form.name?.trim()"
             />
           </el-form-item>
 

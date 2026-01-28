@@ -26,7 +26,7 @@
               <label slot="label" class="title-form">Name<Req /></label>
               <el-input
                 v-model="data.name"
-                @blur="data.name = data.name.trim()"
+                @blur="data.name = data.name?.trim()"
               />
             </el-form-item>
 
@@ -39,7 +39,7 @@
                 :rows="2"
                 maxlength="200"
                 spellcheck="false"
-                @blur="data.description = data.description.trim()"
+                @blur="data.description = data.description?.trim()"
               />
             </el-form-item>
 
@@ -72,7 +72,7 @@
                 :rows="10"
                 class="font-mono"
                 spellcheck="false"
-                @blur="data.metricsJson = data.metricsJson.trim()"
+                @blur="data.metricsJson = data.metricsJson?.trim()"
               />
             </el-form-item>
 
@@ -85,7 +85,7 @@
                 :rows="10"
                 class="font-mono"
                 spellcheck="false"
-                @blur="data.joinsJson = data.joinsJson.trim()"
+                @blur="data.joinsJson = data.joinsJson?.trim()"
               />
             </el-form-item>
 
@@ -98,7 +98,7 @@
                 :rows="10"
                 class="font-mono"
                 spellcheck="false"
-                @blur="data.filtersJson = data.filtersJson.trim()"
+                @blur="data.filtersJson = data.filtersJson?.trim()"
               />
             </el-form-item>
 
@@ -111,7 +111,7 @@
                 :rows="10"
                 class="font-mono"
                 spellcheck="false"
-                @blur="data.groupByJson = data.groupByJson.trim()"
+                @blur="data.groupByJson = data.groupByJson?.trim()"
               />
             </el-form-item>
 
@@ -124,7 +124,7 @@
                 :rows="10"
                 class="font-mono"
                 spellcheck="false"
-                @blur="data.sortJson = data.sortJson.trim()"
+                @blur="data.sortJson = data.sortJson?.trim()"
               />
             </el-form-item>
 

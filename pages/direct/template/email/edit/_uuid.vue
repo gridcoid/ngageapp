@@ -26,7 +26,7 @@
             <label slot="label">Name<Req /></label>
             <el-input
               v-model="data.name"
-              @blur="data.name = data.name.trim()"
+              @blur="data.name = data.name?.trim()"
               disabled
             />
           </el-form-item>
@@ -36,7 +36,7 @@
             <label slot="label">Description</label>
             <el-input
               v-model="data.description"
-              @blur="data.description = data.description.trim()"
+              @blur="data.description = data.description?.trim()"
               type="textarea"
               :rows="2"
               maxlength="200"
@@ -64,7 +64,7 @@
           <!-- Copyright -->
           <!-- <el-form-item prop="copyright" class="lg:w-1/2">
             <label slot="label">Copyright</label>
-            <el-input v-model="data.copyright" @blur="data.copyright = data.copyright.trim()" />
+            <el-input v-model="data.copyright" @blur="data.copyright = data.copyright?.trim()" />
           </el-form-item> -->
 
           <!-- HTML Content -->
@@ -72,7 +72,7 @@
             <label slot="label">HTML Content<Req /></label>
             <el-input
               v-model="data.htmlContent"
-              @blur="data.htmlContent = data.htmlContent.trim()"
+              @blur="data.htmlContent = data.htmlContent?.trim()"
               type="textarea"
               :rows="10"
               spellcheck="false"
@@ -85,7 +85,7 @@
             <label slot="label">Text Content<Req /></label>
             <el-input
               v-model="data.textContent"
-              @blur="data.textContent = data.textContent.trim()"
+              @blur="data.textContent = data.textContent?.trim()"
               type="textarea"
               :rows="5"
               spellcheck="false"
