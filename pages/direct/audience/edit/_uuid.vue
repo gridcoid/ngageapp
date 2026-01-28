@@ -750,7 +750,7 @@ export default {
 
       this.additionalInfoList.forEach((item) => {
         if (item.key && item.key.trim() !== '') {
-          info[item.key.trim()] = item.value
+          info[item.key.trim()] = String(item.value ?? '')
         }
       })
 
