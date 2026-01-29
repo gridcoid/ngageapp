@@ -11,11 +11,34 @@
         </div>
       </div>
 
+      <Transition>
+        <div
+          v-if="showApiKey"
+          class="mt-6 rounded-lg border border-yellow-300 bg-yellow-50 p-4"
+        >
+          <div class="font-semibold text-yellow-800 mb-2">
+            🔐 New API Key (shown only once)
+          </div>
+
+          <p class="text-sm text-yellow-700 mb-3">
+            Please copy and store this API key securely. You won’t be able to
+            see it again.
+          </p>
+
+          <div class="flex items-center gap-3">
+            <el-input :value="createdApiKey" readonly class="flex-1" />
+
+            <el-button type="primary" @click="copyApiKey"> Copy </el-button>
+          </div>
+        </div>
+      </Transition>
+
       <div class="body-card">
         <el-form
           ref="ruleForm"
           :rules="rules"
           :model="data"
+          :disabled="showApiKey"
           label-width="226px"
           label-position="left"
           hide-required-asterisk
@@ -34,6 +57,19 @@
             <label slot="label" class="title-form">Revoked</label>
             <el-switch v-model="data.revoked" />
           </el-form-item>
+
+          <!-- Reset API Key -->
+          <el-form-item class="title-form">
+            <label slot="label" class="title-form text-red-600">
+              Reset API Key
+            </label>
+
+            <el-switch v-model="resetKey" :disabled="showApiKey" />
+
+            <p v-if="resetKey" class="text-xs text-red-500 mt-1">
+              ⚠️ Resetting will invalidate the old API key immediately.
+            </p>
+          </el-form-item>
         </el-form>
 
         <Transition>
@@ -41,7 +77,7 @@
         </Transition>
       </div>
 
-      <div class="footer-card flex justify-end gap-3">
+      <div v-if="!showApiKey" class="footer-card flex justify-end gap-3">
         <el-button type="primary" @click="$router.back()" plain class="w-32">
           Discard
         </el-button>
@@ -54,6 +90,11 @@
           :disabled="isLoading"
         >
           Save
+        </el-button>
+      </div>
+      <div v-if="showApiKey" class="footer-card flex justify-end">
+        <el-button type="primary" @click="$router.push('/admin/api-key')">
+          Done
         </el-button>
       </div>
     </div>
@@ -111,6 +152,11 @@ export default {
         scopes: [],
         revoked: false,
       },
+
+      resetKey: false,
+
+      createdApiKey: null,
+      showApiKey: false,
     }
   },
 
@@ -140,46 +186,46 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
 
-        this.$notifier.showMessage({
-          content: 'Updating API key...',
-          type: 'loading',
-        })
-
         this.isLoading = true
 
+        const payload = {
+          ...this.data,
+          resetKey: this.resetKey,
+        }
+
         this.$store
-          .dispatch('apiKey/update', this.data)
+          .dispatch('apiKey/update', payload)
           .then((res) => {
             if (res.status === 200) {
-              this.$router.push({ path: '/admin/api-key' })
+              if (res.data.data.apiKey) {
+                this.createdApiKey = res.data.data.apiKey
+                this.showApiKey = true
+              } else {
+                this.$router.push({ path: '/admin/api-key' })
+              }
 
               this.$notifier.showMessage({
                 content: 'API Key updated successfully.',
                 type: 'success',
               })
-            } else {
-              this.showMessage = true
-
-              const keys = Object.keys(res?.data.data.errors[0])
-              const arr = []
-
-              keys.forEach((key) => arr.push(res?.data.data.errors[0][key]))
-              this.messageError = arr.join(', ')
-
-              this.$notifier.showMessage({
-                content: 'Failed to update API key.',
-                type: 'failed',
-              })
             }
           })
           .catch((e) => {
-            console.error(e)
             this.showMessage = true
-            this.messageError = 'Error: ' + e.message
+            this.messageError = e.message
           })
           .finally(() => {
             this.isLoading = false
           })
+      })
+    },
+
+    copyApiKey() {
+      navigator.clipboard.writeText(this.createdApiKey).then(() => {
+        this.$notifier.showMessage({
+          content: 'API key copied to clipboard',
+          type: 'success',
+        })
       })
     },
   },

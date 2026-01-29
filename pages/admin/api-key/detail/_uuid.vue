@@ -44,16 +44,6 @@
                 <div>
                   <label
                     class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                    >API Key</label
-                  >
-                  <div class="text-gray-900 font-medium text-xs">
-                    <code class="bg-white">{{ data.apiKey }}</code>
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
                     >Expires At</label
                   >
                   <div class="text-gray-900">
@@ -89,22 +79,22 @@
                       <i class="ti ti-users text-gray-400"></i>
                     </div>
                     <div class="ml-3">
-                      <div class="text-xs font-semibold uppercase flex gap-2">
+                      <!--div class="text-xs font-semibold uppercase flex gap-2">
                         <span class="normal-case font-normal text-gray-500">
                           Read:
-                          <span v-if="scope.read" class="text-blue-500">
+                          <span v-if="scope.read" class="text-green-500">
                             Yes
                           </span>
                           <span v-else class="text-red-500">No</span>
                         </span>
                         <span class="normal-case font-normal text-gray-500">
                           Write:
-                          <span v-if="scope.write" class="text-blue-500">
+                          <span v-if="scope.write" class="text-green-500">
                             Yes
                           </span>
                           <span v-else class="text-red-500">No</span>
                         </span>
-                      </div>
+                      </div--->
                       <div class="text-gray-900 font-medium break-all mt-1">
                         {{ scope.segmentName }}
                         <span class="text-xs text-gray-400"
@@ -175,7 +165,7 @@ GET /public/segment/:segmentUuid?page=1&amp;num=50
                       >
 curl -X GET \
   "{{ $config.baseURL }}public/segment/SEGMENT_UUID?page=1&amp;num=50" \
-  -H "Authorization: APIKey {{ data.apiKey }}" \
+  -H "Authorization: Bearer API_KEY" \
   -H "Accept: application/json"
     </pre
                       >
@@ -200,7 +190,7 @@ curl -X GET \
                       >
 &lt;?php
 
-$apiKey = "{{ data.apiKey }}";
+$apiKey = "API_KEY";
 $segmentUuid = "SEGMENT_UUID";
 
 $url = "{{ $config.baseURL }}public/segment/$segmentUuid?page=1&num=50";
@@ -209,7 +199,7 @@ $opts = [
     "http" => [
         "method" => "GET",
         "header" =>
-            "Authorization: APIKey $apiKey\r\n" .
+            "Authorization: Bearer $apiKey\r\n" .
             "Accept: application/json\r\n"
     ]
 ];
@@ -237,7 +227,7 @@ echo $response;
                       >
 import urllib.request
 
-api_key = "{{ data.apiKey }}"
+api_key = "API_KEY"
 segment_uuid = "SEGMENT_UUID"
 
 url = f"{{ $config.baseURL }}public/segment/{segment_uuid}?page=1&num=50"
@@ -245,7 +235,7 @@ url = f"{{ $config.baseURL }}public/segment/{segment_uuid}?page=1&num=50"
 req = urllib.request.Request(
     url,
     headers={
-        "Authorization": f"APIKey {api_key}",
+        "Authorization": f"Bearer {api_key}",
         "Accept": "application/json",
     },
 )
@@ -273,14 +263,14 @@ with urllib.request.urlopen(req) as res:
                       <pre
                         class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
                       >
-const apiKey = "{{ data.apiKey }}";
+const apiKey = "API_KEY";
 const segmentUuid = "SEGMENT_UUID";
 
 const url = `{{ $config.baseURL }}public/segment/${segmentUuid}?page=1&num=50`;
 
 fetch(url, {
   headers: {
-    Authorization: `APIKey ${apiKey}`,
+    Authorization: `Bearer ${apiKey}`,
     Accept: "application/json",
   },
 })
@@ -294,7 +284,7 @@ fetch(url, {
                     <p class="text-gray-500 text-sm mt-4">
                       Tip: You can also send the key as<br />
                       <code class="bg-gray-100 px-1 rounded"
-                        >Bearer {{ data.apiKey }}</code
+                        >Bearer API_KEY</code
                       >
                     </p>
                   </div>

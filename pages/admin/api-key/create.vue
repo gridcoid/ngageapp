@@ -11,11 +11,40 @@
         </div>
       </div>
 
+      <Transition>
+        <div
+          v-if="showApiKey"
+          class="mt-6 mx-4 rounded-lg border border-yellow-300 bg-yellow-50 p-4"
+        >
+          <div class="font-semibold text-yellow-800 mb-2">
+            🔐 Your API Key (shown only once)
+          </div>
+
+          <p class="text-sm text-yellow-700 mb-3">
+            Please copy and store this API key securely. You won’t be able to
+            see it again.
+          </p>
+
+          <div class="flex items-center gap-3">
+            <el-input :value="createdApiKey" readonly class="flex-1" />
+
+            <el-button
+              type="primary"
+              icon="el-icon-document-copy"
+              @click="copyApiKey"
+            >
+              Copy
+            </el-button>
+          </div>
+        </div>
+      </Transition>
+
       <div class="body-card">
         <el-form
           ref="ruleForm"
           :rules="rules"
           :model="data"
+          :disabled="showApiKey"
           label-width="226px"
           label-position="left"
           hide-required-asterisk
@@ -74,8 +103,13 @@
 
               <div class="ml-4"></div>
 
-              <el-checkbox v-model="row.read" class="mr-3">Read</el-checkbox>
-              <el-checkbox v-model="row.write" class="mr-3">Write</el-checkbox>
+              <el-checkbox v-model="row.read" class="mr-3" disabled>
+                Read
+              </el-checkbox>
+
+              <el-checkbox v-model="row.write" class="mr-3" disabled>
+                Write
+              </el-checkbox>
 
               <div class="ml-6"></div>
 
@@ -103,7 +137,7 @@
         </Transition>
       </div>
 
-      <div class="footer-card flex justify-end gap-3">
+      <div v-if="!showApiKey" class="footer-card flex justify-end gap-3">
         <el-button type="primary" @click="$router.back()" plain class="w-32">
           Discard
         </el-button>
@@ -116,6 +150,11 @@
           :disable="isLoading"
         >
           Save
+        </el-button>
+      </div>
+      <div v-if="showApiKey" class="footer-card flex justify-end">
+        <el-button type="primary" @click="$router.push('/admin/api-key')">
+          Done
         </el-button>
       </div>
     </div>
@@ -171,8 +210,8 @@ export default {
       scopeRows: [
         {
           segmentId: null,
-          read: false,
-          write: false,
+          read: true, // default checked
+          write: false, // default unchecked
         },
       ],
 
@@ -181,6 +220,10 @@ export default {
         expiresAt: null,
         scopes: [],
       },
+
+      createdApiKey: null,
+      createdApiKeyName: null,
+      showApiKey: false,
     }
   },
   methods: {
@@ -195,13 +238,17 @@ export default {
     addScopeRow() {
       this.scopeRows.push({
         segmentId: null,
-        read: false,
+        read: true,
         write: false,
       })
     },
 
     removeScopeRow(index) {
       this.scopeRows.splice(index, 1)
+
+      if (this.scopeRows.length === 0) {
+        this.addScopeRow()
+      }
     },
 
     save() {
@@ -231,7 +278,11 @@ export default {
           .dispatch('apiKey/create', this.data)
           .then((res) => {
             if (res.status === 200) {
-              this.$router.push({ path: '/admin/api-key' })
+              const payload = res.data.data
+
+              this.createdApiKey = payload.apiKey
+              this.createdApiKeyName = payload.name
+              this.showApiKey = true
 
               this.$notifier.showMessage({
                 content: 'API Key created successfully.',
@@ -261,6 +312,15 @@ export default {
           })
       })
     },
+
+    copyApiKey() {
+      navigator.clipboard.writeText(this.createdApiKey).then(() => {
+        this.$notifier.showMessage({
+          content: 'API key copied to clipboard',
+          type: 'success',
+        })
+      })
+    },
   },
   computed: {
     ...mapState({
@@ -271,6 +331,25 @@ export default {
   },
   mounted() {
     this.getSegments()
+  },
+  watch: {
+    scopeRows: {
+      deep: true,
+      handler(rows) {
+        this.data.scopes = rows
+          .filter((row) => row.segmentId)
+          .map((row) => ({
+            segmentId: row.segmentId,
+            read: row.read,
+            write: row.write,
+          }))
+
+        // revalidate scopes field
+        this.$nextTick(() => {
+          this.$refs.ruleForm?.validateField('scopes')
+        })
+      },
+    },
   },
 }
 </script>
