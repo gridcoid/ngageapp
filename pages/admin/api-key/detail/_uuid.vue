@@ -164,8 +164,8 @@ GET /public/segment/:segmentUuid?page=1&amp;num=50
                         class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
                       >
 curl -X GET \
-  "{{ $config.baseURL }}public/segment/SEGMENT_UUID?page=1&amp;num=50" \
-  -H "Authorization: Bearer API_KEY" \
+  "{{ $config.baseURL }}public/segment/&lt;SEGMENT_UUID&gt;?page=1&amp;num=50" \
+  -H "Authorization: Bearer &lt;API_KEY&gt;" \
   -H "Accept: application/json"
     </pre
                       >
@@ -190,8 +190,8 @@ curl -X GET \
                       >
 &lt;?php
 
-$apiKey = "API_KEY";
-$segmentUuid = "SEGMENT_UUID";
+$apiKey = "&lt;API_KEY&gt;";
+$segmentUuid = "&lt;SEGMENT_UUID&gt;";
 
 $url = "{{ $config.baseURL }}public/segment/$segmentUuid?page=1&num=50";
 
@@ -227,8 +227,8 @@ echo $response;
                       >
 import urllib.request
 
-api_key = "API_KEY"
-segment_uuid = "SEGMENT_UUID"
+api_key = "&lt;API_KEY&gt;"
+segment_uuid = "&lt;SEGMENT_UUID&gt;"
 
 url = f"{{ $config.baseURL }}public/segment/{segment_uuid}?page=1&num=50"
 
@@ -263,8 +263,8 @@ with urllib.request.urlopen(req) as res:
                       <pre
                         class="bg-gray-900 text-green-100 p-3 rounded text-sm overflow-x-auto"
                       >
-const apiKey = "API_KEY";
-const segmentUuid = "SEGMENT_UUID";
+const apiKey = "&lt;API_KEY&gt;";
+const segmentUuid = "&lt;SEGMENT_UUID&gt;";
 
 const url = `{{ $config.baseURL }}public/segment/${segmentUuid}?page=1&num=50`;
 
@@ -284,7 +284,7 @@ fetch(url, {
                     <p class="text-gray-500 text-sm mt-4">
                       Tip: You can also send the key as<br />
                       <code class="bg-gray-100 px-1 rounded"
-                        >Bearer API_KEY</code
+                        >APIKey &lt;API_KEY&gt;</code
                       >
                     </p>
                   </div>
