@@ -13,7 +13,7 @@ export default ($axios) => ({
   listBySegment(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
-      `${resource}/listBySegment?orgId=${orgId}&uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+      `${resource}/list-by-segment?orgId=${orgId}&uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
     )
   },
 
