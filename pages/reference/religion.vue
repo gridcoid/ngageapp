@@ -65,9 +65,9 @@
             <div class="font-cabin text-xs text-gray-600 font-mono">
               <el-tag
                 class="num"
-                :type="scope.row.audiencesCount > 0 ? 'success' : 'danger'"
+                :type="scope.row.audienceCount > 0 ? 'success' : 'danger'"
               >
-                {{ scope.row.audiencesCount }}
+                {{ scope.row.audienceCount }}
               </el-tag>
             </div>
           </template>
