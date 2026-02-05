@@ -421,11 +421,26 @@ export default {
         this.$store
           .dispatch('definition/update', payload)
           .then(() => {
-            this.$router.push('/admin/definition')
-            this.$notifier.showMessage({
-              content: 'Query updated successfully.',
-              type: 'success',
-            })
+            if (res.status === 200) {
+              this.$notifier.showMessage({
+                content: 'Query updated successfully.',
+                type: 'success',
+              })
+
+              this.$router.push('/admin/definition')
+            } else {
+              this.showMessage = true
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to update query'
+
+              this.$notifier.showMessage({
+                content: 'Failed to update query.',
+                type: 'failed',
+              })
+            }
           })
           .finally(() => (this.isLoading = false))
       })

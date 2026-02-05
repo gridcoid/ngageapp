@@ -176,9 +176,7 @@ export default {
           .catch(() => {
             this.$set(w, 'data', { error: true })
           })
-          .finally(() => {
-            this.isLoading = false
-          })
+          .finally(() => (this.isLoading = false))
       }
     },
 

@@ -338,9 +338,7 @@ export default {
             this.showMessage = true
             this.messageError = 'Error: ' + e.message
           })
-          .finally(() => {
-            this.isLoading = false
-          })
+          .finally(() => (this.isLoading = false))
       })
     },
   },

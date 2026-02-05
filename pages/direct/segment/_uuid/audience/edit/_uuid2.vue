@@ -723,14 +723,14 @@ export default {
         this.$store
           .dispatch('audience/update', this.data)
           .then((res) => {
-            if (res.status === 200) {
-              this.$router.push({
-                path: `/direct/segment/${this.$route.params.uuid}/audience`,
-              })
-
+            if (res.status === 204) {
               this.$notifier.showMessage({
                 content: 'Audience updated successfully.',
                 type: 'success',
+              })
+
+              this.$router.push({
+                path: `/direct/segment/${this.$route.params.uuid}/audience`,
               })
             } else {
               this.showMessage = true
@@ -751,9 +751,7 @@ export default {
             this.showMessage = true
             this.messageError = 'Error: ' + e.message
           })
-          .finally(() => {
-            this.isLoading = false
-          })
+          .finally(() => (this.isLoading = false))
       })
     },
 

@@ -258,9 +258,7 @@ This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LIN
             this.showMessage = true
             this.messageError = 'Error: ' + e.message
           })
-          .finally(() => {
-            this.isLoading = false
-          })
+          .finally(() => (this.isLoading = false))
       })
     },
   },

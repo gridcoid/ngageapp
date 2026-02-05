@@ -208,15 +208,25 @@ export default {
                 content: 'API Key updated successfully.',
                 type: 'success',
               })
+            } else {
+              this.showMessage = true
+
+              this.messageError =
+                res?.data?.data?.errors
+                  ?.map((e) => Object.values(e)[0])
+                  .join(', ') || 'Failed to update API key'
+
+              this.$notifier.showMessage({
+                content: 'Failed to update API key.',
+                type: 'failed',
+              })
             }
           })
           .catch((e) => {
             this.showMessage = true
             this.messageError = e.message
           })
-          .finally(() => {
-            this.isLoading = false
-          })
+          .finally(() => (this.isLoading = false))
       })
     },
 

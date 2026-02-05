@@ -242,13 +242,13 @@ export default {
         this.$store
           .dispatch('emailTemplate/update', this.data)
           .then((res) => {
-            if (res.status === 200) {
-              this.$router.push({ path: '/direct/template/email' })
-
+            if (res.status === 204) {
               this.$notifier.showMessage({
                 content: 'Email template updated successfully.',
                 type: 'success',
               })
+
+              this.$router.push({ path: '/direct/template/email' })
             } else {
               this.showMessage = true
               this.messageError =
@@ -267,9 +267,7 @@ export default {
             this.showMessage = true
             this.messageError = 'Error: ' + e.message
           })
-          .finally(() => {
-            this.isLoading = false
-          })
+          .finally(() => (this.isLoading = false))
       })
     },
   },

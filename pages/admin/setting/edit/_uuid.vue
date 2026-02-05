@@ -208,13 +208,13 @@ export default {
         this.$store
           .dispatch('setting/update', this.data)
           .then((res) => {
-            if (res.status === 200) {
-              this.$router.push({ path: '/admin/setting' })
-
+            if (res.status === 204) {
               this.$notifier.showMessage({
                 content: 'Setting updated successfully.',
                 type: 'success',
               })
+
+              this.$router.push({ path: '/admin/setting' })
             } else {
               this.showMessage = true
 
@@ -234,9 +234,7 @@ export default {
             this.showMessage = true
             this.messageError = 'Error: ' + e.message
           })
-          .finally(() => {
-            this.isLoading = false
-          })
+          .finally(() => (this.isLoading = false))
       })
     },
   },
