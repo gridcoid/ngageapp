@@ -794,7 +794,8 @@ export default {
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete creative failed. Error : ' + res?.data.data.message,
+                    'Failed to delete creative. Error: ' +
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }

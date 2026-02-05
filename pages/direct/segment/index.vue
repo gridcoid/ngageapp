@@ -396,7 +396,7 @@ export default {
               uuid: data.uuid,
             })
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res?.data.status.code === 204) {
                 this.getData()
 
                 this.$notifier.showMessage({
@@ -406,7 +406,8 @@ export default {
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete segment failed. Error : ' + res?.data.data.message,
+                    'Failed to delete segment. Error: ' +
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }

@@ -211,11 +211,9 @@ export default {
           })
 
           this.$store
-            .dispatch('mailjetContactList/delete', {
-              ID: data.ID,
-            })
+            .dispatch('mailjetContactList/delete', { ID: data.ID })
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res?.data.status.code === 204) {
                 this.getData()
 
                 this.$notifier.showMessage({
@@ -225,7 +223,7 @@ export default {
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete contact list failed. Error : ' +
+                    'Failed to delete contact list. Error: ' +
                     res?.data.data.message,
                   type: 'failed',
                 })

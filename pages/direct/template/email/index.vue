@@ -310,11 +310,22 @@ export default {
         this.$store
           .dispatch('emailTemplate/delete', { uuid: item.uuid })
           .then(() => {
-            this.getData()
-            this.$notifier.showMessage({
-              content: 'Template deleted successfully.',
-              type: 'success',
-            })
+            if (res?.data.status.code === 204) {
+              this.getData()
+
+              this.$notifier.showMessage({
+                content: 'Template deleted successfully.',
+                type: 'success',
+              })
+            } else {
+              this.$notifier.showMessage({
+                content:
+                  'Failed to delete template. Error: ' + res?.data.data.message,
+                type: 'failed',
+              })
+            }
+
+            this.$store.commit('user/SET_DROPDOWN', null)
           })
       })
     },

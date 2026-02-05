@@ -171,11 +171,9 @@ export default {
           })
 
           this.$store
-            .dispatch('mailjetCampaign/delete', {
-              ID: data.ID,
-            })
+            .dispatch('mailjetCampaign/delete', { ID: data.ID })
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res?.data.status.code === 204) {
                 this.getData()
 
                 this.$notifier.showMessage({
@@ -185,7 +183,8 @@ export default {
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete template failed. Error : ' + res?.data.data.message,
+                    'Failed to delete template. Error: ' +
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }

@@ -875,11 +875,9 @@ export default {
           })
 
           this.$store
-            .dispatch('campaign/delete', {
-              id: data.id,
-            })
+            .dispatch('campaign/delete', { id: data.id })
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res?.data.status.code === 204) {
                 this.getAll()
 
                 this.$notifier.showMessage({
@@ -889,7 +887,8 @@ export default {
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Delete campaign failed. Error : ' + res?.data.data.message,
+                    'Failed to delete campaign. Error: ' +
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }

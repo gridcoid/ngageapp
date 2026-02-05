@@ -1028,7 +1028,7 @@ export default {
           this.$store
             .dispatch('placement/delete', data)
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res?.data.status.code === 204) {
                 this.dialogDelete = false
                 this.getAll()
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
@@ -1048,7 +1048,8 @@ export default {
                 this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
                   content:
-                    'Delete campaign failed. Error : ' + res?.data.data.message,
+                    'Failed to delete campaign. Error: ' +
+                    res?.data.data.message,
                   type: 'failed',
                 })
                 clearInterval(sto)
@@ -1974,6 +1975,7 @@ export default {
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
         -webkit-box-orient: vertical;
       }
       .ellipsis-2line:hover {
