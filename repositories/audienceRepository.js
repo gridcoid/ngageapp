@@ -13,7 +13,7 @@ export default ($axios) => ({
   listBySegment(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
-      `${resource}/list-by-segment?orgId=${orgId}&uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+      `${resource}/by-segment?orgId=${orgId}&uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
     )
   },
 
@@ -61,7 +61,7 @@ export default ($axios) => ({
   removeFromSegment(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(
-      `${resource}/remove/${payload.audienceUuid}/segment/${payload.segmentUuid}?orgId=${orgId}`
+      `${resource}/${payload.audienceUuid}/segment/${payload.segmentUuid}?orgId=${orgId}`
     )
   },
 })
