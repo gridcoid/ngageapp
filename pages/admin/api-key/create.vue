@@ -277,7 +277,7 @@ export default {
         this.$store
           .dispatch('apiKey/create', this.data)
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 201) {
               const payload = res.data.data
 
               this.createdApiKey = payload.apiKey

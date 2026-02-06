@@ -151,7 +151,7 @@ export default {
         this.$store
           .dispatch('setting/create', this.data)
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 201) {
               this.$router.push({ path: '/admin/setting' })
 
               this.$notifier.showMessage({

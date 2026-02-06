@@ -1028,7 +1028,7 @@ export default {
           this.$store
             .dispatch('placement/delete', data)
             .then((res) => {
-              if (res?.data.status.code === 204) {
+              if (res.status === 204) {
                 this.dialogDelete = false
                 this.getAll()
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)

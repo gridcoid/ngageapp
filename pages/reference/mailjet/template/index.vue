@@ -197,7 +197,7 @@ export default {
           this.$store
             .dispatch('mailjetTemplate/delete', { ID: data.ID })
             .then((res) => {
-              if (res?.data.status.code === 204) {
+              if (res.status === 204) {
                 this.getData()
 
                 this.$notifier.showMessage({

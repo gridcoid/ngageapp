@@ -877,7 +877,7 @@ export default {
           this.$store
             .dispatch('campaign/delete', { id: data.id })
             .then((res) => {
-              if (res?.data.status.code === 204) {
+              if (res.status === 204) {
                 this.getAll()
 
                 this.$notifier.showMessage({
