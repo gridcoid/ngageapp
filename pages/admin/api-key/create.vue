@@ -77,7 +77,12 @@
 
           <!-- Scopes -->
           <el-form-item class="title-form" prop="scopes">
-            <label slot="label" class="title-form">Scopes<Req /></label>
+            <label
+              slot="label"
+              class="title-form"
+              style="font-size: 14px; color: #606266"
+              >Scopes/Segments<Req
+            /></label>
 
             <div
               v-for="(row, index) in scopeRows"
