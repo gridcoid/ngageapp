@@ -30,13 +30,6 @@ export const mutations = {
       state.totalPages = 0
     }
   },
-  SET_DATA_ALL(state, item) {
-    if (item !== null) {
-      state.dataList = item
-    } else {
-      state.dataList = []
-    }
-  },
   SET_DATA_CREATE(state, item) {
     if (item !== null) {
       state.dataCreate = item

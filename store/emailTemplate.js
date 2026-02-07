@@ -30,13 +30,6 @@ export const mutations = {
       state.totalPages = 0
     }
   },
-  SET_DATA_ALL(state, item) {
-    if (item !== null) {
-      state.dataList = item
-    } else {
-      state.dataList = []
-    }
-  },
   SET_DATA_CREATE(state, item) {
     if (item !== null) {
       state.dataCreate = item
@@ -79,10 +72,10 @@ export const actions = {
   async all({ commit }) {
     try {
       const response = await this.$repositories.emailTemplate.all()
-      commit('SET_DATA_ALL', response.data.data)
+      commit('SET_DATA_LIST', response.data.data)
       return response
     } catch (e) {
-      commit('SET_DATA_ALL', null)
+      commit('SET_DATA_LIST', null)
       console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + (e.response?.status || 'Unknown'),

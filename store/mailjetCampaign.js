@@ -14,7 +14,7 @@ export const mutations = {
   RESET(state) {
     Object.assign(state, initialState())
   },
-  SET_DATA_MAILJET_LIST(state, item) {
+  SET_DATA_LIST(state, item) {
     if (item !== null) {
       state.dataList = item.rows
       state.totalList = item.totalRows
@@ -36,10 +36,10 @@ export const actions = {
   async list({ commit }, payload) {
     try {
       const response = await this.$repositories.mailjetCampaign.list(payload)
-      commit('SET_DATA_MAILJET_LIST', response.data.data)
+      commit('SET_DATA_LIST', response.data.data)
       return response
     } catch (e) {
-      commit('SET_DATA_MAILJET_LIST', null)
+      commit('SET_DATA_LIST', null)
       console.error(e)
       this.$notifier.showMessage({
         content: 'Error status code: ' + (e.response?.status || 'Unknown'),
