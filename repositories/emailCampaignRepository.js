@@ -36,14 +36,14 @@ export default ($axios) => ({
   // email-campaign:duplicate
   duplicate(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}/${payload.uuid}/duplicate?orgId=${orgId}`)
+    return $axios.post(`${resource}/duplicate/${payload.uuid}?orgId=${orgId}`)
   },
 
   // email-campaign:test
   test(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(
-      `${resource}/${payload.uuid}/test?orgId=${orgId}`,
+      `${resource}/test/${payload.uuid}?orgId=${orgId}`,
       payload
     )
   },
@@ -52,7 +52,7 @@ export default ($axios) => ({
   schedule(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(
-      `${resource}/${payload.uuid}/schedule?orgId=${orgId}`,
+      `${resource}/schedule/${payload.uuid}?orgId=${orgId}`,
       payload
     )
   },
@@ -60,24 +60,24 @@ export default ($axios) => ({
   // email-campaign:cancelSchedule
   cancelSchedule(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.delete(`${resource}/${payload.uuid}/schedule?orgId=${orgId}`)
+    return $axios.delete(`${resource}/schedule/${payload.uuid}?orgId=${orgId}`)
   },
 
   // email-campaign:send
   send(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}/${payload.uuid}/send?orgId=${orgId}`)
+    return $axios.post(`${resource}/send/${payload.uuid}?orgId=${orgId}`)
   },
 
   // email-campaign:archive
   archive(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}/${payload.uuid}/archive?orgId=${orgId}`)
+    return $axios.post(`${resource}/archive/${payload.uuid}?orgId=${orgId}`)
   },
 
   // email-campaign:restore
   restore(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}/${payload.uuid}/restore?orgId=${orgId}`)
+    return $axios.post(`${resource}/restore/${payload.uuid}?orgId=${orgId}`)
   },
 })

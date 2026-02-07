@@ -42,6 +42,6 @@ export default ($axios) => ({
   // segment:duplicate
   duplicate(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}/duplicate?orgId=${orgId}`, payload)
+    return $axios.post(`${resource}/duplicate/${payload.uuid}?orgId=${orgId}`)
   },
 })

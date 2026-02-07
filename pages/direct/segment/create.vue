@@ -126,7 +126,7 @@ export default {
         this.$store
           .dispatch('segment/create', this.data)
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 201) {
               this.$router.push({ path: '/direct/segment' })
 
               this.$notifier.showMessage({
