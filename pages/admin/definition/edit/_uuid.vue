@@ -420,7 +420,7 @@ export default {
 
         this.$store
           .dispatch('definition/update', payload)
-          .then(() => {
+          .then((res) => {
             if (res.status === 200) {
               this.$notifier.showMessage({
                 content: 'Query updated successfully.',
