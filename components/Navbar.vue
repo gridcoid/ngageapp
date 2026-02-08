@@ -54,16 +54,6 @@
               <div class="title-1">Change Password</div>
             </div>
 
-            <div v-show="handleRole" class="btn-popover flex items-center">
-              <i class="ti ti-users ml-1" />
-              <div class="title-1">Manage User</div>
-            </div>
-
-            <div v-show="handleRole" class="btn-popover flex items-center">
-              <i class="ti ti-building-warehouse ml-1" />
-              <div class="title-1">Manage Organization</div>
-            </div>
-
             <div class="btn-popover flex items-center mb-2" @click="logout()">
               <i class="ti ti-logout ml-1 text-red-500" />
               <div class="title-1">

@@ -74,7 +74,7 @@
           </div>
 
           <div class="flex items-center filter-content justify-between">
-            <div class="status-filter flex items-center">
+            <div class="status-filter flex items-center mb-2">
               <div class="search-card">
                 <transition name="slide">
                   <div
@@ -111,7 +111,7 @@
               <ButtonDefault
                 icon="plus"
                 text="Create New"
-                class="mr-3"
+                class="mr-4"
                 @click.native="toCreate()"
               />
             </div>
@@ -185,7 +185,7 @@
                           @click="btnChangePassword(scope.row.id)"
                         >
                           <i class="ti ti-key text-gray-500"></i>
-                          <span class="ml-3">Change Password</span>
+                          <span class="ml-2 mr-4">Change</span>
                         </div>
                       </el-dropdown-item>
                       <el-dropdown-item>
@@ -196,7 +196,7 @@
                           "
                         >
                           <i class="ti ti-lock text-gray-500"></i>
-                          <span class="ml-3">{{
+                          <span class="ml-2 mr-4">{{
                             scope.row.isVerified ? 'Disable' : 'Enable'
                           }}</span>
                         </div>
@@ -207,7 +207,7 @@
                           @click="deleteUser(scope.row)"
                         >
                           <i class="ti ti-trash text-red-500"></i>
-                          <span class="ml-3">Delete</span>
+                          <span class="ml-2 mr-4">Delete</span>
                         </div>
                       </el-dropdown-item>
                     </el-dropdown-menu>
