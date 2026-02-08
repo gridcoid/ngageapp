@@ -364,9 +364,7 @@ export default {
           })
 
           this.$store
-            .dispatch('apiKey/delete', {
-              uuid: data.uuid,
-            })
+            .dispatch('apiKey/delete', { uuid: data.uuid })
             .then((res) => {
               if (res.status === 204) {
                 this.getData()

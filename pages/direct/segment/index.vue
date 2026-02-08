@@ -352,9 +352,7 @@ export default {
           })
 
           this.$store
-            .dispatch('segment/duplicate', {
-              uuid: data.uuid,
-            })
+            .dispatch('segment/duplicate', { uuid: data.uuid })
             .then((res) => {
               if (res.status === 201) {
                 this.getData()
@@ -392,9 +390,7 @@ export default {
           })
 
           this.$store
-            .dispatch('segment/delete', {
-              uuid: data.uuid,
-            })
+            .dispatch('segment/delete', { uuid: data.uuid })
             .then((res) => {
               if (res.status === 204) {
                 this.getData()

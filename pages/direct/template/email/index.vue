@@ -301,33 +301,38 @@ export default {
     deleteTemplate(item) {
       this.$confirm(`Delete template "${item.name}"?`, 'Confirmation', {
         type: 'warning',
-      }).then(() => {
-        this.$notifier.showMessage({
-          content: 'Deleting template...',
-          type: 'loading',
-        })
-
-        this.$store
-          .dispatch('emailTemplate/delete', { uuid: item.uuid })
-          .then(() => {
-            if (res.status === 204) {
-              this.getData()
-
-              this.$notifier.showMessage({
-                content: 'Template deleted successfully.',
-                type: 'success',
-              })
-            } else {
-              this.$notifier.showMessage({
-                content:
-                  'Failed to delete template. Error: ' + res?.data.data.message,
-                type: 'failed',
-              })
-            }
-
-            this.$store.commit('user/SET_DROPDOWN', null)
-          })
       })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Deleting template...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('emailTemplate/delete', { uuid: item.uuid })
+            .then((res) => {
+              if (res.status === 204) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Template deleted successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Failed to delete template. Error: ' +
+                    res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
   },
 }

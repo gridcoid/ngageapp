@@ -354,9 +354,7 @@ export default {
           })
 
           this.$store
-            .dispatch('audience/delete', {
-              uuid: data.uuid,
-            })
+            .dispatch('audience/delete', { uuid: data.uuid })
             .then((res) => {
               if (res.status === 204) {
                 this.getData()

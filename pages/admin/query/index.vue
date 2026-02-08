@@ -404,9 +404,7 @@ export default {
           })
 
           this.$store
-            .dispatch('query/delete', {
-              uuid: data.uuid,
-            })
+            .dispatch('query/delete', { uuid: data.uuid })
             .then((res) => {
               if (res.status === 204) {
                 this.getData()
