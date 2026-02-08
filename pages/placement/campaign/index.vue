@@ -1030,7 +1030,7 @@ export default {
           this.$store
             .dispatch('campaign/changeStatus', data)
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res.status === 200) {
                 this.getAll()
                 this.$notifier.showMessage({
                   content: 'Campaign status changed successfully.',
@@ -1083,7 +1083,7 @@ export default {
           this.$store
             .dispatch('campaign/duplicate', data)
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res.status === 200) {
                 this.getAll()
                 this.$notifier.showMessage({
                   content: 'Campaign duplicated successfully.',

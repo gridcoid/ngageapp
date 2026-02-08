@@ -423,7 +423,7 @@ export default {
               id: data.id,
             })
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res.status === 204) {
                 this.getDataAll()
 
                 this.$notifier.showMessage({

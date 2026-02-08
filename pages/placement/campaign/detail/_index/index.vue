@@ -939,7 +939,7 @@ export default {
           id,
         })
         .then((res) => {
-          if (res?.data.status.code === 200) {
+          if (res.status === 200) {
             if (res?.data.data.length === 0) {
               this.dataScript = ''
               this.dialogScript = true
@@ -972,7 +972,7 @@ export default {
           this.$store
             .dispatch('placement/duplicate', data)
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res.status === 200) {
                 this.getAll()
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
@@ -1093,7 +1093,7 @@ export default {
           this.$store
             .dispatch('campaign/changeStatus', data)
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res.status === 200) {
                 if (!res?.data.data.isActive) {
                   this.$notifier.showMessage({
                     content: 'Campaign status enabled.',
