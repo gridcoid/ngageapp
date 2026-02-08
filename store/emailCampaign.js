@@ -29,9 +29,7 @@ export const mutations = {
   SET_DATA_LIST(state, item) {
     if (item !== null) {
       state.dataList = item.rows
-      state.totalList = Array.isArray(item.totalRows)
-        ? item.totalRows.length
-        : item.totalRows
+      state.totalList = item.totalRows
       state.totalPages = item.totalPages
     } else {
       state.dataList = []
