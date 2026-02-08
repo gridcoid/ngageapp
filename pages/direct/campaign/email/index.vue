@@ -928,7 +928,7 @@ export default {
         this.$store
           .dispatch('emailCampaign/test', this.testForm)
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 202) {
               this.$notifier.showMessage({
                 content: 'Test email sent successfully.',
                 type: 'success',
@@ -997,7 +997,7 @@ export default {
         this.$store
           .dispatch('emailCampaign/schedule', payload)
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 202) {
               this.activeStatus = 'scheduled'
               this.getData()
 
@@ -1050,7 +1050,7 @@ export default {
               uuid: item.uuid,
             })
             .then((res) => {
-              if (res.status === 200) {
+              if (res.status === 204) {
                 this.activeStatus = 'draft'
                 this.getData()
 
@@ -1164,7 +1164,7 @@ export default {
               uuid: item.uuid,
             })
             .then((res) => {
-              if (res.status === 200) {
+              if (res.status === 204) {
                 this.activeStatus = 'archived'
                 this.getData()
 
