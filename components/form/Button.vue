@@ -660,7 +660,7 @@ export default {
       this.color = this.editor.getAttributes('textStyle').color
 
       this.color = this.editor.getAttributes('textStyle').color
-      if (!this.color.includes('#')) {
+      if (!this.color?.includes('#')) {
         this.color = this.rgb2hex(this.color)
       }
       this.opacity = this.editor.getAttributes('textStyle').fontSize2 * 100
@@ -668,7 +668,7 @@ export default {
       this.isLoading = false
     },
     rgb2hex(rgb) {
-      rgb = rgb.match(
+      rgb = rgb?.match(
         /^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i
       )
       return rgb && rgb.length === 4

@@ -9,7 +9,6 @@
       <div class="flex items-center made-in">
         Made with
         <img :src="logo" alt="n-gage" class="logo-unimind" />
-        />
       </div>
       <div class="flex items-center">
         <div

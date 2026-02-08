@@ -91,7 +91,7 @@ export default {
     },
 
     rgb2hex(rgb) {
-      rgb = rgb.match(
+      rgb = rgb?.match(
         /^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i
       )
       return rgb && rgb.length === 4
@@ -115,7 +115,7 @@ export default {
       this.color = this.defaultData.default.split(/[;]/)[0]
       this.color = this.color.substring(this.color.indexOf(':') + 1)
 
-      if (!this.color.includes('#')) {
+      if (!this.color?.includes('#')) {
         this.color = this.rgb2hex(this.color)
       }
       this.opacity = this.defaultData.default.split(/[;]/)[1]

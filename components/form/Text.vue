@@ -658,7 +658,7 @@ export default {
         }
       }
       this.color = this.editor.getAttributes('textStyle').color
-      if (!this.color.includes('#')) {
+      if (!this.color?.includes('#')) {
         this.color = this.rgb2hex(this.color)
       }
       if (this.editor.getAttributes('textStyle').fontSize2 === '') {
@@ -672,7 +672,7 @@ export default {
       this.editor.commands.setFontSize(this.value2)
     },
     rgb2hex(rgb) {
-      rgb = rgb.match(
+      rgb = rgb?.match(
         /^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i
       )
       return rgb && rgb.length === 4
