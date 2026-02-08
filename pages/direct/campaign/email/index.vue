@@ -1164,7 +1164,7 @@ export default {
               uuid: item.uuid,
             })
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res.status === 200) {
                 this.activeStatus = 'archived'
                 this.getData()
 
@@ -1219,7 +1219,7 @@ export default {
               uuid: item.uuid,
             })
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res.status === 200) {
                 const prevStatus = res?.data?.data?.prevStatus
 
                 if (prevStatus == 2) {

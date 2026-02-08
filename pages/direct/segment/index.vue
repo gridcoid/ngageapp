@@ -356,7 +356,7 @@ export default {
               uuid: data.uuid,
             })
             .then((res) => {
-              if (res?.data.status.code === 201) {
+              if (res.status === 201) {
                 this.getData()
 
                 this.$notifier.showMessage({
