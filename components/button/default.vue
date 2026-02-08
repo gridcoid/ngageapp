@@ -1,5 +1,6 @@
 <template>
   <div class="flex items-center justify-center btn-back no-select">
+    <IconChart v-if="icon === 'chart'" />
     <IconEyes v-if="icon === 'view'" />
     <IconLeft v-if="icon === 'prev'" />
     <IconEdit v-if="icon === 'edit'" />

@@ -20,6 +20,14 @@
           type="secondary"
           @click.native="toEdit()"
         />
+
+        <ButtonDefault
+          icon="chart"
+          text="Download Report"
+          class="ml-2"
+          type="primary"
+          @click.native="downloadReport()"
+        />
       </div>
 
       <div class="p-6">
@@ -401,6 +409,31 @@ export default {
       this.$router.push({
         path: '/direct/campaign/email/edit/' + this.$route.params.uuid,
       })
+    },
+
+    async downloadReport() {
+      try {
+        const orgId = window.$nuxt.$store.state.user.orgId
+
+        const response = await this.$axios.get(
+          `/email-campaign/download-report/${this.$route.params.uuid}`,
+          {
+            params: { orgId },
+            responseType: 'blob',
+          }
+        )
+
+        const blob = new Blob([response.data], {
+          type: 'application/pdf',
+        })
+
+        const link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = `campaign-report-${this.data.uuid}.pdf`
+        link.click()
+      } catch (err) {
+        console.error(err)
+      }
     },
   },
 
