@@ -236,7 +236,7 @@
                     @click="deleteAudience(scope.row)"
                   >
                     <i class="ti ti-trash text-red-500"></i>
-                    <span class="ml-3">Delete</span>
+                    <span class="ml-3">Remove</span>
                   </div>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -398,7 +398,7 @@ export default {
               segmentUuid: this.$route.params.uuid,
             })
             .then((res) => {
-              if (res?.data.status.code === 200) {
+              if (res?.data.status.code === 204) {
                 this.getData()
 
                 this.$notifier.showMessage({
