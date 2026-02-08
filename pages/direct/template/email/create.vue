@@ -238,7 +238,7 @@ This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LIN
         this.$store
           .dispatch('emailTemplate/create', { ...this.data })
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 201) {
               this.$router.push({ path: '/direct/template/email' })
 
               this.$notifier.showMessage({
