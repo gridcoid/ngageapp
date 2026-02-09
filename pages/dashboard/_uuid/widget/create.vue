@@ -147,6 +147,8 @@ export default {
 
         this.isLoading = true
 
+        if (!this.isGroupedDefinition) this.data.type = 'number'
+
         this.$store
           .dispatch('dashboard/addWidget', {
             uuid: this.$route.params.uuid,
