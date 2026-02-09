@@ -84,21 +84,6 @@ export const actions = {
     }
   },
 
-  // dashboard:update (widgets)
-  async updateWidgets({ commit, state }, widgets) {
-    commit('UPDATE_WIDGETS', widgets)
-
-    try {
-      const response = await this.$repositories.dashboard.updateWidgets({
-        uuid: state.dataList.uuid,
-        config: state.dataList.config,
-      })
-      return response
-    } catch (e) {
-      console.error(e)
-    }
-  },
-
   // dashboard:select (widget)
   select({ commit }, widget) {
     commit('SELECT_WIDGET', widget)
@@ -113,6 +98,21 @@ export const actions = {
         uuid: payload.uuid,
         widgetUuid: payload.widgetUuid,
         widget: payload.widget,
+      })
+      return response
+    } catch (e) {
+      console.error(e)
+    }
+  },
+
+  // dashboard:update (widgets)
+  async updateWidgets({ commit, state }, widgets) {
+    commit('UPDATE_WIDGETS', widgets)
+
+    try {
+      const response = await this.$repositories.dashboard.updateWidgets({
+        uuid: state.dataList.uuid,
+        config: state.dataList.config,
       })
       return response
     } catch (e) {

@@ -152,14 +152,10 @@ export default {
             uuid: this.$route.params.uuid,
             widget: {
               ...this.data,
-              x: 0, // full width default
-              y: 0,
-              w: 1, // grid width full
-              h: 1, // default height
             },
           })
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 201) {
               this.$router.push({ path: '/' }) // dashboard
 
               this.$notifier.showMessage({

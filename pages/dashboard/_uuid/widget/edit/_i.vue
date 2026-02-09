@@ -195,7 +195,7 @@ export default {
             },
           })
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 204) {
               this.$router.push({ path: '/' }) // dashboard
 
               this.$notifier.showMessage({

@@ -15,15 +15,6 @@ export default ($axios) => ({
     })
   },
 
-  // dashboard:update (widgets)
-  updateWidgets(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.patch(
-      `${resource}/${payload.uuid}/widgets?orgId=${orgId}`,
-      payload
-    )
-  },
-
   // dashboard:update (widget)
   updateWidget(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
@@ -32,6 +23,15 @@ export default ($axios) => ({
       {
         widget: payload.widget,
       }
+    )
+  },
+
+  // dashboard:update (widgets)
+  updateWidgets(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.patch(
+      `${resource}/${payload.uuid}/widgets?orgId=${orgId}`,
+      payload
     )
   },
 })
