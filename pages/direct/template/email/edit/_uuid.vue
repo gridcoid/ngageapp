@@ -194,6 +194,7 @@ export default {
       },
 
       predefinedTags: [
+        '[[DATA:NAME]]',
         '[[UNSUB_LINK_EN]]',
         '[[EMAIL_TO]]',
         '[[PERMALINK]]',

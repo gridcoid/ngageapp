@@ -211,6 +211,7 @@ This e-mail has been sent to [[EMAIL_TO]], click here to unsubscribe [[UNSUB_LIN
       },
 
       predefinedTags: [
+        '[[DATA:NAME]]',
         '[[UNSUB_LINK_EN]]',
         '[[EMAIL_TO]]',
         '[[PERMALINK]]',
