@@ -139,14 +139,14 @@
                 >
                   {{ scope.row.name }}
                 </div>
-
-                <div class="k-subtitle">
+                <!-- drop info age, requested by endah -->
+                <!-- <div class="k-subtitle">
                   {{
                     scope.row.yearOfBirth
                       ? 'Age: ' + calcAge(scope.row.yearOfBirth)
                       : '-'
                   }}
-                </div>
+                </div> -->
               </div>
             </div>
           </template>
