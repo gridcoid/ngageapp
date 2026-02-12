@@ -339,19 +339,23 @@ export default {
     },
 
     async save() {
+      let nameIsExist = false
       let emailIsExist = false
 
       Object.keys(this.value).forEach((key) => {
-        if (this.value[key].target == 'AudienceContact.email') {
+        if (this.value[key].target === 'AudienceContact.name')
+          nameIsExist = true
+
+        if (this.value[key].target === 'AudienceContact.email')
           emailIsExist = true
-        }
       })
 
-      if (!emailIsExist) {
+      if (!nameIsExist || !emailIsExist) {
         this.$notifier.showMessage({
-          content: 'Email column is required',
+          content: 'Name and Email column is required',
           type: 'failed',
         })
+
         return
       }
 
