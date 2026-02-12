@@ -217,8 +217,7 @@ export default {
       let emailIsExist = false
 
       Object.keys(this.value).forEach((key) => {
-        if (this.value[key].target === 'AudienceContact.name')
-          nameIsExist = true
+        if (this.value[key].target === 'Audience.name') nameIsExist = true
 
         if (this.value[key].target === 'AudienceContact.email')
           emailIsExist = true
