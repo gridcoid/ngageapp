@@ -339,6 +339,22 @@ export default {
     },
 
     async save() {
+      let emailIsExist = false
+
+      Object.keys(this.value).forEach((key) => {
+        if (this.value[key].target == 'AudienceContact.email') {
+          emailIsExist = true
+        }
+      })
+
+      if (!emailIsExist) {
+        this.$notifier.showMessage({
+          content: 'Email column is required',
+          type: 'failed',
+        })
+        return
+      }
+
       await this.$store.dispatch('json/import', {
         uuid: this.$route.params.uuid,
         config: this.data,
