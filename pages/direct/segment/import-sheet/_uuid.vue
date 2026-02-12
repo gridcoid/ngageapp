@@ -226,7 +226,7 @@ export default {
 
       if (!nameIsExist || !emailIsExist) {
         this.$notifier.showMessage({
-          content: 'Name and Email column is required',
+          content: 'Name and Email columns are required',
           type: 'failed',
         })
 
