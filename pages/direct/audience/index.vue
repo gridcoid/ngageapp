@@ -342,11 +342,17 @@ export default {
     },
 
     deleteAudience(data) {
-      this.$confirm(`Delete contact "${data.name}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'warning',
-      })
+      this.$confirm(
+        `Delete contact "${
+          data.name || data.contacts.find((item) => item.typeId === 1)?.value
+        }"?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+        }
+      )
         .then(() => {
           this.$notifier.showMessage({
             content: 'Deleting audience...',
