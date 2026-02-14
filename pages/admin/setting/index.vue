@@ -337,7 +337,7 @@ export default {
       this.dialog = !this.dialog
     },
     deleteSetting(data) {
-      if (data.key === 'mailjet_key' || data.key === 'mailjet_secret') {
+      if (data.key.startsWith('mailjet_')) {
         this.$notifier.showMessage({
           content: 'You cannot delete this setting.',
           type: 'error',
