@@ -122,7 +122,7 @@
                 <div
                   class="k-title whitespace-nowrap overflow-hidden overflow-ellipsis w-60 text-blue-500"
                 >
-                  {{ scope.row.name }}
+                  {{ scope.row.name || '-' }}
                 </div>
                 <!-- drop info age, requested by endah -->
                 <!-- <div class="k-subtitle">

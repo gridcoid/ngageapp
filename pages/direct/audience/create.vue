@@ -22,7 +22,7 @@
         >
           <!-- Name -->
           <el-form-item class="title-form" prop="name">
-            <label slot="label" class="title-form">Name<Req /></label>
+            <label slot="label" class="title-form">Name</label>
             <el-input
               v-model="data.name"
               @blur="data.name = data.name?.trim()"
@@ -513,13 +513,6 @@ export default {
         // NAME — required
         name: [
           {
-            required: true,
-            message: 'Audience Name is required',
-            trigger: 'blur',
-            transform: (v) => (v ? v.trim() : v),
-          },
-          {
-            min: 1,
             max: 50,
             message: 'Max 50 characters',
             trigger: 'blur',
@@ -628,7 +621,13 @@ export default {
         additionalInfo: null,
         segmentIds: [],
       },
-      contactsList: [],
+      contactsList: [
+        {
+          typeId: 1,
+          value: '',
+          label: '',
+        },
+      ],
       additionalInfoList: [],
       segmentsList: [],
     }
