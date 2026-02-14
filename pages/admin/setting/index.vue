@@ -78,7 +78,7 @@
         <el-table-column label="" width="10" />
 
         <!-- key -->
-        <el-table-column label="Key" sortable width="200">
+        <el-table-column label="Key" sortable width="300">
           <template slot-scope="scope">
             <div
               class="font-cabin font-mono text-sm text-gray-700 cursor-pointer"
