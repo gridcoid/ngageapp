@@ -214,7 +214,7 @@
           @click="toCreate"
         >
           <IconPlus bg-color="#1B63D4" />
-          <div class="name-btn">Create New Api Key</div>
+          <div class="name-btn">Create New API Key</div>
         </button>
         <button
           class="flex items-center justify-center save-btn no-select"

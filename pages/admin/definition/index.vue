@@ -210,9 +210,12 @@
       <div class="title-1 mt-2">No records found.</div>
       <div class="subtitle-1">You haven’t created any definition yet.</div>
       <div class="flex mt-4">
-        <button class="save-btn" @click="toCreate">
+        <button
+          class="flex items-center justify-center save-btn no-select"
+          @click="toCreate"
+        >
           <IconPlus bg-color="#1B63D4" />
-          <div class="name-btn">Create New Query</div>
+          <div class="name-btn">Create New Setting</div>
         </button>
       </div>
     </div>
