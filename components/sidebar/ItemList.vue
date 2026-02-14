@@ -195,20 +195,20 @@ export default {
             icon: 'ti ti-adjustments',
             children: [
               {
-                path: '/admin/definition',
-                name: 'Query Management',
-                type: 'single',
-                icon: 'ti ti-code',
-              },
-              {
                 path: '/admin/api-key',
-                name: 'API Key Management',
+                name: 'API Key',
                 type: 'single',
                 icon: 'ti ti-key',
               },
               {
+                path: '/admin/definition',
+                name: 'Widget Settings',
+                type: 'single',
+                icon: 'ti ti-code',
+              },
+              {
                 path: '/admin/setting',
-                name: 'Settings',
+                name: 'General Settings',
                 type: 'single',
                 icon: 'ti ti-settings',
               },

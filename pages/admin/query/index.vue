@@ -321,7 +321,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Query Management - ' + this.$config.appName,
+      title: 'Widget Settings - ' + this.$config.appName,
     }
   },
   data() {
