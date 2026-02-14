@@ -13,17 +13,11 @@
       <div class="flex">
         <ButtonDefault
           icon="plus"
-          text="Import XLS"
+          text="Attach Selected"
           class="ml-4"
-          type="secondary"
-          @click.native="toImport('sheet')"
-        />
-        <ButtonDefault
-          icon="plus"
-          text="Import JSON"
-          class="ml-4"
-          type="secondary"
-          @click.native="toImport('json')"
+          type="primary"
+          :disabled="selectedAudiences.length === 0"
+          @click.native="attachSelected"
         />
       </div>
     </div>
@@ -83,6 +77,10 @@
     </div>
 
     <div class="body-content">
+      <div v-if="selectedAudiences.length" class="mb-3 text-blue-600">
+        {{ selectedAudiences.length }} selected
+      </div>
+
       <!-- TABLE -->
       <el-table
         v-if="tableVisible"
@@ -94,6 +92,8 @@
         stripe
         :data="dataAudiences"
         class="k-table"
+        ref="multipleTable"
+        @selection-change="handleSelectionChange"
       >
         <!-- EMPTY STATE -->
         <template slot="empty">
@@ -101,30 +101,15 @@
             <img src="~/assets/images/empty_table.png" width="150" />
             <div class="title-1">No records found.</div>
             <div class="subtitle-1">
-              Seems like you haven’t created any audience yet. Create one now?
-            </div>
-
-            <div class="flex items-center">
-              <button
-                class="flex items-center justify-center save-btn no-select"
-                @click="toImport('sheet')"
-              >
-                <IconPlus bg-color="#1B63D4" />
-                <div class="name-btn">Import XLS</div>
-              </button>
-              <button
-                class="flex items-center justify-center save-btn no-select"
-                @click="toImport('json')"
-              >
-                <IconPlus bg-color="#1B63D4" />
-                <div class="name-btn">Import JSON</div>
-              </button>
+              Seems like you haven’t created any audience yet.
             </div>
           </div>
         </template>
 
         <!-- padding -->
         <el-table-column label="" width="10" />
+
+        <el-table-column type="selection" width="55" />
 
         <!-- NAME -->
         <el-table-column label="Name" prop="name" sortable>
@@ -315,6 +300,8 @@ export default {
       isLoading: false,
       rowPage: 7,
       dialog: false,
+
+      selectedAudiences: [],
     }
   },
   computed: {
@@ -358,12 +345,6 @@ export default {
       this.$store
         .dispatch('audience/listInSegment', params)
         .finally(() => (this.isLoading = false))
-    },
-
-    toImport(type) {
-      this.$router.push({
-        path: '/direct/segment/import-' + type + '/' + this.$route.params.uuid,
-      })
     },
 
     searchAudience() {
@@ -461,6 +442,54 @@ export default {
       const lines = [line1, line2].filter(Boolean)
 
       return lines.length ? lines.join('<br />') : ''
+    },
+
+    handleSelectionChange(val) {
+      this.selectedAudiences = val
+    },
+
+    attachSelected() {
+      if (!this.selectedAudiences.length) return
+
+      this.$confirm(
+        `Attach ${this.selectedAudiences.length} audience(s) to "${this.data.name}"?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'Attach',
+          cancelButtonText: 'Cancel',
+          type: 'info',
+        }
+      ).then(() => {
+        this.$notifier.showMessage({
+          content: 'Attaching audiences...',
+          type: 'loading',
+        })
+
+        const payload = {
+          segmentUuid: this.$route.params.uuid,
+          audienceUuids: this.selectedAudiences.map((a) => a.uuid),
+        }
+
+        this.$store
+          .dispatch('audience/attachToSegmentBulk', payload)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$notifier.showMessage({
+                content: 'Audiences attached successfully.',
+                type: 'success',
+              })
+
+              this.selectedAudiences = []
+              this.$refs.multipleTable.clearSelection()
+              this.getData()
+            } else {
+              this.$notifier.showMessage({
+                content: 'Attach failed.',
+                type: 'failed',
+              })
+            }
+          })
+      })
     },
   },
   watch: {

@@ -9,11 +9,19 @@ export default ($axios) => ({
     )
   },
 
-  // audience:listBySegment
-  listBySegment(payload) {
+  // audience:listInSegment
+  listInSegment(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(
-      `${resource}/by-segment?orgId=${orgId}&uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+      `${resource}/in-segment?orgId=${orgId}&uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+    )
+  },
+
+  // audience:listNotInSegment
+  listNotInSegment(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.get(
+      `${resource}/not-in-segment?orgId=${orgId}&uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
     )
   },
 
