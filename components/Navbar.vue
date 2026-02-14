@@ -16,7 +16,7 @@
 
       <div class="py-4 flex items-center">
         <SwitchOrganization />
-        <div
+        <!-- <div
           v-show="handleRole"
           class="btn-icon"
           @mouseover="iconSurvey = true"
@@ -27,7 +27,7 @@
         <i
           v-show="handleRole"
           class="btn-icon ti ti-bell text-2xl text-blue-300"
-        />
+        /> -->
         <el-popover
           placement="bottom"
           width="250"

@@ -134,7 +134,7 @@ export default {
   }
 }
 .switch-org {
-  margin-right: 18px;
+  margin-right: 15px;
   .title-select {
     margin-right: 10px;
     font-family: 'Cabin';
