@@ -4,7 +4,7 @@
     <div class="flex items-center header-content">
       <div class="title-header">
         <i class="ti ti-layout-dashboard text-gray-400 mr-2"></i>
-        Query (Definition) Management
+        Widget Settings
       </div>
       <div class="flex">
         <ButtonDefault
@@ -79,10 +79,7 @@
         <!-- name & description -->
         <el-table-column label="Name" sortable>
           <template slot-scope="scope">
-            <div
-              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
-              @click="viewDetail(scope.row)"
-            >
+            <div class="font-cabin font-semibold text-sm text-gray-700">
               {{ scope.row.name }}
             </div>
             <div
@@ -159,13 +156,10 @@
               <div
                 class="dropdown-btn noselect flex items-center justify-between mr-6"
               >
-                <div
-                  class="flex card-dropdown items-center"
-                  @click.stop="viewDetail(scope.row)"
-                >
+                <div class="flex card-dropdown items-center">
                   <i class="ti ti-eye mr-3" style="color: #1b63d4" />
                   <div class="title-dropdown" style="color: #1b63d4">
-                    Detail
+                    Options
                   </div>
                 </div>
 
