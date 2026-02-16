@@ -7,10 +7,17 @@
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-users text-gray-500 mr-2" /> Audience for
+        <i class="ti ti-users text-gray-500 mr-2" /> Audience list for
         {{ data?.name }}
       </div>
-      <div class="flex">
+      <div class="flex" v-if="selectedAudiences.length === 0">
+        <ButtonDefault
+          icon="plus"
+          text="Add Audience"
+          class="ml-4"
+          type="secondary"
+          @click.native="toSelect()"
+        />
         <ButtonDefault
           icon="plus"
           text="Import XLS"
@@ -26,12 +33,21 @@
           @click.native="toImport('json')"
         />
       </div>
+      <div class="flex" v-else>
+        <ButtonDefault
+          icon="delete"
+          text="Remove Selected"
+          class="ml-4"
+          type="secondary"
+          @click.native="removeSelected()"
+        />
+      </div>
     </div>
 
     <!-- Filters -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        {{ data?.description }}
+        <!-- {{ data?.description }} -->
       </div>
 
       <div class="flex items-center">
@@ -94,6 +110,8 @@
         stripe
         :data="dataAudiences"
         class="k-table"
+        ref="multipleTable"
+        @selection-change="handleSelectionChange"
       >
         <!-- EMPTY STATE -->
         <template slot="empty">
@@ -105,6 +123,13 @@
             </div>
 
             <div class="flex items-center">
+              <button
+                class="flex items-center justify-center save-btn no-select"
+                @click="toSelect()"
+              >
+                <IconPlus bg-color="#1B63D4" />
+                <div class="name-btn">Add Audience</div>
+              </button>
               <button
                 class="flex items-center justify-center save-btn no-select"
                 @click="toImport('sheet')"
@@ -125,6 +150,8 @@
 
         <!-- padding -->
         <el-table-column label="" width="10" />
+
+        <el-table-column type="selection" width="55" />
 
         <!-- NAME -->
         <el-table-column label="Name" prop="name" sortable>
@@ -315,6 +342,8 @@ export default {
       isLoading: false,
       rowPage: 7,
       dialog: false,
+
+      selectedAudiences: [],
     }
   },
   computed: {
@@ -360,6 +389,12 @@ export default {
         .finally(() => (this.isLoading = false))
     },
 
+    toSelect() {
+      this.$router.push({
+        path: '/direct/segment/select/' + this.$route.params.uuid,
+      })
+    },
+
     toImport(type) {
       this.$router.push({
         path: '/direct/segment/import-' + type + '/' + this.$route.params.uuid,
@@ -378,7 +413,9 @@ export default {
 
     deleteAudience(row) {
       this.$confirm(
-        `Remove "${row.name}" from "${this.data.name}"?`,
+        `Remove "${
+          row.name || row.contacts.find((item) => item.typeId === 1)?.value
+        }" from "${this.data.name}"?`,
         'Confirmation',
         {
           confirmButtonText: 'OK',
@@ -436,11 +473,7 @@ export default {
 
     viewDetail(item) {
       this.$router.push({
-        path:
-          '/direct/segment/' +
-          this.$route.params.uuid +
-          '/audience/detail/' +
-          item.uuid,
+        path: '/direct/audience/detail/' + item.uuid,
       })
     },
 
@@ -461,6 +494,54 @@ export default {
       const lines = [line1, line2].filter(Boolean)
 
       return lines.length ? lines.join('<br />') : ''
+    },
+
+    handleSelectionChange(val) {
+      this.selectedAudiences = val
+    },
+
+    removeSelected() {
+      if (!this.selectedAudiences.length) return
+
+      this.$confirm(
+        `Remove ${this.selectedAudiences.length} audience from "${this.data.name}"?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'Remove',
+          cancelButtonText: 'Cancel',
+          type: 'info',
+        }
+      ).then(() => {
+        this.$notifier.showMessage({
+          content: 'Removing audiences...',
+          type: 'loading',
+        })
+
+        const payload = {
+          segmentUuid: this.$route.params.uuid,
+          audienceUuids: this.selectedAudiences.map((a) => a.uuid),
+        }
+
+        this.$store
+          .dispatch('audience/removeFromSegmentBulk', payload)
+          .then((res) => {
+            if (res.status === 204) {
+              this.$notifier.showMessage({
+                content: 'Audience removed successfully.',
+                type: 'success',
+              })
+
+              this.selectedAudiences = []
+              this.$refs.multipleTable.clearSelection()
+              this.getData()
+            } else {
+              this.$notifier.showMessage({
+                content: 'Remove failed.',
+                type: 'failed',
+              })
+            }
+          })
+      })
     },
   },
   watch: {

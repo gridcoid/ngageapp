@@ -7,25 +7,26 @@
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-users text-gray-500 mr-2" /> Audience for
+        <i class="ti ti-users text-gray-500 mr-2" /> Select audience for
         {{ data?.name }}
       </div>
-      <div class="flex">
+      <div class="flex" v-if="selectedAudiences.length > 0">
         <ButtonDefault
           icon="plus"
-          text="Attach Selected"
+          text="Add Selected Audience"
           class="ml-4"
-          type="primary"
+          type="secondary"
           :disabled="selectedAudiences.length === 0"
-          @click.native="attachSelected"
+          @click.native="addSelected"
         />
       </div>
+      <div class="flex" v-else>&nbsp;</div>
     </div>
 
     <!-- Filters -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        {{ data?.description }}
+        <!-- {{ data?.description }} -->
       </div>
 
       <div class="flex items-center">
@@ -218,10 +219,10 @@
                 <el-dropdown-item class="border-t border-gray-300">
                   <div
                     class="item-menu flex items-center"
-                    @click="deleteAudience(scope.row)"
+                    @click="addAudience(scope.row)"
                   >
-                    <i class="ti ti-trash text-red-500"></i>
-                    <span class="ml-2">Remove</span>
+                    <i class="ti ti-plus text-green-500"></i>
+                    <span class="ml-2">Add</span>
                   </div>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -357,9 +358,11 @@ export default {
       this.dialog = !this.dialog
     },
 
-    deleteAudience(row) {
+    addAudience(row) {
       this.$confirm(
-        `Remove "${row.name}" from "${this.data.name}"?`,
+        `Add "${
+          row.name || row.contacts.find((item) => item.typeId === 1)?.value
+        }" to "${this.data.name}"?`,
         'Confirmation',
         {
           confirmButtonText: 'OK',
@@ -369,12 +372,12 @@ export default {
       )
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Removing audience...',
+            content: 'Adding audience...',
             type: 'loading',
           })
 
           this.$store
-            .dispatch('audience/removeFromSegment', {
+            .dispatch('audience/addToSegment', {
               audienceUuid: row.uuid,
               segmentUuid: this.$route.params.uuid,
             })
@@ -383,13 +386,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Audience removed successfully.',
+                  content: 'Audience added successfully.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Remove audience failed. Error : ' + res?.data.data.message,
+                    'Add audience failed. Error : ' + res?.data.data.message,
                   type: 'failed',
                 })
               }
@@ -417,11 +420,7 @@ export default {
 
     viewDetail(item) {
       this.$router.push({
-        path:
-          '/direct/segment/' +
-          this.$route.params.uuid +
-          '/audience/detail/' +
-          item.uuid,
+        path: '/direct/audience/detail/' + item.uuid,
       })
     },
 
@@ -448,20 +447,20 @@ export default {
       this.selectedAudiences = val
     },
 
-    attachSelected() {
+    addSelected() {
       if (!this.selectedAudiences.length) return
 
       this.$confirm(
-        `Attach ${this.selectedAudiences.length} audience(s) to "${this.data.name}"?`,
+        `Add ${this.selectedAudiences.length} audience to "${this.data.name}"?`,
         'Confirmation',
         {
-          confirmButtonText: 'Attach',
+          confirmButtonText: 'Add',
           cancelButtonText: 'Cancel',
           type: 'info',
         }
       ).then(() => {
         this.$notifier.showMessage({
-          content: 'Attaching audiences...',
+          content: 'Adding audiences...',
           type: 'loading',
         })
 
@@ -471,11 +470,11 @@ export default {
         }
 
         this.$store
-          .dispatch('audience/attachToSegmentBulk', payload)
+          .dispatch('audience/addToSegmentBulk', payload)
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 204) {
               this.$notifier.showMessage({
-                content: 'Audience attached successfully.',
+                content: 'Audience added successfully.',
                 type: 'success',
               })
 
@@ -484,7 +483,7 @@ export default {
               this.getData()
             } else {
               this.$notifier.showMessage({
-                content: 'Attach failed.',
+                content: 'Add failed.',
                 type: 'failed',
               })
             }

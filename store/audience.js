@@ -168,10 +168,59 @@ export const actions = {
     }
   },
 
+  // audience:addToSegment
+  async addToSegment({ commit }, payload) {
+    try {
+      const response = await this.$repositories.audience.addToSegment(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // audience:addToSegmentBulk
+  async addToSegmentBulk({ commit }, payload) {
+    try {
+      const response = await this.$repositories.audience.addToSegmentBulk(
+        payload
+      )
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
   // audience:removeFromSegment
   async removeFromSegment({ commit }, payload) {
     try {
       const response = await this.$repositories.audience.removeFromSegment(
+        payload
+      )
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // audience:removeFromSegmentBulk
+  async removeFromSegmentBulk({ commit }, payload) {
+    try {
+      const response = await this.$repositories.audience.removeFromSegmentBulk(
         payload
       )
       return response

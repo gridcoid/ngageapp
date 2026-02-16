@@ -65,11 +65,37 @@ export default ($axios) => ({
     return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
+  // audience:addToSegment
+  addToSegment(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(
+      `${resource}/${payload.audienceUuid}/segment/${payload.segmentUuid}?orgId=${orgId}`
+    )
+  },
+
+  // audience:addToSegmentBulk
+  addToSegmentBulk(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(
+      `${resource}/segment/${payload.segmentUuid}?orgId=${orgId}`,
+      payload
+    )
+  },
+
   // audience:removeFromSegment
   removeFromSegment(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(
       `${resource}/${payload.audienceUuid}/segment/${payload.segmentUuid}?orgId=${orgId}`
+    )
+  },
+
+  // audience:removeFromSegmentBulk
+  removeFromSegmentBulk(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.delete(
+      `${resource}/segment/${payload.segmentUuid}?orgId=${orgId}`,
+      { data: payload }
     )
   },
 })

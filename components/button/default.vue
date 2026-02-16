@@ -4,6 +4,7 @@
     <IconEyes v-if="icon === 'view'" />
     <IconLeft v-if="icon === 'prev'" />
     <IconEdit v-if="icon === 'edit'" />
+    <IconDelete v-if="icon === 'delete'" />
     <IconPlus v-if="icon === 'plus'" bg-color="#1B63D4" />
     <IconUpload v-if="icon === 'upload'" />
     <span class="name-btn">{{ text }}</span>

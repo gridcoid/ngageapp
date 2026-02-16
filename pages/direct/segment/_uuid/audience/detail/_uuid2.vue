@@ -481,11 +481,7 @@ export default {
 
     toEdit() {
       this.$router.push({
-        path:
-          '/direct/segment/' +
-          this.$route.params.uuid +
-          '/audience/edit/' +
-          this.data.uuid,
+        path: '/direct/audience/edit/' + this.data.uuid,
       })
     },
   },
