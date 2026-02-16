@@ -50,7 +50,7 @@
           <el-form-item class="title-form">
             <label slot="label" class="title-form">Scope</label>
             <el-radio-group v-model="form.scope.type">
-              <el-radio label="all">All Audiences</el-radio>
+              <el-radio label="all">All Audience</el-radio>
               <el-radio label="segment">Specific Segment</el-radio>
             </el-radio-group>
           </el-form-item>

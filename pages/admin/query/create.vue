@@ -56,7 +56,7 @@
                 allow-create
                 default-first-option
               >
-                <el-option label="Audiences" value="Audiences" />
+                <el-option label="Audience" value="Audiences" />
                 <el-option label="AudienceContacts" value="AudienceContacts" />
                 <el-option label="AudienceSegments" value="AudienceSegments" />
                 <el-option label="Segments" value="Segments" />

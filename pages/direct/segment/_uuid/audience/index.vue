@@ -7,7 +7,7 @@
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-users text-gray-500 mr-2" /> Audiences for
+        <i class="ti ti-users text-gray-500 mr-2" /> Audience for
         {{ data?.name }}
       </div>
       <div class="flex">
@@ -301,7 +301,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Segmented Audiences - ' + this.$config.appName,
+      title: 'Segmented Audience - ' + this.$config.appName,
     }
   },
   data() {

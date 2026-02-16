@@ -203,9 +203,9 @@
         >
       </div>
 
-      <!-- Audiences -->
+      <!-- Audience -->
       <div class="space-y-2">
-        <h3 class="text-md font-semibold">Audiences</h3>
+        <h3 class="text-md font-semibold">Audience</h3>
 
         <p class="text-gray-700 font-medium">fields:</p>
         <pre class="bg-gray-900 text-green-100 p-3 text-sm overflow-x-auto">

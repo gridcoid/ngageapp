@@ -61,7 +61,7 @@
         </el-table-column>
 
         <!-- Num of audiences -->
-        <el-table-column label="Audiences" width="100">
+        <el-table-column label="Audience" width="100">
           <template slot-scope="scope">
             <div class="font-cabin text-xs text-gray-600 font-mono">
               <el-tag

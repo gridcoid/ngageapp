@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-users text-gray-500 mr-2" /> All Audiences (Contacts)
+        <i class="ti ti-users text-gray-500 mr-2" /> All Audience (Contacts)
       </div>
       <div class="flex">
         <ButtonDefault
@@ -281,7 +281,7 @@ export default {
   layout: 'default',
   head() {
     return {
-      title: 'Audiences - ' + this.$config.appName,
+      title: 'Audience - ' + this.$config.appName,
     }
   },
   data() {
