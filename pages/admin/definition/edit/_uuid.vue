@@ -348,7 +348,7 @@ export default {
         // SPECIFIC FIELD
         this.metric.type = 'field'
         this.metric.grouped = false
-        this.metric.field = filterKey.replace('Id', '')
+        this.metric.field = filterKey.replace(/(Id|Code)$/, '')
         this.metric.value = m.filter[filterKey]
         return
       }
@@ -462,11 +462,20 @@ export default {
           }
         }
 
+        let theId = 'Id'
+        if (
+          this.metric.field === 'province' ||
+          this.metric.field === 'regency' ||
+          this.metric.field === 'district' ||
+          this.metric.field === 'village'
+        )
+          theId = 'Code'
+
         return {
           key: `${this.metric.field}_${this.metric.value}`,
           type: 'count',
           filter: {
-            [`${this.metric.field}Id`]: this.metric.value,
+            [`${this.metric.field}${theId}`]: this.metric.value,
           },
         }
       }
