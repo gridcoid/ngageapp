@@ -122,7 +122,7 @@
                   @click="duplicateSegment(item)"
                 >
                   <i class="ti ti-copy text-green-500"></i>
-                  <span class="ml-3">Duplicate</span>
+                  <span class="ml-2">Duplicate</span>
                 </div>
               </el-dropdown-item>
 
@@ -132,7 +132,7 @@
                   :to="`/direct/segment/import-sheet/${item.uuid}`"
                 >
                   <i class="ti ti-table text-purple-500"></i>
-                  <span class="ml-3">Import XLS</span>
+                  <span class="ml-2">Import XLS</span>
                 </NuxtLink>
               </el-dropdown-item>
 
@@ -142,7 +142,17 @@
                   :to="`/direct/segment/import-json/${item.uuid}`"
                 >
                   <i class="ti ti-brackets-contain text-pink-500"></i>
-                  <span class="ml-3">Import JSON</span>
+                  <span class="ml-2">Import JSON</span>
+                </NuxtLink>
+              </el-dropdown-item>
+
+              <el-dropdown-item>
+                <NuxtLink
+                  class="item-menu flex items-center no-select text-gray-500 text-sm"
+                  :to="`/direct/segment/select/${item.uuid}`"
+                >
+                  <i class="ti ti-square-check text-green-500"></i>
+                  <span class="ml-2">Select Audience</span>
                 </NuxtLink>
               </el-dropdown-item>
 
@@ -152,7 +162,7 @@
                   :to="`/direct/segment/edit/${item.uuid}`"
                 >
                   <i class="ti ti-edit text-yellow-500"></i>
-                  <span class="ml-3">Edit</span>
+                  <span class="ml-2">Edit</span>
                 </NuxtLink>
               </el-dropdown-item>
 
@@ -162,7 +172,7 @@
                   @click="deleteSegment(item)"
                 >
                   <i class="ti ti-trash text-red-500"></i>
-                  <span class="ml-3">Delete</span>
+                  <span class="ml-2">Delete</span>
                 </div>
               </el-dropdown-item>
             </el-dropdown-menu>

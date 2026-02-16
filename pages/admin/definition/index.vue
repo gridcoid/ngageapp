@@ -175,7 +175,7 @@
                     :to="`/admin/definition/edit/${scope.row.uuid}`"
                   >
                     <i class="ti ti-edit text-yellow-500"></i>
-                    <span class="ml-3">Edit</span>
+                    <span class="ml-2">Edit</span>
                   </NuxtLink>
                 </el-dropdown-item>
 
@@ -185,7 +185,7 @@
                     @click="deleteDefinition(scope.row)"
                   >
                     <i class="ti ti-trash text-red-500"></i>
-                    <span class="ml-3">Delete</span>
+                    <span class="ml-2">Delete</span>
                   </div>
                 </el-dropdown-item>
               </el-dropdown-menu>

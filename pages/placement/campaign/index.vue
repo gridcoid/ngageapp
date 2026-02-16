@@ -407,7 +407,7 @@
                     @click="openDuplicateDialog(scope.row)"
                   >
                     <i class="ti ti-copy text-green-500"></i>
-                    <span class="ml-3">Duplicate</span>
+                    <span class="ml-2">Duplicate</span>
                   </div>
                   <div
                     class="item-menu flex items-center no-select"
@@ -419,7 +419,7 @@
                     @click="deleteCampaign(scope.row)"
                   >
                     <i class="ti ti-trash text-red-500"></i>
-                    <span class="ml-3">Delete</span>
+                    <span class="ml-2">Delete</span>
                   </div>
                 </template>
               </Dropdown>

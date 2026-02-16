@@ -182,7 +182,7 @@ input[type='file'] {
     .item-menu {
       cursor: pointer;
       height: 40px;
-      padding-left: 20px;
+      padding-left: 15px;
       border-left: 1px solid #e2e2e2;
       border-right: 1px solid #e2e2e2;
       width: 161px;

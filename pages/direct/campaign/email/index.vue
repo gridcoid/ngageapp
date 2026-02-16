@@ -236,7 +236,7 @@
                     :to="`/direct/campaign/email/detail/${scope.row.uuid}`"
                   >
                     <i class="ti ti-chart-bar text-green-500"></i>
-                    <span class="ml-3">Statistics</span>
+                    <span class="ml-2">Statistics</span>
                   </NuxtLink>
                 </el-dropdown-item>
 
@@ -249,7 +249,7 @@
                     @click="duplicateCampaign(scope.row)"
                   >
                     <i class="ti ti-copy text-purple-500"></i>
-                    <span class="ml-3">Duplicate</span>
+                    <span class="ml-2">Duplicate</span>
                   </div>
                 </el-dropdown-item>
 
@@ -262,7 +262,7 @@
                     @click="testCampaign(scope.row)"
                   >
                     <i class="ti ti-test-pipe text-green-500"></i>
-                    <span class="ml-3">Test</span>
+                    <span class="ml-2">Test</span>
                   </div>
                 </el-dropdown-item>
 
@@ -275,7 +275,7 @@
                     @click="scheduleCampaign(scope.row)"
                   >
                     <i class="ti ti-clock-2 text-purple-500"></i>
-                    <span class="ml-3">Schedule</span>
+                    <span class="ml-2">Schedule</span>
                   </div>
                 </el-dropdown-item>
 
@@ -288,7 +288,7 @@
                     @click="rescheduleCampaign(scope.row)"
                   >
                     <i class="ti ti-clock-2 text-purple-500"></i>
-                    <span class="ml-3">Reschedule</span>
+                    <span class="ml-2">Reschedule</span>
                   </div>
                 </el-dropdown-item>
 
@@ -301,7 +301,7 @@
                     @click="cancelSchedule(scope.row)"
                   >
                     <i class="ti ti-clock-2 text-red-500"></i>
-                    <span class="ml-3">Cancel</span>
+                    <span class="ml-2">Cancel</span>
                   </div>
                 </el-dropdown-item>
 
@@ -314,7 +314,7 @@
                     @click="sendCampaign(scope.row)"
                   >
                     <i class="ti ti-send text-green-500"></i>
-                    <span class="ml-3">Send Now</span>
+                    <span class="ml-2">Send Now</span>
                   </div>
                 </el-dropdown-item>
 
@@ -327,7 +327,7 @@
                     :to="`/direct/campaign/email/edit/${scope.row.uuid}`"
                   >
                     <i class="ti ti-edit text-yellow-500"></i>
-                    <span class="ml-3">Edit</span>
+                    <span class="ml-2">Edit</span>
                   </NuxtLink>
                 </el-dropdown-item>
 
@@ -340,7 +340,7 @@
                     @click="archiveCampaign(scope.row)"
                   >
                     <i class="ti ti-archive text-blue-500"></i>
-                    <span class="ml-3">Archive</span>
+                    <span class="ml-2">Archive</span>
                   </div>
                 </el-dropdown-item>
 
@@ -353,7 +353,7 @@
                     @click="restoreCampaign(scope.row)"
                   >
                     <i class="ti ti-rotate-2 text-green-400"></i>
-                    <span class="ml-3">Restore</span>
+                    <span class="ml-2">Restore</span>
                   </div>
                 </el-dropdown-item>
 
@@ -367,7 +367,7 @@
                     @click="deleteCampaign(scope.row)"
                   >
                     <i class="ti ti-trash text-red-500"></i>
-                    <span class="ml-3">Delete</span>
+                    <span class="ml-2">Delete</span>
                   </div>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -508,7 +508,7 @@
                     :to="`/direct/campaign/email/detail/${scope.row.uuid}`"
                   >
                     <i class="ti ti-chart-bar text-green-500"></i>
-                    <span class="ml-3">Statistics</span>
+                    <span class="ml-2">Statistics</span>
                   </NuxtLink>
                 </el-dropdown-item>
 
@@ -519,7 +519,7 @@
                     @click="duplicateCampaign(scope.row)"
                   >
                     <i class="ti ti-copy text-purple-500"></i>
-                    <span class="ml-3">Duplicate</span>
+                    <span class="ml-2">Duplicate</span>
                   </div>
                 </el-dropdown-item>
 
@@ -530,7 +530,7 @@
                     @click="archiveCampaign(scope.row)"
                   >
                     <i class="ti ti-archive text-blue-500"></i>
-                    <span class="ml-3">Archive</span>
+                    <span class="ml-2">Archive</span>
                   </div>
                 </el-dropdown-item>
               </el-dropdown-menu>

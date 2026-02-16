@@ -124,7 +124,7 @@
                   @click="toDuplicate(item)"
                 >
                   <i class="ti ti-copy text-green-500"></i>
-                  <span class="ml-3">Duplicate</span>
+                  <span class="ml-2">Duplicate</span>
                 </div>
               </el-dropdown-item>
 
@@ -134,7 +134,7 @@
                   :to="`/direct/template/email/edit/${item.uuid}`"
                 >
                   <i class="ti ti-edit text-yellow-500"></i>
-                  <span class="ml-3">Edit</span>
+                  <span class="ml-2">Edit</span>
                 </NuxtLink>
               </el-dropdown-item>
 
@@ -144,7 +144,7 @@
                   @click="deleteTemplate(item)"
                 >
                   <i class="ti ti-trash text-red-500"></i>
-                  <span class="ml-3">Delete</span>
+                  <span class="ml-2">Delete</span>
                 </div>
               </el-dropdown-item>
             </el-dropdown-menu>

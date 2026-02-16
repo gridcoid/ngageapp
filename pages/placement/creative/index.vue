@@ -358,7 +358,7 @@
                   class="item-menu flex items-center no-select"
                 >
                   <i class="ti ti-edit" />
-                  <span class="ml-3">Edit</span>
+                  <span class="ml-2">Edit</span>
                 </div>
                 <div
                   v-else
@@ -366,7 +366,7 @@
                   @click="editCreative(scope.row.id)"
                 >
                   <i class="ti ti-edit" />
-                  <span class="ml-3">Edit</span>
+                  <span class="ml-2">Edit</span>
                 </div>
 
                 <!-- Duplicate -->
@@ -375,7 +375,7 @@
                   @click="duplicateCreative(scope.row.id)"
                 >
                   <i class="ti ti-copy" />
-                  <span class="ml-3">Duplicate</span>
+                  <span class="ml-2">Duplicate</span>
                 </div>
 
                 <!-- Generate -->
@@ -392,7 +392,7 @@
                   @click="generateCreative(scope.row)"
                 >
                   <i class="ti ti-download" />
-                  <span class="ml-3">Generate</span>
+                  <span class="ml-2">Generate</span>
                 </div>
 
                 <!-- In Progress -->
@@ -405,7 +405,7 @@
                   class="item-menu flex items-center no-select"
                 >
                   <i class="ti ti-loader text-base animate-spin" />
-                  <span class="ml-3">In Progress</span>
+                  <span class="ml-2">In Progress</span>
                 </div>
 
                 <!-- Download -->
@@ -424,7 +424,7 @@
                   "
                 >
                   <i class="ti ti-download" />
-                  <span class="ml-3">Download</span>
+                  <span class="ml-2">Download</span>
                 </div>
 
                 <!-- Send to Studio Hub -->
@@ -439,7 +439,7 @@
                   @click="sendToStudioHub(scope.row.id, scope.row.name)"
                 >
                   <i class="ti ti-send" />
-                  <span class="ml-3">Send to SH</span>
+                  <span class="ml-2">Send to SH</span>
                 </div>
 
                 <!-- Delete -->
@@ -448,7 +448,7 @@
                   @click="deleteCreative(scope.row)"
                 >
                   <i class="ti ti-trash" />
-                  <span class="ml-3">Delete</span>
+                  <span class="ml-2">Delete</span>
                 </div>
               </template>
             </Dropdown>
