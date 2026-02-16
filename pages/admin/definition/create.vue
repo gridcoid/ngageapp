@@ -9,7 +9,7 @@
       <div class="header-card flex items-center">
         <div class="title">
           <i class="ti ti-layout-dashboard text-gray-500 mr-2" />
-          Create New Query Widget Setting
+          Create New Widget Setting
         </div>
       </div>
 

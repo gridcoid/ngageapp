@@ -20,7 +20,7 @@
     <!-- filter -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Manage audience definitions used by dashboards and widgets.
+        Manage audience queries used by widgets in dashboard.
       </div>
 
       <div class="flex items-center">
@@ -111,7 +111,7 @@
               {{
                 scope.row.definition?.scope?.type === 'segment'
                   ? scope.row.segment?.name || '-'
-                  : '-'
+                  : 'All'
               }}
             </span>
           </template>

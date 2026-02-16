@@ -196,7 +196,7 @@ export default {
             children: [
               {
                 path: '/admin/api-key',
-                name: 'API Key',
+                name: 'API Keys',
                 type: 'single',
                 icon: 'ti ti-key',
               },
