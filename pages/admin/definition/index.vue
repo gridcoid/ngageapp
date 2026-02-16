@@ -126,15 +126,6 @@
           </template>
         </el-table-column>
 
-        <!-- display -->
-        <el-table-column label="Display" width="110">
-          <template slot-scope="scope">
-            <span class="text-sm">
-              {{ resolveDisplay(scope.row.definition?.metrics) }}
-            </span>
-          </template>
-        </el-table-column>
-
         <!-- field -->
         <el-table-column label="Field" width="130">
           <template slot-scope="scope">
@@ -368,20 +359,6 @@ export default {
       }
       if (m.type === 'group') {
         return m.groupBy?.startsWith('userInput') ? 'Additional' : 'Specific'
-      }
-
-      return '-'
-    },
-
-    resolveDisplay(metrics = []) {
-      if (!metrics.length) return '-'
-
-      const m = metrics[0]
-
-      if (m.type === 'count') return 'Number'
-
-      if (m.type === 'group') {
-        return m.display === 'chart' ? 'Chart' : 'Table'
       }
 
       return '-'
