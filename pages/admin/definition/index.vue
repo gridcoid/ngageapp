@@ -29,7 +29,7 @@
     <!-- filter -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Manage audience queries used by widgets in dashboard.
+        Manage widget settings (data sources) used by widgets in dashboard.
       </div>
 
       <div class="flex items-center">
@@ -173,6 +173,16 @@
               </div>
 
               <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="addToDashboard(scope.row)"
+                  >
+                    <i class="ti ti-device-desktop text-blue-500"></i>
+                    <span class="ml-2">Add to Dashboard</span>
+                  </div>
+                </el-dropdown-item>
+
                 <el-dropdown-item>
                   <div
                     class="item-menu flex items-center no-select text-gray-500 text-sm"
@@ -320,14 +330,51 @@ export default {
       this.dialog = !this.dialog
     },
 
-    duplicateDefinition(data) {
-      this.$confirm(`Duplicate definition "${data.name}"?`, 'Confirmation', {
-        confirmButtonText: 'Duplicate',
+    addToDashboard(data) {
+      this.$confirm(`Set "${data.name}" as dashboard widget?`, 'Confirmation', {
+        confirmButtonText: 'Add',
         type: 'info',
+      }).then(() => {
+        this.$notifier.showMessage({
+          content: 'Add widget to dashboard...',
+          type: 'loading',
+        })
+
+        this.$store
+          .dispatch('definition/addToDashboard', { uuid: data.uuid })
+          .then((res) => {
+            if (res.status === 201) {
+              this.getData()
+
+              this.$notifier.showMessage({
+                content: 'Widget added to dashboard',
+                type: 'success',
+              })
+
+              this.$router.push('/')
+            }
+          })
+          .catch((err) => {
+            this.$notifier.showMessage({
+              content: err.response.data.message,
+              type: 'error',
+            })
+          })
       })
+    },
+
+    duplicateDefinition(data) {
+      this.$confirm(
+        `Duplicate widget setting "${data.name}"?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'Duplicate',
+          type: 'info',
+        }
+      )
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Duplicate definition...',
+            content: 'Duplicate widget setting...',
             type: 'loading',
           })
 
@@ -338,13 +385,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Definition duplicated successfully.',
+                  content: 'Widget setting duplicated successfully.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Duplicate definition failed. Error : ' +
+                    'Duplicate widget setting failed. Error : ' +
                     res?.data.data.message,
                   type: 'failed',
                 })
@@ -374,13 +421,13 @@ export default {
     },
 
     deleteDefinition(data) {
-      this.$confirm(`Delete definition "${data.name}"?`, 'Confirmation', {
+      this.$confirm(`Delete widget setting "${data.name}"?`, 'Confirmation', {
         confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Deleting definition...',
+            content: 'Deleting widget setting...',
             type: 'loading',
           })
 
@@ -391,13 +438,14 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Query deleted successfully.',
+                  content: 'Widget setting deleted successfully.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Failed to delete query. Error: ' + res?.data.data.message,
+                    'Failed to delete widget setting. Error: ' +
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }
@@ -454,7 +502,7 @@ export default {
       if (!this.selectedDefinitions.length) return
 
       this.$confirm(
-        `Delete ${this.selectedDefinitions.length} settings?`,
+        `Delete ${this.selectedDefinitions.length} widget settings?`,
         'Confirmation',
         {
           confirmButtonText: 'Delete',
@@ -463,7 +511,7 @@ export default {
       )
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Deleting settings...',
+            content: 'Deleting widget settings...',
             type: 'loading',
           })
 
@@ -476,13 +524,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Settings deleted successfully.',
+                  content: 'Widget settings deleted successfully.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Failed to delete settings. Error: ' +
+                    'Failed to delete widget settings. Error: ' +
                     res?.data.data.message,
                   type: 'failed',
                 })

@@ -56,4 +56,12 @@ export default ($axios) => ({
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.post(`${resource}/duplicate/${payload.uuid}?orgId=${orgId}`)
   },
+
+  // definition:addToDashboard
+  addToDashboard(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(
+      `${resource}/addToDashboard/${payload.uuid}?orgId=${orgId}`
+    )
+  },
 })

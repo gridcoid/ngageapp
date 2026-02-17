@@ -7,7 +7,8 @@
     <div class="card-content">
       <div class="header-card flex items-center">
         <div class="title">
-          <i class="ti ti-aspect-ratio text-gray-400 mr-2"></i> Update Widget
+          <i class="ti ti-aspect-ratio text-gray-400 mr-2"></i> Update Selected
+          Widget
         </div>
       </div>
 
@@ -21,10 +22,12 @@
           hide-required-asterisk
         >
           <el-form-item class="title-form" prop="definitionId">
-            <label slot="label" class="title-form">Setting<Req /></label>
+            <label slot="label" class="title-form"
+              >Setting (Data Source)<Req
+            /></label>
             <el-select
               v-model="data.definitionId"
-              placeholder="Select Setting"
+              placeholder="Select Setting (Data Source)"
               class="w-full"
               filterable
               clearable
