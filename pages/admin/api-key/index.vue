@@ -353,8 +353,7 @@ export default {
     },
     deleteApiKey(data) {
       this.$confirm(`Delete API key "${data.name}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {

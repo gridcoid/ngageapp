@@ -39,6 +39,12 @@ export default ($axios) => ({
     return $axios.delete(`${resource}/${payload.uuid}?orgId=${orgId}`)
   },
 
+  // definition:deleteBulk
+  deleteBulk(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.delete(`${resource}?orgId=${orgId}`, { data: payload })
+  },
+
   // definition:run
   run(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId

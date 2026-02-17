@@ -158,6 +158,21 @@ export const actions = {
     }
   },
 
+  // definition:deleteBulk
+  async deleteBulk({ commit }, payload) {
+    try {
+      const response = await this.$repositories.definition.deleteBulk(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
   // definition:run
   async run({ commit }, payload) {
     try {

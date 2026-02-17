@@ -200,8 +200,7 @@ export default {
 
     deleteContactList(data) {
       this.$confirm(`Delete contact list "${data.Name}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {

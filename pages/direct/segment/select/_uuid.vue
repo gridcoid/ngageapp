@@ -78,10 +78,6 @@
     </div>
 
     <div class="body-content">
-      <div v-if="selectedAudiences.length" class="mb-3 text-blue-600">
-        {{ selectedAudiences.length }} selected
-      </div>
-
       <!-- TABLE -->
       <el-table
         v-if="tableVisible"
@@ -92,7 +88,7 @@
         lazy
         stripe
         :data="dataAudiences"
-        class="k-table"
+        class="w-full k-table"
         ref="multipleTable"
         @selection-change="handleSelectionChange"
       >
@@ -365,9 +361,8 @@ export default {
         }" to "${this.data.name}"?`,
         'Confirmation',
         {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
-          type: 'warning',
+          confirmButtonText: 'Add',
+          type: 'info',
         }
       )
         .then(() => {
@@ -455,7 +450,6 @@ export default {
         'Confirmation',
         {
           confirmButtonText: 'Add',
-          cancelButtonText: 'Cancel',
           type: 'info',
         }
       ).then(() => {

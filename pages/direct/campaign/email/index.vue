@@ -845,9 +845,8 @@ export default {
 
     duplicateCampaign(item) {
       this.$confirm(`Duplicate campaign "${item.title}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'warning',
+        confirmButtonText: 'Duplicate',
+        type: 'info',
       })
         .then(() => {
           this.showMessage = false
@@ -1030,7 +1029,6 @@ export default {
         'Confirmation',
         {
           confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
           type: 'warning',
         }
       )
@@ -1087,9 +1085,8 @@ export default {
 
     sendCampaign(item) {
       this.$confirm(`Send campaign "${item.title}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'warning',
+        confirmButtonText: 'Send',
+        type: 'info',
       })
         .then(() => {
           this.showMessage = false
@@ -1144,8 +1141,7 @@ export default {
 
     archiveCampaign(item) {
       this.$confirm(`Archive campaign "${item.title}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Archive',
         type: 'warning',
       })
         .then(() => {
@@ -1199,9 +1195,8 @@ export default {
 
     restoreCampaign(item) {
       this.$confirm(`Restore campaign "${item.title}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'warning',
+        confirmButtonText: 'Restore',
+        type: 'info',
       })
         .then(() => {
           this.showMessage = false
@@ -1261,8 +1256,7 @@ export default {
 
     deleteCampaign(item) {
       this.$confirm(`Delete campaign "${item.title}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {

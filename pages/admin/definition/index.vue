@@ -6,13 +6,22 @@
         <i class="ti ti-layout-dashboard text-gray-400 mr-2"></i>
         Widget Settings
       </div>
-      <div class="flex">
+      <div class="flex" v-if="selectedDefinitions.length === 0">
         <ButtonDefault
           icon="plus"
           text="Create New"
           class="ml-4"
           type="secondary"
           @click.native="toCreate()"
+        />
+      </div>
+      <div class="flex" v-else>
+        <ButtonDefault
+          icon="delete"
+          text="Delete Selected"
+          class="ml-4"
+          type="secondary"
+          @click.native="deleteSelected()"
         />
       </div>
     </div>
@@ -73,8 +82,12 @@
         fit
         :data="dataDefinitions"
         class="w-full k-table"
+        ref="multipleTable"
+        @selection-change="handleSelectionChange"
       >
         <el-table-column label="" width="10" />
+
+        <el-table-column type="selection" width="55" />
 
         <!-- name & description -->
         <el-table-column label="Name" sortable>
@@ -251,6 +264,8 @@ export default {
       rowPage: 10,
       isLoading: false,
       dialog: false,
+
+      selectedDefinitions: [],
     }
   },
 
@@ -312,6 +327,7 @@ export default {
 
     deleteDefinition(data) {
       this.$confirm(`Delete definition "${data.name}"?`, 'Confirmation', {
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {
@@ -380,6 +396,56 @@ export default {
       }
 
       return '-'
+    },
+
+    handleSelectionChange(val) {
+      this.selectedDefinitions = val
+    },
+
+    deleteSelected() {
+      if (!this.selectedDefinitions.length) return
+
+      this.$confirm(
+        `Delete ${this.selectedDefinitions.length} settings?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'Delete',
+          type: 'warning',
+        }
+      )
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Deleting settings...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('definition/deleteBulk', {
+              uuids: this.selectedDefinitions.map((d) => d.uuid),
+            })
+            .then((res) => {
+              if (res.status === 204) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Settings deleted successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Failed to delete settings. Error: ' +
+                    res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
   },
 

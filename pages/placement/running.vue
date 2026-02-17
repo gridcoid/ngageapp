@@ -138,7 +138,7 @@
           lazy
           stripe
           :data="dataCampaignComplete"
-          class="k-table"
+          class="w-full k-table"
         >
           <!-- padding -->
           <el-table-column label="" width="10" />

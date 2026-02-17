@@ -116,7 +116,7 @@
         lazy
         stripe
         :data="dataCreative"
-        class="k-table"
+        class="w-full k-table"
       >
         <template slot="empty">
           <div class="flex flex-col items-center mt-6 no-data">
@@ -769,8 +769,7 @@ export default {
     },
     deleteCreative(data) {
       this.$confirm(`Delete "${data.name}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {

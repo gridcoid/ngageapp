@@ -346,8 +346,7 @@ export default {
       }
 
       this.$confirm(`Delete Setting "${data.key}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {

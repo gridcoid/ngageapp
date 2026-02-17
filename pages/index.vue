@@ -54,7 +54,7 @@
             >
               <button
                 class="text-yellow-300 hover:text-yellow-600"
-                @click.stop="onEdit(item)"
+                @click.stop="editWidget(item)"
                 title="Edit"
               >
                 <i class="ti ti-edit"></i>
@@ -62,7 +62,9 @@
 
               <button
                 class="text-red-300 hover:text-red-600"
-                @click.stop="onDelete(item.i, widgetByUuidFunc(item.i).title)"
+                @click.stop="
+                  deleteWidget(item.i, widgetByUuidFunc(item.i).title)
+                "
                 title="Delete"
               >
                 <i class="ti ti-trash"></i>
@@ -221,17 +223,16 @@ export default {
       this.widgets = updated
     },
 
-    onEdit(item) {
+    editWidget(item) {
       this.$store.dispatch('dashboard/select', item)
       this.$router.push(
         `/dashboard/${this.dataDashboard.uuid}/widget/edit/${item.i}`
       )
     },
 
-    onDelete(uuid, name) {
+    deleteWidget(uuid, name) {
       this.$confirm(`Delete widget "${name}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(async () => {

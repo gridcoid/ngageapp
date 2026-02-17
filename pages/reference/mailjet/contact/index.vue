@@ -201,8 +201,7 @@ export default {
 
     deleteContact(data) {
       this.$confirm(`Delete email "${data.Email}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {

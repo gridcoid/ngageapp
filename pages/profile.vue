@@ -126,7 +126,7 @@
               lazy
               :data="dataAllUser"
               stripe
-              class="k-table"
+              class="w-full k-table"
               :style="
                 sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'
               "
@@ -408,8 +408,7 @@ export default {
     },
     deleteUser(data) {
       this.$confirm(`Remove "${data.username}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Remove',
         type: 'warning',
       })
         .then(() => {

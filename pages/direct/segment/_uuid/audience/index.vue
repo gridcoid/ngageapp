@@ -109,7 +109,7 @@
         lazy
         stripe
         :data="dataAudiences"
-        class="k-table"
+        class="w-full k-table"
         ref="multipleTable"
         @selection-change="handleSelectionChange"
       >
@@ -418,8 +418,7 @@ export default {
         }" from "${this.data.name}"?`,
         'Confirmation',
         {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Remove',
           type: 'warning',
         }
       )
@@ -508,8 +507,7 @@ export default {
         'Confirmation',
         {
           confirmButtonText: 'Remove',
-          cancelButtonText: 'Cancel',
-          type: 'info',
+          type: 'warning',
         }
       ).then(() => {
         this.$notifier.showMessage({

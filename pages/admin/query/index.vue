@@ -393,8 +393,7 @@ export default {
     },
     deleteQuery(data) {
       this.$confirm(`Delete query "${data.name}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {

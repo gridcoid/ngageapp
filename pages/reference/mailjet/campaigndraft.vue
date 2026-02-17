@@ -160,8 +160,7 @@ export default {
 
     deleteCampaign(data) {
       this.$confirm(`Delete campaign "${data.Title}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {

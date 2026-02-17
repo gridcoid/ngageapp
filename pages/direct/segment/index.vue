@@ -351,9 +351,8 @@ export default {
     },
     duplicateSegment(data) {
       this.$confirm(`Duplicate segment "${data.name}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'warning',
+        confirmButtonText: 'Duplicate',
+        type: 'info',
       })
         .then(() => {
           this.$notifier.showMessage({
@@ -389,8 +388,7 @@ export default {
     },
     deleteSegment(data) {
       this.$confirm(`Delete segment "${data.name}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {

@@ -160,8 +160,7 @@ export default {
 
     deleteTemplate(data) {
       this.$confirm(`Delete template "${data.Name}"?`, 'Confirmation', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {

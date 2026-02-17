@@ -348,8 +348,7 @@ export default {
         }"?`,
         'Confirmation',
         {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Delete',
           type: 'warning',
         }
       )

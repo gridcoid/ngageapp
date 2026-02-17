@@ -265,7 +265,7 @@
         lazy
         stripe
         :data="dataPlacement"
-        class="k-table"
+        class="w-full k-table"
         :style="
           sidebar
             ? 'width:calc(' + width + 'px - 128px)'
