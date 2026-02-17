@@ -20,20 +20,11 @@
           label-position="left"
           hide-required-asterisk
         >
-          <el-form-item class="title-form" prop="title">
-            <label slot="label" class="title-form">Title<Req /></label>
-            <el-input
-              v-model="data.title"
-              @blur="data.title = data.title?.trim()"
-              placeholder="Widget title"
-            />
-          </el-form-item>
-
           <el-form-item class="title-form" prop="definitionId">
-            <label slot="label" class="title-form">Query<Req /></label>
+            <label slot="label" class="title-form">Setting<Req /></label>
             <el-select
               v-model="data.definitionId"
-              placeholder="Select Query"
+              placeholder="Select Setting"
               class="w-full"
               filterable
               clearable
@@ -58,6 +49,15 @@
               <el-radio label="table">Table</el-radio>
               <el-radio label="chart">Chart</el-radio>
             </el-radio-group>
+          </el-form-item>
+
+          <el-form-item class="title-form" prop="title">
+            <label slot="label" class="title-form">Title<Req /></label>
+            <el-input
+              v-model="data.title"
+              @blur="data.title = data.title?.trim()"
+              placeholder="Widget title"
+            />
           </el-form-item>
         </el-form>
 
@@ -262,6 +262,12 @@ export default {
       }
 
       this.getDefinitionDetail(val)
+
+      const selected = this.queries.find((q) => q.id === val)
+
+      if (selected) {
+        this.data.title = selected.name
+      }
     },
   },
 }
