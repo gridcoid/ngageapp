@@ -174,6 +174,16 @@
 
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="duplicateDefinition(scope.row)"
+                  >
+                    <i class="ti ti-copy text-green-500"></i>
+                    <span class="ml-2">Duplicate</span>
+                  </div>
+                </el-dropdown-item>
+
+                <el-dropdown-item>
                   <NuxtLink
                     class="item-menu flex items-center"
                     :to="`/admin/definition/edit/${scope.row.uuid}`"
@@ -308,6 +318,44 @@ export default {
 
     showDialog() {
       this.dialog = !this.dialog
+    },
+
+    duplicateDefinition(data) {
+      this.$confirm(`Duplicate definition "${data.name}"?`, 'Confirmation', {
+        confirmButtonText: 'Duplicate',
+        type: 'info',
+      })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Duplicate definition...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('definition/duplicate', { uuid: data.uuid })
+            .then((res) => {
+              if (res.status === 201) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Definition duplicated successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Duplicate definition failed. Error : ' +
+                    res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
 
     changePage(p) {

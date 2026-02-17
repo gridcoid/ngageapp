@@ -50,4 +50,10 @@ export default ($axios) => ({
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.get(`${resource}/run/${payload.uuid}?orgId=${orgId}`)
   },
+
+  // definition:duplicate
+  duplicate(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.post(`${resource}/duplicate/${payload.uuid}?orgId=${orgId}`)
+  },
 })
