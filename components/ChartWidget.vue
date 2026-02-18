@@ -52,7 +52,7 @@ export default {
     },
 
     isPie() {
-      return this.items?.length === 2
+      return this.items?.length <= 2
     },
 
     labels() {
