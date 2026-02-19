@@ -56,10 +56,11 @@
                   <div>
                     <label
                       class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                      >Year of Birth</label
                     >
+                      Age
+                    </label>
                     <div class="text-gray-900">
-                      {{ data.yearOfBirth || '-' }}
+                      {{ age ?? '-' }}
                     </div>
                   </div>
                 </div>
@@ -349,6 +350,29 @@ export default {
       dataReligions: (state) => state.religion.dataList,
 
       dataContactTypes: (state) => state.contactType.dataList,
+
+      age() {
+        if (this.data?.dateOfBirth) {
+          const dob = new Date(this.data.dateOfBirth)
+          if (!isNaN(dob)) {
+            const today = new Date()
+            let years = today.getFullYear() - dob.getFullYear()
+
+            const m = today.getMonth() - dob.getMonth()
+            if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+              years--
+            }
+
+            return years
+          }
+        }
+
+        if (this.data?.yearOfBirth) {
+          return new Date().getFullYear() - this.data.yearOfBirth
+        }
+
+        return null
+      },
     }),
   },
   async mounted() {
