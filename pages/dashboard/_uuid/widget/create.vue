@@ -49,6 +49,21 @@
             <el-radio-group v-model="data.type">
               <el-radio label="table">Table</el-radio>
               <el-radio label="chart">Chart</el-radio>
+              <el-radio label="map">Map</el-radio>
+            </el-radio-group>
+          </el-form-item>
+
+          <!-- Chart Type (only if chart selected) -->
+          <el-form-item
+            v-if="data.type === 'chart'"
+            class="title-form"
+            prop="chartType"
+          >
+            <label slot="label" class="title-form">Chart Type</label>
+            <el-radio-group v-model="data.chartType">
+              <el-radio label="bar">Bar</el-radio>
+              <el-radio label="line">Line</el-radio>
+              <el-radio label="pie">Pie</el-radio>
             </el-radio-group>
           </el-form-item>
 
@@ -127,7 +142,8 @@ export default {
       data: {
         title: '', // widget title
         definitionId: '', // linked query id
-        type: 'number', // number | table | chart
+        type: 'number', // number | table | chart | map
+        chartType: 'bar', // bar | line | pie | doughnut
       },
 
       definitionDetail: null,
@@ -239,6 +255,13 @@ export default {
 
       if (selected) {
         this.data.title = selected.name
+      }
+    },
+    'data.type'(val) {
+      if (val === 'chart') {
+        this.data.chartType = 'bar'
+      } else {
+        this.data.chartType = null
       }
     },
   },

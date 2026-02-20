@@ -6,22 +6,20 @@
   >
     <div class="flex flex-col h-full">
       <div class="flex-1 overflow-y-auto">
-        <!-- Pie (only 2 items) -->
         <apexchart
-          v-if="isPie"
-          type="pie"
-          :options="pieOptions"
+          v-if="chartCategory === 'circular'"
+          :type="resolvedType"
+          :options="circularOptions"
           :series="series"
           width="100%"
           height="100%"
         />
 
-        <!-- Bar (anything else) -->
         <apexchart
           v-else
-          type="bar"
-          :options="barOptions"
-          :series="barSeries"
+          :type="resolvedType"
+          :options="cartesianOptions"
+          :series="cartesianSeries"
           width="100%"
           height="94%"
         />
@@ -38,21 +36,16 @@ export default {
     data: {
       type: Object,
       required: true,
-      // expected:
-      // {
-      //   key: 'Audience Bikes',
-      //   data: [{ name: 'honda', count: 2 }]
-      // }
+    },
+    chartType: {
+      type: String,
+      default: 'bar', // fallback safety
     },
   },
 
   computed: {
     items() {
       return this.data?.data || []
-    },
-
-    isPie() {
-      return this.items?.length <= 2
     },
 
     labels() {
@@ -72,7 +65,7 @@ export default {
       ]
     },
 
-    pieOptions() {
+    circularOptions() {
       return {
         labels: this.labels,
         legend: {
@@ -91,10 +84,11 @@ export default {
       }
     },
 
-    barOptions() {
+    cartesianOptions() {
       return {
         chart: {
           toolbar: { show: false },
+          background: 'transparent',
         },
         xaxis: {
           categories: this.labels,
@@ -104,6 +98,9 @@ export default {
             formatter: (val) => Math.round(val),
           },
         },
+        stroke: {
+          curve: this.resolvedType === 'line' ? 'smooth' : 'straight',
+        },
         plotOptions: {
           bar: {
             borderRadius: 4,
@@ -112,7 +109,6 @@ export default {
         },
         dataLabels: {
           enabled: false,
-          formatter: (val) => Math.round(val),
         },
         tooltip: {
           y: {
@@ -120,6 +116,26 @@ export default {
           },
         },
       }
+    },
+
+    resolvedType() {
+      const allowed = ['bar', 'line', 'pie', 'doughnut']
+      return allowed.includes(this.chartType) ? this.chartType : 'bar'
+    },
+
+    chartCategory() {
+      return ['pie', 'doughnut'].includes(this.resolvedType)
+        ? 'circular'
+        : 'cartesian'
+    },
+
+    cartesianSeries() {
+      return [
+        {
+          name: 'Count',
+          data: this.series,
+        },
+      ]
     },
   },
 }

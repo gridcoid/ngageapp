@@ -51,6 +51,21 @@
             <el-radio-group v-model="data.type">
               <el-radio label="table">Table</el-radio>
               <el-radio label="chart">Chart</el-radio>
+              <el-radio label="map">Map</el-radio>
+            </el-radio-group>
+          </el-form-item>
+
+          <!-- Chart Type (only if chart selected) -->
+          <el-form-item
+            v-if="data.type === 'chart'"
+            class="title-form"
+            prop="chartType"
+          >
+            <label slot="label" class="title-form">Chart Type</label>
+            <el-radio-group v-model="data.chartType">
+              <el-radio label="bar">Bar</el-radio>
+              <el-radio label="line">Line</el-radio>
+              <el-radio label="pie">Pie</el-radio>
             </el-radio-group>
           </el-form-item>
 
@@ -130,7 +145,8 @@ export default {
       data: {
         title: '', // widget title
         definitionId: '', // linked query id
-        type: 'number', // number | table | chart
+        type: 'number', // number | table | chart | map
+        chartType: 'bar', // bar | line | pie | doughnut
         // grid metadata — preserved when updating
         i: '',
         x: 0,
@@ -165,7 +181,10 @@ export default {
 
     getDetail() {
       if (this.$store.state.dashboard.widget) {
-        this.data = { ...this.$store.state.dashboard.widget }
+        this.data = {
+          chartType: 'bar', // default fallback
+          ...this.$store.state.dashboard.widget,
+        }
       } else {
         this.showMessage = true
         this.messageError = 'Widget not found'
@@ -197,6 +216,8 @@ export default {
               title: this.data.title,
               definitionId: this.data.definitionId,
               type: this.data.type,
+              chartType:
+                this.data.type === 'chart' ? this.data.chartType : null,
             },
           })
           .then((res) => {
@@ -270,6 +291,15 @@ export default {
 
       if (selected) {
         this.data.title = selected.name
+      }
+    },
+    'data.type'(val) {
+      if (val === 'chart') {
+        if (!this.data.chartType) {
+          this.data.chartType = 'bar'
+        }
+      } else {
+        this.data.chartType = null
       }
     },
   },

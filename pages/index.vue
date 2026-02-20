@@ -93,6 +93,7 @@
                 :data="
                   dataResult[widgetByUuidFunc(item.i).definitionId]?.data || {}
                 "
+                :chart-type="widgetByUuidFunc(item.i).chartType"
               />
 
               <div v-else class="text-gray-400">Unsupported widget</div>
@@ -293,6 +294,7 @@ export default {
           h: w.h,
           i: w.i,
           type: w.type,
+          chartType: w.chartType,
           definitionId: w.definitionId,
           title: w.title,
         }))
