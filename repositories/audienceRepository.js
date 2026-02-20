@@ -4,25 +4,48 @@ export default ($axios) => ({
   // audience:list
   list(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(
-      `${resource}?orgId=${orgId}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
-    )
+
+    return $axios.get(resource, {
+      params: {
+        orgId,
+        page: payload.page,
+        size: payload.size,
+        name: payload.name,
+        sort: payload.sort,
+      },
+    })
   },
 
   // audience:listInSegment
   listInSegment(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(
-      `${resource}/in-segment?orgId=${orgId}&uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
-    )
+
+    return $axios.get(`${resource}/in-segment`, {
+      params: {
+        orgId,
+        uuid: payload.uuid,
+        page: payload.page,
+        size: payload.size,
+        name: payload.name,
+        sort: payload.sort,
+      },
+    })
   },
 
   // audience:listNotInSegment
   listNotInSegment(payload) {
     const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.get(
-      `${resource}/not-in-segment?orgId=${orgId}&uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
-    )
+
+    return $axios.get(`${resource}/not-in-segment`, {
+      params: {
+        orgId,
+        uuid: payload.uuid,
+        page: payload.page,
+        size: payload.size,
+        name: payload.name,
+        sort: payload.sort,
+      },
+    })
   },
 
   // audience:create
