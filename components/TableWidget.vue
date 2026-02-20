@@ -37,11 +37,6 @@ export default {
     data: {
       type: Object,
       required: true,
-      // expected shape:
-      // {
-      //   key: 'Audience Bikes',
-      //   data: [{ name: 'honda', count: 2 }]
-      // }
     },
   },
 }

@@ -92,7 +92,7 @@
               show number only
             </span>
             <span v-else class="text-gray-400 italic ml-2">
-              show table or chart
+              show table/chart/map
             </span>
           </el-form-item>
 
