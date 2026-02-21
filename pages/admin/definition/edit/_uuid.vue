@@ -253,7 +253,7 @@ export default {
       metric: {
         type: 'total',
         grouped: false,
-        display: 'table',
+        // display: 'table',
         field: null,
         value: null,
         provinceCode: null,
@@ -319,7 +319,7 @@ export default {
       Object.assign(this.metric, {
         type: 'total',
         grouped: false,
-        display: 'table',
+        // display: 'table',
         field: null,
         value: null,
         provinceCode: null,
@@ -458,7 +458,7 @@ export default {
             key: `${this.metric.field}Distribution`,
             type: 'group',
             groupBy: this.metric.field,
-            display: this.metric.display || 'table',
+            // display: this.metric.display || 'table',
           }
         }
 
@@ -486,7 +486,7 @@ export default {
             key: `${this.metric.inputKey}Distribution`,
             type: 'group',
             groupBy: `userInput.${this.metric.inputKey}`,
-            display: this.metric.display || 'table',
+            // display: this.metric.display || 'table',
           }
         }
 
