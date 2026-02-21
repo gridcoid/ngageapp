@@ -96,6 +96,13 @@
                 :chart-type="widgetByUuidFunc(item.i).chartType"
               />
 
+              <MapWidget
+                v-else-if="widgetByUuidFunc(item.i).type === 'map'"
+                :data="
+                  dataResult[widgetByUuidFunc(item.i).definitionId]?.data || {}
+                "
+              />
+
               <div v-else class="text-gray-400">Unsupported widget</div>
             </div>
           </div>
