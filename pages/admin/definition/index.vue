@@ -217,14 +217,18 @@
         </el-table-column>
       </el-table>
 
-      <Pagination
-        class="k-pagination"
-        :value="currentPage"
-        :total-page="totalPages"
-        :total="totalList"
-        @input="changePage"
-        @rowPage="changeRowPage"
-      />
+      <div class="flex items-center justify-center mt-4">
+        <el-pagination
+          background
+          :current-page.sync="currentPage"
+          :page-size="rowPage"
+          :page-sizes="[9, 10, 25, 50, 100]"
+          :total="totalList"
+          layout="total, sizes, prev, pager, next, jumper"
+          @size-change="changeRowPage"
+          @current-change="changePage"
+        />
+      </div>
     </div>
 
     <!-- empty -->
@@ -280,7 +284,7 @@ export default {
       dataSearch: '',
       showSearch: false,
       currentPage: 1,
-      rowPage: 10,
+      rowPage: 9,
       isLoading: false,
       dialog: false,
 

@@ -224,25 +224,18 @@
         </el-table-column>
       </el-table>
 
-      <!-- Pagination -->
-      <Pagination
-        class="k-pagination"
-        :value="currentPage"
-        :total-page="totalPages"
-        :total="totalList"
-        @input="
-          (page) => {
-            $store.commit('user/SET_DROPDOWN', null)
-            changePage(page)
-          }
-        "
-        @rowPage="
-          (size) => {
-            $store.commit('user/SET_DROPDOWN', null)
-            changeRowPage(size)
-          }
-        "
-      />
+      <div class="flex items-center justify-center mt-4">
+        <el-pagination
+          background
+          :current-page.sync="currentPage"
+          :page-size="rowPage"
+          :page-sizes="[9, 10, 25, 50, 100]"
+          :total="totalList"
+          layout="total, sizes, prev, pager, next, jumper"
+          @size-change="changeRowPage"
+          @current-change="changePage"
+        />
+      </div>
     </div>
 
     <!-- Sort Modal -->
@@ -291,7 +284,7 @@ export default {
       showSearch: false,
       currentPage: 1,
       isLoading: false,
-      rowPage: 7,
+      rowPage: 9,
       dialog: false,
     }
   },

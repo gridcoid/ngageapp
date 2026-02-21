@@ -151,15 +151,18 @@
         </div>
       </div>
 
-      <!-- Pagination -->
-      <Pagination
-        class="k-pagination"
-        :value="currentPage"
-        :total-page="totalPages"
-        :total="totalList"
-        @input="changePage"
-        @rowPage="changeRowPage"
-      />
+      <div class="flex items-center justify-center">
+        <el-pagination
+          background
+          :current-page.sync="currentPage"
+          :page-size="rowPage"
+          :page-sizes="[6, 10, 25, 50, 100]"
+          :total="totalList"
+          layout="total, sizes, prev, pager, next, jumper"
+          @size-change="changeRowPage"
+          @current-change="changePage"
+        />
+      </div>
     </div>
 
     <!-- Empty state -->
@@ -224,7 +227,7 @@ export default {
       dataSearch: '',
       showSearch: false,
       currentPage: 1,
-      rowPage: 5,
+      rowPage: 6,
       dialog: false,
       isLoading: false,
     }
