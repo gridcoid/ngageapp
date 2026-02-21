@@ -59,9 +59,14 @@ export default {
     handleClose(key, keyPath) {},
     activeIcon(item) {
       this.$store.commit('user/SET_ACTIVE', item.name)
-      this.$router.push({
-        path: item.path,
-      })
+
+      if (this.$route.path === item.path) {
+        this.$root.$emit(`flag-${this.$route.name}`)
+      } else {
+        this.$router.push({
+          path: item.path,
+        })
+      }
     },
     checkRole() {
       if (this.roleId === 1) {

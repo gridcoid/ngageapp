@@ -358,8 +358,18 @@ export default {
   mounted() {
     this.getDetail()
     this.getData()
+    this.$root.$on(`flag-${this.$route.name}`, this.handleReload)
+  },
+  beforeDestroy() {
+    this.$root.$off(`flag-${this.$route.name}`, this.handleReload)
   },
   methods: {
+    handleReload() {
+      this.currentPage = 1
+      this.dataSearch = ''
+      this.getData()
+    },
+
     calcAge(year) {
       return new Date().getFullYear() - Number(year)
     },
