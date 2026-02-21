@@ -289,9 +289,7 @@ export default {
 
       const selected = this.queries.find((q) => q.id === val)
 
-      if (selected) {
-        this.data.title = selected.name
-      }
+      if (selected) this.data.title = selected.name
     },
     'data.type'(val) {
       if (val === 'chart') {

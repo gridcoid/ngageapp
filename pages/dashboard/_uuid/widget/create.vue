@@ -219,16 +219,19 @@ export default {
     getDefinitionDetail(id) {
       this.$store.dispatch('definition/detailById', { id }).then((res) => {
         const def = res?.data?.data
+
         this.definitionDetail = def
 
         const metric = def?.definition?.metrics?.[0]
 
         // default widget type
+        /*
         if (metric?.type === 'group') {
           this.data.type = metric.display === 'chart' ? 'chart' : 'table'
         } else {
           this.data.type = 'number'
         }
+        */
       })
     },
   },
@@ -253,9 +256,7 @@ export default {
 
       const selected = this.queries.find((q) => q.id === val)
 
-      if (selected) {
-        this.data.title = selected.name
-      }
+      if (selected) this.data.title = selected.name
     },
     'data.type'(val) {
       if (val === 'chart') {
