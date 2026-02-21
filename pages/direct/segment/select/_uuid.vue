@@ -7,8 +7,8 @@
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-users text-gray-500 mr-2" /> Select audience for
-        {{ data?.name }}
+        <i class="ti ti-users text-gray-500 mr-2" /> Select Audience for
+        {{ data?.name }} Segment
       </div>
       <div class="flex" v-if="selectedAudiences.length > 0">
         <ButtonDefault
@@ -360,7 +360,7 @@ export default {
       this.$confirm(
         `Add "${
           row.name || row.contacts.find((item) => item.typeId === 1)?.value
-        }" to "${this.data.name}"?`,
+        }" to "${this.data.name}" segment?`,
         'Confirmation',
         {
           confirmButtonText: 'Add',
@@ -448,7 +448,7 @@ export default {
       if (!this.selectedAudiences.length) return
 
       this.$confirm(
-        `Add ${this.selectedAudiences.length} audience to "${this.data.name}"?`,
+        `Add ${this.selectedAudiences.length} audiences to "${this.data.name}" segment?`,
         'Confirmation',
         {
           confirmButtonText: 'Add',
