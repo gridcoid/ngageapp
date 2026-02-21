@@ -75,12 +75,17 @@ export default {
       this.items.forEach((item) => {
         if (!item.lat || !item.lng) return
 
-        const marker = L.circleMarker([item.lat, item.lng], {
-          radius: Math.max(8, item.count * 2),
-          fillColor: '#3B82F6',
-          color: '#1E40AF',
-          weight: 1,
-          fillOpacity: 0.6,
+        const marker = L.marker([item.lat, item.lng], {
+          icon: L.divIcon({
+            className: 'custom-marker',
+            html: `
+              <div class="marker-bubble">
+                ${item.count}
+              </div>
+            `,
+            iconSize: [40, 40],
+            iconAnchor: [20, 20],
+          }),
         }).bindPopup(`<strong>${item.name}</strong><br/>Count: ${item.count}`)
 
         marker.addTo(this.markersLayer)
@@ -108,5 +113,23 @@ export default {
 .leaflet-container {
   height: 100%;
   width: 100%;
+}
+.custom-marker {
+  background: transparent;
+  border: none;
+}
+.marker-bubble {
+  width: 40px;
+  height: 40px;
+  background: #3b82f6;
+  border: 2px solid #1e40af;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 </style>
