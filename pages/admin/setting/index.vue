@@ -33,7 +33,6 @@
             <div
               v-if="!showSearch"
               class="hide-search flex items-center justify-center cursor-pointer"
-              @mouseover="showSearch = true"
               @click="showSearch = !showSearch"
             >
               <IconSearch />
