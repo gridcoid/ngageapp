@@ -42,6 +42,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.15.9",
     "ico": "../ico",
+    "leaflet": "^1.9.4",
     "node-fetch-native": "^1.6.2",
     "nuxt": "^2.14.6",
     "prosemirror-state": "^1.4.3",

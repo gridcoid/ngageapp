@@ -51,6 +51,7 @@ export default {
     { src: '~/plugins/password.js', mode: 'client' },
     { src: '~/plugins/codemirror', ssr: false },
     { src: '~/plugins/vue-grid-layout.js', mode: 'client' },
+    { src: '~/plugins/leaflet.client.js', mode: 'client' },
   ],
   components: true,
   buildModules: [
