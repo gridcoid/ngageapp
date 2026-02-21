@@ -276,7 +276,7 @@
           background
           :current-page.sync="currentPage"
           :page-size="rowPage"
-          :page-sizes="[9, 10, 25, 50, 100]"
+          :page-sizes="[7, 10, 25, 50, 100]"
           :total="totalList"
           layout="total, sizes, prev, pager, next, jumper"
           @size-change="changeRowPage"
@@ -332,7 +332,7 @@ export default {
       showSearch: false,
       currentPage: 1,
       isLoading: false,
-      rowPage: 9,
+      rowPage: 7,
       dialog: false,
 
       selectedAudiences: [],
