@@ -44,7 +44,10 @@ export default {
     initMap() {
       const L = this.$leaflet
 
-      this.map = L.map(this.$refs.map).setView([-2.5, 118], 5)
+      this.map = L.map(this.$refs.map, {
+        minZoom: 4,
+        maxZoom: 12,
+      }).setView([-2.5489, 118.0149], 5)
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors',
@@ -52,7 +55,13 @@ export default {
 
       this.markersLayer = L.layerGroup().addTo(this.map)
 
-      this.renderMarkers()
+      // 🔥 IMPORTANT FIX
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.map.invalidateSize()
+          this.renderMarkers()
+        }, 100)
+      })
     },
 
     renderMarkers() {
@@ -78,8 +87,13 @@ export default {
         bounds.push([item.lat, item.lng])
       })
 
-      if (bounds.length) {
+      if (bounds.length > 1) {
         this.map.fitBounds(bounds, { padding: [20, 20] })
+      } else if (bounds.length === 1) {
+        this.map.setView(bounds[0], 8)
+      } else {
+        // No data → reset to Indonesia
+        this.map.setView([-2.5489, 118.0149], 5)
       }
     },
   },
