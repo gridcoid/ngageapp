@@ -12,10 +12,10 @@
           border
           style="width: 100%"
           empty-text="No data"
-          :title="data?.key || '-'"
+          :title="columnLabel || ''"
           stripe
         >
-          <el-table-column prop="name" label="Name" min-width="120" />
+          <el-table-column prop="name" :label="columnLabel" min-width="120" />
 
           <el-table-column
             prop="count"
@@ -37,6 +37,22 @@ export default {
     data: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    columnLabel() {
+      const key = this.data?.key
+      if (!key) return 'Name'
+
+      // remove "Distribution" suffix
+      const cleaned = key.replace(/Distribution$/, '')
+
+      // convert camelCase → words
+      const words = cleaned.replace(/([A-Z])/g, ' $1')
+
+      // capitalize first letter
+      return words.charAt(0).toUpperCase() + words.slice(1)
     },
   },
 }

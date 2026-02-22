@@ -119,6 +119,7 @@
               <el-option label="Gender" value="gender" />
               <el-option label="Education" value="education" />
               <el-option label="Religion" value="religion" />
+              <el-option label="Age" value="age" />
             </el-select>
           </el-form-item>
 
