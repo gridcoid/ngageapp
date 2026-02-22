@@ -359,6 +359,7 @@ export default {
     handleReload() {
       this.currentPage = 1
       this.dataSearch = ''
+      this.rowPage = 7
       this.getData()
     },
 

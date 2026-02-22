@@ -324,6 +324,7 @@ export default {
     handleReload() {
       this.currentPage = 1
       this.dataSearch = ''
+      this.rowPage = 6
       this.getData()
     },
     getData() {
