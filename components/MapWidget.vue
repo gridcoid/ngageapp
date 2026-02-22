@@ -95,6 +95,20 @@ export default {
           }),
         })
 
+        // ✅ HOVER tooltip
+        marker.bindTooltip(item.name, {
+          direction: 'top',
+          offset: [0, -size / 2],
+          opacity: 0.9,
+          className: 'name-tooltip',
+        })
+
+        // Optional: Click popup
+        marker.bindPopup(`
+          <strong>${item.name}</strong><br/>
+          Count: ${item.count}
+        `)
+
         marker.addTo(this.markersLayer)
         bounds.push([item.lat, item.lng])
       })
@@ -104,7 +118,6 @@ export default {
       } else if (bounds.length === 1) {
         this.map.setView(bounds[0], 8)
       } else {
-        // No data → reset to Indonesia
         this.map.setView([-2.5489, 118.0149], 5)
       }
     },
@@ -151,5 +164,17 @@ export default {
   background: rgba(255, 255, 255, 0.75);
   padding: 2px 6px;
   opacity: 0.5;
+}
+.name-tooltip {
+  background: rgba(0, 0, 0, 0.75);
+  border: none;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+.leaflet-tooltip-top:before {
+  border-top-color: rgba(0, 0, 0, 0.75);
 }
 </style>
