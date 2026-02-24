@@ -455,7 +455,7 @@ export default {
         this.$store
           .dispatch('definition/create', payload)
           .then(() => {
-            this.$router.push('/admin/definition')
+            this.$router.push('/setting/definition')
             this.$notifier.showMessage({
               content: 'Query created successfully.',
               type: 'success',

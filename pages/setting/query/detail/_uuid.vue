@@ -226,7 +226,7 @@ export default {
     },
 
     toEdit() {
-      this.$router.push('/admin/query/edit/' + this.data.uuid)
+      this.$router.push('/setting/query/edit/' + this.data.uuid)
     },
 
     pretty(obj) {

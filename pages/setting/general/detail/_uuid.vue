@@ -127,7 +127,7 @@ export default {
     },
 
     toEdit() {
-      this.$router.push({ path: '/admin/setting/edit/' + this.data.uuid })
+      this.$router.push({ path: '/setting/general/edit/' + this.data.uuid })
     },
   },
 

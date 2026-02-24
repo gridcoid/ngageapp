@@ -1,7 +1,7 @@
 <script>
 export default {
   async asyncData({ redirect }) {
-    redirect('/admin/api-key')
+    redirect('/setting/api-key')
   },
 }
 </script>

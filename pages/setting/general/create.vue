@@ -152,7 +152,7 @@ export default {
           .dispatch('setting/create', this.data)
           .then((res) => {
             if (res.status === 201) {
-              this.$router.push({ path: '/admin/setting' })
+              this.$router.push({ path: '/setting/general' })
 
               this.$notifier.showMessage({
                 content: 'Setting created successfully.',

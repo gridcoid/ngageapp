@@ -7,17 +7,17 @@
     <div class="card-content">
       <div class="header-card flex items-center">
         <div class="title">
-          <i class="ti ti-key text-gray-400 mr-2"></i> Create New API Key
+          <i class="ti ti-key text-gray-400 mr-2"></i> Update API Key
         </div>
       </div>
 
       <Transition>
         <div
           v-if="showApiKey"
-          class="mt-6 mx-4 rounded-lg border border-yellow-300 bg-yellow-50 p-4"
+          class="mt-6 rounded-lg border border-yellow-300 bg-yellow-50 p-4"
         >
           <div class="font-semibold text-yellow-800 mb-2">
-            🔐 Your API Key (shown only once)
+            🔐 New API Key (shown only once)
           </div>
 
           <p class="text-sm text-yellow-700 mb-3">
@@ -28,13 +28,7 @@
           <div class="flex items-center gap-3">
             <el-input :value="createdApiKey" readonly class="flex-1" />
 
-            <el-button
-              type="primary"
-              icon="el-icon-document-copy"
-              @click="copyApiKey"
-            >
-              Copy
-            </el-button>
+            <el-button type="primary" @click="copyApiKey"> Copy </el-button>
           </div>
         </div>
       </Transition>
@@ -58,82 +52,23 @@
             />
           </el-form-item>
 
-          <!-- Expiration -->
-          <el-form-item
-            class="title-form"
-            prop="expiresAt"
-            label="Expiration Date"
-          >
-            <el-date-picker
-              v-model="data.expiresAt"
-              type="date"
-              placeholder="Select date (optional)"
-              format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd"
-              placement="bottom-start"
-              style="width: 100%"
-            />
+          <!-- Revoked -->
+          <el-form-item class="title-form" prop="revoked">
+            <label slot="label" class="title-form">Revoked</label>
+            <el-switch v-model="data.revoked" />
           </el-form-item>
 
-          <!-- Scopes -->
-          <el-form-item class="title-form" prop="scopes">
-            <label
-              slot="label"
-              class="title-form"
-              style="font-size: 14px; color: #606266"
-              >Scopes/Segments<Req
-            /></label>
+          <!-- Reset API Key -->
+          <el-form-item class="title-form">
+            <label slot="label" class="title-form text-red-600">
+              Reset API Key
+            </label>
 
-            <div
-              v-for="(row, index) in scopeRows"
-              :key="index"
-              class="flex items-center mb-3"
-            >
-              <el-select
-                v-model="row.segmentId"
-                placeholder="Select Segment"
-                class="mr-3"
-                style="width: 250px"
-                filterable
-                clearable
-              >
-                <el-option
-                  v-for="item in dataSegments"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
-                >
-                </el-option>
-              </el-select>
+            <el-switch v-model="resetKey" :disabled="showApiKey" />
 
-              <div class="ml-4"></div>
-
-              <el-checkbox v-model="row.read" class="mr-3" disabled>
-                Read
-              </el-checkbox>
-
-              <el-checkbox v-model="row.write" class="mr-3" disabled>
-                Write
-              </el-checkbox>
-
-              <div class="ml-6"></div>
-
-              <el-button
-                type="danger"
-                icon="el-icon-delete"
-                @click="removeScopeRow(index)"
-                size="small"
-                circle
-              />
-            </div>
-
-            <el-button
-              type="success"
-              icon="el-icon-plus"
-              @click="addScopeRow"
-              size="small"
-              circle
-            />
+            <p v-if="resetKey" class="text-xs text-red-500 mt-1">
+              ⚠️ Resetting will invalidate the old API key immediately.
+            </p>
           </el-form-item>
         </el-form>
 
@@ -152,13 +87,13 @@
           @click="save()"
           class="w-32"
           :loading="isLoading"
-          :disable="isLoading"
+          :disabled="isLoading"
         >
           Save
         </el-button>
       </div>
       <div v-if="showApiKey" class="footer-card flex justify-end">
-        <el-button type="primary" @click="$router.push('/admin/api-key')">
+        <el-button type="primary" @click="$router.push('/setting/api-key')">
           Done
         </el-button>
       </div>
@@ -170,13 +105,15 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'CreateApiKeyPage',
+  name: 'UpdateApiKeyPage',
   layout: 'default',
+
   head() {
     return {
-      title: 'Create API Key - ' + this.$config.appName,
+      title: 'Update API Key - ' + this.$config.appName,
     }
   },
+
   data() {
     return {
       rules: {
@@ -194,15 +131,9 @@ export default {
             trigger: 'blur',
           },
         ],
-        expiresAt: [
+        revoked: [
           {
-            required: false,
-          },
-        ],
-        scopes: [
-          {
-            required: true,
-            message: 'Scopes is required',
+            type: 'boolean',
             trigger: 'change',
           },
         ],
@@ -212,26 +143,34 @@ export default {
       showMessage: false,
       messageError: '',
 
-      scopeRows: [
-        {
-          segmentId: null,
-          read: true, // default checked
-          write: false, // default unchecked
-        },
-      ],
-
       data: {
+        id: null,
+        uuid: null,
+
         name: '',
         expiresAt: null,
         scopes: [],
+        revoked: false,
       },
 
+      resetKey: false,
+
       createdApiKey: null,
-      createdApiKeyName: null,
       showApiKey: false,
     }
   },
+
   methods: {
+    getDetail() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('apiKey/detail', {
+          uuid: this.$route.params.uuid,
+        })
+        .finally(() => (this.isLoading = false))
+    },
+
     getSegments() {
       this.isLoading = true
 
@@ -240,57 +179,33 @@ export default {
       })
     },
 
-    addScopeRow() {
-      this.scopeRows.push({
-        segmentId: null,
-        read: true,
-        write: false,
-      })
-    },
-
-    removeScopeRow(index) {
-      this.scopeRows.splice(index, 1)
-
-      if (this.scopeRows.length === 0) {
-        this.addScopeRow()
-      }
-    },
-
     save() {
       this.showMessage = false
       this.messageError = ''
 
-      // Process scopeRows into data.scopes
-      this.data.scopes = this.scopeRows
-        .filter((row) => row.segmentId)
-        .map((row) => ({
-          segmentId: row.segmentId,
-          read: row.read,
-          write: row.write,
-        }))
-
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
 
-        this.$notifier.showMessage({
-          content: 'Creating API key...',
-          type: 'loading',
-        })
-
         this.isLoading = true
 
-        this.$store
-          .dispatch('apiKey/create', this.data)
-          .then((res) => {
-            if (res.status === 201) {
-              const payload = res.data.data
+        const payload = {
+          ...this.data,
+          resetKey: this.resetKey,
+        }
 
-              this.createdApiKey = payload.apiKey
-              this.createdApiKeyName = payload.name
-              this.showApiKey = true
+        this.$store
+          .dispatch('apiKey/update', payload)
+          .then((res) => {
+            if (res.status === 200) {
+              if (res.data.data.apiKey) {
+                this.createdApiKey = res.data.data.apiKey
+                this.showApiKey = true
+              } else {
+                this.$router.push({ path: '/setting/api-key' })
+              }
 
               this.$notifier.showMessage({
-                content: 'API Key created successfully.',
+                content: 'API Key updated successfully.',
                 type: 'success',
               })
             } else {
@@ -299,18 +214,17 @@ export default {
               this.messageError =
                 res?.data?.data?.errors
                   ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to create API key'
+                  .join(', ') || 'Failed to update API key'
 
               this.$notifier.showMessage({
-                content: 'Failed to create API key.',
+                content: 'Failed to update API key.',
                 type: 'failed',
               })
             }
           })
           .catch((e) => {
-            console.error(e)
             this.showMessage = true
-            this.messageError = 'Error: ' + e.message
+            this.messageError = e.message
           })
           .finally(() => (this.isLoading = false))
       })
@@ -325,33 +239,35 @@ export default {
       })
     },
   },
+
   computed: {
     ...mapState({
+      dataDetail: (state) => state.apiKey.dataDetail,
+
       dataSegments: (state) => {
         return state.segment.dataList
       },
     }),
   },
+
   mounted() {
     this.getSegments()
+    this.getDetail()
   },
-  watch: {
-    scopeRows: {
-      deep: true,
-      handler(rows) {
-        this.data.scopes = rows
-          .filter((row) => row.segmentId)
-          .map((row) => ({
-            segmentId: row.segmentId,
-            read: row.read,
-            write: row.write,
-          }))
 
-        // revalidate scopes field
-        this.$nextTick(() => {
-          this.$refs.ruleForm?.validateField('scopes')
-        })
-      },
+  watch: {
+    async dataDetail(val) {
+      if (val) {
+        this.data = {
+          id: val.id,
+          uuid: val.uuid,
+
+          name: val.name,
+          expiresAt: val.expiresAt,
+          scopes: val.scopes,
+          revoked: val.revoked,
+        }
+      }
     },
   },
 }

@@ -3,9 +3,10 @@
     <!-- header -->
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-code text-gray-400 mr-2"></i> Query Management
+        <i class="ti ti-layout-dashboard text-gray-400 mr-2"></i>
+        Widget Settings
       </div>
-      <div class="flex">
+      <div class="flex" v-if="selectedDefinitions.length === 0">
         <ButtonDefault
           icon="plus"
           text="Create New"
@@ -14,12 +15,21 @@
           @click.native="toCreate()"
         />
       </div>
+      <div class="flex" v-else>
+        <ButtonDefault
+          icon="delete"
+          text="Delete Selected"
+          class="ml-4"
+          type="secondary"
+          @click.native="deleteSelected()"
+        />
+      </div>
     </div>
 
     <!-- filter -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Manage saved SQL queries that can be reused by widgets and dashboards.
+        Manage widget settings (data sources) used by widgets in dashboard.
       </div>
 
       <div class="flex items-center">
@@ -43,24 +53,17 @@
             >
               <IconSearch />
             </div>
-            <div
-              v-else
-              class="show-search flex items-center justify-between cursor-pointer"
-            >
-              <form
-                autocomplete="off"
-                style="width: 100%"
-                @submit.prevent="searchQuery()"
-              >
+            <div v-else class="show-search flex items-center justify-between">
+              <form style="width: 100%" @submit.prevent="searchDefinition">
                 <input
                   v-model="dataSearch"
                   type="text"
                   class="title-1"
-                  placeholder="Find query..."
-                  @change="searchQuery()"
+                  placeholder="Find definition..."
+                  @change="searchDefinition"
                 />
               </form>
-              <IconSearch @click.native="searchQuery()" />
+              <IconSearch @click.native="searchDefinition" />
             </div>
           </transition>
         </div>
@@ -68,139 +71,98 @@
     </div>
 
     <!-- table -->
-    <div v-if="dataQueries.length > 0" class="body-content flex flex-col">
+    <div v-if="dataDefinitions.length > 0" class="body-content flex flex-col">
       <el-table
         v-if="tableVisible"
         v-loading="isLoading"
         element-loading-text="Loading..."
         element-loading-spinner="el-icon-loading"
-        fit
         stripe
-        :data="dataQueries"
+        fit
+        :data="dataDefinitions"
         class="w-full k-table"
+        ref="multipleTable"
+        @selection-change="handleSelectionChange"
       >
         <el-table-column label="" width="10" />
 
-        <!-- name -->
+        <el-table-column type="selection" width="55" />
+
+        <!-- name & description -->
         <el-table-column label="Name" sortable>
           <template slot-scope="scope">
-            <div
-              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
-              @click="viewDetail(scope.row)"
-            >
+            <div class="font-cabin font-semibold text-sm text-gray-700">
               {{ scope.row.name }}
+            </div>
+            <div
+              v-if="scope.row.description"
+              class="text-xs text-gray-400 mt-1"
+            >
+              {{ scope.row.description }}
             </div>
           </template>
         </el-table-column>
 
-        <!-- source -->
-        <el-table-column label="Source" width="200">
+        <!-- scope -->
+        <el-table-column label="Scope" width="120">
           <template slot-scope="scope">
-            <div
-              class="font-cabin font-mono text-sm text-gray-700 cursor-pointer"
-            >
-              {{ scope.row.definition?.source }}
-            </div>
+            <span class="text-sm">
+              {{
+                scope.row.definition?.scope?.type === 'segment'
+                  ? 'Segmented'
+                  : 'All'
+              }}
+            </span>
+          </template>
+        </el-table-column>
+
+        <!-- segment -->
+        <el-table-column label="Segment" width="160">
+          <template slot-scope="scope">
+            <span class="text-sm">
+              {{
+                scope.row.definition?.scope?.type === 'segment'
+                  ? scope.row.segment?.name || '-'
+                  : 'All'
+              }}
+            </span>
           </template>
         </el-table-column>
 
         <!-- metrics -->
-        <el-table-column label="Metrics" width="80">
+        <el-table-column label="Metric" width="110">
           <template slot-scope="scope">
-            <div
-              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
-            >
-              <i
-                class="ti ti-check text-blue-500"
-                v-if="scope.row.definition?.metrics?.length > 0"
-              />
-              <i class="ti ti-line-dashed text-red-500" v-else />
-            </div>
+            <span class="text-sm">
+              {{ resolveMetricType(scope.row.definition?.metrics) }}
+            </span>
           </template>
         </el-table-column>
 
-        <!-- join -->
-        <el-table-column label="Joins" width="80">
+        <!-- field -->
+        <el-table-column label="Field" width="130">
           <template slot-scope="scope">
-            <div
-              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
-            >
-              <i
-                class="ti ti-check text-blue-500"
-                v-if="scope.row.definition?.joins?.length > 0"
-              />
-              <i class="ti ti-line-dashed text-red-500" v-else />
-            </div>
+            <span class="text-sm">
+              <el-tag
+                v-if="resolveField(scope.row.definition?.metrics) !== '-'"
+                type="info"
+                >{{ resolveField(scope.row.definition?.metrics) }}</el-tag
+              >
+              <span v-else>-</span>
+            </span>
           </template>
         </el-table-column>
 
-        <!-- filters -->
-        <el-table-column label="Filters" width="80">
-          <template slot-scope="scope">
-            <div
-              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
-            >
-              <i
-                class="ti ti-check text-blue-500"
-                v-if="
-                  scope.row.definition?.filters?.length > 0 ||
-                  'and' in scope.row.definition?.filters
-                "
-              />
-              <i class="ti ti-line-dashed text-red-500" v-else />
-            </div>
-          </template>
-        </el-table-column>
-
-        <!-- groupBy -->
-        <el-table-column label="Group By" width="80">
-          <template slot-scope="scope">
-            <div
-              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
-            >
-              <i
-                class="ti ti-check text-blue-500"
-                v-if="scope.row.definition?.groupBy?.length > 0"
-              />
-              <i class="ti ti-line-dashed text-red-500" v-else />
-            </div>
-          </template>
-        </el-table-column>
-
-        <!-- sort -->
-        <el-table-column label="Sort" width="80">
-          <template slot-scope="scope">
-            <div
-              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
-            >
-              <i
-                class="ti ti-check text-blue-500"
-                v-if="scope.row.definition?.sort?.length > 0"
-              />
-              <i class="ti ti-line-dashed text-red-500" v-else />
-            </div>
-          </template>
-        </el-table-column>
-
-        <!-- ACTIONS -->
+        <!-- actions -->
         <el-table-column width="190">
           <template slot-scope="scope">
-            <el-dropdown
-              trigger="click"
-              placement="bottom-start"
-              :append-to-body="true"
-            >
-              <!-- BUTTON -->
+            <el-dropdown trigger="click" placement="bottom-start">
               <div
-                class="dropdown-btn noselect flex items-center justify-between cursor-pointer mr-6"
+                class="dropdown-btn noselect flex items-center justify-between mr-6"
               >
-                <div
-                  class="flex card-dropdown items-center"
-                  @click.stop="viewDetail(scope.row)"
-                >
+                <div class="flex card-dropdown items-center">
                   <i class="ti ti-eye mr-3" style="color: #1b63d4" />
                   <div class="title-dropdown" style="color: #1b63d4">
-                    Detail
+                    Options
                   </div>
                 </div>
 
@@ -209,12 +171,31 @@
                 </div>
               </div>
 
-              <!-- DROPDOWN -->
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="addToDashboard(scope.row)"
+                  >
+                    <i class="ti ti-device-desktop text-blue-500"></i>
+                    <span class="ml-2">Add to Dashboard</span>
+                  </div>
+                </el-dropdown-item>
+
+                <el-dropdown-item>
+                  <div
+                    class="item-menu flex items-center no-select text-gray-500 text-sm"
+                    @click="duplicateDefinition(scope.row)"
+                  >
+                    <i class="ti ti-copy text-green-500"></i>
+                    <span class="ml-2">Duplicate</span>
+                  </div>
+                </el-dropdown-item>
+
+                <el-dropdown-item>
                   <NuxtLink
-                    class="item-menu flex items-center no-select"
-                    :to="`/admin/query/edit/${scope.row.uuid}`"
+                    class="item-menu flex items-center"
+                    :to="`/setting/definition/edit/${scope.row.uuid}`"
                   >
                     <i class="ti ti-edit text-yellow-500"></i>
                     <span class="ml-2">Edit</span>
@@ -224,7 +205,7 @@
                 <el-dropdown-item class="border-t border-gray-300">
                   <div
                     class="item-menu flex items-center"
-                    @click="deleteQuery(scope.row)"
+                    @click="deleteDefinition(scope.row)"
                   >
                     <i class="ti ti-trash text-red-500"></i>
                     <span class="ml-2">Delete</span>
@@ -236,47 +217,32 @@
         </el-table-column>
       </el-table>
 
-      <Pagination
-        class="k-pagination"
-        :value="currentPage"
-        :total-page="totalPages"
-        :total="totalList"
-        @input="
-          (page) => {
-            $store.commit('user/SET_DROPDOWN', null)
-            changePage(page)
-          }
-        "
-        @rowPage="
-          (size) => {
-            $store.commit('user/SET_DROPDOWN', null)
-            changeRowPage(size)
-          }
-        "
-      />
+      <div class="flex items-center justify-center mt-4">
+        <el-pagination
+          background
+          :current-page.sync="currentPage"
+          :page-size="rowPage"
+          :page-sizes="[9, 10, 25, 50, 100]"
+          :total="totalList"
+          layout="total, sizes, prev, pager, next, jumper"
+          @size-change="changeRowPage"
+          @current-change="changePage"
+        />
+      </div>
     </div>
 
     <!-- empty -->
     <div v-else class="flex flex-col items-center mt-24 no-data">
       <img src="~/assets/images/empty_table.png" width="150" />
       <div class="title-1 mt-2">No records found.</div>
-      <div class="subtitle-1">
-        You haven’t created any query yet. Create one now?
-      </div>
-      <div class="flex items-center justify-center mt-4">
+      <div class="subtitle-1">You haven’t created any definition yet.</div>
+      <div class="flex mt-4">
         <button
           class="flex items-center justify-center save-btn no-select"
           @click="toCreate"
         >
           <IconPlus bg-color="#1B63D4" />
-          <div class="name-btn">Create New Query</div>
-        </button>
-        <button
-          class="flex items-center justify-center save-btn no-select"
-          @click="$router.go(0)"
-        >
-          <IconRefresh bg-color="#1B63D4" />
-          <div class="name-btn">Reload This Page</div>
+          <div class="name-btn">Create New Setting</div>
         </button>
       </div>
     </div>
@@ -286,25 +252,17 @@
       <ModalSort
         v-if="dialog"
         @close-modal="dialog = false"
-        @save-filter="getData()"
-        @reset-filter="resetFilter()"
+        @save-filter="getData"
+        @reset-filter="resetFilter"
       >
         <template v-slot:sort>
-          <Accordion title="Sort by" class="mb-4" show>
-            <template v-slot:body>
-              <div class="flex flex-col">
-                <el-radio
-                  v-model="radio"
-                  class="flex mb-4"
-                  label="createdAt_asc"
-                >
-                  Ascending
-                </el-radio>
-                <el-radio v-model="radio" class="flex" label="createdAt_desc">
-                  Descending
-                </el-radio>
-              </div>
-            </template>
+          <Accordion title="Sort by" show>
+            <el-radio v-model="radio" label="createdAt_asc">
+              Ascending
+            </el-radio>
+            <el-radio v-model="radio" label="createdAt_desc">
+              Descending
+            </el-radio>
           </Accordion>
         </template>
       </ModalSort>
@@ -316,13 +274,9 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'QueryPage',
+  name: 'DefinitionPage',
   layout: 'default',
-  head() {
-    return {
-      title: 'Widget Settings - ' + this.$config.appName,
-    }
-  },
+
   data() {
     return {
       tableVisible: true,
@@ -330,91 +284,269 @@ export default {
       dataSearch: '',
       showSearch: false,
       currentPage: 1,
-      rowPage: 5,
+      rowPage: 9,
       isLoading: false,
       dialog: false,
-      resetFilter() {
-        this.radio = 'createdAt_desc'
-        this.getData()
-      },
+
+      selectedDefinitions: [],
     }
   },
+
   computed: {
     ...mapState({
-      dataQueries: (state) => state.query.dataList,
-      totalList: (state) => state.query.totalList,
-      totalPages: (state) => state.query.totalPages,
-      sidebar: (state) => state.user.sidebar,
+      dataDefinitions: (s) => s.definition.dataList,
+      totalList: (s) => s.definition.totalList,
+      totalPages: (s) => s.definition.totalPages,
+      sidebar: (s) => s.user.sidebar,
     }),
   },
+
   mounted() {
     this.getData()
+    this.$root.$on(`flag-${this.$route.name}`, this.handleReload)
   },
+
+  beforeDestroy() {
+    this.$root.$off(`flag-${this.$route.name}`, this.handleReload)
+  },
+
   methods: {
+    handleReload() {
+      this.currentPage = 1
+      this.dataSearch = ''
+      this.rowPage = 9
+      this.getData()
+    },
+
     getData() {
       this.isLoading = true
 
-      const payload = {
-        page: this.currentPage,
-        size: this.rowPage,
-        name: this.dataSearch,
-        sort: this.radio,
-      }
+      this.$store
+        .dispatch('definition/list', {
+          page: this.currentPage,
+          size: this.rowPage,
+          name: this.dataSearch,
+          sort: this.radio,
+        })
+        .finally(() => (this.isLoading = false))
+    },
 
-      this.$store.dispatch('query/list', payload).finally(() => {
-        this.isLoading = false
-      })
-    },
     toCreate() {
-      this.$router.push({ path: '/admin/query/create' })
+      this.$router.push('/setting/definition/create')
     },
-    searchQuery() {
+
+    searchDefinition() {
       this.currentPage = 1
       this.showSearch = false
       this.getData()
     },
+
     showDialog() {
       this.dialog = !this.dialog
     },
-    changePage(s) {
-      if (s > 0) {
-        this.currentPage = s
-        this.getData()
-      }
-    },
-    changeRowPage(p) {
-      this.rowPage = p
-      this.currentPage = 1
-      this.getData()
-    },
-    viewDetail(data) {
-      this.$router.push({ path: `/admin/query/detail/${data.uuid}` })
-    },
-    deleteQuery(data) {
-      this.$confirm(`Delete query "${data.name}"?`, 'Confirmation', {
-        confirmButtonText: 'Delete',
-        type: 'warning',
+
+    addToDashboard(data) {
+      this.$confirm(`Set "${data.name}" as dashboard widget?`, 'Confirmation', {
+        confirmButtonText: 'Add',
+        type: 'info',
+      }).then(() => {
+        this.$notifier.showMessage({
+          content: 'Add widget to dashboard...',
+          type: 'loading',
+        })
+
+        this.$store
+          .dispatch('definition/addToDashboard', { uuid: data.uuid })
+          .then((res) => {
+            if (res.status === 201) {
+              this.getData()
+
+              this.$notifier.showMessage({
+                content: 'Widget added to dashboard',
+                type: 'success',
+              })
+
+              this.$router.push('/')
+            }
+          })
+          .catch((err) => {
+            this.$notifier.showMessage({
+              content: err.response.data.message,
+              type: 'error',
+            })
+          })
       })
+    },
+
+    duplicateDefinition(data) {
+      this.$confirm(
+        `Duplicate widget setting "${data.name}"?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'Duplicate',
+          type: 'info',
+        }
+      )
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Deleting query...',
+            content: 'Duplicate widget setting...',
             type: 'loading',
           })
 
           this.$store
-            .dispatch('query/delete', { uuid: data.uuid })
+            .dispatch('definition/duplicate', { uuid: data.uuid })
             .then((res) => {
-              if (res.status === 204) {
+              if (res.status === 201) {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Query deleted successfully.',
+                  content: 'Widget setting duplicated successfully.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Failed to delete query. Error: ' + res?.data.data.message,
+                    'Duplicate widget setting failed. Error : ' +
+                    res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
+    },
+
+    changePage(p) {
+      this.currentPage = p
+      this.getData()
+    },
+
+    changeRowPage(s) {
+      this.rowPage = s
+      this.currentPage = 1
+      this.getData()
+    },
+
+    viewDetail(data) {
+      this.$router.push(`/setting/definition/detail/${data.uuid}`)
+    },
+
+    deleteDefinition(data) {
+      this.$confirm(`Delete widget setting "${data.name}"?`, 'Confirmation', {
+        confirmButtonText: 'Delete',
+        type: 'warning',
+      })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Deleting widget setting...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('definition/delete', { uuid: data.uuid })
+            .then((res) => {
+              if (res.status === 204) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Widget setting deleted successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Failed to delete widget setting. Error: ' +
+                    res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
+    },
+
+    resolveMetricType(metrics = []) {
+      if (!metrics.length) return '-'
+
+      const m = metrics[0]
+
+      if (m.type === 'count' && !m.filter) return 'Total'
+      if (m.type === 'count' && m.filter) {
+        return m.filter && Object.keys(m.filter)[0]?.startsWith('userInput')
+          ? 'Additional'
+          : 'Specific'
+      }
+      if (m.type === 'group') {
+        return m.groupBy?.startsWith('userInput') ? 'Additional' : 'Specific'
+      }
+
+      return '-'
+    },
+
+    resolveField(metrics = []) {
+      if (!metrics.length) return '-'
+
+      const m = metrics[0]
+
+      if (m.type === 'count' && m.filter) {
+        return Object.keys(m.filter)[0]
+          .replace('Id', '')
+          .replace('userInput.', '')
+      }
+
+      if (m.type === 'group') {
+        return m.groupBy?.replace('userInput.', '')
+      }
+
+      return '-'
+    },
+
+    handleSelectionChange(val) {
+      this.selectedDefinitions = val
+    },
+
+    deleteSelected() {
+      if (!this.selectedDefinitions.length) return
+
+      this.$confirm(
+        `Delete ${this.selectedDefinitions.length} widget settings?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'Delete',
+          type: 'warning',
+        }
+      )
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Deleting widget settings...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('definition/deleteBulk', {
+              uuids: this.selectedDefinitions.map((d) => d.uuid),
+            })
+            .then((res) => {
+              if (res.status === 204) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Widget settings deleted successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Failed to delete widget settings. Error: ' +
+                    res?.data.data.message,
                   type: 'failed',
                 })
               }
@@ -427,12 +559,11 @@ export default {
         })
     },
   },
+
   watch: {
     sidebar() {
       this.tableVisible = false
-      this.$nextTick(() => {
-        this.tableVisible = true
-      })
+      this.$nextTick(() => (this.tableVisible = true))
     },
   },
 }

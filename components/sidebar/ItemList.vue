@@ -195,25 +195,25 @@ export default {
           // },
           {
             path: '',
-            name: 'Administration',
+            name: 'Settings',
             type: 'multiple',
             icon: 'ti ti-adjustments',
             children: [
               {
-                path: '/admin/api-key',
+                path: '/setting/api-key',
                 name: 'API Keys',
                 type: 'single',
                 icon: 'ti ti-key',
               },
               {
-                path: '/admin/definition',
-                name: 'Widget Settings',
+                path: '/setting/definition',
+                name: 'Widget',
                 type: 'single',
                 icon: 'ti ti-code',
               },
               {
-                path: '/admin/setting',
-                name: 'General Settings',
+                path: '/setting/general',
+                name: 'General',
                 type: 'single',
                 icon: 'ti ti-settings',
               },
@@ -221,7 +221,7 @@ export default {
           },
           {
             path: '',
-            name: 'Reference',
+            name: 'References',
             type: 'multiple',
             icon: 'ti ti-book',
             children: [
@@ -322,6 +322,7 @@ export default {
           },
         ]
       }
+
       if (this.roleId === 3) {
         this.data = [
           {
@@ -351,6 +352,7 @@ export default {
           },
         ]
       }
+
       if (this.roleId === 4) {
         this.data = [
           {

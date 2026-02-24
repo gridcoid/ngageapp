@@ -8,7 +8,7 @@
       <div class="card-content bg-white">
         <div class="header-card flex items-center">
           <div class="title">
-            <i class="ti ti-code text-gray-400 mr-2"></i> Create Query
+            <i class="ti ti-code text-gray-400 mr-2"></i> Update Query
           </div>
         </div>
 
@@ -161,13 +161,13 @@
           </el-button>
         </div>
       </div>
+
       <div class="card-content bg-gray-50">
         <div class="header-card flex items-center">
           <div class="title">
             <i class="ti ti-help text-gray-400 mr-2"></i> Query Example
           </div>
         </div>
-
         <div class="body-card">
           <QueryExample />
         </div>
@@ -177,13 +177,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'CreateQueryPage',
+  name: 'UpdateQueryPage',
   layout: 'default',
 
   head() {
     return {
-      title: 'Create Query - ' + this.$config.appName,
+      title: 'Update Query - ' + this.$config.appName,
     }
   },
 
@@ -197,19 +199,8 @@ export default {
             trigger: 'blur',
           },
           {
-            min: 1,
             max: 50,
             message: 'Max 50 characters',
-            trigger: 'blur',
-          },
-        ],
-        description: [
-          {
-            required: false,
-          },
-          {
-            max: 200,
-            message: 'Max 200 character',
             trigger: 'blur',
           },
         ],
@@ -220,33 +211,6 @@ export default {
             trigger: 'change',
           },
         ],
-        metricsJson: [
-          {
-            required: true,
-            message: 'Metrics is required',
-            trigger: 'blur',
-          },
-        ],
-        joinsJson: [
-          {
-            required: false,
-          },
-        ],
-        filtersJson: [
-          {
-            required: false,
-          },
-        ],
-        groupByJson: [
-          {
-            required: false,
-          },
-        ],
-        sortJson: [
-          {
-            required: false,
-          },
-        ],
       },
 
       isLoading: false,
@@ -254,6 +218,9 @@ export default {
       messageError: '',
 
       data: {
+        id: null,
+        uuid: null,
+
         name: '',
         description: '',
 
@@ -268,7 +235,21 @@ export default {
       },
     }
   },
+
+  mounted() {
+    this.getDetail()
+  },
+
   methods: {
+    getDetail() {
+      this.isLoading = true
+
+      this.$store
+        .dispatch('query/detail', {
+          uuid: this.$route.params.uuid,
+        })
+        .finally(() => (this.isLoading = false))
+    },
     save() {
       this.showMessage = false
       this.messageError = ''
@@ -299,36 +280,36 @@ export default {
         if (!valid) return
 
         this.$notifier.showMessage({
-          content: 'Creating query...',
+          content: 'Updating query...',
           type: 'loading',
         })
 
-        this.isLoading = true
-
         this.$store
-          .dispatch('query/create', {
+          .dispatch('query/update', {
+            id: this.data.id,
+            uuid: this.data.uuid,
             name: this.data.name,
             description: this.data.description,
             definition,
           })
           .then((res) => {
-            if (res.status === 200) {
-              this.$router.push({ path: '/admin/query' })
-
+            if (res.status === 204) {
               this.$notifier.showMessage({
-                content: 'Query created',
+                content: 'Query updated',
                 type: 'success',
               })
+
+              this.$router.push({ path: '/setting/query' })
             } else {
               this.showMessage = true
 
               this.messageError =
                 res?.data?.data?.errors
                   ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to create query'
+                  .join(', ') || 'Failed to update query'
 
               this.$notifier.showMessage({
-                content: 'Failed to create query.',
+                content: 'Failed to update query.',
                 type: 'failed',
               })
             }
@@ -340,6 +321,47 @@ export default {
           })
           .finally(() => (this.isLoading = false))
       })
+    },
+  },
+  computed: {
+    ...mapState({
+      dataDetail: (state) => state.query.dataDetail,
+    }),
+  },
+  watch: {
+    dataDetail(val) {
+      if (val) {
+        this.data.id = val.id
+        this.data.uuid = val.uuid
+
+        this.data.name = val.name
+        this.data.description = val.description
+        this.data.source = val.definition?.source || ''
+        this.data.limit = val.definition?.limit || 100
+
+        // Fill editor JSON fields
+        this.data.metricsJson = JSON.stringify(
+          val.definition?.metrics || [],
+          null,
+          2
+        )
+        this.data.groupByJson = JSON.stringify(
+          val.definition?.groupBy || [],
+          null,
+          2
+        )
+        this.data.filtersJson = JSON.stringify(
+          val.definition?.filters || {},
+          null,
+          2
+        )
+        this.data.joinsJson = JSON.stringify(
+          val.definition?.joins || [],
+          null,
+          2
+        )
+        this.data.sortJson = JSON.stringify(val.definition?.sort || [], null, 2)
+      }
     },
   },
 }

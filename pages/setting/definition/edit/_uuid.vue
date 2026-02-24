@@ -428,7 +428,7 @@ export default {
                 type: 'success',
               })
 
-              this.$router.push('/admin/definition')
+              this.$router.push('/setting/definition')
             } else {
               this.showMessage = true
 

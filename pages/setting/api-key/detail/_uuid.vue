@@ -343,7 +343,7 @@ export default {
     },
 
     toEdit() {
-      this.$router.push({ path: '/admin/api-key/edit/' + this.data.uuid })
+      this.$router.push({ path: '/setting/api-key/edit/' + this.data.uuid })
     },
   },
   watch: {

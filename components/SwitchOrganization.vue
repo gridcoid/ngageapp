@@ -33,6 +33,7 @@
     <div v-show="show" class="modal-backdrop" @click="open()" />
   </div>
 </template>
+
 <script>
 import { mapState } from 'vuex'
 export default {
@@ -93,6 +94,7 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
 .modal-backdrop {
   position: fixed;

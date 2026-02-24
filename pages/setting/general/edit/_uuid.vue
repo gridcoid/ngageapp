@@ -214,7 +214,7 @@ export default {
                 type: 'success',
               })
 
-              this.$router.push({ path: '/admin/setting' })
+              this.$router.push({ path: '/setting/general' })
             } else {
               this.showMessage = true
 

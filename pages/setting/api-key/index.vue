@@ -2,7 +2,7 @@
   <div class="kg-containers p-6 w-full">
     <div class="flex items-center header-content">
       <div class="title-header">
-        <i class="ti ti-key text-gray-400 mr-2"></i> Settings
+        <i class="ti ti-key text-gray-400 mr-2"></i> API Key Management
       </div>
       <div class="flex">
         <ButtonDefault
@@ -16,7 +16,8 @@
     </div>
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Customize your organization settings and app preferences.
+        Generate and configure API keys with custom scopes to safely integrate
+        external apps and services.
       </div>
       <div class="flex items-center">
         <button
@@ -44,24 +45,24 @@
               <form
                 autocomplete="off"
                 style="width: 100%"
-                @submit.prevent="searchSetting()"
+                @submit.prevent="searchApiKey()"
               >
                 <input
                   v-model="dataSearch"
                   type="text"
                   class="title-1"
                   placeholder="Find something.."
-                  @change="searchSetting()"
+                  @change="searchApiKey()"
                 />
               </form>
-              <IconSearch @click.native="searchSetting()" />
+              <IconSearch @click.native="searchApiKey()" />
             </div>
           </transition>
         </div>
       </div>
     </div>
 
-    <div v-if="dataSettings.length > 0" class="body-content flex flex-col">
+    <div v-if="dataApiKeys.length > 0" class="body-content flex flex-col">
       <el-table
         v-if="tableVisible"
         v-loading="isLoading"
@@ -70,44 +71,58 @@
         fit
         lazy
         stripe
-        :data="dataSettings"
+        :data="dataApiKeys"
         class="w-full k-table"
       >
         <!-- padding -->
         <el-table-column label="" width="10" />
 
-        <!-- key -->
-        <el-table-column label="Key" sortable width="300">
+        <!-- name -->
+        <el-table-column label="Name" sortable>
           <template slot-scope="scope">
             <div
-              class="font-cabin font-mono text-sm text-gray-700 cursor-pointer"
+              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
               @click="viewDetail(scope.row)"
             >
-              {{ scope.row.key }}
+              {{ scope.row.name }}
             </div>
           </template>
         </el-table-column>
 
-        <!-- value -->
-        <el-table-column label="Value">
+        <!-- scopes -->
+        <el-table-column label="Scopes" width="180" sortable>
           <template slot-scope="scope">
-            <div
-              class="font-cabin font-mono text-sm text-gray-700 cursor-pointer"
-              @click="viewDetail(scope.row)"
-            >
-              {{ scope.row.value }}
+            <div class="font-cabin font-normal text-sm text-gray-500">
+              {{
+                scope.row.scopes
+                  ? (scope.row.scopes?.length || 0) + ' Segments'
+                  : 'No Scopes'
+              }}
             </div>
           </template>
         </el-table-column>
 
-        <!-- value -->
-        <el-table-column label="Description">
+        <!-- status -->
+        <el-table-column label="Status" width="140" sortable>
           <template slot-scope="scope">
             <div
-              class="font-cabin font-mono text-sm text-gray-700 cursor-pointer"
-              @click="viewDetail(scope.row)"
+              class="font-cabin font-medium text-sm"
+              :class="scope.row.revoked ? 'text-red-500' : 'text-blue-500'"
             >
-              {{ scope.row.description }}
+              {{ scope.row.revoked ? 'Revoked' : 'Active' }}
+            </div>
+          </template>
+        </el-table-column>
+
+        <!-- expires -->
+        <el-table-column label="Expires" width="140" sortable>
+          <template slot-scope="scope">
+            <div class="font-cabin font-normal text-sm text-gray-500">
+              {{
+                scope.row.expiresAt
+                  ? new Date(scope.row.expiresAt).toLocaleDateString()
+                  : 'Never'
+              }}
             </div>
           </template>
         </el-table-column>
@@ -144,7 +159,7 @@
                 <el-dropdown-item>
                   <NuxtLink
                     class="item-menu flex items-center no-select"
-                    :to="`/admin/setting/edit/${scope.row.uuid}`"
+                    :to="`/setting/api-key/edit/${scope.row.uuid}`"
                   >
                     <i class="ti ti-edit text-yellow-500"></i>
                     <span class="ml-2">Edit</span>
@@ -154,7 +169,7 @@
                 <el-dropdown-item class="border-t border-gray-300">
                   <div
                     class="item-menu flex items-center"
-                    @click="deleteSetting(scope.row)"
+                    @click="deleteApiKey(scope.row)"
                   >
                     <i class="ti ti-trash text-red-500"></i>
                     <span class="ml-2">Delete</span>
@@ -184,7 +199,7 @@
       <img src="~/assets/images/empty_table.png" width="150" />
       <div class="title-1 mt-2">No records found.</div>
       <div class="subtitle-1">
-        Seems like you haven’t created any setting yet. Create one now?
+        Seems like you haven’t created any api key yet. Create one now?
       </div>
       <div class="flex items-center justify-center mt-4">
         <button
@@ -192,7 +207,7 @@
           @click="toCreate"
         >
           <IconPlus bg-color="#1B63D4" />
-          <div class="name-btn">Create New Setting</div>
+          <div class="name-btn">Create New API Key</div>
         </button>
         <button
           class="flex items-center justify-center save-btn no-select"
@@ -253,11 +268,11 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'SettingPage',
+  name: 'ApiKeyPage',
   layout: 'default',
   head() {
     return {
-      title: 'Settings - ' + this.$config.appName,
+      title: 'API Key Management - ' + this.$config.appName,
     }
   },
   data() {
@@ -289,14 +304,14 @@ export default {
       popup: (state) => {
         return state.user.popup
       },
-      dataSettings: (state) => {
-        return state.setting.dataList
+      dataApiKeys: (state) => {
+        return state.apiKey.dataList
       },
       totalList: (state) => {
-        return state.setting.totalList
+        return state.apiKey.totalList
       },
       totalPages: (state) => {
-        return state.setting.totalPages
+        return state.apiKey.totalPages
       },
     }),
   },
@@ -320,18 +335,18 @@ export default {
       const data = {
         page: this.currentPage,
         size: this.rowPage,
-        key: this.dataSearch,
+        name: this.dataSearch,
         sort: this.radio,
       }
 
-      this.$store.dispatch('setting/list', data).finally(() => {
+      this.$store.dispatch('apiKey/list', data).finally(() => {
         this.isLoading = false
       })
     },
     toCreate() {
-      this.$router.push({ path: '/admin/setting/create' })
+      this.$router.push({ path: '/setting/api-key/create' })
     },
-    searchSetting() {
+    searchApiKey() {
       this.currentPage = 1
       this.showSearch = false
       this.getData()
@@ -339,39 +354,31 @@ export default {
     showDialog() {
       this.dialog = !this.dialog
     },
-    deleteSetting(data) {
-      if (data.key.startsWith('mailjet_')) {
-        this.$notifier.showMessage({
-          content: 'You cannot delete this setting.',
-          type: 'error',
-        })
-        return
-      }
-
-      this.$confirm(`Delete Setting "${data.key}"?`, 'Confirmation', {
+    deleteApiKey(data) {
+      this.$confirm(`Delete API key "${data.name}"?`, 'Confirmation', {
         confirmButtonText: 'Delete',
         type: 'warning',
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Deleting setting...',
+            content: 'Deleting api key...',
             type: 'loading',
           })
 
           this.$store
-            .dispatch('setting/delete', { uuid: data.uuid })
+            .dispatch('apiKey/delete', { uuid: data.uuid })
             .then((res) => {
               if (res.status === 204) {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'Setting deleted successfully.',
+                  content: 'Api key deleted successfully.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Failed to delete setting. Error: ' +
+                    'Failed to delete api key. Error: ' +
                     res?.data.data.message,
                   type: 'failed',
                 })
@@ -396,7 +403,7 @@ export default {
       this.getData()
     },
     viewDetail(item) {
-      this.$router.push({ path: '/admin/setting/detail/' + item.uuid })
+      this.$router.push({ path: '/setting/api-key/detail/' + item.uuid })
     },
   },
   watch: {
