@@ -22,6 +22,7 @@ import DefinitionRepository from '~/repositories/definitionRepository'
 import DashboardRepository from '~/repositories/dashboardRepository'
 import SettingRepository from '~/repositories/settingRepository'
 import OrgRepository from '~/repositories/orgRepository'
+import OrgTypeRepository from '~/repositories/orgTypeRepository'
 
 import EmailTemplateRepository from '~/repositories/emailTemplateRepository'
 import EmailCampaignRepository from '~/repositories/emailCampaignRepository'
@@ -58,6 +59,7 @@ export default ($axios) => ({
   dashboard: DashboardRepository($axios),
   setting: SettingRepository($axios),
   org: OrgRepository($axios),
+  orgType: OrgTypeRepository($axios),
 
   emailTemplate: EmailTemplateRepository($axios),
   emailCampaign: EmailCampaignRepository($axios),

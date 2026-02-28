@@ -20,7 +20,7 @@
     <!-- FILTER -->
     <div class="flex items-center filter-content justify-between">
       <div class="desc-page">
-        Manage organizations and configure organization profiles.
+        Manage organizations and configure its profiles.
       </div>
 
       <div class="flex items-center">
@@ -86,10 +86,7 @@
         <!-- NAME -->
         <el-table-column label="Name" sortable>
           <template slot-scope="scope">
-            <div
-              class="font-cabin font-semibold text-sm text-gray-700 cursor-pointer"
-              @click="viewDetail(scope.row)"
-            >
+            <div class="font-cabin font-semibold text-sm text-gray-700">
               {{ scope.row.name }}
             </div>
           </template>
@@ -122,15 +119,12 @@
           <template slot-scope="scope">
             <el-dropdown trigger="click" placement="bottom-start">
               <div
-                class="dropdown-btn noselect flex items-center justify-between cursor-pointer mr-6"
+                class="dropdown-btn noselect flex items-center justify-between mr-6"
               >
-                <div
-                  class="flex card-dropdown items-center"
-                  @click.stop="viewDetail(scope.row)"
-                >
+                <div class="flex card-dropdown items-center">
                   <i class="ti ti-eye mr-3" style="color: #1b63d4" />
                   <div class="title-dropdown" style="color: #1b63d4">
-                    Detail
+                    Options
                   </div>
                 </div>
 
@@ -286,11 +280,38 @@ export default {
       this.$confirm(`Delete organization "${data.name}"?`, 'Confirmation', {
         confirmButtonText: 'Delete',
         type: 'warning',
-      }).then(() => {
-        this.$store.dispatch('org/delete', { uuid: data.uuid }).then(() => {
-          this.getData()
-        })
       })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Deleting organization...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('org/delete', { uuid: data.uuid })
+            .then((res) => {
+              if (res.status === 204) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'Organization deleted successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Failed to delete organization. Error: ' +
+                    res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
 
     changePage(p) {
@@ -302,10 +323,6 @@ export default {
       this.rowPage = size
       this.currentPage = 1
       this.getData()
-    },
-
-    viewDetail(item) {
-      this.$router.push('/setting/org/detail/' + item.uuid)
     },
 
     showDialog() {

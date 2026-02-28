@@ -32,5 +32,8 @@ export const actions = {
     commit('setting/RESET')
     commit('sheet/RESET')
     commit('village/RESET')
+
+    commit('org/RESET')
+    commit('orgType/RESET')
   },
 }
