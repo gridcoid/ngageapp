@@ -248,9 +248,21 @@ export default {
 
   mounted() {
     this.getData()
+    this.$root.$on(`flag-${this.$route.name}`, this.handleReload)
+  },
+
+  beforeDestroy() {
+    this.$root.$off(`flag-${this.$route.name}`, this.handleReload)
   },
 
   methods: {
+    handleReload() {
+      this.currentPage = 1
+      this.dataSearch = ''
+      this.rowPage = 9
+      this.getData()
+    },
+
     getData() {
       this.isLoading = true
 
