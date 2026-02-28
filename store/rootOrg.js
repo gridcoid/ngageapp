@@ -51,10 +51,10 @@ export const actions = {
     commit('RESET')
   },
 
-  // org:list
-  async list({ commit }, payload) {
+  // org:rootList
+  async rootList({ commit }, payload) {
     try {
-      const response = await this.$repositories.org.list(payload)
+      const response = await this.$repositories.org.rootList(payload)
       commit('SET_DATA_LIST', response.data.data)
       return response
     } catch (e) {
@@ -68,10 +68,10 @@ export const actions = {
     }
   },
 
-  // org:create
-  async create({ commit }, payload) {
+  // org:rootCreate
+  async rootCreate({ commit }, payload) {
     try {
-      const response = await this.$repositories.org.create(payload)
+      const response = await this.$repositories.org.rootCreate(payload)
       commit('SET_DATA_CREATE', response.data.data)
       return response
     } catch (e) {
@@ -85,10 +85,10 @@ export const actions = {
     }
   },
 
-  // org:detail
-  async detail({ commit }, payload) {
+  // org:rootDetail
+  async rootDetail({ commit }, payload) {
     try {
-      const response = await this.$repositories.org.detail(payload)
+      const response = await this.$repositories.org.rootDetail(payload)
       commit('SET_DATA_DETAIL', response.data.data)
       return response
     } catch (e) {
@@ -102,10 +102,10 @@ export const actions = {
     }
   },
 
-  // org:update
-  async update({ commit }, payload) {
+  // org:rootUpdate
+  async rootUpdate({ commit }, payload) {
     try {
-      const response = await this.$repositories.org.update(payload)
+      const response = await this.$repositories.org.rootUpdate(payload)
       return response
     } catch (e) {
       console.error(e)
@@ -117,10 +117,10 @@ export const actions = {
     }
   },
 
-  // org:delete
-  async delete({ commit }, payload) {
+  // org:rootDelete
+  async rootDelete({ commit }, payload) {
     try {
-      const response = await this.$repositories.org.delete(payload)
+      const response = await this.$repositories.org.rootDelete(payload)
       return response
     } catch (e) {
       console.error(e)

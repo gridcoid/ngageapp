@@ -1,30 +1,30 @@
 const resource = 'org'
 
 export default ($axios) => ({
-  // org:list
-  list(payload) {
+  // org:rootList
+  rootList(payload) {
     return $axios.get(
-      `${resource}/list?page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+      `${resource}/root/list?page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
     )
   },
 
-  // org:create
-  create(payload) {
-    return $axios.post(`${resource}/create`, payload)
+  // org:rootCreate
+  rootCreate(payload) {
+    return $axios.post(`${resource}/root/create`, payload)
   },
 
-  // org:detail
-  detail(payload) {
-    return $axios.get(`${resource}/${payload.uuid}`)
+  // org:rootDetail
+  rootDetail(payload) {
+    return $axios.get(`${resource}/root/${payload.uuid}`)
   },
 
-  // org:update
-  update(payload) {
-    return $axios.patch(`${resource}/${payload.uuid}`, payload)
+  // org:rootUpdate
+  rootUpdate(payload) {
+    return $axios.patch(`${resource}/root/${payload.uuid}`, payload)
   },
 
-  // org:delete
-  delete(payload) {
-    return $axios.delete(`${resource}/${payload.uuid}`)
+  // org:rootDelete
+  rootDelete(payload) {
+    return $axios.delete(`${resource}/root/${payload.uuid}`)
   },
 })

@@ -9,7 +9,7 @@
       <div class="header-card flex items-center">
         <div class="title">
           <i class="ti ti-building text-gray-400 mr-2"></i>
-          Update Organization
+          Create New Organization
         </div>
       </div>
 
@@ -71,7 +71,6 @@
           type="primary"
           class="w-32"
           :loading="isLoading"
-          :disabled="isLoading"
           @click="save()"
         >
           Save
@@ -85,12 +84,12 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'UpdateOrgPage',
+  name: 'CreateOrgPage',
   layout: 'default',
 
   head() {
     return {
-      title: 'Update Organization - ' + this.$config.appName,
+      title: 'Create Organization - ' + this.$config.appName,
     }
   },
 
@@ -101,8 +100,6 @@ export default {
       messageError: '',
 
       data: {
-        id: null,
-        uuid: null,
         name: '',
         typeId: null,
       },
@@ -135,29 +132,15 @@ export default {
 
   computed: {
     ...mapState({
-      dataDetail: (state) => state.org.dataDetail,
       dataOrgTypes: (state) => state.orgType.dataList,
     }),
   },
 
   mounted() {
     this.getOrgTypes()
-    this.getDetail()
   },
 
   methods: {
-    getDetail() {
-      this.isLoading = true
-
-      this.$store
-        .dispatch('org/detail', {
-          uuid: this.$route.params.uuid,
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
-    },
-
     getOrgTypes() {
       this.$store.dispatch('orgType/list')
     },
@@ -169,53 +152,46 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
 
+        this.$notifier.showMessage({
+          content: 'Creating organization...',
+          type: 'loading',
+        })
+
         this.isLoading = true
 
         this.$store
-          .dispatch('org/update', this.data)
+          .dispatch('rootOrg/rootCreate', this.data)
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 201) {
               this.$notifier.showMessage({
-                content: 'Organization updated successfully.',
+                content: 'Organization created successfully.',
                 type: 'success',
               })
 
-              this.$router.push('/setting/org')
+              this.$router.push('/setting/root/org')
             } else {
               this.showMessage = true
 
               this.messageError =
                 res?.data?.data?.errors
                   ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to update organization'
+                  .join(', ') || 'Failed to create organization'
 
               this.$notifier.showMessage({
-                content: 'Failed to update organization.',
+                content: 'Failed to create organization.',
                 type: 'failed',
               })
             }
           })
           .catch((e) => {
+            console.error(e)
             this.showMessage = true
-            this.messageError = e.message
+            this.messageError = 'Error: ' + e.message
           })
           .finally(() => {
             this.isLoading = false
           })
       })
-    },
-  },
-
-  watch: {
-    dataDetail(val) {
-      if (val) {
-        this.data = {
-          id: val.id,
-          uuid: val.uuid,
-          name: val.name,
-          typeId: val.typeId,
-        }
-      }
     },
   },
 }

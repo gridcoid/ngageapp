@@ -137,7 +137,7 @@
                 <el-dropdown-item>
                   <NuxtLink
                     class="item-menu flex items-center no-select"
-                    :to="`/setting/org/edit/${scope.row.uuid}`"
+                    :to="`/setting/root/org/edit/${scope.row.uuid}`"
                   >
                     <i class="ti ti-edit text-yellow-500"></i>
                     <span class="ml-2">Edit</span>
@@ -273,13 +273,13 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('org/list', payload).finally(() => {
+      this.$store.dispatch('rootOrg/rootList', payload).finally(() => {
         this.isLoading = false
       })
     },
 
     toCreate() {
-      this.$router.push({ path: '/setting/org/create' })
+      this.$router.push({ path: '/setting/root/org/create' })
     },
 
     searchOrg() {
@@ -300,7 +300,7 @@ export default {
           })
 
           this.$store
-            .dispatch('org/delete', { uuid: data.uuid })
+            .dispatch('rootOrg/rootDelete', { uuid: data.uuid })
             .then((res) => {
               if (res.status === 204) {
                 this.getData()

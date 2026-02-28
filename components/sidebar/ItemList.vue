@@ -99,12 +99,20 @@ export default {
 
         // Only for userId === 1
         if (isSuperUser) {
-          baseSettingsChildren.push({
-            path: '/setting/org',
-            name: 'Organization',
-            type: 'single',
-            icon: 'ti ti-building-bank',
-          })
+          baseSettingsChildren.push(
+            {
+              path: '/setting/root/org',
+              name: 'Organization',
+              type: 'single',
+              icon: 'ti ti-building-bank',
+            },
+            {
+              path: '/setting/root/user',
+              name: 'Users',
+              type: 'single',
+              icon: 'ti ti-users',
+            }
+          )
         }
 
         this.data = [
