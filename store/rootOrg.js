@@ -68,6 +68,23 @@ export const actions = {
     }
   },
 
+  // org:rootAll
+  async rootAll({ commit }) {
+    try {
+      const response = await this.$repositories.org.rootAll()
+      commit('SET_DATA_LIST', response.data.data)
+      return response
+    } catch (e) {
+      commit('SET_DATA_LIST', null)
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
   // org:rootCreate
   async rootCreate({ commit }, payload) {
     try {

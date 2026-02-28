@@ -8,6 +8,11 @@ export default ($axios) => ({
     )
   },
 
+  // org:rootAll
+  rootAll() {
+    return $axios.get(`${resource}/root/all`)
+  },
+
   // org:rootCreate
   rootCreate(payload) {
     return $axios.post(`${resource}/root`, payload)
