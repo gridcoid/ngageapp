@@ -135,7 +135,7 @@ export default {
 
   computed: {
     ...mapState({
-      dataDetail: (state) => state.org.dataDetail,
+      dataDetail: (state) => state.rootOrg.dataDetail,
       dataOrgTypes: (state) => state.orgType.dataList,
     }),
   },

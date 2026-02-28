@@ -241,8 +241,8 @@ export default {
   computed: {
     ...mapState({
       sidebar: (state) => state.user.sidebar,
-      dataOrgs: (state) => state.org.dataList,
-      totalList: (state) => state.org.totalList,
+      dataOrgs: (state) => state.rootOrg.dataList,
+      totalList: (state) => state.rootOrg.totalList,
     }),
   },
 

@@ -4,13 +4,13 @@ export default ($axios) => ({
   // org:rootList
   rootList(payload) {
     return $axios.get(
-      `${resource}/root/list?page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+      `${resource}/root?page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
     )
   },
 
   // org:rootCreate
   rootCreate(payload) {
-    return $axios.post(`${resource}/root/create`, payload)
+    return $axios.post(`${resource}/root`, payload)
   },
 
   // org:rootDetail
