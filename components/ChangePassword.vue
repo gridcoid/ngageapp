@@ -6,10 +6,7 @@
           <div class="title-dialog">Change Password</div>
           <IconPassword bg-color="#1B63D4" />
         </div>
-        <div class="sub-dialog">
-          Update your password regularly—or whenever you feel no longer safe to
-          keep current password.
-        </div>
+        <div class="sub-dialog">Update your password.</div>
         <div class="subtitle-2">Current Password</div>
         <div class="relative w-full">
           <div class="absolute inset-y-0 right-0 flex items-center px-2">
