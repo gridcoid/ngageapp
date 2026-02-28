@@ -74,8 +74,10 @@
         v-if="tableVisible"
         v-loading="isLoading"
         element-loading-text="Loading..."
-        stripe
+        element-loading-spinner="el-icon-loading"
         fit
+        lazy
+        stripe
         :data="dataUsers"
         class="w-full k-table"
       >

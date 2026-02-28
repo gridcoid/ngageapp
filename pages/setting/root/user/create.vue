@@ -297,7 +297,7 @@ export default {
         this.data.orgRoles = this.orgRoles.filter((r) => r.orgId)
 
         this.$store
-          .dispatch('rootUser/create', this.data)
+          .dispatch('rootUser/rootCreate', this.data)
           .then((res) => {
             if (res.status === 201) {
               this.$notifier.showMessage({
@@ -305,7 +305,7 @@ export default {
                 type: 'success',
               })
 
-              this.$router.push('/setting/user')
+              this.$router.push('/setting/root/user')
             } else {
               this.showMessage = true
               this.messageError =
