@@ -99,7 +99,7 @@
         <el-table-column label="Type" width="180" sortable>
           <template slot-scope="scope">
             <div class="text-sm text-gray-500">
-              {{ scope.row.type ? scope.row.type.name : '-' }}
+              <el-tag>{{ scope.row.type ? scope.row.type.name : '-' }}</el-tag>
             </div>
           </template>
         </el-table-column>
