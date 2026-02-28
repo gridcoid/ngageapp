@@ -20,7 +20,6 @@ export const state = () => ({
     roles: '',
     username: '',
   },
-
   detailUserForm: {
     firstName: '',
     lastName: '',
@@ -32,7 +31,6 @@ export const state = () => ({
     roles: '',
     username: '',
   },
-
   userId: null,
   dataAllUser: {},
   totalAllUser: 0,
