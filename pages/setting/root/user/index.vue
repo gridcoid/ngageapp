@@ -168,7 +168,7 @@
                 <el-dropdown-item>
                   <NuxtLink
                     class="item-menu flex items-center no-select"
-                    :to="`/setting/user/edit/${scope.row.uuid}`"
+                    :to="`/setting/root/user/edit/${scope.row.uuid}`"
                   >
                     <i class="ti ti-edit text-yellow-500"></i>
                     <span class="ml-2">Edit</span>

@@ -162,7 +162,7 @@ export default {
     },
 
     toEdit() {
-      this.$router.push('/setting/user/edit/' + this.$route.params.uuid)
+      this.$router.push('/setting/root/user/edit/' + this.$route.params.uuid)
     },
 
     formatRole(role) {
