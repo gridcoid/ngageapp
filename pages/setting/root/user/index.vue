@@ -326,7 +326,7 @@ export default {
     },
 
     viewDetail(item) {
-      this.$router.push('/setting/user/detail/' + item.uuid)
+      this.$router.push('/setting/root/user/detail/' + item.uuid)
     },
 
     showDialog() {
