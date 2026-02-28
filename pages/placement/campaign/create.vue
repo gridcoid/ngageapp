@@ -97,12 +97,6 @@
         </button>
       </div>
     </div>
-    <!-- <transition name="slide">
-      <Toast
-        v-if="isLoadingToast"
-        style="position: fixed; bottom: 20%; left: 4%"
-      />
-    </transition> -->
   </div>
 </template>
 
