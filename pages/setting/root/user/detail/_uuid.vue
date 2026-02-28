@@ -32,28 +32,40 @@
 
               <div class="bg-gray-50 rounded-lg p-5 space-y-4">
                 <div>
-                  <label class="label">Full Name</label>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                    >Full Name</label
+                  >
                   <div class="value">
                     {{ data.firstName }} {{ data.lastName }}
                   </div>
                 </div>
 
                 <div>
-                  <label class="label">Username</label>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                    >Username</label
+                  >
                   <div class="value">
                     {{ data.username }}
                   </div>
                 </div>
 
                 <div>
-                  <label class="label">Email</label>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                    >Email</label
+                  >
                   <div class="value">
                     {{ data.email || '-' }}
                   </div>
                 </div>
 
                 <div>
-                  <label class="label">Phone</label>
+                  <label
+                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
+                    >Phone</label
+                  >
                   <div class="value">
                     {{ data.phone || '-' }}
                   </div>
