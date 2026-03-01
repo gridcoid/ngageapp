@@ -259,7 +259,7 @@
                 <el-dropdown-item class="border-t border-gray-300">
                   <div
                     class="item-menu flex items-center"
-                    @click="deleteAudience(scope.row)"
+                    @click="removeAudience(scope.row)"
                   >
                     <i class="ti ti-trash text-red-500"></i>
                     <span class="ml-2">Remove</span>
@@ -414,7 +414,7 @@ export default {
       this.dialog = !this.dialog
     },
 
-    deleteAudience(row) {
+    removeAudience(row) {
       this.$confirm(
         `Remove "${
           row.name || row.contacts.find((item) => item.typeId === 1)?.value
