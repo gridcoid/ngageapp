@@ -165,4 +165,19 @@ export const actions = {
       return e.response
     }
   },
+
+  // user:rootRemoveFromOrg
+  async rootRemoveFromOrg({ commit }, payload) {
+    try {
+      const response = await this.$repositories.user.rootRemoveFromOrg(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
 }

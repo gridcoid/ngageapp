@@ -132,4 +132,12 @@ export default ($axios) => ({
   rootDelete(payload) {
     return $axios.delete(`${resource}/root/${payload.uuid}`)
   },
+
+  // user:rootRemoveFromOrg
+  rootRemoveFromOrg(payload) {
+    const orgId = window.$nuxt.$store.state.user.orgId
+    return $axios.delete(
+      `${resource}/root/${payload.userUuid}/org/${payload.orgUuid}`
+    )
+  },
 })

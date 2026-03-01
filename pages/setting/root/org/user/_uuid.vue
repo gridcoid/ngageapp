@@ -293,14 +293,47 @@ export default {
     },
 
     removeUser(row) {
-      const payload = {
-        uuid: this.$route.params.uuid,
-        userUuids: [row.uuid],
-      }
+      this.$confirm(
+        `Remove "${row.firstName} ${row.lastName}" from "${this.data.name}" organization?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'Remove',
+          type: 'warning',
+        }
+      )
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Removing user...',
+            type: 'loading',
+          })
 
-      this.$store
-        .dispatch('rootUser/removeUsersFromOrgBulk', payload)
-        .then(() => this.getData())
+          this.$store
+            .dispatch('rootUser/rootRemoveFromOrg', {
+              userUuid: row.uuid,
+              orgUuid: this.$route.params.uuid,
+            })
+            .then((res) => {
+              if (res.status === 204) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'User removed successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Remove user failed. Error : ' + res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
 
     removeSelected() {

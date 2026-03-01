@@ -33,7 +33,8 @@ export const actions = {
     commit('sheet/RESET')
     commit('village/RESET')
 
-    commit('org/RESET')
+    commit('rootOrg/RESET')
+    commit('rootUser/RESET')
     commit('orgType/RESET')
   },
 }
