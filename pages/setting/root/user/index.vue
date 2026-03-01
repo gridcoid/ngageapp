@@ -99,7 +99,7 @@
         </el-table-column>
 
         <!-- EMAIL -->
-        <el-table-column label="Email" width="220">
+        <el-table-column label="Email" width="270">
           <template slot-scope="scope">
             <div class="text-sm text-gray-500">
               {{ scope.row.email || '-' }}
@@ -196,7 +196,7 @@
           background
           :current-page.sync="currentPage"
           :page-size="rowPage"
-          :page-sizes="[10, 25, 50, 100]"
+          :page-sizes="[9, 10, 25, 50, 100]"
           :total="totalList"
           layout="total, sizes, prev, pager, next, jumper"
           @size-change="changeRowPage"
@@ -259,7 +259,7 @@ export default {
       dataSearch: '',
       showSearch: false,
       currentPage: 1,
-      rowPage: 10,
+      rowPage: 9,
       isLoading: false,
       dialog: false,
     }

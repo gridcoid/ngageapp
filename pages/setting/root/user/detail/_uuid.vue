@@ -123,7 +123,7 @@
                         {{ org.orgName }}
                       </div>
                       <div class="text-xs text-gray-400">
-                        Role: {{ formatRole(org.role) }}
+                        {{ formatRole(org.orgTypeName) }}
                       </div>
                     </div>
 
