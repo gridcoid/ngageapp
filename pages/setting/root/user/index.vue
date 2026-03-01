@@ -307,13 +307,37 @@ export default {
       this.$confirm(`Delete user "${data.username}"?`, 'Confirmation', {
         confirmButtonText: 'Delete',
         type: 'warning',
-      }).then(() => {
-        this.$store
-          .dispatch('rootUser/rootDelete', { uuid: data.uuid })
-          .then(() => {
-            this.getData()
-          })
       })
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Deleting user...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('rootUser/rootDelete', { uuid: data.uuid })
+            .then((res) => {
+              if (res.status === 204) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'User deleted successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content:
+                    'Failed to delete user. Error: ' + res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
     },
 
     changePage(p) {
