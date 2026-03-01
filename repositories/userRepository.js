@@ -99,6 +99,20 @@ export default ($axios) => ({
     )
   },
 
+  // user:rootListInOrg
+  rootListInOrg(payload) {
+    return $axios.get(
+      `${resource}/root/in-org?uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+    )
+  },
+
+  // user:rootListNotInOrg
+  rootListNotInOrg(payload) {
+    return $axios.get(
+      `${resource}/root/not-in-org?uuid=${payload.uuid}&page=${payload.page}&size=${payload.size}&name=${payload.name}&sort=${payload.sort}`
+    )
+  },
+
   // user:rootCreate
   rootCreate(payload) {
     return $axios.post(`${resource}/root`, payload)

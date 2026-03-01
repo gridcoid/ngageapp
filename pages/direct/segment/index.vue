@@ -438,7 +438,7 @@ export default {
       this.getData()
     },
     viewDetail(item) {
-      this.$router.push({ path: '/direct/segment/' + item.uuid + '/audience' })
+      this.$router.push({ path: '/direct/segment/audience/' + item.uuid })
     },
   },
 }

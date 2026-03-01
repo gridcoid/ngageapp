@@ -256,7 +256,7 @@ export default {
             })
 
             this.$router.push(
-              `/direct/segment/${this.$route.params.uuid}/audience`
+              `/direct/segment/audience/${this.$route.params.uuid}`
             )
           } else {
             this.showMessage = true

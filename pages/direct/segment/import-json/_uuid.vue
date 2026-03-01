@@ -366,7 +366,7 @@ export default {
         type: 'success',
       })
 
-      this.$router.push(`/direct/segment/${this.$route.params.uuid}/audience`)
+      this.$router.push(`/direct/segment/audience/${this.$route.params.uuid}`)
     },
 
     backStep1() {
