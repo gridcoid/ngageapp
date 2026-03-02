@@ -339,18 +339,44 @@ export default {
     removeSelected() {
       if (!this.selectedUsers.length) return
 
-      const payload = {
-        uuid: this.$route.params.uuid,
-        userUuids: this.selectedUsers.map((u) => u.uuid),
-      }
-
-      this.$store
-        .dispatch('rootUser/removeUsersFromOrgBulk', payload)
-        .then(() => {
-          this.selectedUsers = []
-          this.$refs.multipleTable.clearSelection()
-          this.getData()
+      this.$confirm(
+        `Remove ${this.selectedUsers.length} users from "${this.data.name}"?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'Remove',
+          type: 'warning',
+        }
+      ).then(() => {
+        this.$notifier.showMessage({
+          content: 'Removing users...',
+          type: 'loading',
         })
+
+        const payload = {
+          orgUuid: this.$route.params.uuid,
+          userUuids: this.selectedUsers.map((u) => u.uuid),
+        }
+
+        this.$store
+          .dispatch('rootUser/rootRemoveFromOrgBulk', payload)
+          .then((res) => {
+            if (res.status === 204) {
+              this.$notifier.showMessage({
+                content: 'User removed successfully.',
+                type: 'success',
+              })
+
+              this.selectedUsers = []
+              this.$refs.multipleTable.clearSelection()
+              this.getData()
+            } else {
+              this.$notifier.showMessage({
+                content: 'Remove failed.',
+                type: 'failed',
+              })
+            }
+          })
+      })
     },
 
     changePage(p) {

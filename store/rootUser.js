@@ -180,4 +180,21 @@ export const actions = {
       return e.response
     }
   },
+
+  // user:rootRemoveFromOrgBulk
+  async rootRemoveFromOrgBulk({ commit }, payload) {
+    try {
+      const response = await this.$repositories.user.rootRemoveFromOrgBulk(
+        payload
+      )
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
 }
