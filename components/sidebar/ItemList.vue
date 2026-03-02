@@ -75,6 +75,109 @@ export default {
       const isSuperUser = this.userId === 1
       const isAdminRole = this.roleId === 1
 
+      // Build References children first
+      const referenceChildren = []
+
+      // Only for root (userId === 1)
+      if (isSuperUser) {
+        referenceChildren.push({
+          path: '',
+          name: 'Mailjet',
+          type: 'multiple',
+          icon: 'ti ti-send',
+          children: [
+            {
+              path: '/reference/mailjet/contact-list',
+              name: 'Contact Lists',
+              type: 'single',
+              icon: 'ti ti-folder',
+            },
+            {
+              path: '/reference/mailjet/contact',
+              name: 'Contacts',
+              type: 'single',
+              icon: 'ti ti-id-badge-2',
+            },
+            {
+              path: '/reference/mailjet/template',
+              name: 'Email Templates',
+              type: 'single',
+              icon: 'ti ti-template',
+            },
+            {
+              path: '/reference/mailjet/sender',
+              name: 'Email Senders',
+              type: 'single',
+              icon: 'ti ti-mailbox',
+            },
+            {
+              path: '/reference/mailjet/campaigndraft',
+              name: 'Campaign Drafts',
+              type: 'single',
+              icon: 'ti ti-notes',
+            },
+            {
+              path: '/reference/mailjet/campaign',
+              name: 'Campaigns',
+              type: 'single',
+              icon: 'ti ti-speakerphone',
+            },
+          ],
+        })
+      }
+
+      // Always available reference menus
+      referenceChildren.push(
+        {
+          path: '/reference/contact-type',
+          name: 'Contact Types',
+          type: 'single',
+          icon: 'ti ti-address-book',
+        },
+        {
+          path: '/reference/gender',
+          name: 'Genders',
+          type: 'single',
+          icon: 'ti ti-gender-bigender',
+        },
+        {
+          path: '/reference/education',
+          name: 'Education Levels',
+          type: 'single',
+          icon: 'ti ti-school',
+        },
+        {
+          path: '/reference/religion',
+          name: 'Religions',
+          type: 'single',
+          icon: 'ti ti-building-mosque',
+        },
+        {
+          path: '/reference/province',
+          name: 'Provinces',
+          type: 'single',
+          icon: 'ti ti-building',
+        },
+        {
+          path: '/reference/regency',
+          name: 'Regencies',
+          type: 'single',
+          icon: 'ti ti-building-skyscraper',
+        },
+        {
+          path: '/reference/district',
+          name: 'Districts',
+          type: 'single',
+          icon: 'ti ti-building-community',
+        },
+        {
+          path: '/reference/village',
+          name: 'Villages',
+          type: 'single',
+          icon: 'ti ti-building-estate',
+        }
+      )
+
       if (isSuperUser || isAdminRole) {
         const baseSettingsChildren = [
           {
@@ -182,9 +285,7 @@ export default {
             name: 'References',
             type: 'multiple',
             icon: 'ti ti-book',
-            children: [
-              // keep your existing references structure here
-            ],
+            children: referenceChildren,
           },
         ]
       }
