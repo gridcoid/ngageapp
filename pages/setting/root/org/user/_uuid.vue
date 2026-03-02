@@ -34,14 +34,15 @@
 
     <!-- Filters -->
     <div class="flex items-center filter-content justify-between">
-      <div />
+      <div class="desc-page">
+        Manage users in {{ data?.name }} Organization.
+      </div>
 
       <div class="flex items-center">
-        <!-- Sort -->
         <button
           type="button"
-          class="k-btn flex items-center"
-          @click="showDialog"
+          class="k-btn focus:bg-blue-700 focus:outline-none focus:ring-0 transition duration-100 ease-in-out flex align-center items-center justify-center"
+          @click="showDialog()"
         >
           <img src="~/assets/images/campaign/icon_filter.svg" class="mr-2" />
           Sort
