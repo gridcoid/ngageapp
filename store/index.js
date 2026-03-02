@@ -35,6 +35,7 @@ export const actions = {
 
     commit('rootOrg/RESET')
     commit('rootUser/RESET')
+    commit('adminUser/RESET')
     commit('orgType/RESET')
   },
 }

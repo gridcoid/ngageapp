@@ -204,7 +204,6 @@ export default {
         })
       }
 
-      // Only for userId === 1
       if (isSuperUser) {
         baseSettingsChildren.push(
           {
@@ -220,6 +219,13 @@ export default {
             icon: 'ti ti-users',
           }
         )
+      } else if (isAdminRole) {
+        baseSettingsChildren.push({
+          path: '/setting/admin/user',
+          name: 'Users',
+          type: 'single',
+          icon: 'ti ti-users',
+        })
       }
 
       this.data = [
