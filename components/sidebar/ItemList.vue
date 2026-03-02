@@ -75,6 +75,8 @@ export default {
       const isSuperUser = this.userId === 1
       const isAdminRole = this.roleId === 1
 
+      const baseSettingsChildren = []
+
       // Build References children first
       const referenceChildren = []
 
@@ -178,117 +180,118 @@ export default {
         }
       )
 
-      if (isSuperUser || isAdminRole) {
-        const baseSettingsChildren = [
-          {
-            path: '/setting/api-key',
-            name: 'API Keys',
-            type: 'single',
-            icon: 'ti ti-key',
-          },
-          {
-            path: '/setting/definition',
-            name: 'Widget',
-            type: 'single',
-            icon: 'ti ti-code',
-          },
-          {
-            path: '/setting/general',
-            name: 'General',
-            type: 'single',
-            icon: 'ti ti-settings',
-          },
-        ]
+      baseSettingsChildren.push(
+        {
+          path: '/setting/api-key',
+          name: 'API Keys',
+          type: 'single',
+          icon: 'ti ti-key',
+        },
+        {
+          path: '/setting/definition',
+          name: 'Widget',
+          type: 'single',
+          icon: 'ti ti-code',
+        }
+      )
 
-        // Only for userId === 1
-        if (isSuperUser) {
-          baseSettingsChildren.push(
+      if (isSuperUser || isAdminRole) {
+        baseSettingsChildren.push({
+          path: '/setting/general',
+          name: 'General',
+          type: 'single',
+          icon: 'ti ti-settings',
+        })
+      }
+
+      // Only for userId === 1
+      if (isSuperUser) {
+        baseSettingsChildren.push(
+          {
+            path: '/setting/root/org',
+            name: 'Organization',
+            type: 'single',
+            icon: 'ti ti-building-bank',
+          },
+          {
+            path: '/setting/root/user',
+            name: 'Users',
+            type: 'single',
+            icon: 'ti ti-users',
+          }
+        )
+      }
+
+      this.data = [
+        {
+          path: '/',
+          name: 'Dashboard',
+          type: 'single',
+          icon: 'ti ti-dashboard',
+        },
+        {
+          path: '',
+          name: 'Direct Channels',
+          type: 'multiple',
+          icon: 'ti ti-direction-sign',
+          children: [
             {
-              path: '/setting/root/org',
-              name: 'Organization',
+              path: '/direct/segment',
+              name: 'Segments',
               type: 'single',
-              icon: 'ti ti-building-bank',
+              icon: 'ti ti-folder',
             },
             {
-              path: '/setting/root/user',
-              name: 'Users',
+              path: '/direct/audience',
+              name: 'Audiences',
               type: 'single',
               icon: 'ti ti-users',
-            }
-          )
-        }
-
-        this.data = [
-          {
-            path: '/',
-            name: 'Dashboard',
-            type: 'single',
-            icon: 'ti ti-dashboard',
-          },
-          {
-            path: '',
-            name: 'Direct Channels',
-            type: 'multiple',
-            icon: 'ti ti-direction-sign',
-            children: [
-              {
-                path: '/direct/segment',
-                name: 'Segments',
-                type: 'single',
-                icon: 'ti ti-folder',
-              },
-              {
-                path: '/direct/audience',
-                name: 'Audiences',
-                type: 'single',
-                icon: 'ti ti-users',
-              },
-              {
-                path: '',
-                name: 'Templates',
-                type: 'multiple',
-                icon: 'ti ti-geometry',
-                children: [
-                  {
-                    path: '/direct/template/email',
-                    name: 'Email',
-                    type: 'single',
-                    icon: 'ti ti-mail',
-                  },
-                ],
-              },
-              {
-                path: '',
-                name: 'Campaigns',
-                type: 'multiple',
-                icon: 'ti ti-speakerphone',
-                children: [
-                  {
-                    path: '/direct/campaign/email',
-                    name: 'Email',
-                    type: 'single',
-                    icon: 'ti ti-mail',
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            path: '',
-            name: 'Settings',
-            type: 'multiple',
-            icon: 'ti ti-adjustments',
-            children: baseSettingsChildren,
-          },
-          {
-            path: '',
-            name: 'References',
-            type: 'multiple',
-            icon: 'ti ti-book',
-            children: referenceChildren,
-          },
-        ]
-      }
+            },
+            {
+              path: '',
+              name: 'Templates',
+              type: 'multiple',
+              icon: 'ti ti-geometry',
+              children: [
+                {
+                  path: '/direct/template/email',
+                  name: 'Email',
+                  type: 'single',
+                  icon: 'ti ti-mail',
+                },
+              ],
+            },
+            {
+              path: '',
+              name: 'Campaigns',
+              type: 'multiple',
+              icon: 'ti ti-speakerphone',
+              children: [
+                {
+                  path: '/direct/campaign/email',
+                  name: 'Email',
+                  type: 'single',
+                  icon: 'ti ti-mail',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          path: '',
+          name: 'Settings',
+          type: 'multiple',
+          icon: 'ti ti-adjustments',
+          children: baseSettingsChildren,
+        },
+        {
+          path: '',
+          name: 'References',
+          type: 'multiple',
+          icon: 'ti ti-book',
+          children: referenceChildren,
+        },
+      ]
 
       this.total = this.data.length
     },
