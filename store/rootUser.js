@@ -166,6 +166,36 @@ export const actions = {
     }
   },
 
+  // user:rootAddToOrg
+  async rootAddToOrg({ commit }, payload) {
+    try {
+      const response = await this.$repositories.user.rootAddToOrg(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
+  // user:rootAddToOrgBulk
+  async rootAddToOrgBulk({ commit }, payload) {
+    try {
+      const response = await this.$repositories.user.rootAddToOrgBulk(payload)
+      return response
+    } catch (e) {
+      console.error(e)
+      this.$notifier.showMessage({
+        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        type: 'failed',
+      })
+      return e.response
+    }
+  },
+
   // user:rootRemoveFromOrg
   async rootRemoveFromOrg({ commit }, payload) {
     try {

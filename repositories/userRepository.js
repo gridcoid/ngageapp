@@ -133,6 +133,18 @@ export default ($axios) => ({
     return $axios.delete(`${resource}/root/${payload.uuid}`)
   },
 
+  // user:rootAddToOrg
+  rootAddToOrg(payload) {
+    return $axios.post(
+      `${resource}/root/${payload.userUuid}/org/${payload.orgUuid}`
+    )
+  },
+
+  // user:rootAddToOrgBulk
+  rootAddToOrgBulk(payload) {
+    return $axios.post(`${resource}/root/org/${payload.orgUuid}`, payload)
+  },
+
   // user:rootRemoveFromOrg
   rootRemoveFromOrg(payload) {
     return $axios.delete(

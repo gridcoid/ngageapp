@@ -81,10 +81,16 @@
 
         <el-table-column label="Name" sortable>
           <template slot-scope="scope">
-            <div class="k-title text-blue-500">
+            <div
+              class="k-title text-blue-500 cursor-pointer"
+              @click="viewDetail(scope.row)"
+            >
               {{ scope.row.firstName }} {{ scope.row.lastName }}
             </div>
-            <div class="k-subtitle">
+            <div
+              class="k-subtitle cursor-pointer"
+              @click="viewDetail(scope.row)"
+            >
               {{ scope.row.email }}
             </div>
           </template>
@@ -92,13 +98,54 @@
 
         <el-table-column label="Username" prop="username" width="160" />
 
-        <el-table-column label="Status" width="140">
+        <!-- ACTIONS -->
+        <el-table-column width="190">
           <template slot-scope="scope">
-            <span
-              :class="scope.row.isActive ? 'text-blue-500' : 'text-red-500'"
+            <el-dropdown
+              trigger="click"
+              placement="bottom-start"
+              :append-to-body="true"
             >
-              {{ scope.row.isActive ? 'Active' : 'Inactive' }}
-            </span>
+              <!-- BUTTON -->
+              <div
+                class="dropdown-btn noselect flex items-center justify-between cursor-pointer mr-6"
+              >
+                <div
+                  class="flex card-dropdown items-center"
+                  @click.stop="viewDetail(scope.row)"
+                >
+                  <i class="ti ti-eye mr-3 text-blue-500" />
+                  <div class="title-dropdown text-blue-500">Detail</div>
+                </div>
+
+                <div class="btn-show flex items-center justify-center">
+                  <img src="~/assets/images/icon/arrow_down.svg" />
+                </div>
+              </div>
+
+              <!-- DROPDOWN MENU -->
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <NuxtLink
+                    class="item-menu flex items-center"
+                    :to="`/setting/root/user/edit/${scope.row.uuid}`"
+                  >
+                    <i class="ti ti-edit text-yellow-500"></i>
+                    <span class="ml-2">Edit</span>
+                  </NuxtLink>
+                </el-dropdown-item>
+
+                <el-dropdown-item class="border-t border-gray-300">
+                  <div
+                    class="item-menu flex items-center"
+                    @click="addUser(scope.row)"
+                  >
+                    <i class="ti ti-plus text-green-500"></i>
+                    <span class="ml-2">Add</span>
+                  </div>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -183,20 +230,95 @@ export default {
       this.dialog = !this.dialog
     },
 
+    addUser(row) {
+      this.$confirm(
+        `Add "${row.firstName + ' ' + row.lastName}" to "${
+          this.dataDetail.name
+        }" organization?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'Add',
+          type: 'info',
+        }
+      )
+        .then(() => {
+          this.$notifier.showMessage({
+            content: 'Adding user...',
+            type: 'loading',
+          })
+
+          this.$store
+            .dispatch('rootUser/rootAddToOrg', {
+              userUuid: row.uuid,
+              orgUuid: this.$route.params.uuid,
+            })
+            .then((res) => {
+              if (res.status === 204) {
+                this.getData()
+
+                this.$notifier.showMessage({
+                  content: 'User added successfully.',
+                  type: 'success',
+                })
+              } else {
+                this.$notifier.showMessage({
+                  content: 'Add user failed. Error : ' + res?.data.data.message,
+                  type: 'failed',
+                })
+              }
+
+              this.$store.commit('user/SET_DROPDOWN', null)
+            })
+        })
+        .catch(() => {
+          this.$store.commit('user/SET_DROPDOWN', null)
+        })
+    },
+
     handleSelectionChange(val) {
       this.selectedUsers = val
     },
 
     addSelected() {
-      const payload = {
-        orgUuid: this.$route.params.uuid,
-        userUuids: this.selectedUsers.map((u) => u.uuid),
-      }
+      if (!this.selectedUsers.length) return
 
-      this.$store.dispatch('rootUser/addUsersToOrgBulk', payload).then(() => {
-        this.selectedUsers = []
-        this.$refs.multipleTable.clearSelection()
-        this.getData()
+      this.$confirm(
+        `Add ${this.selectedUsers.length} users to "${this.dataDetail.name}" organization?`,
+        'Confirmation',
+        {
+          confirmButtonText: 'Add',
+          type: 'info',
+        }
+      ).then(() => {
+        this.$notifier.showMessage({
+          content: 'Adding users...',
+          type: 'loading',
+        })
+
+        const payload = {
+          orgUuid: this.$route.params.uuid,
+          userUuids: this.selectedUsers.map((a) => a.uuid),
+        }
+
+        this.$store
+          .dispatch('rootUser/rootAddToOrgBulk', payload)
+          .then((res) => {
+            if (res.status === 204) {
+              this.$notifier.showMessage({
+                content: 'User added successfully.',
+                type: 'success',
+              })
+
+              this.selectedUsers = []
+              this.$refs.multipleTable.clearSelection()
+              this.getData()
+            } else {
+              this.$notifier.showMessage({
+                content: 'Add failed.',
+                type: 'failed',
+              })
+            }
+          })
       })
     },
 
@@ -209,6 +331,12 @@ export default {
       this.rowPage = p
       this.currentPage = 1
       this.getData()
+    },
+
+    viewDetail(item) {
+      this.$router.push({
+        path: '/setting/root/user/detail/' + item.uuid,
+      })
     },
   },
 }
