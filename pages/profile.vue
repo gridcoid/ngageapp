@@ -12,16 +12,6 @@
         >
           Account Details
         </div>
-        <!-- <div
-          class="item-tab flex items-center justify-center"
-          :class="activeItem === 2 ? 'item-active' : ''"
-          @click="activeItem = 2"
-        >
-          Manage User
-        </div> -->
-        <!-- <div class="item-tab flex items-center justify-center" :class="activeItem === 3 ? 'item-active' : ''" @click="activeItem = 3">
-          Subscription
-        </div> -->
       </div>
       <div v-if="activeItem === 1" class="content-card">
         <div class="account-info flex flex-row">
@@ -66,177 +56,7 @@
           </div>
         </div>
       </div>
-      <div v-if="activeItem === 2" class="content-card">
-        <div class="organization">
-          <div class="title-org" style="margin-bottom: 0px">User List</div>
-          <div class="desc-tab">
-            You can create, edit, and manage all access account in n-gage
-          </div>
-
-          <div class="flex items-center filter-content justify-between">
-            <div class="status-filter flex items-center mb-2">
-              <div class="search-card">
-                <transition name="slide">
-                  <div
-                    v-if="!showSearch"
-                    class="hide-search flex items-center justify-center cursor-pointer"
-                    @mouseover="search = true"
-                    @click="showSearch = !showSearch"
-                  >
-                    <IconSearch />
-                  </div>
-                  <div
-                    v-else
-                    class="show-search flex items-center justify-between cursor-pointer"
-                  >
-                    <form
-                      autocomplete="off"
-                      style="width: 100%"
-                      @submit.prevent="searchData()"
-                    >
-                      <input
-                        v-model="dataSearch"
-                        type="text"
-                        class="title-1"
-                        placeholder="Find something.."
-                        @change="searchData()"
-                      />
-                    </form>
-                    <IconSearch @click.native="searchData()" />
-                  </div>
-                </transition>
-              </div>
-
-              <div class="hr-vertical" />
-              <ButtonDefault
-                icon="plus"
-                text="Create New"
-                class="mr-4"
-                @click.native="toCreate()"
-              />
-            </div>
-          </div>
-
-          <div class="table-content">
-            <el-table
-              v-loading="isLoading"
-              element-loading-text="Loading..."
-              element-loading-spinner="el-icon-loading"
-              fit
-              lazy
-              :data="dataAllUser"
-              stripe
-              class="w-full k-table"
-              :style="
-                sidebar ? 'width:calc(100% - 8px)' : 'width:calc(100% - 8px)'
-              "
-            >
-              <el-table-column prop="name" sortable>
-                <template slot="header"> Email </template>
-                <template slot-scope="scope">
-                  {{ scope.row.email }}
-                </template>
-              </el-table-column>
-              <el-table-column prop="name" sortable>
-                <template slot="header"> Name </template>
-                <template slot-scope="scope">
-                  {{ scope.row.firstName }} {{ scope.row.lastName }}
-                </template>
-              </el-table-column>
-              <el-table-column prop="name" sortable>
-                <template slot="header"> Organization </template>
-                <template slot-scope="scope">
-                  {{ scope.row.userRoles.org.name }}
-                </template>
-              </el-table-column>
-              <el-table-column prop="name" sortable>
-                <template slot="header"> Status </template>
-                <template slot-scope="scope">
-                  {{ scope.row.isVerified ? 'Active' : 'Inactive' }}
-                </template>
-              </el-table-column>
-              <el-table-column prop="name" sortable>
-                <template slot="header"> Created On </template>
-                <template slot-scope="scope">
-                  {{
-                    $moment(scope.row.createdAt).format('MMM Do, YYYY hh:mm')
-                  }}
-                </template>
-              </el-table-column>
-              <el-table-column prop="name" width="200">
-                <template slot-scope="scope">
-                  <el-dropdown
-                    trigger="click"
-                    split-button
-                    @click="toCreate(scope.row.id, scope.row.userRoles.org.id)"
-                  >
-                    <span class="flex title-dropdown">
-                      <img
-                        src="~/assets/images/icon/edit.svg"
-                        width="27%"
-                        class="mr-2"
-                      />
-                      Edit
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item>
-                        <div
-                          class="dropdown-action flex items-center no-select"
-                          @click="btnChangePassword(scope.row.id)"
-                        >
-                          <i class="ti ti-key text-gray-500"></i>
-                          <span class="ml-2 mr-4">Change</span>
-                        </div>
-                      </el-dropdown-item>
-                      <el-dropdown-item>
-                        <div
-                          class="dropdown-action flex items-center no-select"
-                          @click="
-                            toVerification(scope.row.id, scope.row.isVerified)
-                          "
-                        >
-                          <i class="ti ti-lock text-gray-500"></i>
-                          <span class="ml-2 mr-4">{{
-                            scope.row.isVerified ? 'Disable' : 'Enable'
-                          }}</span>
-                        </div>
-                      </el-dropdown-item>
-                      <el-dropdown-item>
-                        <div
-                          class="dropdown-action flex items-center no-select"
-                          @click="deleteUser(scope.row)"
-                        >
-                          <i class="ti ti-trash text-red-500"></i>
-                          <span class="ml-2 mr-4">Delete</span>
-                        </div>
-                      </el-dropdown-item>
-                    </el-dropdown-menu>
-                  </el-dropdown>
-                </template>
-              </el-table-column>
-              <template slot="empty">
-                <div class="flex flex-col items-center mt-6 no-data">
-                  <img src="~/assets/images/empty_table.png" width="150" />
-                  <div class="title-1">No records found.</div>
-                </div>
-              </template>
-            </el-table>
-            <Pagination
-              class="k-pagination"
-              :value="Number(currentPage)"
-              :total-page="totalPages"
-              :total="totaAllUser"
-              @input="changePage($event)"
-              @rowPage="changeRowPage($event)"
-            />
-          </div>
-        </div>
-      </div>
     </div>
-
-    <UserCreate v-show="createUser" :iduser="selectedUserId" />
-    <UserCreateOrganization v-show="createOrganization" />
-    <UserChangePassword v-show="userChangePassword" :userid="userIdPassword" />
   </div>
 </template>
 <script>
@@ -250,18 +70,6 @@ export default {
   data() {
     return {
       activeItem: 1,
-      dataCampaign: [],
-      isLoading: false,
-      showSearch: false,
-      currentPage: 1,
-      per_page: 10,
-      dataSearch: '',
-      lastPage: false,
-      rowPage: 10,
-      dialog: false,
-      Number: '',
-      selectedUserId: null,
-      userIdPassword: 0,
     }
   },
   computed: {
@@ -278,37 +86,12 @@ export default {
       userId: (state) => {
         return state.user.userId
       },
-      dataAllUser: (state) => {
-        return state.user.dataAllUser
-      },
-      totaAllUser: (state) => {
-        return state.user.totalAllUser
-      },
-      totalPages: (state) => {
-        return state.user.totalPages
-      },
-      createUser: (state) => {
-        return state.user.createUser
-      },
-      createOrganization: (state) => {
-        return state.user.createOrganization
-      },
-      roleId: (state) => {
-        return state.user.roleId
-      },
-      userChangePassword: (state) => {
-        return state.user.userChangePassword
-      },
     }),
   },
   mounted() {
     document.querySelector('body').style.overflow = 'auto'
     this.$store.commit('user/SET_DROPDOWN', null)
     this.getDataUser()
-    this.getDataAll()
-    this.$store.commit('user/SET_USER_CHANGE_DIALOG', false)
-    this.$store.commit('user/SET_ORG_CHANGE_DIALOG', false)
-    this.$store.commit('user/SET_USER_PASSWORD_CHANGE_DIALOG', false)
   },
   methods: {
     capitalize(str) {
@@ -322,16 +105,6 @@ export default {
         )
         .join(' ')
     },
-    searchData() {
-      this.currentPage = 1
-      this.showSearch = false
-      this.getDataAll()
-    },
-    btnChangePassword(id) {
-      this.userIdPassword = id
-      document.querySelector('body').style.overflow = 'hidden'
-      this.$store.commit('user/SET_USER_PASSWORD_CHANGE_DIALOG', true)
-    },
     getDataUser() {
       const data = {
         id: this.userId,
@@ -339,112 +112,6 @@ export default {
       }
       this.$store.dispatch('user/getDetail', data)
     },
-    changeRowPage(p) {
-      this.rowPage = p
-      this.currentPage = 1
-      this.getData()
-    },
-    changePage(s) {
-      if (s > 0) {
-        this.currentPage = s
-        this.getDataAll()
-      }
-    },
-    getDataAll() {
-      this.isLoading = true
-      const data = {
-        status: true,
-        page: this.currentPage,
-        size: this.rowPage,
-        name: this.dataSearch,
-      }
-      this.$store.dispatch('user/getAll', data).finally(() => {
-        this.isLoading = false
-      })
-    },
-    // editUser () {
-    //   alert('edit')
-    // },
-    toCreate(id = null, orgId = null) {
-      if (id !== null) {
-        this.selectedUserId = { id, orgId }
-      }
-      document.querySelector('body').style.overflow = 'hidden'
-      this.$store.commit('user/SET_USER_CHANGE_DIALOG', true)
-    },
-    toVerification(id, status) {
-      const isVerified = !status ? 1 : 0
-      const data = {
-        id,
-        isVerified,
-      }
-      this.$notifier.showMessage({
-        content: 'Updating status...',
-        type: 'loading',
-      })
-      const sto = setTimeout(
-        () =>
-          this.$store
-            .dispatch('user/updateVerification', data)
-            .then((res) => {
-              this.$notifier.showMessage({
-                content: 'Update Status',
-                type: 'success',
-              })
-              this.getDataAll()
-              this.closeDropdown = false
-              clearInterval(sto)
-            })
-            .catch((error) => {
-              this.$notifier.showMessage({
-                content: 'Update Status User failed! ' + error,
-                type: 'failed',
-              })
-              this.closeDropdown = false
-              clearInterval(sto)
-            }),
-        1000
-      )
-    },
-    deleteUser(data) {
-      this.$confirm(`Remove "${data.username}"?`, 'Confirmation', {
-        confirmButtonText: 'Remove',
-        type: 'warning',
-      })
-        .then(() => {
-          this.$notifier.showMessage({
-            content: 'Removing user...',
-            type: 'loading',
-          })
-
-          this.$store
-            .dispatch('user/deleteUser', {
-              id: data.id,
-            })
-            .then((res) => {
-              if (res.status === 204) {
-                this.getDataAll()
-
-                this.$notifier.showMessage({
-                  content: 'User removed successfully.',
-                  type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Remove user failed. Error : ' + res?.data.data.message,
-                  type: 'failed',
-                })
-              }
-
-              this.$store.commit('user/SET_DROPDOWN', null)
-            })
-        })
-        .catch(() => {
-          this.$store.commit('user/SET_DROPDOWN', null)
-        })
-    },
-    onChangeDataOrg() {},
   },
 }
 </script>
