@@ -160,23 +160,11 @@
                 </div>
 
                 <div class="btn-show flex items-center justify-center">
-                  <!-- set grayscale filter -->
-                  <img
-                    :style="{
-                      filter:
-                        scope.row.id === $store.state.user.userId
-                          ? 'grayscale(100%)'
-                          : 'grayscale(0%)',
-                    }"
-                    src="~/assets/images/icon/arrow_down.svg"
-                  />
+                  <img src="~/assets/images/icon/arrow_down.svg" />
                 </div>
               </div>
 
-              <el-dropdown-menu
-                slot="dropdown"
-                v-if="scope.row.id !== $store.state.user.userId"
-              >
+              <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
                   <NuxtLink
                     class="item-menu flex items-center no-select"
@@ -187,7 +175,10 @@
                   </NuxtLink>
                 </el-dropdown-item>
 
-                <el-dropdown-item class="border-t border-gray-300">
+                <el-dropdown-item
+                  class="border-t border-gray-300"
+                  v-if="scope.row.id !== $store.state.user.userId"
+                >
                   <div
                     class="item-menu flex items-center"
                     @click="deleteUser(scope.row)"
