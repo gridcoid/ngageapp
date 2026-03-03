@@ -160,11 +160,23 @@
                 </div>
 
                 <div class="btn-show flex items-center justify-center">
-                  <img src="~/assets/images/icon/arrow_down.svg" />
+                  <!-- set grayscale filter -->
+                  <img
+                    :style="{
+                      filter:
+                        scope.row.id === $store.state.user.userId
+                          ? 'grayscale(100%)'
+                          : 'grayscale(0%)',
+                    }"
+                    src="~/assets/images/icon/arrow_down.svg"
+                  />
                 </div>
               </div>
 
-              <el-dropdown-menu slot="dropdown">
+              <el-dropdown-menu
+                slot="dropdown"
+                v-if="scope.row.id !== $store.state.user.userId"
+              >
                 <el-dropdown-item>
                   <NuxtLink
                     class="item-menu flex items-center no-select"
