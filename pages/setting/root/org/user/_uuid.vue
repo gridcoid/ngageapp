@@ -14,7 +14,7 @@
       <div class="flex" v-if="selectedUsers.length === 0">
         <ButtonDefault
           icon="plus"
-          text="Add User"
+          text="Select Users"
           class="ml-4"
           type="secondary"
           @click.native="toSelect"
@@ -105,7 +105,7 @@
               @click="toSelect"
             >
               <IconPlus bg-color="#1B63D4" />
-              <div class="name-btn">Add User</div>
+              <div class="name-btn">Select Users</div>
             </button>
           </div>
         </template>

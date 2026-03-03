@@ -12,13 +12,13 @@
         >
           Account Details
         </div>
-        <div
+        <!-- <div
           class="item-tab flex items-center justify-center"
           :class="activeItem === 2 ? 'item-active' : ''"
           @click="activeItem = 2"
         >
           Manage User
-        </div>
+        </div> -->
         <!-- <div class="item-tab flex items-center justify-center" :class="activeItem === 3 ? 'item-active' : ''" @click="activeItem = 3">
           Subscription
         </div> -->

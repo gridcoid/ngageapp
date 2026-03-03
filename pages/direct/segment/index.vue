@@ -151,7 +151,7 @@
                   :to="`/direct/segment/select/${item.uuid}`"
                 >
                   <i class="ti ti-square-check text-green-500"></i>
-                  <span class="ml-2">Add Audience</span>
+                  <span class="ml-2">Select Audience</span>
                 </NuxtLink>
               </el-dropdown-item>
 

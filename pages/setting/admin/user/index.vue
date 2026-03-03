@@ -178,10 +178,10 @@
                 <el-dropdown-item class="border-t border-gray-300">
                   <div
                     class="item-menu flex items-center"
-                    @click="deleteUser(scope.row)"
+                    @click="removeUser(scope.row)"
                   >
                     <i class="ti ti-trash text-red-500"></i>
-                    <span class="ml-2">Delete</span>
+                    <span class="ml-2">Remove</span>
                   </div>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -303,14 +303,14 @@ export default {
       this.getData()
     },
 
-    deleteUser(data) {
-      this.$confirm(`Delete user "${data.username}"?`, 'Confirmation', {
-        confirmButtonText: 'Delete',
+    removeUser(data) {
+      this.$confirm(`Remove user "${data.username}"?`, 'Confirmation', {
+        confirmButtonText: 'Remove',
         type: 'warning',
       })
         .then(() => {
           this.$notifier.showMessage({
-            content: 'Deleting user...',
+            content: 'Removing user...',
             type: 'loading',
           })
 
@@ -321,13 +321,13 @@ export default {
                 this.getData()
 
                 this.$notifier.showMessage({
-                  content: 'User deleted successfully.',
+                  content: 'User removed successfully.',
                   type: 'success',
                 })
               } else {
                 this.$notifier.showMessage({
                   content:
-                    'Failed to delete user. Error: ' + res?.data.data.message,
+                    'Failed to remove user. Error: ' + res?.data.data.message,
                   type: 'failed',
                 })
               }
