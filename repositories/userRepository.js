@@ -193,34 +193,4 @@ export default ($axios) => ({
     const orgId = window.$nuxt.$store.state.user.orgId
     return $axios.delete(`${resource}/admin/${payload.uuid}?orgId=${orgId}`)
   },
-
-  // user:adminAddToOrg
-  adminAddToOrg(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(
-      `${resource}/admin/${payload.userUuid}/org?orgId=${orgId}`
-    )
-  },
-
-  // user:adminAddToOrgBulk
-  adminAddToOrgBulk(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.post(`${resource}/admin/org/?orgId=${orgId}`, payload)
-  },
-
-  // user:adminRemoveFromOrg
-  adminRemoveFromOrg(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.delete(
-      `${resource}/admin/${payload.userUuid}/org?orgId=${orgId}`
-    )
-  },
-
-  // user:adminRemoveFromOrgBulk
-  adminRemoveFromOrgBulk(payload) {
-    const orgId = window.$nuxt.$store.state.user.orgId
-    return $axios.delete(`${resource}/admin/org?orgId=${orgId}`, {
-      data: payload,
-    })
-  },
 })
