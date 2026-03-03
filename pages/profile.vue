@@ -1,68 +1,73 @@
 <template>
-  <div class="min-h-screen bg-gray-50 py-10 px-6">
-    <div class="max-w-2xl mx-auto">
-      <!-- Page Title -->
-      <div class="mb-8">
-        <h1 class="text-3xl font-semibold text-gray-800">My Profile</h1>
-        <p class="text-gray-500 mt-1">Personal account information.</p>
-      </div>
+  <div class="p-6">
+    <div class="mb-6">
+      <Back />
+    </div>
+    <div class="bg-gray-50 px-6">
+      <div class="max-w-2xl mx-auto">
+        <!-- Page Title -->
+        <div class="mb-8">
+          <h1 class="text-3xl font-semibold text-gray-800">My Profile</h1>
+          <p class="text-gray-500 mt-1">Personal account information.</p>
+        </div>
 
-      <!-- Profile Card -->
-      <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-        <!-- Header Section -->
-        <div
-          class="bg-gradient-to-r from-indigo-500 to-blue-500 h-32 relative"
-        ></div>
+        <!-- Profile Card -->
+        <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
+          <!-- Header Section -->
+          <div
+            class="bg-gradient-to-r from-indigo-500 to-blue-500 h-32 relative"
+          ></div>
 
-        <!-- Profile Content -->
-        <div class="px-8 pb-8 relative">
-          <!-- Avatar -->
-          <div class="absolute -top-12 left-8">
-            <div
-              class="w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center text-3xl font-bold text-indigo-600 border-4 border-white"
-            >
-              {{ userInitial }}
-            </div>
-          </div>
-
-          <!-- Name -->
-          <div class="pt-16">
-            <h2 class="text-2xl font-semibold text-gray-800">
-              {{ detailUser.firstName }} {{ detailUser.lastName }}
-            </h2>
-            <p class="text-gray-500">
-              {{ detailUser.email }}
-            </p>
-          </div>
-
-          <!-- Divider -->
-          <div class="border-t border-gray-200 my-6"></div>
-
-          <!-- Information Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="profile-item">
-              <div class="label">First Name</div>
-              <div class="value">{{ detailUser.firstName }}</div>
-            </div>
-
-            <div class="profile-item">
-              <div class="label">Last Name</div>
-              <div class="value">{{ detailUser.lastName }}</div>
-            </div>
-
-            <div class="profile-item">
-              <div class="label">Role</div>
-              <div class="value">
-                <el-tag type="primary" size="medium">
-                  {{ capitalize(detailUser.roles) }}
-                </el-tag>
+          <!-- Profile Content -->
+          <div class="px-8 pb-8 relative">
+            <!-- Avatar -->
+            <div class="absolute -top-12 left-8">
+              <div
+                class="w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center text-3xl font-bold text-indigo-600 border-4 border-white"
+              >
+                {{ userInitial }}
               </div>
             </div>
 
-            <div class="profile-item">
-              <div class="label">Organization</div>
-              <div class="value">
-                {{ detailUser.orgName || '-' }}
+            <!-- Name -->
+            <div class="pt-16">
+              <h2 class="text-2xl font-semibold text-gray-800">
+                {{ detailUser.firstName }} {{ detailUser.lastName }}
+              </h2>
+              <p class="text-gray-500">
+                {{ detailUser.email }}
+              </p>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-gray-200 my-6"></div>
+
+            <!-- Information Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="profile-item">
+                <div class="label">First Name</div>
+                <div class="value">{{ detailUser.firstName }}</div>
+              </div>
+
+              <div class="profile-item">
+                <div class="label">Last Name</div>
+                <div class="value">{{ detailUser.lastName }}</div>
+              </div>
+
+              <div class="profile-item">
+                <div class="label">Role</div>
+                <div class="value">
+                  <el-tag type="primary" size="medium">
+                    {{ capitalize(detailUser.roles) }}
+                  </el-tag>
+                </div>
+              </div>
+
+              <div class="profile-item">
+                <div class="label">Organization</div>
+                <div class="value">
+                  {{ detailUser.orgName || '-' }}
+                </div>
               </div>
             </div>
           </div>
