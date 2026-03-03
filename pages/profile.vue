@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50 py-10 px-6">
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-2xl mx-auto">
       <!-- Page Title -->
       <div class="mb-8">
         <h1 class="text-3xl font-semibold text-gray-800">My Profile</h1>
