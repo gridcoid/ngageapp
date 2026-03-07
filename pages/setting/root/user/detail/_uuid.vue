@@ -84,17 +84,6 @@
 
               <div class="bg-gray-50 rounded-lg p-5 space-y-4">
                 <div class="flex justify-between">
-                  <span>Email Verified</span>
-                  <span
-                    :class="
-                      data.isVerified ? 'text-green-600' : 'text-gray-400'
-                    "
-                  >
-                    {{ data.isVerified ? 'Yes' : 'No' }}
-                  </span>
-                </div>
-
-                <div class="flex justify-between">
                   <span>Active</span>
                   <span
                     :class="data.isActive ? 'text-blue-600' : 'text-red-500'"

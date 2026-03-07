@@ -68,12 +68,6 @@
             <el-input v-model="data.password" type="password" show-password />
           </el-form-item>
 
-          <!-- IS VERIFIED -->
-          <el-form-item class="title-form" prop="isVerified">
-            <label slot="label" class="title-form"> Email Verified </label>
-            <el-switch v-model="data.isVerified" />
-          </el-form-item>
-
           <!-- IS ACTIVE -->
           <el-form-item class="title-form" prop="isActive">
             <label slot="label" class="title-form"> Active Status </label>
@@ -146,7 +140,7 @@ export default {
         phone: '',
         username: '',
         password: '',
-        isVerified: false, // default
+        isVerified: true, // default
         isActive: true, // default
         roleId: 2, // default = org_ops
       },

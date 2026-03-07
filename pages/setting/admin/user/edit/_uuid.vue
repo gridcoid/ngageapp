@@ -62,12 +62,6 @@
             />
           </el-form-item>
 
-          <!-- isVerified -->
-          <el-form-item class="title-form">
-            <label slot="label" class="title-form"> Email Verified </label>
-            <el-switch v-model="data.isVerified" />
-          </el-form-item>
-
           <!-- isActive -->
           <el-form-item class="title-form">
             <label slot="label" class="title-form"> Active </label>
@@ -135,7 +129,7 @@ export default {
         phone: '',
         username: '',
         password: '',
-        isVerified: false,
+        isVerified: true,
         isActive: true,
         roleId: null,
       },
