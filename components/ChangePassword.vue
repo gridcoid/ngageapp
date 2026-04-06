@@ -145,6 +145,7 @@
           <button
             class="flex items-center justify-center no-select"
             :class="validationBtnSave ? 'save-btn' : 'disable-btn'"
+            :disabled="!validationBtnSave"
             @click="save()"
           >
             <IconSave
@@ -181,26 +182,22 @@ export default {
   computed: {
     validationBtnSave() {
       if (
-        this.current_password.length >= 8 &&
-        this.new_password.length >= 8 &&
-        this.confirm_password.length >= 8 &&
+        this.current_password.length > 0 &&
+        this.new_password.length > 0 &&
+        this.confirm_password.length > 0 &&
         !this.validationPassword3
       ) {
         return true
-      } else {
-        return false
       }
+      return false
     },
     validationPassword3() {
       if (this.confirm_password.length > 0) {
         if (this.confirm_password !== this.new_password) {
           return true
-        } else {
-          return false
         }
-      } else {
-        return false
       }
+      return false
     },
   },
   methods: {
@@ -216,6 +213,13 @@ export default {
       }
     },
     closeDialog() {
+      this.current_password = ''
+      this.new_password = ''
+      this.confirm_password = ''
+      this.score = ''
+      this.validationPassword = false
+      this.validationPassword2 = false
+      this.validationPassword3 = false
       document.querySelector('body').style.overflow = ''
       this.$store.commit('user/SET_CHANGE_DIALOG', false)
     },
