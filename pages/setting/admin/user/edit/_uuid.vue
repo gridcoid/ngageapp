@@ -36,7 +36,7 @@
           <!-- Email -->
           <el-form-item class="title-form" prop="email">
             <label slot="label" class="title-form">Email<Req /></label>
-            <el-input v-model="data.email" />
+            <el-input v-model="data.email" disabled />
           </el-form-item>
 
           <!-- Phone -->
@@ -220,6 +220,8 @@ export default {
         const payload = {
           ...this.data,
         }
+
+        delete payload.email
 
         if (!payload.password) {
           delete payload.password
