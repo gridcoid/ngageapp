@@ -59,6 +59,18 @@
               type="password"
               show-password
               placeholder="Leave blank if no change"
+              @input="$refs.ruleForm.validateField('confirmPassword')"
+            />
+          </el-form-item>
+
+          <!-- Confirm Password (Optional) -->
+          <el-form-item class="title-form" prop="confirmPassword">
+            <label slot="label" class="title-form"> Confirm Password </label>
+            <el-input
+              v-model="data.confirmPassword"
+              type="password"
+              show-password
+              placeholder="Leave blank if no change"
             />
           </el-form-item>
 
@@ -174,6 +186,7 @@ export default {
         phone: '',
         username: '',
         password: '',
+        confirmPassword: '',
         isVerified: true,
         isActive: true,
       },
@@ -185,6 +198,39 @@ export default {
         lastName: [{ required: true, message: 'Required', trigger: 'blur' }],
         email: [{ required: true, message: 'Required', trigger: 'blur' }],
         username: [{ required: true, message: 'Required', trigger: 'blur' }],
+
+        password: [
+          {
+            validator: (rule, value, callback) => {
+              if (value && !this.data.confirmPassword) {
+                callback(new Error('Please confirm password'))
+              } else {
+                callback()
+              }
+            },
+            trigger: 'blur',
+          },
+        ],
+
+        confirmPassword: [
+          {
+            validator: (rule, value, callback) => {
+              if (this.data.password) {
+                if (!value) {
+                  callback(new Error('Confirm password is required'))
+                } else if (value !== this.data.password) {
+                  callback(new Error('Password does not match'))
+                } else {
+                  callback()
+                }
+              } else {
+                // password kosong → confirm juga boleh kosong
+                callback()
+              }
+            },
+            trigger: 'blur',
+          },
+        ],
       },
     }
   },
@@ -272,6 +318,7 @@ export default {
         phone: val.phone,
         username: val.username,
         password: '',
+        confirmPassword: '',
         isVerified: val.isVerified,
         isActive: val.isActive,
       }
