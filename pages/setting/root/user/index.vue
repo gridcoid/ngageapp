@@ -112,7 +112,7 @@
           <template slot-scope="scope">
             <div
               class="text-sm font-medium"
-              :class="scope.row.isActive ? 'text-blue-500' : 'text-red-500'"
+              :class="scope.row.isActive ? 'text-green-500' : 'text-red-500'"
             >
               {{ scope.row.isActive ? 'Active' : 'Inactive' }}
             </div>
@@ -120,7 +120,7 @@
         </el-table-column>
 
         <!-- VERIFIED -->
-        <el-table-column label="Verified" width="140">
+        <!-- <el-table-column label="Verified" width="140">
           <template slot-scope="scope">
             <div
               class="text-sm font-medium"
@@ -129,7 +129,7 @@
               {{ scope.row.isVerified ? 'Yes' : 'No' }}
             </div>
           </template>
-        </el-table-column>
+        </el-table-column> -->
 
         <!-- CREATED -->
         <el-table-column label="Created" width="140" sortable>
