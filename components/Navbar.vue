@@ -42,7 +42,7 @@
               @click="toProfile()"
             >
               <i class="ti ti-user-circle ml-1" />
-              <div class="title-1">Your Profile</div>
+              <div class="title-1">My Profile</div>
             </div>
 
             <div
