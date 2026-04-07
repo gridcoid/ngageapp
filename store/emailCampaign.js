@@ -79,7 +79,9 @@ export const actions = {
       commit('SET_DATA_LIST', null)
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -96,7 +98,9 @@ export const actions = {
       commit('SET_DATA_CREATE', null)
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -113,7 +117,9 @@ export const actions = {
       commit('SET_DATA_DETAIL', null)
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -128,7 +134,9 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -143,7 +151,9 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -168,7 +178,9 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -183,7 +195,9 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -198,7 +212,9 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -215,7 +231,9 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -230,7 +248,9 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -245,7 +265,9 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
@@ -260,7 +282,9 @@ export const actions = {
     } catch (e) {
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response

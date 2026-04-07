@@ -419,7 +419,9 @@ export const actions = {
       commit('SET_DATA_TEMPLATE', null)
       console.error(e)
       this.$notifier.showMessage({
-        content: 'Error status code: ' + (e.response?.status || 'Unknown'),
+        content:
+          e.response?.data?.data?.message ||
+          'Error: ' + (e.response?.status || 'Unknown'),
         type: 'failed',
       })
       return e.response
