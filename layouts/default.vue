@@ -8,7 +8,7 @@
           <Nuxt />
         </div>
       </div>
-      <Snackbar style="position: fixed; bottom: 30px; left: 40px" />
+      <Snackbar style="position: fixed; bottom: 30px; right: 40px" />
       <ChangePassword v-show="changePassword" />
     </client-only>
   </div>
