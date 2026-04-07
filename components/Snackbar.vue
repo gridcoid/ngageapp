@@ -32,7 +32,7 @@ export default {
       message: '',
       type: 'loading',
       percentage: 0,
-      x: '',
+      t: null,
     }
   },
   computed: {
@@ -57,7 +57,7 @@ export default {
 
       // this.countDownTimer()
       if (this.type !== 'loading') {
-        this.x = setTimeout(() => this.closeSnackbar(), 3000)
+        this.t = setTimeout(() => this.closeSnackbar(), 3000)
       }
     })
   },
@@ -65,11 +65,12 @@ export default {
   methods: {
     closeSnackbar() {
       this.show = false
-      clearInterval(this.x)
+      clearInterval(this.t)
     },
   },
 }
 </script>
+
 <style scoped lang="scss">
 .slide-enter-active,
 .slide-leave-active {
@@ -78,7 +79,7 @@ export default {
 
 .slide-enter,
 .slide-leave-to {
-  transform: translateX(-100%);
+  transform: translateX(100%);
   transition: all 150ms ease-in 0s;
 }
 
