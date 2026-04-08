@@ -139,10 +139,6 @@
             />
           </div>
         </el-form>
-
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
-        </Transition>
       </div>
 
       <div class="footer-card flex justify-end gap-3">
@@ -175,8 +171,6 @@ export default {
   data() {
     return {
       isLoading: false,
-      showMessage: false,
-      messageError: '',
 
       data: {
         uuid: null,
@@ -272,8 +266,6 @@ export default {
     },
 
     save() {
-      this.showMessage = false
-
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
 
@@ -298,10 +290,6 @@ export default {
               type: 'success',
             })
             this.$router.push('/setting/root/user')
-          })
-          .catch((e) => {
-            this.showMessage = true
-            this.messageError = e.message
           })
           .finally(() => (this.isLoading = false))
       })

@@ -203,10 +203,6 @@
             <el-input v-model="metric.inputValue" placeholder="e.g. yamaha" />
           </el-form-item>
         </el-form>
-
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6" :text="messageError" />
-        </Transition>
       </div>
 
       <!-- FOOTER -->
@@ -237,8 +233,6 @@ export default {
   data() {
     return {
       isLoading: false,
-      showMessage: false,
-      messageError: '',
 
       form: {
         id: null,
@@ -429,18 +423,6 @@ export default {
               })
 
               this.$router.push('/setting/definition')
-            } else {
-              this.showMessage = true
-
-              this.messageError =
-                res?.data?.data?.errors
-                  ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to update query'
-
-              this.$notifier.showMessage({
-                content: 'Failed to update query.',
-                type: 'failed',
-              })
             }
           })
           .finally(() => (this.isLoading = false))

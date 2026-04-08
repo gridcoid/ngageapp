@@ -134,14 +134,6 @@
               <el-input-number v-model="data.limit" :min="1" :max="5000" />
             </el-form-item>
           </el-form>
-
-          <Transition>
-            <Alert
-              v-show="showMessage"
-              class="mt-6 mb-6"
-              :text="messageError"
-            />
-          </Transition>
         </div>
 
         <div class="footer-card flex justify-end gap-3">
@@ -250,8 +242,6 @@ export default {
       },
 
       isLoading: false,
-      showMessage: false,
-      messageError: '',
 
       data: {
         name: '',
@@ -270,9 +260,6 @@ export default {
   },
   methods: {
     save() {
-      this.showMessage = false
-      this.messageError = ''
-
       let definition
 
       try {
@@ -290,8 +277,6 @@ export default {
           limit: this.data.limit,
         }
       } catch (e) {
-        this.showMessage = true
-        this.messageError = 'Invalid JSON format in query definition'
         return
       }
 
@@ -319,24 +304,7 @@ export default {
                 content: 'Query created',
                 type: 'success',
               })
-            } else {
-              this.showMessage = true
-
-              this.messageError =
-                res?.data?.data?.errors
-                  ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to create query'
-
-              this.$notifier.showMessage({
-                content: 'Failed to create query.',
-                type: 'failed',
-              })
             }
-          })
-          .catch((e) => {
-            console.error(e)
-            this.showMessage = true
-            this.messageError = 'Error: ' + e.message
           })
           .finally(() => (this.isLoading = false))
       })

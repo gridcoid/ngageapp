@@ -321,12 +321,6 @@ export default {
                   content: 'User removed successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Remove user failed. Error : ' + res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
@@ -370,11 +364,6 @@ export default {
               this.selectedUsers = []
               this.$refs.multipleTable.clearSelection()
               this.getData()
-            } else {
-              this.$notifier.showMessage({
-                content: 'Remove failed.',
-                type: 'failed',
-              })
             }
           })
       })

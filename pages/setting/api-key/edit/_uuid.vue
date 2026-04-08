@@ -71,10 +71,6 @@
             </p>
           </el-form-item>
         </el-form>
-
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
-        </Transition>
       </div>
 
       <div v-if="!showApiKey" class="footer-card flex justify-end gap-3">
@@ -140,8 +136,6 @@ export default {
       },
 
       isLoading: false,
-      showMessage: false,
-      messageError: '',
 
       data: {
         id: null,
@@ -174,15 +168,12 @@ export default {
     getSegments() {
       this.isLoading = true
 
-      this.$store.dispatch('segment/all').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('segment/all')
+        .finally(() => (this.isLoading = false))
     },
 
     save() {
-      this.showMessage = false
-      this.messageError = ''
-
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
 
@@ -208,23 +199,7 @@ export default {
                 content: 'API Key updated successfully.',
                 type: 'success',
               })
-            } else {
-              this.showMessage = true
-
-              this.messageError =
-                res?.data?.data?.errors
-                  ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to update API key'
-
-              this.$notifier.showMessage({
-                content: 'Failed to update API key.',
-                type: 'failed',
-              })
             }
-          })
-          .catch((e) => {
-            this.showMessage = true
-            this.messageError = e.message
           })
           .finally(() => (this.isLoading = false))
       })

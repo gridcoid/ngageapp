@@ -54,10 +54,6 @@
             </el-select>
           </el-form-item>
         </el-form>
-
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
-        </Transition>
       </div>
 
       <!-- FOOTER -->
@@ -97,8 +93,6 @@ export default {
   data() {
     return {
       isLoading: false,
-      showMessage: false,
-      messageError: '',
 
       data: {
         id: null,
@@ -153,9 +147,7 @@ export default {
         .dispatch('rootOrg/rootDetail', {
           uuid: this.$route.params.uuid,
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
 
     getOrgTypes() {
@@ -163,9 +155,6 @@ export default {
     },
 
     save() {
-      this.showMessage = false
-      this.messageError = ''
-
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
 
@@ -181,27 +170,9 @@ export default {
               })
 
               this.$router.push('/setting/root/org')
-            } else {
-              this.showMessage = true
-
-              this.messageError =
-                res?.data?.data?.errors
-                  ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to update organization'
-
-              this.$notifier.showMessage({
-                content: 'Failed to update organization.',
-                type: 'failed',
-              })
             }
           })
-          .catch((e) => {
-            this.showMessage = true
-            this.messageError = e.message
-          })
-          .finally(() => {
-            this.isLoading = false
-          })
+          .finally(() => (this.isLoading = false))
       })
     },
   },

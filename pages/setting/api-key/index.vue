@@ -340,9 +340,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('apiKey/list', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('apiKey/list', data)
+        .finally(() => (this.isLoading = false))
     },
     toCreate() {
       this.$router.push({ path: '/setting/api-key/create' })
@@ -375,13 +375,6 @@ export default {
                 this.$notifier.showMessage({
                   content: 'Api key deleted successfully.',
                   type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete api key. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
                 })
               }
 

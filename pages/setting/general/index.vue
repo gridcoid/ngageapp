@@ -324,9 +324,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('setting/list', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('setting/list', data)
+        .finally(() => (this.isLoading = false))
     },
     toCreate() {
       this.$router.push({ path: '/setting/general/create' })
@@ -367,13 +367,6 @@ export default {
                 this.$notifier.showMessage({
                   content: 'Setting deleted successfully.',
                   type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete setting. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
                 })
               }
 

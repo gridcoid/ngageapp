@@ -260,11 +260,6 @@ export default {
                   content: 'User added successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content: 'Add user failed. Error : ' + res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
@@ -312,11 +307,6 @@ export default {
               this.selectedUsers = []
               this.$refs.multipleTable.clearSelection()
               this.getData()
-            } else {
-              this.$notifier.showMessage({
-                content: 'Add failed.',
-                type: 'failed',
-              })
             }
           })
       })

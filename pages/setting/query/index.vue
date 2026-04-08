@@ -361,9 +361,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('query/list', payload).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('query/list', payload)
+        .finally(() => (this.isLoading = false))
     },
     toCreate() {
       this.$router.push({ path: '/setting/query/create' })
@@ -410,12 +410,6 @@ export default {
                 this.$notifier.showMessage({
                   content: 'Query deleted successfully.',
                   type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete query. Error: ' + res?.data.data.message,
-                  type: 'failed',
                 })
               }
 

@@ -136,10 +136,6 @@
             />
           </el-form-item>
         </el-form>
-
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
-        </Transition>
       </div>
 
       <div v-if="!showApiKey" class="footer-card flex justify-end gap-3">
@@ -209,8 +205,6 @@ export default {
       },
 
       isLoading: false,
-      showMessage: false,
-      messageError: '',
 
       scopeRows: [
         {
@@ -235,9 +229,9 @@ export default {
     getSegments() {
       this.isLoading = true
 
-      this.$store.dispatch('segment/all').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('segment/all')
+        .finally(() => (this.isLoading = false))
     },
 
     addScopeRow() {
@@ -257,9 +251,6 @@ export default {
     },
 
     save() {
-      this.showMessage = false
-      this.messageError = ''
-
       // Process scopeRows into data.scopes
       this.data.scopes = this.scopeRows
         .filter((row) => row.segmentId)
@@ -293,24 +284,7 @@ export default {
                 content: 'API Key created successfully.',
                 type: 'success',
               })
-            } else {
-              this.showMessage = true
-
-              this.messageError =
-                res?.data?.data?.errors
-                  ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to create API key'
-
-              this.$notifier.showMessage({
-                content: 'Failed to create API key.',
-                type: 'failed',
-              })
             }
-          })
-          .catch((e) => {
-            console.error(e)
-            this.showMessage = true
-            this.messageError = 'Error: ' + e.message
           })
           .finally(() => (this.isLoading = false))
       })

@@ -199,10 +199,6 @@
             <el-input v-model="metric.inputValue" placeholder="e.g. yamaha" />
           </el-form-item>
         </el-form>
-
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6" :text="messageError" />
-        </Transition>
       </div>
 
       <!-- FOOTER -->
@@ -233,8 +229,6 @@ export default {
   data() {
     return {
       isLoading: false,
-      showMessage: false,
-      messageError: '',
 
       form: {
         name: '',
@@ -460,10 +454,6 @@ export default {
               content: 'Query created successfully.',
               type: 'success',
             })
-          })
-          .catch((e) => {
-            this.showMessage = true
-            this.messageError = e.message
           })
           .finally(() => (this.isLoading = false))
       })

@@ -403,13 +403,6 @@ export default {
                   content: 'Widget setting duplicated successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Duplicate widget setting failed. Error : ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
@@ -455,13 +448,6 @@ export default {
                 this.$notifier.showMessage({
                   content: 'Widget setting deleted successfully.',
                   type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete widget setting. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
                 })
               }
 
@@ -541,13 +527,6 @@ export default {
                 this.$notifier.showMessage({
                   content: 'Widget settings deleted successfully.',
                   type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete widget settings. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
                 })
               }
 
