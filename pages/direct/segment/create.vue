@@ -37,9 +37,6 @@
             />
           </el-form-item>
         </el-form>
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
-        </Transition>
       </div>
       <div class="footer-card flex justify-end gap-3">
         <el-button type="primary" @click="$router.back()" plain class="w-32">
@@ -99,8 +96,6 @@ export default {
       },
 
       isLoading: false,
-      showMessage: false,
-      messageError: '',
 
       data: {
         name: '',
@@ -110,9 +105,6 @@ export default {
   },
   methods: {
     save() {
-      this.showMessage = false
-      this.messageError = ''
-
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return
 
@@ -133,24 +125,7 @@ export default {
                 content: 'Segment created successfully.',
                 type: 'success',
               })
-            } else {
-              this.showMessage = true
-
-              this.messageError =
-                res?.data?.data?.errors
-                  ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to create segment'
-
-              this.$notifier.showMessage({
-                content: 'Failed to create segment.',
-                type: 'failed',
-              })
             }
-          })
-          .catch((e) => {
-            console.error(e)
-            this.showMessage = true
-            this.messageError = 'Error: ' + e.message
           })
           .finally(() => (this.isLoading = false))
       })

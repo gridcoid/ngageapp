@@ -96,8 +96,6 @@
             />
           </el-form-item>
         </el-form>
-
-        <Alert v-if="showMessage" class="mt-4" :text="messageError" />
       </div>
 
       <div class="footer-card flex justify-end gap-3">
@@ -256,9 +254,6 @@ export default {
       step1: true,
       step2: false,
 
-      showMessage: false,
-      messageError: '',
-
       jsonPreview: null,
       selector: [],
       value: {},
@@ -293,8 +288,10 @@ export default {
         this.jsonPreview = res.data.data.data
 
         if (!this.jsonPreview) {
-          this.showMessage = true
-          this.messageError = 'Failed to fetch JSON preview'
+          this.$notifier.showMessage({
+            content: 'Failed to fetch JSON preview',
+            type: 'failed',
+          })
           return
         }
 
@@ -333,8 +330,10 @@ export default {
         this.step1 = false
         this.step2 = true
       } catch (e) {
-        this.showMessage = true
-        this.messageError = e.message
+        this.$notifier.showMessage({
+          content: e.message,
+          type: 'failed',
+        })
       }
     },
 

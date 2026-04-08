@@ -387,12 +387,6 @@ export default {
                   content: 'Audience added successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Add audience failed. Error : ' + res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
@@ -478,11 +472,6 @@ export default {
               this.selectedAudiences = []
               this.$refs.multipleTable.clearSelection()
               this.getData()
-            } else {
-              this.$notifier.showMessage({
-                content: 'Add failed.',
-                type: 'failed',
-              })
             }
           })
       })

@@ -337,9 +337,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('segment/list', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('segment/list', data)
+        .finally(() => (this.isLoading = false))
     },
     toCreate() {
       this.$router.push({ path: '/direct/segment/create' })
@@ -373,13 +373,6 @@ export default {
                   content: 'Segment duplicated successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Duplicate segment failed. Error : ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
@@ -409,13 +402,6 @@ export default {
                 this.$notifier.showMessage({
                   content: 'Segment deleted successfully.',
                   type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete segment. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
                 })
               }
 

@@ -371,13 +371,6 @@ export default {
                   content: 'Audience deleted successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete audience. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)

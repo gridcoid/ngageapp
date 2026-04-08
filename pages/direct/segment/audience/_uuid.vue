@@ -444,12 +444,6 @@ export default {
                   content: 'Audience removed successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Remove audience failed. Error : ' + res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
@@ -535,11 +529,6 @@ export default {
               this.selectedAudiences = []
               this.$refs.multipleTable.clearSelection()
               this.getData()
-            } else {
-              this.$notifier.showMessage({
-                content: 'Remove failed.',
-                type: 'failed',
-              })
             }
           })
       })

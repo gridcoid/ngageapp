@@ -452,25 +452,25 @@ export default {
     getRegency(provinceCode) {
       this.isLoading = true
 
-      this.$store.dispatch('regency/all', { provinceCode }).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('regency/all', { provinceCode })
+        .finally(() => (this.isLoading = false))
     },
 
     getDistrict(regencyCode) {
       this.isLoading = true
 
-      this.$store.dispatch('district/all', { regencyCode }).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('district/all', { regencyCode })
+        .finally(() => (this.isLoading = false))
     },
 
     getVillage(districtCode) {
       this.isLoading = true
 
-      this.$store.dispatch('village/all', { districtCode }).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('village/all', { districtCode })
+        .finally(() => (this.isLoading = false))
     },
 
     getEducationName(id) {

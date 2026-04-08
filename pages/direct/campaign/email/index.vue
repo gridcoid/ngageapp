@@ -825,9 +825,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('emailCampaign/list', params).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('emailCampaign/list', params)
+        .finally(() => (this.isLoading = false))
     },
 
     toCreate() {
@@ -863,9 +863,6 @@ export default {
         type: 'info',
       })
         .then(() => {
-          this.showMessage = false
-          this.messageError = ''
-
           this.$notifier.showMessage({
             content: 'Duplicating campaign...',
             type: 'loading',
@@ -886,23 +883,7 @@ export default {
                   content: 'Campaign duplicated successfully.',
                   type: 'success',
                 })
-              } else {
-                this.showMessage = true
-                this.messageError =
-                  res?.data?.data?.errors
-                    ?.map((e) => Object.values(e)[0])
-                    .join(', ') || 'Failed to duplicate campaign'
-
-                this.$notifier.showMessage({
-                  content: 'Failed to duplicate campaign.',
-                  type: 'failed',
-                })
               }
-            })
-            .catch((e) => {
-              console.error(e)
-              this.showMessage = true
-              this.messageError = 'Error: ' + e.message
             })
             .finally(() => {
               this.isLoading = false
@@ -927,9 +908,6 @@ export default {
       this.$refs.testForm.validate((valid) => {
         if (!valid) return
 
-        this.showMessage = false
-        this.messageError = ''
-
         this.$store.dispatch('emailCampaign/saveUserTest', {
           uuid: this.testForm.uuid,
           name: this.testForm.name,
@@ -946,17 +924,7 @@ export default {
                 content: 'Test email sent successfully.',
                 type: 'success',
               })
-            } else {
-              this.$notifier.showMessage({
-                content: 'Failed to send test email.',
-                type: 'failed',
-              })
             }
-          })
-          .catch((e) => {
-            console.error(e)
-            this.showMessage = true
-            this.messageError = 'Error: ' + e.message
           })
           .finally(() => {
             this.isLoading = false
@@ -995,9 +963,6 @@ export default {
       this.$refs.scheduleForm.validate((valid) => {
         if (!valid) return
 
-        this.showMessage = false
-        this.messageError = ''
-
         const payload = {
           ...this.scheduleForm,
           scheduledAt: this.toUtcISOStringFromPicker(
@@ -1018,17 +983,7 @@ export default {
                 content: 'Campaign scheduled successfully.',
                 type: 'success',
               })
-            } else {
-              this.$notifier.showMessage({
-                content: 'Failed to schedule campaign.',
-                type: 'failed',
-              })
             }
-          })
-          .catch((e) => {
-            console.error(e)
-            this.showMessage = true
-            this.messageError = 'Error: ' + e.message
           })
           .finally(() => {
             this.isLoading = false
@@ -1047,9 +1002,6 @@ export default {
         }
       )
         .then(() => {
-          this.showMessage = false
-          this.messageError = ''
-
           this.$notifier.showMessage({
             content: 'Canceling schedule campaign...',
             type: 'loading',
@@ -1070,23 +1022,7 @@ export default {
                   content: 'Campaign schedule canceled.',
                   type: 'success',
                 })
-              } else {
-                this.showMessage = true
-                this.messageError =
-                  res?.data?.data?.errors
-                    ?.map((e) => Object.values(e)[0])
-                    .join(', ') || 'Failed to cancel schedule campaign'
-
-                this.$notifier.showMessage({
-                  content: 'Failed to cancel schedule campaign.',
-                  type: 'failed',
-                })
               }
-            })
-            .catch((e) => {
-              console.error(e)
-              this.showMessage = true
-              this.messageError = 'Error: ' + e.message
             })
             .finally(() => {
               this.isLoading = false
@@ -1103,9 +1039,6 @@ export default {
         type: 'info',
       })
         .then(() => {
-          this.showMessage = false
-          this.messageError = ''
-
           this.$notifier.showMessage({
             content: 'Sending campaign...',
             type: 'loading',
@@ -1126,23 +1059,7 @@ export default {
                   content: 'Campaign sent successfully.',
                   type: 'success',
                 })
-              } else {
-                this.showMessage = true
-                this.messageError =
-                  res?.data?.data?.errors
-                    ?.map((e) => Object.values(e)[0])
-                    .join(', ') || 'Failed to send campaign'
-
-                this.$notifier.showMessage({
-                  content: 'Failed to send campaign.',
-                  type: 'failed',
-                })
               }
-            })
-            .catch((e) => {
-              console.error(e)
-              this.showMessage = true
-              this.messageError = 'Error: ' + e.message
             })
             .finally(() => {
               this.isLoading = false
@@ -1159,9 +1076,6 @@ export default {
         type: 'warning',
       })
         .then(() => {
-          this.showMessage = false
-          this.messageError = ''
-
           this.$notifier.showMessage({
             content: 'Archiving campaign...',
             type: 'loading',
@@ -1182,21 +1096,9 @@ export default {
                   content: 'Campaign archived successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Archiving campaign failed. Error : ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
-            })
-            .catch((e) => {
-              console.error(e)
-              this.showMessage = true
-              this.messageError = 'Error: ' + e.message
             })
             .finally(() => {
               this.isLoading = false
@@ -1213,9 +1115,6 @@ export default {
         type: 'info',
       })
         .then(() => {
-          this.showMessage = false
-          this.messageError = ''
-
           this.$notifier.showMessage({
             content: 'Restoring campaign...',
             type: 'loading',
@@ -1243,21 +1142,9 @@ export default {
                   content: 'Campaign restored successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Restoring campaign failed. Error : ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
-            })
-            .catch((e) => {
-              console.error(e)
-              this.showMessage = true
-              this.messageError = 'Error: ' + e.message
             })
             .finally(() => {
               this.isLoading = false
@@ -1274,9 +1161,6 @@ export default {
         type: 'warning',
       })
         .then(() => {
-          this.showMessage = false
-          this.messageError = ''
-
           this.$notifier.showMessage({
             content: 'Deleting campaign...',
             type: 'loading',
@@ -1296,21 +1180,9 @@ export default {
                   content: 'Campaign deleted successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Deleting campaign failed. Error : ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
-            })
-            .catch((e) => {
-              console.error(e)
-              this.showMessage = true
-              this.messageError = 'Error: ' + e.message
             })
             .finally(() => {
               this.isLoading = false

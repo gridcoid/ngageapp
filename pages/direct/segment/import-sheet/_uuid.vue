@@ -203,8 +203,6 @@ export default {
       dataGroup: [],
       uploadPercentage: 0,
       isLoading: false,
-      messageError: '',
-      showMessage: false,
       sheetUploaded: {},
 
       selector: [],
@@ -228,9 +226,6 @@ export default {
 
         return
       }
-
-      this.showMessage = false
-      this.messageError = ''
 
       this.$notifier.showMessage({
         content: 'Importing spreadsheet...',
@@ -258,27 +253,7 @@ export default {
             this.$router.push(
               `/direct/segment/audience/${this.$route.params.uuid}`
             )
-          } else {
-            this.showMessage = true
-
-            const keys = Object.keys(res?.data.data.errors[0])
-            const arr = []
-
-            keys.forEach((key, index) => {
-              arr.push(res?.data.data.errors[0][key])
-            })
-
-            this.messageError = arr.join(', ')
-            this.$notifier.showMessage({
-              content: 'Spreadsheet import failed! ' + this.messageError,
-              type: 'failed',
-            })
           }
-        })
-        .catch((e) => {
-          console.error(e)
-          this.showMessage = true
-          this.messageError = 'Error: ' + e.message
         })
         .finally(() => {
           this.isLoading = false

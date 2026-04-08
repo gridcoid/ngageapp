@@ -372,10 +372,6 @@
             />
           </div>
         </el-form>
-
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
-        </Transition>
       </div>
 
       <div class="footer-card flex justify-end gap-3">
@@ -613,8 +609,6 @@ export default {
       },
 
       isLoading: false,
-      showMessage: false,
-      messageError: '',
 
       // Form model sesuai tabel
       data: {
@@ -736,9 +730,6 @@ export default {
     },
 
     save() {
-      this.showMessage = false
-      this.messageError = ''
-
       const info = {}
 
       this.additionalInfoList.forEach((item) => {
@@ -752,8 +743,10 @@ export default {
       const uniqueSegments = [...new Set(filteredSegments)]
 
       if (filteredSegments.length !== uniqueSegments.length) {
-        this.showMessage = true
-        this.messageError = 'Segment must be unique'
+        this.$notifier.showMessage({
+          content: 'Segment must be unique',
+          type: 'failed',
+        })
         return
       }
 
@@ -765,8 +758,10 @@ export default {
         .map((item) => item.key.trim().toLowerCase())
 
       if (new Set(keys).size !== keys.length) {
-        this.showMessage = true
-        this.messageError = 'Additional info key must be unique'
+        this.$notifier.showMessage({
+          content: 'Additional info key must be unique',
+          type: 'failed',
+        })
         return
       }
 
@@ -779,8 +774,10 @@ export default {
 
       const typeIds = contacts.map((c) => c.typeId)
       if (new Set(typeIds).size !== typeIds.length) {
-        this.showMessage = true
-        this.messageError = 'Contact type must be unique'
+        this.$notifier.showMessage({
+          content: 'Contact type must be unique',
+          type: 'failed',
+        })
         return
       }
 
@@ -789,8 +786,10 @@ export default {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
       if (!emailContact || !emailRegex.test(emailContact.value?.trim())) {
-        this.showMessage = true
-        this.messageError = 'A valid email is required'
+        this.$notifier.showMessage({
+          content: 'A valid email is required',
+          type: 'failed',
+        })
         return
       }
 
@@ -817,24 +816,7 @@ export default {
               })
 
               this.$router.push({ path: '/direct/audience' })
-            } else {
-              this.showMessage = true
-
-              this.messageError =
-                res?.data?.data?.errors
-                  ?.map((e) => Object.values(e)[0])
-                  .join(', ') || 'Failed to update audience'
-
-              this.$notifier.showMessage({
-                content: 'Failed to update audience.',
-                type: 'failed',
-              })
             }
-          })
-          .catch((e) => {
-            console.error(e)
-            this.showMessage = true
-            this.messageError = 'Error: ' + e.message
           })
           .finally(() => (this.isLoading = false))
       })
@@ -883,25 +865,25 @@ export default {
     getRegency(provinceCode) {
       this.isLoading = true
 
-      this.$store.dispatch('regency/all', { provinceCode }).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('regency/all', { provinceCode })
+        .finally(() => (this.isLoading = false))
     },
 
     getDistrict(regencyCode) {
       this.isLoading = true
 
-      this.$store.dispatch('district/all', { regencyCode }).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('district/all', { regencyCode })
+        .finally(() => (this.isLoading = false))
     },
 
     getVillage(districtCode) {
       this.isLoading = true
 
-      this.$store.dispatch('village/all', { districtCode }).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('village/all', { districtCode })
+        .finally(() => (this.isLoading = false))
     },
   },
   watch: {

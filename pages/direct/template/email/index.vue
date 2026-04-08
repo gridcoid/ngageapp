@@ -333,13 +333,6 @@ export default {
                   content: 'Template deleted successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete template. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
               }
 
               this.$store.commit('user/SET_DROPDOWN', null)
