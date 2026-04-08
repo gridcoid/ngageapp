@@ -206,9 +206,9 @@ export default {
 
     getData() {
       this.isLoading = true
-      this.$store.dispatch('dashboard/list').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('dashboard/list')
+        .finally(() => (this.isLoading = false))
     },
 
     onLayoutUpdated(newLayout) {
