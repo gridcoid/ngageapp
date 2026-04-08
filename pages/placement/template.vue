@@ -384,9 +384,7 @@ export default {
         .then((res) => {
           this.dataResolution = res?.data.data
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
     async getOrg() {
       this.isLoading = true
@@ -395,9 +393,7 @@ export default {
         .then((res) => {
           this.dataOrg = res?.data.data
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
     async getGroup() {
       this.isLoading = true
@@ -406,9 +402,7 @@ export default {
         .then((res) => {
           this.dataGroup = res?.data.data
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
     removeExtension(filename) {
       return filename.substring(0, filename.lastIndexOf('.')) || filename

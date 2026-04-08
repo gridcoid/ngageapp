@@ -1067,15 +1067,15 @@ export default {
     },
     getDataTypeInventory() {
       this.isLoading = true
-      this.$store.dispatch('placement/getInventoriesType').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('placement/getInventoriesType')
+        .finally(() => (this.isLoading = false))
     },
     getDataPublisher() {
       this.isLoading = true
-      this.$store.dispatch('publisher/getList').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('publisher/getList')
+        .finally(() => (this.isLoading = false))
     },
     getDataResolusi() {
       this.isLoading = true
@@ -1093,9 +1093,7 @@ export default {
           this.getInventories()
           this.getDataCreative()
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
     changePageAudience(ev) {
       if (ev > 0) {
@@ -1114,9 +1112,9 @@ export default {
         size: this.rowPageAudience,
         name: this.dataSearchAudience,
       }
-      this.$store.dispatch('placement/getListInterest', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('placement/getListInterest', data)
+        .finally(() => (this.isLoading = false))
     },
     getDetail() {
       this.$store
@@ -1128,15 +1126,15 @@ export default {
     },
     getPriorities() {
       this.isLoading = true
-      this.$store.dispatch('placement/getPriorities').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('placement/getPriorities')
+        .finally(() => (this.isLoading = false))
     },
     getDailyLimitTypes() {
       this.isLoading = true
-      this.$store.dispatch('placement/getDailyLimitTypes').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('placement/getDailyLimitTypes')
+        .finally(() => (this.isLoading = false))
     },
     changePageInventory(ev) {
       if (ev > 0) {
@@ -1163,9 +1161,9 @@ export default {
         resolutionId: this.data.resolusi,
         type: typeInventory,
       }
-      this.$store.dispatch('placement/getInventories', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('placement/getInventories', data)
+        .finally(() => (this.isLoading = false))
     },
     changePage(s) {
       if (s > 0) {
@@ -1199,9 +1197,9 @@ export default {
         format: 'all',
         resolutionId: this.data.resolusi,
       }
-      this.$store.dispatch('creative/getCreative', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('creative/getCreative', data)
+        .finally(() => (this.isLoading = false))
     },
     close() {
       this.popup = false

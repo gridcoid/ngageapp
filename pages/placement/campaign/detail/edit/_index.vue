@@ -228,15 +228,13 @@ export default {
           this.valueDate.push(this.detailCampaign.startDate)
           this.valueDate.push(this.detailCampaign.endDate)
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
     getCampaignTypes() {
       this.isLoading = true
-      this.$store.dispatch('campaign/getCampaignTypes').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('campaign/getCampaignTypes')
+        .finally(() => (this.isLoading = false))
     },
     getDetail() {
       this.$store

@@ -285,9 +285,7 @@ export default {
         .then((res) => {
           this.dataResolution = res?.data.data
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
 
       // this.$store
       //   .dispatch('creative/getResolution')

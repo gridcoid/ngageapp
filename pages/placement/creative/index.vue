@@ -702,9 +702,9 @@ export default {
         format: this.activeStatus,
         resolutionId: '',
       }
-      this.$store.dispatch('creative/getCreative', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('creative/getCreative', data)
+        .finally(() => (this.isLoading = false))
     },
 
     forceFileDownload(response, title) {

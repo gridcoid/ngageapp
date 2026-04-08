@@ -576,9 +576,7 @@ export default {
           // this.sendToIframe()
           this.getPreviewDevices()
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
     getPreviewDevices() {
       this.previewDevice = []

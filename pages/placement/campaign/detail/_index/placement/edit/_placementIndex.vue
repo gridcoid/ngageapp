@@ -1137,9 +1137,9 @@ export default {
     },
     getDataPublisher() {
       this.isLoading = true
-      this.$store.dispatch('publisher/getList').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('publisher/getList')
+        .finally(() => (this.isLoading = false))
     },
     getDataResolusi() {
       this.isLoading = true
@@ -1153,9 +1153,7 @@ export default {
           // this.selectedDataResolution = data.width + 'x' + data.height
           this.getDetailPlacement()
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
     changePageAudience(ev) {
       if (ev > 0) {
@@ -1174,21 +1172,21 @@ export default {
         size: this.rowPageAudience,
         name: this.dataSearchAudience,
       }
-      this.$store.dispatch('placement/getListInterest', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('placement/getListInterest', data)
+        .finally(() => (this.isLoading = false))
     },
     getPriorities() {
       this.isLoading_1 = true
-      this.$store.dispatch('placement/getPriorities').finally(() => {
-        this.isLoading_1 = false
-      })
+      this.$store
+        .dispatch('placement/getPriorities')
+        .finally(() => (this.isLoading_1 = false))
     },
     getDailyLimitTypes() {
       this.isLoading_2 = true
-      this.$store.dispatch('placement/getDailyLimitTypes').finally(() => {
-        this.isLoading_2 = false
-      })
+      this.$store
+        .dispatch('placement/getDailyLimitTypes')
+        .finally(() => (this.isLoading_2 = false))
     },
     searchInventory() {
       this.currentPageInventory = 1
@@ -1223,9 +1221,9 @@ export default {
         resolutionId: this.data.resolusi,
         type: typeInventory,
       }
-      this.$store.dispatch('placement/getInventories', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('placement/getInventories', data)
+        .finally(() => (this.isLoading = false))
     },
     changePage(s) {
       if (s > 0) {
@@ -1247,9 +1245,9 @@ export default {
         format: 'all',
         resolutionId: this.data.resolusi,
       }
-      this.$store.dispatch('creative/getCreative', data).finally(() => {
-        this.isLoading_4 = false
-      })
+      this.$store
+        .dispatch('creative/getCreative', data)
+        .finally(() => (this.isLoading_4 = false))
     },
     getDetail() {
       this.isLoading_5 = true
@@ -1257,9 +1255,7 @@ export default {
         .dispatch('campaign/getDetail', {
           campaignTypeId: this.campaignId,
         })
-        .finally(() => {
-          this.isLoading_5 = false
-        })
+        .finally(() => (this.isLoading_5 = false))
     },
     getDetailPlacement() {
       this.isLoading_6 = true
@@ -1313,9 +1309,7 @@ export default {
           this.getInventories()
           this.getDataCreative()
         })
-        .finally(() => {
-          this.isLoading_6 = false
-        })
+        .finally(() => (this.isLoading_6 = false))
     },
     close() {
       this.popup = false

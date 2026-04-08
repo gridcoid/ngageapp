@@ -140,9 +140,7 @@ export default {
             this.showZoom = false
           }
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
     refresh() {},
   },

@@ -1060,9 +1060,7 @@ export default {
             }
           }
         })
-        .finally(() => {
-          this.isLoading = false
-        })
+        .finally(() => (this.isLoading = false))
     },
     getDuration(bodyTxt, type) {
       this.isLoadingDuration = true
@@ -1075,9 +1073,7 @@ export default {
         .then((res) => {
           this.duration = res?.data.data.duration + ' seconds'
         })
-        .finally(() => {
-          this.isLoadingDuration = false
-        })
+        .finally(() => (this.isLoadingDuration = false))
     },
     getTemplateDetail() {
       this.idQuery = this.$router.currentRoute.query.resolution

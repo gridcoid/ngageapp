@@ -215,9 +215,7 @@ export default {
             this.getData()
           }
         })
-        .finally(() => {
-          this.isLoading2 = false
-        })
+        .finally(() => (this.isLoading2 = false))
     },
     getData() {
       this.isLoading = true
@@ -226,9 +224,9 @@ export default {
         resolutionIds: this.resolutionId,
         name: this.dataSearch,
       }
-      this.$store.dispatch('template/getList', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('template/getList', data)
+        .finally(() => (this.isLoading = false))
     },
   },
 }

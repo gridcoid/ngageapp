@@ -243,15 +243,15 @@ export default {
     },
     getAdvertiser() {
       this.isLoading = true
-      this.$store.dispatch('campaign/getAdvertiser').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('campaign/getAdvertiser')
+        .finally(() => (this.isLoading = false))
     },
     getCampaignTypes() {
       this.isLoading = true
-      this.$store.dispatch('campaign/getCampaignTypes').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('campaign/getCampaignTypes')
+        .finally(() => (this.isLoading = false))
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

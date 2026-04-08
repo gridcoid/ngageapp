@@ -501,9 +501,7 @@ export default {
         .then((res) => {
           this.duration = res?.data.data.duration + ' seconds'
         })
-        .finally(() => {
-          this.isLoadingDuration = false
-        })
+        .finally(() => (this.isLoadingDuration = false))
     },
     onChangeAudio(data) {
       this.selectedAudio = data
