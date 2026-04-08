@@ -587,24 +587,9 @@ export default {
                     type: 'success',
                   })
                 }
-                clearInterval(sto)
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Change placement failed. Error : ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
-                this.showMessage = true
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                clearInterval(sto)
+                this.getAll()
               }
-              this.getAll()
+              clearInterval(sto)
             })
             .catch(() => {}),
         1000
@@ -1148,10 +1133,6 @@ export default {
           font-size: 16px;
           color: #a1adb9;
           outline: none;
-        }
-
-        .input-field:focus {
-          // border: 2px solid dodgerblue;
         }
       }
       .audience-title {

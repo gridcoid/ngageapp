@@ -110,9 +110,6 @@
             </el-select>
           </div>
         </div>
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
-        </Transition>
       </div>
       <div class="footer-card flex justify-end">
         <k-button
@@ -146,8 +143,6 @@ export default {
   },
   data() {
     return {
-      showMessage: false,
-      messageError: '',
       isLoading: false,
       data: {
         id: '',
@@ -275,21 +270,8 @@ export default {
                 this.$router.push({
                   path: `/placement/campaign/detail/${this.$route.params.index}`,
                 })
-                clearInterval(sto)
-              } else {
-                this.showMessage = true
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                this.$notifier.showMessage({
-                  content: 'Campaign edit failed!, ' + this.messageError,
-                  type: 'failed',
-                })
-                clearInterval(sto)
               }
+              clearInterval(sto)
             })
             .catch(() => {
               clearInterval(sto)

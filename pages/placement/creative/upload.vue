@@ -203,8 +203,6 @@ export default {
       },
       uploadPercentage: 0,
       isLoading: false,
-      messageError: '',
-      showMessage: false,
     }
   },
   computed: {
@@ -255,21 +253,8 @@ export default {
                   content: 'Creative created successfully.',
                   type: 'success',
                 })
-                clearInterval(sto)
-              } else {
-                this.showMessage = true
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                this.$notifier.showMessage({
-                  content: 'Creative failed! ' + this.messageError,
-                  type: 'failed',
-                })
-                clearInterval(sto)
               }
+              clearInterval(sto)
             })
             .catch(() => {
               this.isLoading = false

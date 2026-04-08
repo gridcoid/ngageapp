@@ -76,9 +76,6 @@
             </el-select>
           </el-form-item>
         </el-form>
-        <Transition>
-          <Alert v-show="showMessage" class="mt-6 mb-6" :text="messageError" />
-        </Transition>
       </div>
       <div class="footer-card flex justify-end">
         <k-button
@@ -163,10 +160,6 @@ export default {
         ],
       },
       isLoading: false,
-      isLoadingToast: false,
-      showMessage: false,
-      toastMessage: false,
-      messageError: '',
       data: {
         name: '',
         description: '',
@@ -270,7 +263,6 @@ export default {
         content: 'Creating campaign...',
         type: 'loading',
       })
-      this.isLoadingToast = true
       if (this.valueDate !== null) {
         this.data.startDate = this.valueDate[0]
         this.data.endDate = this.valueDate[1]
@@ -291,13 +283,6 @@ export default {
                 })
                 clearInterval(sto)
               } else {
-                this.showMessage = true
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
                 this.$notifier.showMessage({
                   content: 'Failed to create campaign.',
                   type: 'failed',

@@ -912,8 +912,6 @@ export default {
       value: '',
       value2: '',
       value3: [],
-      showMessage: false,
-      messageError: '',
       pickerOptions: {
         shortcuts: [
           {
@@ -1304,21 +1302,8 @@ export default {
                   type: 'success',
                 })
                 this.$router.go(-1)
-                clearInterval(sto)
-              } else {
-                this.showMessage = true
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                this.$notifier.showMessage({
-                  content: 'Create placement failed! ' + this.messageError,
-                  type: 'failed',
-                })
-                clearInterval(sto)
               }
+              clearInterval(sto)
             })
             .catch(() => {
               clearInterval(sto)

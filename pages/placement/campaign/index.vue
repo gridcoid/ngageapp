@@ -853,7 +853,6 @@ export default {
     const keys = Object.keys(this.$route.query)
     if (keys.length > 0) {
       this.activeStatus = this.$route.query.status
-      this.getAll()
     }
     this.$store.dispatch('reset')
     document.querySelector('body').style.overflow = 'auto'
@@ -876,21 +875,12 @@ export default {
             .dispatch('campaign/delete', { id: data.id })
             .then((res) => {
               if (res.status === 204) {
-                this.getAll()
-
                 this.$notifier.showMessage({
                   content: 'Campaign deleted successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete campaign. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
+                this.getAll()
               }
-
               this.$store.commit('user/SET_DROPDOWN', null)
             })
         })
@@ -1029,28 +1019,13 @@ export default {
             .dispatch('campaign/changeStatus', data)
             .then((res) => {
               if (res.status === 200) {
-                this.getAll()
                 this.$notifier.showMessage({
                   content: 'Campaign status changed successfully.',
                   type: 'success',
                 })
-                clearInterval(sto)
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Change campaign failed. Error : ' + res?.data.data.message,
-                  type: 'failed',
-                })
-                this.showMessage = true
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                clearInterval(sto)
+                this.getAll()
               }
-              this.getAll()
+              clearInterval(sto)
             })
             .catch(() => {}),
         1000
@@ -1082,37 +1057,18 @@ export default {
             .dispatch('campaign/duplicate', data)
             .then((res) => {
               if (res.status === 200) {
-                this.getAll()
                 this.$notifier.showMessage({
                   content: 'Campaign duplicated successfully.',
                   type: 'success',
                 })
-                this.detailCampaign = null
-                this.dialogDuplicate = false
-                this.$store.commit('user/SET_DROPDOWN', null)
-                this.countDuplicate = 1
-                clearInterval(sto)
-              } else {
-                this.detailCampaign = null
-                this.dialogDuplicate = false
-                this.countDuplicate = 1
-                this.$notifier.showMessage({
-                  content:
-                    'Duplicate campaign failed. Error : ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
-                this.showMessage = true
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                this.$store.commit('user/SET_DROPDOWN', null)
-                clearInterval(sto)
+                this.getAll()
               }
-              this.getAll()
+
+              this.detailCampaign = null
+              this.dialogDuplicate = false
+              this.countDuplicate = 1
+              this.$store.commit('user/SET_DROPDOWN', null)
+              clearInterval(sto)
             })
             .catch(() => {}),
         1000

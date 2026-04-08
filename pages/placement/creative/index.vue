@@ -612,27 +612,15 @@ export default {
               .dispatch('creative/generateCreativeVideo', data2)
               .then((res) => {
                 if (res.status === 200) {
-                  this.getAll()
                   this.$notifier.showMessage({
                     content:
                       'Generate creative success, please wait until finish.',
                     type: 'success',
                   })
+                  this.getAll()
                   this.triggerCreative(data.id)
-                  clearInterval(sto)
-                } else {
-                  this.showMessage = true
-                  const keys = Object.keys(res?.data.data.errors[0])
-                  const arr = []
-                  keys.forEach((key, index) => {
-                    arr.push(res?.data.data.errors[0][key])
-                  })
-                  this.$notifier.showMessage({
-                    content: 'Generate creative failed ! ' + arr.join(', '),
-                    type: 'failed',
-                  })
-                  clearInterval(sto)
                 }
+                clearInterval(sto)
               })
               .catch(() => {
                 clearInterval(sto)
@@ -646,24 +634,13 @@ export default {
               .dispatch('creative/generateCreativeVideoStatic', data2)
               .then((res) => {
                 if (res.status === 200) {
-                  this.getAll()
                   this.$notifier.showMessage({
                     content: 'Generate creative in progress',
                     type: 'success',
                   })
-                  clearInterval(sto)
-                } else {
-                  const keys = Object.keys(res?.data.data.errors[0])
-                  const arr = []
-                  keys.forEach((key, index) => {
-                    arr.push(res?.data.data.errors[0][key])
-                  })
-                  this.$notifier.showMessage({
-                    content: 'Generate creative failed ! ' + arr.join(', '),
-                    type: 'failed',
-                  })
-                  clearInterval(sto)
+                  this.getAll()
                 }
+                clearInterval(sto)
               })
               .catch(() => {
                 clearInterval(sto)
@@ -784,21 +761,12 @@ export default {
             })
             .then((res) => {
               if (res.status === 204) {
-                this.getAll()
-
                 this.$notifier.showMessage({
                   content: 'Creative deleted successfully.',
                   type: 'success',
                 })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete creative. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
+                this.getAll()
               }
-
               this.$store.commit('user/SET_DROPDOWN', null)
             })
         })

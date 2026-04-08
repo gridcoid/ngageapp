@@ -946,11 +946,6 @@ export default {
               this.dataScript = res?.data.data[0].script
               this.dialogScript = true
             }
-          } else {
-            this.$notifier.showMessage({
-              content: res?.data.data.message,
-              type: 'failed',
-            })
           }
         })
         .catch(() => {
@@ -972,41 +967,19 @@ export default {
             .dispatch('placement/duplicate', data)
             .then((res) => {
               if (res.status === 200) {
-                this.getAll()
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
                   content: 'Placement duplicated successfully.',
                   type: 'success',
                 })
-                this.dataCampaign = {
-                  name: null,
-                  id: null,
-                }
-                this.dialogDuplicate = false
-                this.countDuplicate = 1
-                clearInterval(sto)
-              } else {
-                this.dataCampaign = {
-                  name: null,
-                  id: null,
-                }
-                this.dialogDuplicate = false
-                this.countDuplicate = 1
-                this.$notifier.showMessage({
-                  content:
-                    'Duplicate placement failed. Error : ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
-                this.showMessage = true
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                clearInterval(sto)
               }
+              this.dataCampaign = {
+                name: null,
+                id: null,
+              }
+              this.dialogDuplicate = false
+              this.countDuplicate = 1
+              clearInterval(sto)
               this.getAll()
             })
             .catch(() => {}),
@@ -1028,32 +1001,15 @@ export default {
             .dispatch('placement/delete', data)
             .then((res) => {
               if (res.status === 204) {
-                this.dialogDelete = false
-                this.getAll()
                 this.$store.commit('campaign/SET_EDIT_CAMPAIGN', true)
                 this.$notifier.showMessage({
                   content: 'Placement deleted successfully.',
                   type: 'success',
                 })
-                clearInterval(sto)
-              } else {
-                this.dialogDelete = false
-                this.showMessage = true
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete campaign. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
-                })
-                clearInterval(sto)
+                this.getAll()
               }
-              this.getAll()
+              this.dialogDelete = false
+              clearInterval(sto)
             })
             .catch(() => {}),
         1000
@@ -1104,23 +1060,9 @@ export default {
                     type: 'success',
                   })
                 }
-                clearInterval(sto)
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Change campaign failed. Error : ' + res?.data.data.message,
-                  type: 'failed',
-                })
-                this.showMessage = true
-                const keys = Object.keys(res?.data.data.errors[0])
-                const arr = []
-                keys.forEach((key, index) => {
-                  arr.push(res?.data.data.errors[0][key])
-                })
-                this.messageError = arr.join(', ')
-                clearInterval(sto)
+                this.getAll()
               }
-              this.getAll()
+              clearInterval(sto)
             })
             .catch(() => {}),
         1000
