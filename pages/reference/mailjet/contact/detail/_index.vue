@@ -180,9 +180,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('mailjetContactList/list', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('mailjetContactList/list', data)
+        .finally(() => (this.isLoading = false))
     },
 
     changePage(s) {
@@ -218,13 +218,6 @@ export default {
                 this.$notifier.showMessage({
                   content: 'Contact list deleted successfully.',
                   type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete contact list. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
                 })
               }
 

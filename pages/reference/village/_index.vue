@@ -153,9 +153,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('village/list', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('village/list', data)
+        .finally(() => (this.isLoading = false))
     },
 
     changePage(s) {

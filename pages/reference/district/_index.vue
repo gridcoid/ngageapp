@@ -154,9 +154,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('district/list', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('district/list', data)
+        .finally(() => (this.isLoading = false))
     },
 
     changePage(s) {

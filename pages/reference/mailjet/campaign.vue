@@ -134,9 +134,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('mailjetCampaign/list', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('mailjetCampaign/list', data)
+        .finally(() => (this.isLoading = false))
     },
 
     changePage(s) {
@@ -172,13 +172,6 @@ export default {
                 this.$notifier.showMessage({
                   content: 'Template deleted successfully.',
                   type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete template. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
                 })
               }
 

@@ -175,9 +175,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('mailjetContact/list', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('mailjetContact/list', data)
+        .finally(() => (this.isLoading = false))
     },
 
     changePage(s) {
@@ -213,12 +213,6 @@ export default {
                 this.$notifier.showMessage({
                   content: 'Email deleted successfully.',
                   type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete email. Error: ' + res?.data.data.message,
-                  type: 'failed',
                 })
               }
 

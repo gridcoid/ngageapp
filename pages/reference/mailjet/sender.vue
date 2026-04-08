@@ -145,9 +145,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('mailjetSender/list', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('mailjetSender/list', data)
+        .finally(() => (this.isLoading = false))
     },
 
     changePage(s) {

@@ -109,9 +109,9 @@ export default {
   methods: {
     getData() {
       this.isLoading = true
-      this.$store.dispatch('gender/list').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('gender/list')
+        .finally(() => (this.isLoading = false))
     },
   },
   watch: {

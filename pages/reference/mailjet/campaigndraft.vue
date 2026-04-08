@@ -134,9 +134,9 @@ export default {
         sort: this.radio,
       }
 
-      this.$store.dispatch('mailjetCampaignDraft/list', data).finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('mailjetCampaignDraft/list', data)
+        .finally(() => (this.isLoading = false))
     },
 
     changePage(s) {
@@ -172,13 +172,6 @@ export default {
                 this.$notifier.showMessage({
                   content: 'Campaign deleted successfully.',
                   type: 'success',
-                })
-              } else {
-                this.$notifier.showMessage({
-                  content:
-                    'Failed to delete campaign. Error: ' +
-                    res?.data.data.message,
-                  type: 'failed',
                 })
               }
 

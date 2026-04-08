@@ -110,9 +110,9 @@ export default {
     getData() {
       this.isLoading = true
 
-      this.$store.dispatch('religion/list').finally(() => {
-        this.isLoading = false
-      })
+      this.$store
+        .dispatch('religion/list')
+        .finally(() => (this.isLoading = false))
     },
   },
 
