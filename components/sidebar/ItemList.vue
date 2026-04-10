@@ -236,23 +236,23 @@ export default {
           icon: 'ti ti-dashboard',
         },
         {
+          path: '/direct/segment',
+          name: 'Segments',
+          type: 'single',
+          icon: 'ti ti-folder',
+        },
+        {
+          path: '/direct/audience',
+          name: 'Audiences',
+          type: 'single',
+          icon: 'ti ti-users',
+        },
+        {
           path: '',
-          name: 'Direct Channels',
+          name: 'Campaigns',
           type: 'multiple',
-          icon: 'ti ti-direction-sign',
+          icon: 'ti ti-speakerphone',
           children: [
-            {
-              path: '/direct/segment',
-              name: 'Segments',
-              type: 'single',
-              icon: 'ti ti-folder',
-            },
-            {
-              path: '/direct/audience',
-              name: 'Audiences',
-              type: 'single',
-              icon: 'ti ti-users',
-            },
             {
               path: '',
               name: 'Templates',
@@ -260,24 +260,48 @@ export default {
               icon: 'ti ti-geometry',
               children: [
                 {
+                  path: '/direct/template/whatsapp',
+                  name: 'Whatsapp',
+                  type: 'single',
+                  icon: 'ti ti-brand-whatsapp',
+                },
+                {
                   path: '/direct/template/email',
                   name: 'Email',
                   type: 'single',
                   icon: 'ti ti-mail',
                 },
+                {
+                  path: '/direct/template/sms',
+                  name: 'SMS',
+                  type: 'single',
+                  icon: 'ti ti-message-2',
+                },
               ],
             },
             {
               path: '',
-              name: 'Campaigns',
+              name: 'Channels',
               type: 'multiple',
-              icon: 'ti ti-speakerphone',
+              icon: 'ti ti-arrow-guide',
               children: [
+                {
+                  path: '/direct/campaign/whatsapp',
+                  name: 'Whatsapp',
+                  type: 'single',
+                  icon: 'ti ti-brand-whatsapp',
+                },
                 {
                   path: '/direct/campaign/email',
                   name: 'Email',
                   type: 'single',
                   icon: 'ti ti-mail',
+                },
+                {
+                  path: '/direct/campaign/sms',
+                  name: 'SMS',
+                  type: 'single',
+                  icon: 'ti ti-message-2',
                 },
               ],
             },
@@ -290,13 +314,13 @@ export default {
           icon: 'ti ti-adjustments',
           children: baseSettingsChildren,
         },
-        {
-          path: '',
-          name: 'References',
-          type: 'multiple',
-          icon: 'ti ti-book',
-          children: referenceChildren,
-        },
+        // {
+        //   path: '',
+        //   name: 'References',
+        //   type: 'multiple',
+        //   icon: 'ti ti-book',
+        //   children: referenceChildren,
+        // },
       ]
 
       this.total = this.data.length
