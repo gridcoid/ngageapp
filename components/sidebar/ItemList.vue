@@ -283,7 +283,7 @@ export default {
               path: '',
               name: 'Channels',
               type: 'multiple',
-              icon: 'ti ti-arrow-guide',
+              icon: 'ti ti-switch-2',
               children: [
                 {
                   path: '/direct/campaign/whatsapp',
