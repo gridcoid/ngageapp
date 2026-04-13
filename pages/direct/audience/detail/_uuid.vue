@@ -246,7 +246,12 @@
 
                     <!-- RIGHT: value badge -->
                     <span
-                      class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full border whitespace-nowrap"
+                      class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-none border whitespace-nowrap overflow-auto"
+                      style="
+                        scrollbar-width: thin;
+                        height: 28px;
+                        margin-left: 10px;
+                      "
                     >
                       {{ info.value }}
                     </span>
