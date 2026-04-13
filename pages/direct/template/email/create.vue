@@ -156,7 +156,7 @@ export default {
       rules: {
         name: [
           { required: true, message: 'Name is required', trigger: 'blur' },
-          { max: 50, message: 'Max 50 characters', trigger: 'blur' },
+          { max: 100, message: 'Max 100 characters', trigger: 'blur' },
         ],
         description: [
           { max: 200, message: 'Max 200 characters', trigger: 'blur' },

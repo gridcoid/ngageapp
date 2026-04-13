@@ -521,8 +521,8 @@ export default {
         // NAME — required
         name: [
           {
-            max: 50,
-            message: 'Max 50 characters',
+            max: 100,
+            message: 'Max 100 characters',
             trigger: 'blur',
           },
         ],

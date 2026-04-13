@@ -253,7 +253,7 @@ export default {
       rules: {
         name: [
           { required: true, message: 'Name is required', trigger: 'blur' },
-          { max: 50, message: 'Max 50 character', trigger: 'blur' },
+          { max: 100, message: 'Max 100 character', trigger: 'blur' },
         ],
       },
     }

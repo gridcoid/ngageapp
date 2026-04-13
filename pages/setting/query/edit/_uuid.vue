@@ -191,8 +191,8 @@ export default {
             trigger: 'blur',
           },
           {
-            max: 50,
-            message: 'Max 50 characters',
+            max: 100,
+            message: 'Max 100 characters',
             trigger: 'blur',
           },
         ],
