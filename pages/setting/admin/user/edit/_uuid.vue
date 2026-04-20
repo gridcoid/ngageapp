@@ -221,12 +221,14 @@ export default {
 
         this.$store
           .dispatch('adminUser/adminUpdate', payload)
-          .then(() => {
-            this.$notifier.showMessage({
-              content: 'User updated successfully.',
-              type: 'success',
-            })
-            this.$router.push('/setting/admin/user')
+          .then((res) => {
+            if (res.status === 200) {
+              this.$notifier.showMessage({
+                content: 'User updated successfully.',
+                type: 'success',
+              })
+              this.$router.push('/setting/admin/user')
+            }
           })
           .finally(() => (this.isLoading = false))
       })

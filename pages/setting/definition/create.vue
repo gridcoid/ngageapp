@@ -448,12 +448,14 @@ export default {
 
         this.$store
           .dispatch('definition/create', payload)
-          .then(() => {
-            this.$router.push('/setting/definition')
-            this.$notifier.showMessage({
-              content: 'Query created successfully.',
-              type: 'success',
-            })
+          .then((res) => {
+            if (res.status === 201) {
+              this.$router.push('/setting/definition')
+              this.$notifier.showMessage({
+                content: 'Query created successfully.',
+                type: 'success',
+              })
+            }
           })
           .finally(() => (this.isLoading = false))
       })
