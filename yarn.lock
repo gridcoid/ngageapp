@@ -6918,8 +6918,9 @@ human-signals@^2.1.0:
   resolved "https://registry.npmjs.org/human-signals/-/human-signals-2.1.0.tgz"
   integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
 
-ico@../ico:
+"ico@git+https://github.com/gridcoid/ngageico.git":
   version "1.0.0"
+  resolved "git+https://github.com/gridcoid/ngageico.git#93c638f1e4ef8c941fd2ed060b682a1bfa80325c"
   dependencies:
     vue "^2.7.16"
     vue-template-compiler "^2.7.16"
