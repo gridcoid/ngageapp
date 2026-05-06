@@ -3,7 +3,7 @@
     <div class="flex items-end justify-between w-full">
       <div class="flex items-center header-content p-6 pb-0 space-x-4">
         <div class="title-header">
-          <i class="ti ti-dashboard text-gray-500 mr-2" /> Dashboard
+          <i class="ti ti-dashboard text-gray-500 mr-2" /> Dashboard-Q
         </div>
 
         <ButtonDefault
