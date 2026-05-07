@@ -23,7 +23,15 @@ $teks-fortiary: #E2E2E2;
 $colorWhite:#ffffff;
 $colorGrey:#FAFBFC;
 $colorBlue:#1b63d4;
-
+.bg-gradient{
+   background: linear-gradient(
+      90deg,
+      #fddad3 0%,
+      #fcecc4 40%,
+      #d2e8ff 75%,
+      #c8f1e3 100%
+    );
+}
 .header-1 {
   font-family: 'Cabin';
   font-size: 32px;
