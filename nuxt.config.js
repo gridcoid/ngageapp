@@ -28,11 +28,11 @@ export default {
   pageTransition: {
     name: 'fade-transform',
   },
-  googleFonts: {
-    families: {
-      Cabin: true,
-    },
-  },
+  //googleFonts: {
+    //families: {
+      //Cabin: true,
+    //},
+ // },
   styleResources: {
     scss: ['./assets/css/*.scss'],
   },
@@ -55,7 +55,7 @@ export default {
   ],
   components: true,
   buildModules: [
-    '@nuxtjs/google-fonts',
+  //  '@nuxtjs/google-fonts',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/moment',
   ],
