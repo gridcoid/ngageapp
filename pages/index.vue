@@ -1,5 +1,5 @@
 <template>
-  <div class="containers w-full">
+  <div class="containers w-full bg-gradient">
     <div class="flex items-end justify-between w-full">
       <div class="flex items-center header-content p-6 pb-0 space-x-4">
         <div class="title-header">
