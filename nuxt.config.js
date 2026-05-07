@@ -28,11 +28,11 @@ export default {
   pageTransition: {
     name: 'fade-transform',
   },
-  //googleFonts: {
-    //families: {
-      //Cabin: true,
-    //},
- // },
+  // googleFonts: {
+  //  families: {
+  //    Cabin: true,
+  //    },
+ //  },
   styleResources: {
     scss: ['./assets/css/*.scss'],
   },
