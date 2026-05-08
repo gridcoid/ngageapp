@@ -1,5 +1,5 @@
 <template>
-  <div class="container p-6 w-full">
+  <div class="container p-6 w-full bg-gradient">
     <div class="header-content">
       <Back />
     </div>
