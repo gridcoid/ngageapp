@@ -47,6 +47,9 @@ $colorBlue:#1b63d4;
       #c8f1e3 100%
     );
 }
+.bg-gradient .vue-grid-item{
+  border-radius:20px !important;
+}
 .header-1 {
   font-family: 'Cabin';
   font-size: 32px;
