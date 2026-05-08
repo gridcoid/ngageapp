@@ -1,5 +1,5 @@
 <template>
-  <div class="kg-containers p-6 w-full">
+  <div class="kg-containers p-6 w-full bg-gradient">
     <!-- Header -->
     <div class="flex items-center header-content">
       <div class="title-header">
