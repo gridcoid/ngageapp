@@ -1,5 +1,5 @@
 <template>
-  <div class="containers p-6 w-full">
+  <div class="containers p-6 w-full bg-gradient">
     <div class="mb-6">
       <Back />
     </div>
