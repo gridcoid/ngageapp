@@ -573,7 +573,7 @@ export default {
     margin-top: 30px;
     gap: 15px;
     .card-list {
-      border-radius: 5px;
+      border-radius: 15px;
       border: 1px solid #c3ced9;
       background: #fff;
       height: 100%;
