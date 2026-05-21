@@ -73,7 +73,7 @@ export default {
         },
         chart: {
           background: 'transparent',
-          animations: { enabled: false }, // optional, avoids jump
+          animations: { enabled: true }, // optional, avoids jump
           toolbar: { show: false },
           redrawOnParentResize: true,
           redrawOnWindowResize: true,
