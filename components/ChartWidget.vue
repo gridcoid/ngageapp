@@ -160,6 +160,7 @@ export default {
             distributed: isBar,
             borderRadius: 4,
             horizontal: false,
+            columnWidth: '55%',
           },
         },
         legend: {
