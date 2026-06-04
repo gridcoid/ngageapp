@@ -158,9 +158,9 @@ export default {
         plotOptions: {
           bar: {
             distributed: isBar,
-            borderRadius: 4,
+            borderRadius: 1,
             horizontal: false,
-            columnWidth: '55%',
+            columnWidth: '40%',
           },
         },
         legend: {
@@ -170,7 +170,7 @@ export default {
           type: 'gradient',
           gradient: {
             shade: 'light',
-            type: 'vertical',
+            type: 'horizontal',
             shadeIntensity: 0.35,
             inverseColors: false,
             opacityFrom: 1,
