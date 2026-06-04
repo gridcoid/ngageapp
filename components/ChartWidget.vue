@@ -158,14 +158,26 @@ export default {
         plotOptions: {
           bar: {
             distributed: isBar,
-            borderRadius: 1,
+            borderRadius: 4,
             horizontal: false,
-            columnWidth: '30%',
+            columnWidth: '55%',
           },
         },
         legend: {
           show: false,
         },
+        fill: isBar ? {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            type: 'vertical',
+            shadeIntensity: 0.35,
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 0.75,
+            stops: [0, 90, 100],
+          },
+        } : undefined,
         dataLabels: {
           enabled: false,
         },
