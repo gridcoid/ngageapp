@@ -158,9 +158,9 @@ export default {
         plotOptions: {
           bar: {
             distributed: isBar,
-            borderRadius: 0,
+            borderRadius: 1,
             horizontal: false,
-            columnWidth: '40%',
+            columnWidth: '30%',
           },
         },
         legend: {
