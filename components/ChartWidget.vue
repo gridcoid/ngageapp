@@ -171,7 +171,7 @@ export default {
           gradient: {
             shade: 'light',
             type: 'vertical',
-            shadeIntensity: 0.35,
+            shadeIntensity: 0.5,
             inverseColors: false,
             opacityFrom: 1,
             opacityTo: 0.75,
