@@ -95,7 +95,11 @@ export default {
       return {
         labels: this.labels,
         legend: {
-          position: 'bottom',
+          position: 'right',
+          formatter: (seriesName, opts) => {
+            const val = opts.w.globals.series[opts.seriesIndex]
+            return `${seriesName} - ${val}`
+          },
         },
         chart: {
           background: 'transparent',
@@ -104,8 +108,25 @@ export default {
           redrawOnParentResize: true,
           redrawOnWindowResize: true,
         },
+        plotOptions: {
+          pie: {
+            donut: {
+              size: '65%',
+            },
+            startAngle: -90,
+            endAngle: 270,
+          },
+        },
+        fill: {
+          type: 'gradient',
+        },
         dataLabels: {
-          enabled: true,
+          enabled: false,
+        },
+        stroke: {
+          show: true,
+          colors: ['#ffffff'],
+          width: 2,
         },
       }
     },
@@ -157,11 +178,12 @@ export default {
 
     resolvedType() {
       const allowed = ['bar', 'line', 'pie', 'doughnut']
-      return allowed.includes(this.chartType) ? this.chartType : 'bar'
+      const type = allowed.includes(this.chartType) ? this.chartType : 'bar'
+      return ['pie', 'doughnut'].includes(type) ? 'donut' : type
     },
 
     chartCategory() {
-      return ['pie', 'doughnut'].includes(this.resolvedType)
+      return ['pie', 'doughnut', 'donut'].includes(this.resolvedType)
         ? 'circular'
         : 'cartesian'
     },
