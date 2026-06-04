@@ -65,6 +65,32 @@ export default {
       ]
     },
 
+    colors() {
+      const palette = [
+        '#1B63D4', // Blue (Ngage primary color)
+        '#20E69B', // Mint green
+        '#FEB019', // Orange
+        '#FD5C70', // Red/Pink
+        '#8D60E3', // Purple
+        '#6C7A89', // Slate Grey
+        '#4DB6AC', // Teal
+        '#E040FB', // Magenta
+        '#00C853', // Green
+        '#FFD600', // Yellow
+        '#FF6D00', // Deep Orange
+        '#00B0FF', // Sky Blue
+        '#D500F9', // Neon Purple
+        '#00E5FF', // Cyan
+        '#FF1744', // Neon Red
+      ]
+      const result = []
+      const len = this.labels?.length || 0
+      for (let i = 0; i < len; i++) {
+        result.push(palette[i % palette.length])
+      }
+      return result
+    },
+
     circularOptions() {
       return {
         labels: this.labels,
@@ -85,13 +111,20 @@ export default {
     },
 
     cartesianOptions() {
+      const isBar = this.resolvedType === 'bar'
       return {
         chart: {
           toolbar: { show: false },
           background: 'transparent',
         },
+        colors: isBar ? this.colors : undefined,
         xaxis: {
           categories: this.labels,
+          labels: {
+            style: {
+              colors: isBar ? this.colors : undefined,
+            },
+          },
         },
         yaxis: {
           labels: {
@@ -103,9 +136,13 @@ export default {
         },
         plotOptions: {
           bar: {
+            distributed: isBar,
             borderRadius: 4,
             horizontal: false,
           },
+        },
+        legend: {
+          show: false,
         },
         dataLabels: {
           enabled: false,
